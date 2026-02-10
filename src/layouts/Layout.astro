@@ -1,0 +1,33 @@
+---
+import '../assets/styles/global.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>RWS UI</title>
+		<script>
+			if (localStorage.getItem('color-theme') === 'dark') {
+				document.documentElement.classList.add('dark')
+			} else {
+				document.documentElement.classList.remove('dark')
+			}
+		</script>
+	</head>
+	<body>
+		<Header />
+
+		<slot />
+
+		<!-- <Footer /> -->
+
+		<script type="module" src="/src/assets/scripts/init.client.js"></script>
+		<script type="module" src="/src/assets/scripts/theme.client.js"></script>
+	</body>
+</html>

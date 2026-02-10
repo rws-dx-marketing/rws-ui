@@ -1,0 +1,9 @@
+@theme {
+	--animate-gradient-x: gradient-x 5s linear infinite;
+
+	@keyframes gradient-x {
+		to {
+			background-position: 200% 50%;
+		}
+	}
+}

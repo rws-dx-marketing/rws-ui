@@ -1,0 +1,45 @@
+@import './_fonts.css';
+
+@import 'tailwindcss';
+@import 'tailwindcss-intersect';
+@plugin 'tailwindcss-motion';
+@plugin '@tailwindcss/typography';
+
+@import 'flowbite/src/themes/default';
+@plugin 'flowbite/plugin';
+@source '../../../node_modules/flowbite';
+
+@import './_animation.css';
+@import './_buttons.css';
+@import './_colors.css';
+@import './_ornaments.css';
+@import './_themes.css';
+@import './_type.css';
+
+@theme {
+	--font-sans: 'articulat-cf', sans-serif;
+	--font-cursive: 'Caveat', 'Noteworthy', 'Comic Sans MS', cursive;
+
+	--default-transition-duration: 400ms;
+}
+
+@layer base {
+	html {
+		@apply cursor-default bg-background text-foreground antialiased;
+	}
+
+	:root {
+		color-scheme: light;
+	}
+
+	.dark {
+		color-scheme: dark;
+	}
+
+	button:not(:disabled),
+	[role='button']:not(:disabled) {
+		@apply cursor-pointer;
+	}
+}
+
+@custom-variant dark (&:where(.dark, .dark *));

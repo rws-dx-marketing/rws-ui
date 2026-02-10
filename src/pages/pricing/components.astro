@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Trados.astro'
+---
+
+<Layout>
+	<section class="bg-background py-16 text-foreground" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="mb-8- lg:mb-16- mx-auto max-w-screen-sm text-center">
+				<h2 class="mb-4 text-3xl font-bold tracking-tight xl:text-4xl">Pricing</h2>
+				<p class="text-lg/relaxed font-medium text-pretty text-foreground/80 xl:text-xl/relaxed">Used by more freelance translators than any other solution on the market, with Trados you can confidently plug into the localization supply chain and work on whatever comes your way.</p>
+
+				<div class="mt-8 flex items-center justify-center gap-4">
+					<a href="/pricing/" class="btn btn-outline btn-lg">New customers</a>
+					<button type="button" class="btn btn-secondary btn-lg">Existing customers</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<hr class="border-foreground/10" />
+
+	<section class="pricing-intro" data-theme="default">
+		<div class="pricing-intro__inner">
+			<div class="pricing-intro__header">
+				<h2 class="pricing-intro__title">Pricing</h2>
+				<p class="pricing-intro__description">Used by more freelance translators than any other solution on the market, with Trados you can confidently plug into the localization supply chain and work on whatever comes your way.</p>
+
+				<div class="pricing-intro__actions">
+					<a href="/pricing/" class="pricing-intro__btn pricing-intro__btn--outline">New customers</a>
+					<button type="button" class="pricing-intro__btn pricing-intro__btn--secondary">Existing customers</button>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.pricing-intro {
+		background-color: var(--background);
+		color: var(--foreground);
+		padding-block: 4rem; /* ~py-16 */
+	}
+
+	.pricing-intro__inner {
+		max-width: 1280px; /* ~max-w-screen-xl */
+		margin-inline: auto; /* ~mx-auto */
+		padding-inline: 2rem; /* ~px-8 */
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-intro__inner {
+			padding-inline: 3rem; /* ~lg:px-12 */
+		}
+	}
+
+	.pricing-intro__header {
+		max-width: 640px; /* ~max-w-screen-sm */
+		margin-inline: auto;
+		text-align: center;
+		margin-block-end: 2rem; /* base mb */
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-intro__header {
+			margin-bottom: 4rem; /* ~lg:mb-16 */
+		}
+	}
+
+	.pricing-intro__title {
+		margin-block-end: 1rem; /* ~mb-4 */
+		font-size: 1.875rem; /* text-3xl */
+		line-height: 2.25rem;
+		font-weight: 700;
+		letter-spacing: -0.02em; /* tracking-tight */
+	}
+
+	@media (min-width: 1280px) {
+		.pricing-intro__title {
+			font-size: 2.25rem; /* xl:text-4xl */
+			line-height: 2.5rem;
+		}
+	}
+
+	.pricing-intro__description {
+		font-size: 1.125rem; /* text-lg */
+		line-height: 1.75rem;
+		font-weight: 500;
+		text-wrap: pretty;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent); /* ~text-foreground/80 */
+	}
+
+	@media (min-width: 1280px) {
+		.pricing-intro__description {
+			font-size: 1.25rem; /* xl:text-xl */
+			line-height: 1.75rem;
+		}
+	}
+
+	.pricing-intro__actions {
+		margin-block-start: 2rem; /* ~mt-8 */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem; /* ~gap-4 */
+	}
+
+	.pricing-intro__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding-inline: 1.25rem; /* ~px-5 */
+		padding-block-start: 0.5625rem; /* ~pt-2.25 */
+		padding-block-end: 0.6875rem; /* ~pb-2.75 */
+		border-radius: 9999px;
+		font-weight: 600;
+		font-size: 1.125rem; /* text-lg */
+		line-height: 1.75rem;
+		border-width: 1px;
+		border-style: solid;
+		text-decoration: none;
+		cursor: pointer;
+		transition:
+			background-color 150ms ease,
+			color 150ms ease,
+			border-color 150ms ease;
+	}
+
+	.pricing-intro__btn--outline {
+		background-color: transparent;
+		color: var(--foreground);
+		border-color: color-mix(in oklch, var(--foreground) 20%, transparent);
+	}
+
+	.pricing-intro__btn--outline:hover {
+		background-color: color-mix(in oklch, var(--foreground) 5%, transparent);
+	}
+
+	.pricing-intro__btn--secondary {
+		background-color: var(--color-secondary);
+		color: var(--color-white);
+		border-color: transparent;
+	}
+
+	.pricing-intro__btn--secondary:hover {
+		background-color: color-mix(in oklch, var(--color-secondary) 80%, var(--background));
+	}
+</style>

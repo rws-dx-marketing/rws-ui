@@ -1,0 +1,126 @@
+@layer components {
+	.btn {
+		@apply inline-flex items-center justify-center rounded-full border border-transparent px-4 pt-[0.46875rem] pb-[0.53125rem] text-center text-base font-semibold transition-colors select-none focus-visible:ring-4 focus-visible:outline-none;
+
+		& > :where(img, svg) {
+			@apply size-4;
+		}
+	}
+
+	.btn-icon-left {
+		& > :where(img, svg) {
+			@apply order-first mr-[0.375em] -ml-[0.25em];
+		}
+	}
+
+	.btn-icon-right {
+		& > :where(img, svg) {
+			@apply order-last -mr-[0.25em] ml-[0.375em];
+		}
+	}
+
+	.btn-primary {
+		@apply bg-primary text-white shadow-xs hover:bg-primary-dark focus-visible:bg-primary-dark focus-visible:ring-primary-lighter;
+	}
+
+	.btn-secondary {
+		@apply bg-secondary text-white shadow-xs hover:bg-secondary-dark focus-visible:bg-secondary-dark focus-visible:ring-secondary-lighter;
+	}
+
+	.btn-tertiary {
+		@apply bg-tertiary text-white shadow-xs hover:bg-tertiary-dark focus-visible:bg-tertiary-dark focus-visible:ring-tertiary-200;
+	}
+
+	.btn-outline {
+		@apply border border-foreground/15 bg-transparent text-foreground hover:bg-foreground/5 focus-visible:bg-foreground/5 focus-visible:ring-foreground/10;
+	}
+
+	/* .btn-outline-primary {
+		@apply border border-primary bg-transparent text-primary-darker hover:bg-primary-lightest focus-visible:ring-primary-lighter;
+	}
+
+	.btn-outline-secondary {
+		@apply border border-secondary bg-transparent text-secondary-darker hover:bg-secondary-lightest focus-visible:ring-secondary-lighter;
+	}
+
+	.btn-outline-tertiary {
+		@apply border border-tertiary bg-transparent text-tertiary-darker hover:bg-tertiary-lightest focus-visible:ring-tertiary-lighter;
+	} */
+
+	.btn-ghost {
+		@apply bg-transparent hover:bg-foreground/5 focus-visible:bg-foreground/5 focus-visible:ring-foreground/10;
+	}
+
+	.btn-link {
+		@apply rounded-none p-0 underline-offset-4 hover:underline focus-visible:underline focus-visible:ring-0;
+	}
+
+	.btn-group {
+		@apply inline-flex;
+
+		& > :where(.btn:not(:first-child)) {
+			@apply -ml-px rounded-l-none!;
+		}
+
+		& > :where(.btn:not(:last-child)) {
+			@apply rounded-r-none!;
+			/* border-r-0! */
+		}
+
+		& > .btn-outline + .btn-outline {
+			@apply border-l-foreground/0;
+		}
+
+		/* & > :where(.btn-primary, .btn-secondary, .btn-tertiary) + .btn-outline {
+			@apply border-l-0;
+		} */
+
+		/* & > :where(.btn-primary, .btn-secondary, .btn-tertiary) + .btn-outline {
+			@apply border-l-teal-500;
+		} */
+
+		& > .btn-primary {
+			@apply z-10;
+		}
+	}
+}
+
+@utility btn-xs {
+	@apply px-3 pt-[0.34375rem] pb-[0.40625rem] text-xs; /* py-1.5 / 6px / 0.375rem */
+
+	& > :where(img, svg) {
+		@apply mt-0.25 size-3;
+	}
+}
+
+@utility btn-sm {
+	@apply px-3.5 pt-[0.34375rem] pb-[0.40625rem] text-sm; /* py-1.5 / 6px / 0.375rem */
+
+	& > :where(img, svg) {
+		@apply mt-0.25 size-3.5;
+	}
+}
+
+@utility btn-md {
+	@apply px-4 pt-[0.46875rem] pb-[0.53125rem] text-base; /* py-2 / 8px / 0.5rem */
+
+	& > :where(img, svg) {
+		@apply mt-0.25 size-4;
+	}
+}
+
+@utility btn-lg {
+	@apply px-5 pt-2.25 pb-2.75 text-lg; /* py-2.5 / 10px / 0.625rem */
+
+	& > :where(img, svg) {
+		@apply mt-0.5 size-4.5;
+	}
+}
+
+@utility btn-xl {
+	@apply px-6 pt-3.25 pb-3.75 text-xl; /* py-3.5 / 14px / 0.875rem */
+
+	& > :where(img, svg) {
+		@apply mt-0.5 size-5;
+	}
+}
