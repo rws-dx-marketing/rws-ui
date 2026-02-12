@@ -1,7 +1,11 @@
-spacingValues = {
+spacing = {
 	none: {
 		top: 'pt-0',
 		bottom: 'pb-0',
+	},
+	xxs: {
+		top: 'pt-2 md:pt-4 lg:pt-6',
+		bottom: 'pb-2 md:pb-4 lg:pb-6',
 	},
 	xs: {
 		top: 'pt-6 md:pt-8 lg:pt-12',
