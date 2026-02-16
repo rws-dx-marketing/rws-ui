@@ -10,6 +10,6 @@
 
 @layer base {
 	[class*='intersect:'][no-intersect] {
-		opacity: 0;
+		@apply opacity-0;
 	}
 }
