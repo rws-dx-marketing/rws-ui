@@ -12,6 +12,7 @@
 @import './_animation.css';
 @import './_buttons.css';
 @import './_colors.css';
+@import './_forms.css';
 @import './_ornaments.css';
 @import './_themes.css';
 @import './_type.css';
@@ -24,6 +25,12 @@
 }
 
 @layer base {
+	/* *,
+	*::before,
+	*::after {
+		@apply outline outline-red-500;
+	} */
+
 	html {
 		@apply cursor-default bg-background text-foreground antialiased;
 	}

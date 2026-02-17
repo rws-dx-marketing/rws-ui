@@ -5,6 +5,7 @@
 	--color-accent-foreground: var(--accent-foreground);
 	--color-card: var(--card);
 	--color-card-foreground: var(--card-foreground);
+	--color-input: var(--input);
 }
 
 :root {
@@ -14,6 +15,7 @@
 	--accent-foreground: var(--color-white);
 	--card: var(--color-white);
 	--card-foreground: var(--color-gray-900);
+	--input: color-mix(in oklch, var(--foreground) 1%, transparent);
 }
 
 [data-theme='default'] {
@@ -23,6 +25,7 @@
 	--accent-foreground: var(--color-white);
 	--card: var(--color-white);
 	--card-foreground: var(--color-gray-900);
+	--input: color-mix(in oklch, var(--foreground) 1%, transparent);
 }
 
 [data-theme='pale'] {
@@ -32,6 +35,7 @@
 	--accent-foreground: var(--color-white);
 	--card: var(--color-white);
 	--card-foreground: var(--color-gray-900);
+	--input: var(--color-white);
 }
 
 [data-theme='dots'] {
@@ -44,6 +48,7 @@
 	--accent-foreground: var(--color-white);
 	--card: var(--color-white);
 	--card-foreground: var(--color-gray-900);
+	--input: var(--color-white);
 }
 
 [data-theme='primary'] {
@@ -53,10 +58,11 @@
 	--accent-foreground: var(--color-primary);
 	--card: var(--color-white);
 	--card-foreground: var(--color-gray-900);
+	--input: color-mix(in oklch, var(--foreground) 3%, transparent);
 	--gradient: linear-gradient(94.96deg, var(--color-tertiary-lighter) 0%, var(--color-secondary-light) 47.7%, var(--color-secondary-light) 52.3%, var(--color-tertiary-lighter) 100%);
 
 	.btn-primary {
-		@apply bg-accent text-accent-foreground hover:bg-accent/80;
+		@apply bg-accent text-accent-foreground hover:bg-accent/80 focus-visible:bg-accent/80 focus-visible:ring-accent/30;
 	}
 }
 
@@ -67,10 +73,11 @@
 	--accent-foreground: var(--color-secondary);
 	--card: var(--color-white);
 	--card-foreground: var(--color-gray-900);
+	--input: color-mix(in oklch, var(--foreground) 3%, transparent);
 	--gradient: linear-gradient(94.96deg, var(--color-tertiary-lighter) 0%, var(--color-primary-light) 47.7%, var(--color-primary-light) 52.3%, var(--color-tertiary-lighter) 100%);
 
 	.btn-secondary {
-		@apply bg-accent text-accent-foreground hover:bg-accent/80;
+		@apply bg-accent text-accent-foreground hover:bg-accent/80 focus-visible:bg-accent/80 focus-visible:ring-accent/30;
 	}
 }
 
@@ -81,10 +88,11 @@
 	--accent-foreground: var(--color-tertiary);
 	--card: var(--color-white);
 	--card-foreground: var(--color-gray-900);
+	--input: color-mix(in oklch, var(--foreground) 3%, transparent);
 	--gradient: linear-gradient(94.96deg, var(--color-primary-light) 0%, var(--color-secondary-light) 47.7%, var(--color-secondary-light) 52.3%, var(--color-primary-light) 100%);
 
 	.btn-tertiary {
-		@apply bg-accent text-accent-foreground hover:bg-accent/80;
+		@apply bg-accent text-accent-foreground hover:bg-accent/80 focus-visible:bg-accent/80 focus-visible:ring-accent/30;
 	}
 }
 

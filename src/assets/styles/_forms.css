@@ -1,0 +1,53 @@
+@layer base {
+	select:not([size]):not([multiple]) {
+		background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0xODEuNjYsMTcwLjM0YTgsOCwwLDAsMSwwLDExLjMybC00OCw0OGE4LDgsMCwwLDEtMTEuMzIsMGwtNDgtNDhhOCw4LDAsMCwxLDExLjMyLTExLjMyTDEyOCwyMTIuNjlsNDIuMzQtNDIuMzVBOCw4LDAsMCwxLDE4MS42NiwxNzAuMzRabS05Ni04NC42OEwxMjgsNDMuMzFsNDIuMzQsNDIuMzVhOCw4LDAsMCwwLDExLjMyLTExLjMybC00OC00OGE4LDgsMCwwLDAtMTEuMzIsMGwtNDgsNDhBOCw4LDAsMCwwLDg1LjY2LDg1LjY2WiI+PC9wYXRoPjwvc3ZnPg==');
+		background-size: 1em;
+	}
+
+	.hubspot-form {
+		fieldset {
+			@apply mb-4 flex gap-4;
+
+			&:last-child {
+				@apply mb-0;
+			}
+
+			& > div {
+				@apply grow;
+			}
+		}
+
+		label {
+			@apply mb-2 inline-block text-sm/none font-medium text-foreground/80;
+		}
+
+		input:not([type='submit']),
+		select,
+		textarea {
+			@apply block w-full rounded-sm border border-foreground/10 bg-input p-2.5 text-sm font-medium text-foreground focus:border-accent focus:ring-accent;
+		}
+
+		.hs-richtext {
+			@apply text-xs/relaxed font-medium text-foreground/80;
+
+			a {
+				@apply underline decoration-foreground/10 underline-offset-[0.3334em];
+			}
+		}
+
+		input[type='submit'] {
+			/* @apply btn btn-primary btn-md; */
+			@apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-primary px-4 pt-[0.46875rem] pb-[0.53125rem] text-center text-base font-semibold text-white shadow-xs transition-colors select-none hover:bg-primary-dark focus-visible:bg-primary-dark focus-visible:ring-4 focus-visible:ring-primary-lighter focus-visible:outline-none;
+		}
+
+		.actions {
+			@apply flex justify-end;
+		}
+	}
+
+	[data-theme='primary'] {
+		input[type='submit'] {
+			@apply bg-accent text-accent-foreground hover:bg-accent/80 focus-visible:bg-accent/80 focus-visible:ring-accent/30;
+		}
+	}
+}
