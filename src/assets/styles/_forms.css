@@ -5,16 +5,23 @@
 	}
 
 	.hubspot-form {
-		fieldset {
-			@apply mb-4 flex gap-4;
+		@apply @container/form;
 
-			&:last-child {
-				@apply mb-0;
-			}
+		.form-columns-1,
+		.form-columns-2 {
+			@apply flex flex-col gap-x-4 @sm:flex-row;
 
 			& > div {
 				@apply grow;
 			}
+		}
+
+		.hs-form-field {
+			@apply mb-4;
+
+			/* &:last-child {
+				@apply mb-0;
+			} */
 		}
 
 		label {
