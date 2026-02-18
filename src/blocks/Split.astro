@@ -170,7 +170,7 @@
 		</div>
 
 		<!-- Media -->
-		<div class="h-full lg:col-span-5">
+		<div class="hidden h-full lg:col-span-5 lg:block">
 			<img src="/images/placeholder-2.png" alt="Placeholder" class="aspect-video h-full w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
 		</div>
 	</div>
@@ -258,7 +258,42 @@
 		</div>
 
 		<div class="h-full lg:col-span-6">
-			<img src="/images/placeholder-1.png" alt="Placeholder" class="aspect-video h-full w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
+			<img src="/images/placeholder-3.png" alt="Placeholder" class="aspect-video h-full w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
+		</div>
+	</div>
+</section>
+
+<!-- Video / Text -->
+<section class="grid min-h-[min(50vh,48rem)] place-items-center bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
+	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+		<div class="lg:col-span-6">
+			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>This is the subheading</p>
+			</div>
+
+			<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+				<p>This is the heading</p>
+			</h2>
+
+			<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<!-- <p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est.</p> -->
+				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p>
+			</div>
+
+			<div hidden class="mt-8 flex flex-wrap gap-4">
+				<a href="#" class="btn btn-primary btn-icon-right">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					Find out more
+				</a>
+				<a href="#" class="btn btn-secondary btn-icon-right">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					Find out even more
+				</a>
+			</div>
+		</div>
+
+		<div class="lg:order-first lg:col-span-6">
+			<video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" class="aspect-video h-full w-full rounded-lg object-cover" controls poster="/images/placeholder-1.png"></video>
 		</div>
 	</div>
 </section>
