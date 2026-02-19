@@ -1,7 +1,51 @@
-@layer base {
+@layer components {
 	select:not([size]):not([multiple]) {
 		background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0xODEuNjYsMTcwLjM0YTgsOCwwLDAsMSwwLDExLjMybC00OCw0OGE4LDgsMCwwLDEtMTEuMzIsMGwtNDgtNDhhOCw4LDAsMCwxLDExLjMyLTExLjMyTDEyOCwyMTIuNjlsNDIuMzQtNDIuMzVBOCw4LDAsMCwxLDE4MS42NiwxNzAuMzRabS05Ni04NC42OEwxMjgsNDMuMzFsNDIuMzQsNDIuMzVhOCw4LDAsMCwwLDExLjMyLTExLjMybC00OC00OGE4LDgsMCwwLDAtMTEuMzIsMGwtNDgsNDhBOCw4LDAsMCwwLDg1LjY2LDg1LjY2WiI+PC9wYXRoPjwvc3ZnPg==');
 		background-size: 1em;
+	}
+
+	input[type='text'],
+	input[type='email'],
+	input[type='password'],
+	input[type='tel'],
+	input[type='number'],
+	input[type='url'],
+	select,
+	textarea {
+		@apply block w-full rounded-sm border border-foreground/10 bg-input p-2.5 text-sm font-medium text-foreground focus:border-accent focus:ring-accent;
+	}
+
+	input[type='checkbox'],
+	input[type='radio'] {
+		@apply mr-2 size-4 border border-foreground/10 bg-input text-accent/80 focus:ring-accent/30;
+	}
+
+	input[type='checkbox'] {
+		@apply rounded-xs;
+
+		&:checked {
+			@apply border-accent;
+		}
+	}
+
+	input[type='radio'] {
+		@apply rounded-full;
+
+		&::before {
+			@apply hidden;
+		}
+
+		&:checked {
+			@apply border-accent;
+		}
+	}
+
+	input[type='file'] {
+		@apply block w-full text-sm;
+
+		&::file-selector-button {
+			@apply mr-3 ml-0 rounded-sm border border-foreground/10 bg-input px-3 py-2 text-foreground hover:bg-foreground/20 focus-visible:bg-foreground/20 focus-visible:ring-foreground/30;
+		}
 	}
 
 	.hubspot-form {
@@ -18,20 +62,21 @@
 
 		.hs-form-field {
 			@apply mb-4;
-
-			/* &:last-child {
-				@apply mb-0;
-			} */
 		}
 
 		label {
-			@apply mb-2 inline-block text-sm/none font-medium text-foreground/80;
+			@apply mb-2 inline-block text-sm/none font-semibold text-foreground/80;
 		}
 
-		input:not([type='submit']),
-		select,
-		textarea {
-			@apply block w-full rounded-sm border border-foreground/10 bg-input p-2.5 text-sm font-medium text-foreground focus:border-accent focus:ring-accent;
+		.hs-fieldtype-checkbox > label,
+		.hs-fieldtype-radio > label {
+			@apply mb-3;
+		}
+
+		.hs-form-checkbox-display,
+		.hs-form-radio-display,
+		.hs-form-booleancheckbox-display {
+			@apply flex items-center font-medium;
 		}
 
 		.hs-richtext {
@@ -40,6 +85,18 @@
 			a {
 				@apply underline decoration-foreground/10 underline-offset-[0.3334em];
 			}
+
+			& + & {
+				@apply mt-[1em];
+			}
+
+			& + div > .hs-dependent-field {
+				@apply mt-[1em];
+			}
+		}
+
+		.hs-submit {
+			@apply mt-4;
 		}
 
 		input[type='submit'] {
