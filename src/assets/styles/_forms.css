@@ -1,6 +1,6 @@
 @layer components {
 	select:not([size]):not([multiple]) {
-		background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0iIzAwMDAwMCIgdmlld0JveD0iMCAwIDI1NiAyNTYiPjxwYXRoIGQ9Ik0xODEuNjYsMTcwLjM0YTgsOCwwLDAsMSwwLDExLjMybC00OCw0OGE4LDgsMCwwLDEtMTEuMzIsMGwtNDgtNDhhOCw4LDAsMCwxLDExLjMyLTExLjMyTDEyOCwyMTIuNjlsNDIuMzQtNDIuMzVBOCw4LDAsMCwxLDE4MS42NiwxNzAuMzRabS05Ni04NC42OEwxMjgsNDMuMzFsNDIuMzQsNDIuMzVhOCw4LDAsMCwwLDExLjMyLTExLjMybC00OC00OGE4LDgsMCwwLDAtMTEuMzIsMGwtNDgsNDhBOCw4LDAsMCwwLDg1LjY2LDg1LjY2WiI+PC9wYXRoPjwvc3ZnPg==');
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Cpolyline points='80 176 128 224 176 176' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cpolyline points='80 80 128 32 176 80' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E");
 		background-size: 1em;
 	}
 
@@ -106,6 +106,14 @@
 
 		.actions {
 			@apply flex justify-end;
+		}
+	}
+
+	[data-theme='primary'],
+	[data-theme='secondary'],
+	[data-theme='tertiary'] {
+		select:not([size]):not([multiple]) {
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Cpolyline points='80 176 128 224 176 176' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cpolyline points='80 80 128 32 176 80' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E");
 		}
 	}
 
