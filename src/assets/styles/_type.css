@@ -31,5 +31,26 @@
 		:where(a):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 			@apply font-semibold underline-offset-4;
 		}
+
+		:where(ul):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+			@apply mt-[1em] mb-[1em] list-none pl-[1em];
+		}
+
+		:where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+			@apply relative mt-[0.5em] mb-[0.5em] pl-[0.75em];
+
+			&::before {
+				@apply absolute top-1/2 left-[-1em] block size-[1em] -translate-y-[45%] bg-accent mask-contain mask-center mask-no-repeat content-[''];
+				mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><path fill='white' d='M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z' /></svg>");
+			}
+		}
+
+		:where(li > :first-child):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+			@apply mt-0;
+		}
+
+		:where(li > :last-child):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+			@apply mb-0;
+		}
 	}
 }

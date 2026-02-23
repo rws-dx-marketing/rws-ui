@@ -481,8 +481,8 @@ import Form from '../components/Form.astro'
 
 			<!-- Features (rows) -->
 			<div class="mt-12 grid max-w-[80ch] gap-8">
-				<div class="flex">
-					<div class="mr-4 flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
+				<div class="flex gap-4">
+					<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
 						<!-- Icon -->
 						<svg class="intersect-once size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 200ms" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
 							<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M18.796 4H5.204a1 1 0 0 0-.753 1.659l5.302 6.058a1 1 0 0 1 .247.659v4.874a.5.5 0 0 0 .2.4l3 2.25a.5.5 0 0 0 .8-.4v-7.124a1 1 0 0 1 .247-.659l5.302-6.059c.566-.646.106-1.658-.753-1.658Z"></path>
@@ -505,8 +505,8 @@ import Form from '../components/Form.astro'
 					</div>
 				</div>
 
-				<div class="flex">
-					<div class="mr-4 flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
+				<div class="flex gap-4">
+					<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
 						<!-- Icon -->
 						<svg class="intersect-once size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 300ms" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
 							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a28.076 28.076 0 0 1-1.091 9M7.231 4.37a8.994 8.994 0 0 1 12.88 3.73M2.958 15S3 14.577 3 12a8.949 8.949 0 0 1 1.735-5.307m12.84 3.088A5.98 5.98 0 0 1 18 12a30 30 0 0 1-.464 6.232M6 12a6 6 0 0 1 9.352-4.974M4 21a5.964 5.964 0 0 1 1.01-3.328 5.15 5.15 0 0 0 .786-1.926m8.66 2.486a13.96 13.96 0 0 1-.962 2.683M7.5 19.336C9 17.092 9 14.845 9 12a3 3 0 1 1 6 0c0 .749 0 1.521-.031 2.311M12 12c0 3 0 6-2 9"></path>
@@ -529,8 +529,8 @@ import Form from '../components/Form.astro'
 					</div>
 				</div>
 
-				<div class="flex">
-					<div class="mr-4 flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
+				<div class="flex gap-4">
+					<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
 						<!-- Icon -->
 						<svg class="intersect-once size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 400ms" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
 							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"></path>
@@ -690,7 +690,7 @@ import Form from '../components/Form.astro'
 </section>
 
 <!-- Text / Blank -->
-<section class="grid min-h-[min(calc(100vh-16rem),48rem)] place-items-center bg-background bg-(image:--bg-image) bg-cover bg-right pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" style="--bg-image: url('https://images.unsplash.com/photo-1580894732444-8ecded7900cd?q=90&w=1920&auto=format&fit=crop" data-theme="default">
+<section class="grid min-h-[min(calc(100vh-16rem),48rem)] place-items-center bg-background bg-cover bg-top-right pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:bg-(image:--bg-image) lg:pt-20 lg:pb-20" style="--bg-image: url('https://images.unsplash.com/photo-1580894732444-8ecded7900cd?q=90&w=1920&auto=format&fit=crop" data-theme="default">
 	<div class="mx-auto grid w-full max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 		<div class="lg:col-span-6">
 			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
@@ -735,8 +735,21 @@ import Form from '../components/Form.astro'
 			</h2>
 
 			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p>
-				<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet purus. Vivamus faucibus neque risus, et dapibus tortor<!-- dignissim in. Donec facilisis justo id leo porttitor consequat -->.</p>
+				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+
+				<ul>
+					<li>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+					</li>
+					<li>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+					</li>
+					<li>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+					</li>
+				</ul>
+
+				<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
 			</div>
 
 			<div class="mt-8 flex flex-wrap gap-4">
