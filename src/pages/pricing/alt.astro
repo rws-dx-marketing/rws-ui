@@ -35,7 +35,7 @@ import Layout from '../../layouts/Trados.astro'
 					<button type="button" class="btn btn-primary relative" data-billing-option="annual">
 						Annual
 						<span class="pointer-events-none absolute -top-12 left-1/2 -translate-x-55/100 -rotate-3 font-cursive text-lg/none font-semibold whitespace-nowrap text-accent">
-							Best value
+							Most popular
 							<svg class="relative left-0.5 mx-auto mt-1 size-3.5 rotate-3" viewBox="0 0 97 182" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M39.9587 172.361C44.3791 171.771 47.3841 167.346 46.6995 163.023C46.7296 163.376 46.7597 163.72 46.7896 164.065C46.7755 164.393 46.7605 164.725 46.7385 165.052C53.5909 114.861 57.8637 64.5023 58.0993 13.8232C59.0143 9.16065 58.361 3.29881 53.6065 1.00491C48.6069 -1.82103 42.0165 1.63234 41.5449 7.38224C42.193 13.1849 41.749 18.9534 41.5613 24.8659C40.91 44.8302 40.9179 64.8018 39.5169 84.7291C38.0036 104.575 34.9065 124.253 32.9966 144.056C33.198 153.294 24.524 172.626 39.9587 172.361Z" fill="currentColor"></path>
 								<path d="M44.4736 181.994C61.4374 176.52 72.4714 159.417 83.0168 145.85C87.7103 138.239 95.6013 131.473 96.7739 122.296C96.7644 115.181 87.5745 111.286 82.6854 116.55C72.5714 134.234 60.2906 152.283 43.7251 164.825C34.0609 150.446 25.8995 135.007 14.4468 121.838C7.7852 113.696 -4.67948 123.618 1.82514 131.941C5.70286 136.807 9.42418 141.786 13.1328 146.783C22.8354 157.746 27.5705 181.399 44.4736 181.994Z" fill="currentColor"></path>
@@ -57,7 +57,7 @@ import Layout from '../../layouts/Trados.astro'
 				<div hidden>
 					<label class="inline-flex cursor-pointer items-center">
 						<input type="checkbox" value="" class="peer sr-only" />
-						<div class="peer relative h-5.5 w-10 rounded-full bg-foreground/10 transition-colors peer-checked:bg-accent peer-focus:ring-0 peer-focus:outline-none after:absolute after:start-0.5 after:top-0.5 after:size-4.5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-buffer rtl:peer-checked:after:-translate-x-full"></div>
+						<div class="peer relative h-5.5 w-10 rounded-full bg-foreground/10 transition-colors peer-checked:bg-accent peer-focus:ring-0 peer-focus:outline-none after:absolute after:inset-s-0.5 after:top-0.5 after:size-4.5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-buffer rtl:peer-checked:after:-translate-x-full"></div>
 						<span class="ms-3 text-lg font-semibold select-none">Pay annually to <span class="font-semibold text-accent">save 20%</span></span>
 					</label>
 				</div>
@@ -124,9 +124,9 @@ import Layout from '../../layouts/Trados.astro'
 						<div class="mb-5">
 							<!-- <span class="font-semibold text-foreground/80">Billed yearly, <span class="text-accent">save $123</span></span> -->
 							<span class="text-lg font-bold text-foreground/80" data-billing-note>
-								<span data-note="monthly">Monthly payment — monthly contract</span>
-								<span data-note="annual">Monthly payment — annual contract</span>
-								<span data-note="annual-saver">Annual payment — annual contract</span>
+								<span data-note="monthly">Monthly contract — monthly payment</span>
+								<span data-note="annual">Annual contract — monthly payment</span>
+								<span data-note="annual-saver">Annual contract — annual payment</span>
 								<span class="block text-base font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
 							</span>
 						</div>
@@ -138,8 +138,8 @@ import Layout from '../../layouts/Trados.astro'
 
 					<div>
 						<a href="#" class="btn btn-tertiary btn-lg w-full">
-							Get 20% off your first year
-							<!-- Start your free trial -->
+							<!-- Get 20% off your first year -->
+							Start your free trial
 						</a>
 					</div>
 
@@ -209,7 +209,7 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 
 				<!-- Pricing Card -->
-				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 bg-card p-8 text-center md:order-none xl:p-10">
+				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 bg-card p-8 text-center md:order-0 xl:p-10">
 					<!-- <span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80">Most popular</span> -->
 
 					<div>
@@ -251,15 +251,15 @@ import Layout from '../../layouts/Trados.astro'
 
 					<div>
 						<ul role="list" class="space-y-4 text-left">
-							<!-- <li class="text-foreground/66">
+							<li class="text-foreground/66">
 								<span class="font-medium">The same features as Trados Go plus:</span>
-							</li> -->
+							</li>
 
-							<li class="flex items-center space-x-3">
+							<!-- <li class="flex items-center space-x-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="88" y1="128" x2="168" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="88" x2="128" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 
 								<span class="font-medium">The same features as Trados Go plus:</span>
-							</li>
+							</li> -->
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"></path></svg> -->
 
@@ -775,9 +775,9 @@ import Layout from '../../layouts/Trados.astro'
 
 					<div class="mb-4">
 						<span class="font-bold text-foreground/80" data-billing-note>
-							<span data-note="monthly">Monthly payment — monthly contract</span>
-							<span data-note="annual">Monthly payment — annual contract</span>
-							<span data-note="annual-saver">Annual payment — annual contract</span>
+							<span data-note="monthly">Monthly contract — monthly payment</span>
+							<span data-note="annual">Annual contract — monthly payment</span>
+							<span data-note="annual-saver">Annual contract — annual payment</span>
 							<span class="block text-sm font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
 						</span>
 					</div>
