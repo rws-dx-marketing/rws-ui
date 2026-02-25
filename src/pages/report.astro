@@ -1,0 +1,93 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout>
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<h1 class="text-3xl font-bold tracking-tight xl:text-4xl">Report</h1>
+		</div>
+	</section>
+
+	<section class="min-h-screen bg-background" data-theme="tertiary"></section>
+	<section class="min-h-screen bg-background" data-theme="default"></section>
+	<section class="min-h-screen bg-background" data-theme="pale"></section>
+	<section class="min-h-screen bg-background" data-theme="default"></section>
+
+	<section class="grid place-items-center bg-background py-12" data-theme="default">
+		<button type="button" commandfor="report-dialog" command="show-modal" class="btn btn-primary" aria-label="Open modal">Open modal</button>
+	</section>
+
+	<dialog id="report-dialog" class="m-0 hidden h-screen max-h-none w-screen max-w-none scale-95 transform-gpu items-center justify-center bg-transparent p-6 opacity-0 transition transition-discrete outline-none backdrop:bg-transparent backdrop:transition backdrop:transition-discrete open:flex open:scale-100 open:opacity-100 open:backdrop:bg-black/50 starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-transparent">
+		<div class="flex max-h-full w-full max-w-md flex-col overflow-hidden rounded-lg bg-background">
+			<div class="min-h-0 flex-1 overflow-y-auto outline-none">
+				<header class="flex items-center justify-between border-b border-foreground/10 p-6">
+					<h2 class="text-xl font-semibold text-foreground">Calls to action</h2>
+
+					<button type="button" commandfor="report-dialog" command="close" class="sr-only" aria-label="Close modal">&times;</button>
+				</header>
+
+				<main class="p-6">
+					<div class="flex flex-wrap items-center gap-4">
+						<button type="button" class="btn btn-primary">Action 1</button>
+						<button type="button" class="btn btn-secondary">Action 2</button>
+						<button type="button" class="btn btn-tertiary">Action 3</button>
+					</div>
+				</main>
+			</div>
+		</div>
+	</dialog>
+</Layout>
+
+<script>
+	// @ts-nocheck
+	if (typeof window !== 'undefined') {
+		const dialog = document.querySelector('#report-dialog')
+
+		if (dialog) {
+			dialog.addEventListener('click', (e) => {
+				if (e.target === dialog) dialog.close()
+			})
+
+			const SCROLL_THRESHOLD = 0.9
+			let prevScrollY = null
+			let savedOverflow = null
+
+			const openDialog = () => {
+				if (dialog.open) return
+				const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight
+				if (maxScroll <= 0) return
+
+				const scrollY = window.scrollY ?? document.documentElement.scrollTop
+				const ratio = scrollY / maxScroll
+				const crossedDown = ratio >= SCROLL_THRESHOLD && (prevScrollY === null || (prevScrollY / maxScroll < SCROLL_THRESHOLD && scrollY > prevScrollY))
+				prevScrollY = scrollY
+
+				if (!crossedDown) return
+
+				if (savedOverflow === null) {
+					savedOverflow = document.documentElement.style.overflow || ''
+					document.documentElement.style.overflow = 'hidden'
+				}
+				dialog.showModal?.() ?? dialog.setAttribute('open', 'true')
+				removeScrollListener()
+			}
+
+			const onScroll = () => requestAnimationFrame(openDialog)
+
+			const addScrollListener = () => window.addEventListener('scroll', onScroll, { passive: true })
+			const removeScrollListener = () => window.removeEventListener('scroll', onScroll)
+
+			addScrollListener()
+			dialog.addEventListener('close', () => {
+				if (savedOverflow !== null) {
+					document.documentElement.style.overflow = savedOverflow
+					savedOverflow = null
+				}
+				addScrollListener()
+			})
+
+			openDialog()
+		}
+	}
+</script>
