@@ -25,16 +25,16 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- Pricing plans -->
-	<section class="bg-background pt-0 pb-12 text-foreground md:pb-16 lg:pb-20" data-theme="default">
+	<section class="bg-background pt-20 pb-12 text-foreground md:pb-16 lg:pb-20" data-theme="dots">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Pricing options and currency -->
-			<div class="mb-12 flex flex-wrap items-baseline gap-10">
-				<div class="btn-group" role="group">
+			<div class="mb-12 flex flex-col flex-wrap items-center gap-10 sm:flex-row sm:items-baseline">
+				<div class="btn-group rounded-full bg-white" role="group">
 					<button type="button" class="btn btn-outline" data-billing-option="monthly">Monthly</button>
 
 					<button type="button" class="btn btn-primary relative" data-billing-option="annual">
 						Annual
-						<span class="pointer-events-none absolute -top-12 left-1/2 -translate-x-55/100 -rotate-3 font-cursive text-lg/none font-semibold whitespace-nowrap text-accent">
+						<span class="pointer-events-none absolute -top-11.5 left-[calc(50%-0.25rem)] -translate-x-1/2 -rotate-3 font-cursive text-lg/none font-semibold whitespace-nowrap text-accent">
 							Most popular
 							<svg class="relative left-0.5 mx-auto mt-1 size-3.5 rotate-3" viewBox="0 0 97 182" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M39.9587 172.361C44.3791 171.771 47.3841 167.346 46.6995 163.023C46.7296 163.376 46.7597 163.72 46.7896 164.065C46.7755 164.393 46.7605 164.725 46.7385 165.052C53.5909 114.861 57.8637 64.5023 58.0993 13.8232C59.0143 9.16065 58.361 3.29881 53.6065 1.00491C48.6069 -1.82103 42.0165 1.63234 41.5449 7.38224C42.193 13.1849 41.749 18.9534 41.5613 24.8659C40.91 44.8302 40.9179 64.8018 39.5169 84.7291C38.0036 104.575 34.9065 124.253 32.9966 144.056C33.198 153.294 24.524 172.626 39.9587 172.361Z" fill="currentColor"></path>
@@ -62,39 +62,39 @@ import Layout from '../../layouts/Trados.astro'
 					</label>
 				</div>
 
-				<ul class="ml-auto flex items-center gap-4">
+				<ul class="flex items-center gap-4 sm:ml-auto">
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-usd" type="radio" value="usd" name="currency" class="focus:ring-2- focus:ring-accent/50- size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" checked />
-							<label for="currency-usd" class="pl-2 font-semibold">USD</label>
+							<label for="currency-usd" class="font-semibold">USD</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
-							<label for="currency-gbp" class="pl-2 font-semibold">GBP</label>
+							<label for="currency-gbp" class="font-semibold">GBP</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
-							<label for="currency-eur" class="pl-2 font-semibold">EUR</label>
+							<label for="currency-eur" class="font-semibold">EUR</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
-							<label for="currency-jpy" class="pl-2 font-semibold">JPY</label>
+							<label for="currency-jpy" class="font-semibold">JPY</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
-							<label for="currency-cad" class="pl-2 font-semibold">CAD</label>
+							<label for="currency-cad" class="font-semibold">CAD</label>
 						</div>
 					</li>
 				</ul>
@@ -103,7 +103,7 @@ import Layout from '../../layouts/Trados.astro'
 			<!-- Pricing cards -->
 			<div class="grid items-center gap-6 md:grid-cols-2 xl:gap-10">
 				<!-- Pricing Card -->
-				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 p-6 text-center xl:p-10">
+				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 bg-card p-6 text-center text-card-foreground xl:p-10">
 					<!-- <div class="absolute inset-x-0 top-0 h-4 bg-linear-to-r from-tertiary via-primary to-secondary"></div> -->
 
 					<div>
@@ -126,6 +126,7 @@ import Layout from '../../layouts/Trados.astro'
 							<span class="text-lg font-bold text-foreground/80" data-billing-note>
 								<span data-note="monthly">Monthly contract — monthly payment</span>
 								<span data-note="annual">Annual contract — monthly payment</span>
+								<span data-note="annual-saver" class="block -translate-y-2.5 text-sm text-accent">$360 billed annually</span>
 								<span data-note="annual-saver">Annual contract — annual payment</span>
 								<span class="block text-base font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
 							</span>
@@ -213,9 +214,9 @@ import Layout from '../../layouts/Trados.astro'
 					<!-- <span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80">Most popular</span> -->
 
 					<div>
-						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none">Most popular</span>
+						<!-- <span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none">Most popular</span> -->
 
-						<h3 class="mt-4- mb-6 text-2xl font-semibold xl:text-3xl">Trados Studio Freelance</h3>
+						<h3 class="mb-6 text-2xl font-semibold xl:mt-2 xl:mb-8 xl:text-3xl">Trados Studio Freelance</h3>
 
 						<span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 							<span class="text-[90%]">$</span>
@@ -230,12 +231,13 @@ import Layout from '../../layouts/Trados.astro'
 							<span class="ml-3 text-lg text-foreground/33">per month</span>
 						</span> -->
 
-						<div class="mb-5">
+						<div class="mb-5 xl:mb-8">
 							<!-- <span class="font-semibold text-foreground/80">Billed yearly, <span class="text-accent">save $123</span></span> -->
 							<span class="text-lg font-bold text-foreground/80" data-billing-note>
-								<span data-note="monthly">Monthly payment — monthly contract</span>
-								<span data-note="annual">Monthly payment — annual contract</span>
-								<span data-note="annual-saver">Annual payment — annual contract</span>
+								<span data-note="monthly">Monthly contract — monthly payment</span>
+								<span data-note="annual">Annual contract — monthly payment</span>
+								<span data-note="annual-saver" class="block -translate-y-2.5 text-sm text-accent">$480 billed annually</span>
+								<span data-note="annual-saver">Annual contract — annual payment</span>
 								<span class="block text-base font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
 							</span>
 						</div>
@@ -245,7 +247,7 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div>
+					<div class="xl:mt-3">
 						<a href="#" class="btn btn-tertiary btn-lg w-full">Start your free trial</a>
 					</div>
 
@@ -379,7 +381,7 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- Pricing table -->
-	<section class="bg-background pt-6 pb-12 text-foreground md:pt-8 md:pb-16 lg:pt-12 lg:pb-20" data-theme="default">
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
 				<h2 class="mb-4 text-4xl font-bold tracking-tight">Choose the right option</h2>
@@ -403,342 +405,158 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 			</div>
 
-			<div class="overflow-x-auto">
-				<div class="min-w-max overflow-hidden">
-					<div class="grid grid-cols-3 gap-x-16 rounded-t-lg bg-foreground/2 px-4 py-6">
-						<div></div>
-						<div class="text-center">
-							<h3 class="text-lg font-bold">Trados Go</h3>
-						</div>
-						<div class="text-center">
-							<h3 class="text-lg font-bold">Trados Studio Freelance</h3>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4">
-						<h4 class="text-lg font-semibold">Capacity</h4>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
-						<div class="font-medium text-foreground/80">Languages</div>
-
-						<div class="text-center font-medium text-foreground/80">Unlimited</div>
-
-						<div class="text-center font-medium text-foreground/80">Unlimited</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
-						<div class="font-medium text-foreground/80">Projects</div>
-
-						<div class="text-center font-medium text-foreground/80">Cloud</div>
-
-						<div class="flex items-center justify-center text-center font-medium text-foreground/80">
-							Local, cloud and server
-
-							<!-- Tooltip trigger -->
-							<button data-tooltip-target="tooltip-local-projects" data-tooltip-trigger="click" data-tooltip-placement="top" type="button" class="relative left-3 w-0">
-								<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-								</svg>
-							</button>
-
-							<!-- Tooltip content -->
-							<div id="tooltip-local-projects" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm font-medium text-pretty text-background opacity-0">
-								Work with cloud projects directly in the browser, or use the desktop application to handle local file-based projects, cloud projects, and server projects received from Trados GroupShare.
-								<div class="tooltip-arrow" data-popper-arrow></div>
-							</div>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
-						<div class="flex items-center font-medium text-foreground/80">
-							Cloud throughput
-
-							<!-- Tooltip trigger -->
-							<button data-tooltip-target="tooltip-cloud-throughput" data-tooltip-trigger="click" data-tooltip-placement="top" type="button" class="relative left-3 w-0">
-								<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-								</svg>
-							</button>
-
-							<!-- Tooltip content -->
-							<div id="tooltip-cloud-throughput" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm font-medium text-pretty text-background opacity-0">
-								Cloud translation throughput is the total number of target words that can be processed through Trados cloud per year.
-								<div class="tooltip-arrow" data-popper-arrow></div>
-							</div>
-						</div>
-
-						<div class="text-center font-medium text-foreground/80">1 million target words per year</div>
-
-						<div class="text-center font-medium text-foreground/80">1 million target words per year</div>
-					</div>
-					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5">
-						<div class="font-medium text-foreground/80">
-							Desktop throughput
-							<!-- <span class="ml-2 rounded-full bg-accent/10 px-1.5 pt-0.25 pb-0.5 text-xs font-semibold text-accent">New</span> -->
-						</div>
-
-						<div class="text-red-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-center font-medium text-foreground/80">Unlimited</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
-						<h4 class="text-lg font-semibold">Translation features</h4>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Online editor</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Desktop editor</div>
-
-						<div class="text-red-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Translation engines</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Terminology management</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Project templates</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Quality assurance</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Customise with apps</div>
-
-						<div class="text-center font-medium text-foreground/80">10+</div>
-
-						<div class="text-center font-medium text-foreground/80">150+</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Reviewer mode</div>
-
-						<div class="text-red-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Open project packages</div>
-
-						<div class="text-red-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
-						<h4 class="text-lg font-semibold">Linguistic AI</h4>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Smart Help</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Language Weaver</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">3rd party machine translation</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">3rd party large language models</div>
-
-						<div class="text-red-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">AI assistant</div>
-
-						<div class="text-red-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
-						<h4 class="text-lg font-semibold">Integrations</h4>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">API access</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Built-in connectors</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
-						<h4 class="text-lg font-semibold">Customer success</h4>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Automatic browser updates</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Basic support</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Advanced support</div>
-
-						<div class="text-center font-medium text-foreground/80">Add-on</div>
-
-						<div class="text-center font-medium text-foreground/80">Add-on</div>
-					</div>
-
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Onboarding</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-
-						<div class="text-green-500">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-						</div>
-					</div>
-				</div>
+			<div class="relative overflow-x-auto" role="region" aria-label="Comparison table">
+				<table class="w-full min-w-max text-left text-foreground/80">
+					<thead>
+						<tr class="rounded-t-lg bg-foreground/2">
+							<th scope="col" class="w-1/3 px-4 py-6"></th>
+							<th scope="col" class="w-1/3 px-4 py-6 text-center">
+								<h3 class="text-lg font-bold text-foreground">Trados Go</h3>
+							</th>
+							<th scope="col" class="px-4 py-6 text-center">
+								<h3 class="text-lg font-bold text-foreground">Trados Studio Freelance</h3>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="border-y border-foreground/10 bg-foreground/5">
+							<td colspan="3" class="p-4">
+								<h4 class="text-lg font-semibold text-foreground">Capacity</h4>
+							</td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Languages</td>
+							<td class="px-4 py-5 text-center">Unlimited</td>
+							<td class="px-4 py-5 text-center">Unlimited</td>
+						</tr>
+
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Projects</td>
+							<td class="px-4 py-5 text-center">Cloud</td>
+							<td class="px-4 py-5 text-center">
+								<span class="inline-flex items-center justify-center gap-1">
+									Local, cloud and server
+									<button data-tooltip-target="tooltip-local-projects" data-tooltip-trigger="click" data-tooltip-placement="top" type="button" class="relative left-1 shrink-0">
+										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+										</svg>
+									</button>
+								</span>
+								<div id="tooltip-local-projects" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm font-medium text-pretty text-background opacity-0">
+									Work with cloud projects directly in the browser, or use the desktop application to handle local file-based projects, cloud projects, and server projects received from Trados GroupShare.
+									<div class="tooltip-arrow" data-popper-arrow></div>
+								</div>
+							</td>
+						</tr>
+
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">
+								<span class="inline-flex items-center gap-1">
+									Cloud throughput
+									<button data-tooltip-target="tooltip-cloud-throughput" data-tooltip-trigger="click" data-tooltip-placement="top" type="button" class="relative left-1 shrink-0">
+										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+										</svg>
+									</button>
+								</span>
+								<div id="tooltip-cloud-throughput" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm font-medium text-pretty text-background opacity-0">
+									Cloud translation throughput is the total number of target words that can be processed through Trados cloud per year.
+									<div class="tooltip-arrow" data-popper-arrow></div>
+								</div>
+							</td>
+							<td class="px-4 py-5 text-center">1 million target words per year</td>
+							<td class="px-4 py-5 text-center">1 million target words per year</td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Desktop throughput</td>
+							<td class="px-4 py-5 text-center text-red-500">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+							</td>
+							<td class="px-4 py-5 text-center font-medium">Unlimited</td>
+						</tr>
+
+						<tr class="border-y border-foreground/10 bg-foreground/5">
+							<td colspan="3" class="p-4">
+								<h4 class="text-lg font-semibold text-foreground">Translation features</h4>
+							</td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Online editor</td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Desktop editor</td>
+							<td class="px-4 py-5 text-center text-red-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Translation engines</td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Terminology management</td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Project templates</td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Quality assurance</td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Customise with apps</td>
+							<td class="px-4 py-5 text-center">10+</td>
+							<td class="px-4 py-5 text-center">150+</td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Reviewer mode</td>
+							<td class="px-4 py-5 text-center text-red-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+						<tr class="border-b border-foreground/10">
+							<td class="px-4 py-5 font-medium">Open project packages</td>
+							<td class="px-4 py-5 text-center text-red-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
+							<td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="border-y border-foreground/10 bg-foreground/5">
+							<td colspan="3" class="p-4"><h4 class="text-lg font-semibold text-foreground">Linguistic AI</h4></td>
+						</tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">Smart Help</td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">Language Weaver</td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">3rd party machine translation</td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">3rd party large language models</td><td class="px-4 py-5 text-center text-red-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">AI assistant</td><td class="px-4 py-5 text-center text-red-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+						<tr class="border-y border-foreground/10 bg-foreground/5">
+							<td colspan="3" class="p-4"><h4 class="text-lg font-semibold text-foreground">Integrations</h4></td>
+						</tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">API access</td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">Built-in connectors</td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+
+						<tr class="border-y border-foreground/10 bg-foreground/5">
+							<td colspan="3" class="p-4"><h4 class="text-lg font-semibold text-foreground">Customer success</h4></td>
+						</tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">Automatic browser updates</td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">Basic support</td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">Advanced support</td><td class="px-4 py-5 text-center">Add-on</td><td class="px-4 py-5 text-center">Add-on</td></tr>
+						<tr class="border-b border-foreground/10"><td class="px-4 py-5 font-medium">Onboarding</td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td><td class="px-4 py-5 text-center text-green-500"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td></tr>
+					</tbody>
+				</table>
 			</div>
 
-			<div class="grid grid-cols-1 gap-x-16 rounded-b-lg bg-foreground/5 p-8 md:grid-cols-3">
-				<div class="hidden md:block"></div>
+			<div class="grid grid-cols-1 gap-x-16 rounded-b-lg bg-foreground/5 p-8 md:grid-cols-2 lg:grid-cols-3">
+				<div class="hidden lg:block"></div>
 
-				<div class="mb-8 text-center md:mb-0">
+				<div class="mb-8 border-b border-foreground/10 pb-8 text-center md:mb-0 md:border-b-0 md:pb-0">
 					<h3 class="mb-4 text-lg font-bold">Trados Go</h3>
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
@@ -751,9 +569,10 @@ import Layout from '../../layouts/Trados.astro'
 
 					<div class="mb-4">
 						<span class="font-bold text-foreground/80" data-billing-note>
-							<span data-note="monthly">Monthly payment — monthly contract</span>
-							<span data-note="annual">Monthly payment — annual contract</span>
-							<span data-note="annual-saver">Annual payment — annual contract</span>
+							<span data-note="monthly">Monthly contract — monthly payment</span>
+							<span data-note="annual">Annual contract — monthly payment</span>
+							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$360 billed annually</span>
+							<span data-note="annual-saver">Annual contract — annual payment</span>
 							<span class="block text-sm font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
 						</span>
 					</div>
@@ -764,7 +583,7 @@ import Layout from '../../layouts/Trados.astro'
 					<a href="#" class="btn btn-tertiary w-full">Start your free trial</a>
 				</div>
 
-				<div class="mb-8 text-center md:mb-0">
+				<div class="text-center">
 					<h3 class="mb-4 text-lg font-bold">Trados Studio Freelance</h3>
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
@@ -777,6 +596,7 @@ import Layout from '../../layouts/Trados.astro'
 						<span class="font-bold text-foreground/80" data-billing-note>
 							<span data-note="monthly">Monthly contract — monthly payment</span>
 							<span data-note="annual">Annual contract — monthly payment</span>
+							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$480 billed annually</span>
 							<span data-note="annual-saver">Annual contract — annual payment</span>
 							<span class="block text-sm font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
 						</span>
@@ -1021,7 +841,7 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- FAQ -->
-	<section class="bg-background py-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+	<section hidden class="bg-background py-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<h2 class="mb-8 text-3xl font-bold tracking-tight xl:text-4xl">Frequently asked questions</h2>
 

@@ -39,7 +39,7 @@
 }
 
 [data-theme='dots'] {
-	@apply bg-size-[2.25rem] bg-center bg-repeat;
+	@apply bg-size-[2.25rem] bg-top bg-repeat;
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjMuNSIgY3k9IjIzLjUiIHI9IjEuNSIgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPgo=);
 
 	--background: color-mix(in oklch, var(--color-tertiary-lightest) 33%, transparent);
