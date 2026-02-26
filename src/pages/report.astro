@@ -14,29 +14,81 @@ import Layout from '../layouts/Layout.astro'
 	<section class="min-h-screen bg-background" data-theme="pale"></section>
 	<section class="min-h-screen bg-background" data-theme="default"></section>
 
-	<section class="grid place-items-center bg-background py-12" data-theme="default">
+	<!-- <section class="grid place-items-center bg-background py-12" data-theme="default">
 		<button type="button" commandfor="report-dialog" command="show-modal" class="btn btn-primary" aria-label="Open modal">Open modal</button>
-	</section>
+	</section> -->
 
 	<dialog id="report-dialog" class="m-0 hidden h-screen max-h-none w-screen max-w-none scale-95 transform-gpu items-center justify-center bg-transparent p-6 opacity-0 transition transition-discrete outline-none backdrop:bg-transparent backdrop:transition backdrop:transition-discrete open:flex open:scale-100 open:opacity-100 open:backdrop:bg-black/50 starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-transparent">
-		<div class="flex max-h-full w-full max-w-md flex-col overflow-hidden rounded-lg bg-background">
+		<div class="relative flex max-h-full w-full max-w-5xl flex-col overflow-hidden rounded-lg bg-background">
 			<div class="min-h-0 flex-1 overflow-y-auto outline-none">
-				<header class="flex items-center justify-between border-b border-foreground/10 p-6">
+				<!-- <header class="flex items-center justify-between border-b border-foreground/10 p-6">
 					<h2 class="text-xl font-semibold text-foreground">Calls to action</h2>
 
-					<button type="button" commandfor="report-dialog" command="close" class="sr-only" aria-label="Close modal">&times;</button>
-				</header>
+					<button type="button" commandfor="report-dialog" command="close" class="btn btn-ghost p-2" aria-label="Close modal">
+						<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+					</button>
+				</header> -->
 
-				<main class="p-6">
-					<div class="flex flex-wrap items-center gap-4">
-						<button type="button" class="btn btn-primary">Action 1</button>
-						<button type="button" class="btn btn-secondary">Action 2</button>
-						<button type="button" class="btn btn-tertiary">Action 3</button>
+				<div class="absolute top-4 right-4">
+					<button type="button" commandfor="report-dialog" command="close" class="btn btn-ghost p-2" aria-label="Close modal">
+						<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+					</button>
+				</div>
+
+				<main class="p-8 lg:p-12">
+					<div class="grid md:grid-cols-2">
+						<div class="flex h-full flex-col items-start justify-center border-b border-foreground/10 pb-8 md:order-last md:border-b-0 md:border-l md:pb-0 md:pl-8 lg:pl-12">
+							<h2 class="mb-6 text-4xl font-bold md:text-5xl xl:text-6xl">Ready to talk?</h2>
+
+							<div class="prose mb-8 font-medium text-foreground/80 lg:prose-lg">
+								<p>A few lines here inviting users to talk to us. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+							</div>
+
+							<a href="#" class="btn btn-tertiary btn-lg">Book a meeting</a>
+						</div>
+
+						<div class="pt-8 md:pt-0 md:pr-8 lg:pr-12">
+							<h3 class="mb-6 text-xl font-bold xl:text-2xl">Keep reading</h3>
+
+							<div class="grid gap-8">
+								<div class="flex items-center gap-6">
+									<div class="w-1/3 shrink-0">
+										<a href="#" tabindex="-1">
+											<img src="/images/placeholder-1.png" alt="Placeholder" class="aspect-4/3 rounded-sm object-cover" />
+										</a>
+									</div>
+									<div>
+										<h4 class="text-lg font-semibold xl:text-xl">
+											<a href="#">Article A title goes here</a>
+										</h4>
+									</div>
+								</div>
+
+								<div class="flex items-center gap-6">
+									<div class="w-1/3 shrink-0">
+										<a href="#" tabindex="-1">
+											<img src="/images/placeholder-2.png" alt="Placeholder" class="aspect-4/3 rounded-sm object-cover" />
+										</a>
+									</div>
+									<div>
+										<h4 class="text-lg font-semibold xl:text-xl">
+											<a href="#">Article B title goes here, maybe over two lines</a>
+										</h4>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</main>
 			</div>
 		</div>
 	</dialog>
+
+	<footer class="footer grid min-h-[min(50svh,48rem)] place-items-center bg-background py-8 text-foreground/80" data-theme="tertiary">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<p class="text-center text-sm text-foreground/80">&copy; 2026 Trados. All rights reserved.</p>
+		</div>
+	</footer>
 </Layout>
 
 <script>
@@ -49,45 +101,59 @@ import Layout from '../layouts/Layout.astro'
 				if (e.target === dialog) dialog.close()
 			})
 
-			const SCROLL_THRESHOLD = 0.9
-			let prevScrollY = null
 			let savedOverflow = null
+			let observer = null
+			let canAutoOpen = true
 
 			const openDialog = () => {
 				if (dialog.open) return
-				const maxScroll = document.documentElement.scrollHeight - document.documentElement.clientHeight
-				if (maxScroll <= 0) return
-
-				const scrollY = window.scrollY ?? document.documentElement.scrollTop
-				const ratio = scrollY / maxScroll
-				const crossedDown = ratio >= SCROLL_THRESHOLD && (prevScrollY === null || (prevScrollY / maxScroll < SCROLL_THRESHOLD && scrollY > prevScrollY))
-				prevScrollY = scrollY
-
-				if (!crossedDown) return
 
 				if (savedOverflow === null) {
 					savedOverflow = document.documentElement.style.overflow || ''
 					document.documentElement.style.overflow = 'hidden'
 				}
+
 				dialog.showModal?.() ?? dialog.setAttribute('open', 'true')
-				removeScrollListener()
 			}
 
-			const onScroll = () => requestAnimationFrame(openDialog)
+			const setupObserver = () => {
+				if (!('IntersectionObserver' in window)) return
 
-			const addScrollListener = () => window.addEventListener('scroll', onScroll, { passive: true })
-			const removeScrollListener = () => window.removeEventListener('scroll', onScroll)
+				const sentinel = document.querySelector('.footer')
+				if (!sentinel) return
 
-			addScrollListener()
+				observer = new IntersectionObserver(
+					(entries) => {
+						for (const entry of entries) {
+							if (!entry.isIntersecting) {
+								canAutoOpen = true
+								continue
+							}
+
+							if (!canAutoOpen) continue
+
+							canAutoOpen = false
+							openDialog()
+							break
+						}
+					},
+					{
+						root: null,
+						threshold: 0,
+					},
+				)
+
+				observer.observe(sentinel)
+			}
+
+			setupObserver()
+
 			dialog.addEventListener('close', () => {
 				if (savedOverflow !== null) {
 					document.documentElement.style.overflow = savedOverflow
 					savedOverflow = null
 				}
-				addScrollListener()
 			})
-
-			openDialog()
 		}
 	}
 </script>
