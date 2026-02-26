@@ -15,6 +15,7 @@
 @import './_forms.css';
 @import './_ornaments.css';
 @import './_themes.css';
+@import './_tooltips.css';
 @import './_type.css';
 
 @theme {
