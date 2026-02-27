@@ -1,0 +1,1618 @@
+---
+import Layout from '../../layouts/Trados.astro'
+---
+
+<Layout>
+	<!-- Introduction -->
+	<section class="pricing-intro">
+		<div class="pricing-intro__inner">
+			<div class="pricing-intro__header">
+				<h2 class="pricing-intro__title">Pricing</h2>
+				<p class="pricing-intro__description">Used by more freelance translators than any other solution on the market, with Trados you can confidently plug into the localization supply chain and work on whatever comes your way.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Pricing plans -->
+	<section class="pricing-plans">
+		<div class="pricing-plans__inner">
+			<div class="pricing-plans__controls">
+				<div class="pricing-plans__billing-toggle" role="group">
+					<button type="button" class="pricing-plans__billing-toggle-button" data-billing-option="monthly">Monthly</button>
+
+					<button type="button" class="pricing-plans__billing-toggle-button pricing-plans__billing-toggle-button--active" data-billing-option="annual">
+						Annual
+						<span class="pricing-plans__badge">
+							Most popular
+							<svg class="pricing-plans__badge-icon" viewBox="0 0 97 182" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M39.9587 172.361C44.3791 171.771 47.3841 167.346 46.6995 163.023C46.7296 163.376 46.7597 163.72 46.7896 164.065C46.7755 164.393 46.7605 164.725 46.7385 165.052C53.5909 114.861 57.8637 64.5023 58.0993 13.8232C59.0143 9.16065 58.361 3.29881 53.6065 1.00491C48.6069 -1.82103 42.0165 1.63234 41.5449 7.38224C42.193 13.1849 41.749 18.9534 41.5613 24.8659C40.91 44.8302 40.9179 64.8018 39.5169 84.7291C38.0036 104.575 34.9065 124.253 32.9966 144.056C33.198 153.294 24.524 172.626 39.9587 172.361Z" fill="currentColor"></path>
+								<path d="M44.4736 181.994C61.4374 176.52 72.4714 159.417 83.0168 145.85C87.7103 138.239 95.6013 131.473 96.7739 122.296C96.7644 115.181 87.5745 111.286 82.6854 116.55C72.5714 134.234 60.2906 152.283 43.7251 164.825C34.0609 150.446 25.8995 135.007 14.4468 121.838C7.7852 113.696 -4.67948 123.618 1.82514 131.941C5.70286 136.807 9.42418 141.786 13.1328 146.783C22.8354 157.746 27.5705 181.399 44.4736 181.994Z" fill="currentColor"></path>
+							</svg>
+						</span>
+					</button>
+
+					<button type="button" class="pricing-plans__billing-toggle-button" data-billing-option="annual-saver">Annual Saver</button>
+				</div>
+
+				<ul class="pricing-plans__currency-toggle">
+					<li class="pricing-plans__currency-item">
+						<div class="pricing-plans__currency-control">
+							<input id="currency-usd" type="radio" value="usd" name="currency" class="pricing-plans__currency-radio" checked />
+							<label for="currency-usd" class="pricing-plans__currency-label">USD</label>
+						</div>
+					</li>
+
+					<li class="pricing-plans__currency-item">
+						<div class="pricing-plans__currency-control">
+							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="pricing-plans__currency-radio" />
+							<label for="currency-gbp" class="pricing-plans__currency-label">GBP</label>
+						</div>
+					</li>
+
+					<li class="pricing-plans__currency-item">
+						<div class="pricing-plans__currency-control">
+							<input id="currency-eur" type="radio" value="eur" name="currency" class="pricing-plans__currency-radio" />
+							<label for="currency-eur" class="pricing-plans__currency-label">EUR</label>
+						</div>
+					</li>
+
+					<li class="pricing-plans__currency-item">
+						<div class="pricing-plans__currency-control">
+							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="pricing-plans__currency-radio" />
+							<label for="currency-jpy" class="pricing-plans__currency-label">JPY</label>
+						</div>
+					</li>
+
+					<li class="pricing-plans__currency-item">
+						<div class="pricing-plans__currency-control">
+							<input id="currency-cad" type="radio" value="cad" name="currency" class="pricing-plans__currency-radio" />
+							<label for="currency-cad" class="pricing-plans__currency-label">CAD</label>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="pricing-plans__cards">
+				<div class="pricing-plans__card">
+					<div class="pricing-plans__card-header">
+						<h3 class="pricing-plans__card-title">Trados Go</h3>
+
+						<span class="pricing-plans__card-price">
+							<span class="pricing-plans__card-price-currency">$</span>
+							<span class="pricing-plans__card-price-value" data-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
+							<span class="pricing-plans__card-price-unit">per month</span>
+						</span>
+
+						<div class="pricing-plans__card-billing">
+							<span class="pricing-plans__card-billing-note" data-billing-note>
+								<span data-note="monthly">Monthly contract — monthly payment</span>
+								<span data-note="annual">Annual contract — monthly payment</span>
+								<span data-note="annual-saver" class="pricing-plans__card-billing-note-accent">$360 billed annually</span>
+								<span data-note="annual-saver">Annual contract — annual payment</span>
+								<span data-note="annual-saver" class="pricing-plans__card-billing-note-extra"> Includes freelance support agreement </span>
+							</span>
+						</div>
+
+						<div class="pricing-plans__card-description">
+							<p>Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
+						</div>
+					</div>
+
+					<div class="pricing-plans__card-cta">
+						<a href="#" class="pricing-plans__card-cta-button">Start your free trial</a>
+					</div>
+
+					<div class="pricing-plans__card-features">
+						<ul role="list" class="pricing-plans__card-features-list">
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="240 216 184 104 128 216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="144" y1="184" x2="224" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="96" y1="32" x2="96" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="56" x2="160" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M128,56a96,96,0,0,1-96,96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M72.7,96A96,96,0,0,0,160,152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
+								<span class="pricing-plans__card-features-item-label">Unlimited languages</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M100,208H72A56,56,0,1,1,85.92,97.74" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="124 160 156 128 188 160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="156" y1="208" x2="156" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M80,128a80,80,0,1,1,156,25.05" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
+								<span class="pricing-plans__card-features-item-label">Cloud projects only</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polygon points="160 16 148 96 208 120 96 240 108 160 48 136 160 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polygon></svg>
+								<span class="pricing-plans__card-features-item-label">Throughput of 1 million target words per year</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="28" y="84" width="160" height="128" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><path d="M68,84V52a8,8,0,0,1,8-8H220a8,8,0,0,1,8,8V164a8,8,0,0,1-8,8H188" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="28" y1="124" x2="188" y2="124" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								<span class="pricing-plans__card-features-item-label">Online editor</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="168" y1="92" x2="232" y2="92" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="168" y1="132" x2="232" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="172" x2="232" y2="172" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="212" x2="232" y2="212" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="128 72 128 56 32 56 32 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="64" y1="132" x2="96" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="56" x2="80" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								<span class="pricing-plans__card-features-item-label">Translation engines</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M32,56H224a0,0,0,0,1,0,0V192a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V56A0,0,0,0,1,32,56Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="32" y1="104" x2="224" y2="104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="152" x2="224" y2="152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="88" y1="104" x2="88" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								<span class="pricing-plans__card-features-item-label">Terminology management</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M216,112V56a8,8,0,0,0-8-8H48a8,8,0,0,0-8,8v56c0,96,88,120,88,120S216,208,216,112Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="88 136 112 160 168 104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+								<span class="pricing-plans__card-features-item-label">Quality assurance</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="pricing-plans__card pricing-plans__card--highlight">
+					<div class="pricing-plans__card-header">
+						<h3 class="pricing-plans__card-title">Trados Studio Freelance</h3>
+
+						<span class="pricing-plans__card-price">
+							<span class="pricing-plans__card-price-currency">$</span>
+							<span class="pricing-plans__card-price-value" data-price data-price-monthly="54" data-price-annual="47" data-price-annual-saver="40">47</span>
+							<span class="pricing-plans__card-price-unit">per month</span>
+						</span>
+
+						<div class="pricing-plans__card-billing">
+							<span class="pricing-plans__card-billing-note" data-billing-note>
+								<span data-note="monthly">Monthly contract — monthly payment</span>
+								<span data-note="annual">Annual contract — monthly payment</span>
+								<span data-note="annual-saver" class="pricing-plans__card-billing-note-accent">$480 billed annually</span>
+								<span data-note="annual-saver">Annual contract — annual payment</span>
+								<span data-note="annual-saver" class="pricing-plans__card-billing-note-extra"> Includes freelance support agreement </span>
+							</span>
+						</div>
+
+						<div class="pricing-plans__card-description">
+							<p>A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience with advanced features, flexibility, and control.</p>
+						</div>
+					</div>
+
+					<div class="pricing-plans__card-cta">
+						<a href="#" class="pricing-plans__card-cta-button">Start your free trial</a>
+					</div>
+
+					<div class="pricing-plans__card-features">
+						<ul role="list" class="pricing-plans__card-features-list">
+							<li class="pricing-plans__card-features-item pricing-plans__card-features-item--muted">
+								<span class="pricing-plans__card-features-item-label">The same features as Trados Go plus:</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="32" y="48" width="192" height="140" rx="16" transform="translate(256 236) rotate(180)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><line x1="160" y1="224" x2="96" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="148" x2="224" y2="148" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="192" x2="128" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								<span class="pricing-plans__card-features-item-label">Desktop editor</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><ellipse cx="128" cy="80" rx="88" ry="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></ellipse><path d="M40,80v48c0,26.51,39.4,48,88,48s88-21.49,88-48V80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M40,128v48c0,26.51,39.4,48,88,48s88-21.49,88-48V128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
+								<span class="pricing-plans__card-features-item-label">Local, server and cloud projects</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polygon points="160 16 148 96 208 120 96 240 108 160 48 136 160 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polygon></svg>
+								<span class="pricing-plans__card-features-item-label">Unlimited desktop throughput</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="120" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M63.8,199.37a72,72,0,0,1,128.4,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M222.67,112A95.92,95.92,0,1,1,144,33.33" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="184 56 200 72 232 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+								<span class="pricing-plans__card-features-item-label">Reviewer mode</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="32.7 76.92 128 129.08 223.3 76.92" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="128" y1="129.09" x2="128" y2="231.97" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M219.84,182.84l-88,48.18a8,8,0,0,1-7.68,0l-88-48.18a8,8,0,0,1-4.16-7V80.18a8,8,0,0,1,4.16-7l88-48.18a8,8,0,0,1,7.68,0l88,48.18a8,8,0,0,1,4.16,7v95.64A8,8,0,0,1,219.84,182.84Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="81.56 48.31 176 100 176 152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+								<span class="pricing-plans__card-features-item-label">Open project packages</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M124,100a24,24,0,1,1,24-24A24,24,0,0,1,124,100Z"></path><path d="M144,160a24,24,0,1,1,24-24A24,24,0,0,1,144,160Z"></path><path d="M120,216H72a8,8,0,0,1-8-8V171.81L36.42,159.18a8,8,0,0,1-3.77-10.3L56,104a80,80,0,1,1,128,64l8,64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="214.38 88 184 88 144 136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="124" y1="76" x2="124" y2="24.89" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								<span class="pricing-plans__card-features-item-label">3rd party large language models</span>
+							</li>
+							<li class="pricing-plans__card-features-item">
+								<svg class="pricing-plans__card-features-item-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
+								<span class="pricing-plans__card-features-item-label">AI assistant</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Comparison table -->
+	<section class="pricing-compare">
+		<div class="pricing-compare__inner">
+			<div class="pricing-compare__header">
+				<h2 class="pricing-compare__title">Choose the right option</h2>
+				<p class="pricing-compare__description">Compare the features and capabilities to decide which is the right solution for you.</p>
+			</div>
+
+			<div class="pricing-compare__scroll" role="region" aria-label="Comparison table">
+				<table class="pricing-compare__table">
+					<thead>
+						<tr class="pricing-compare__header-row">
+							<th scope="col" class="pricing-compare__th"></th>
+							<th scope="col" class="pricing-compare__th pricing-compare__th--plan">
+								<h3 class="pricing-compare__plan-title">Trados Go</h3>
+							</th>
+							<th scope="col" class="pricing-compare__th pricing-compare__th--plan">
+								<h3 class="pricing-compare__plan-title">Trados Studio Freelance</h3>
+							</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr class="pricing-compare__row pricing-compare__row--section">
+							<td colspan="3" class="pricing-compare__section-cell">
+								<h4 class="pricing-compare__section-title">Capacity</h4>
+							</td>
+						</tr>
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">Languages</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">Unlimited</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">Unlimited</td>
+						</tr>
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">Projects</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">Cloud</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">
+								<span class="pricing-compare__tooltip-trigger pricing-compare__tooltip-trigger--center">
+									Local, cloud and server
+									<button type="button" popovertarget="tooltip-local-projects" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about local, cloud and server projects">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-local-projects" popover="auto" role="tooltip" class="tooltip">Work with cloud projects directly in the browser, or use the desktop application to handle local file-based projects, cloud projects, and server projects received from Trados GroupShare.</div>
+							</td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Cloud throughput
+									<button type="button" popovertarget="tooltip-cloud-throughput" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about cloud throughput">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-cloud-throughput" popover="auto" role="tooltip" class="tooltip">Cloud translation throughput is the total number of target words that can be processed through Trados cloud per year.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">1 million target words per year</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">1 million target words per year</td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Desktop throughput
+									<button type="button" popovertarget="tooltip-desktop-throughput" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about desktop throughput">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-desktop-throughput" popover="auto" role="tooltip" class="tooltip">Desktop translation throughput is the total number of target words that can be processed through the Trados desktop application per year.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--no"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value pricing-compare__cell--value-text">Unlimited</td>
+						</tr>
+
+						<tr class="pricing-compare__row pricing-compare__row--section">
+							<td colspan="3" class="pricing-compare__section-cell">
+								<h4 class="pricing-compare__section-title">Translation features</h4>
+							</td>
+						</tr>
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Online editor
+									<button type="button" popovertarget="tooltip-online-editor" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about the online editor">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-online-editor" popover="auto" role="tooltip" class="tooltip">Accessible via any browser on any device.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Desktop editor
+									<button type="button" popovertarget="tooltip-desktop-editor" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about the desktop editor">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-desktop-editor" popover="auto" role="tooltip" class="tooltip">
+									<p><strong>Officially supported on Microsoft Windows.</strong></p>
+									<p>While the desktop application is not officially supported on MacOS, it is possible for customers to run the desktop application via Microsoft Windows using Parallels. Find out more <a href="https://www.trados.com/blog/how-to-run-trados-studio-on-an-apple-mac/" target="_blank">here</a>.</p>
+								</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--no"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Translation engines
+									<button type="button" popovertarget="tooltip-translation-engines" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about translation engines">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-translation-engines" popover="auto" role="tooltip" class="tooltip">Translation memory, terminology management and machine translation integration.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">Terminology management</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">
+								<span class="pricing-compare__tooltip-trigger pricing-compare__tooltip-trigger--center">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+									<button type="button" popovertarget="tooltip-terminology-management" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about terminology management">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-terminology-management" popover="auto" role="tooltip" class="tooltip"><a href="https://www.trados.com/product/multiterm/" target="_blank">MultiTerm</a> provides a central location to store and manage multilingual terminology, helping you to deliver consistent, high-quality content from source through to translation. MultiTerm is included with all Trados Freelance subscription packages, and is available to download and install from your <a href="http://account.rws.com/" target="_blank">Trados subscription account</a>. In addition, terminology management is available in the browser giving you the flexibility to choose how you want to work.</div>
+							</td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">Project templates</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Quality assurance
+									<button type="button" popovertarget="tooltip-quality-assurance" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about quality assurance">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-quality-assurance" popover="auto" role="tooltip" class="tooltip">Checks designed to help linguists ensure accurate, consistent, high-quality translations including segment verification, number verification, tag verification, inconsistencies, punctuation, word lists, and implementation of regular expressions.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Customise with apps
+									<button type="button" popovertarget="tooltip-customise-apps" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about customising with apps">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-customise-apps" popover="auto" role="tooltip" class="tooltip">Tailor your translation environment to suit your needs with a range of apps available on the <a href="https://appstore.rws.com/" target="_blank">RWS AppStore</a>.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">10+</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">150+</td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Reviewer mode
+									<button type="button" popovertarget="tooltip-reviewer-mode" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about reviewer mode">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+										</svg>
+									</button>
+								</span>
+								<div id="tooltip-reviewer-mode" popover="auto" role="tooltip" class="tooltip">Review translations in a focused, streamlined editor view - designed to highlight only the information you need for fast, effective reviewing.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--no"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Open project packages
+									<button type="button" popovertarget="tooltip-open-packages" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about opening project packages">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-open-packages" popover="auto" role="tooltip" class="tooltip">Open and work with project packages that you receive. Project packages contain files that you need to translate or review, learn more <a href="https://docs.rws.com/en-US/trados-studio-2021-sr2-813470/opening-project-packages-and-return-packages-515050" target="_blank">here</a>.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--no"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row pricing-compare__row--section">
+							<td colspan="3" class="pricing-compare__section-cell"><h4 class="pricing-compare__section-title">Linguistic AI</h4></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Smart Help
+									<button type="button" popovertarget="tooltip-smart-help" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about Smart Help">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-smart-help" popover="auto" role="tooltip" class="tooltip">Access intelligent assistance through our AI-powered chatbot while working in the browser.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Language Weaver
+									<button type="button" popovertarget="tooltip-language-weaver" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about Language Weaver">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-language-weaver" popover="auto" role="tooltip" class="tooltip">
+									<p><a href="https://www.rws.com/language-weaver/" target="_blank" rel="noopener noreferrer">Enterprise-grade AI-powered machine translation</a> that is secure by design, infinitely adaptive and fully scalable.</p>
+									<p>6 million annual characters included.</p>
+								</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									3rd party machine translation
+									<button type="button" popovertarget="tooltip-3rd-party-mt" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about 3rd party machine translation">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-3rd-party-mt" popover="auto" role="tooltip" class="tooltip">Dozens of MT apps available through <a href="https://appstore.rws.com/" target="_blank" rel="noopener noreferrer">RWS AppStore</a>, including DeepL, Google, Microsoft, Amazon, SYSTRAN, Intento, plus the option to add custom-MT.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									3rd party large language models
+									<button type="button" popovertarget="tooltip-3rd-party-llm" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about 3rd party large language models">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-3rd-party-llm" popover="auto" role="tooltip" class="tooltip">Connect to an LLM as your translation provider.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--no"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									AI Assistant
+									<button type="button" popovertarget="tooltip-ai-assistant" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about AI Assistant">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-ai-assistant" popover="auto" role="tooltip" class="tooltip">AI Assistant, available in the desktop application, combines an LLM with your linguistic resources to enhance your translation output, automatically implementing terminology, adjusting tone of voice, or shortening sentences, for example. Learn more <a href="https://www.trados.com/product/discover/AI-translation/" target="_blank" rel="noopener noreferrer">here</a>.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--no"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row pricing-compare__row--section">
+							<td colspan="3" class="pricing-compare__section-cell"><h4 class="pricing-compare__section-title">Integrations</h4></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									API access
+									<button type="button" popovertarget="tooltip-api-access" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about API access">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-api-access" popover="auto" role="tooltip" class="tooltip">View our <a href="https://eu.cloud.trados.com/lc/api-docs/api-rate-limits" target="_blank" rel="noopener noreferrer">API rate limits</a>.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Built-in connectors
+									<button type="button" popovertarget="tooltip-built-in-connectors" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about Built-in connectors">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-built-in-connectors" popover="auto" role="tooltip" class="tooltip">When working in the browser, easily select files for translation from OneDrive, Dropbox, Box and Google Drive. Find out more <a href="https://www.trados.com/integrations/connectors/?take=9&connectorType=built-in-connectors" target="_blank" rel="noopener noreferrer">here</a>.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row pricing-compare__row--section">
+							<td colspan="3" class="pricing-compare__section-cell"><h4 class="pricing-compare__section-title">Customer success</h4></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Automatic browser updates
+									<button type="button" popovertarget="tooltip-automatic-browser-updates" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about Automatic browser updates">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-automatic-browser-updates" popover="auto" role="tooltip" class="tooltip">Enjoy automatic updates for the cloud component of your solution.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">
+								<span class="pricing-compare__tooltip-trigger pricing-compare__tooltip-trigger--inline">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+									<button type="button" popovertarget="tooltip-desktop-updates" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about desktop application updates">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-desktop-updates" popover="auto" role="tooltip" class="tooltip">For the desktop application, you have the flexibility to manually update and choose when you access the latest features and enhancements.</div>
+							</td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Basic support
+									<button type="button" popovertarget="tooltip-basic-support" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about Basic support">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-basic-support" popover="auto" role="tooltip" class="tooltip">Receive installation and licensing support, plus access our rich libraries of online resources, including the <a href="https://community.rws.com/product-groups/trados-portfolio/" target="_blank" rel="noopener noreferrer">Trados community</a> and <a href="https://gateway.rws.com/" target="_blank" rel="noopener noreferrer">Knowledge Base</a>.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+							<td class="pricing-compare__cell pricing-compare__cell--value"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">
+								<span class="pricing-compare__tooltip-trigger">
+									Advanced support
+									<button type="button" popovertarget="tooltip-advanced-support" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about Advanced support">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-advanced-support" popover="auto" role="tooltip" class="tooltip">Access to our highly skilled support team for technical product troubleshooting and queries.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">
+								<span class="pricing-compare__tooltip-trigger pricing-compare__tooltip-trigger--inline">
+									Add-on
+									<button type="button" popovertarget="tooltip-advanced-support-go" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about onboarding support">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-advanced-support-go" popover="auto" role="tooltip" class="tooltip">
+									<p>Monthly plan and Annual plan – Freelance subscription support is available as an add-on.</p>
+									<p>Annual Saver plan – Freelance subscription support is included.</p>
+								</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">
+								<span class="pricing-compare__tooltip-trigger pricing-compare__tooltip-trigger--inline">
+									Add-on
+									<button type="button" popovertarget="tooltip-advanced-support-studio" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about onboarding support">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-advanced-support-studio" popover="auto" role="tooltip" class="tooltip">
+									<p>Monthly plan and Annual plan – Freelance subscription support is available as an add-on.</p>
+									<p>Annual Saver plan – Freelance subscription support is included.</p>
+								</div>
+							</td>
+						</tr>
+
+						<tr class="pricing-compare__row">
+							<td class="pricing-compare__cell pricing-compare__cell--feature">Onboarding</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">
+								<span class="pricing-compare__tooltip-trigger pricing-compare__tooltip-trigger--inline">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+									<button type="button" popovertarget="tooltip-onboarding-addon-go" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about onboarding support">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-onboarding-addon-go" popover="auto" role="tooltip" class="tooltip">Get started with guided product tours in the browser to help you get the most out of Trados.</div>
+							</td>
+							<td class="pricing-compare__cell pricing-compare__cell--value">
+								<span class="pricing-compare__tooltip-trigger pricing-compare__tooltip-trigger--inline">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="pricing-compare__icon pricing-compare__icon--yes"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+									<button type="button" popovertarget="tooltip-onboarding-addon-studio" popovertargetaction="toggle" class="pricing-compare__tooltip-button" aria-label="More information about onboarding support">
+										<svg class="pricing-compare__info-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+									</button>
+								</span>
+								<div id="tooltip-onboarding-addon-studio" popover="auto" role="tooltip" class="tooltip">Get started with guided product tours in the browser, and explore videos and tips in the desktop application to help you get the most out of Trados.</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="pricing-compare__cta">
+				<div class="pricing-compare__cta-spacer"></div>
+
+				<div class="pricing-compare__cta-column">
+					<h3 class="pricing-compare__cta-title">Trados Go</h3>
+
+					<span class="pricing-compare__cta-price">
+						<span class="pricing-compare__cta-price-currency">$</span>
+						<span class="pricing-compare__cta-price-value" data-price="" data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
+						<span class="pricing-compare__cta-price-unit">per month</span>
+					</span>
+
+					<div class="pricing-compare__cta-billing">
+						<span class="pricing-compare__cta-billing-note" data-billing-note>
+							<span data-note="monthly">Monthly contract — monthly payment</span>
+							<span data-note="annual">Annual contract — monthly payment</span>
+							<span data-note="annual-saver" class="pricing-compare__cta-billing-note-accent">$360 billed annually</span>
+							<span data-note="annual-saver">Annual contract — annual payment</span>
+							<span class="pricing-compare__cta-billing-note-extra" data-note="annual-saver"> Includes freelance support agreement </span>
+						</span>
+					</div>
+
+					<p class="pricing-compare__cta-description">Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
+
+					<a href="#" class="pricing-compare__cta-button">Start your free trial</a>
+				</div>
+
+				<div class="pricing-compare__cta-column">
+					<h3 class="pricing-compare__cta-title">Trados Studio Freelance</h3>
+
+					<span class="pricing-compare__cta-price">
+						<span class="pricing-compare__cta-price-currency">$</span>
+						<span class="pricing-compare__cta-price-value" data-price data-price-monthly="54" data-price-annual="47" data-price-annual-saver="40">47</span>
+						<span class="pricing-compare__cta-price-unit">per month</span>
+					</span>
+
+					<div class="pricing-compare__cta-billing">
+						<span class="pricing-compare__cta-billing-note" data-billing-note>
+							<span data-note="monthly">Monthly contract — monthly payment</span>
+							<span data-note="annual">Annual contract — monthly payment</span>
+							<span data-note="annual-saver" class="pricing-compare__cta-billing-note-accent">$480 billed annually</span>
+							<span data-note="annual-saver">Annual contract — annual payment</span>
+							<span class="pricing-compare__cta-billing-note-extra" data-note="annual-saver"> Includes freelance support agreement </span>
+						</span>
+					</div>
+
+					<p class="pricing-compare__cta-description">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
+
+					<a href="#" class="pricing-compare__cta-button">Start your free trial</a>
+				</div>
+
+				<div hidden class="text-center">
+					<h3 class="mb-4 text-lg font-bold">Trados Studio Freelance</h3>
+
+					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
+						<span class="text-[90%]">$</span>
+						<span class="ml-1" data-price data-price-monthly="54" data-price-annual="47" data-price-annual-saver="40">47</span>
+						<span class="ml-3 text-lg text-foreground/40">per month</span>
+					</span>
+
+					<div class="mb-4">
+						<span class="font-bold text-foreground/80" data-billing-note>
+							<span data-note="monthly">Monthly contract — monthly payment</span>
+							<span data-note="annual">Annual contract — monthly payment</span>
+							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$480 billed annually</span>
+							<span data-note="annual-saver">Annual contract — annual payment</span>
+							<span class="block text-sm font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
+						</span>
+					</div>
+
+					<p class="mb-4 text-sm font-medium text-foreground/80">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
+
+					<a href="#" class="btn btn-tertiary w-full">Start your free trial</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<script>
+	// @ts-nocheck
+	document.addEventListener('DOMContentLoaded', () => {
+		const buttons = document.querySelectorAll('[data-billing-option]')
+		if (!buttons.length) return
+
+		const priceEls = document.querySelectorAll('[data-price]')
+		const noteEls = document.querySelectorAll('[data-billing-note]')
+
+		let currentMode = 'annual'
+
+		function updateBillingMode(mode) {
+			currentMode = mode
+
+			buttons.forEach((btn) => {
+				const isActive = btn.dataset.billingOption === mode
+				btn.classList.toggle('pricing-plans__billing-toggle-button--active', isActive)
+				// btn.classList.toggle('btn-outline', !isActive)
+			})
+
+			priceEls.forEach((el) => {
+				const monthly = el.dataset.priceMonthly
+				const annual = el.dataset.priceAnnual
+				const annualSaver = el.dataset.priceAnnualSaver
+
+				let value = monthly
+
+				if (mode === 'annual') {
+					value = annual ?? monthly ?? annualSaver
+				} else if (mode === 'annual-saver') {
+					value = annualSaver ?? annual ?? monthly
+				}
+
+				el.textContent = value ?? ''
+			})
+
+			noteEls.forEach((noteEl) => {
+				const noteSpans = noteEl.querySelectorAll('[data-note]')
+
+				noteSpans.forEach((span) => {
+					const spanMode = span.dataset.note
+					const shouldShow = spanMode === mode
+					span.hidden = !shouldShow
+				})
+			})
+		}
+
+		buttons.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const mode = btn.dataset.billingOption
+				if (!mode) return
+				updateBillingMode(mode)
+			})
+		})
+
+		const primary = Array.from(buttons).find((btn) => btn.classList.contains('btn-primary'))
+
+		if (primary && primary.dataset.billingOption) {
+			updateBillingMode(primary.dataset.billingOption)
+		} else {
+			updateBillingMode(currentMode)
+		}
+	})
+</script>
+
+<style>
+	/* Pricing intro */
+
+	.pricing-intro {
+		--background: var(--color-white);
+		--foreground: var(--color-gray-900);
+
+		background-color: var(--background);
+		color: var(--foreground);
+		padding-block: 4rem; /* py-16 */
+	}
+
+	.pricing-intro__inner {
+		max-width: 1280px; /* max-w-screen-xl */
+		margin-inline: auto;
+		padding-inline: 2rem; /* px-8 */
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-intro__inner {
+			padding-inline: 3rem; /* lg:px-12 */
+		}
+	}
+
+	.pricing-intro__header {
+		max-width: 640px; /* max-w-screen-sm */
+		margin-inline: auto;
+		text-align: center;
+	}
+
+	.pricing-intro__title {
+		margin-block-end: 1rem; /* mb-4 */
+		font-size: 1.875rem; /* text-3xl */
+		line-height: 2.25rem;
+		font-weight: 700;
+		letter-spacing: -0.02em; /* tracking-tight */
+	}
+
+	@media (min-width: 1280px) {
+		.pricing-intro__title {
+			font-size: 2.25rem; /* xl:text-4xl */
+			line-height: 2.5rem;
+		}
+	}
+
+	.pricing-intro__description {
+		font-size: 1.125rem; /* text-lg */
+		line-height: 1.625;
+		font-weight: 500;
+		text-wrap: pretty;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent); /* text-foreground/80 */
+	}
+
+	@media (min-width: 1280px) {
+		.pricing-intro__description {
+			font-size: 1.25rem; /* xl:text-xl */
+		}
+	}
+
+	/* Pricing plans */
+
+	.pricing-plans {
+		--background: color-mix(in oklch, oklch(0.958 0.023 299.44) 33%, transparent);
+		--foreground: oklch(0.216 0.006 56.043);
+		--accent: var(--color-primary);
+		--accent-foreground: var(--color-white);
+		--card: var(--color-white);
+		--card-foreground: var(--color-gray-900);
+
+		background-color: var(--background);
+		color: var(--foreground);
+		padding-block: 5rem 3rem; /* pt-20 pb-12 */
+		background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjMuNSIgY3k9IjIzLjUiIHI9IjEuNSIgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPgo=);
+		background-size: 2.25rem;
+		background-position: top;
+		background-repeat: repeat;
+	}
+
+	@media (min-width: 768px) {
+		.pricing-plans {
+			padding-block-end: 4rem; /* md:pb-16 */
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-plans {
+			padding-block-end: 5rem; /* lg:pb-20 */
+		}
+	}
+
+	.pricing-plans__inner {
+		max-width: 1280px; /* max-w-screen-xl */
+		margin-inline: auto;
+		padding-inline: 2rem; /* px-8 */
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-plans__inner {
+			padding-inline: 3rem; /* lg:px-12 */
+		}
+	}
+
+	.pricing-plans__controls {
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 2.5rem; /* gap-10 */
+		margin-block-end: 3rem; /* mb-12 */
+	}
+
+	@media (min-width: 640px) {
+		.pricing-plans__controls {
+			flex-direction: row;
+			align-items: baseline;
+		}
+	}
+
+	.pricing-plans__billing-toggle {
+		display: inline-flex;
+		border-radius: 9999px;
+		background-color: #fff;
+
+		& > :where(button:not(:first-child)) {
+			margin-left: -1px;
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+
+		& > :where(button:not(:last-child)) {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		& > button + button {
+			border-left-color: transparent;
+		}
+
+		& > button.pricing-plans__billing-toggle-button--active {
+			z-index: 10;
+		}
+	}
+
+	.pricing-plans__billing-toggle-button {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding-inline: 1rem;
+		padding-block: 0.46875rem 0.53125rem;
+		border-radius: 9999px;
+		border: 1px solid color-mix(in oklch, var(--foreground) 15%, transparent);
+		color: var(--foreground);
+		font-weight: 600;
+		cursor: pointer;
+		transition:
+			color 400ms ease,
+			background-color 400ms ease,
+			box-shadow 400ms ease,
+			transform 400ms ease;
+	}
+
+	.pricing-plans__billing-toggle-button:hover {
+		background-color: color-mix(in oklch, var(--foreground) 6%, transparent);
+	}
+
+	.pricing-plans__billing-toggle-button:focus-visible {
+		outline: 4px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+		outline-offset: 0;
+	}
+
+	.pricing-plans__billing-toggle-button--active {
+		z-index: 1;
+		background-color: var(--color-primary);
+		color: #fff;
+	}
+
+	.pricing-plans__billing-toggle-button--active:hover {
+		background-color: var(--color-primary-dark);
+	}
+
+	.pricing-plans__badge {
+		position: absolute;
+		inset-block-start: -2.875rem; /* -top-11.5 */
+		inset-inline-start: 50%;
+		transform: translateX(calc(-50% - 0.25rem)) rotate(-3deg);
+		pointer-events: none;
+		font-family: var(--font-cursive, system-ui);
+		font-size: 1.125rem;
+		line-height: 1;
+		font-weight: 600;
+		white-space: nowrap;
+		color: var(--accent);
+	}
+
+	.pricing-plans__badge-label {
+		display: inline-block;
+	}
+
+	.pricing-plans__badge-icon {
+		position: relative;
+		inset-inline-start: 0.125rem;
+		display: block;
+		margin-inline: auto;
+		margin-block-start: 0.25rem;
+		inline-size: 0.875rem;
+		block-size: 0.875rem;
+		transform: rotate(3deg);
+	}
+
+	.pricing-plans__currency-toggle {
+		display: flex;
+		align-items: center;
+		gap: 1rem; /* gap-4 */
+	}
+
+	@media (min-width: 640px) {
+		.pricing-plans__currency-toggle {
+			margin-inline-start: auto;
+		}
+	}
+
+	.pricing-plans__currency-item {
+		list-style: none;
+	}
+
+	.pricing-plans__currency-control {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.pricing-plans__currency-radio {
+		inline-size: 1rem; /* size-4 */
+		block-size: 1rem;
+		margin-inline-end: 0;
+		border-radius: 9999px;
+		border: 1px solid color-mix(in oklch, var(--foreground) 15%, transparent);
+		background-color: #fff;
+		appearance: none;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		position: relative;
+		cursor: pointer;
+	}
+
+	.pricing-plans__currency-radio::before {
+		content: '';
+		inline-size: 0.5rem;
+		block-size: 0.5rem;
+		border-radius: inherit;
+		background-color: transparent;
+		transition:
+			background-color 150ms ease,
+			transform 150ms ease;
+		transform: scale(0.9);
+	}
+
+	.pricing-plans__currency-radio:checked {
+		border-color: var(--accent);
+	}
+
+	.pricing-plans__currency-radio:checked::before {
+		background-color: var(--accent);
+	}
+
+	.pricing-plans__currency-radio:focus-visible {
+		outline: 2px solid color-mix(in oklch, var(--accent) 30%, transparent);
+		outline-offset: 0;
+	}
+
+	.pricing-plans__currency-label {
+		font-weight: 600;
+	}
+
+	.pricing-plans__cards {
+		isolation: isolate;
+		display: grid;
+		align-items: center;
+		gap: 1.5rem; /* gap-6 */
+	}
+
+	@media (min-width: 768px) {
+		.pricing-plans__cards {
+			grid-template-columns: repeat(2, minmax(0, 1fr)); /* md:grid-cols-2 */
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.pricing-plans__cards {
+			gap: 2.5rem; /* xl:gap-10 */
+		}
+	}
+
+	.pricing-plans__card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem; /* gap-8 */
+		border-radius: 0.75rem; /* rounded-lg */
+		border: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+		background-color: var(--card);
+		color: var(--card-foreground, var(--foreground));
+		padding: 1.5rem; /* p-6 */
+		text-align: center;
+	}
+
+	@media (min-width: 1280px) {
+		.pricing-plans__card {
+			padding: 2.5rem; /* xl:p-10 */
+		}
+	}
+
+	.pricing-plans__card--highlight {
+		position: relative;
+		order: -1;
+		border-color: color-mix(in oklch, var(--accent) 33%, transparent);
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			z-index: -1;
+			background-image: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 24.3%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 75.7%, var(--color-tertiary) 100%);
+			background-size: 200%;
+			background-position: 0% 50%;
+			opacity: 0.33;
+			filter: blur(16px); /* blur-lg */
+			animation: gradient-x 5s linear infinite;
+
+			@keyframes gradient-x {
+				to {
+					background-position: 200% 50%;
+				}
+			}
+		}
+	}
+
+	@media (min-width: 768px) {
+		.pricing-plans__card--highlight {
+			order: 0;
+		}
+	}
+
+	@media (min-width: 1280px) {
+		.pricing-plans__card--highlight {
+			.pricing-plans__card-title {
+				margin-block-start: 0.5rem; /* xl:mt-2 */
+				margin-block-end: 2rem; /* xl:mb-8 */
+			}
+
+			.pricing-plans__card-billing {
+				margin-block-end: 2rem; /* xl:mb-8 */
+			}
+
+			.pricing-plans__card-cta {
+				margin-block-start: 0.75rem; /* xl:mt-3 */
+			}
+		}
+	}
+
+	.pricing-plans__card-header {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.pricing-plans__card-title {
+		margin-block-end: 1.5rem; /* mb-6 */
+		font-size: 1.5rem; /* text-2xl */
+		line-height: 2rem;
+		font-weight: 600;
+	}
+
+	@media (min-width: 1280px) {
+		.pricing-plans__card-title {
+			font-size: 1.875rem; /* xl:text-3xl */
+			line-height: 2.25rem;
+		}
+	}
+
+	.pricing-plans__card-price {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-block-end: 1.5rem; /* mb-6 */
+		font-size: 3rem; /* text-5xl */
+		line-height: 1;
+		font-weight: 700;
+	}
+
+	.pricing-plans__card-price-currency {
+		font-size: 0.9em;
+	}
+
+	.pricing-plans__card-price-value {
+		margin-inline-start: 0.25rem; /* ml-1 */
+	}
+
+	.pricing-plans__card-price-unit {
+		margin-inline-start: 0.75rem; /* ml-3 */
+		font-size: 1.125rem;
+		color: color-mix(in oklch, var(--foreground) 50%, transparent);
+	}
+
+	.pricing-plans__card-billing {
+		margin-block-end: 1.25rem; /* mb-5 */
+	}
+
+	.pricing-plans__card-billing-note {
+		font-size: 1.125rem; /* text-lg */
+		font-weight: 700;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent);
+	}
+
+	.pricing-plans__card-billing-note-accent {
+		display: block;
+		translate: 0 -0.625rem; /* -translate-y-2.5 */
+		font-size: 0.875rem;
+		color: var(--accent);
+	}
+
+	.pricing-plans__card-billing-note-extra {
+		display: block;
+		font-size: 1rem;
+		font-weight: 600;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent);
+	}
+
+	.pricing-plans__card-description {
+		font-size: 1rem; /* text-base */
+		line-height: 1.75;
+		font-weight: 500;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent);
+	}
+
+	@media (min-width: 768px) {
+		.pricing-plans__card-description {
+			font-size: 1.125rem; /* lg:text-lg */
+			line-height: 1.7777778;
+		}
+	}
+
+	.pricing-plans__card-cta {
+	}
+
+	.pricing-plans__card-cta-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 100%;
+		padding-inline: 1.25rem; /* px-5 (btn-lg) */
+		padding-block: 0.5625rem 0.6875rem; /* pt-2.25 pb-2.75 */
+		border-radius: 9999px;
+		border: 1px solid transparent;
+		background-color: var(--color-tertiary);
+		color: #fff;
+		font-weight: 600;
+		font-size: 1.125rem; /* text-lg */
+		line-height: calc(1.75 / 1.125);
+		cursor: pointer;
+		text-decoration: none;
+		transition:
+			background-color 400ms ease,
+			border-color 400ms ease,
+			color 400ms ease;
+	}
+
+	.pricing-plans__card-cta-button:hover {
+		background-color: var(--color-tertiary-dark);
+		border-color: transparent;
+		color: #fff;
+	}
+
+	.pricing-plans__card-cta-button:focus-visible {
+		outline: 4px solid color-mix(in oklch, var(--color-tertiary-200) 80%, transparent);
+		outline-offset: 0;
+	}
+
+	.pricing-plans__card-features {
+		text-align: left;
+	}
+
+	.pricing-plans__card-features-list {
+		display: grid;
+		gap: 1rem; /* gap-4 */
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.pricing-plans__card-features-item {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem; /* gap-3 */
+	}
+
+	.pricing-plans__card-features-item--muted {
+		color: color-mix(in oklch, var(--foreground) 66%, transparent);
+	}
+
+	.pricing-plans__card-features-item-icon {
+		inline-size: 1.125rem; /* size-4.5 */
+		block-size: 1.125rem;
+		flex-shrink: 0;
+	}
+
+	.pricing-plans__card-features-item-label {
+		font-weight: 500;
+	}
+
+	/* Pricing compare */
+
+	.pricing-compare {
+		--background: var(--color-white);
+		--foreground: var(--color-gray-900);
+		--icon-yes: oklch(0.577 0.169 149.214);
+		--icon-no: oklch(0.577 0.245 27.325);
+
+		background-color: var(--background);
+		color: var(--foreground);
+		padding-block: 3rem; /* pt-12 pb-12 */
+	}
+
+	@media (min-width: 768px) {
+		.pricing-compare {
+			padding-block: 4rem; /* md:pt-16 md:pb-16 */
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-compare {
+			padding-block: 5rem; /* lg:pt-20 lg:pb-20 */
+		}
+	}
+
+	.pricing-compare__inner {
+		max-width: 1280px; /* max-w-screen-xl */
+		margin-inline: auto;
+		padding-inline: 2rem; /* px-8 */
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-compare__inner {
+			padding-inline: 3rem; /* lg:px-12 */
+		}
+	}
+
+	.pricing-compare__header {
+		max-width: 640px; /* max-w-screen-sm */
+		margin-inline: auto;
+		margin-block-end: 2rem; /* mb-8 */
+		text-align: center;
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-compare__header {
+			margin-block-end: 4rem; /* lg:mb-16 */
+		}
+	}
+
+	.pricing-compare__title {
+		margin-block-end: 1rem; /* mb-4 */
+		font-size: 2.25rem; /* text-4xl */
+		line-height: 2.5rem;
+		font-weight: 700;
+		letter-spacing: -0.025em; /* tracking-tight */
+	}
+
+	.pricing-compare__description {
+		font-size: 1rem;
+		line-height: 1.625;
+		font-weight: 500;
+		text-wrap: pretty;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent); /* text-foreground/80 */
+	}
+
+	@media (min-width: 640px) {
+		.pricing-compare__description {
+			font-size: 1.25rem; /* sm:text-xl */
+		}
+	}
+
+	.pricing-compare__scroll {
+		position: relative;
+		overflow-x: auto;
+	}
+
+	.pricing-compare__table {
+		width: 100%;
+		min-width: max-content;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent);
+	}
+
+	.pricing-compare__header-row {
+		border-radius: 0.5rem 0.5rem 0 0; /* rounded-t-lg */
+		background-color: color-mix(in oklch, var(--foreground) 2%, transparent);
+	}
+
+	.pricing-compare__th {
+		width: 33.333333%; /* w-1/3 */
+		padding-inline: 1rem; /* px-4 */
+		padding-block: 1.5rem; /* py-6 */
+	}
+
+	.pricing-compare__th--plan {
+		text-align: center;
+	}
+
+	.pricing-compare__plan-title {
+		font-size: 1.125rem; /* text-lg */
+		font-weight: 700;
+		color: var(--foreground);
+	}
+
+	.pricing-compare__row {
+		border-bottom: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+	}
+
+	.pricing-compare__row--section {
+		border-top: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+		background-color: color-mix(in oklch, var(--foreground) 5%, transparent);
+	}
+
+	.pricing-compare__section-cell {
+		padding: 1rem; /* p-4 */
+	}
+
+	.pricing-compare__section-title {
+		font-size: 1.125rem; /* text-lg */
+		font-weight: 600;
+		color: var(--foreground);
+	}
+
+	.pricing-compare__cell {
+		padding-inline: 1rem; /* px-4 */
+		padding-block: 1.25rem; /* py-5 */
+	}
+
+	.pricing-compare__cell--feature {
+		font-weight: 500;
+	}
+
+	.pricing-compare__cell--value {
+		text-align: center;
+	}
+
+	.pricing-compare__cell--value-text {
+		font-weight: 500;
+	}
+
+	.pricing-compare__tooltip-trigger {
+		position: relative;
+		display: block;
+		width: fit-content;
+	}
+
+	.pricing-compare__tooltip-trigger--center {
+		margin-inline: auto;
+	}
+
+	.pricing-compare__tooltip-trigger--inline {
+		display: inline-block;
+	}
+
+	.pricing-compare__tooltip-button {
+		position: absolute;
+		top: 50%;
+		left: 100%;
+		transform: translate(0.5rem, -50%); /* translate-x-2 -translate-y-1/2 */
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+		color: inherit;
+	}
+
+	.pricing-compare__tooltip-button:focus-visible {
+		outline: 2px solid var(--foreground);
+		outline-offset: 2px;
+	}
+
+	.pricing-compare__info-icon {
+		display: block;
+		inline-size: 1rem; /* size-4 */
+		block-size: 1rem;
+	}
+
+	.pricing-compare__icon {
+		display: block;
+		margin-inline: auto;
+		inline-size: 1.25rem; /* size-5 */
+		block-size: 1.25rem;
+	}
+
+	.pricing-compare__icon--yes {
+		color: var(--icon-yes);
+	}
+
+	.pricing-compare__icon--no {
+		color: var(--icon-no);
+	}
+
+	/* CTA grid */
+
+	.pricing-compare__cta {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 0 4rem; /* gap-x-16 */
+		border-radius: 0 0 0.5rem 0.5rem; /* rounded-b-lg */
+		background-color: color-mix(in oklch, var(--foreground) 5%, transparent);
+		padding: 2rem; /* p-8 */
+	}
+
+	@media (min-width: 768px) {
+		.pricing-compare__cta {
+			grid-template-columns: repeat(2, 1fr); /* md:grid-cols-2 */
+		}
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-compare__cta {
+			grid-template-columns: 1fr repeat(2, 1fr); /* lg:grid-cols-3 with spacer */
+		}
+	}
+
+	.pricing-compare__cta-spacer {
+		display: none;
+	}
+
+	@media (min-width: 1024px) {
+		.pricing-compare__cta-spacer {
+			display: block; /* lg:block */
+		}
+	}
+
+	.pricing-compare__cta-column {
+		text-align: center;
+	}
+
+	.pricing-compare__cta-column + .pricing-compare__cta-column {
+		margin-block-start: 2rem; /* mt-8 */
+		border-top: 1px solid color-mix(in oklch, var(--foreground) 10%, transparent);
+		padding-block-start: 2rem; /* pt-8 */
+	}
+
+	@media (min-width: 768px) {
+		.pricing-compare__cta-column + .pricing-compare__cta-column {
+			margin-block-start: 0; /* md:mt-0 */
+			border-top: none; /* md:border-t-0 */
+			padding-block-start: 0; /* md:pt-0 */
+		}
+	}
+
+	.pricing-compare__cta-title {
+		margin-block-end: 1rem; /* mb-4 */
+		font-size: 1.125rem; /* text-lg */
+		line-height: calc(1.75 / 1.125);
+		font-weight: 700;
+	}
+
+	.pricing-compare__cta-price {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-block-end: 1rem; /* mb-4 */
+		font-size: 2.25rem; /* text-4xl */
+		line-height: calc(2.5 / 2.25);
+		font-weight: 700;
+	}
+
+	.pricing-compare__cta-price-currency {
+		font-size: 0.9em;
+	}
+
+	.pricing-compare__cta-price-value {
+		margin-inline-start: 0.25rem; /* ml-1 */
+	}
+
+	.pricing-compare__cta-price-unit {
+		margin-inline-start: 0.75rem; /* ml-3 */
+		font-size: 1.125rem; /* text-lg */
+		line-height: calc(1.75 / 1.125);
+		color: color-mix(in oklch, var(--foreground) 40%, transparent);
+	}
+
+	.pricing-compare__cta-billing {
+		margin-block-end: 1rem; /* mb-4 */
+	}
+
+	.pricing-compare__cta-billing-note {
+		font-weight: 700;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent);
+	}
+
+	.pricing-compare__cta-billing-note-accent {
+		display: block;
+		transform: translateY(-0.5rem); /* -translate-y-2 */
+		font-size: 0.875rem; /* text-sm */
+		line-height: calc(1.25 / 0.875);
+		color: var(--color-primary);
+	}
+
+	.pricing-compare__cta-billing-note-extra {
+		display: block;
+		font-size: 0.875rem; /* text-sm */
+		line-height: calc(1.25 / 0.875);
+		font-weight: 600;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent);
+	}
+
+	.pricing-compare__cta-description {
+		margin-block-end: 1rem; /* mb-4 */
+		font-size: 0.875rem; /* text-sm */
+		line-height: calc(1.25 / 0.875);
+		font-weight: 500;
+		color: color-mix(in oklch, var(--foreground) 80%, transparent);
+	}
+
+	.pricing-compare__cta-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		inline-size: 100%;
+		padding-inline: 1.25rem;
+		padding-block: 0.46875rem 0.53125rem;
+		border-radius: 9999px;
+		border: 1px solid transparent;
+		background-color: var(--color-tertiary);
+		color: #fff;
+		font-weight: 600;
+		font-size: 1rem;
+		line-height: calc(1.5 / 1);
+		cursor: pointer;
+		text-decoration: none;
+		transition:
+			background-color 400ms ease,
+			border-color 400ms ease,
+			color 400ms ease;
+	}
+
+	.pricing-compare__cta-button:hover {
+		background-color: var(--color-tertiary-dark);
+		border-color: transparent;
+		color: #fff;
+	}
+
+	.pricing-compare__cta-button:focus-visible {
+		outline: 4px solid color-mix(in oklch, var(--color-tertiary-200) 80%, transparent);
+		outline-offset: 0;
+	}
+</style>

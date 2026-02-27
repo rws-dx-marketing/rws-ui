@@ -25,25 +25,25 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- Pricing plans -->
-	<section class="bg-background pt-20 pb-12 text-foreground md:pb-16 lg:pb-20" data-theme="dots">
+	<section class="bg-background pt-0 pb-12 text-foreground md:pb-16 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Pricing options and currency -->
-			<div class="mb-12 flex flex-col flex-wrap items-center gap-10 sm:flex-row sm:items-baseline">
-				<div class="btn-group rounded-full bg-white" role="group">
-					<button type="button" class="btn btn-outline" data-billing-option="monthly">Monthly</button>
+			<div class="mb-12 flex flex-wrap items-baseline gap-10">
+				<div hidden class="btn-group" role="group">
+					<button type="button" class="btn btn-outline">Monthly</button>
 
-					<button type="button" class="btn btn-primary relative" data-billing-option="annual">
+					<button type="button" class="btn btn-primary relative">
 						Annual
-						<span class="pointer-events-none absolute -top-11.5 left-[calc(50%-0.25rem)] -translate-x-1/2 -rotate-3 font-cursive text-lg/none font-semibold whitespace-nowrap text-accent">
-							Most popular
-							<svg class="relative left-0.5 mx-auto mt-1 size-3.5 rotate-3" viewBox="0 0 97 182" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<span class="pointer-events-none absolute -top-9 left-1/2 -translate-x-55/100 -rotate-3 font-cursive text-lg/none font-semibold whitespace-nowrap text-accent">
+							Best value
+							<svg class="relative left-0.5 mx-auto mt-3 size-3.5 rotate-3" viewBox="0 0 97 182" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M39.9587 172.361C44.3791 171.771 47.3841 167.346 46.6995 163.023C46.7296 163.376 46.7597 163.72 46.7896 164.065C46.7755 164.393 46.7605 164.725 46.7385 165.052C53.5909 114.861 57.8637 64.5023 58.0993 13.8232C59.0143 9.16065 58.361 3.29881 53.6065 1.00491C48.6069 -1.82103 42.0165 1.63234 41.5449 7.38224C42.193 13.1849 41.749 18.9534 41.5613 24.8659C40.91 44.8302 40.9179 64.8018 39.5169 84.7291C38.0036 104.575 34.9065 124.253 32.9966 144.056C33.198 153.294 24.524 172.626 39.9587 172.361Z" fill="currentColor"></path>
 								<path d="M44.4736 181.994C61.4374 176.52 72.4714 159.417 83.0168 145.85C87.7103 138.239 95.6013 131.473 96.7739 122.296C96.7644 115.181 87.5745 111.286 82.6854 116.55C72.5714 134.234 60.2906 152.283 43.7251 164.825C34.0609 150.446 25.8995 135.007 14.4468 121.838C7.7852 113.696 -4.67948 123.618 1.82514 131.941C5.70286 136.807 9.42418 141.786 13.1328 146.783C22.8354 157.746 27.5705 181.399 44.4736 181.994Z" fill="currentColor"></path>
 							</svg>
 						</span>
 					</button>
 
-					<button type="button" class="btn btn-outline" data-billing-option="annual-saver">Annual Saver</button>
+					<button type="button" class="btn btn-outline">Annual Saver</button>
 				</div>
 
 				<!-- <div>
@@ -54,47 +54,47 @@ import Layout from '../../layouts/Trados.astro'
 					</label>
 				</div> -->
 
-				<div hidden>
+				<div>
 					<label class="inline-flex cursor-pointer items-center">
-						<input type="checkbox" value="" class="peer sr-only" />
-						<div class="peer relative h-5.5 w-10 rounded-full bg-foreground/10 transition-colors peer-checked:bg-accent peer-focus:ring-0 peer-focus:outline-none after:absolute after:inset-s-0.5 after:top-0.5 after:size-4.5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-buffer rtl:peer-checked:after:-translate-x-full"></div>
-						<span class="ms-3 text-lg font-semibold select-none">Pay annually to <span class="font-semibold text-accent">save 20%</span></span>
+						<input type="checkbox" value="" class="peer sr-only" data-billing-toggle />
+						<div class="peer relative h-5.5 w-10 rounded-full bg-foreground/10 transition-colors peer-checked:bg-accent peer-focus:ring-0 peer-focus:outline-none after:absolute after:start-0.5 after:top-0.5 after:size-4.5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-buffer rtl:peer-checked:after:-translate-x-full"></div>
+						<span class="ms-3 text-lg font-semibold select-none">Pay annually to <span class="font-semibold text-accent">save 25%</span></span>
 					</label>
 				</div>
 
-				<ul class="flex items-center gap-4 sm:ml-auto">
+				<ul class="ml-auto flex items-center gap-4">
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-usd" type="radio" value="usd" name="currency" class="focus:ring-2- focus:ring-accent/50- size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" checked />
-							<label for="currency-usd" class="font-semibold">USD</label>
+							<label for="currency-usd" class="pl-2 font-semibold">USD</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
-							<label for="currency-gbp" class="font-semibold">GBP</label>
+							<label for="currency-gbp" class="pl-2 font-semibold">GBP</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
-							<label for="currency-eur" class="font-semibold">EUR</label>
+							<label for="currency-eur" class="pl-2 font-semibold">EUR</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
-							<label for="currency-jpy" class="font-semibold">JPY</label>
+							<label for="currency-jpy" class="pl-2 font-semibold">JPY</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
 							<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
-							<label for="currency-cad" class="font-semibold">CAD</label>
+							<label for="currency-cad" class="pl-2 font-semibold">CAD</label>
 						</div>
 					</li>
 				</ul>
@@ -103,7 +103,7 @@ import Layout from '../../layouts/Trados.astro'
 			<!-- Pricing cards -->
 			<div class="grid items-center gap-6 md:grid-cols-2 xl:gap-10">
 				<!-- Pricing Card -->
-				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 bg-card p-6 text-center text-card-foreground xl:p-10">
+				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 p-6 text-center xl:p-10">
 					<!-- <div class="absolute inset-x-0 top-0 h-4 bg-linear-to-r from-tertiary via-primary to-secondary"></div> -->
 
 					<div>
@@ -111,25 +111,13 @@ import Layout from '../../layouts/Trados.astro'
 
 						<span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 							<span class="text-[90%]">$</span>
-							<!-- <span class="ml-1 line-through">34</span>
-							<span class="ml-1.5 text-accent">27</span> -->
-							<span class="ml-1" data-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
-							<!-- <span class="ml-3 flex flex-col items-start text-lg text-foreground/50">
-								per month
-								<span class="block text-left text-xs font-semibold text-foreground/50">Offer ends on 30/12/2026*</span>
-							</span> -->
-							<span class="ml-3 text-lg text-foreground/50">per month</span>
+							<span class="ml-1" data-price data-price-monthly="40" data-price-yearly="30">40</span>
+							<span class="ml-3 text-lg text-foreground/50" data-billing-period>per month</span>
 						</span>
 
-						<div class="mb-5">
-							<!-- <span class="font-semibold text-foreground/80">Billed yearly, <span class="text-accent">save $123</span></span> -->
-							<span class="text-lg font-bold text-foreground/80" data-billing-note>
-								<span data-note="monthly">Monthly contract — monthly payment</span>
-								<span data-note="annual">Annual contract — monthly payment</span>
-								<span data-note="annual-saver" class="block -translate-y-2.5 text-sm text-accent">$360 billed annually</span>
-								<span data-note="annual-saver">Annual contract — annual payment</span>
-								<span class="block text-base font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
-							</span>
+						<div class="mb-5" data-billing-annual-note>
+							<span class="text-lg font-bold text-foreground/80">Billed yearly, <span class="text-accent">save $120</span></span>
+							<!-- <span class="font-semibold text-foreground/80">Monthly payment — annual contract</span> -->
 						</div>
 
 						<div class="prose font-medium text-foreground/80 md:prose-lg">
@@ -210,36 +198,23 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 
 				<!-- Pricing Card -->
-				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 bg-card p-8 text-center md:order-0 xl:p-10">
+				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 bg-card p-8 text-center md:order-none xl:p-10">
 					<!-- <span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80">Most popular</span> -->
 
 					<div>
-						<!-- <span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none">Most popular</span> -->
+						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none">Most popular</span>
 
-						<h3 class="mb-6 text-2xl font-semibold xl:mt-2 xl:mb-8 xl:text-3xl">Trados Studio Freelance</h3>
+						<h3 class="mt-4- mb-6 text-2xl font-semibold xl:text-3xl">Trados Studio Freelance</h3>
 
 						<span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 							<span class="text-[90%]">$</span>
-							<span class="ml-1" data-price data-price-monthly="54" data-price-annual="47" data-price-annual-saver="40">47</span>
-							<span class="ml-3 text-lg text-foreground/50">per month</span>
+							<span class="ml-1" data-price data-price-monthly="54" data-price-yearly="40">54</span>
+							<span class="ml-3 text-lg text-foreground/50" data-billing-period>per month</span>
 						</span>
 
-						<!-- <span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
-							<span class="text-[90%]">$</span>
-							<span class="ml-1 line-through">47</span>
-							<span class="ml-1.5 text-accent">37</span>
-							<span class="ml-3 text-lg text-foreground/33">per month</span>
-						</span> -->
-
-						<div class="mb-5 xl:mb-8">
-							<!-- <span class="font-semibold text-foreground/80">Billed yearly, <span class="text-accent">save $123</span></span> -->
-							<span class="text-lg font-bold text-foreground/80" data-billing-note>
-								<span data-note="monthly">Monthly contract — monthly payment</span>
-								<span data-note="annual">Annual contract — monthly payment</span>
-								<span data-note="annual-saver" class="block -translate-y-2.5 text-sm text-accent">$480 billed annually</span>
-								<span data-note="annual-saver">Annual contract — annual payment</span>
-								<span class="block text-base font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
-							</span>
+						<div class="mb-5" data-billing-annual-note>
+							<span class="text-lg font-bold text-foreground/80">Billed yearly, <span class="text-accent">save $168</span></span>
+							<!-- <span class="font-semibold text-foreground/80">Monthly payment — annual contract</span> -->
 						</div>
 
 						<div class="prose font-medium text-foreground/80 md:prose-lg">
@@ -247,21 +222,21 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="xl:mt-3">
+					<div>
 						<a href="#" class="btn btn-tertiary btn-lg w-full">Start your free trial</a>
 					</div>
 
 					<div>
 						<ul role="list" class="space-y-4 text-left">
-							<li class="text-foreground/66">
+							<!-- <li class="text-foreground/66">
 								<span class="font-medium">The same features as Trados Go plus:</span>
-							</li>
+							</li> -->
 
-							<!-- <li class="flex items-center space-x-3">
+							<li class="flex items-center space-x-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="88" y1="128" x2="168" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="88" x2="128" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 
 								<span class="font-medium">The same features as Trados Go plus:</span>
-							</li> -->
+							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"></path></svg> -->
 
@@ -381,7 +356,7 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- Pricing table -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="bg-background pt-6 pb-12 text-foreground md:pt-8 md:pb-16 lg:pt-12 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
 				<h2 class="mb-4 text-4xl font-bold tracking-tight">Choose the right option</h2>
@@ -405,468 +380,354 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 			</div>
 
-			<div class="relative overflow-x-auto" role="region" aria-label="Comparison table">
-				<table class="w-full min-w-max text-left text-foreground/80">
-					<thead>
-						<tr class="rounded-t-lg bg-foreground/2">
-							<th scope="col" class="w-1/3 px-4 py-6"></th>
-							<th scope="col" class="w-1/3 px-4 py-6 text-center">
-								<h3 class="text-lg font-bold text-foreground">Trados Go</h3>
-							</th>
-							<th scope="col" class="px-4 py-6 text-center">
-								<h3 class="text-lg font-bold text-foreground">Trados Studio Freelance</h3>
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="border-y border-foreground/10 bg-foreground/5">
-							<td colspan="3" class="p-4">
-								<h4 class="text-lg font-semibold text-foreground">Capacity</h4>
-							</td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Languages</td>
-							<td class="px-4 py-5 text-center">Unlimited</td>
-							<td class="px-4 py-5 text-center">Unlimited</td>
-						</tr>
+			<div class="overflow-x-auto">
+				<div class="min-w-max overflow-hidden">
+					<div class="grid grid-cols-3 gap-x-16 rounded-t-lg bg-foreground/2 px-4 py-6">
+						<div></div>
+						<div class="text-center">
+							<h3 class="text-lg font-bold">Trados Go</h3>
+						</div>
+						<div class="text-center">
+							<h3 class="text-lg font-bold">Trados Studio Freelance</h3>
+						</div>
+					</div>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Projects</td>
-							<td class="px-4 py-5 text-center">Cloud</td>
-							<td class="px-4 py-5 text-center">
-								<span class="relative mx-auto block w-fit">
-									Local, cloud and server
-									<button type="button" popovertarget="tooltip-local-projects" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about local, cloud and server projects">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-local-projects" popover="auto" role="tooltip" class="tooltip">Work with cloud projects directly in the browser, or use the desktop application to handle local file-based projects, cloud projects, and server projects received from Trados GroupShare.</div>
-							</td>
-						</tr>
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4">
+						<h4 class="text-lg font-semibold">Capacity</h4>
+					</div>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Cloud throughput
-									<button type="button" popovertarget="tooltip-cloud-throughput" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about cloud throughput">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-cloud-throughput" popover="auto" role="tooltip" class="tooltip">Cloud translation throughput is the total number of target words that can be processed through Trados cloud per year.</div>
-							</td>
-							<td class="px-4 py-5 text-center">1 million target words per year</td>
-							<td class="px-4 py-5 text-center">1 million target words per year</td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Desktop throughput
-									<button type="button" popovertarget="tooltip-desktop-throughput" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about desktop throughput">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-desktop-throughput" popover="auto" role="tooltip" class="tooltip">Desktop translation throughput is the total number of target words that can be processed through the Trados desktop application per year.</div>
-							</td>
-							<td class="px-4 py-5 text-center">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-red-500"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-							</td>
-							<td class="px-4 py-5 text-center font-medium">Unlimited</td>
-						</tr>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
+						<div class="font-medium text-foreground/80">Languages</div>
 
-						<tr class="border-y border-foreground/10 bg-foreground/5">
-							<td colspan="3" class="p-4">
-								<h4 class="text-lg font-semibold text-foreground">Translation features</h4>
-							</td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Online editor
-									<button type="button" popovertarget="tooltip-online-editor" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about the online editor">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-online-editor" popover="auto" role="tooltip" class="tooltip">Accessible via any browser on any device.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Desktop editor
-									<button type="button" popovertarget="tooltip-desktop-editor" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about the desktop editor">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-desktop-editor" popover="auto" role="tooltip" class="tooltip">
-									<p><strong>Officially supported on Microsoft Windows.</strong></p>
-									<p>While the desktop application is not officially supported on MacOS, it is possible for customers to run the desktop application via Microsoft Windows using Parallels. Find out more <a href="https://www.trados.com/blog/how-to-run-trados-studio-on-an-apple-mac/" target="_blank">here</a>.</p>
-								</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-red-500"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
+						<div class="text-center font-medium text-foreground/80">Unlimited</div>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Translation engines
-									<button type="button" popovertarget="tooltip-translation-engines" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about translation engines">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-translation-engines" popover="auto" role="tooltip" class="tooltip">Translation memory, terminology management and machine translation integration.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
+						<div class="text-center font-medium text-foreground/80">Unlimited</div>
+					</div>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Terminology management</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center">
-								<span class="relative mx-auto block w-fit">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
+						<div class="font-medium text-foreground/80">Projects</div>
 
-									<button type="button" popovertarget="tooltip-terminology-management" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about terminology management">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
+						<div class="text-center font-medium text-foreground/80">Cloud</div>
 
-								<div id="tooltip-terminology-management" popover="auto" role="tooltip" class="tooltip"><a href="https://www.trados.com/product/multiterm/" target="_blank">MultiTerm</a> provides a central location to store and manage multilingual terminology, helping you to deliver consistent, high-quality content from source through to translation. MultiTerm is included with all Trados Freelance subscription packages, and is available to download and install from your <a href="http://account.rws.com/" target="_blank">Trados subscription account</a>. In addition, terminology management is available in the browser giving you the flexibility to choose how you want to work.</div>
-							</td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Project templates</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Quality assurance
-									<button type="button" popovertarget="tooltip-quality-assurance" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about quality assurance">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-quality-assurance" popover="auto" role="tooltip" class="tooltip">Checks designed to help linguists ensure accurate, consistent, high-quality translations including segment verification, number verification, tag verification, inconsistencies, punctuation, word lists, and implementation of regular expressions.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Customise with apps
-									<button type="button" popovertarget="tooltip-customise-apps" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about customising with apps">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-customise-apps" popover="auto" role="tooltip" class="tooltip">Tailor your translation environment to suit your needs with a range of apps available on the <a href="https://appstore.rws.com/" target="_blank">RWS AppStore</a>.</div>
-							</td>
-							<td class="px-4 py-5 text-center">10+</td>
-							<td class="px-4 py-5 text-center">150+</td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Reviewer mode
-									<button type="button" popovertarget="tooltip-reviewer-mode" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about reviewer mode">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-reviewer-mode" popover="auto" role="tooltip" class="tooltip">Review translations in a focused, streamlined editor view - designed to highlight only the information you need for fast, effective reviewing.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-red-500"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Open project packages
-									<button type="button" popovertarget="tooltip-open-packages" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about opening project packages">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-open-packages" popover="auto" role="tooltip" class="tooltip">Open and work with project packages that you receive. Project packages contain files that you need to translate or review, learn more <a href="https://docs.rws.com/en-US/trados-studio-2021-sr2-813470/opening-project-packages-and-return-packages-515050" target="_blank">here</a>.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-red-500"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
+						<div class="flex items-center justify-center text-center font-medium text-foreground/80">
+							Local, cloud and server
 
-						<tr class="border-y border-foreground/10 bg-foreground/5">
-							<td colspan="3" class="p-4"><h4 class="text-lg font-semibold text-foreground">Linguistic AI</h4></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Smart Help
-									<button type="button" popovertarget="tooltip-smart-help" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Smart Help">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-smart-help" popover="auto" role="tooltip" class="tooltip">Access intelligent assistance through our AI-powered chatbot while working in the browser.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Language Weaver
-									<button type="button" popovertarget="tooltip-language-weaver" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Language Weaver">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-language-weaver" popover="auto" role="tooltip" class="tooltip">
-									<p><a href="https://www.rws.com/language-weaver/" target="_blank" rel="noopener noreferrer">Enterprise-grade AI-powered machine translation</a> that is secure by design, infinitely adaptive and fully scalable.</p>
-									<p>6 million annual characters included.</p>
-								</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									3rd party machine translation
-									<button type="button" popovertarget="tooltip-3rd-party-mt" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about 3rd party machine translation">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-3rd-party-mt" popover="auto" role="tooltip" class="tooltip">Dozens of MT apps available through <a href="https://appstore.rws.com/" target="_blank" rel="noopener noreferrer">RWS AppStore</a>, including DeepL, Google, Microsoft, Amazon, SYSTRAN, Intento, plus the option to add custom-MT.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									3rd party large language models
-									<button type="button" popovertarget="tooltip-3rd-party-llm" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about 3rd party large language models">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-3rd-party-llm" popover="auto" role="tooltip" class="tooltip">Connect to an LLM as your translation provider.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-red-500"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									AI Assistant
-									<button type="button" popovertarget="tooltip-ai-assistant" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about AI Assistant">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-ai-assistant" popover="auto" role="tooltip" class="tooltip">AI Assistant, available in the desktop application, combines an LLM with your linguistic resources to enhance your translation output, automatically implementing terminology, adjusting tone of voice, or shortening sentences, for example. Learn more <a href="https://www.trados.com/product/discover/AI-translation/" target="_blank" rel="noopener noreferrer">here</a>.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-red-500"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-y border-foreground/10 bg-foreground/5">
-							<td colspan="3" class="p-4"><h4 class="text-lg font-semibold text-foreground">Integrations</h4></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									API access
-									<button type="button" popovertarget="tooltip-api-access" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about API access">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-api-access" popover="auto" role="tooltip" class="tooltip">View our <a href="https://eu.cloud.trados.com/lc/api-docs/api-rate-limits" target="_blank" rel="noopener noreferrer">API rate limits</a>.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Built-in connectors
-									<button type="button" popovertarget="tooltip-built-in-connectors" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Built-in connectors">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-built-in-connectors" popover="auto" role="tooltip" class="tooltip">When working in the browser, easily select files for translation from OneDrive, Dropbox, Box and Google Drive. Find out more <a href="https://www.trados.com/integrations/connectors/?take=9&connectorType=built-in-connectors" target="_blank" rel="noopener noreferrer">here</a>.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
+							<!-- Tooltip trigger -->
+							<button data-tooltip-target="tooltip-local-projects" data-tooltip-trigger="click" data-tooltip-placement="top" type="button" class="relative left-3 w-0">
+								<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+								</svg>
+							</button>
 
-						<tr class="border-y border-foreground/10 bg-foreground/5">
-							<td colspan="3" class="p-4"><h4 class="text-lg font-semibold text-foreground">Customer success</h4></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Automatic browser updates
-									<button type="button" popovertarget="tooltip-automatic-browser-updates" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Automatic browser updates">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-automatic-browser-updates" popover="auto" role="tooltip" class="tooltip">Enjoy automatic updates for the cloud component of your solution.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center">
-								<span class="relative inline-block">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-									<button type="button" popovertarget="tooltip-desktop-updates" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about desktop application updates">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-desktop-updates" popover="auto" role="tooltip" class="tooltip">For the desktop application, you have the flexibility to manually update and choose when you access the latest features and enhancements.</div>
-							</td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Basic support
-									<button type="button" popovertarget="tooltip-basic-support" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Basic support">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-basic-support" popover="auto" role="tooltip" class="tooltip">Receive installation and licensing support, plus access our rich libraries of online resources, including the <a href="https://community.rws.com/product-groups/trados-portfolio/" target="_blank" rel="noopener noreferrer">Trados community</a> and <a href="https://gateway.rws.com/" target="_blank" rel="noopener noreferrer">Knowledge Base</a>.</div>
-							</td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-							<td class="px-4 py-5 text-center"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg></td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
-								<span class="relative block w-fit">
-									Advanced support
-									<button type="button" popovertarget="tooltip-advanced-support" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Advanced support">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-advanced-support" popover="auto" role="tooltip" class="tooltip">Access to our highly skilled support team for technical product troubleshooting and queries.</div>
-							</td>
-							<td class="px-4 py-5 text-center">
-								<span class="relative inline-block">
-									Add-on
-									<button type="button" popovertarget="tooltip-advanced-support-go" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about onboarding support">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-advanced-support-go" popover="auto" role="tooltip" class="tooltip">
-									<p>Monthly plan and Annual plan – Freelance subscription support is available as an add-on.</p>
-									<p>Annual Saver plan – Freelance subscription support is included.</p>
-								</div>
-							</td>
-							<td class="px-4 py-5 text-center">
-								<span class="relative inline-block">
-									Add-on
-									<button type="button" popovertarget="tooltip-advanced-support-studio" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about onboarding support">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-advanced-support-studio" popover="auto" role="tooltip" class="tooltip">
-									<p>Monthly plan and Annual plan – Freelance subscription support is available as an add-on.</p>
-									<p>Annual Saver plan – Freelance subscription support is included.</p>
-								</div>
-							</td>
-						</tr>
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Onboarding</td>
-							<td class="px-4 py-5 text-center">
-								<span class="relative inline-block">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-									<button type="button" popovertarget="tooltip-onboarding-addon-go" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about onboarding support">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-onboarding-addon-go" popover="auto" role="tooltip" class="tooltip">Get started with guided product tours in the browser to help you get the most out of Trados.</div>
-							</td>
-							<td class="px-4 py-5 text-center">
-								<span class="relative inline-block">
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5 text-green-500"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
-									<button type="button" popovertarget="tooltip-onboarding-addon-studio" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about onboarding support">
-										<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
-										</svg>
-									</button>
-								</span>
-								<div id="tooltip-onboarding-addon-studio" popover="auto" role="tooltip" class="tooltip">Get started with guided product tours in the browser, and explore videos and tips in the desktop application to help you get the most out of Trados.</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+							<!-- Tooltip content -->
+							<div id="tooltip-local-projects" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm font-medium text-pretty text-background opacity-0">
+								Work with cloud projects directly in the browser, or use the desktop application to handle local file-based projects, cloud projects, and server projects received from Trados GroupShare.
+								<div class="tooltip-arrow" data-popper-arrow></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
+						<div class="flex items-center font-medium text-foreground/80">
+							Cloud throughput
+
+							<!-- Tooltip trigger -->
+							<button data-tooltip-target="tooltip-cloud-throughput" data-tooltip-trigger="click" data-tooltip-placement="top" type="button" class="relative left-3 w-0">
+								<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+									<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path>
+								</svg>
+							</button>
+
+							<!-- Tooltip content -->
+							<div id="tooltip-cloud-throughput" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm font-medium text-pretty text-background opacity-0">
+								Cloud translation throughput is the total number of target words that can be processed through Trados cloud per year.
+								<div class="tooltip-arrow" data-popper-arrow></div>
+							</div>
+						</div>
+
+						<div class="text-center font-medium text-foreground/80">1 million target words per year</div>
+
+						<div class="text-center font-medium text-foreground/80">1 million target words per year</div>
+					</div>
+					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5">
+						<div class="font-medium text-foreground/80">
+							Desktop throughput
+							<!-- <span class="ml-2 rounded-full bg-accent/10 px-1.5 pt-0.25 pb-0.5 text-xs font-semibold text-accent">New</span> -->
+						</div>
+
+						<div class="text-red-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-center font-medium text-foreground/80">Unlimited</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
+						<h4 class="text-lg font-semibold">Translation features</h4>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Online editor</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Desktop editor</div>
+
+						<div class="text-red-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Translation engines</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Terminology management</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Project templates</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Quality assurance</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Customise with apps</div>
+
+						<div class="text-center font-medium text-foreground/80">10+</div>
+
+						<div class="text-center font-medium text-foreground/80">150+</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Reviewer mode</div>
+
+						<div class="text-red-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Open project packages</div>
+
+						<div class="text-red-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
+						<h4 class="text-lg font-semibold">Linguistic AI</h4>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Smart Help</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Language Weaver</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">3rd party machine translation</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">3rd party large language models</div>
+
+						<div class="text-red-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">AI assistant</div>
+
+						<div class="text-red-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
+						<h4 class="text-lg font-semibold">Integrations</h4>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">API access</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Built-in connectors</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
+						<h4 class="text-lg font-semibold">Customer success</h4>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Automatic browser updates</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Basic support</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Advanced support</div>
+
+						<div class="text-center font-medium text-foreground/80">Add-on</div>
+
+						<div class="text-center font-medium text-foreground/80">Add-on</div>
+					</div>
+
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
+						<div class="font-medium text-foreground/80">Onboarding</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+
+						<div class="text-green-500">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+						</div>
+					</div>
+				</div>
 			</div>
 
-			<div class="grid grid-cols-1 gap-x-16 rounded-b-lg bg-foreground/5 p-8 md:grid-cols-2 lg:grid-cols-3">
-				<div class="hidden lg:block"></div>
+			<div class="grid grid-cols-1 gap-x-16 rounded-b-lg bg-foreground/5 p-8 md:grid-cols-3">
+				<div class="hidden md:block"></div>
 
-				<div class="mb-8 border-b border-foreground/10 pb-8 text-center md:mb-0 md:border-b-0 md:pb-0">
+				<div class="mb-8 text-center md:mb-0">
 					<h3 class="mb-4 text-lg font-bold">Trados Go</h3>
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
 						<span class="text-[90%]">$</span>
-						<span class="ml-1" data-price="" data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
 						<!-- <span class="ml-1 line-through">34</span>
 						<span class="ml-1.5 text-accent">27</span> -->
+						<span class="ml-1" data-price data-price-monthly="40" data-price-yearly="30">40</span>
 						<span class="ml-3 text-lg text-foreground/40">per month</span>
 					</span>
 
-					<div class="mb-4">
-						<span class="font-bold text-foreground/80" data-billing-note>
-							<span data-note="monthly">Monthly contract — monthly payment</span>
-							<span data-note="annual">Annual contract — monthly payment</span>
-							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$360 billed annually</span>
-							<span data-note="annual-saver">Annual contract — annual payment</span>
-							<span class="block text-sm font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
-						</span>
+					<div class="mb-4" data-billing-annual-note>
+						<span class="font-bold text-foreground/80">Billed yearly, <span class="text-accent">save $120</span></span>
 					</div>
 
 					<p class="mb-4 text-sm font-medium text-foreground/80">Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
@@ -875,23 +736,17 @@ import Layout from '../../layouts/Trados.astro'
 					<a href="#" class="btn btn-tertiary w-full">Start your free trial</a>
 				</div>
 
-				<div class="text-center">
+				<div class="mb-8 text-center md:mb-0">
 					<h3 class="mb-4 text-lg font-bold">Trados Studio Freelance</h3>
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
 						<span class="text-[90%]">$</span>
-						<span class="ml-1" data-price data-price-monthly="54" data-price-annual="47" data-price-annual-saver="40">47</span>
+						<span class="ml-1" data-price data-price-monthly="54" data-price-yearly="40">54</span>
 						<span class="ml-3 text-lg text-foreground/40">per month</span>
 					</span>
 
-					<div class="mb-4">
-						<span class="font-bold text-foreground/80" data-billing-note>
-							<span data-note="monthly">Monthly contract — monthly payment</span>
-							<span data-note="annual">Annual contract — monthly payment</span>
-							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$480 billed annually</span>
-							<span data-note="annual-saver">Annual contract — annual payment</span>
-							<span class="block text-sm font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
-						</span>
+					<div class="mb-4" data-billing-annual-note>
+						<span class="font-bold text-foreground/80">Billed yearly, <span class="text-accent">save $168</span></span>
 					</div>
 
 					<p class="mb-4 text-sm font-medium text-foreground/80">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
@@ -903,22 +758,22 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- Social proof -->
-	<section hidden class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
 		<div class="mx-auto max-w-screen-xl items-center px-8 lg:grid lg:grid-cols-4 lg:gap-16 lg:px-12 xl:gap-24">
 			<div class="col-span-2 mb-8">
-				<p class="text-lg font-medium text-accent">Trusted Worldwide</p>
-				<h2 class="mt-3 mb-4 text-3xl font-bold tracking-tight xl:text-4xl">Trusted by over 600 million users and 10,000 teams</h2>
-				<p class="font-medium text-pretty text-foreground/80 sm:text-xl">Our rigorous security and compliance standards are at the heart of all we do. We work tirelessly to protect you and your customers.</p>
-				<div class="mt-6 space-y-4 border-t border-foreground/10 pt-6">
+				<p class="mb-3 text-lg font-bold text-foreground/80">Trusted worldwide</p>
+				<h2 class="mb-4 text-3xl font-bold tracking-tight xl:text-4xl">Trusted by over 600 million users and 10,000 teams</h2>
+				<p class="mb-8 font-medium text-pretty text-foreground/80 md:text-lg xl:text-xl">Our rigorous security and compliance standards are at the heart of all we do. We work tirelessly to protect you and your customers.</p>
+				<div class="space-y-4 border-t border-foreground/10 pt-8">
 					<div>
 						<a href="#" class="btn btn-link btn-icon-right">
-							Explore Legality Guide
+							Explore our legality guide
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 						</a>
 					</div>
 					<div>
 						<a href="#" class="btn btn-link btn-icon-right">
-							Visit the Trust Center
+							Read our FAQs
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 						</a>
 					</div>
@@ -927,35 +782,50 @@ import Layout from '../../layouts/Trados.astro'
 
 			<div class="col-span-2 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
 				<div>
-					<svg class="mb-2 size-10 text-accent md:size-12" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"></path></svg>
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"></path></svg> -->
+						<svg class="size-5 text-accent lg:size-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M208,40H48A16,16,0,0,0,32,56v48a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V56A16,16,0,0,0,208,40ZM180,92a12,12,0,1,1,12-12A12,12,0,0,1,180,92Z"></path><path d="M208,136H48a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V152A16,16,0,0,0,208,136Zm-28,52a12,12,0,1,1,12-12A12,12,0,0,1,180,188Z"></path></svg>
+					</div>
 					<h3 class="mb-2 text-2xl font-bold">99.99% uptime</h3>
-					<p class="font-medium text-balance text-foreground/80">For Flowbite, with zero maintenance downtime</p>
+					<p class="font-medium text-pretty text-foreground/80">For Trados Studio, with zero maintenance downtime</p>
 				</div>
+
 				<div>
-					<svg class="mb-2 size-10 text-accent md:size-12" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg>
-					<h3 class="mb-2 text-2xl font-bold">600M+ Users</h3>
-					<p class="font-medium text-balance text-foreground/80">Trusted by over 600 milion users around the world</p>
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg> -->
+						<svg class="size-5 text-accent lg:size-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M164.47,195.63a8,8,0,0,1-6.7,12.37H10.23a8,8,0,0,1-6.7-12.37,95.83,95.83,0,0,1,47.22-37.71,60,60,0,1,1,66.5,0A95.83,95.83,0,0,1,164.47,195.63Zm87.91-.15a95.87,95.87,0,0,0-47.13-37.56A60,60,0,0,0,144.7,54.59a4,4,0,0,0-1.33,6A75.83,75.83,0,0,1,147,150.53a4,4,0,0,0,1.07,5.53,112.32,112.32,0,0,1,29.85,30.83,23.92,23.92,0,0,1,3.65,16.47,4,4,0,0,0,3.95,4.64h60.3a8,8,0,0,0,7.73-5.93A8.22,8.22,0,0,0,252.38,195.48Z"></path></svg>
+					</div>
+					<h3 class="mb-2 text-2xl font-bold">600M+ users</h3>
+					<p class="font-medium text-pretty text-foreground/80">Trusted by over 600 milion users around the world</p>
 				</div>
+
 				<div>
-					<svg class="mb-2 size-10 text-accent md:size-12" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"></path></svg>
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"></path></svg> -->
+						<svg class="size-5 text-accent lg:size-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.62,87.62,0,0,1-6.4,32.94l-44.7-27.49a15.92,15.92,0,0,0-6.24-2.23l-22.82-3.08a16.11,16.11,0,0,0-16,7.86h-8.72l-3.8-7.86a15.91,15.91,0,0,0-11-8.67l-8-1.73L96.14,104h16.71a16.06,16.06,0,0,0,7.73-2l12.25-6.76a16.62,16.62,0,0,0,3-2.14l26.91-24.34A15.93,15.93,0,0,0,166,49.1l-.36-.65A88.11,88.11,0,0,1,216,128ZM40,128a87.53,87.53,0,0,1,8.54-37.8l11.34,30.27a16,16,0,0,0,11.62,10l21.43,4.61L96.74,143a16.09,16.09,0,0,0,14.4,9h1.48l-7.23,16.23a16,16,0,0,0,2.86,17.37l.14.14L128,205.94l-1.94,10A88.11,88.11,0,0,1,40,128Z"></path></svg>
+					</div>
 					<h3 class="mb-2 text-2xl font-bold">100+ countries</h3>
-					<p class="font-medium text-balance text-foreground/80">Have used Flowbite to create functional websites</p>
+					<p class="font-medium text-pretty text-foreground/80">Have used Trados to translate projects</p>
 				</div>
+
 				<div>
-					<svg class="mb-2 size-10 text-accent md:size-12" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
-					<h3 class="mb-2 text-2xl font-bold">5+ Million</h3>
-					<p class="font-medium text-balance text-foreground/80">Transactions per day</p>
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg> -->
+						<svg class="size-5 text-accent lg:size-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Z"></path></svg>
+					</div>
+					<h3 class="mb-2 text-2xl font-bold">5+ million</h3>
+					<p class="font-medium text-pretty text-foreground/80">Transactions per day</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- Testimonials -->
-	<section hidden class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mx-auto max-w-screen-sm text-center">
 				<h2 class="mb-4 text-3xl font-bold tracking-tight xl:text-4xl">What our customers say</h2>
-				<p class="mb-8 font-medium text-pretty text-foreground/80 sm:text-xl/relaxed lg:mb-16">Explore the whole collection of open-source web components and elements built with the utility classes from Tailwind</p>
+				<p class="mb-8 font-medium text-pretty text-foreground/80 sm:text-xl/relaxed lg:mb-16">Hear from our customers about their experience with Trados. Find out why they chose Trados and how it has helped them.</p>
 			</div>
 
 			<div class="grid gap-8 lg:grid-cols-3">
@@ -1187,64 +1057,28 @@ import Layout from '../../layouts/Trados.astro'
 <script>
 	// @ts-nocheck
 	document.addEventListener('DOMContentLoaded', () => {
-		const buttons = document.querySelectorAll('[data-billing-option]')
-		if (!buttons.length) return
+		const toggle = document.querySelector('[data-billing-toggle]')
+		if (!toggle) return
 
 		const priceEls = document.querySelectorAll('[data-price]')
-		const noteEls = document.querySelectorAll('[data-billing-note]')
+		const annualNoteEls = document.querySelectorAll('[data-billing-annual-note]')
 
-		let currentMode = 'annual'
-
-		function updateBillingMode(mode) {
-			currentMode = mode
-
-			buttons.forEach((btn) => {
-				const isActive = btn.dataset.billingOption === mode
-				btn.classList.toggle('btn-primary', isActive)
-				btn.classList.toggle('btn-outline', !isActive)
-			})
+		function updateBillingUI() {
+			const yearly = toggle.checked
 
 			priceEls.forEach((el) => {
 				const monthly = el.dataset.priceMonthly
-				const annual = el.dataset.priceAnnual
-				const annualSaver = el.dataset.priceAnnualSaver
+				const yearlyPrice = el.dataset.priceYearly
 
-				let value = monthly
-
-				if (mode === 'annual') {
-					value = annual ?? monthly ?? annualSaver
-				} else if (mode === 'annual-saver') {
-					value = annualSaver ?? annual ?? monthly
-				}
-
-				el.textContent = value ?? ''
+				el.textContent = yearly ? (yearlyPrice ?? monthly) : (monthly ?? yearlyPrice)
 			})
 
-			noteEls.forEach((noteEl) => {
-				const noteSpans = noteEl.querySelectorAll('[data-note]')
-
-				noteSpans.forEach((span) => {
-					const spanMode = span.dataset.note
-					const shouldShow = spanMode === mode
-					span.hidden = !shouldShow
-				})
+			annualNoteEls.forEach((el) => {
+				el.hidden = !yearly
 			})
 		}
 
-		buttons.forEach((btn) => {
-			btn.addEventListener('click', () => {
-				const mode = btn.dataset.billingOption
-				if (!mode) return
-				updateBillingMode(mode)
-			})
-		})
-
-		const primary = Array.from(buttons).find((btn) => btn.classList.contains('btn-primary'))
-
-		if (primary && primary.dataset.billingOption) {
-			updateBillingMode(primary.dataset.billingOption)
-		} else {
-			updateBillingMode(currentMode)
-		}
+		toggle.addEventListener('change', updateBillingUI)
+		updateBillingUI()
 	})
 </script>
