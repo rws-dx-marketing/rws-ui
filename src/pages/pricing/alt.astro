@@ -24,10 +24,10 @@ import Layout from '../../layouts/Trados.astro'
 			<!-- Plan controls -->
 			<div class="mb-12 flex flex-col flex-wrap items-center gap-10 sm:flex-row sm:items-baseline">
 				<!-- Billing options -->
-				<div class="btn-group rounded-full bg-white" role="group">
+				<div class="btn-group rounded-full bg-card" role="group">
 					<button type="button" class="btn btn-outline" data-billing-option="monthly">Monthly</button>
 
-					<button type="button" class="btn btn-primary relative" data-billing-option="annual">
+					<button type="button" class="btn btn-primary relative" data-billing-option="annual" data-billing-active>
 						Annual
 						<span class="pointer-events-none absolute -top-11.5 left-[calc(50%-0.25rem)] -translate-x-1/2 -rotate-3 font-cursive text-lg/none font-semibold whitespace-nowrap text-accent">
 							Most popular
@@ -80,7 +80,7 @@ import Layout from '../../layouts/Trados.astro'
 			<!-- Cards -->
 			<div class="grid items-center gap-6 md:grid-cols-2 xl:gap-10">
 				<!-- Card -->
-				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 bg-card p-6 text-center text-card-foreground xl:p-10">
+				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 bg-card/90 p-6 text-center text-card-foreground xl:p-10">
 					<div>
 						<!-- Name -->
 						<h3 class="mb-6 text-2xl font-semibold xl:text-3xl">Trados Go</h3>
@@ -100,12 +100,12 @@ import Layout from '../../layouts/Trados.astro'
 
 						<!-- Notes -->
 						<div class="mb-5">
-							<span data-billing-note class="text-lg font-bold text-foreground/80">
+							<span class="text-lg font-bold text-foreground/80">
 								<span data-note="monthly">Monthly contract — monthly payment</span>
 								<span data-note="annual">Annual contract — monthly payment</span>
 								<span data-note="annual-saver" class="block -translate-y-2.5 text-sm text-accent">$360 billed annually</span>
 								<span data-note="annual-saver">Annual contract — annual payment</span>
-								<span data-note="annual-saver" class="block text-base font-semibold text-foreground/80"> Includes freelance support agreement </span>
+								<span data-note="annual-saver" class="block text-base font-semibold text-foreground/80">Includes freelance support agreement</span>
 							</span>
 						</div>
 
@@ -181,12 +181,12 @@ import Layout from '../../layouts/Trados.astro'
 						</span>
 
 						<div class="mb-5 xl:mb-8">
-							<span data-billing-note class="text-lg font-bold text-foreground/80">
+							<span class="text-lg font-bold text-foreground/80">
 								<span data-note="monthly">Monthly contract — monthly payment</span>
 								<span data-note="annual">Annual contract — monthly payment</span>
 								<span data-note="annual-saver" class="block -translate-y-2.5 text-sm text-accent">$480 billed annually</span>
 								<span data-note="annual-saver">Annual contract — annual payment</span>
-								<span data-note="annual-saver" class="block text-base font-semibold text-foreground/80"> Includes freelance support agreement </span>
+								<span data-note="annual-saver" class="block text-base font-semibold text-foreground/80">Includes freelance support agreement</span>
 							</span>
 						</div>
 
@@ -277,22 +277,26 @@ import Layout from '../../layouts/Trados.astro'
 					</thead>
 
 					<tbody>
+						<!-- Heading -->
 						<tr class="border-y border-foreground/10 bg-foreground/5">
 							<td colspan="3" class="p-4">
 								<h4 class="text-lg font-semibold text-foreground">Capacity</h4>
 							</td>
 						</tr>
 
+						<!-- Feature -->
 						<tr class="border-b border-foreground/10">
 							<td class="px-4 py-5 font-medium">Languages</td>
 							<td class="px-4 py-5 text-center">Unlimited</td>
 							<td class="px-4 py-5 text-center">Unlimited</td>
 						</tr>
 
+						<!-- Feature -->
 						<tr class="border-b border-foreground/10">
 							<td class="px-4 py-5 font-medium">Projects</td>
 							<td class="px-4 py-5 text-center">Cloud</td>
 							<td class="px-4 py-5 text-center">
+								<!-- Tooltip -->
 								<span class="relative mx-auto block w-fit">
 									Local, cloud and server
 									<button type="button" popovertarget="tooltip-projects-local" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about local, cloud and server projects">
@@ -797,7 +801,7 @@ import Layout from '../../layouts/Trados.astro'
 					</span>
 
 					<div class="mb-4">
-						<span data-billing-note class="font-bold text-foreground/80">
+						<span class="font-bold text-foreground/80">
 							<span data-note="monthly">Monthly contract — monthly payment</span>
 							<span data-note="annual">Annual contract — monthly payment</span>
 							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$360 billed annually</span>
@@ -821,7 +825,7 @@ import Layout from '../../layouts/Trados.astro'
 					</span>
 
 					<div class="mb-4">
-						<span data-billing-note class="font-bold text-foreground/80">
+						<span class="font-bold text-foreground/80">
 							<span data-note="monthly">Monthly contract — monthly payment</span>
 							<span data-note="annual">Annual contract — monthly payment</span>
 							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$480 billed annually</span>
@@ -841,65 +845,76 @@ import Layout from '../../layouts/Trados.astro'
 
 <script>
 	// @ts-nocheck
+	const BILLING_MODES = {
+		MONTHLY: 'monthly',
+		ANNUAL: 'annual',
+		ANNUAL_SAVER: 'annual-saver',
+	}
+	const DEFAULT_MODE = BILLING_MODES.ANNUAL
+
 	document.addEventListener('DOMContentLoaded', () => {
 		const buttons = document.querySelectorAll('[data-billing-option]')
 		if (!buttons.length) return
 
-		const priceEls = document.querySelectorAll('[data-price]')
-		const noteEls = document.querySelectorAll('[data-billing-note]')
+		const prices = document.querySelectorAll('[data-price]')
+		const notes = document.querySelectorAll('[data-note]')
 
-		let currentMode = 'annual'
+		function getPriceForMode(el, mode) {
+			const { priceMonthly, priceAnnual, priceAnnualSaver } = el.dataset
+			let value
+
+			switch (mode) {
+				case BILLING_MODES.ANNUAL:
+					value = priceAnnual
+					break
+				case BILLING_MODES.ANNUAL_SAVER:
+					value = priceAnnualSaver
+					break
+				case BILLING_MODES.MONTHLY:
+					value = priceMonthly
+					break
+				default:
+					console.error(`Invalid mode: ${mode}`)
+					return ''
+			}
+
+			if (!value) {
+				console.error(`Missing data-price-${mode} for element:`, el)
+				return ''
+			}
+			return value
+		}
 
 		function updateBillingMode(mode) {
-			currentMode = mode
-
 			buttons.forEach((btn) => {
 				const isActive = btn.dataset.billingOption === mode
+
 				btn.classList.toggle('btn-primary', isActive)
 				btn.classList.toggle('btn-outline', !isActive)
+
+				btn.toggleAttribute('data-billing-active', isActive)
 			})
 
-			priceEls.forEach((el) => {
-				const monthly = el.dataset.priceMonthly
-				const annual = el.dataset.priceAnnual
-				const annualSaver = el.dataset.priceAnnualSaver
-
-				let value = monthly
-
-				if (mode === 'annual') {
-					value = annual ?? monthly ?? annualSaver
-				} else if (mode === 'annual-saver') {
-					value = annualSaver ?? annual ?? monthly
-				}
-
-				el.textContent = value ?? ''
+			prices.forEach((el) => {
+				el.textContent = getPriceForMode(el, mode)
 			})
 
-			noteEls.forEach((noteEl) => {
-				const noteSpans = noteEl.querySelectorAll('[data-note]')
-
-				noteSpans.forEach((span) => {
-					const spanMode = span.dataset.note
-					const shouldShow = spanMode === mode
-					span.hidden = !shouldShow
-				})
+			notes.forEach((note) => {
+				note.hidden = note.dataset.note !== mode
 			})
 		}
 
-		buttons.forEach((btn) => {
-			btn.addEventListener('click', () => {
-				const mode = btn.dataset.billingOption
-				if (!mode) return
-				updateBillingMode(mode)
-			})
+		const buttonGroup = buttons[0]?.closest('[role="group"]') ?? document
+
+		buttonGroup.addEventListener('click', (e) => {
+			const btn = e.target.closest('[data-billing-option]')
+			if (!btn?.dataset.billingOption) return
+			updateBillingMode(btn.dataset.billingOption)
 		})
 
-		const primary = Array.from(buttons).find((btn) => btn.classList.contains('btn-primary'))
-
-		if (primary && primary.dataset.billingOption) {
-			updateBillingMode(primary.dataset.billingOption)
-		} else {
-			updateBillingMode(currentMode)
-		}
+		const hasButtonForRequested = Array.from(buttons).some((btn) => btn.dataset.billingOption === DEFAULT_MODE)
+		const markupActiveButton = document.querySelector('[data-billing-option][data-billing-active]')
+		const initialMode = hasButtonForRequested ? DEFAULT_MODE : (markupActiveButton?.dataset.billingOption ?? BILLING_MODES.ANNUAL)
+		updateBillingMode(initialMode)
 	})
 </script>

@@ -265,14 +265,15 @@ import Form from '../components/Form.astro'
 					Find out more
 				</a>
 				<a href="#" class="btn btn-secondary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out even more
+					<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="136" y1="120" x2="216" y2="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="216 104 215.99 40.01 152 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><path d="M184,140v68a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8h68" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg> -->
+					<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M228,104a12,12,0,0,1-24,0V69l-59.51,59.51a12,12,0,0,1-17-17L187,52H152a12,12,0,0,1,0-24h64a12,12,0,0,1,12,12Zm-44,24a12,12,0,0,0-12,12v64H52V84h64a12,12,0,0,0,0-24H48A20,20,0,0,0,28,80V208a20,20,0,0,0,20,20H176a20,20,0,0,0,20-20V140A12,12,0,0,0,184,128Z"></path></svg>
+					External link
 				</a>
 			</div>
 		</div>
 
 		<div class="h-full lg:col-span-6">
-			<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-left-sm">
+			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
 				<img src="/images/placeholder-1.png" alt="Placeholder" class="aspect-video h-full w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
 			</div>
 		</div>
@@ -301,8 +302,10 @@ import Form from '../components/Form.astro'
 					<li class="flex items-center gap-x-3">
 						<!-- Icon -->
 						<!-- <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
-						<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+						<!-- <svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg> -->
 
+						<!-- Icon via mask -->
+						<div class="intersect-once size-5 shrink-0 bg-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms; mask-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22%3E%3Cpath fill=%22white%22 d=%22M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z%22/%3E%3C/svg%3E');"></div>
 						<div class="prose font-medium text-foreground/80 md:prose-lg">
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 						</div>
