@@ -454,9 +454,10 @@ import Form from '../components/Form.astro'
 		</div>
 
 		<!-- Media -->
-		<div class="hidden h-full lg:col-span-5 lg:block">
+		<div class="h-full lg:col-span-5">
 			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<img src="/images/placeholder-2.png" alt="Placeholder" class="aspect-video h-full w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
+				<img src="/images/placeholder-1.png" alt="Image on mobile" class="aspect-video w-full rounded-lg object-cover lg:hidden" draggable="false" />
+				<img src="/images/placeholder-2.png" alt="Image on desktop" class="hidden aspect-square h-full w-full rounded-lg object-cover lg:block" draggable="false" />
 			</div>
 		</div>
 	</div>

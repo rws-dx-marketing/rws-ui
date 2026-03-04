@@ -52,7 +52,7 @@
 	}
 
 	.btn-link {
-		@apply rounded-none p-0 underline-offset-4 hover:underline focus-visible:underline focus-visible:ring-0;
+		@apply rounded-none p-0! underline-offset-4 hover:underline focus-visible:underline focus-visible:ring-0;
 	}
 
 	.btn-group {
