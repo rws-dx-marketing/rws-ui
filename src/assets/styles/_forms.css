@@ -107,6 +107,121 @@
 		.actions {
 			@apply flex justify-end;
 		}
+
+		.hsfc-Step__Content {
+			@apply p-0!;
+		}
+
+		.hsfc-Row {
+			@apply mb-4! gap-4!;
+
+			& .hsfc-Row:last-child {
+				@apply mb-0!;
+			}
+		}
+
+		.hsfc-FieldLabel {
+			@apply mb-2! inline-flex! font-sans! text-sm/none! font-semibold! text-foreground/80!;
+		}
+
+		.hsfc-FieldLabel__RequiredIndicator {
+			@apply ml-1! text-inherit!;
+		}
+
+		.hsfc-TextInput {
+			@apply block rounded-sm! border! border-foreground/10! bg-input! p-2.5! font-sans! text-sm! font-medium! text-foreground! transition-none! hover:shadow-none! focus:border-accent! focus:shadow-none! focus:ring-accent!;
+		}
+
+		.hsfc-DropdownInput > input {
+			@apply bg-no-repeat!;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Cpolyline points='80 176 128 224 176 176' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cpolyline points='80 80 128 32 176 80' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E") !important;
+			background-size: 1em !important;
+			background-position: right 0.75em center !important;
+		}
+
+		.hsfc-DropdownInput__Caret {
+			@apply hidden!;
+		}
+
+		.hsfc-DropdownOptions {
+			@apply rounded-sm! border! border-foreground/10! bg-background! font-sans! text-sm! font-medium! text-foreground!;
+		}
+
+		.hsfc-DropdownOptions__Search {
+			@apply p-2.5!;
+		}
+
+		.hsfc-DropdownOptions__List__ListItem {
+			@apply cursor-pointer! bg-background! px-2.5! py-2! text-foreground! filter-none! transition-colors! hover:bg-primary-lightest/50!;
+		}
+
+		.hsfc-DropdownOptions__List__ListItem--selected {
+			@apply bg-primary-lightest! text-primary! hover:bg-primary-lightest!;
+		}
+
+		.hsfc-RadioFieldGroup__Options {
+			@apply mt-1!;
+		}
+
+		.hsfc-RadioFieldGroup__Options > div {
+			@apply flex!;
+
+			&:not(:last-child) {
+				@apply mb-2!;
+			}
+		}
+
+		.hsfc-RadioFieldGroup__Options label {
+			@apply mb-0! gap-2! font-medium!;
+		}
+
+		.hsfc-RadioInput {
+			@apply size-4! border-foreground/10! bg-input! text-accent/80! shadow-none! transition-none! focus:ring-accent/30! focus:outline-none!;
+
+			&::after {
+				@apply top-1/2! left-1/2! rounded-full! bg-white! mask-none!;
+			}
+		}
+
+		.hsfc-TextareaInput {
+			@apply block rounded-sm! border! border-foreground/10! bg-input! p-2.5! font-sans! text-sm! font-medium! text-foreground! transition-none! hover:shadow-none! focus:border-accent! focus:shadow-none! focus:ring-accent!;
+		}
+
+		.hsfc-ErrorAlert {
+			@apply mt-2! font-sans! text-sm! font-medium! text-red-500!;
+		}
+
+		.hsfc-RichText {
+			@apply font-sans! text-xs/relaxed! font-medium! text-foreground/80!;
+
+			a {
+				@apply underline decoration-foreground/10 underline-offset-[0.3334em];
+			}
+		}
+
+		.hsfc-ProgressBar__Text {
+			@apply mb-2! ml-0! font-sans! text-sm! font-semibold! text-foreground/80!;
+		}
+
+		.hsfc-ProgressBar__Progress {
+			@apply bg-foreground/10!;
+		}
+
+		.hsfc-ProgressBar__Progress > div {
+			@apply bg-tertiary!;
+		}
+
+		.hsfc-NavigationRow {
+			@apply mt-8!;
+		}
+
+		.hsfc-Button {
+			@apply inline-flex! items-center! justify-center! rounded-full! border! border-transparent! bg-primary! px-4! pt-[0.46875rem]! pb-[0.53125rem]! text-center! font-sans! text-base! font-semibold! text-white! shadow-xs! transition-colors! select-none! hover:bg-primary-dark! not-disabled:hover:transform-none! focus-visible:bg-primary-dark! focus-visible:ring-4! focus-visible:ring-primary-lighter! focus-visible:outline-none! disabled:bg-primary-light! disabled:brightness-100!;
+		}
+
+		.hsfc-Step__Banner:empty {
+			@apply hidden!;
+		}
 	}
 
 	[data-theme='primary'],
@@ -123,3 +238,7 @@
 		}
 	}
 }
+
+/* :root {
+	--hsf-default-background__padding: 0;
+} */
