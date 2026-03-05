@@ -3,7 +3,17 @@
 		@apply inline-flex items-center justify-center rounded-full border border-transparent px-4 pt-[0.46875rem] pb-[0.53125rem] text-center text-base font-semibold transition-colors select-none focus-visible:ring-4 focus-visible:outline-none;
 
 		& > :where(img, svg) {
-			@apply size-4;
+			@apply mt-0.25 size-4;
+		}
+
+		& > svg[stroke]:not([stroke='none']),
+		& > svg *[stroke]:not([stroke='none']) {
+			@apply stroke-current;
+		}
+
+		& > svg[fill]:not([fill='none']),
+		& > svg *[fill]:not([fill='none']) {
+			@apply fill-current;
 		}
 	}
 
