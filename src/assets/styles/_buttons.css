@@ -12,7 +12,7 @@
 		}
 
 		& > svg[fill]:not([fill='none']),
-		& > svg *[fill]:not([fill='none']) {
+		& > svg *[fill]:not([fill='none']):not(.star-path) {
 			@apply fill-current;
 		}
 	}
