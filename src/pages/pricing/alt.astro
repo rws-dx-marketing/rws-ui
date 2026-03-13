@@ -27,7 +27,7 @@ import Layout from '../../layouts/Trados.astro'
 				<div class="btn-group rounded-full bg-card" role="group">
 					<button type="button" class="btn btn-outline" data-billing-option="monthly">Monthly</button>
 
-					<button type="button" class="btn btn-primary relative" data-billing-option="annual" data-billing-active>
+					<button type="button" class="btn btn-primary relative" data-billing-option="annual" data-billing-offer data-billing-active>
 						Annual
 						<span class="pointer-events-none absolute -top-11.5 left-[calc(50%-0.25rem)] -translate-x-1/2 -rotate-3 font-cursive text-lg/none font-semibold whitespace-nowrap text-accent">
 							Most popular
@@ -35,7 +35,7 @@ import Layout from '../../layouts/Trados.astro'
 						</span>
 					</button>
 
-					<button type="button" class="btn btn-outline" data-billing-option="annual-saver">Annual Saver</button>
+					<button type="button" class="btn btn-outline" data-billing-option="annual-saver" data-billing-offer>Annual Saver</button>
 				</div>
 
 				<!-- Currency -->
@@ -80,7 +80,9 @@ import Layout from '../../layouts/Trados.astro'
 			<!-- Cards -->
 			<div class="grid items-center gap-6 md:grid-cols-2 xl:gap-10">
 				<!-- Card -->
-				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 bg-card/90 p-6 text-center text-card-foreground xl:p-10">
+				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 bg-background/90 p-6 text-center xl:p-10" data-card>
+					<span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none" data-offer-only>Save 25%</span>
+
 					<div>
 						<!-- Name -->
 						<h3 class="mb-6 text-2xl font-semibold xl:text-3xl">Trados Go</h3>
@@ -88,14 +90,13 @@ import Layout from '../../layouts/Trados.astro'
 						<!-- Price -->
 						<span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 							<span class="text-[0.9em]">$</span>
-							<!-- <span class="ml-1 line-through">34</span>
-							<span class="ml-1.5 text-accent">27</span> -->
-							<span class="ml-1" data-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
-							<!-- <span class="ml-3 flex flex-col items-start text-lg text-foreground/50">
+							<span class="ml-1" data-price data-base-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">40</span>
+							<span class="ml-1 line-through" data-price data-offer-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
+							<span class="ml-1.5 text-accent" data-price data-offer-price data-price-monthly="30" data-price-annual="25" data-price-annual-saver="22">25</span>
+							<span class="ml-3 flex flex-col items-start text-lg text-foreground/50">
 								per month
-								<span class="block text-left text-xs font-semibold text-foreground/50">Offer ends on 30/12/2026*</span>
-							</span> -->
-							<span class="ml-3 text-lg text-foreground/50">per month</span>
+								<span class="block text-left text-xs font-semibold text-foreground/50" data-offer-only>Offer ends on 30/12/2026*</span>
+							</span>
 						</span>
 
 						<!-- Notes -->
@@ -117,7 +118,7 @@ import Layout from '../../layouts/Trados.astro'
 
 					<!-- Call to action -->
 					<div>
-						<a href="#" class="btn btn-tertiary btn-lg w-full">Start your free trial</a>
+						<a href="/product/go/subscribe/annual/" class="btn btn-tertiary btn-lg w-full" data-url-monthly="/product/go/subscribe/monthly/" data-url-annual="/product/go/subscribe/annual/" data-url-annual-saver="/product/go/subscribe/annual-saver/"> Start your free trial </a>
 					</div>
 
 					<!-- Features -->
@@ -164,11 +165,12 @@ import Layout from '../../layouts/Trados.astro'
 						</ul>
 					</div>
 
-					<!-- <span class="absolute right-6 bottom-6 text-xs font-semibold text-foreground/50 xl:right-10 xl:bottom-10">*Conditions apply</span> -->
+					<span class="absolute right-6 bottom-6 text-xs font-semibold text-foreground/50 xl:right-10 xl:bottom-10" data-offer-only>*Conditions apply</span>
 				</div>
 
 				<!-- Card -->
 				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 bg-card p-8 text-center md:order-0 xl:p-10">
+					<span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none" data-offer-only>Save 25%</span>
 					<div>
 						<!-- <span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none">Most popular</span> -->
 
@@ -176,7 +178,9 @@ import Layout from '../../layouts/Trados.astro'
 
 						<span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 							<span class="text-[90%]">$</span>
-							<span class="ml-1" data-price data-price-monthly="54" data-price-annual="47" data-price-annual-saver="40">47</span>
+							<span class="ml-1" data-price data-base-price data-price-monthly="54" data-price-annual="54" data-price-annual-saver="54">54</span>
+							<span class="ml-1 line-through" data-price data-offer-price data-price-monthly="54" data-price-annual="54" data-price-annual-saver="54">54</span>
+							<span class="ml-1.5 text-accent" data-price data-offer-price data-price-monthly="47" data-price-annual="47" data-price-annual-saver="40">47</span>
 							<span class="ml-3 text-lg text-foreground/50">per month</span>
 						</span>
 
@@ -196,7 +200,7 @@ import Layout from '../../layouts/Trados.astro'
 					</div>
 
 					<div class="xl:mt-3">
-						<a href="#" class="btn btn-tertiary btn-lg w-full">Start your free trial</a>
+						<a href="/product/studio/subscribe/freelance-annual/" class="btn btn-tertiary btn-lg w-full" data-url-monthly="/product/studio/subscribe/freelance-monthly/" data-url-annual="/product/studio/subscribe/freelance-annual/" data-url-annual-saver="/product/studio/subscribe/freelance-annual-saver/"> Start your free trial </a>
 					</div>
 
 					<div>
@@ -241,6 +245,8 @@ import Layout from '../../layouts/Trados.astro'
 							</li>
 						</ul>
 					</div>
+
+					<span class="absolute right-6 bottom-6 text-xs font-semibold text-foreground/50 xl:right-10 xl:bottom-10" data-offer-only>*Conditions apply</span>
 				</div>
 			</div>
 		</div>
@@ -796,7 +802,9 @@ import Layout from '../../layouts/Trados.astro'
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
 						<span class="text-[0.9em]">$</span>
-						<span class="ml-1" data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
+						<span class="ml-1" data-price data-base-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">40</span>
+						<span class="ml-1 line-through" data-price data-offer-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
+						<span class="ml-1.5 text-accent" data-price data-offer-price data-price-monthly="30" data-price-annual="25" data-price-annual-saver="22">25</span>
 						<span class="ml-3 text-lg text-foreground/40">per month</span>
 					</span>
 
@@ -812,7 +820,7 @@ import Layout from '../../layouts/Trados.astro'
 
 					<p class="mb-4 text-sm font-medium text-foreground/80">Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
 
-					<a href="#" class="btn btn-tertiary w-full">Start your free trial</a>
+					<a href="/product/go/subscribe/annual/" class="btn btn-tertiary w-full" data-url-monthly="/product/go/subscribe/monthly/" data-url-annual="/product/go/subscribe/annual/" data-url-annual-saver="/product/go/subscribe/annual-saver/"> Start your free trial </a>
 				</div>
 
 				<div class="text-center">
@@ -820,7 +828,9 @@ import Layout from '../../layouts/Trados.astro'
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
 						<span class="text-[0.9em]">$</span>
-						<span class="ml-1" data-price-monthly="54" data-price-annual="47" data-price-annual-saver="40">47</span>
+						<span class="ml-1" data-price data-base-price data-price-monthly="54" data-price-annual="54" data-price-annual-saver="54">54</span>
+						<span class="ml-1 line-through" data-price data-offer-price data-price-monthly="54" data-price-annual="54" data-price-annual-saver="54">54</span>
+						<span class="ml-1.5 text-accent" data-price data-offer-price data-price-monthly="47" data-price-annual="47" data-price-annual-saver="40">47</span>
 						<span class="ml-3 text-lg text-foreground/40">per month</span>
 					</span>
 
@@ -836,7 +846,7 @@ import Layout from '../../layouts/Trados.astro'
 
 					<p class="mb-4 text-sm font-medium text-foreground/80">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
 
-					<a href="#" class="btn btn-tertiary w-full">Start your free trial</a>
+					<a href="/product/studio/subscribe/freelance-annual/" class="btn btn-tertiary w-full" data-url-monthly="/product/studio/subscribe/freelance-monthly/" data-url-annual="/product/studio/subscribe/freelance-annual/" data-url-annual-saver="/product/studio/subscribe/freelance-annual-saver/"> Start your free trial </a>
 				</div>
 			</div>
 		</div>
@@ -858,6 +868,16 @@ import Layout from '../../layouts/Trados.astro'
 
 		const prices = document.querySelectorAll('[data-price]')
 		const notes = document.querySelectorAll('[data-note]')
+		const offerOnlyEls = document.querySelectorAll('[data-offer-only]')
+		const basePriceEls = document.querySelectorAll('[data-base-price]')
+		const offerPriceEls = document.querySelectorAll('[data-offer-price]')
+		const ctaLinks = document.querySelectorAll('[data-url-monthly],[data-url-annual],[data-url-annual-saver]')
+
+		const offerModes = new Set(
+			Array.from(buttons)
+				.filter((btn) => btn.hasAttribute('data-billing-offer'))
+				.map((btn) => btn.dataset.billingOption),
+		)
 
 		function getPriceForMode(el, mode) {
 			const { priceMonthly, priceAnnual, priceAnnualSaver } = el.dataset
@@ -885,6 +905,32 @@ import Layout from '../../layouts/Trados.astro'
 			return value
 		}
 
+		function getUrlForMode(el, mode) {
+			const { urlMonthly, urlAnnual, urlAnnualSaver } = el.dataset
+			let value
+
+			switch (mode) {
+				case BILLING_MODES.ANNUAL:
+					value = urlAnnual
+					break
+				case BILLING_MODES.ANNUAL_SAVER:
+					value = urlAnnualSaver
+					break
+				case BILLING_MODES.MONTHLY:
+					value = urlMonthly
+					break
+				default:
+					console.error(`Invalid mode for URL: ${mode}`)
+					return el.getAttribute('href') ?? ''
+			}
+
+			if (!value) {
+				console.error(`Missing data-url-${mode} for element:`, el)
+				return el.getAttribute('href') ?? ''
+			}
+			return value
+		}
+
 		function updateBillingMode(mode) {
 			buttons.forEach((btn) => {
 				const isActive = btn.dataset.billingOption === mode
@@ -901,6 +947,24 @@ import Layout from '../../layouts/Trados.astro'
 
 			notes.forEach((note) => {
 				note.hidden = note.dataset.note !== mode
+			})
+
+			const isOfferMode = offerModes.has(mode)
+
+			offerOnlyEls.forEach((el) => {
+				el.hidden = !isOfferMode
+			})
+
+			basePriceEls.forEach((el) => {
+				el.hidden = isOfferMode
+			})
+
+			offerPriceEls.forEach((el) => {
+				el.hidden = !isOfferMode
+			})
+
+			ctaLinks.forEach((link) => {
+				link.href = getUrlForMode(link, mode)
 			})
 		}
 
