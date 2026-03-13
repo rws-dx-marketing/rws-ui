@@ -45,18 +45,6 @@
 		@apply border border-foreground/15 bg-transparent text-foreground hover:bg-foreground/5 focus-visible:bg-foreground/5 focus-visible:ring-foreground/10;
 	}
 
-	/* .btn-outline-primary {
-		@apply border border-primary bg-transparent text-primary-darker hover:bg-primary-lightest focus-visible:ring-primary-lighter;
-	}
-
-	.btn-outline-secondary {
-		@apply border border-secondary bg-transparent text-secondary-darker hover:bg-secondary-lightest focus-visible:ring-secondary-lighter;
-	}
-
-	.btn-outline-tertiary {
-		@apply border border-tertiary bg-transparent text-tertiary-darker hover:bg-tertiary-lightest focus-visible:ring-tertiary-lighter;
-	} */
-
 	.btn-ghost {
 		@apply bg-transparent hover:bg-foreground/5 focus-visible:bg-foreground/5 focus-visible:ring-foreground/10;
 	}
@@ -74,20 +62,11 @@
 
 		& > :where(.btn:not(:last-child)) {
 			@apply rounded-r-none!;
-			/* border-r-0! */
 		}
 
 		& > .btn-outline + .btn-outline {
 			@apply border-l-foreground/0;
 		}
-
-		/* & > :where(.btn-primary, .btn-secondary, .btn-tertiary) + .btn-outline {
-			@apply border-l-0;
-		} */
-
-		/* & > :where(.btn-primary, .btn-secondary, .btn-tertiary) + .btn-outline {
-			@apply border-l-teal-500;
-		} */
 
 		& > .btn-primary {
 			@apply z-10;

@@ -81,7 +81,8 @@
 }
 
 :root {
-	--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 24.3%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 75.7%, var(--color-tertiary) 100%);
+	--gradient-base: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 24.3%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 75.7%, var(--color-tertiary) 100%);
+	--gradient: var(--gradient-base);
 }
 
 @utility bg-gradient {
@@ -96,7 +97,7 @@
 
 @utility text-gradient {
 	@apply bg-gradient bg-clip-text text-transparent;
-	background-size: 100%;
+	/* background-size: 100%; */
 }
 
 @utility text-gradient-animate {
