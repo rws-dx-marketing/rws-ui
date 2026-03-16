@@ -81,7 +81,8 @@ import Layout from '../../layouts/Trados.astro'
 			<div class="grid items-center gap-6 md:grid-cols-2 xl:gap-10">
 				<!-- Card -->
 				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 bg-background/90 p-6 text-center xl:p-10" data-card>
-					<span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none" data-offer-only>Save 25%</span>
+					<!-- Offer label -->
+					<span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-sm font-bold select-none" data-offer-only>Save 25%</span>
 
 					<div>
 						<!-- Name -->
@@ -127,7 +128,9 @@ import Layout from '../../layouts/Trados.astro'
 							<!-- Feature -->
 							<li class="flex items-center gap-3">
 								<!-- Icon -->
-								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="240 216 184 104 128 216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="144" y1="184" x2="224" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="96" y1="32" x2="96" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="56" x2="160" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M128,56a96,96,0,0,1-96,96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M72.7,96A96,96,0,0,0,160,152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
+								<div class="svg-current size-4.5 shrink-0" aria-hidden="true">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="240 216 184 104 128 216" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="144" y1="184" x2="224" y2="184" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="96" y1="32" x2="96" y2="56" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="56" x2="160" y2="56" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M128,56a96,96,0,0,1-96,96" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M72.7,96A96,96,0,0,0,160,152" fill="none" stroke="red" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
+								</div>
 
 								<!-- Label -->
 								<span class="font-medium">Unlimited languages</span>
@@ -170,8 +173,10 @@ import Layout from '../../layouts/Trados.astro'
 
 				<!-- Card -->
 				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 bg-card p-8 text-center md:order-0 xl:p-10">
-					<span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none" data-offer-only>Save 25%</span>
+					<!-- <span class="absolute top-1.5 right-1.25 rounded-full bg-linear-to-r from-tertiary via-primary to-secondary px-3 pt-1 pb-1.25 text-sm font-bold text-white select-none" data-offer-only>Save 25%</span> -->
+
 					<div>
+						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-br from-secondary to-secondary-dark px-3 pt-1 pb-1.25 text-sm font-bold text-white select-none">Save 25%</span>
 						<!-- <span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none">Most popular</span> -->
 
 						<h3 class="mb-6 text-2xl font-semibold xl:mt-2 xl:mb-8 xl:text-3xl">Trados Studio Freelance</h3>
