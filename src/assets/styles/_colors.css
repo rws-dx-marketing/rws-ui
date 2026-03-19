@@ -88,7 +88,7 @@
 @utility bg-gradient {
 	background-image: var(--gradient);
 	background-size: 200%;
-	background-position: 0% 50%;
+	background-position: 0 50%;
 }
 
 @utility bg-gradient-animate {
