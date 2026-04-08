@@ -41,7 +41,7 @@
 			@apply mt-[1em] mb-[1em] list-none pl-[1em];
 		}
 
-		:where(li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+		:where(ul > li):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 			@apply relative mt-[0.5em] mb-[0.5em] pl-[0.75em];
 
 			&::before {
