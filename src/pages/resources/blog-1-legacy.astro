@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import BlogHero from '../../blocks/BlogHero.astro'
+---
+
+<Layout>
+	<BlogHero />
+
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+			<aside class="hidden lg:col-span-4 lg:block">
+				<div class="sticky top-20">
+					<div class="relative rounded-lg bg-background p-10 text-foreground" data-card>
+						<h4 class="mb-6 text-lg font-bold">Table of contents</h4>
+
+						<nav class="relative flex flex-col gap-3 pl-6" data-scrollspy-nav>
+							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-full w-1 bg-foreground/10"></span>
+							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-(--toc-active-height) w-1 bg-accent transition-[height] duration-1000" data-scrollspy-rail></span>
+							<a href="#" class="hidden font-medium text-pretty text-foreground/50 transition-colors hover:text-foreground data-[toc-active=true]:text-foreground" data-scrollspy-link-template aria-hidden="true">Template TOC link</a>
+
+							<div class="relative" data-scrollspy-end>
+								<div class="absolute -left-5.5 -translate-x-1/2 rounded-full bg-background outline-2 outline-background">
+									<svg class="size-6 text-foreground/25 delay-350 data-[toc-active=true]:text-accent" data-scrollspy-end-icon data-toc-active="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="currentColor" d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+								</div>
+
+								<span class="text-foreground/50 transition-colors data-[toc-active=true]:text-foreground" data-scrollspy-end-label>You've reached the end</span>
+							</div>
+						</nav>
+
+						<canvas aria-hidden="true" class="pointer-events-none absolute inset-0 size-full rounded-lg" data-scrollspy-confetti-canvas></canvas>
+					</div>
+				</div>
+			</aside>
+
+			<article class="col-span-full lg:col-span-8 [&_h2[id]]:scroll-mt-20" data-scrollspy-content>
+				<div class="rounded-lg bg-background p-10 text-foreground" data-card>
+					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
+						<div class="blog_hero__text_blocks">
+							<div class="blog_hero__text_block">
+								<div class="blog_hero__text_block__description">
+									<div>
+										<div>
+											<div>“Hallucination” has become a catch-all explanation for almost any surprising model output. Wrong answer? Hallucination. Confident nonsense? Hallucination. Unexpected creativity? Same label.</div>
+											<div>&nbsp;</div>
+											<div>However, <a href="https://cosimameyer.com/post/are-ai-models-hallucinating-or-just-confabulating/" target="_blank">the term itself is contentious</a>. In research and practitioner circles, "hallucination" is often used as shorthand for a range of behaviors – factual fabrication, unsupported inference or overconfident generalization – that have very different underlying causes. Some teams prefer terms like "confabulation" or "fabrication" to avoid anthropomorphic framing altogether.</div>
+											<div>&nbsp;</div>
+											<div>Regardless of terminology, one thing is clear: many outputs labeled as <a href="https://www.ibm.com/think/topics/ai-hallucinations" target="_blank">AI hallucinations</a> are not spontaneous acts of model misbehavior. They are predictable responses to how tasks were defined, how data examples were labeled and what context the system was given or not given.</div>
+											<div>&nbsp;</div>
+											<div>When outputs look erratic, it’s tempting to blame the model. In reality, models are often doing exactly what they were trained to do: reflecting the structure, ambiguity and gaps present in their training data. In that sense, so-called model hallucinations function less like random failures and more like signals pointing back to upstream data design.</div>
+											<div>&nbsp;</div>
+											<div>This article focuses on a specific subset of these failures: systematic, repeatable error patterns that emerge in downstream tasks. The sections below examine common ways those patterns arise from data definition, data labeling practices and data annotation instruction design, not as the sole causes of hallucinations but as contributors that teams can actually observe, diagnose and improve.</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="blog_hero__text_block">
+								<h2 class="blog_hero__text_block__title">Pattern 1: AI hallucinations caused by weak or inconsistent data labeling</h2>
+								<div class="blog_hero__text_block__description">
+									<div>In supervised systems, data labels define the ground truth. When that ground truth is inconsistent, the model doesn’t fail or refuse to answer; it averages competing signals.</div>
+									<div>&nbsp;</div>
+									<div>It’s important to be precise here. Many hallucinations originate upstream during pre-training, where limited coverage, distributional gaps or model capacity constraints leave parts of the data representation space under-specified. Supervised fine-tuning can reduce some of that uncertainty by updating model weights, but it rarely eliminates it entirely. Instead, it both reshapes representations and influences how the model responds when uncertainty remains.</div>
+									<div>&nbsp;</div>
+									<div>When <a href="https://medium.com/we-talk-data/handling-label-noise-in-machine-learning-15aaca79eb7f" target="_blank">data labeling is inconsistent</a>, the model sees examples that contradict each other. It learns that different answers can all be “right,” even when they shouldn’t be. The result is output that looks like confusion but is, in fact, a statistically coherent compromise learned from the data.</div>
+									<div>&nbsp;</div>
+									<div>Common examples include:</div>
+									<ul>
+										<li>Entity boundaries that shift between data annotators</li>
+										<li>Negation handled inconsistently across samples</li>
+										<li>Multi-label data tasks where precedence rules are undefined</li>
+									</ul>
+									<div>Over time, small data annotation errors accumulate. Annotators interpret edge cases differently. Data annotation guidelines evolve informally. Drift sets in. The model absorbs all of it and learns a blurred version of the task, producing behavior that can resemble reasoning failure but is better understood as learned ambiguity. If AI training data is messy, the model may learn that rules are inconsistent, which can lead to hallucinations or overgeneralized exceptions, and the exact impact of fine-tuning remains unpredictable.</div>
+								</div>
+							</div>
+							<div class="blog_hero__text_block">
+								<h2 class="blog_hero__text_block__title">Pattern 2: AI hallucinations triggered by missing context or incomplete instructions</h2>
+								<div class="blog_hero__text_block__description">
+									<div>Models can’t rely on context that was never made explicit.</div>
+									<div>&nbsp;</div>
+									<div>In many AI training setups, tasks assume background knowledge or constraints that aren’t actually encoded in the training data. When task instruction clarity is weak, the model is forced to infer decision logic rather than apply it.</div>
+									<div>&nbsp;</div>
+									<div>This often appears in:</div>
+									<ul>
+										<li>Safety classification tasks with loosely defined thresholds or categories</li>
+										<li>Multi-turn customer support scenarios without explicit state tracking</li>
+										<li>Summarization prompts that omit audience, purpose or fidelity constraints</li>
+									</ul>
+									<div>In modern systems, the issue is rarely the raw context window size. Instead, it’s an incomplete or underspecified context. When critical assumptions are missing, models trained to be helpful don’t pause to ask for clarification. Instead, they infer the missing pieces silently. If those inferences are wrong, the model can confidently proceed down the wrong path.</div>
+									<div>&nbsp;</div>
+									<div>What looks like fabrication is often the model filling in gaps as best it can, without any mechanism to signal uncertainty or request disambiguation.</div>
+								</div>
+							</div>
+							<div class="blog_hero__text_block">
+								<h2 class="blog_hero__text_block__title">Pattern 3: AI hallucinations coming from edge-case blind spots</h2>
+								<div class="blog_hero__text_block__description">
+									<div>Generalization is a feature. Overgeneralization is an AI data problem.</div>
+									<div>&nbsp;</div>
+									<div>When rare scenarios never appear during AI training, the model learns – implicitly – that they don’t matter. In production, those&nbsp;<a href="https://research.contrary.com/report/long-tail-of-ai" target="_blank">long-tail cases</a> resurface, and the model responds by extrapolating from dominant patterns. The output may feel inventive or fabricated, but it’s often just a misapplied generalization.</div>
+									<div>&nbsp;</div>
+									<div>This is where edge-case coverage becomes critical. Long-tail examples anchor behavior by showing the model where general rules stop applying. Without them, anomalies are treated as noise rather than signals.</div>
+									<div>&nbsp;</div>
+									<div>Closing these blind spots isn’t simply a matter of adding more AI training data. It requires <a href="https://www.rws.com/blog/right-sizing-domain-expertise-for-specialized-ai/" target="_blank">domain expertise</a> – data annotators who recognize when a case is unusual, high-risk or structurally distinct and who know how to encode that distinction intentionally. Even then, edge-case coverage doesn’t eliminate AI hallucinations entirely, but it significantly reduces the likelihood of systematic overgeneralization in sensitive or high-impact scenarios.</div>
+								</div>
+							</div>
+							<div class="blog_hero__text_block">
+								<h2 class="blog_hero__text_block__title">Pattern 4: AI hallucinations as a byproduct of ambiguous data annotation task definitions</h2>
+								<div class="blog_hero__text_block__description">
+									<div>“Use your best judgment” is not an AI training data strategy. It’s an invitation for inconsistency.</div>
+									<div>&nbsp;</div>
+									<div>Vague data labeling task definitions create downstream chaos. When rubrics rely on subjective phrasing, data annotators operationalize them differently at scale. Thousands of samples later, the model has learned a task that never truly existed.</div>
+									<div>&nbsp;</div>
+									<div>Ambiguous data annotation guidelines lead to:</div>
+									<ul>
+										<li>Inconsistent decision boundaries</li>
+										<li>Conflicting rationales across examples</li>
+										<li>Outputs that vary run to run without clear cause</li>
+									</ul>
+									<div>Clear definitions, pointer examples and explicit non-examples do more than guide humans; they ground model behavior. Ambiguity is multiplicative, while precision compounds.</div>
+									<div>&nbsp;</div>
+									<div>Not all AI hallucinations are preventable through data design alone. Some arise from inherent uncertainty, distributional shift or model capacity limits. However, many of the most damaging hallucinations (the ones that repeat, cluster or emerge predictably in production) are shaped by how AI training data is defined, labeled and reviewed.</div>
+								</div>
+							</div>
+							<div class="blog_hero__text_block">
+								<h2 class="blog_hero__text_block__title">How stronger data design reduces hallucinations</h2>
+								<div class="blog_hero__text_block__description">
+									<div>Reliable models are often the result of deliberate AI data design, not just model fine-tuning. In practice, teams operationalize this rigor through structured AI data programs, often involving expert data annotation, formal QA workflows and continuous calibration, as seen in enterprise-scale initiatives delivered by data services providers like <a href="https://www.rws.com/artificial-intelligence/train-ai-data-services/" target="_blank">TrainAI</a>.</div>
+									<div>&nbsp;</div>
+									<div>Strong dataset design treats AI data as an engineered system, not a byproduct. That means:</div>
+									<ul>
+										<li>Explicit intent taxonomies with clear inclusion/exclusion rules</li>
+										<li>Contextualized examples that show full decision frames</li>
+										<li>Negative samples and boundary cases that teach restraint</li>
+									</ul>
+									<div>Layered QA workflows matter just as much, with calibration rounds aligning data annotators, reviewer feedback closing gaps early and ongoing audits surfacing drift before it calcifies into behavior.</div>
+									<div>&nbsp;</div>
+									<div>The payoff is measurable: fewer surprises, lower error rates and outputs that degrade gracefully instead of inventing answers under uncertainty.</div>
+								</div>
+							</div>
+							<div class="blog_hero__text_block">
+								<h2 class="blog_hero__text_block__title">What high-quality AI teams do differently</h2>
+								<div class="blog_hero__text_block__description">
+									<div>Teams that consistently reduce AI hallucination rates share a few habits:</div>
+									<ul>
+										<li>Domain-expert AI data labeling that recognizes nuance, not just general patterns</li>
+										<li>Real-world scenario grounding tied to production use cases</li>
+										<li>Uncertainty tagging that teaches models when not to answer</li>
+										<li>Maintaining rich metadata and traceability across LLM training data</li>
+									</ul>
+									<div>They treat supervised fine-tuning data as a living asset, not a one-time deliverable. Quality isn’t inspected at the end but rather designed in from the start through rigorous AI data quality assurance.</div>
+									<div>&nbsp;</div>
+									<div>This is also how teams move from chasing individual errors to understanding systemic hallucination patterns and eliminating them upstream.</div>
+								</div>
+							</div>
+							<div class="blog_hero__text_block">
+								<h2 class="blog_hero__text_block__title">From “hallucinations” to accountability: redesigning the upstream</h2>
+								<div class="blog_hero__text_block__description">
+									<div>Many recurring AI hallucinations are traceable to upstream design decisions.</div>
+									<div>&nbsp;</div>
+									<div>They point to gaps in task definition, instruction design, example coverage and review discipline. Fix those, and model behavior stabilizes, not because randomness disappeared, but because the training signal became consistent. That’s the philosophy behind TrainAI by RWS: treat AI training data as infrastructure, design it with intent, validate it continuously and scale it responsibly.</div>
+									<div>&nbsp;</div>
+									<div>Ready to see how stronger AI data foundations reduce risk and improve reliability? Discover how our <a href="https://www.rws.com/artificial-intelligence/train-ai-data-services/" target="_blank">TrainAI data services</a> support quality at scale across enterprise AI programs.</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="h-svh"></section>
+</Layout>
+
+<script src="../../assets/scripts/article-toc.js"></script>
+<script>
+	;(window as any).ArticleToc?.init()
+</script>

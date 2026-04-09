@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import BlogHero from '../../blocks/BlogHero.astro'
+import BlogCards from '../../blocks/BlogCards.astro'
 ---
 
 <Layout>
@@ -9,19 +10,17 @@ import BlogHero from '../../blocks/BlogHero.astro'
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
 			<aside class="hidden lg:col-span-4 lg:block">
-				<div class="sticky top-20">
+				<div class="sticky top-20 grid gap-8 xl:gap-12">
 					<div class="relative rounded-lg bg-background p-10 text-foreground" data-card>
 						<h4 class="mb-6 text-lg font-bold">Table of contents</h4>
 
 						<nav class="relative flex flex-col gap-3 pl-6" data-scrollspy-nav>
 							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-full w-1 bg-foreground/10"></span>
 							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-(--toc-active-height) w-1 bg-accent transition-[height] duration-1000" data-scrollspy-rail></span>
-							<a href="#section-1" class="font-medium text-pretty text-foreground/50 transition-colors hover:text-foreground data-[toc-active=true]:text-foreground" data-scrollspy-link>Pattern 1: AI hallucinations caused by weak or inconsistent data labeling</a>
-							<a href="#section-2" class="font-medium text-pretty text-foreground/50 transition-colors hover:text-foreground data-[toc-active=true]:text-foreground" data-scrollspy-link>Pattern 2: AI hallucinations triggered by missing context or incomplete instructions</a>
-							<a href="#section-3" class="font-medium text-pretty text-foreground/50 transition-colors hover:text-foreground data-[toc-active=true]:text-foreground" data-scrollspy-link>From “hallucinations” to accountability: redesigning the upstream</a>
+							<a href="#" class="hidden font-medium text-pretty text-foreground/50 transition-colors hover:text-foreground data-[toc-active=true]:text-foreground" data-scrollspy-link-template aria-hidden="true">Template TOC link</a>
 
-							<div class="relative">
-								<div class="absolute -left-5.5 -translate-x-1/2 bg-background outline-2 outline-background">
+							<div class="relative" data-scrollspy-end>
+								<div class="absolute -left-5.5 -translate-x-1/2 rounded-full bg-background outline-2 outline-background">
 									<svg class="size-6 text-foreground/25 delay-350 data-[toc-active=true]:text-accent" data-scrollspy-end-icon data-toc-active="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="currentColor" d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
 								</div>
 
@@ -29,13 +28,30 @@ import BlogHero from '../../blocks/BlogHero.astro'
 							</div>
 						</nav>
 
-						<canvas aria-hidden="true" class="pointer-events-none absolute inset-0 z-20 size-full rounded-lg" data-scrollspy-confetti-canvas></canvas>
+						<canvas aria-hidden="true" class="pointer-events-none absolute inset-0 size-full rounded-lg" data-scrollspy-confetti-canvas></canvas>
+					</div>
+
+					<div class="rounded-lg bg-background p-6 text-foreground" data-card>
+						<div class="flex items-start gap-6">
+							<div class="overflow-hidden- rounded- w-1/3 max-w-32 shrink-0">
+								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+							</div>
+							<div>
+								<h4 class="mb-2 text-lg font-semibold">Lorem ipsum dolor</h4>
+
+								<div class="prose mb-4 text-sm/normal font-medium text-foreground/80">
+									<p>Tenetur et nesciunt neque, asperiores dolorem repudian, tempora provident fugit?</p>
+								</div>
+
+								<a href="#" class="btn btn-primary btn-sm">Call to action</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</aside>
 
-			<article class="col-span-full lg:col-span-8 [&_h2[id]]:scroll-mt-20" data-scrollspy-content>
-				<div class="rounded-lg bg-background p-10 text-foreground" data-card>
+			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12 [&_h2[id]]:scroll-mt-20">
+				<div class="rounded-lg bg-background p-10 text-foreground" data-card data-scrollspy-content>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<p class="lead">“Hallucination” has become a catch-all explanation for almost any surprising model output. Wrong answer? Hallucination. Confident nonsense? Hallucination. Unexpected creativity? Same label.</p>
 						<p>However, the term itself is contentious. In research and practitioner circles, "hallucination" is often used as shorthand for a range of behaviors – factual fabrication, unsupported inference or overconfident generalization – that have very different underlying causes. Some teams prefer terms like "confabulation" or "fabrication" to avoid anthropomorphic framing altogether.</p>
@@ -43,7 +59,7 @@ import BlogHero from '../../blocks/BlogHero.astro'
 						<p>When outputs look erratic, it’s tempting to blame the model. In reality, models are often doing exactly what they were trained to do: reflecting the structure, ambiguity and gaps present in their training data. In that sense, so-called model hallucinations function less like random failures and more like signals pointing back to upstream data design.</p>
 						<p>This article focuses on a specific subset of these failures: systematic, repeatable error patterns that emerge in downstream tasks. The sections below examine common ways those patterns arise from data definition, data labeling practices and data annotation instruction design, not as the sole causes of hallucinations but as contributors that teams can actually observe, diagnose and improve.</p>
 
-						<h2 id="section-1">Pattern 1: AI hallucinations caused by weak or inconsistent data labeling</h2>
+						<h2>Pattern 1: AI hallucinations caused by weak or inconsistent data labeling</h2>
 						<p>In supervised systems, data labels define the ground truth. When that ground truth is inconsistent, the model doesn’t fail or refuse to answer; it averages competing signals.</p>
 						<p>It’s important to be precise here. Many hallucinations originate upstream during pre-training, where limited coverage, distributional gaps or model capacity constraints leave parts of the data representation space under-specified. Supervised fine-tuning can reduce some of that uncertainty by updating model weights, but it rarely eliminates it entirely. Instead, it both reshapes representations and influences how the model responds when uncertainty remains.</p>
 						<p>When data labeling is inconsistent, the model sees examples that contradict each other. It learns that different answers can all be “right,” even when they shouldn’t be. The result is output that looks like confusion but is, in fact, a statistically coherent compromise learned from the data.</p>
@@ -55,7 +71,7 @@ import BlogHero from '../../blocks/BlogHero.astro'
 						</ul>
 						<p>Over time, small data annotation errors accumulate. Annotators interpret edge cases differently. Data annotation guidelines evolve informally. Drift sets in. The model absorbs all of it and learns a blurred version of the task, producing behavior that can resemble reasoning failure but is better understood as learned ambiguity. If AI training data is messy, the model may learn that rules are inconsistent, which can lead to hallucinations or overgeneralized exceptions, and the exact impact of fine-tuning remains unpredictable.</p>
 
-						<h2 id="section-2">Pattern 2: AI hallucinations triggered by missing context or incomplete instructions</h2>
+						<h2>Pattern 2: AI hallucinations triggered by missing context or incomplete instructions</h2>
 						<p>Models can’t rely on context that was never made explicit.</p>
 						<p>In many AI training setups, tasks assume background knowledge or constraints that aren’t actually encoded in the training data. When task instruction clarity is weak, the model is forced to infer decision logic rather than apply it.</p>
 						<p>This often appears in:</p>
@@ -67,140 +83,69 @@ import BlogHero from '../../blocks/BlogHero.astro'
 						<p>In modern systems, the issue is rarely the raw context window size. Instead, it’s an incomplete or underspecified context. When critical assumptions are missing, models trained to be helpful don’t pause to ask for clarification. Instead, they infer the missing pieces silently. If those inferences are wrong, the model can confidently proceed down the wrong path.</p>
 						<p>What looks like fabrication is often the model filling in gaps as best it can, without any mechanism to signal uncertainty or request disambiguation.</p>
 
-						<h2 id="section-3">From “hallucinations” to accountability: redesigning the upstream</h2>
+						<h2>From “hallucinations” to accountability: redesigning the upstream</h2>
 						<p>Many recurring AI hallucinations are traceable to upstream design decisions.</p>
 						<blockquote>
 							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, necessitatibus. Impedit id qui suscipit, quas unde dolorum eveniet odio ullam tenetur ipsa expedita vero maiores excepturi rerum ipsam repudiandae doloremque!</p>
 						</blockquote>
 						<p>They point to gaps in task definition, instruction design, example coverage and review discipline. Fix those, and model behavior stabilizes, not because randomness disappeared, but because the training signal became consistent. That’s the philosophy behind TrainAI by RWS: treat AI training data as infrastructure, design it with intent, validate it continuously and scale it responsibly.</p>
 					</div>
+
+					<div class="mt-12 flex flex-wrap gap-x-6 gap-y-2">
+						<h3 class="font-bold">Tags:</h3>
+						<div class="flex flex-wrap gap-x-4 gap-y-1.5">
+							<a href="#" class="font-semibold transition-colors hover:text-accent">Artificial Intelligence (AI)</a>
+							<a href="#" class="font-semibold transition-colors hover:text-accent">TrainAI/Data Services for AI</a>
+							<a href="#" class="font-semibold transition-colors hover:text-accent">Language & Culture</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="rounded-lg bg-background p-10 text-foreground" data-theme="tertiary">
+					<div class="flex-wrap- flex gap-6">
+						<img class="size-24 rounded-full object-cover sm:size-32" src="https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433" alt="Maria Schnell" />
+						<div>
+							<p class="-mt-1 mb-2.5 text-sm font-semibold text-accent sm:text-base">Author</p>
+							<a href="#" rel="author" class="text-2xl font-bold sm:text-3xl">Stacy Ayers</a>
+							<p class="mt-1 font-semibold text-foreground/80 sm:text-xl">Head of Quality, TrainAI</p>
+						</div>
+					</div>
+
+					<div class="prose mt-8 max-w-none font-medium text-pretty lg:text-lg">
+						<p>Stacy is Head of Quality for RWS’s TrainAI data services practice, which delivers complex, cutting-edge AI training data solutions to global clients across a wide range of industries. She works closely with the TrainAI team and clients to ensure their AI projects deliver high-quality data, actionable insights, and exceed expectations.</p>
+						<p>Stacy has over 15 years of experience working in AI data services, primarily in project, program, and quality management roles, spanning generative AI, search relevance, data collection, and translation. She holds a master’s degree from Southern Seminary and a bachelor’s degree in Education from Indiana University, along with several industry certifications.</p>
+					</div>
 				</div>
 			</article>
 		</div>
 	</section>
 
-	<section class="h-svh"></section>
+	<section hidden class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<!-- <div class="rounded-[1px] bg-accent/5 outline-24 outline-accent/5">
+				<div class="rounded-lg border border-accent/33 bg-background p-12 text-foreground" data-card> -->
+			<div class="flex items-start">
+				<img class="mr-4 size-40 rounded-full object-cover" src="https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433" alt="Maria Schnell" />
+				<div>
+					<p>Author</p>
+					<a href="#" rel="author" class="text-lg font-bold">Stacy Ayers</a>
+					<p class="text-sm font-medium text-foreground/80">Head of Quality, TrainAI</p>
+
+					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
+						<p>Stacy is Head of Quality for RWS’s TrainAI data services practice, which delivers complex, cutting-edge AI training data solutions to global clients across a wide range of industries. She works closely with the TrainAI team and clients to ensure their AI projects deliver high-quality data, actionable insights, and exceed expectations.</p>
+						<p>Stacy has over 15 years of experience working in AI data services, primarily in project, program, and quality management roles, spanning generative AI, search relevance, data collection, and translation. She holds a master’s degree from Southern Seminary and a bachelor’s degree in Education from Indiana University, along with several industry certifications.</p>
+					</div>
+				</div>
+			</div>
+			<!-- </div>
+			</div> -->
+		</div>
+	</section>
+
+	<BlogCards />
 </Layout>
 
+<script src="../../assets/scripts/article-toc.js"></script>
 <script>
-	// @ts-nocheck
-	const nav = document.querySelector('[data-scrollspy-nav]')
-	const links = Array.from(document.querySelectorAll('[data-scrollspy-link]'))
-	const headings = Array.from(document.querySelectorAll('[data-scrollspy-content] h2[id]'))
-	const article = document.querySelector('[data-scrollspy-content]')
-	const endIcon = document.querySelector('[data-scrollspy-end-icon]')
-	const endLabel = document.querySelector('[data-scrollspy-end-label]')
-	const confettiCanvas = document.querySelector('[data-scrollspy-confetti-canvas]')
-
-	if (nav && links.length && headings.length && article) {
-		let jsConfetti = null
-		let jsConfettiLoader = null
-		const getLinkForId = (id) => links.find((link) => link.getAttribute('href') === `#${id}`)
-		let wasComplete = false
-		const jsConfettiSrc = 'https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js'
-
-		const ensureJsConfettiLoaded = () => {
-			if (window.JSConfetti) return Promise.resolve(window.JSConfetti)
-			if (jsConfettiLoader) return jsConfettiLoader
-
-			jsConfettiLoader = new Promise((resolve, reject) => {
-				const existing = document.querySelector(`script[src="${jsConfettiSrc}"]`)
-				if (existing) {
-					existing.addEventListener('load', () => resolve(window.JSConfetti), { once: true })
-					existing.addEventListener('error', (event) => reject(event), { once: true })
-					return
-				}
-
-				const script = document.createElement('script')
-				script.src = jsConfettiSrc
-				script.async = true
-				script.onload = () => resolve(window.JSConfetti)
-				script.onerror = (event) => reject(event)
-				document.head.appendChild(script)
-			})
-
-			return jsConfettiLoader
-		}
-
-		const getJsConfetti = async () => {
-			if (jsConfetti) return jsConfetti
-			if (!confettiCanvas) return null
-			const Ctor = await ensureJsConfettiLoaded()
-			if (!Ctor) return null
-			jsConfetti = new Ctor({ canvas: confettiCanvas })
-			return jsConfetti
-		}
-
-		const setActive = (id, isComplete = false) => {
-			const activeLink = getLinkForId(id)
-			if (!activeLink) return
-
-			for (const link of links) {
-				const isActive = !isComplete && link === activeLink
-				link.dataset.tocActive = isActive ? 'true' : 'false'
-			}
-			if (endLabel) endLabel.dataset.tocActive = isComplete ? 'true' : 'false'
-			if (endIcon) endIcon.dataset.tocActive = isComplete ? 'true' : 'false'
-
-			let activeHeight = nav.getBoundingClientRect().height
-			if (!isComplete) {
-				const navTop = nav.getBoundingClientRect().top
-				const linkRect = activeLink.getBoundingClientRect()
-				activeHeight = Math.max(0, linkRect.top - navTop + linkRect.height / 2)
-			}
-			nav.style.setProperty('--toc-active-height', `${activeHeight}px`)
-		}
-
-		const triggerEndConfetti = async () => {
-			const confetti = await getJsConfetti()
-			if (!confetti || !endIcon || !confettiCanvas) return
-
-			const iconRect = endIcon.getBoundingClientRect()
-			const canvasRect = confettiCanvas.getBoundingClientRect()
-			const x = iconRect.left + iconRect.width / 2 - canvasRect.left
-			const y = iconRect.top + iconRect.height / 2 - canvasRect.top
-
-			confetti.addConfettiAtPosition({
-				confettiColors: ['oklch(0.591 0.238 290.15)', 'oklch(0.589 0.235 12.88)', 'oklch(0.302 0.159 300.75)'],
-				confettiNumber: 240,
-				confettiRadius: 6,
-				confettiDispatchPosition: { x, y },
-			})
-		}
-
-		let activeId = headings[0].id
-
-		const updateFromScroll = () => {
-			const sectionMarker = window.innerHeight * 0.5
-			const completionMarker = window.innerHeight * 0.75
-			let current = headings[0]
-			const articleBottom = article.getBoundingClientRect().bottom
-			const isComplete = articleBottom <= completionMarker
-
-			for (const heading of headings) {
-				if (heading.getBoundingClientRect().top <= sectionMarker) {
-					current = heading
-				} else {
-					break
-				}
-			}
-
-			if (current?.id) {
-				if (current.id !== activeId) {
-					activeId = current.id
-				}
-				setActive(activeId, isComplete)
-				if (isComplete && !wasComplete) {
-					void triggerEndConfetti()
-				}
-				wasComplete = isComplete
-			}
-		}
-
-		nav.style.setProperty('--toc-active-height', '0px')
-		setActive(activeId)
-		updateFromScroll()
-		window.addEventListener('scroll', updateFromScroll, { passive: true })
-		window.addEventListener('resize', updateFromScroll, { passive: true })
-	}
+	;(window as any).ArticleToc?.init()
 </script>
