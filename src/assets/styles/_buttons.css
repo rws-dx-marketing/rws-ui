@@ -29,6 +29,23 @@
 		}
 	}
 
+	.btn-magnet {
+		@apply will-change-transform;
+
+		transition:
+			color var(--default-transition-duration) var(--default-transition-timing-function),
+			background-color var(--default-transition-duration) var(--default-transition-timing-function),
+			border-color var(--default-transition-duration) var(--default-transition-timing-function),
+			outline-color var(--default-transition-duration) var(--default-transition-timing-function),
+			text-decoration-color var(--default-transition-duration) var(--default-transition-timing-function),
+			fill var(--default-transition-duration) var(--default-transition-timing-function),
+			stroke var(--default-transition-duration) var(--default-transition-timing-function),
+			--tw-gradient-from var(--default-transition-duration) var(--default-transition-timing-function),
+			--tw-gradient-via var(--default-transition-duration) var(--default-transition-timing-function),
+			--tw-gradient-to var(--default-transition-duration) var(--default-transition-timing-function),
+			transform 250ms ease-out;
+	}
+
 	.btn-primary {
 		@apply bg-primary text-white shadow-xs hover:bg-primary-dark focus-visible:bg-primary-dark focus-visible:ring-primary-lighter;
 	}
