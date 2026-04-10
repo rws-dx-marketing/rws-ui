@@ -43,6 +43,14 @@
 [data-theme='dots'] {
 	@apply bg-size-[2.25rem] bg-top bg-repeat;
 	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjMuNSIgY3k9IjIzLjUiIHI9IjEuNSIgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPgo=);
+	position: relative;
+
+	--dots-spacing: 36;
+	--dots-radius: 1.25;
+	--dots-influence: 360;
+	--dots-max-push: 36;
+	--dots-ease: 0.14;
+	--dots-dot-color: rgb(0 0 0 / 0.12);
 
 	--background: color-mix(in oklch, var(--color-tertiary-lightest) 33%, transparent);
 	--foreground: var(--color-gray-900);
@@ -51,6 +59,28 @@
 	--card: var(--color-white);
 	--card-foreground: var(--color-gray-900);
 	--input: var(--color-white);
+}
+
+[data-theme='dots'][data-dots-enhanced='true'] {
+	background-image: none;
+}
+
+[data-theme='dots'] > :not(.dots-grid-svg) {
+	position: relative;
+	z-index: 1;
+}
+
+.dots-grid-svg {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+.dots-grid-dot {
+	fill: var(--dots-dot-color);
 }
 
 [data-theme='primary'] {
@@ -149,6 +179,7 @@
 
 	[data-theme='dots'] {
 		background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjMuNSIgY3k9IjIzLjUiIHI9IjEuNSIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPgo=);
+		--dots-dot-color: rgb(255 255 255 / 0.12);
 
 		--background: color-mix(in oklch, var(--color-tertiary-darker) 25%, transparent);
 		--foreground: var(--color-gray-50);
