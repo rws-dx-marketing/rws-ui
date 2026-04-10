@@ -10,6 +10,8 @@
 		completion: 0.66,
 		slugPrefix: 'section',
 		preserveExistingIds: true,
+		proximity: null,
+		hoverProximity: null,
 	}
 
 	const jsConfettiSrc = 'https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js'
@@ -103,7 +105,14 @@
 			link.classList.remove('hidden')
 			link.removeAttribute('aria-hidden')
 			link.dataset.scrollspyLink = ''
-			link.textContent = heading.textContent ? heading.textContent.trim() : heading.id
+			const labelText = heading.textContent ? heading.textContent.trim() : heading.id
+			const labelNode = link.querySelector('[data-scrollspy-link-label]')
+			if (labelNode) {
+				labelNode.textContent = labelText
+			} else {
+				link.textContent = labelText
+			}
+			link.dataset.tocLabel = labelText
 			if (endNode) {
 				nav.insertBefore(link, endNode)
 			} else {
@@ -112,6 +121,16 @@
 			linkById.set(heading.id, link)
 			return link
 		})
+		const headingIndexById = new Map(headings.map((heading, index) => [heading.id, index]))
+
+		const parsedProximity = Number.parseInt(nav.dataset.scrollspyProximity || '', 10)
+		const parsedHoverProximity = Number.parseInt(nav.dataset.scrollspyHoverProximity || '', 10)
+		const proximity = Number.isInteger(parsedProximity) && parsedProximity >= 0 ? parsedProximity : options.proximity
+		const hoverProximity = Number.isInteger(parsedHoverProximity) && parsedHoverProximity >= 0 ? parsedHoverProximity : options.hoverProximity
+		const parsedRailOffset = Number.parseFloat(nav.dataset.scrollspyRailOffset || '')
+		const railOffset = Number.isFinite(parsedRailOffset) && parsedRailOffset >= 0 ? parsedRailOffset : 0
+		const useProgressDots = nav.hasAttribute('data-scrollspy-progress-dots')
+		const useDirectionalDelay = nav.hasAttribute('data-scrollspy-directional-delay')
 
 		const endIcon = nav.querySelector('[data-scrollspy-end-icon]')
 		const endLabel = nav.querySelector('[data-scrollspy-end-label]')
@@ -121,11 +140,14 @@
 		let wasComplete = false
 		let activeId = headings[0].id
 		let activeLink = null
+		let previousActiveIndex = headingIndexById.get(activeId) ?? 0
 		let ticking = false
 
 		function setActive(id, isComplete) {
 			const nextActiveLink = linkById.get(id)
 			if (!nextActiveLink) return
+			const activeIndex = headingIndexById.get(id) ?? 0
+			const isMovingForward = useDirectionalDelay && activeIndex > previousActiveIndex
 
 			if (isComplete) {
 				if (activeLink) activeLink.dataset.tocActive = 'false'
@@ -135,16 +157,40 @@
 			}
 			activeLink = nextActiveLink
 
+			for (let idx = 0; idx < links.length; idx += 1) {
+				const link = links[idx]
+				const distance = Math.abs(idx - activeIndex)
+				link.dataset.tocDistance = String(distance)
+				if (useProgressDots) {
+					link.dataset.tocPast = idx < activeIndex ? 'true' : 'false'
+				} else {
+					delete link.dataset.tocPast
+				}
+				if (useDirectionalDelay) {
+					link.dataset.tocDelay = idx === activeIndex && isMovingForward ? 'true' : 'false'
+				} else {
+					delete link.dataset.tocDelay
+				}
+				if (Number.isInteger(proximity)) {
+					link.dataset.tocInRange = distance <= proximity ? 'true' : 'false'
+				}
+				if (Number.isInteger(hoverProximity)) {
+					link.dataset.tocInHoverRange = distance <= hoverProximity ? 'true' : 'false'
+				}
+			}
+
 			if (endLabel) endLabel.dataset.tocActive = isComplete ? 'true' : 'false'
 			if (endIcon) endIcon.dataset.tocActive = isComplete ? 'true' : 'false'
 
-			let activeHeight = nav.getBoundingClientRect().height
+			const navRect = nav.getBoundingClientRect()
+			let activeHeight = Math.max(0, navRect.height - railOffset * 2)
 			if (!isComplete) {
-				const navTop = nav.getBoundingClientRect().top
+				const navTop = navRect.top
 				const linkRect = nextActiveLink.getBoundingClientRect()
-				activeHeight = Math.max(0, linkRect.top - navTop + linkRect.height / 2)
+				activeHeight = Math.max(0, linkRect.top - navTop + linkRect.height / 2 - railOffset)
 			}
 			nav.style.setProperty('--toc-active-height', `${activeHeight}px`)
+			previousActiveIndex = activeIndex
 		}
 
 		async function getJsConfetti() {

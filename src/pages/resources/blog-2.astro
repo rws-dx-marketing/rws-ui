@@ -6,19 +6,53 @@ import BlogHero from '../../blocks/BlogHero.astro'
 <Layout>
 	<BlogHero />
 
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
-		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-			<div class="w-fit rounded-lg bg-background p-10 text-foreground" data-card>
-				<div class="prose font-medium text-pretty lg:text-lg">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
+	<aside class="group/toc fixed top-1/2 left-2 z-20 hidden w-8 -translate-y-1/2 overflow-hidden transition-[width] duration-200 hover:w-[min(10rem,20vw)] motion-reduce:transition-none lg:flex motion-reduce:[&_a]:transition-none motion-reduce:[&_span]:transition-none">
+		<nav aria-label="Section navigation" class="relative flex w-full flex-col gap-3 rounded-lg border border-foreground/5 bg-background/66 py-4 pr-3 pl-4 text-foreground backdrop-blur-lg" data-theme="default" data-scrollspy-nav data-scrollspy-rail-offset="24" data-scrollspy-progress-dots data-scrollspy-directional-delay>
+			<span aria-hidden="true" class="pointer-events-none absolute top-6 bottom-6 left-3.5 w-1 bg-foreground/10"></span>
+			<span aria-hidden="true" class="pointer-events-none absolute top-6 left-3.5 h-(--toc-active-height) w-1 bg-accent transition-[height] duration-500" data-scrollspy-rail></span>
+			<a href="#" class="group/toc-link relative hidden h-4 data-[toc-active=true]:[&_.toc-dot]:scale-115 data-[toc-active=true]:[&_.toc-dot]:border-accent data-[toc-active=true]:[&_.toc-dot]:bg-accent data-[toc-delay=true]:[&_.toc-dot]:delay-200 data-[toc-past=true]:[&_.toc-dot]:border-accent data-[toc-past=true]:[&_.toc-dot]:bg-accent" data-scrollspy-link-template aria-hidden="true">
+				<span aria-hidden="true" class="toc-dot pointer-events-none absolute top-1/2 left-0 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/10 bg-white transition-[transform,background-color,border-color] duration-500"></span>
+				<span class="pointer-events-none absolute top-1/2 left-4 w-48 -translate-x-1 -translate-y-1/2 text-sm/none font-semibold whitespace-nowrap text-foreground opacity-0 transition duration-200 group-hover/toc:translate-x-0 group-hover/toc:opacity-100 group-data-[toc-active=true]/toc-link:group-hover/toc:opacity-100" data-scrollspy-link-label> Template TOC link </span>
+			</a>
+		</nav>
+	</aside>
+
+	<main data-scrollspy-content>
+		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<div class="w-fit rounded-lg bg-background p-10 text-foreground" data-card>
+					<div class="prose font-medium text-pretty lg:text-lg">
+						<h2 class="sr-only">Introduction</h2>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
 
-	<section class="h-svh bg-background" data-theme="tertiary"></section>
-	<section class="h-svh bg-background" data-theme="secondary"></section>
-	<section class="h-svh bg-background" data-theme="primary"></section>
+		<section class="h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<h2 class="scroll-mt-20 text-3xl font-bold">Section 1</h2>
+			</div>
+		</section>
+
+		<section class="h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="secondary">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<h2 class="scroll-mt-20 text-3xl font-bold">Section 2</h2>
+			</div>
+		</section>
+
+		<section class="h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<h2 class="scroll-mt-20 text-3xl font-bold">Section 3</h2>
+			</div>
+		</section>
+
+		<section class="lg:pb-20p h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20" data-theme="primary">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<h2 class="scroll-mt-20 text-3xl font-bold">Section 4</h2>
+			</div>
+		</section>
+	</main>
 </Layout>
 
 <script src="../../assets/scripts/article-toc.js"></script>
