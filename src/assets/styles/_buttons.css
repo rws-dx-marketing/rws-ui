@@ -88,6 +88,13 @@
 		& > .btn-primary {
 			@apply z-10;
 		}
+
+		& > :where(:first-child) > :where(span) {
+			@apply pl-1;
+		}
+		& > :where(:last-child) > :where(span) {
+			@apply pr-1;
+		}
 	}
 }
 
