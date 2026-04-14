@@ -1,7 +1,7 @@
 ;(function attachArticleToc(globalObj) {
 	'use strict'
 
-	const instances = new WeakMap()
+	const instancesByNav = new WeakMap()
 	const DEFAULTS = {
 		contentSelector: '[data-scrollspy-content]',
 		navSelector: '[data-scrollspy-nav]',
@@ -63,20 +63,20 @@
 		return jsConfettiLoader
 	}
 
-	function init(userOptions) {
-		const options = Object.assign({}, DEFAULTS, userOptions || {})
-		const nav = document.querySelector(options.navSelector)
-		const article = document.querySelector(options.contentSelector)
-		if (!nav || !article) return
+	function resolveContentNodes(nav, options) {
+		const group = nav.dataset.scrollspyGroup
+		if (group) {
+			return Array.from(document.querySelectorAll(`${options.contentSelector}[data-scrollspy-group="${group}"]`))
+		}
+		return Array.from(document.querySelectorAll(options.contentSelector))
+	}
 
-		const existingInstance = instances.get(article)
-		if (existingInstance) return existingInstance
-
-		const headingNodes = Array.from(article.querySelectorAll(options.headingSelector))
-		if (!headingNodes.length) return
+	function collectHeadings(contentNodes, options) {
+		const headingNodes = contentNodes.flatMap((contentNode) => Array.from(contentNode.querySelectorAll(options.headingSelector)))
+		if (!headingNodes.length) return []
 
 		const usedIds = new Set()
-		const headings = headingNodes.map((heading, idx) => {
+		return headingNodes.map((heading, idx) => {
 			const fallback = `${options.slugPrefix}-${idx + 1}`
 			const base = slugify(heading.textContent) || fallback
 			let id = heading.id
@@ -92,12 +92,14 @@
 			heading.id = id
 			return heading
 		})
+	}
 
+	function buildTocLinks(nav, headings) {
 		Array.from(nav.querySelectorAll('[data-scrollspy-link]')).forEach((link) => link.remove())
 		const linkTemplate = nav.querySelector('[data-scrollspy-link-template]')
-
 		const endNode = nav.querySelector('[data-scrollspy-end]')
 		const linkById = new Map()
+
 		const links = headings.map((heading) => {
 			const link = linkTemplate ? linkTemplate.cloneNode(true) : document.createElement('a')
 			link.href = `#${heading.id}`
@@ -121,21 +123,40 @@
 			linkById.set(heading.id, link)
 			return link
 		})
-		const headingIndexById = new Map(headings.map((heading, index) => [heading.id, index]))
 
+		return { links, linkById }
+	}
+
+	function getNavConfig(nav, options) {
 		const parsedProximity = Number.parseInt(nav.dataset.scrollspyProximity || '', 10)
 		const parsedHoverProximity = Number.parseInt(nav.dataset.scrollspyHoverProximity || '', 10)
-		const proximity = Number.isInteger(parsedProximity) && parsedProximity >= 0 ? parsedProximity : options.proximity
-		const hoverProximity = Number.isInteger(parsedHoverProximity) && parsedHoverProximity >= 0 ? parsedHoverProximity : options.hoverProximity
 		const parsedRailOffset = Number.parseFloat(nav.dataset.scrollspyRailOffset || '')
-		const railOffset = Number.isFinite(parsedRailOffset) && parsedRailOffset >= 0 ? parsedRailOffset : 0
-		const useProgressDots = nav.hasAttribute('data-scrollspy-progress-dots')
-		const useDirectionalDelay = nav.hasAttribute('data-scrollspy-directional-delay')
 
+		return {
+			proximity: Number.isInteger(parsedProximity) && parsedProximity >= 0 ? parsedProximity : options.proximity,
+			hoverProximity: Number.isInteger(parsedHoverProximity) && parsedHoverProximity >= 0 ? parsedHoverProximity : options.hoverProximity,
+			railOffset: Number.isFinite(parsedRailOffset) && parsedRailOffset >= 0 ? parsedRailOffset : 0,
+			useProgressDots: nav.hasAttribute('data-scrollspy-progress-dots'),
+			useDirectionalDelay: nav.hasAttribute('data-scrollspy-directional-delay'),
+		}
+	}
+
+	function createInstance(nav, options) {
+		const contentNodes = resolveContentNodes(nav, options)
+		if (!contentNodes.length) return null
+
+		const headings = collectHeadings(contentNodes, options)
+		if (!headings.length) return null
+
+		const { links, linkById } = buildTocLinks(nav, headings)
+		const headingIndexById = new Map(headings.map((heading, index) => [heading.id, index]))
+		const navConfig = getNavConfig(nav, options)
 		const endIcon = nav.querySelector('[data-scrollspy-end-icon]')
 		const endLabel = nav.querySelector('[data-scrollspy-end-label]')
 		const cardRoot = nav.closest('[data-card]')
 		const confettiCanvas = cardRoot ? cardRoot.querySelector('[data-scrollspy-confetti-canvas]') : null
+		const lastContentNode = contentNodes[contentNodes.length - 1]
+
 		let jsConfetti = null
 		let wasComplete = false
 		let activeId = headings[0].id
@@ -146,13 +167,14 @@
 		function setActive(id, isComplete) {
 			const nextActiveLink = linkById.get(id)
 			if (!nextActiveLink) return
+
 			const activeIndex = headingIndexById.get(id) ?? 0
-			const isMovingForward = useDirectionalDelay && activeIndex > previousActiveIndex
+			const isMovingForward = navConfig.useDirectionalDelay && activeIndex > previousActiveIndex
 
 			if (isComplete) {
 				if (activeLink) activeLink.dataset.tocActive = 'false'
-			} else if (activeLink !== nextActiveLink) {
-				if (activeLink) activeLink.dataset.tocActive = 'false'
+			} else {
+				if (activeLink !== nextActiveLink && activeLink) activeLink.dataset.tocActive = 'false'
 				nextActiveLink.dataset.tocActive = 'true'
 			}
 			activeLink = nextActiveLink
@@ -161,21 +183,24 @@
 				const link = links[idx]
 				const distance = Math.abs(idx - activeIndex)
 				link.dataset.tocDistance = String(distance)
-				if (useProgressDots) {
+
+				if (navConfig.useProgressDots) {
 					link.dataset.tocPast = idx < activeIndex ? 'true' : 'false'
 				} else {
 					delete link.dataset.tocPast
 				}
-				if (useDirectionalDelay) {
+
+				if (navConfig.useDirectionalDelay) {
 					link.dataset.tocDelay = idx === activeIndex && isMovingForward ? 'true' : 'false'
 				} else {
 					delete link.dataset.tocDelay
 				}
-				if (Number.isInteger(proximity)) {
-					link.dataset.tocInRange = distance <= proximity ? 'true' : 'false'
+
+				if (Number.isInteger(navConfig.proximity)) {
+					link.dataset.tocInRange = distance <= navConfig.proximity ? 'true' : 'false'
 				}
-				if (Number.isInteger(hoverProximity)) {
-					link.dataset.tocInHoverRange = distance <= hoverProximity ? 'true' : 'false'
+				if (Number.isInteger(navConfig.hoverProximity)) {
+					link.dataset.tocInHoverRange = distance <= navConfig.hoverProximity ? 'true' : 'false'
 				}
 			}
 
@@ -183,11 +208,10 @@
 			if (endIcon) endIcon.dataset.tocActive = isComplete ? 'true' : 'false'
 
 			const navRect = nav.getBoundingClientRect()
-			let activeHeight = Math.max(0, navRect.height - railOffset * 2)
+			let activeHeight = Math.max(0, navRect.height - navConfig.railOffset * 2)
 			if (!isComplete) {
-				const navTop = navRect.top
 				const linkRect = nextActiveLink.getBoundingClientRect()
-				activeHeight = Math.max(0, linkRect.top - navTop + linkRect.height / 2 - railOffset)
+				activeHeight = Math.max(0, linkRect.top - navRect.top + linkRect.height / 2 - navConfig.railOffset)
 			}
 			nav.style.setProperty('--toc-active-height', `${activeHeight}px`)
 			previousActiveIndex = activeIndex
@@ -221,22 +245,27 @@
 			}, 600)
 		}
 
-		function updateFromScroll() {
+		function getCurrentHeading() {
 			const sectionMarker = globalObj.innerHeight * options.offset
-			const completionMarker = globalObj.innerHeight * options.completion
 			let current = headings[0]
-			const articleBottom = article.getBoundingClientRect().bottom
-			const isComplete = articleBottom <= completionMarker
-
-			for (const heading of headings) {
+			for (let idx = 0; idx < headings.length; idx += 1) {
+				const heading = headings[idx]
 				if (heading.getBoundingClientRect().top <= sectionMarker) {
 					current = heading
 				} else {
 					break
 				}
 			}
+			return current
+		}
 
+		function updateFromScroll() {
+			const completionMarker = globalObj.innerHeight * options.completion
+			const contentBottom = lastContentNode.getBoundingClientRect().bottom
+			const isComplete = contentBottom <= completionMarker
+			const current = getCurrentHeading()
 			if (!current || !current.id) return
+
 			if (current.id !== activeId) activeId = current.id
 			setActive(activeId, isComplete)
 
@@ -255,7 +284,9 @@
 			})
 		}
 
-		article.dataset.scrollspyInitialized = 'true'
+		for (const contentNode of contentNodes) {
+			contentNode.dataset.scrollspyInitialized = 'true'
+		}
 		for (const link of links) {
 			link.dataset.tocActive = 'false'
 		}
@@ -265,19 +296,40 @@
 		globalObj.addEventListener('scroll', scheduleUpdate, { passive: true })
 		globalObj.addEventListener('resize', scheduleUpdate, { passive: true })
 
-		function destroy() {
-			globalObj.removeEventListener('scroll', scheduleUpdate)
-			globalObj.removeEventListener('resize', scheduleUpdate)
-			article.dataset.scrollspyInitialized = 'false'
-			instances.delete(article)
+		return {
+			refresh: updateFromScroll,
+			destroy() {
+				globalObj.removeEventListener('scroll', scheduleUpdate)
+				globalObj.removeEventListener('resize', scheduleUpdate)
+				for (const contentNode of contentNodes) {
+					contentNode.dataset.scrollspyInitialized = 'false'
+				}
+				instancesByNav.delete(nav)
+			},
+		}
+	}
+
+	function init(userOptions) {
+		const options = Object.assign({}, DEFAULTS, userOptions || {})
+		const navNodes = Array.from(document.querySelectorAll(options.navSelector))
+		if (!navNodes.length) return
+
+		const instances = []
+		for (const nav of navNodes) {
+			const existingInstance = instancesByNav.get(nav)
+			if (existingInstance) {
+				instances.push(existingInstance)
+				continue
+			}
+
+			const instance = createInstance(nav, options)
+			if (!instance) continue
+			instancesByNav.set(nav, instance)
+			instances.push(instance)
 		}
 
-		const instance = {
-			destroy,
-			refresh: updateFromScroll,
-		}
-		instances.set(article, instance)
-		return instance
+		if (!instances.length) return
+		return instances.length === 1 ? instances[0] : instances
 	}
 
 	globalObj.ArticleToc = {
