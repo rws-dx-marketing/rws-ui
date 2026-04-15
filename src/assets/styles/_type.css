@@ -16,6 +16,7 @@
 		--tw-prose-lead: color-mix(in oklch, var(--foreground) 90%, transparent);
 		--tw-prose-bold: var(--foreground);
 		--tw-prose-links: var(--accent);
+		--tw-prose-hr: color-mix(in oklch, var(--foreground) 10%, transparent);
 
 		:where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 			@apply mt-[1em] mb-[1em] text-pretty;
@@ -56,6 +57,10 @@
 
 		:where(li > :last-child):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
 			@apply mb-0;
+		}
+
+		:where(hr):not(:where([class~='not-prose'], [class~='not-prose'] *)) {
+			@apply mt-[2em] mb-[2em];
 		}
 	}
 }
