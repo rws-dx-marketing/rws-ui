@@ -1,5 +1,5 @@
 if (typeof window !== 'undefined') {
-	const sections = document.querySelectorAll('[data-theme="dots"]')
+	const sections = document.querySelectorAll('[data-theme="dots-enhanced"]')
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 	if (sections.length > 0 && !prefersReducedMotion) {
@@ -17,9 +17,8 @@ if (typeof window !== 'undefined') {
 			}
 
 			state.svg.setAttribute('aria-hidden', 'true')
-			state.svg.classList.add('dots-grid-svg')
+			state.svg.classList.add('dots-svg')
 			section.prepend(state.svg)
-			section.setAttribute('data-dots-enhanced', 'true')
 
 			const readNumber = (value, fallback) => {
 				const parsed = Number.parseFloat(value)
@@ -39,21 +38,28 @@ if (typeof window !== 'undefined') {
 
 			const createDots = () => {
 				const rect = section.getBoundingClientRect()
-				state.width = Math.max(1, Math.round(rect.width))
-				state.height = Math.max(1, Math.round(rect.height))
+				// Keep sub-pixel precision to match CSS background positioning.
+				state.width = Math.max(1, rect.width)
+				state.height = Math.max(1, rect.height)
 				state.svg.setAttribute('viewBox', `0 0 ${state.width} ${state.height}`)
 
 				const config = getConfig()
-				const offset = config.spacing * 0.5
+				// Match static background math:
+				// - bg-top => y anchored to top
+				// - background-position-x center => x anchored to center
+				const baseOffset = config.spacing * (23.5 / 48)
+				const offsetY = baseOffset
+				const centeredAnchorX = state.width * 0.5 - config.spacing * 0.5 + baseOffset
+				const offsetX = ((centeredAnchorX % config.spacing) + config.spacing) % config.spacing
 				const fragment = document.createDocumentFragment()
 				const dots = []
 
 				state.svg.innerHTML = ''
 
-				for (let y = offset; y <= state.height + config.spacing; y += config.spacing) {
-					for (let x = offset; x <= state.width + config.spacing; x += config.spacing) {
+				for (let y = offsetY; y <= state.height + config.spacing; y += config.spacing) {
+					for (let x = offsetX; x <= state.width + config.spacing; x += config.spacing) {
 						const circle = document.createElementNS(SVG_NS, 'circle')
-						circle.classList.add('dots-grid-dot')
+						circle.classList.add('dots-dot')
 						circle.setAttribute('r', String(config.radius))
 						circle.setAttribute('cx', String(x))
 						circle.setAttribute('cy', String(y))

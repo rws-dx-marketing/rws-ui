@@ -8,7 +8,7 @@ const cards = [1, 2, 3]
 <Layout>
 	<BlogHero />
 
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<section class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
 			<aside class="hidden lg:col-span-4 lg:block">
 				<div class="sticky top-20 grid gap-8 xl:gap-12">
@@ -52,7 +52,7 @@ const cards = [1, 2, 3]
 			</aside>
 
 			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12 [&_h2[id]]:scroll-mt-20">
-				<div class="rounded-lg bg-background p-10 text-foreground" data-card data-scrollspy-content>
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<p class="lead">“Hallucination” has become a catch-all explanation for almost any surprising model output. Wrong answer? Hallucination. Confident nonsense? Hallucination. Unexpected creativity? Same label.</p>
 						<p>However, the term itself is contentious. In research and practitioner circles, "hallucination" is often used as shorthand for a range of behaviors – factual fabrication, unsupported inference or overconfident generalization – that have very different underlying causes. Some teams prefer terms like "confabulation" or "fabrication" to avoid anthropomorphic framing altogether.</p>
@@ -66,7 +66,7 @@ const cards = [1, 2, 3]
 					<img src="https://placehold.co/1024x768" alt="Placeholder" class="aspect-video size-full rounded object-cover" />
 				</section>
 
-				<div class="rounded-lg bg-background p-10 text-foreground" data-card data-scrollspy-content>
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<h2>Pattern 1: AI hallucinations caused by weak or inconsistent data labeling</h2>
 						<p>In supervised systems, data labels define the ground truth. When that ground truth is inconsistent, the model doesn’t fail or refuse to answer; it averages competing signals.</p>
@@ -82,11 +82,15 @@ const cards = [1, 2, 3]
 					</div>
 				</div>
 
-				<section class="rounded-lg bg-background p-10 text-foreground" data-theme="primary">
+				<section class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-theme="primary">
 					<figure>
-						<svg class="mx-auto mb-2 h-12 text-accent" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<!-- <svg class="mx-auto mb-2 h-12 text-accent" viewBox="0 0 24 27" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z" fill="currentColor"></path>
-						</svg>
+						</svg> -->
+
+						<div class="svg-current mx-auto mb-2 size-12 text-accent">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg>
+						</div>
 
 						<blockquote class="text-center">
 							<p class="text-2xl font-medium text-pretty before:content-['“'] after:content-['”']">Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application.</p>
@@ -96,14 +100,14 @@ const cards = [1, 2, 3]
 							<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="profile picture" />
 
 							<div class="flex items-center divide-x divide-foreground/66">
-								<div class="pr-3 font-medium text-foreground">Michael Gough</div>
-								<div class="pl-3 text-sm font-light text-foreground/80">CEO at Google</div>
+								<div class="pr-3 font-medium">Michael Gough</div>
+								<div class="pl-3 text-sm font-medium text-foreground/80">CEO at Google</div>
 							</div>
 						</figcaption>
 					</figure>
 				</section>
 
-				<div class="rounded-lg bg-background p-10 text-foreground" data-card data-scrollspy-content>
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<h2>Pattern 2: AI hallucinations triggered by missing context or incomplete instructions</h2>
 						<p>Models can’t rely on context that was never made explicit.</p>
@@ -120,7 +124,7 @@ const cards = [1, 2, 3]
 				</div>
 
 				<!-- CTA with outline -->
-				<section hidden class="m-6 rounded-lg bg-background p-10 text-foreground outline-24 outline-accent/5" data-theme="pale">
+				<section hidden class="m-6 rounded-lg bg-background p-6 text-foreground outline-24 outline-accent/5 lg:p-10" data-theme="pale">
 					<div class="grid gap-8 sm:grid-cols-12">
 						<div class="sm:col-span-7">
 							<h3 class="mb-4 text-2xl font-bold text-balance">First time here? Discover what RWS can do!</h3>
@@ -139,7 +143,7 @@ const cards = [1, 2, 3]
 				</section>
 
 				<!-- CTA with glow -->
-				<section class="glow-animate rounded-lg border border-accent/33 bg-background p-10 text-foreground" data-theme="default">
+				<section class="glow-animate rounded-lg border border-accent/33 bg-background p-6 text-foreground lg:p-10" data-theme="default">
 					<div class="grid gap-8 sm:grid-cols-12">
 						<div class="sm:col-span-7">
 							<h3 class="mb-4 text-2xl font-bold text-balance">First time here? Discover what RWS can do!</h3>
@@ -148,7 +152,7 @@ const cards = [1, 2, 3]
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, necessitatibus impedit id qui suscipit, quas unde dolorum eveniet odio ullam tenetur ipsa expedita vero maiores excepturi rerum ipsam repudiandae doloremque.</p>
 							</div>
 
-							<a href="#" class="btn btn-primary mt-8">Get started</a>
+							<a href="#" class="btn btn-primary mt-6">Get started</a>
 						</div>
 
 						<div class="sm:col-span-5">
@@ -157,7 +161,7 @@ const cards = [1, 2, 3]
 					</div>
 				</section>
 
-				<div class="rounded-lg bg-background p-10 text-foreground" data-card data-scrollspy-content>
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<h2>From “hallucinations” to accountability: redesigning the upstream</h2>
 						<p>Many recurring AI hallucinations are traceable to upstream design decisions.</p>
@@ -166,8 +170,11 @@ const cards = [1, 2, 3]
 						</blockquote>
 						<p>They point to gaps in task definition, instruction design, example coverage and review discipline. Fix those, and model behavior stabilizes, not because randomness disappeared, but because the training signal became consistent. That’s the philosophy behind TrainAI by RWS: treat AI training data as infrastructure, design it with intent, validate it continuously and scale it responsibly.</p>
 					</div>
+				</div>
 
-					<div class="mt-12 flex flex-wrap gap-x-6 gap-y-2">
+				<!-- Tags -->
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
+					<div class="flex flex-wrap gap-x-6 gap-y-2">
 						<h3 class="font-bold">Tags:</h3>
 						<div class="flex flex-wrap gap-x-4 gap-y-1.5">
 							<a href="#" class="font-semibold transition-colors hover:text-accent">Artificial Intelligence (AI)</a>
@@ -178,7 +185,7 @@ const cards = [1, 2, 3]
 				</div>
 
 				<!-- Author -->
-				<div class="rounded-lg bg-background p-10 text-foreground" data-theme="tertiary">
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-theme="tertiary">
 					<div class="flex-wrap- flex gap-6">
 						<img class="size-24 rounded-full object-cover sm:size-32" src="https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433" alt="Maria Schnell" />
 						<div>
@@ -188,12 +195,12 @@ const cards = [1, 2, 3]
 						</div>
 					</div>
 
-					<div class="prose mt-8 max-w-none font-medium text-pretty lg:text-lg">
+					<div class="prose mt-6 max-w-none font-medium text-pretty lg:text-lg">
 						<p>Stacy is Head of Quality for RWS’s TrainAI data services practice, which delivers complex, cutting-edge AI training data solutions to global clients across a wide range of industries. She works closely with the TrainAI team and clients to ensure their AI projects deliver high-quality data, actionable insights, and exceed expectations.</p>
 						<p>Stacy has over 15 years of experience working in AI data services, primarily in project, program, and quality management roles, spanning generative AI, search relevance, data collection, and translation. She holds a master’s degree from Southern Seminary and a bachelor’s degree in Education from Indiana University, along with several industry certifications.</p>
 					</div>
 
-					<a href="#" class="btn btn-secondary btn-icon-right mt-8">
+					<a href="#" class="btn btn-secondary btn-icon-right mt-6">
 						All from Stacy Ayers
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 					</a>
@@ -433,9 +440,9 @@ const cards = [1, 2, 3]
 			</div>
 		</div>
 	</section>
-</Layout>
 
-<script src="../../assets/scripts/article-toc.js"></script>
-<script>
-	;(window as any).ArticleToc?.init()
-</script>
+	<script src="../../assets/scripts/article-toc.js"></script>
+	<script>
+		;(window as any).ArticleToc?.init()
+	</script>
+</Layout>

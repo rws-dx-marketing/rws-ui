@@ -234,7 +234,7 @@
 
 	[data-theme='primary'] {
 		input[type='submit'] {
-			@apply bg-accent text-accent-foreground hover:bg-accent/80 focus-visible:bg-accent/80 focus-visible:ring-accent/30;
+			@apply bg-foreground text-background hover:bg-foreground/80 focus-visible:bg-foreground/80 focus-visible:ring-accent/30;
 		}
 	}
 }
