@@ -1,0 +1,10 @@
+.dropdown-checkbox[popover] {
+	position-area: bottom span-right;
+	position-try-fallbacks: flip-inline;
+
+	@apply relative inset-auto overflow-visible;
+
+	/* Gap between button and menu without shifting inline alignment. */
+	margin-block-start: 0.5rem;
+	margin-inline: 0;
+}

@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro'
+---
+
+<Layout>
+	<section class="bg-background py-16 text-foreground" data-theme="default">
+		<div class="mx-auto max-w-7xl px-8 lg:px-12">
+			<h1 class="text-3xl font-bold tracking-tight lg:text-4xl">Partners</h1>
+
+			<div class="mt-12">
+				<button id="partners-filter-button" popovertarget="partners-filter-popover" popovertargetaction="toggle" class="box-border inline-flex items-center justify-center rounded-base border border-transparent bg-brand px-4 py-2.5 text-sm leading-5 font-medium text-white shadow-xs hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium focus:outline-none" type="button">
+					Dropdown button
+					<svg class="ms-1.5 -me-0.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
+				</button>
+
+				<!-- Checkbox dropdown -->
+				<div id="partners-filter-popover" popover="auto" role="menu" aria-labelledby="partners-filter-button" class="dropdown-checkbox z-10 w-80 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
+					<ul class="p-2 text-sm font-medium text-body" aria-labelledby="partners-filter-button">
+						<li>
+							<div class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+								<input id="dropdown-checkbox-4" type="checkbox" value="" class="h-4 w-4 rounded-xs border border-default-strong bg-neutral-secondary-strong focus:ring-2 focus:ring-brand-soft" />
+								<label for="dropdown-checkbox-4" class="ms-2 text-sm font-medium text-heading">Default checkbox</label>
+							</div>
+						</li>
+						<li>
+							<div class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+								<input checked id="dropdown-checkbox-5" type="checkbox" value="" class="h-4 w-4 rounded-xs border border-default-strong bg-neutral-secondary-strong focus:ring-2 focus:ring-brand-soft" />
+								<label for="dropdown-checkbox-5" class="ms-2 text-sm font-medium text-heading">Checked state that happens to be really long and wraps to the next line</label>
+							</div>
+						</li>
+						<li>
+							<div class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+								<input id="dropdown-checkbox-6" type="checkbox" value="" class="h-4 w-4 rounded-xs border border-default-strong bg-neutral-secondary-strong focus:ring-2 focus:ring-brand-soft" />
+								<label for="dropdown-checkbox-6" class="ms-2 text-sm font-medium text-heading">Default checkbox</label>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
