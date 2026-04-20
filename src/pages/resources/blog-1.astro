@@ -9,7 +9,7 @@ const cards = [1, 2, 3]
 	<BlogHero />
 
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
-		<section class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
 			<aside class="hidden lg:col-span-4 lg:block">
 				<div class="sticky top-20 grid gap-8 xl:gap-12">
 					<div class="relative rounded-lg bg-background p-10 text-foreground" data-card>
@@ -17,15 +17,15 @@ const cards = [1, 2, 3]
 
 						<nav class="relative flex flex-col gap-3 pl-6" data-scrollspy-nav>
 							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-full w-1 bg-foreground/10"></span>
-							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-(--toc-active-height) w-1 bg-accent transition-[height] duration-1000" data-scrollspy-rail></span>
-							<a href="#" class="hidden font-medium text-pretty text-foreground/50 transition-colors hover:text-foreground data-[toc-active=true]:text-foreground" data-scrollspy-link-template aria-hidden="true">Template TOC link</a>
+							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-(--post-nav-active-height) w-1 bg-accent transition-[height] duration-1000" data-scrollspy-rail></span>
+							<a href="#" class="hidden font-medium text-pretty text-foreground/50 transition-colors hover:text-foreground data-[nav-active=true]:text-foreground" data-scrollspy-link-template aria-hidden="true">Template nav link</a>
 
 							<div class="relative" data-scrollspy-end>
 								<div class="absolute -left-5.5 -translate-x-1/2 rounded-full bg-background outline-2 outline-background">
-									<svg class="size-6 text-foreground/25 delay-350 data-[toc-active=true]:text-accent" data-scrollspy-end-icon data-toc-active="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="currentColor" d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+									<svg class="size-6 text-foreground/25 delay-350 data-[nav-active=true]:text-accent" data-scrollspy-end-icon data-nav-active="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="currentColor" d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
 								</div>
 
-								<span class="text-foreground/50 transition-colors data-[toc-active=true]:text-foreground" data-scrollspy-end-label>You’ve reached the end</span>
+								<span class="text-foreground/50 transition-colors data-[nav-active=true]:text-foreground" data-scrollspy-end-label>You’ve reached the end</span>
 							</div>
 						</nav>
 
@@ -92,8 +92,13 @@ const cards = [1, 2, 3]
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg>
 						</div>
 
-						<blockquote class="text-center">
+						<!-- <blockquote class="text-center">
 							<p class="text-2xl font-medium text-pretty before:content-['“'] after:content-['”']">Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application.</p>
+						</blockquote> -->
+
+						<blockquote class="space-y-[0.5em] text-center text-2xl font-medium text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
+							<p>Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application.</p>
+							<p>Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application.</p>
 						</blockquote>
 
 						<figcaption class="mt-6 flex items-center justify-center space-x-3">
@@ -186,10 +191,10 @@ const cards = [1, 2, 3]
 
 				<!-- Author -->
 				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-theme="tertiary">
-					<div class="flex-wrap- flex gap-6">
-						<img class="size-24 rounded-full object-cover sm:size-32" src="https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433" alt="Maria Schnell" />
-						<div>
-							<p class="-mt-1 mb-2.5 text-sm font-semibold text-accent sm:text-base">Author</p>
+					<div class="flex items-center gap-6">
+						<img class="aspect-square w-24 rounded-full object-cover sm:w-32" src="https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433" alt="Maria Schnell" />
+						<div class="relative">
+							<p class="absolute -top-8 text-sm font-semibold text-accent sm:text-base">Author</p>
 							<h3 class="text-2xl font-bold sm:text-3xl">Stacy Ayers</h3>
 							<p class="mt-1 font-semibold text-foreground/80 sm:text-xl">Head of Quality, TrainAI</p>
 						</div>
@@ -206,7 +211,7 @@ const cards = [1, 2, 3]
 					</a>
 				</div>
 			</article>
-		</section>
+		</div>
 	</section>
 
 	<!-- Related articles -->
@@ -440,9 +445,4 @@ const cards = [1, 2, 3]
 			</div>
 		</div>
 	</section>
-
-	<script src="../../assets/scripts/article-toc.js"></script>
-	<script>
-		;(window as any).ArticleToc?.init()
-	</script>
 </Layout>

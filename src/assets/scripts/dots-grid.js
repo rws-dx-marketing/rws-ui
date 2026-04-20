@@ -1,4 +1,6 @@
-if (typeof window !== 'undefined') {
+export default function dotsGrid() {
+	if (typeof window === 'undefined') return
+
 	const sections = document.querySelectorAll('[data-theme="dots-enhanced"]')
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 

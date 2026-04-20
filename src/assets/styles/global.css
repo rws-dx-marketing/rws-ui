@@ -17,6 +17,7 @@
 @import './_ornaments.css';
 @import './_themes.css';
 @import './_tooltips.css';
+@import './_dropdowns.css';
 @import './_type.css';
 
 @theme {

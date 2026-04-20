@@ -6,13 +6,13 @@ import BlogHero from '../../blocks/BlogHero.astro'
 <Layout>
 	<BlogHero />
 
-	<aside class="group/toc fixed top-1/2 left-2 z-20 hidden w-8 -translate-y-1/2 overflow-hidden transition-[width] duration-200 hover:w-[min(10rem,20vw)] motion-reduce:transition-none lg:flex motion-reduce:[&_a]:transition-none motion-reduce:[&_span]:transition-none">
+	<aside class="group/post-nav fixed top-1/2 left-2 z-20 hidden w-8 -translate-y-1/2 overflow-hidden transition-[width] duration-200 hover:w-[min(10rem,20vw)] motion-reduce:transition-none lg:flex motion-reduce:[&_a]:transition-none motion-reduce:[&_span]:transition-none">
 		<nav aria-label="Section navigation" class="relative flex w-full flex-col gap-3 rounded-lg border border-foreground/5 bg-background/66 py-4 pr-3 pl-4 text-foreground backdrop-blur-lg" data-theme="default" data-scrollspy-nav data-scrollspy-rail-offset="24" data-scrollspy-progress-dots data-scrollspy-directional-delay>
 			<span aria-hidden="true" class="pointer-events-none absolute top-6 bottom-6 left-3.5 w-1 bg-foreground/10"></span>
-			<span aria-hidden="true" class="pointer-events-none absolute top-6 left-3.5 h-(--toc-active-height) w-1 bg-accent transition-[height] duration-500" data-scrollspy-rail></span>
-			<a href="#" class="group/toc-link relative hidden h-4 data-[toc-active=true]:[&_.toc-dot]:scale-115 data-[toc-active=true]:[&_.toc-dot]:border-accent data-[toc-active=true]:[&_.toc-dot]:bg-accent data-[toc-delay=true]:[&_.toc-dot]:delay-200 data-[toc-past=true]:[&_.toc-dot]:border-accent data-[toc-past=true]:[&_.toc-dot]:bg-accent" data-scrollspy-link-template aria-hidden="true">
-				<span aria-hidden="true" class="toc-dot pointer-events-none absolute top-1/2 left-0 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/10 bg-white transition-[transform,background-color,border-color] duration-500"></span>
-				<span class="pointer-events-none absolute top-1/2 left-4 w-48 -translate-x-1 -translate-y-1/2 text-sm/none font-semibold whitespace-nowrap text-foreground opacity-0 transition duration-200 group-hover/toc:translate-x-0 group-hover/toc:opacity-100 group-data-[toc-active=true]/toc-link:group-hover/toc:opacity-100" data-scrollspy-link-label> Template TOC link </span>
+			<span aria-hidden="true" class="pointer-events-none absolute top-6 left-3.5 h-(--post-nav-active-height) w-1 bg-accent transition-[height] duration-500" data-scrollspy-rail></span>
+			<a href="#" class="group/post-nav-link relative hidden h-4 data-[nav-active=true]:[&_.post-nav-dot]:scale-115 data-[nav-active=true]:[&_.post-nav-dot]:border-accent data-[nav-active=true]:[&_.post-nav-dot]:bg-accent data-[nav-delay=true]:[&_.post-nav-dot]:delay-200 data-[nav-past=true]:[&_.post-nav-dot]:border-accent data-[nav-past=true]:[&_.post-nav-dot]:bg-accent" data-scrollspy-link-template aria-hidden="true">
+				<span aria-hidden="true" class="post-nav-dot pointer-events-none absolute top-1/2 left-0 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/10 bg-white transition-[transform,background-color,border-color] duration-500"></span>
+				<span class="pointer-events-none absolute top-1/2 left-4 w-48 -translate-x-1 -translate-y-1/2 text-sm/none font-semibold whitespace-nowrap text-foreground opacity-0 transition duration-200 group-hover/post-nav:translate-x-0 group-hover/post-nav:opacity-100 group-data-[nav-active=true]/post-nav-link:group-hover/post-nav:opacity-100" data-scrollspy-link-label> Template nav link </span>
 			</a>
 		</nav>
 	</aside>
@@ -55,7 +55,3 @@ import BlogHero from '../../blocks/BlogHero.astro'
 	</main>
 </Layout>
 
-<script src="../../assets/scripts/article-toc.js"></script>
-<script>
-	;(window as any).ArticleToc?.init()
-</script>

@@ -13,7 +13,7 @@
 	--theme-default-foreground: var(--color-gray-900);
 	--theme-default-accent: var(--color-primary);
 	--theme-default-accent-foreground: var(--color-white);
-	--theme-default-card: var(--color-white);
+	--theme-default-card: var(--color-gray-500);
 	--theme-default-card-foreground: var(--color-gray-900);
 	--theme-default-input: color-mix(in oklch, var(--color-gray-900) 1%, transparent);
 	--theme-default-gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 24.3%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 75.7%, var(--color-tertiary) 100%);
@@ -28,6 +28,10 @@
 	--card-foreground: var(--theme-default-card-foreground);
 	--input: var(--theme-default-input);
 	--gradient: var(--theme-default-gradient);
+
+	[data-card] {
+		--background: color-mix(in oklch, var(--color-tertiary-lightest) 25%, transparent);
+	}
 }
 
 [data-theme='pale'] {
@@ -53,7 +57,7 @@
 
 [data-theme='dots'] {
 	@apply bg-size-[2.25rem] bg-top bg-repeat;
-	background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjMuNSIgY3k9IjIzLjUiIHI9IjEuNSIgZmlsbD0iYmxhY2siIGZpbGwtb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPgo=);
+	background-image: url(data:image/svg+xml,%3Csvg%20width%3D%2248%22%20height%3D%2248%22%20viewBox%3D%220%200%2048%2048%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Ccircle%20cx%3D%2223.5%22%20cy%3D%2223.5%22%20r%3D%221.5%22%20fill%3D%22black%22%20fill-opacity%3D%220.2%22/%3E%3C/svg%3E);
 }
 
 [data-theme='dots-enhanced'] {
@@ -62,13 +66,13 @@
 	--dots-influence: 360;
 	--dots-max-push: 36;
 	--dots-ease: 0.16;
-	--dots-dot-color: rgb(0 0 0 / 0.1);
+	--dots-dot-color: rgb(0 0 0 / 0.2);
 
-	position: relative;
+	@apply relative;
 }
 
 .dots-svg {
-	@apply pointer-events-none absolute inset-0 z-0 size-full;
+	@apply pointer-events-none absolute inset-0 -z-1 size-full;
 }
 
 .dots-dot {
@@ -137,10 +141,12 @@
 	--foreground: var(--theme-default-foreground);
 	--accent: var(--theme-default-accent);
 	--accent-foreground: var(--theme-default-accent-foreground);
-	--card: var(--theme-default-card);
-	--card-foreground: var(--theme-default-card-foreground);
 	--input: var(--theme-default-input);
 	--gradient: var(--theme-default-gradient);
+}
+
+section:has(.dots-enhanced) {
+	@apply isolate;
 }
 
 .dark {
@@ -184,7 +190,7 @@
 	}
 
 	[data-theme='dots'] {
-		background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjMuNSIgY3k9IjIzLjUiIHI9IjEuNSIgZmlsbD0id2hpdGUiIGZpbGwtb3BhY2l0eT0iMC4xIi8+Cjwvc3ZnPgo=);
+		background-image: url(data:image/svg+xml,%3Csvg%20width%3D%2248%22%20height%3D%2248%22%20viewBox%3D%220%200%2048%2048%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Ccircle%20cx%3D%2223.5%22%20cy%3D%2223.5%22%20r%3D%221.5%22%20fill%3D%22white%22%20fill-opacity%3D%220.2%22/%3E%3C/svg%3E);
 	}
 
 	[data-theme='primary'] {
