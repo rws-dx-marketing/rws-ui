@@ -1,0 +1,609 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout>
+	<section class="bg-background py-16 text-foreground" data-theme="default">
+		<div class="mx-auto max-w-7xl px-8 lg:px-12">
+			<h1 class="text-3xl font-bold tracking-tight lg:text-4xl">Dashboard</h1>
+		</div>
+	</section>
+
+	<section class="bg-background py-16 text-foreground" data-theme="default">
+		<div class="mx-auto max-w-7xl px-8 lg:px-12">
+			<div class="grid items-start lg:grid-cols-3">
+				<div class="w-full max-w-sm rounded-base border border-default bg-neutral-primary-soft p-4 shadow-xs md:p-6">
+					<div class="flex items-start justify-between">
+						<div>
+							<h5 class="text-2xl font-semibold text-heading">32.4k</h5>
+							<p class="text-body">Users this week</p>
+						</div>
+						<div class="flex items-center px-2.5 py-0.5 text-center font-medium text-fg-success">
+							<svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"></path></svg>
+							12%
+						</div>
+					</div>
+					<div id="area-chart"></div>
+					<div class="grid grid-cols-1 items-center justify-between border-t border-light">
+						<div class="flex items-center justify-between pt-4 md:pt-6">
+							<!-- Button -->
+							<button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom" class="inline-flex items-center text-center text-sm font-medium text-body hover:text-heading" type="button">
+								<span data-area-chart-range-label>Last 7 days</span>
+								<svg class="ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
+							</button>
+							<!-- Dropdown menu -->
+							<div id="lastDaysdropdown" class="z-10 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
+								<ul class="p-2 text-sm font-medium text-body" aria-labelledby="dropdownDefaultButton">
+									<li>
+										<a href="#" data-area-range="yesterday" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Yesterday</a>
+									</li>
+									<li>
+										<a href="#" data-area-range="today" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Today</a>
+									</li>
+									<li>
+										<a href="#" data-area-range="7d" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 7 days</a>
+									</li>
+									<li>
+										<a href="#" data-area-range="30d" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 30 days</a>
+									</li>
+									<li>
+										<a href="#" data-area-range="90d" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 90 days</a>
+									</li>
+								</ul>
+							</div>
+							<a href="#" class="box-border inline-flex items-center rounded-base border border-transparent bg-transparent px-3 py-2 text-sm leading-5 font-medium text-fg-brand hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary focus:outline-none">
+								Users Report
+								<svg class="ms-1.5 -me-0.5 h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"></path></svg>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="w-full max-w-sm rounded-base border border-default bg-neutral-primary-soft p-4 shadow-xs md:p-6">
+					<div class="mb-4 flex justify-between border-b border-light pb-4">
+						<div class="flex items-center">
+							<div class="me-3 flex h-12 w-12 items-center justify-center rounded-full border border-default-medium bg-neutral-primary-medium">
+								<svg class="h-7 w-7 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"></path></svg>
+							</div>
+							<div>
+								<h5 class="text-2xl font-semibold text-heading">3.4k</h5>
+								<p class="text-sm text-body">Leads generated per week</p>
+							</div>
+						</div>
+						<div>
+							<span class="inline-flex items-center rounded border border-success-subtle bg-success-soft px-1.5 py-0.5 text-xs font-medium text-fg-success-strong">
+								<svg class="me-1 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"></path></svg>
+								42.5%
+							</span>
+						</div>
+					</div>
+
+					<div class="grid grid-cols-2">
+						<dl class="flex items-center">
+							<dt class="me-1 text-sm font-normal text-body">Money spent:</dt>
+							<dd class="text-sm font-semibold text-heading">$3,232</dd>
+						</dl>
+						<dl class="flex items-center justify-end">
+							<dt class="me-1 text-sm font-normal text-body">Conversion:</dt>
+							<dd class="text-sm font-semibold text-heading">1.2%</dd>
+						</dl>
+					</div>
+					<div id="column-chart"></div>
+					<div class="grid grid-cols-1 items-center justify-between border-t border-light">
+						<div class="flex items-center justify-between pt-4 md:pt-6">
+							<!-- Button -->
+							<button id="dropdownLastDaysButton" data-dropdown-toggle="LastDaysdropdown" data-dropdown-placement="bottom" class="inline-flex items-center text-center text-sm font-medium text-body hover:text-heading" type="button">
+								Last 7 days
+								<svg class="ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
+							</button>
+							<!-- Dropdown menu -->
+							<div id="LastDaysdropdown" class="z-10 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
+								<ul class="p-2 text-sm font-medium text-body" aria-labelledby="dropdownLastDaysButton">
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Yesterday</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Today</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 7 days</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 30 days</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 90 days</a>
+									</li>
+								</ul>
+							</div>
+							<a href="#" class="box-border inline-flex items-center rounded-base border border-transparent bg-transparent px-3 py-2 text-sm leading-5 font-medium text-fg-brand hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary focus:outline-none">
+								Leads Report
+								<svg class="ms-1.5 -me-0.5 h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"></path></svg>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="w-full max-w-sm rounded-base border border-default bg-neutral-primary-soft p-4 shadow-xs md:p-6">
+					<div class="flex w-full items-start justify-between">
+						<div class="flex-col items-center">
+							<div class="mb-1 flex items-center">
+								<h5 class="me-1 text-xl font-semibold text-heading">Website traffic</h5>
+								<svg data-popover-target="traffic-info" data-popover-placement="bottom" class="ms-1 h-4 w-4 cursor-pointer text-body hover:text-heading" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
+								<div data-popover id="traffic-info" role="tooltip" class="invisible absolute z-10 inline-block w-72 rounded-base border border-default bg-neutral-primary-soft p-3 text-sm text-body opacity-0 shadow-xs transition-opacity duration-300">
+									<div>
+										<h3 class="mb-2 font-semibold text-heading">Activity growth - Incremental</h3>
+										<p class="mb-4">Report helps navigate cumulative growth of community activities. Ideally, the chart should have a growing trend, as stagnating chart signifies a significant decrease of community activity.</p>
+										<h3 class="mb-2 font-semibold text-heading">Calculation</h3>
+										<p class="mb-4">For each date bucket, the all-time volume of activities is calculated. This means that activities in period n contain all activities up to period n, plus the activities generated by your community in period.</p>
+										<a href="#" class="flex items-center font-medium text-fg-brand hover:underline">
+											Read more
+											<svg class="ms-1 h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"></path></svg>
+										</a>
+									</div>
+									<div data-popper-arrow></div>
+								</div>
+							</div>
+							<button id="dateRangeButton" data-dropdown-toggle="dateRangeDropdown" data-dropdown-ignore-click-outside-class="datepicker" type="button" class="inline-flex items-center font-medium text-fg-brand hover:underline">
+								31 Nov - 31 Dev
+								<svg class="ms-1.5 h-4.5 w-4.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
+							</button>
+							<div id="dateRangeDropdown" class="z-10 hidden w-80 rounded-base border border-default bg-neutral-primary-soft shadow-xs lg:w-112">
+								<div id="date-range-picker" date-rangepicker class="flex items-center p-2">
+									<div class="relative">
+										<div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+											<svg class="h-4 w-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"></path></svg>
+										</div>
+										<input id="datepicker-range-start" name="start" type="text" class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 ps-9 pe-3 text-sm text-heading shadow-xs placeholder:text-body focus:border-brand focus:ring-brand" placeholder="Start date" />
+									</div>
+									<span class="mx-4 text-body">to</span>
+									<div class="relative">
+										<div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
+											<svg class="h-4 w-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"></path></svg>
+										</div>
+										<input id="datepicker-range-end" name="end" type="text" class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 ps-9 pe-3 text-sm text-heading shadow-xs placeholder:text-body focus:border-brand focus:ring-brand" placeholder="End date" />
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="flex items-center justify-end">
+							<button id="widgetDropdownButton" data-dropdown-toggle="widgetDropdown" data-dropdown-placement="bottom" type="button" class="inline-flex h-9 w-9 items-center justify-center rounded-base bg-neutral-primary-soft text-sm leading-5 font-medium text-body shadow-xs hover:bg-neutral-tertiary hover:text-heading focus:ring-4 focus:ring-neutral-tertiary focus:outline-none">
+								<svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01"></path></svg>
+								<span class="sr-only">Open dropdown</span>
+							</button>
+							<div id="widgetDropdown" class="z-10 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
+								<ul class="p-2 text-sm font-medium text-body" aria-labelledby="widgetDropdownButton">
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+											<svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 5V4a1 1 0 0 0-1-1H8.914a1 1 0 0 0-.707.293L4.293 7.207A1 1 0 0 0 4 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5M9 3v4a1 1 0 0 1-1 1H4m11.383.772 2.745 2.746m1.215-3.906a2.089 2.089 0 0 1 0 2.953l-6.65 6.646L9 17.95l.739-3.692 6.646-6.646a2.087 2.087 0 0 1 2.958 0Z"></path></svg>
+											Edit widget
+										</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+											<svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"></path></svg>
+											Download data
+										</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+											<svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0a4 4 0 0 1-4 4h-1a3 3 0 0 0-3 3"></path></svg>
+											Add to repository
+										</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+											<svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"></path></svg>
+											Delete widget
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!-- Line Chart -->
+					<div class="py-6" id="pie-chart"></div>
+
+					<div class="grid grid-cols-1 items-center justify-between border-t border-light">
+						<div class="flex items-center justify-between pt-4 md:pt-6">
+							<!-- Button -->
+							<button id="dropdownLastDays4Button" data-dropdown-toggle="LastDays4dropdown" data-dropdown-placement="bottom" class="inline-flex items-center text-center text-sm font-medium text-body hover:text-heading" type="button">
+								Last 7 days
+								<svg class="ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
+							</button>
+							<!-- Dropdown menu -->
+							<div id="LastDays4dropdown" class="z-10 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
+								<ul class="p-2 text-sm font-medium text-body" aria-labelledby="dropdownLastDays4Button">
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Yesterday</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Today</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 7 days</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 30 days</a>
+									</li>
+									<li>
+										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 90 days</a>
+									</li>
+								</ul>
+							</div>
+							<a href="#" class="box-border inline-flex items-center rounded-base border border-transparent bg-transparent px-3 py-2 text-sm leading-5 font-medium text-fg-brand hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary focus:outline-none">
+								Traffic Report
+								<svg class="ms-1.5 -me-0.5 h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"></path></svg>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<script>
+	import ApexCharts from 'apexcharts'
+
+	const windowWithCharts = window as Window & {
+		__dashboardCharts?: Map<string, ApexCharts>
+	}
+	const dashboardCharts = windowWithCharts.__dashboardCharts ?? new Map()
+	windowWithCharts.__dashboardCharts = dashboardCharts
+
+	const getPrimaryColor = () => {
+		const computedStyle = getComputedStyle(document.documentElement)
+		return computedStyle.getPropertyValue('--color-primary').trim() || '#1447E6'
+	}
+
+	const getSecondaryColor = () => {
+		const computedStyle = getComputedStyle(document.documentElement)
+		return computedStyle.getPropertyValue('--color-secondary').trim() || '#1447E6'
+	}
+
+	const getTertiaryColor = () => {
+		const computedStyle = getComputedStyle(document.documentElement)
+		return computedStyle.getPropertyValue('--color-tertiary').trim() || '#1447E6'
+	}
+
+	const getNeutralColor = () => {
+		const computedStyle = getComputedStyle(document.documentElement)
+		return computedStyle.getPropertyValue('--color-gray-100').trim() || '#1447E6'
+	}
+
+	const areaChartDatasets = {
+		'yesterday': {
+			label: 'Yesterday',
+			categories: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+			data: [540, 610, 575, 690, 640, 590],
+		},
+		'today': {
+			label: 'Today',
+			categories: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+			data: [560, 635, 620, 710, 760, 735],
+		},
+		'7d': {
+			label: 'Last 7 days',
+			categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+			data: [6500, 6418, 6456, 6526, 6356, 6456, 6689],
+		},
+		'30d': {
+			label: 'Last 30 days',
+			categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+			data: [18420, 17610, 19240, 20110],
+		},
+		'90d': {
+			label: 'Last 90 days',
+			categories: ['Month 1', 'Month 2', 'Month 3'],
+			data: [74320, 78110, 82450],
+		},
+	} as const
+
+	type AreaRangeKey = keyof typeof areaChartDatasets
+	const defaultAreaRange: AreaRangeKey = '7d'
+
+	const createAreaOptions = (brandColor, rangeKey: AreaRangeKey = defaultAreaRange) => {
+		const dataset = areaChartDatasets[rangeKey]
+
+		return {
+			chart: {
+				height: '100%',
+				maxWidth: '100%',
+				type: 'area',
+				fontFamily: 'Inter, sans-serif',
+				animations: {
+					enabled: true,
+					easing: 'easeinout',
+					speed: 300,
+					dynamicAnimation: {
+						speed: 1000,
+					},
+				},
+				dropShadow: {
+					enabled: false,
+				},
+				toolbar: {
+					show: false,
+				},
+			},
+			tooltip: {
+				enabled: true,
+				x: {
+					show: false,
+				},
+			},
+			fill: {
+				type: 'gradient',
+				gradient: {
+					opacityFrom: 0.55,
+					opacityTo: 0,
+					shade: brandColor,
+					gradientToColors: [brandColor],
+				},
+			},
+			dataLabels: {
+				enabled: false,
+			},
+			stroke: {
+				width: 4,
+				curve: 'smooth',
+			},
+			grid: {
+				show: false,
+				strokeDashArray: 4,
+				padding: {
+					left: 2,
+					right: 2,
+					top: 0,
+				},
+			},
+			series: [
+				{
+					name: 'New users',
+					data: dataset.data,
+					color: brandColor,
+				},
+			],
+			xaxis: {
+				categories: dataset.categories,
+				labels: {
+					show: false,
+				},
+				axisBorder: {
+					show: false,
+				},
+				axisTicks: {
+					show: false,
+				},
+			},
+			yaxis: {
+				show: false,
+			},
+		}
+	}
+
+	const createColumnOptions = (brandColor, brandSecondaryColor) => ({
+		colors: [brandColor, brandSecondaryColor],
+		series: [
+			{
+				name: 'Organic',
+				data: [
+					{ x: 'Mon', y: 231 },
+					{ x: 'Tue', y: 122 },
+					{ x: 'Wed', y: 63 },
+					{ x: 'Thu', y: 421 },
+					{ x: 'Fri', y: 122 },
+					{ x: 'Sat', y: 323 },
+					{ x: 'Sun', y: 111 },
+				],
+			},
+			{
+				name: 'Social media',
+				data: [
+					{ x: 'Mon', y: 232 },
+					{ x: 'Tue', y: 113 },
+					{ x: 'Wed', y: 341 },
+					{ x: 'Thu', y: 224 },
+					{ x: 'Fri', y: 522 },
+					{ x: 'Sat', y: 411 },
+					{ x: 'Sun', y: 243 },
+				],
+			},
+		],
+		chart: {
+			type: 'bar',
+			height: '320px',
+			fontFamily: 'Inter, sans-serif',
+			toolbar: {
+				show: false,
+			},
+		},
+		plotOptions: {
+			bar: {
+				horizontal: false,
+				columnWidth: '70%',
+				borderRadiusApplication: 'end',
+				borderRadius: 8,
+			},
+		},
+		tooltip: {
+			shared: true,
+			intersect: false,
+			style: {
+				fontFamily: 'Inter, sans-serif',
+			},
+		},
+		states: {
+			hover: {
+				filter: {
+					type: 'darken',
+					value: 1,
+				},
+			},
+		},
+		stroke: {
+			show: true,
+			width: 0,
+			colors: ['transparent'],
+		},
+		grid: {
+			show: false,
+			strokeDashArray: 4,
+			padding: {
+				left: 2,
+				right: 2,
+				top: -14,
+			},
+		},
+		dataLabels: {
+			enabled: false,
+		},
+		legend: {
+			show: false,
+		},
+		xaxis: {
+			floating: false,
+			labels: {
+				show: true,
+				style: {
+					fontFamily: 'Inter, sans-serif',
+					cssClass: 'text-xs font-normal fill-body',
+				},
+			},
+			axisBorder: {
+				show: false,
+			},
+			axisTicks: {
+				show: false,
+			},
+		},
+		yaxis: {
+			show: false,
+		},
+		fill: {
+			opacity: 1,
+		},
+	})
+
+	const createPieOptions = (brandColor, brandSecondaryColor, brandTertiaryColor, neutralPrimaryColor) => ({
+		series: [52.8, 26.8, 20.4],
+		colors: [brandColor, brandSecondaryColor, brandTertiaryColor],
+		chart: {
+			height: 420,
+			width: '100%',
+			type: 'pie',
+		},
+		stroke: {
+			colors: [neutralPrimaryColor],
+			lineCap: 'butt',
+		},
+		plotOptions: {
+			pie: {
+				labels: {
+					show: true,
+				},
+				size: '100%',
+				dataLabels: {
+					offset: -25,
+				},
+			},
+		},
+		labels: ['Direct', 'Organic search', 'Referrals'],
+		dataLabels: {
+			enabled: true,
+			style: {
+				fontFamily: 'Inter, sans-serif',
+			},
+		},
+		legend: {
+			position: 'bottom',
+			fontFamily: 'Inter, sans-serif',
+		},
+		yaxis: {
+			labels: {
+				formatter: (value) => `${value}%`,
+			},
+		},
+		xaxis: {
+			labels: {
+				formatter: (value) => `${value}%`,
+			},
+			axisTicks: {
+				show: false,
+			},
+			axisBorder: {
+				show: false,
+			},
+		},
+	})
+
+	const renderChart = (id, options) => {
+		const el = document.getElementById(id)
+		if (!el) return
+
+		const existingChart = dashboardCharts.get(id)
+		if (existingChart) {
+			existingChart.destroy()
+		}
+
+		const chart = new ApexCharts(el, options)
+		chart.render()
+		dashboardCharts.set(id, chart)
+	}
+
+	const setupAreaChartDurationFilter = (brandColor) => {
+		const dropdown = document.getElementById('lastDaysdropdown')
+		const rangeLabel = document.querySelector('[data-area-chart-range-label]')
+		if (!dropdown || !rangeLabel) return
+
+		if (dropdown.dataset.areaRangeBound === 'true') return
+		dropdown.dataset.areaRangeBound = 'true'
+
+		dropdown.addEventListener('click', (event) => {
+			const target = event.target as HTMLElement
+			const rangeLink = target.closest<HTMLAnchorElement>('[data-area-range]')
+			if (!rangeLink) return
+
+			event.preventDefault()
+
+			const rangeKey = (rangeLink.dataset.areaRange ?? defaultAreaRange) as AreaRangeKey
+			const dataset = areaChartDatasets[rangeKey] ?? areaChartDatasets[defaultAreaRange]
+			const areaChart = dashboardCharts.get('area-chart')
+			if (!areaChart) return
+
+			rangeLabel.textContent = dataset.label
+			areaChart.updateOptions(
+				{
+					series: [
+						{
+							name: 'New users',
+							data: dataset.data,
+							color: brandColor,
+						},
+					],
+					xaxis: {
+						categories: dataset.categories,
+					},
+				},
+				false,
+				true,
+			)
+		})
+	}
+
+	const initDashboardCharts = () => {
+		const brandColor = getPrimaryColor()
+		const brandSecondaryColor = getSecondaryColor()
+		const brandTertiaryColor = getTertiaryColor()
+		const neutralPrimaryColor = getNeutralColor()
+
+		renderChart('area-chart', createAreaOptions(brandColor))
+		renderChart('column-chart', createColumnOptions(brandColor, brandSecondaryColor))
+		renderChart('pie-chart', createPieOptions(brandColor, brandSecondaryColor, brandTertiaryColor, neutralPrimaryColor))
+		setupAreaChartDurationFilter(brandColor)
+	}
+
+	initDashboardCharts()
+</script>
