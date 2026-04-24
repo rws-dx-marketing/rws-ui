@@ -2,6 +2,8 @@ import { initFlowbite } from 'flowbite'
 import { Observer } from 'tailwindcss-intersect'
 import countUp from './count-up'
 import dotsGrid from './dots-grid'
+import dropdownFilters from './dropdown-filters'
+import dropdownLabels from './dropdown-labels'
 import postNav from './post-nav'
 
 if (typeof window !== 'undefined') {
@@ -11,6 +13,8 @@ if (typeof window !== 'undefined') {
 		initFlowbite()
 		countUp()
 		dotsGrid()
+		dropdownFilters()
+		dropdownLabels()
 		postNav()
 	})
 }

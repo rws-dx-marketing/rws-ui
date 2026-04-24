@@ -51,8 +51,8 @@ const cards = [1, 2, 3]
 				</div>
 			</aside>
 
-			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12 [&_h2[id]]:scroll-mt-20">
-				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
+			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12 [&_h2[id]]:scroll-mt-20" data-scrollspy-content>
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<p class="lead">“Hallucination” has become a catch-all explanation for almost any surprising model output. Wrong answer? Hallucination. Confident nonsense? Hallucination. Unexpected creativity? Same label.</p>
 						<p>However, the term itself is contentious. In research and practitioner circles, "hallucination" is often used as shorthand for a range of behaviors – factual fabrication, unsupported inference or overconfident generalization – that have very different underlying causes. Some teams prefer terms like "confabulation" or "fabrication" to avoid anthropomorphic framing altogether.</p>
@@ -66,7 +66,7 @@ const cards = [1, 2, 3]
 					<img src="https://placehold.co/1024x768" alt="Placeholder" class="aspect-video size-full rounded object-cover" />
 				</section>
 
-				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<h2>Pattern 1: AI hallucinations caused by weak or inconsistent data labeling</h2>
 						<p>In supervised systems, data labels define the ground truth. When that ground truth is inconsistent, the model doesn’t fail or refuse to answer; it averages competing signals.</p>
@@ -106,13 +106,13 @@ const cards = [1, 2, 3]
 
 							<div class="flex items-center divide-x divide-foreground/66">
 								<div class="pr-3 font-medium">Michael Gough</div>
-								<div class="pl-3 text-sm font-medium text-foreground/80">CEO at Google</div>
+								<div class="pl-3 font-medium text-foreground/80">CEO at Google</div>
 							</div>
 						</figcaption>
 					</figure>
 				</section>
 
-				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<h2>Pattern 2: AI hallucinations triggered by missing context or incomplete instructions</h2>
 						<p>Models can’t rely on context that was never made explicit.</p>
@@ -166,7 +166,7 @@ const cards = [1, 2, 3]
 					</div>
 				</section>
 
-				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<h2>From “hallucinations” to accountability: redesigning the upstream</h2>
 						<p>Many recurring AI hallucinations are traceable to upstream design decisions.</p>
@@ -180,8 +180,8 @@ const cards = [1, 2, 3]
 				<!-- Tags -->
 				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
 					<div class="flex flex-wrap gap-x-6 gap-y-2">
-						<h3 class="font-bold">Tags:</h3>
 						<div class="flex flex-wrap gap-x-4 gap-y-1.5">
+							<h3 class="font-bold">Tags:</h3>
 							<a href="#" class="font-semibold transition-colors hover:text-accent">Artificial Intelligence (AI)</a>
 							<a href="#" class="font-semibold transition-colors hover:text-accent">TrainAI/Data Services for AI</a>
 							<a href="#" class="font-semibold transition-colors hover:text-accent">Language & Culture</a>
