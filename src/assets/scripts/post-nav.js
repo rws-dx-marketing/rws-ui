@@ -100,6 +100,22 @@ function resolveContentNodes(nav, options) {
 	return Array.from(document.querySelectorAll(options.contentSelector))
 }
 
+function setNavParentHidden(nav, shouldHide) {
+	const parent = nav.parentElement
+	if (!parent) return
+
+	if (shouldHide) {
+		parent.hidden = true
+		parent.dataset.scrollspyHiddenByScript = 'true'
+		return
+	}
+
+	if (parent.dataset.scrollspyHiddenByScript === 'true') {
+		parent.hidden = false
+		delete parent.dataset.scrollspyHiddenByScript
+	}
+}
+
 function ensureNodeId(node, base, usedIds, options, fallbackPrefix) {
 	let id = node.id
 	if (!id) {
@@ -202,11 +218,18 @@ function getNavConfig(nav, options) {
 
 function createInstance(nav, options) {
 	const contentNodes = resolveContentNodes(nav, options)
-	if (!contentNodes.length) return null
+	if (!contentNodes.length) {
+		setNavParentHidden(nav, true)
+		return null
+	}
 
 	const navConfig = getNavConfig(nav, options)
 	const navItems = collectNavItems(contentNodes, options, navConfig)
-	if (!navItems.length) return null
+	if (!navItems.length) {
+		setNavParentHidden(nav, true)
+		return null
+	}
+	setNavParentHidden(nav, false)
 
 	const { links, linkById } = buildPostNavLinks(nav, navItems)
 	const headingIndexById = new Map(navItems.map((item, index) => [item.id, index]))
@@ -379,10 +402,12 @@ export default function postNav(userOptions) {
 	for (const nav of navNodes) {
 		const existingInstance = instancesByNav.get(nav)
 		if (existingInstance) {
+			setNavParentHidden(nav, false)
 			instances.push(existingInstance)
 			continue
 		}
 
+		setNavParentHidden(nav, true)
 		const instance = createInstance(nav, options)
 		if (!instance) continue
 		instancesByNav.set(nav, instance)
