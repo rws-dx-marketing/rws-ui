@@ -2,6 +2,8 @@
 import '../assets/styles/global.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
+
+const { title = 'RWS UI' } = Astro.props
 ---
 
 <!doctype html>
@@ -12,7 +14,7 @@ import Footer from '../components/Footer.astro'
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="robots" content="noindex, nofollow" />
-		<title>RWS UI</title>
+		<title>{title}</title>
 		<script>
 			if (localStorage.getItem('color-theme') === 'dark') {
 				document.documentElement.classList.add('dark')
