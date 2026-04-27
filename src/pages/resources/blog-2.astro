@@ -7,7 +7,7 @@ import BlogHero from '../../blocks/BlogHero.astro'
 	<BlogHero />
 
 	<aside class="group/post-nav fixed top-1/2 left-2 z-20 hidden w-8 -translate-y-1/2 overflow-hidden transition-[width] duration-200 hover:w-[min(10rem,20vw)] motion-reduce:transition-none lg:flex motion-reduce:[&_a]:transition-none motion-reduce:[&_span]:transition-none">
-		<nav aria-label="Section navigation" class="relative flex w-full flex-col gap-3 rounded-lg border border-foreground/5 bg-background/66 py-4 pr-3 pl-4 text-foreground backdrop-blur-lg" data-theme="default" data-scrollspy-nav>
+		<nav aria-label="Section navigation" class="relative flex w-full flex-col gap-3 rounded-lg border border-foreground/5 bg-background/66 py-4 pr-3 pl-4 text-foreground backdrop-blur-lg" data-theme="default" data-scrollspy-nav data-scrollspy-rail-offset="24" data-scrollspy-progress-dots data-scrollspy-directional-delay>
 			<span aria-hidden="true" class="pointer-events-none absolute top-6 bottom-6 left-3.5 w-1 bg-foreground/10"></span>
 			<span aria-hidden="true" class="pointer-events-none absolute top-6 left-3.5 h-(--post-nav-active-height) w-1 bg-accent transition-[height] duration-500" data-scrollspy-rail></span>
 			<a href="#" class="group/post-nav-link relative hidden h-4 data-[nav-active=true]:[&_.post-nav-dot]:scale-115 data-[nav-active=true]:[&_.post-nav-dot]:border-accent data-[nav-active=true]:[&_.post-nav-dot]:bg-accent data-[nav-delay=true]:[&_.post-nav-dot]:delay-200 data-[nav-past=true]:[&_.post-nav-dot]:border-accent data-[nav-past=true]:[&_.post-nav-dot]:bg-accent" data-scrollspy-link-template aria-hidden="true">

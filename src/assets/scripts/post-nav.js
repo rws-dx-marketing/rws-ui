@@ -9,12 +9,9 @@ const DEFAULTS = {
 	preserveExistingIds: true,
 	proximity: null,
 	hoverProximity: null,
-	railOffset: 24,
-	useProgressDots: true,
-	useDirectionalDelay: true,
 }
 
-const jsConfettiSrc = 'https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js'
+const jsConfettiSrc = 'https://cdn.jsdelivr.net/npm/js-confetti@0.13.1/dist/js-confetti.browser.js'
 let jsConfettiLoader = null
 
 function slugify(text) {
@@ -130,13 +127,14 @@ function buildPostNavLinks(nav, headings) {
 function getNavConfig(nav, options) {
 	const parsedProximity = Number.parseInt(nav.dataset.scrollspyProximity || '', 10)
 	const parsedHoverProximity = Number.parseInt(nav.dataset.scrollspyHoverProximity || '', 10)
+	const parsedRailOffset = Number.parseFloat(nav.dataset.scrollspyRailOffset || '')
 
 	return {
 		proximity: Number.isInteger(parsedProximity) && parsedProximity >= 0 ? parsedProximity : options.proximity,
 		hoverProximity: Number.isInteger(parsedHoverProximity) && parsedHoverProximity >= 0 ? parsedHoverProximity : options.hoverProximity,
-		railOffset: options.railOffset,
-		useProgressDots: options.useProgressDots,
-		useDirectionalDelay: options.useDirectionalDelay,
+		railOffset: Number.isFinite(parsedRailOffset) && parsedRailOffset >= 0 ? parsedRailOffset : 0,
+		useProgressDots: nav.hasAttribute('data-scrollspy-progress-dots'),
+		useDirectionalDelay: nav.hasAttribute('data-scrollspy-directional-delay'),
 	}
 }
 
@@ -309,6 +307,8 @@ function createInstance(nav, options) {
 }
 
 export default function postNav(userOptions) {
+	if (typeof window === 'undefined') return
+
 	const options = Object.assign({}, DEFAULTS, userOptions || {})
 	const navNodes = Array.from(document.querySelectorAll(options.navSelector))
 	if (!navNodes.length) return
