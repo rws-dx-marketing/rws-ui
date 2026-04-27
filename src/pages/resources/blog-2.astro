@@ -7,28 +7,17 @@ import BlogHero from '../../blocks/BlogHero.astro'
 	<BlogHero />
 
 	<aside class="group/post-nav fixed top-1/2 left-2 z-20 hidden w-8 -translate-y-1/2 overflow-hidden transition-[width] duration-200 hover:w-[min(10rem,20vw)] motion-reduce:transition-none lg:flex motion-reduce:[&_a]:transition-none motion-reduce:[&_span]:transition-none">
-		<nav aria-label="Section navigation" class="relative flex w-full flex-col gap-3 rounded-lg border border-foreground/5 bg-background/66 py-4 pr-3 pl-4 text-foreground backdrop-blur-lg" data-theme="default" data-scrollspy-nav data-scrollspy-rail-offset="24" data-scrollspy-progress-dots data-scrollspy-directional-delay>
+		<nav aria-label="Section navigation" class="relative flex w-full flex-col gap-3 rounded-lg border border-foreground/5 bg-background/66 py-4 pr-3 pl-4 text-foreground backdrop-blur-lg" data-theme="default" data-scrollspy-nav>
 			<span aria-hidden="true" class="pointer-events-none absolute top-6 bottom-6 left-3.5 w-1 bg-foreground/10"></span>
 			<span aria-hidden="true" class="pointer-events-none absolute top-6 left-3.5 h-(--post-nav-active-height) w-1 bg-accent transition-[height] duration-500" data-scrollspy-rail></span>
 			<a href="#" class="group/post-nav-link relative hidden h-4 data-[nav-active=true]:[&_.post-nav-dot]:scale-115 data-[nav-active=true]:[&_.post-nav-dot]:border-accent data-[nav-active=true]:[&_.post-nav-dot]:bg-accent data-[nav-delay=true]:[&_.post-nav-dot]:delay-200 data-[nav-past=true]:[&_.post-nav-dot]:border-accent data-[nav-past=true]:[&_.post-nav-dot]:bg-accent" data-scrollspy-link-template aria-hidden="true">
 				<span aria-hidden="true" class="post-nav-dot pointer-events-none absolute top-1/2 left-0 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/10 bg-white transition-[transform,background-color,border-color] duration-500"></span>
-				<span class="pointer-events-none absolute top-1/2 left-4 w-48 -translate-x-1 -translate-y-1/2 text-sm/none font-semibold whitespace-nowrap text-foreground opacity-0 transition duration-200 group-hover/post-nav:translate-x-0 group-hover/post-nav:opacity-100 group-data-[nav-active=true]/post-nav-link:group-hover/post-nav:opacity-100" data-scrollspy-link-label> Template nav link </span>
+				<span class="pointer-events-none absolute top-1/2 right-0 left-4 -translate-x-1 -translate-y-1/2 truncate text-sm/none font-semibold text-foreground opacity-0 transition duration-200 group-hover/post-nav:translate-x-0 group-hover/post-nav:opacity-100 group-data-[nav-active=true]/post-nav-link:group-hover/post-nav:opacity-100" data-scrollspy-link-label> Template nav link </span>
 			</a>
 		</nav>
 	</aside>
 
 	<main data-scrollspy-content>
-		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
-			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-				<div class="w-fit rounded-lg bg-background p-10 text-foreground" data-card>
-					<div class="prose font-medium text-pretty lg:text-lg">
-						<h2 class="sr-only">Introduction</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
-					</div>
-				</div>
-			</div>
-		</section>
-
 		<section class="h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
 			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 				<h2 class="scroll-mt-20 text-3xl font-bold">Section 1</h2>
@@ -37,7 +26,7 @@ import BlogHero from '../../blocks/BlogHero.astro'
 
 		<section class="h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="secondary">
 			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-				<h2 class="scroll-mt-20 text-3xl font-bold">Section 2</h2>
+				<h2 class="scroll-mt-20 text-3xl font-bold">Section 2 that happens to be longer than the other sections</h2>
 			</div>
 		</section>
 
@@ -54,4 +43,3 @@ import BlogHero from '../../blocks/BlogHero.astro'
 		</section>
 	</main>
 </Layout>
-

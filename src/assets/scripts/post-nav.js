@@ -9,6 +9,9 @@ const DEFAULTS = {
 	preserveExistingIds: true,
 	proximity: null,
 	hoverProximity: null,
+	railOffset: 24,
+	useProgressDots: true,
+	useDirectionalDelay: true,
 }
 
 const jsConfettiSrc = 'https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js'
@@ -127,14 +130,13 @@ function buildPostNavLinks(nav, headings) {
 function getNavConfig(nav, options) {
 	const parsedProximity = Number.parseInt(nav.dataset.scrollspyProximity || '', 10)
 	const parsedHoverProximity = Number.parseInt(nav.dataset.scrollspyHoverProximity || '', 10)
-	const parsedRailOffset = Number.parseFloat(nav.dataset.scrollspyRailOffset || '')
 
 	return {
 		proximity: Number.isInteger(parsedProximity) && parsedProximity >= 0 ? parsedProximity : options.proximity,
 		hoverProximity: Number.isInteger(parsedHoverProximity) && parsedHoverProximity >= 0 ? parsedHoverProximity : options.hoverProximity,
-		railOffset: Number.isFinite(parsedRailOffset) && parsedRailOffset >= 0 ? parsedRailOffset : 0,
-		useProgressDots: nav.hasAttribute('data-scrollspy-progress-dots'),
-		useDirectionalDelay: nav.hasAttribute('data-scrollspy-directional-delay'),
+		railOffset: options.railOffset,
+		useProgressDots: options.useProgressDots,
+		useDirectionalDelay: options.useDirectionalDelay,
 	}
 }
 
