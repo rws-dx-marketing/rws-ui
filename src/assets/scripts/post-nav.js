@@ -9,6 +9,7 @@ const DEFAULTS = {
 	preserveExistingIds: true,
 	proximity: null,
 	hoverProximity: null,
+	anchorTarget: 'heading',
 }
 
 const jsConfettiSrc = 'https://cdn.jsdelivr.net/npm/js-confetti@0.13.1/dist/js-confetti.browser.js'
@@ -60,64 +61,123 @@ function ensureJsConfettiLoaded() {
 	return jsConfettiLoader
 }
 
+function resolveMainScope(nav) {
+	if (nav.closest('main')) return nav.closest('main')
+
+	let current = nav.parentElement
+	while (current) {
+		const directMainChild = Array.from(current.children).find((child) => child.tagName === 'MAIN')
+		if (directMainChild) return directMainChild
+		current = current.parentElement
+	}
+
+	return document.querySelector('main')
+}
+
+function queryContentNodes(root, selector) {
+	const nodes = Array.from(root.querySelectorAll(selector))
+	if (root.matches(selector)) {
+		nodes.unshift(root)
+	}
+	return nodes
+}
+
 function resolveContentNodes(nav, options) {
 	const group = nav.dataset.scrollspyGroup
+	const scopeRoot = resolveMainScope(nav)
+
+	if (scopeRoot) {
+		const scopedNodes = queryContentNodes(scopeRoot, options.contentSelector)
+		if (group) {
+			return scopedNodes.filter((node) => node.dataset.scrollspyGroup === group)
+		}
+		if (scopedNodes.length) return scopedNodes
+	}
+
 	if (group) {
 		return Array.from(document.querySelectorAll(`${options.contentSelector}[data-scrollspy-group="${group}"]`))
 	}
 	return Array.from(document.querySelectorAll(options.contentSelector))
 }
 
-function collectHeadings(contentNodes, options) {
+function ensureNodeId(node, base, usedIds, options, fallbackPrefix) {
+	let id = node.id
+	if (!id) {
+		id = uniqueId(base, usedIds, fallbackPrefix)
+	} else if (options.preserveExistingIds) {
+		usedIds.add(id)
+	} else {
+		id = uniqueId(id, usedIds, fallbackPrefix)
+	}
+	node.id = id
+	return id
+}
+
+function collectNavItems(contentNodes, options, navConfig) {
 	const headingNodes = contentNodes.flatMap((contentNode) => Array.from(contentNode.querySelectorAll(options.headingSelector)))
 	if (!headingNodes.length) return []
 
 	const usedIds = new Set()
-	return headingNodes.map((heading, idx) => {
-		const fallback = `${options.slugPrefix}-${idx + 1}`
-		const base = slugify(heading.textContent) || fallback
-		let id = heading.id
+	const seenSections = new WeakSet()
+	const navItems = []
 
-		if (!id) {
-			id = uniqueId(base, usedIds, fallback)
-		} else if (options.preserveExistingIds) {
-			usedIds.add(id)
-		} else {
-			id = uniqueId(id, usedIds, fallback)
+	for (const heading of headingNodes) {
+		const fallback = `${options.slugPrefix}-${navItems.length + 1}`
+		const labelText = heading.textContent ? heading.textContent.trim() : fallback
+		const base = slugify(labelText) || fallback
+
+		if (navConfig.anchorTarget === 'section') {
+			const section = heading.closest('main > section')
+			if (!section) continue
+			if (seenSections.has(section)) continue
+			seenSections.add(section)
+
+			const id = ensureNodeId(section, base, usedIds, options, fallback)
+			navItems.push({
+				id,
+				labelText,
+				markerNode: heading,
+			})
+			continue
 		}
 
-		heading.id = id
-		return heading
-	})
+		const id = ensureNodeId(heading, base, usedIds, options, fallback)
+		navItems.push({
+			id,
+			labelText,
+			markerNode: heading,
+		})
+	}
+
+	return navItems
 }
 
-function buildPostNavLinks(nav, headings) {
+function buildPostNavLinks(nav, navItems) {
 	Array.from(nav.querySelectorAll('[data-scrollspy-link]')).forEach((link) => link.remove())
 	const linkTemplate = nav.querySelector('[data-scrollspy-link-template]')
 	const endNode = nav.querySelector('[data-scrollspy-end]')
 	const linkById = new Map()
 
-	const links = headings.map((heading) => {
+	const links = navItems.map((item) => {
 		const link = linkTemplate ? linkTemplate.cloneNode(true) : document.createElement('a')
-		link.href = `#${heading.id}`
+		link.href = `#${item.id}`
 		link.removeAttribute('data-scrollspy-link-template')
 		link.classList.remove('hidden')
 		link.removeAttribute('aria-hidden')
 		link.dataset.scrollspyLink = ''
-		const labelText = heading.textContent ? heading.textContent.trim() : heading.id
 		const labelNode = link.querySelector('[data-scrollspy-link-label]')
 		if (labelNode) {
-			labelNode.textContent = labelText
+			labelNode.textContent = item.labelText
 		} else {
-			link.textContent = labelText
+			link.textContent = item.labelText
 		}
-		link.dataset.navLabel = labelText
+		link.dataset.navLabel = item.labelText
 		if (endNode) {
 			nav.insertBefore(link, endNode)
 		} else {
 			nav.appendChild(link)
 		}
-		linkById.set(heading.id, link)
+		linkById.set(item.id, link)
 		return link
 	})
 
@@ -128,6 +188,7 @@ function getNavConfig(nav, options) {
 	const parsedProximity = Number.parseInt(nav.dataset.scrollspyProximity || '', 10)
 	const parsedHoverProximity = Number.parseInt(nav.dataset.scrollspyHoverProximity || '', 10)
 	const parsedRailOffset = Number.parseFloat(nav.dataset.scrollspyRailOffset || '')
+	const parsedAnchorTarget = nav.dataset.scrollspyAnchorTarget
 
 	return {
 		proximity: Number.isInteger(parsedProximity) && parsedProximity >= 0 ? parsedProximity : options.proximity,
@@ -135,6 +196,7 @@ function getNavConfig(nav, options) {
 		railOffset: Number.isFinite(parsedRailOffset) && parsedRailOffset >= 0 ? parsedRailOffset : 0,
 		useProgressDots: nav.hasAttribute('data-scrollspy-progress-dots'),
 		useDirectionalDelay: nav.hasAttribute('data-scrollspy-directional-delay'),
+		anchorTarget: parsedAnchorTarget === 'section' ? 'section' : options.anchorTarget,
 	}
 }
 
@@ -142,12 +204,12 @@ function createInstance(nav, options) {
 	const contentNodes = resolveContentNodes(nav, options)
 	if (!contentNodes.length) return null
 
-	const headings = collectHeadings(contentNodes, options)
-	if (!headings.length) return null
-
-	const { links, linkById } = buildPostNavLinks(nav, headings)
-	const headingIndexById = new Map(headings.map((heading, index) => [heading.id, index]))
 	const navConfig = getNavConfig(nav, options)
+	const navItems = collectNavItems(contentNodes, options, navConfig)
+	if (!navItems.length) return null
+
+	const { links, linkById } = buildPostNavLinks(nav, navItems)
+	const headingIndexById = new Map(navItems.map((item, index) => [item.id, index]))
 	const endIcon = nav.querySelector('[data-scrollspy-end-icon]')
 	const endLabel = nav.querySelector('[data-scrollspy-end-label]')
 	const cardRoot = nav.closest('[data-card]')
@@ -156,7 +218,7 @@ function createInstance(nav, options) {
 
 	let jsConfetti = null
 	let wasComplete = false
-	let activeId = headings[0].id
+	let activeId = navItems[0].id
 	let activeLink = null
 	let previousActiveIndex = headingIndexById.get(activeId) ?? 0
 	let ticking = false
@@ -242,13 +304,13 @@ function createInstance(nav, options) {
 		}, 600)
 	}
 
-	function getCurrentHeading() {
+	function getCurrentNavItem() {
 		const sectionMarker = window.innerHeight * options.offset
-		let current = headings[0]
-		for (let idx = 0; idx < headings.length; idx += 1) {
-			const heading = headings[idx]
-			if (heading.getBoundingClientRect().top <= sectionMarker) {
-				current = heading
+		let current = navItems[0]
+		for (let idx = 0; idx < navItems.length; idx += 1) {
+			const navItem = navItems[idx]
+			if (navItem.markerNode.getBoundingClientRect().top <= sectionMarker) {
+				current = navItem
 			} else {
 				break
 			}
@@ -260,7 +322,7 @@ function createInstance(nav, options) {
 		const completionMarker = window.innerHeight * options.completion
 		const contentBottom = lastContentNode.getBoundingClientRect().bottom
 		const isComplete = contentBottom <= completionMarker
-		const current = getCurrentHeading()
+		const current = getCurrentNavItem()
 		if (!current || !current.id) return
 
 		if (current.id !== activeId) activeId = current.id
