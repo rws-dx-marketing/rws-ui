@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import FilterDropdown from '../../components/FilterDropdown.astro'
+import FilterOption from '../../components/FilterOption.astro'
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 ---
@@ -45,79 +47,18 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 				<div id="filter-popover" popover="auto" class="dropdown top-[calc(anchor(bottom)+0.5rem)]! left-1/2! z-10 w-full max-w-3xl -translate-x-1/2 bg-transparent px-4" style="position-anchor: --filter-button; position-area: unset;">
 					<div class="flex flex-wrap gap-3 rounded-lg border border-foreground/10 bg-background p-4 text-left text-foreground shadow-lg" data-filters data-theme="default">
-						<div data-filter data-filter-id="partners-checkboxes" data-filter-mode="multiple">
-							<button class="btn btn-outline btn-icon-right rounded bg-input font-medium" id="partners-checkboxes-button" popovertarget="partners-checkboxes-popover" popovertargetaction="toggle" type="button">
-								Dropdown checkboxes
-								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-							</button>
+						<FilterDropdown filterId="partners-checkboxes" label="Dropdown checkboxes">
+							<FilterOption id="dropdown-checkbox-0" type="checkbox" value="checkbox-0" label="Checkbox 1" />
+							<FilterOption id="dropdown-checkbox-1" type="checkbox" value="checkbox-1" label="Checkbox 2" />
+							<FilterOption id="dropdown-checkbox-2" type="checkbox" value="checkbox-2" label="Checkbox that happens to be really long and wraps to the next line" />
+							<FilterOption id="dropdown-checkbox-3" type="checkbox" value="checkbox-3" label="Checkbox 3" />
+						</FilterDropdown>
 
-							<div data-card id="partners-checkboxes-popover" popover="auto" role="menu" aria-labelledby="partners-checkboxes-button" class="dropdown z-10 w-80 rounded border border-foreground/10">
-								<ul class="grid max-h-24 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="partners-checkboxes-button">
-									<li>
-										<label class="inline-flex w-full items-center gap-2 rounded-md p-2 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
-											<input id="dropdown-checkbox-0" data-filter-input type="checkbox" value="default-checkbox-0" class="input input-checkbox" />
-											Default checkbox 1
-										</label>
-									</li>
-									<li>
-										<label class="inline-flex w-full items-center gap-2 rounded-md p-2 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
-											<input id="dropdown-checkbox-1" data-filter-input type="checkbox" value="default-checkbox-1" class="input input-checkbox" />
-											Default checkbox 2
-										</label>
-									</li>
-									<li>
-										<label class="inline-flex w-full items-center gap-2 rounded-md p-2 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
-											<input id="dropdown-checkbox-2" data-filter-input type="checkbox" value="checked-state" class="input input-checkbox" />
-											Checked checkbox that happens to be really long and wraps to the next line
-										</label>
-									</li>
-									<li>
-										<label class="inline-flex w-full items-center gap-2 rounded-md p-2 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
-											<input id="dropdown-checkbox-3" data-filter-input type="checkbox" value="default-checkbox-3" class="input input-checkbox" />
-											Default checkbox 3
-										</label>
-									</li>
-								</ul>
-								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2">
-									<button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent">Clear selected</button>
-								</div>
-							</div>
-						</div>
-
-						<div data-filter data-filter-id="partners-radios" data-filter-mode="single">
-							<button class="btn btn-outline btn-icon-right rounded bg-input font-medium" id="partners-radios-button" popovertarget="partners-radios-popover" popovertargetaction="toggle" type="button">
-								Dropdown radios
-								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-							</button>
-
-							<div data-card id="partners-radios-popover" popover="auto" role="menu" aria-labelledby="partners-radios-button" class="dropdown z-10 w-80 rounded border border-foreground/10">
-								<ul class="grid max-h-24 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="partners-radios-button">
-									<li>
-										<label class="inline-flex w-full items-center gap-2 rounded-md p-2 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
-											<input id="dropdown-radio-1" data-filter-input name="dropdown-radios" type="radio" value="default-radio-1" class="input input-radio" />
-											Default radio 1
-										</label>
-									</li>
-									<li>
-										<label class="inline-flex w-full items-center gap-2 rounded-md p-2 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
-											<input id="dropdown-radio-2" data-filter-input name="dropdown-radios" type="radio" value="checked-state-radio" class="input input-radio" />
-											Checked radio that happens to be really long and wraps to the next line
-										</label>
-									</li>
-									<li>
-										<label class="inline-flex w-full items-center gap-2 rounded-md p-2 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
-											<input id="dropdown-radio-3" data-filter-input name="dropdown-radios" type="radio" value="default-radio-3" class="input input-radio" />
-											Default radio 2
-										</label>
-									</li>
-								</ul>
-								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2">
-									<button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent">Clear selected</button>
-								</div>
-							</div>
-						</div>
+						<FilterDropdown filterId="partners-radios" label="Dropdown radios">
+							<FilterOption id="dropdown-radio-1" type="radio" name="dropdown-radios" value="radio-1" label="Radio 1" />
+							<FilterOption id="dropdown-radio-2" type="radio" name="dropdown-radios" value="radio-2" label="Radio that happens to be really long and wraps to the next line" />
+							<FilterOption id="dropdown-radio-3" type="radio" name="dropdown-radios" value="radio-3" label="Radio 2" />
+						</FilterDropdown>
 					</div>
 				</div>
 			</form>

@@ -1,0 +1,10 @@
+---
+const { id, type = 'checkbox', value, label, name } = Astro.props
+---
+
+<li>
+	<label class="inline-flex w-full items-center gap-2 rounded-md p-2 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+		<input id={id} data-filter-input type={type} value={value} name={name} class={type === 'radio' ? 'input input-radio' : 'input input-checkbox'} />
+		{label}
+	</label>
+</li>
