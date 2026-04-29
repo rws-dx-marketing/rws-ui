@@ -42,6 +42,71 @@ function getSelectedInputs(filter) {
 	return Array.from(filter.querySelectorAll('[data-filter-input]:checked'))
 }
 
+function getSearchInput(root) {
+	const form = root.closest('form')
+	if (!form) return null
+	return form.querySelector('[data-filters-search]') ?? form.querySelector('input[name="q"]')
+}
+
+function getManagedFilterIds(root) {
+	const filters = Array.from(root.querySelectorAll('[data-filter]'))
+	return filters.map((filter) => filter.dataset.filterId).filter(Boolean)
+}
+
+function syncFormStateToUrl(root, searchInput) {
+	if (typeof window === 'undefined') return
+
+	const url = new URL(window.location.href)
+	const managedFilterIds = getManagedFilterIds(root)
+
+	url.searchParams.delete('q')
+	managedFilterIds.forEach((filterId) => {
+		url.searchParams.delete(filterId)
+	})
+
+	const searchValue = searchInput instanceof HTMLInputElement ? searchInput.value.trim() : ''
+	if (searchValue) {
+		url.searchParams.set('q', searchValue)
+	}
+
+	const filters = root.querySelectorAll('[data-filter]')
+	filters.forEach((filter) => {
+		const filterId = filter.dataset.filterId
+		if (!filterId) return
+		getSelectedInputs(filter).forEach((input) => {
+			url.searchParams.append(filterId, input.value)
+		})
+	})
+
+	const nextQuery = url.searchParams.toString()
+	const nextUrl = `${url.pathname}${nextQuery ? `?${nextQuery}` : ''}${url.hash}`
+	const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`
+	if (nextUrl !== currentUrl) {
+		window.history.replaceState(window.history.state, '', nextUrl)
+	}
+}
+
+function applyUrlStateToForm(root, searchInput) {
+	if (typeof window === 'undefined') return
+
+	const params = new URLSearchParams(window.location.search)
+	if (searchInput instanceof HTMLInputElement) {
+		searchInput.value = params.get('q') ?? ''
+	}
+
+	const filters = root.querySelectorAll('[data-filter]')
+	filters.forEach((filter) => {
+		const filterId = filter.dataset.filterId
+		if (!filterId) return
+
+		const selectedValues = new Set(params.getAll(filterId))
+		const inputs = filter.querySelectorAll('[data-filter-input]')
+		inputs.forEach((input) => {
+			input.checked = selectedValues.has(input.value)
+		})
+	})
+}
+
 function getSelectionKey(input) {
 	const filter = input.closest('[data-filter]')
 	const filterId = filter?.dataset.filterId ?? 'filter'
@@ -145,7 +210,7 @@ function clearCheckedInputs(inputs) {
 	})
 }
 
-function setupFilter(filter, selectionRow) {
+function setupFilter(filter, selectionRow, onStateChange) {
 	const inputs = filter.querySelectorAll('[data-filter-input]')
 	if (!inputs.length) return
 
@@ -154,6 +219,9 @@ function setupFilter(filter, selectionRow) {
 	inputs.forEach((input) => {
 		input.addEventListener('change', () => {
 			syncFilterChips(selectionRow, filter)
+			if (typeof onStateChange === 'function') {
+				onStateChange()
+			}
 		})
 	})
 
@@ -264,8 +332,38 @@ export default function dropdownFilters() {
 		const selectionRow = findSelectionRow(root)
 		if (!selectionRow) return
 
+		const searchInput = getSearchInput(root)
+		const syncUrl = () => syncFormStateToUrl(root, searchInput)
+		applyUrlStateToForm(root, searchInput)
+
 		setupSelectionRow(root, selectionRow)
 		const filters = root.querySelectorAll('[data-filter]')
-		filters.forEach((filter) => setupFilter(filter, selectionRow))
+		filters.forEach((filter) => setupFilter(filter, selectionRow, syncUrl))
+
+		if (searchInput instanceof HTMLInputElement) {
+			let searchDebounceId = null
+			searchInput.addEventListener('input', () => {
+				window.clearTimeout(searchDebounceId)
+				searchDebounceId = window.setTimeout(() => {
+					syncUrl()
+				}, 150)
+			})
+			searchInput.addEventListener('change', syncUrl)
+
+			const form = root.closest('form')
+			if (form) {
+				form.addEventListener('submit', (event) => {
+					event.preventDefault()
+					syncUrl()
+				})
+			}
+		}
+
+		window.addEventListener('popstate', () => {
+			applyUrlStateToForm(root, searchInput)
+			filters.forEach((filter) => syncFilterChips(selectionRow, filter))
+		})
+
+		syncUrl()
 	})
 }

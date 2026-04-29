@@ -66,8 +66,8 @@
 		]
 	},
 	{
-		"id": "solution-market",
-		"label": "Solution / Market",
+		"id": "solution",
+		"label": "Solution",
 		"inputType": "checkbox",
 		"options": [
 			{

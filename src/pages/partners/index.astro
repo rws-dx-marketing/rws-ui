@@ -29,7 +29,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 						<div class="relative">
 							<div class="rounded-full bg-background">
-								<input type="search" id="search" class="input input-search input-lg pr-11" placeholder="Search" />
+								<input type="search" id="search" name="q" data-filters-search class="input input-search input-lg pr-11" placeholder="Search" />
 							</div>
 
 							<button type="submit" class="svg-current absolute top-1/2 right-4 size-5 -translate-y-1/2" tabindex="-1">
@@ -39,8 +39,8 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 						</div>
 					</div>
 
-					<button type="button" class="btn btn-primary btn-lg size-12.5 p-0" popovertarget="filter-popover" popovertargetaction="toggle" style="anchor-name: --filter-button" data-popover-toggle-icon>
-						<span class="sr-only">Toggle filters</span>
+					<button type="button" class="btn btn-primary btn-lg size-12.5 gap-2 sm:size-auto" popovertarget="filter-popover" popovertargetaction="toggle" style="anchor-name: --filter-button" data-popover-toggle-icon>
+						<span class="hidden sm:block">Filters</span>
 						<svg data-icon-closed xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 						<svg data-icon-open class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 					</button>
@@ -55,7 +55,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 										<>
 											{group.label ? <li class="px-2 pb-1 text-2xs font-bold tracking-widest text-foreground/66 uppercase not-first:pt-3 first:pt-1.5">{group.label}</li> : null}
 											{group.options.map((option) => (
-												<FilterOption id={`${filter.id}-${groupIndex}-${option.value}`} type={filter.inputType} name={filter.inputType === 'radio' ? filter.id : undefined} value={option.value} label={option.label} />
+												<FilterOption id={`${filter.id}-${groupIndex}-${option.value}`} type={filter.inputType} name={filter.id} value={option.value} label={option.label} />
 											))}
 										</>
 									))}
