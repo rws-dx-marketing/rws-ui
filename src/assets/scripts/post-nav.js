@@ -225,7 +225,7 @@ function createInstance(nav, options) {
 
 	const navConfig = getNavConfig(nav, options)
 	const navItems = collectNavItems(contentNodes, options, navConfig)
-	if (!navItems.length) {
+	if (navItems.length < 2) {
 		setNavParentHidden(nav, true)
 		return null
 	}
