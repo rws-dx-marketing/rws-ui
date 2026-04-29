@@ -1,6 +1,13 @@
 .dropdown[popover] {
 	position-area: bottom span-right;
-	position-try-fallbacks: flip-inline;
+	position-try-fallbacks:
+		flip-inline,
+		flip-block,
+		flip-inline flip-block;
+	position-try:
+		flip-inline,
+		flip-block,
+		flip-inline flip-block;
 
 	@apply relative inset-auto overflow-visible;
 

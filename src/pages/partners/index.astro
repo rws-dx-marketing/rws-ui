@@ -39,15 +39,15 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 						</div>
 					</div>
 
-					<button type="button" class="btn btn-primary btn-lg size-12.5 gap-2 sm:size-auto" popovertarget="filter-popover" popovertargetaction="toggle" style="anchor-name: --filter-button" data-popover-toggle-icon>
+					<button type="button" class="btn btn-primary btn-lg size-12.5 gap-2 sm:size-auto" popovertarget="filter-popover" popovertargetaction="toggle" data-popover-toggle-icon>
 						<span class="hidden sm:block">Filters</span>
 						<svg data-icon-closed xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 						<svg data-icon-open class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 					</button>
 				</div>
 
-				<div id="filter-popover" popover="auto" class="dropdown top-[calc(anchor(bottom)+0.5rem)]! left-1/2! z-10 w-full max-w-3xl -translate-x-1/2 bg-transparent px-4" style="position-anchor: --filter-button; position-area: unset;">
-					<div class="flex- flex-wrap- grid grid-cols-3 gap-3 rounded-lg border border-foreground/10 bg-background p-4 text-left text-foreground shadow-lg" data-filters data-theme="default">
+				<div id="filter-popover" popover="auto" class="dropdown top-[calc(anchor(bottom)+0.5rem)]! left-1/2! z-10 w-full max-w-3xl -translate-x-1/2 bg-transparent px-4" style="position-area: unset">
+					<div class="grid gap-3 rounded-lg border border-foreground/10 bg-background p-4 text-left text-foreground shadow-lg sm:grid-cols-2 md:grid-cols-3" data-filters data-theme="default">
 						{
 							data.map((filter) => (
 								<FilterDropdown filterId={filter.id} label={filter.label}>
