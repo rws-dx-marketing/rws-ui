@@ -29,6 +29,16 @@
 		}
 	}
 
+	.btn-icon-both {
+		& > :where(img, svg):first-of-type {
+			@apply order-first mr-[0.375em] -ml-[0.25em];
+		}
+
+		& > :where(img, svg):last-of-type {
+			@apply order-last -mr-[0.25em] ml-[0.375em];
+		}
+	}
+
 	.btn-magnet {
 		@apply will-change-transform;
 

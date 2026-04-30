@@ -1,15 +1,17 @@
 ---
 const { filterId, label, buttonId = `${filterId}-button`, popoverId = `${filterId}-popover` } = Astro.props
+const anchorName = `--${filterId}-anchor`
 ---
 
 <div data-filter data-filter-id={filterId}>
-	<button class="btn btn-outline btn-icon-right w-full rounded bg-input font-medium" id={buttonId} popovertarget={popoverId} popovertargetaction="toggle" type="button">
+	<button class="btn btn-outline btn-icon-both w-full rounded bg-input font-medium" id={buttonId} popovertarget={popoverId} popovertargetaction="toggle" type="button" style={`anchor-name: ${anchorName};`}>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 		<span class="flex-1 text-left">{label}</span>
 		<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 		<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 	</button>
 
-	<div data-card id={popoverId} popover="auto" role="menu" aria-labelledby={buttonId} class="dropdown z-10 w-65 rounded border border-foreground/10 shadow-lg">
+	<div data-card id={popoverId} popover="auto" role="menu" aria-labelledby={buttonId} class="dropdown z-10 mt-1 w-65 rounded border border-foreground/10 shadow-lg" style={`position-anchor: ${anchorName}; position-area: bottom span-right;`}>
 		<ul class="grid max-h-62 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby={buttonId}>
 			<slot />
 		</ul>

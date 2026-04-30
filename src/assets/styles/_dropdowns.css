@@ -1,17 +1,7 @@
 .dropdown[popover] {
-	position-area: bottom span-right;
-	position-try-fallbacks:
-		flip-inline,
-		flip-block,
-		flip-inline flip-block;
-	position-try:
-		flip-inline,
-		flip-block,
-		flip-inline flip-block;
+	position-area: bottom span-left;
+	position-try-fallbacks: flip-inline;
+	position-try: flip-inline;
 
-	@apply relative inset-auto overflow-visible;
-
-	/* Gap between button and menu without shifting inline alignment. */
-	margin-block-start: 0.5rem;
-	margin-inline: 0;
+	@apply inset-auto overflow-visible;
 }
