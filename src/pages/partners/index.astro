@@ -4,7 +4,134 @@ import FilterDropdown from '../../components/FilterDropdown.astro'
 import FilterOption from '../../components/FilterOption.astro'
 import data from '../../data/partners/filters.json'
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+const cards = [
+	{
+		logo: '/logos/alibaba.svg',
+		name: 'Alibaba',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Technology partner', 'Trados', 'Intelligent Knowledge Platforms'],
+		filters: {
+			'partner-type': ['technology-partner'],
+			'product': ['trados'],
+			'solution': ['intelligent-knowledge-platforms'],
+			'industry': ['life-sciences'],
+			'service-areas': ['translation-localisation'],
+			'region': ['argentina'],
+		},
+	},
+	{
+		logo: '/logos/canva.svg',
+		name: 'Canva',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Technology partner', 'Language Weaver', 'Language Platforms'],
+		filters: {
+			'partner-type': ['technology-partner'],
+			'product': ['language-weaver'],
+			'solution': ['language-platforms'],
+			'industry': ['healthcare'],
+			'service-areas': ['interpretation'],
+			'region': ['brazil'],
+		},
+	},
+	{
+		logo: '/logos/hp.svg',
+		name: 'HP',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Solution partner', 'Tridion', 'Language Platforms'],
+		filters: {
+			'partner-type': ['solution-partner'],
+			'product': ['tridion'],
+			'solution': ['language-platforms'],
+			'industry': ['legal-financial-services'],
+			'service-areas': ['transcreation'],
+			'region': ['canada'],
+		},
+	},
+	{
+		logo: 'https://www.rws.com/media/images/Slide18_tcm228-179013.png?v=20260430125156',
+		name: 'Accenture',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Reseller', 'Fonto', 'IP Platforms'],
+		filters: {
+			'partner-type': ['reseller'],
+			'product': ['fonto'],
+			'solution': ['ip-platforms'],
+			'industry': ['government-public-sector'],
+			'service-areas': ['subtitling-captioning'],
+			'region': ['chile'],
+		},
+	},
+	{
+		logo: 'https://www.rws.com/media/images/Acodis-Logo-RGB_tcm228-252243.png?v=20260430125156',
+		name: 'Acodis',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Training partner', 'Trados', 'AI Data Services'],
+		filters: {
+			'partner-type': ['training-partner'],
+			'product': ['trados'],
+			'solution': ['ai-data-services'],
+			'industry': ['life-sciences'],
+			'service-areas': ['translation-localisation'],
+			'region': ['argentina'],
+		},
+	},
+	{
+		logo: 'https://www.rws.com/media/images/Bynder-Logo-Vertical-Blue_tcm228-179142.png?v=20260430125156',
+		name: 'Bynder',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Technology partner', 'Language Weaver', 'Intelligent Knowledge Platforms'],
+		filters: {
+			'partner-type': ['technology-partner'],
+			'product': ['language-weaver'],
+			'solution': ['intelligent-knowledge-platforms'],
+			'industry': ['healthcare'],
+			'service-areas': ['interpretation'],
+			'region': ['brazil'],
+		},
+	},
+	{
+		logo: 'https://www.rws.com/media/images/etteplan-electric-blue-vertical-rgb_tcm228-192864.png?v=20260430125156',
+		name: 'Etteplan',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Solution partner', 'Tridion', 'IP Platforms'],
+		filters: {
+			'partner-type': ['solution-partner'],
+			'product': ['tridion'],
+			'solution': ['ip-platforms'],
+			'industry': ['legal-financial-services'],
+			'service-areas': ['transcreation'],
+			'region': ['canada'],
+		},
+	},
+	{
+		logo: 'https://www.rws.com/media/images/intento_tcm228-219882.png?v=20260430125156',
+		name: 'Intento',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Reseller', 'Fonto', 'AI Data Services'],
+		filters: {
+			'partner-type': ['reseller'],
+			'product': ['fonto'],
+			'solution': ['ai-data-services'],
+			'industry': ['government-public-sector'],
+			'service-areas': ['subtitling-captioning'],
+			'region': ['chile'],
+		},
+	},
+	{
+		logo: 'https://www.rws.com/media/images/Plus-Ops_tcm228-168036.jpg?v=20260430125156',
+		name: 'PlusOps',
+		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
+		tags: ['Training partner', 'Trados', 'Language Platforms'],
+		filters: {
+			'partner-type': ['training-partner'],
+			'product': ['trados'],
+			'solution': ['language-platforms'],
+			'industry': ['life-sciences'],
+			'service-areas': ['translation-localisation'],
+			'region': ['argentina'],
+		},
+	},
+]
 ---
 
 <Layout title="Partners – RWS UI">
@@ -71,7 +198,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="flex justify-between">
-				<div class="pl-1.5 text-sm font-medium text-foreground/66">123 results</div>
+				<div class="pl-1.5 text-sm font-medium text-foreground/66" data-partners-results-count>{cards.length} results</div>
 
 				<div class="flex items-center gap-2">
 					<span class="shrink-0 text-sm font-medium text-foreground/66">Sort by</span>
@@ -97,11 +224,11 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 					cards.map((card) => (
 						<>
 							{/* Variant 1: full-card clickable + author info */}
-							<article class="group relative rounded-lg border border-foreground/10 bg-background text-left text-foreground" data-card>
+							<article class="group relative rounded-lg border border-foreground/10 bg-background text-left text-foreground" data-card data-card-filters={JSON.stringify(card.filters)} data-card-search={`${card.name} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()}>
 								<div class="flex h-full flex-col">
 									<div class="p-6">
 										<div class="mb-5 flex aspect-video items-center justify-center rounded border border-foreground/10">
-											<img src="/logos/alibaba.svg" alt="Alibaba" class="block h-auto max-h-full w-auto max-w-full object-contain p-4" draggable="false" />
+											<img src={card.logo} alt={card.name} class="block h-auto max-h-full w-auto max-w-full object-contain px-8 py-4" draggable="false" />
 											{/* <img src="https://placehold.co/100" alt="Placeholder" class="block h-auto max-h-full w-auto max-w-full object-contain p-4" draggable="false" /> */}
 										</div>
 
@@ -110,23 +237,23 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 										<h2 class="mb-2 text-2xl font-bold">
 											<p>
 												<a href="/partners/partner-1/">
-													Partner name
+													{card.name}
 													<span class="absolute inset-0" />
 												</a>
 											</p>
 										</h2>
 
 										<div class="prose line-clamp-3 font-medium text-pretty text-foreground/80">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
+											<Fragment set:html={card.description} />
 										</div>
+									</div>
 
-										<div class="mt-4">
-											<ul class="flex flex-wrap gap-2">
-												<li class="text-sm font-semibold text-foreground/66">Technology partner</li>
-												<li class="text-sm font-semibold text-foreground/66">Tridion</li>
-												<li class="text-sm font-semibold text-foreground/66">Language platforms</li>
-											</ul>
-										</div>
+									<div class="mt-auto px-6 pb-6">
+										<ul class="flex flex-wrap gap-x-3.5 gap-y-1.5">
+											{card.tags.map((tag) => (
+												<li class="text-sm font-semibold text-accent">{tag}</li>
+											))}
+										</ul>
 									</div>
 
 									{/* <div class="mt-auto px-4 pb-4">
@@ -143,6 +270,11 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 						</>
 					))
 				}
+			</div>
+
+			<div class="mt-12 text-center" data-card-empty-state hidden>
+				<p class="text-2xl font-bold">No partners found</p>
+				<p class="mt-2 text-xl font-medium text-foreground/80">Try removing a filter or search for a different term.</p>
 			</div>
 		</div>
 	</section>

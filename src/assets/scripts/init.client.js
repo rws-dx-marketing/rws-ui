@@ -1,5 +1,6 @@
 import { initFlowbite } from 'flowbite'
 import { Observer } from 'tailwindcss-intersect'
+import cardFilters from './card-filters'
 import countUp from './count-up'
 import dotsGrid from './dots-grid'
 import dropdownFilters from './dropdown-filters'
@@ -14,6 +15,7 @@ if (typeof window !== 'undefined') {
 		countUp()
 		dotsGrid()
 		dropdownFilters()
+		cardFilters()
 		dropdownLabels()
 		postNav()
 	})
