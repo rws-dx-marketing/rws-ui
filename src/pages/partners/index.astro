@@ -250,7 +250,7 @@ const cards = [
 								<div class="flex h-full flex-col">
 									<div class="p-6">
 										<div class="mb-5 flex aspect-video items-center justify-center rounded border border-foreground/10 px-8 py-4">
-											<img src={card.logo} alt={card.name} class="size-full object-scale-down" draggable="false" />
+											<img src={card.logo} alt={card.name} class="size-full object-scale-down transition-transform group-hover:-translate-y-2" draggable="false" />
 											{/* <img src="https://placehold.co/100" alt="Placeholder" class="block h-auto max-h-full w-auto max-w-full object-contain p-4" draggable="false" /> */}
 										</div>
 
@@ -298,7 +298,7 @@ const cards = [
 				<button type="button" class="btn btn-secondary" data-card-load-more hidden>Load more</button>
 			</div>
 
-			<div class="mt-12 text-center" data-card-empty-state hidden>
+			<div class="mt-12 pt-12 pb-24 text-center" data-card-empty-state hidden>
 				<p class="text-2xl font-bold">No partners found</p>
 				<p class="mt-2 text-xl font-medium text-foreground/80">Try removing a filter or search for a different term.</p>
 			</div>
