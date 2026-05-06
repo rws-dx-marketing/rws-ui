@@ -159,17 +159,28 @@ const cards = [
 								<input type="search" id="search" name="q" data-filters-search class="input input-search input-lg pr-11" placeholder="Search" />
 							</div>
 
-							<button type="submit" class="svg-current absolute top-1/2 right-4 size-5 -translate-y-1/2" tabindex="-1">
-								<span class="sr-only">Search</span>
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-							</button>
+							<div class="pointer-events-none absolute top-1/2 right-4 flex -translate-y-1/2 items-center">
+								<button type="button" class="svg-current size-5 opacity-50" tabindex="-1" data-search-icon>
+									<span class="sr-only">Search</span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								</button>
+
+								<button type="button" class="svg-current pointer-events-auto size-5" tabindex="-1" data-search-clear hidden>
+									<span class="sr-only">Clear search</span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								</button>
+							</div>
 						</div>
 					</div>
 
 					<button type="button" class="btn btn-primary btn-lg size-12.5 gap-2 sm:size-auto" popovertarget="filter-popover" popovertargetaction="toggle" data-popover-toggle-icon>
 						<span class="hidden sm:block">Filters</span>
-						<svg data-icon-closed xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-						<svg data-icon-open class="hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+						<span data-icon-closed>
+							<svg class="mt-0.5 size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+						</span>
+						<span data-icon-open hidden>
+							<svg class="mt-0.5 size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+						</span>
 					</button>
 				</div>
 
@@ -200,14 +211,25 @@ const cards = [
 			<div class="flex justify-between">
 				<div class="pl-1.5 text-sm font-medium text-foreground/66" data-partners-results-count>{cards.length} results</div>
 
-				<div class="flex items-center gap-2">
-					<span class="shrink-0 text-sm font-medium text-foreground/66">Sort by</span>
-					<select name="sort-by" class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-4 text-sm focus:ring-0">
-						<option value="most-recent">Most recent</option>
-						<option value="oldest-first">Oldest first</option>
-						<option value="alphabetical">Alphabetical</option>
-						<option value="most-popular">Most popular</option>
-					</select>
+				<div class="flex items-center gap-4">
+					<div class="flex items-center gap-2">
+						<span class="shrink-0 text-sm font-medium text-foreground/66">Sort by</span>
+						<select name="sort-by" class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-4 text-sm focus:ring-0">
+							<option value="most-recent">Most recent</option>
+							<option value="oldest-first">Oldest first</option>
+							<option value="alphabetical">Alphabetical</option>
+							<option value="most-popular">Most popular</option>
+						</select>
+					</div>
+
+					<div class="flex items-center gap-2">
+						<label for="items-per-page" class="shrink-0 text-sm font-medium text-foreground/66">Show</label>
+						<select id="items-per-page" name="items-per-page" data-card-page-size class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-4 text-sm focus:ring-0">
+							<option value="3" selected>3</option>
+							<option value="6">6</option>
+							<option value="9">9</option>
+						</select>
+					</div>
 				</div>
 			</div>
 
@@ -227,8 +249,8 @@ const cards = [
 							<article class="group relative rounded-lg border border-foreground/10 bg-background text-left text-foreground" data-card data-card-filters={JSON.stringify(card.filters)} data-card-search={`${card.name} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()}>
 								<div class="flex h-full flex-col">
 									<div class="p-6">
-										<div class="mb-5 flex aspect-video items-center justify-center rounded border border-foreground/10">
-											<img src={card.logo} alt={card.name} class="block h-auto max-h-full w-auto max-w-full object-contain px-8 py-4" draggable="false" />
+										<div class="mb-5 flex aspect-video items-center justify-center rounded border border-foreground/10 px-8 py-4">
+											<img src={card.logo} alt={card.name} class="size-full object-scale-down" draggable="false" />
 											{/* <img src="https://placehold.co/100" alt="Placeholder" class="block h-auto max-h-full w-auto max-w-full object-contain p-4" draggable="false" /> */}
 										</div>
 
@@ -270,6 +292,10 @@ const cards = [
 						</>
 					))
 				}
+			</div>
+
+			<div class="mt-12 text-center">
+				<button type="button" class="btn btn-secondary" data-card-load-more hidden>Load more</button>
 			</div>
 
 			<div class="mt-12 text-center" data-card-empty-state hidden>

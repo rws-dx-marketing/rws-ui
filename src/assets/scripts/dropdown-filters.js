@@ -48,18 +48,60 @@ function getSearchInput(root) {
 	return form.querySelector('[data-filters-search]') ?? form.querySelector('input[name="q"]')
 }
 
+function getSearchControls(root) {
+	const form = root.closest('form')
+	if (!form) return { searchIcon: null, clearButton: null }
+
+	return {
+		searchIcon: form.querySelector('[data-search-icon]'),
+		clearButton: form.querySelector('[data-search-clear]'),
+	}
+}
+
+function updateSearchControls(searchInput, searchIcon, clearButton) {
+	if (!(searchInput instanceof HTMLInputElement)) return
+
+	const hasSearchValue = searchInput.value.trim().length > 0
+	if (searchIcon instanceof Element) {
+		searchIcon.hidden = hasSearchValue
+	}
+
+	if (clearButton instanceof Element) {
+		clearButton.hidden = !hasSearchValue
+	}
+}
+
 function getManagedFilterIds(root) {
 	const filters = Array.from(root.querySelectorAll('[data-filter]'))
 	return filters.map((filter) => filter.dataset.filterId).filter(Boolean)
 }
 
-function syncFormStateToUrl(root, searchInput) {
+function getSelectInitialValue(select) {
+	const defaultOption = Array.from(select.options).find((option) => option.defaultSelected)
+	if (defaultOption) return defaultOption.value
+	return select.options[0]?.value ?? ''
+}
+
+function getPersistedSelects(root) {
+	// These controls live outside the filters form on the partners page.
+	return Array.from(document.querySelectorAll('select[name="sort-by"], select[name="items-per-page"]'))
+		.filter((control) => control instanceof HTMLSelectElement)
+		.map((select) => ({
+			select,
+			initialValue: getSelectInitialValue(select),
+		}))
+}
+
+function syncFormStateToUrl(root, searchInput, persistedSelects) {
 	if (typeof window === 'undefined') return
 
 	const url = new URL(window.location.href)
 	const managedFilterIds = getManagedFilterIds(root)
 
 	url.searchParams.delete('q')
+	persistedSelects.forEach(({ select }) => {
+		url.searchParams.delete(select.name)
+	})
 	managedFilterIds.forEach((filterId) => {
 		url.searchParams.delete(filterId)
 	})
@@ -68,6 +110,12 @@ function syncFormStateToUrl(root, searchInput) {
 	if (searchValue) {
 		url.searchParams.set('q', searchValue)
 	}
+
+	persistedSelects.forEach(({ select, initialValue }) => {
+		if (!select.name || !select.value) return
+		if (select.value === initialValue) return
+		url.searchParams.set(select.name, select.value)
+	})
 
 	const filters = root.querySelectorAll('[data-filter]')
 	filters.forEach((filter) => {
@@ -86,13 +134,30 @@ function syncFormStateToUrl(root, searchInput) {
 	}
 }
 
-function applyUrlStateToForm(root, searchInput) {
+function applyUrlStateToForm(root, searchInput, persistedSelects) {
 	if (typeof window === 'undefined') return
 
 	const params = new URLSearchParams(window.location.search)
 	if (searchInput instanceof HTMLInputElement) {
 		searchInput.value = params.get('q') ?? ''
 	}
+
+	persistedSelects.forEach(({ select, initialValue }) => {
+		if (!select.name) return
+		const valueFromUrl = params.get(select.name)
+		if (!valueFromUrl) {
+			select.value = initialValue
+			return
+		}
+
+		const optionExists = Array.from(select.options).some((option) => option.value === valueFromUrl)
+		if (optionExists) {
+			select.value = valueFromUrl
+			return
+		}
+
+		select.value = initialValue
+	})
 
 	const filters = root.querySelectorAll('[data-filter]')
 	filters.forEach((filter) => {
@@ -301,10 +366,10 @@ function updatePopoverToggleButtonIcon(button, popover) {
 
 	button.dataset.popoverOpen = String(isOpen)
 	if (closedIcon instanceof Element) {
-		closedIcon.classList.toggle('hidden', isOpen)
+		closedIcon.toggleAttribute('hidden', isOpen)
 	}
 	if (openIcon instanceof Element) {
-		openIcon.classList.toggle('hidden', !isOpen)
+		openIcon.toggleAttribute('hidden', !isOpen)
 	}
 }
 
@@ -333,22 +398,65 @@ export default function dropdownFilters() {
 		if (!selectionRow) return
 
 		const searchInput = getSearchInput(root)
-		const syncUrl = () => syncFormStateToUrl(root, searchInput)
-		applyUrlStateToForm(root, searchInput)
+		const { searchIcon, clearButton } = getSearchControls(root)
+		const persistedSelects = getPersistedSelects(root)
+		const syncUrl = () => syncFormStateToUrl(root, searchInput, persistedSelects)
+		applyUrlStateToForm(root, searchInput, persistedSelects)
 
 		setupSelectionRow(root, selectionRow)
 		const filters = root.querySelectorAll('[data-filter]')
 		filters.forEach((filter) => setupFilter(filter, selectionRow, syncUrl))
+		persistedSelects.forEach(({ select }) => {
+			select.addEventListener('change', syncUrl)
+		})
 
 		if (searchInput instanceof HTMLInputElement) {
+			updateSearchControls(searchInput, searchIcon, clearButton)
+
 			let searchDebounceId = null
 			searchInput.addEventListener('input', () => {
 				window.clearTimeout(searchDebounceId)
 				searchDebounceId = window.setTimeout(() => {
 					syncUrl()
 				}, 150)
+				updateSearchControls(searchInput, searchIcon, clearButton)
 			})
-			searchInput.addEventListener('change', syncUrl)
+			searchInput.addEventListener('change', () => {
+				syncUrl()
+				updateSearchControls(searchInput, searchIcon, clearButton)
+			})
+
+			if (clearButton instanceof HTMLButtonElement) {
+				const clearSearch = (shouldPreserveFocus) => {
+					searchInput.value = ''
+					searchInput.dispatchEvent(new Event('input', { bubbles: true }))
+					searchInput.dispatchEvent(new Event('change', { bubbles: true }))
+					if (shouldPreserveFocus) {
+						searchInput.focus({ preventScroll: true })
+					}
+				}
+
+				let clearedViaMouseDown = false
+				clearButton.addEventListener('mousedown', (event) => {
+					const shouldPreserveFocus = document.activeElement === searchInput
+					event.preventDefault()
+					event.stopPropagation()
+					clearedViaMouseDown = true
+					clearSearch(shouldPreserveFocus)
+				})
+
+				clearButton.addEventListener('click', (event) => {
+					// Mouse users are handled on mousedown to avoid focus flicker.
+					if (clearedViaMouseDown) {
+						clearedViaMouseDown = false
+						return
+					}
+
+					event.preventDefault()
+					const shouldPreserveFocus = document.activeElement === searchInput
+					clearSearch(shouldPreserveFocus)
+				})
+			}
 
 			const form = root.closest('form')
 			if (form) {
@@ -360,8 +468,9 @@ export default function dropdownFilters() {
 		}
 
 		window.addEventListener('popstate', () => {
-			applyUrlStateToForm(root, searchInput)
+			applyUrlStateToForm(root, searchInput, persistedSelects)
 			filters.forEach((filter) => syncFilterChips(selectionRow, filter))
+			updateSearchControls(searchInput, searchIcon, clearButton)
 		})
 
 		syncUrl()
