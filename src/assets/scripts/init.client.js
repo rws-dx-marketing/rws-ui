@@ -10,9 +10,18 @@ import postNav from './post-nav'
 if (typeof window !== 'undefined') {
 	Observer.start()
 
+	const initCountUp = () => {
+		countUp()
+	}
+
+	if (document.readyState === 'loading') {
+		window.addEventListener('DOMContentLoaded', initCountUp, { once: true })
+	} else {
+		initCountUp()
+	}
+
 	window.addEventListener('load', () => {
 		initFlowbite()
-		countUp()
 		dotsGrid()
 		dropdownFilters()
 		cardFilters()
