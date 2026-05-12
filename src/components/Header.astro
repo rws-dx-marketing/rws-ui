@@ -1,89 +1,101 @@
-<header class="header">
-	<!-- Growler -->
-	<section hidden id="growler" class="fixed z-999 flex w-full justify-between border border-b border-foreground/5 bg-background py-2 text-foreground" role="alert" data-theme="primary">
-		<div class="mx-auto max-w-screen-xl px-3 sm:px-4">
-			<div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-				<div class="text-center text-sm font-medium text-pretty">
-					<p>We have just launched the most amazing thing. You won't believe what it is!</p>
-				</div>
-
-				<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
-					Check it out
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-				</a>
+<!-- Growler -->
+<section hidden id="growler" class="fixed z-999 flex w-full justify-between border border-b border-foreground/5 bg-background py-2 text-foreground" role="alert" data-theme="primary">
+	<div class="mx-auto max-w-screen-xl px-3 sm:px-4">
+		<div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+			<div class="text-center text-sm font-medium text-pretty">
+				<p>We have just launched the most amazing thing. You won't believe what it is!</p>
 			</div>
-		</div>
-	</section>
 
-	<!-- Growler with close -->
-	<section hidden id="growler" tabindex="-1" class="fixed z-999 flex w-full justify-between border border-b border-foreground/10 bg-background py-3 text-foreground" role="alert" data-theme="primary">
-		<div class="max-w-screen-xl- mx-auto pr-12 pl-3 sm:pl-4 lg:px-16">
-			<p class="text-sm font-medium lg:text-center">
-				<!-- Text -->
-				<span class="mr-2">We have launched Flowbite Blocks including over 120+ website sections!</span>
-
-				<!-- Link -->
-				<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
-					Check it out
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-				</a>
-			</p>
-		</div>
-
-		<!-- Close button -->
-		<div class="absolute top-1/2 right-2.5 -translate-y-1/2">
-			<button type="button" class="btn btn-ghost btn-md aspect-square p-1.5">
-				<svg class="m-0!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-			</button>
-		</div>
-	</section>
-
-	<nav class="relative z-99 w-full border-b border-gray-100 bg-white px-4 py-2.5 transition-all duration-300 lg:px-12 dark:border-gray-800 dark:bg-gray-900" style="top: var(--popup-link, 0px);">
-		<div class="mx-auto flex max-w-screen-2xl flex-wrap items-center justify-start gap-8">
-			<a href="/" class="flex items-center">
-				<!-- <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> -->
-				<span class="self-center text-xl font-bold whitespace-nowrap dark:text-white">RWS UI</span>
+			<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
+				Check it out
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 			</a>
-			<div class="ml-auto flex items-center lg:order-2">
-				<button id="theme-toggle" type="button" class="btn btn-ghost btn-sm mr-2">
-					<svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
-					<svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
-				</button>
-
-				<a href="#" class="btn btn-ghost btn-sm mr-2">Log in</a>
-				<a href="#" class="btn btn-tertiary btn-sm hidden sm:block">Get started</a>
-
-				<button data-collapse-toggle="mobile-menu-2" type="button" class="ml-1 inline-flex items-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 focus:outline-none lg:hidden dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
-					<span class="sr-only">Open main menu</span>
-					<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-					<svg class="hidden h-6 w-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-				</button>
-			</div>
-
-			<div class="hidden w-full items-center justify-between lg:order-1 lg:flex lg:w-auto" id="mobile-menu-2">
-				<ul class="mt-4 flex flex-col font-medium lg:mt-0 lg:flex-row lg:space-x-6">
-					<li>
-						<a href="/about" class="block border-b border-gray-100 py-2 pr-4 pl-3 text-sm font-extrabold text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-violet-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent lg:dark:hover:text-white">About</a>
-					</li>
-					<li>
-						<a href="/pricing/alt" class="block border-b border-gray-100 py-2 pr-4 pl-3 text-sm font-extrabold text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-violet-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent lg:dark:hover:text-white">Pricing</a>
-					</li>
-					<li>
-						<a href="/resources" class="block border-b border-gray-100 py-2 pr-4 pl-3 text-sm font-extrabold text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-violet-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent lg:dark:hover:text-white">Resources</a>
-					</li>
-					<li>
-						<a href="/partners" class="block border-b border-gray-100 py-2 pr-4 pl-3 text-sm font-extrabold text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-violet-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent lg:dark:hover:text-white">Partners</a>
-					</li>
-					<li>
-						<a href="/contact" class="block border-b border-gray-100 py-2 pr-4 pl-3 text-sm font-extrabold text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-violet-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent lg:dark:hover:text-white">Contact</a>
-					</li>
-					<li>
-						<a href="/guide" class="block border-b border-gray-100 py-2 pr-4 pl-3 text-sm font-extrabold text-gray-700 hover:bg-gray-50 lg:border-0 lg:p-0 lg:hover:bg-transparent lg:hover:text-violet-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent lg:dark:hover:text-white">Guide</a>
-					</li>
-				</ul>
-			</div>
 		</div>
-	</nav>
+	</div>
+</section>
+
+<!-- Growler with close -->
+<section hidden id="growler" tabindex="-1" class="fixed z-999 flex w-full justify-between border border-b border-foreground/10 bg-background py-3 text-foreground" role="alert" data-theme="primary">
+	<div class="max-w-screen-xl- mx-auto pr-12 pl-3 sm:pl-4 lg:px-16">
+		<p class="text-sm font-medium lg:text-center">
+			<!-- Text -->
+			<span class="mr-2">We have launched Flowbite Blocks including over 120+ website sections!</span>
+
+			<!-- Link -->
+			<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
+				Check it out
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+			</a>
+		</p>
+	</div>
+
+	<!-- Close button -->
+	<div class="absolute top-1/2 right-2.5 -translate-y-1/2">
+		<button type="button" class="btn btn-ghost btn-md aspect-square p-1.5">
+			<svg class="m-0!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+		</button>
+	</div>
+</section>
+
+<header class="border-b border-foreground/5 bg-background py-2.5 text-foreground" data-theme="default" style="top: var(--popup-link, 0px);">
+	<div class="mx-auto flex max-w-screen-2xl items-center gap-x-6 px-2.5 lg:px-4.5">
+		<button type="button" class="btn btn-ghost btn-sm size-8.75 lg:hidden">
+			<span class="sr-only">Open main menu</span>
+			<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="64" x2="216" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="192" x2="216" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+		</button>
+
+		<a href="/" class="mx-auto -mt-1.25 lg:mx-0">
+			<img src="https://www.rws.com/media/images/logo-rws_tcm228-236815.svg" alt="RWS" class="h-7.5" draggable="false" loading="eager" />
+		</a>
+
+		<nav class="hidden lg:block">
+			<ul class="flex gap-x-4.5">
+				<li>
+					<a href="/about" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">About</a>
+				</li>
+				<li>
+					<a href="/pricing/alt" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Pricing</a>
+				</li>
+				<li>
+					<a href="/resources" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Resources</a>
+				</li>
+				<li>
+					<a href="/partners" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Partners</a>
+				</li>
+				<li>
+					<a href="/contact" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Contact</a>
+				</li>
+				<li>
+					<a href="/guide" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Guide</a>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="flex items-center gap-x-2 lg:ml-auto">
+			<button hidden id="theme-toggle" type="button" class="btn btn-ghost btn-sm mr-2">
+				<svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+				<svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+			</button>
+
+			<div class="hidden items-center gap-x-4.5 lg:flex">
+				<a href="#" class="block text-sm font-semibold transition-colors hover:text-foreground/50">My RWS</a>
+
+				<button type="button" class="block text-sm font-semibold transition-colors hover:text-foreground/50">
+					<!-- <svg class="size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg> -->
+					<!-- <svg class="size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="32" y1="128" x2="224" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg> -->
+					<span class="sr-only">Language</span>
+					EN
+				</button>
+			</div>
+
+			<a href="#" class="btn btn-ghost btn-sm size-8.75">
+				<span class="sr-only">Search</span>
+				<svg class="size-5 lg:size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+			</a>
+
+			<a href="#" class="btn btn-tertiary btn-sm hidden lg:block">Get started</a>
+		</div>
+	</div>
 </header>
 
 <script is:inline>
