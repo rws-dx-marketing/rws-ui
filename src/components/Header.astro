@@ -1,6 +1,6 @@
 <!-- Growler -->
 <section hidden id="growler" class="fixed z-999 flex w-full justify-between border border-b border-foreground/5 bg-background py-2 text-foreground" role="alert" data-theme="primary">
-	<div class="mx-auto max-w-screen-xl px-3 sm:px-4">
+	<div class="mx-auto max-w-7xl px-3 sm:px-4">
 		<div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
 			<div class="text-center text-sm font-medium text-pretty">
 				<p>We have just launched the most amazing thing. You won't believe what it is!</p>
@@ -37,11 +37,16 @@
 	</div>
 </section>
 
-<header class="border-b border-foreground/5 bg-background py-2.5 text-foreground" data-theme="default" style="top: var(--popup-link, 0px);">
+<header id="site-header" class="relative z-50 border-b border-foreground/5 bg-background py-2.5 text-foreground" data-theme="default" style="top: var(--popup-link, 0px);">
 	<div class="mx-auto flex max-w-screen-2xl items-center gap-x-6 px-2.5 lg:px-4.5">
-		<button type="button" class="btn btn-ghost btn-sm size-8.75 lg:hidden">
+		<button id="mobile-menu-toggle" type="button" class="btn btn-ghost btn-sm size-8.75 lg:hidden" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Toggle main menu">
 			<span class="sr-only">Open main menu</span>
-			<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="64" x2="216" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="192" x2="216" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+			<span data-icon-closed>
+				<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="64" x2="216" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="192" x2="216" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+			</span>
+			<span data-icon-open hidden>
+				<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+			</span>
 		</button>
 
 		<a href="/" class="mx-auto -mt-1.25 lg:mx-0">
@@ -98,32 +103,180 @@
 	</div>
 </header>
 
+<aside id="mobile-menu-panel" class="fixed inset-x-auto top-(--mobile-menu-top) bottom-0 left-0 z-999 w-(--mobile-menu-width) -translate-x-full overflow-y-auto bg-black/95 px-5 pt-5 pb-8 text-white transition-transform lg:hidden" aria-hidden="true">
+	<nav aria-label="Mobile main navigation">
+		<ul class="space-y-2.5">
+			<li>
+				<a href="#" class="flex items-center justify-between gap-x-4 py-1.5 text-xl/none font-medium tracking-tight">
+					Why rws?
+					<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="flex items-center justify-between gap-x-4 py-1.5 text-xl/none font-medium tracking-tight">
+					What we do
+					<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="flex items-center justify-between gap-x-4 py-1.5 text-xl/none font-medium tracking-tight">
+					Who we work with
+					<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="flex items-center justify-between gap-x-4 py-1.5 text-xl/none font-medium tracking-tight">
+					Resources
+					<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="flex items-center justify-between gap-x-4 py-1.5 text-xl/none font-medium tracking-tight">
+					Company
+					<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+				</a>
+			</li>
+			<li>
+				<a href="#" class="flex items-center justify-between gap-x-4 py-1.5 text-xl/none font-medium tracking-tight">
+					Careers
+					<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</aside>
+
+<button id="mobile-shell-close-hitarea" type="button" class="pointer-events-none fixed right-0 bottom-0 left-(--mobile-menu-width) z-998 lg:hidden" style="top: var(--mobile-menu-top, 0px);" aria-label="Close main menu"></button>
+
+<style is:global>
+	:root {
+		--mobile-menu-width: min(22rem, 82vw);
+		--mobile-menu-top: 0px;
+	}
+</style>
+
 <script is:inline>
 	if (typeof window !== 'undefined') {
 		const root = document.documentElement
-		const growler = document.getElementById('growler') // or the id/class you’re using
+		const growler = document.getElementById('growler')
+		const header = document.getElementById('site-header')
+		const menuToggle = document.getElementById('mobile-menu-toggle')
+		const menuPanel = document.getElementById('mobile-menu-panel')
+		const shellCloseHitarea = document.getElementById('mobile-shell-close-hitarea')
+		const menuClosedIcon = menuToggle?.querySelector('[data-icon-closed]')
+		const menuOpenIcon = menuToggle?.querySelector('[data-icon-open]')
+		let lastFocusedElement = null
+		let closeCleanupTimer = null
+		const getShellTarget = () => document.getElementById('page-shell') ?? document.querySelector('main')
+		const getTransitionDurationMs = () => {
+			const rawDuration = getComputedStyle(root).getPropertyValue('--default-transition-duration').trim()
+			if (!rawDuration) return 400
+			if (rawDuration.endsWith('ms')) return Number.parseFloat(rawDuration) || 400
+			if (rawDuration.endsWith('s')) return (Number.parseFloat(rawDuration) || 0.4) * 1000
+			return Number.parseFloat(rawDuration) || 400
+		}
 
 		const updateGrowlerHeight = () => {
-			if (!root || !growler) return
+			if (!root) return
+			const growlerHeight = growler && !growler.hidden ? growler.offsetHeight : 0
+			root.style.setProperty('--popup-link', `${growlerHeight}px`)
+		}
 
-			// const isHidden = growler.style.display === 'none' || getComputedStyle(growler).display === 'none' || growler.hidden
+		const updateHeaderHeight = () => {
+			if (!root || !header) return
+			const popupOffset = Number.parseFloat(getComputedStyle(root).getPropertyValue('--popup-link')) || 0
+			root.style.setProperty('--mobile-menu-top', `${popupOffset + header.offsetHeight}px`)
+		}
 
-			// const value = isHidden ? 0 : growler.offsetHeight
-			root.style.setProperty('--popup-link', `${growler.offsetHeight}px`)
+		const setMenuState = (isOpen) => {
+			if (!menuToggle || !menuPanel || !shellCloseHitarea) return
+			const shellTarget = getShellTarget()
+			if (closeCleanupTimer) {
+				window.clearTimeout(closeCleanupTimer)
+				closeCleanupTimer = null
+			}
+			root.dataset.mobileMenuOpen = isOpen ? 'true' : 'false'
+			menuToggle.setAttribute('aria-expanded', String(isOpen))
+			menuPanel.setAttribute('aria-hidden', String(!isOpen))
+			menuPanel.style.translate = isOpen ? '0' : '-100%'
+			shellCloseHitarea.style.pointerEvents = isOpen ? 'auto' : 'none'
+			if (menuClosedIcon instanceof HTMLElement) menuClosedIcon.hidden = isOpen
+			if (menuOpenIcon instanceof HTMLElement) menuOpenIcon.hidden = !isOpen
+			if (shellTarget instanceof HTMLElement) {
+				if (isOpen) {
+					shellTarget.style.translate = 'calc(var(--mobile-menu-width) - 10vw) var(--popup-link, 0px)'
+					shellTarget.style.scale = '0.9'
+					shellTarget.style.transformOrigin = 'right center'
+					shellTarget.style.borderRadius = '1rem'
+					shellTarget.style.height = 'calc(100dvh - var(--mobile-menu-top, 0px))'
+					shellTarget.style.overflow = 'clip'
+				} else {
+					shellTarget.style.translate = ''
+					shellTarget.style.scale = ''
+					shellTarget.style.borderRadius = ''
+				}
+			}
+
+			if (isOpen) {
+				document.body.style.overflow = 'hidden'
+				document.body.style.backgroundColor = '#000'
+			} else {
+				const transitionDurationMs = getTransitionDurationMs()
+				closeCleanupTimer = window.setTimeout(() => {
+					if (shellTarget instanceof HTMLElement) {
+						shellTarget.style.transformOrigin = ''
+						shellTarget.style.height = ''
+						shellTarget.style.overflow = ''
+					}
+					document.body.style.overflow = ''
+					document.body.style.backgroundColor = ''
+				}, transitionDurationMs)
+			}
+
+			if (isOpen) {
+				lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null
+				const firstMenuLink = menuPanel.querySelector('a')
+				if (firstMenuLink instanceof HTMLElement) firstMenuLink.focus()
+			} else if (lastFocusedElement instanceof HTMLElement) {
+				lastFocusedElement.focus()
+			}
+		}
+
+		const closeMenu = () => setMenuState(false)
+		const toggleMenu = () => {
+			const isOpen = root.dataset.mobileMenuOpen === 'true'
+			setMenuState(!isOpen)
 		}
 
 		window.addEventListener('load', updateGrowlerHeight)
+		window.addEventListener('load', updateHeaderHeight)
 		window.addEventListener('resize', updateGrowlerHeight)
+		window.addEventListener('resize', updateHeaderHeight)
 
-		// const closeBtn = growler?.querySelector('button[type="button"]')
-		// closeBtn?.addEventListener('click', () => {
-		// 	growler.style.display = 'none'
-		// 	updateGrowlerHeight()
-		// })
+		menuToggle?.addEventListener('click', toggleMenu)
+		shellCloseHitarea?.addEventListener('click', closeMenu)
+
+		window.addEventListener('keydown', (event) => {
+			if (event.key !== 'Escape') return
+			if (root.dataset.mobileMenuOpen !== 'true') return
+			closeMenu()
+		})
+
+		window.addEventListener('resize', () => {
+			if (window.matchMedia('(min-width: 64rem)').matches && root.dataset.mobileMenuOpen === 'true') {
+				closeMenu()
+			}
+		})
+
+		setMenuState(false)
 
 		if ('ResizeObserver' in window && growler) {
-			const ro = new ResizeObserver(updateGrowlerHeight)
-			ro.observe(growler)
+			const resizeObserver = new ResizeObserver(() => {
+				updateGrowlerHeight()
+				updateHeaderHeight()
+			})
+			resizeObserver.observe(growler)
+			if (header) resizeObserver.observe(header)
 		}
 	}
 </script>

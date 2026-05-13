@@ -26,7 +26,9 @@ const { title = 'RWS UI' } = Astro.props
 	<body>
 		<Header />
 
-		<slot />
+		<div id="page-shell" class="isolate origin-right bg-white transition-[translate,scale,height,width,border-radius] motion-reduce:transition-none">
+			<slot />
+		</div>
 
 		<!-- <Footer /> -->
 
