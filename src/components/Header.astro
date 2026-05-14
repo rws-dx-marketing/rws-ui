@@ -56,12 +56,15 @@
 		<nav class="hidden lg:block">
 			<ul class="flex gap-x-4.5">
 				<li>
+					<a href="#" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Why rws?</a>
+				</li>
+				<li>
 					<button id="desktop-about-menu-button" type="button" class="flex items-center gap-1 text-sm font-extrabold transition-colors hover:text-foreground/50" popovertarget="desktop-about-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-about-menu" style="anchor-name: --desktop-about-anchor;">
 						<span>Who we work with</span>
 						<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 					</button>
 
-					<div id="desktop-about-menu" popover="auto" role="menu" aria-labelledby="desktop-about-menu-button" class="dropdown z-20 mt-2 w-[min(56rem,calc(100vw-3rem))] overflow-clip rounded-lg bg-tertiary-lightest p-4 shadow-lg" style="position-anchor: --desktop-about-anchor; top: anchor(--site-header-anchor bottom); left: anchor(left); position-area: unset; position-try: none;">
+					<div id="desktop-about-menu" popover="auto" role="menu" aria-labelledby="desktop-about-menu-button" class="dropdown z-20 mt-2 overflow-clip rounded-lg bg-tertiary-lightest p-4 shadow-lg" style="--dropdown-ideal-width: 56rem; position-anchor: --desktop-about-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
 						<div class="grid grid-cols-3 gap-4">
 							<section>
 								<div class="mb-3 px-3">
@@ -158,16 +161,14 @@
 						</div>
 					</div>
 				</li>
-				<li>
-					<a href="/pricing/alt" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Pricing</a>
-				</li>
+
 				<li>
 					<button id="desktop-resources-mega2-button" type="button" class="flex items-center gap-1 text-sm font-extrabold transition-colors hover:text-foreground/50" popovertarget="desktop-resources-mega2" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-resources-mega2" style="anchor-name: --desktop-resources-mega2-anchor;">
 						<span>Resources</span>
 						<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 					</button>
 
-					<div id="desktop-resources-mega2" popover="auto" role="menu" aria-labelledby="desktop-resources-mega2-button" class="dropdown z-20 mt-2 w-[min(56rem,calc(100vw-3rem))] overflow-clip rounded-2xl bg-tertiary-lightest p-4 shadow-lg" style="position-anchor: --desktop-resources-mega2-anchor; top: anchor(--site-header-anchor bottom); left: anchor(left); position-area: unset; position-try: none;">
+					<div id="desktop-resources-mega2" popover="auto" role="menu" aria-labelledby="desktop-resources-mega2-button" class="dropdown z-20 mt-2 overflow-clip rounded-2xl bg-tertiary-lightest p-4 shadow-lg" style="--dropdown-ideal-width: 56rem; position-anchor: --desktop-resources-mega2-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
 						<div class="grid gap-4 lg:grid-cols-[1fr_1.2fr_1.2fr]">
 							<section class="grid h-full min-h-0 grid-rows-[auto_auto_1fr] gap-4">
 								<a href="/resources" class="block rounded border border-tertiary-lighter/50 bg-background p-4 transition-colors hover:bg-tertiary-lighter/10">
@@ -250,7 +251,7 @@
 						<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 					</button>
 
-					<div id="desktop-company-menu" popover="auto" role="menu" aria-labelledby="desktop-company-menu-button" class="dropdown z-20 mt-2 w-56 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="position-anchor: --desktop-company-anchor; top: anchor(--site-header-anchor bottom); left: anchor(left); position-area: unset; position-try: none;">
+					<div id="desktop-company-menu" popover="auto" role="menu" aria-labelledby="desktop-company-menu-button" class="dropdown z-20 mt-2 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="--dropdown-ideal-width: 14rem; position-anchor: --desktop-company-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
 						<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
 							<a href="/about" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
 								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
@@ -271,9 +272,13 @@
 						</div>
 					</div>
 				</li>
-				<li>
+
+				<!-- <li>
+					<a href="/pricing/alt" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Pricing</a>
+				</li> -->
+				<!-- <li>
 					<a href="/contact" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Contact</a>
-				</li>
+				</li> -->
 				<li>
 					<a href="/guide" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Guide</a>
 				</li>
@@ -453,7 +458,6 @@
 			const isOpen = root.dataset.mobileMenuOpen === 'true'
 			setMenuState(!isOpen)
 		}
-
 		window.addEventListener('load', updateGrowlerHeight)
 		window.addEventListener('load', updateHeaderHeight)
 		window.addEventListener('resize', updateGrowlerHeight)
