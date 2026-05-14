@@ -57,7 +57,7 @@
 			<ul class="flex gap-x-4.5">
 				<li>
 					<button id="desktop-about-menu-button" type="button" class="flex items-center gap-1 text-sm font-extrabold transition-colors hover:text-foreground/50" popovertarget="desktop-about-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-about-menu" style="anchor-name: --desktop-about-anchor;">
-						<span>About</span>
+						<span>Who we work with</span>
 						<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 					</button>
 
@@ -162,34 +162,114 @@
 					<a href="/pricing/alt" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Pricing</a>
 				</li>
 				<li>
-					<button id="desktop-resources-menu-button" type="button" class="flex items-center gap-1 text-sm font-extrabold transition-colors hover:text-foreground/50" popovertarget="desktop-resources-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-resources-menu" style="anchor-name: --desktop-resources-anchor;">
+					<button id="desktop-resources-mega2-button" type="button" class="flex items-center gap-1 text-sm font-extrabold transition-colors hover:text-foreground/50" popovertarget="desktop-resources-mega2" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-resources-mega2" style="anchor-name: --desktop-resources-mega2-anchor;">
 						<span>Resources</span>
 						<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 					</button>
 
-					<div id="desktop-resources-menu" popover="auto" role="menu" aria-labelledby="desktop-resources-menu-button" class="dropdown z-20 mt-2 w-56 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="position-anchor: --desktop-resources-anchor; top: anchor(--site-header-anchor bottom); left: anchor(left); position-area: unset; position-try: none;">
-						<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
-							<a href="/resources" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
-								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
-								<span>All resources</span>
-							</a>
-							<a href="/resources/blog-1" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
-								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
-								<span>Blog article</span>
-							</a>
-							<a href="/resources/blog-2" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
-								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
-								<span>Blog feature</span>
-							</a>
-							<a href="/resources/case-study" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
-								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
-								<span>Case study</span>
-							</a>
+					<div id="desktop-resources-mega2" popover="auto" role="menu" aria-labelledby="desktop-resources-mega2-button" class="dropdown z-20 mt-2 w-[min(56rem,calc(100vw-3rem))] overflow-clip rounded-2xl bg-tertiary-lightest p-4 shadow-lg" style="position-anchor: --desktop-resources-mega2-anchor; top: anchor(--site-header-anchor bottom); left: anchor(left); position-area: unset; position-try: none;">
+						<div class="grid gap-4 lg:grid-cols-[1fr_1.2fr_1.2fr]">
+							<section class="grid h-full min-h-0 grid-rows-[auto_auto_1fr] gap-4">
+								<a href="/resources" class="block rounded border border-tertiary-lighter/50 bg-background p-4 transition-colors hover:bg-tertiary-lighter/10">
+									<div class="flex items-start gap-2">
+										<span class="inline-flex size-5 shrink-0 items-center justify-center text-accent">
+											<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+										</span>
+										<div>
+											<h3 class="text-sm font-semibold">Resources</h3>
+											<p class="mt-1 text-sm font-medium text-pretty text-foreground/75">Insights, customer success stories, blogs and podcasts.</p>
+										</div>
+									</div>
+								</a>
+
+								<a href="#" class="block rounded border border-tertiary-lighter/50 bg-background p-4 transition-colors hover:bg-tertiary-lighter/10">
+									<div class="flex items-start gap-2">
+										<span class="inline-flex size-5 shrink-0 items-center justify-center text-accent">
+											<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+										</span>
+										<div>
+											<h3 class="text-sm font-semibold">Media centre</h3>
+											<p class="mt-1 text-sm font-medium text-pretty text-foreground/75">News, press releases and other media information.</p>
+										</div>
+									</div>
+								</a>
+
+								<div class="flex min-h-0 flex-col">
+									<p class="mb-3 text-2xs/none font-bold tracking-widest text-tertiary/66 uppercase">You might like</p>
+									<a href="#" class="group relative block min-h-0 flex-1 overflow-clip rounded">
+										<img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="" class="aspect-video size-full object-cover transition-transform group-hover:scale-105" loading="lazy" />
+										<div class="absolute inset-0 bg-linear-to-t from-black/75 via-black/35 to-transparent"></div>
+										<p class="absolute right-4 bottom-4 left-4 text-sm font-medium text-white">Managing the demands of patient recruitment using AI</p>
+									</a>
+								</div>
+							</section>
+
+							<section class="rounded border border-tertiary-lighter/50 bg-background p-4">
+								<h3 class="mb-3 text-sm font-semibold">Events</h3>
+								<div class="divide-y divide-tertiary-lighter/50">
+									<a href="#" class="grid grid-cols-[auto_1fr] gap-3 py-4 first:pt-0 last:pb-0">
+										<div class="inline-flex h-12 w-12 flex-col items-center justify-center rounded bg-tertiary-lighter/33 text-foreground">
+											<span class="text-xl/none font-bold tabular-nums">29</span>
+											<span class="text-2xs/none font-bold tracking-widest uppercase">Nov</span>
+										</div>
+										<div>
+											<h4 class="text-sm font-medium">Regulatory Compliance for Financial Institutions Conference</h4>
+											<p class="mt-1 text-xs font-medium text-foreground/66">Stuttgart, Germany</p>
+										</div>
+									</a>
+									<a href="#" class="grid grid-cols-[auto_1fr] gap-3 py-4 first:pt-0 last:pb-0">
+										<div class="inline-flex h-12 w-12 flex-col items-center justify-center rounded bg-tertiary-lighter/33 text-foreground"><span class="text-xl/none font-bold tabular-nums">29</span><span class="text-2xs/none font-bold tracking-widest uppercase">Nov</span></div>
+										<div><h4 class="text-sm font-medium">Regulatory Compliance for Financial Institutions Conference</h4><p class="mt-1 text-xs font-medium text-foreground/66">Stuttgart, Germany</p></div>
+									</a>
+									<a href="#" class="grid grid-cols-[auto_1fr] gap-3 py-4 first:pt-0 last:pb-0">
+										<div class="inline-flex h-12 w-12 flex-col items-center justify-center rounded bg-tertiary-lighter/33 text-foreground"><span class="text-xl/none font-bold tabular-nums">29</span><span class="text-2xs/none font-bold tracking-widest uppercase">Nov</span></div>
+										<div><h4 class="text-sm font-medium">Regulatory Compliance for Financial Institutions Conference</h4><p class="mt-1 text-xs font-medium text-foreground/66">Stuttgart, Germany</p></div>
+									</a>
+									<a href="#" class="grid grid-cols-[auto_1fr] gap-3 py-4 first:pt-0 last:pb-0">
+										<div class="inline-flex h-12 w-12 flex-col items-center justify-center rounded bg-tertiary-lighter/33 text-foreground"><span class="text-xl/none font-bold tabular-nums">29</span><span class="text-2xs/none font-bold tracking-widest uppercase">Nov</span></div>
+										<div><h4 class="text-sm font-medium">Regulatory Compliance for Financial Institutions Conference</h4><p class="mt-1 text-xs font-medium text-foreground/66">Stuttgart, Germany</p></div>
+									</a>
+								</div>
+							</section>
+
+							<section class="relative -my-4 -mr-4 overflow-clip rounded-r-2xl">
+								<img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80" alt="" class="h-full min-h-80 w-full object-cover" loading="lazy" />
+								<div class="absolute inset-0 bg-black/55"></div>
+								<div class="absolute inset-x-6 top-1/2 -translate-y-1/2 text-white">
+									<h3 class="text-lg/none font-bold">Technical resources</h3>
+									<p class="mt-3 text-sm">Documentation, community, and knowledgebase</p>
+									<a href="#" class="btn btn-outline btn-sm mt-6 border-current text-current backdrop-blur-sm hover:bg-white/15">Explore</a>
+								</div>
+							</section>
 						</div>
 					</div>
 				</li>
 				<li>
-					<a href="/partners" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Partners</a>
+					<button id="desktop-company-menu-button" type="button" class="flex items-center gap-1 text-sm font-extrabold transition-colors hover:text-foreground/50" popovertarget="desktop-company-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-company-menu" style="anchor-name: --desktop-company-anchor;">
+						<span>Company</span>
+						<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					</button>
+
+					<div id="desktop-company-menu" popover="auto" role="menu" aria-labelledby="desktop-company-menu-button" class="dropdown z-20 mt-2 w-56 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="position-anchor: --desktop-company-anchor; top: anchor(--site-header-anchor bottom); left: anchor(left); position-area: unset; position-try: none;">
+						<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
+							<a href="/about" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+								<span>About</span>
+							</a>
+							<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+								<span>Investors</span>
+							</a>
+							<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+								<span>Careers</span>
+							</a>
+							<a href="/partners" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+								<span>Partners</span>
+							</a>
+						</div>
+					</div>
 				</li>
 				<li>
 					<a href="/contact" class="block text-sm font-extrabold transition-colors hover:text-foreground/50">Contact</a>
