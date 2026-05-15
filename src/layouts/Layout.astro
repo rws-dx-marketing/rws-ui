@@ -2,8 +2,12 @@
 import '../assets/styles/global.css'
 import Header from '../components/Header.astro'
 import Footer from '../components/Footer.astro'
+import SecondaryNav from '../components/SecondaryNav.astro'
+import { resolveSecondaryNav } from '../utils/secondary-nav'
 
 const { title = 'RWS UI' } = Astro.props
+const pathname = Astro.url.pathname
+const secondaryNav = resolveSecondaryNav(pathname)
 ---
 
 <!doctype html>
@@ -27,6 +31,7 @@ const { title = 'RWS UI' } = Astro.props
 		<Header />
 
 		<div id="page-shell" class="isolate origin-right bg-white transition-[translate,scale,height,width,border-radius] motion-reduce:transition-none">
+			{secondaryNav ? <SecondaryNav breadcrumbs={secondaryNav.breadcrumbs} links={secondaryNav.links} current={secondaryNav.current} parent={secondaryNav.parent} pathname={pathname} /> : null}
 			<slot />
 		</div>
 
