@@ -1,0 +1,366 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import BlogHero from '../../blocks/BlogHero.astro'
+
+const cards = [1, 2, 3]
+---
+
+<Layout title="Blog 1 Long – RWS UI">
+	<BlogHero />
+
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
+		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+			<aside class="hidden lg:col-span-4 lg:block">
+				<div class="sticky top-20 grid gap-8 xl:gap-12">
+					<div class="relative rounded-lg bg-background p-10 text-foreground" data-card hidden>
+						<h4 class="mb-6 text-lg font-bold">Contents</h4>
+
+						<nav class="relative flex flex-col gap-3 pl-6" data-scrollspy-nav>
+							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-full w-1 bg-foreground/10"></span>
+							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-(--post-nav-active-height) w-1 bg-accent transition-[height] duration-1000" data-scrollspy-rail></span>
+							<a href="#" class="hidden font-medium text-pretty text-foreground/50 transition-colors hover:text-foreground data-[nav-active=true]:text-foreground" data-scrollspy-link-template aria-hidden="true">Template nav link</a>
+
+							<div class="relative" data-scrollspy-end>
+								<div class="absolute -left-5.5 -translate-x-1/2 rounded-full bg-background outline-2 outline-background">
+									<svg class="size-6 text-foreground/25 delay-350 data-[nav-active=true]:text-accent" data-scrollspy-end-icon data-nav-active="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="currentColor" d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+								</div>
+								<span class="text-foreground/50 transition-colors data-[nav-active=true]:text-foreground" data-scrollspy-end-label>You have reached the end</span>
+							</div>
+						</nav>
+
+						<canvas aria-hidden="true" class="pointer-events-none absolute inset-0 size-full rounded-lg" data-scrollspy-confetti-canvas></canvas>
+					</div>
+				</div>
+			</aside>
+
+			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12 [&_h2[id]]:scroll-mt-20">
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
+					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
+						<p class="lead">Localization technology in 2026 is no longer a scattered set of tools. It is an integrated ecosystem that connects workflows, AI, quality controls and governance so global teams can move quickly without sacrificing consistency.</p>
+
+						<h2>The state of localization technology in 2026</h2>
+						<p>Not long ago, localization technology was often a translation management system, a CAT tool and a patchwork of manual checklists. Today, content moves continuously across product, marketing and support channels, and organizations need an operating model that can keep up.</p>
+						<p>Modern localization has become infrastructure. Teams are expected to launch globally, maintain brand consistency across markets and support faster release cycles. That pressure requires systems that can route work intelligently, enforce standards and provide visibility end to end.</p>
+
+						<h2>What localization technology actually means today</h2>
+						<p>In 2026, localization technology is best understood as a connected system, not a single product category. It includes workflow orchestration, automation, linguistic assets, AI translation layers, quality controls and analytics.</p>
+						<ul>
+							<li>The platform that routes and governs content</li>
+							<li>Automation that removes repetitive handoffs</li>
+							<li>Terminology and translation memory that protect consistency</li>
+							<li>AI and MT systems that accelerate throughput</li>
+							<li>QA and analytics layers that guide decisions</li>
+						</ul>
+
+						<h2>The localization process in 2026</h2>
+						<p>Localization is embedded into content and product operations rather than added at the end. A typical flow includes content intake, workflow decisioning, translation execution, QA and controlled delivery back into source systems.</p>
+						<p>When this process is connected, teams reduce manual touchpoints, decrease ambiguity and gain predictable cycle times.</p>
+
+						<h2>The translation management system: the operational core</h2>
+						<p>The TMS has evolved from a workflow tracker into the operational backbone of global content delivery. In a modern setup, it orchestrates people, systems and AI models while applying governance rules and quality checkpoints.</p>
+						<p>A strong TMS makes routing decisions explicit: where MT is appropriate, where human review is mandatory and where escalation paths are needed for high-risk content.</p>
+
+						<h2>Connectors, APIs and system integration: the new infrastructure</h2>
+						<p>Connectors have become critical infrastructure. Enterprises publish content from many systems and need localization to move with minimal manual handling and strong context preservation.</p>
+						<ul>
+							<li>No copy-paste handoffs between platforms</li>
+							<li>Less risk of version mismatches and lost context</li>
+							<li>Automated workflow triggers from upstream updates</li>
+							<li>More reliable return of localized content into source systems</li>
+						</ul>
+
+						<h2>Machine translation and AI translation in 2026</h2>
+						<p>AI translation is now a family of methods rather than one model choice. Neural MT, domain-tuned engines, adaptive approaches and LLM-assisted workflows each have different strengths and risk profiles.</p>
+						<p>The core challenge is not choosing one model globally, but consistently selecting the right approach by content type, risk and quality requirements.</p>
+
+						<h2>Localization workflows and workflow automation</h2>
+						<p>Automation provides the operational rhythm that lets localization keep pace with rapid content production. It reduces manual coordination and ensures that repetitive decisions are handled consistently.</p>
+						<p>This does not remove people from the process. It removes low-value friction so linguists and reviewers can focus on nuance, intent and quality-critical judgment.</p>
+
+						<h2>How automation shapes modern localization workflows</h2>
+						<p>Automation validates input quality early, routes content through the right path and triggers human review only when needed. Over time, this produces more predictable throughput and clearer visibility into where workflows stall.</p>
+						<p>Because execution becomes consistent, organizations can tune the system with evidence rather than relying on memory or ad-hoc fixes.</p>
+
+						<h2>Where automation has the greatest impact</h2>
+						<ul>
+							<li><strong>Content intake and preparation:</strong> catches structural errors before translation starts.</li>
+							<li><strong>MT engine selection:</strong> applies domain-aware routing rules consistently.</li>
+							<li><strong>Early-stage QA:</strong> intercepts mechanical issues before review cycles.</li>
+							<li><strong>Task routing:</strong> minimizes delay across translators, SMEs and approvers.</li>
+						</ul>
+
+						<h2>Localization tools and localization services</h2>
+						<p>Most enterprises combine platform tooling with specialized language services. The platform should centralize governance and visibility, while partners provide capacity and expertise without adding coordination overhead.</p>
+
+						<h2>Terminology management: creating a shared vocabulary</h2>
+						<p>Terminology management keeps product names, technical concepts and brand language stable across markets. It improves both human consistency and machine output quality when integrated directly into everyday workflows.</p>
+						<p>Strong terminology programs are maintained continuously, not only when quality issues become visible.</p>
+
+						<h2>Translation memory: reuse, context and continuity</h2>
+						<p>Translation memory preserves approved phrasing and reduces repeated work. Modern TM systems also capture context and structure, making reuse decisions safer and more relevant than simple segment matching.</p>
+						<p>TM quality depends on active maintenance: cleanup, consolidation and retirement of outdated entries.</p>
+
+						<h2>Quality assurance technology in every workflow</h2>
+						<p>QA has shifted from a final gate to a distributed set of checks across the lifecycle. Structural validation, terminology checks and MT risk signals reduce late-stage rework and allow reviewers to focus on meaning.</p>
+						<p>As AI use expands, embedded QA becomes a key control mechanism for deciding where automation is safe and where deeper human oversight is required.</p>
+
+						<h2>Localization analytics: insight, not just reporting</h2>
+						<p>Analytics now link workflow, quality and AI performance data so teams can identify systemic patterns. Instead of only reporting output volumes, leaders can see where bottlenecks form and which changes improve outcomes.</p>
+						<p>This shared evidence helps localization align with product and marketing teams on timelines, investment and operational trade-offs.</p>
+
+						<h2>The metrics that matter for global operations</h2>
+						<ul>
+							<li>Flow and throughput across workflow stages</li>
+							<li>Quality and rework by content type and market</li>
+							<li>Asset effectiveness for terminology and TM usage</li>
+							<li>AI and MT performance by domain and language</li>
+							<li>Capacity and cost distribution across teams</li>
+						</ul>
+
+						<h2>How analytics improve predictability and quality</h2>
+						<p>Reliable analytics make planning more accurate, highlight where budget is being consumed by rework and reveal where workflow or asset design should change. Over time, teams can test and calibrate process changes with measurable confidence.</p>
+
+						<h2>How the ecosystem works as a unified system</h2>
+						<p>The real value appears when TMS, connectors, AI, assets, QA and analytics operate together. Improvements in one layer reinforce the others, creating compounding gains in speed, consistency and predictability.</p>
+
+						<h2>What mature localization operations look like in 2026</h2>
+						<ul>
+							<li>Clear ownership for workflows, assets and quality</li>
+							<li>Adaptable, documented processes by risk profile</li>
+							<li>Proactive asset governance</li>
+							<li>Embedded QA and analytics</li>
+							<li>Thoughtful Human + AI decisioning</li>
+						</ul>
+
+						<h2>How localization technology will continue to evolve</h2>
+						<p>Key trends include deeper integration with content creation systems, more granular workflow personalization, stronger AI governance and more proactive analytics that move from description toward prediction.</p>
+
+						<h2>Building a future-ready localization technology strategy</h2>
+						<p>A practical strategy starts with mapping content sources, assessing workflow diversity, evaluating asset health, setting AI guardrails and defining the operational questions analytics must answer.</p>
+						<p>The goal is not selecting isolated best-in-class tools. It is designing a resilient ecosystem that can absorb new channels, models and markets without losing control of quality and brand meaning.</p>
+					</div>
+				</div>
+
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
+					<div class="flex flex-wrap gap-x-6 gap-y-2">
+						<div class="flex flex-wrap gap-x-4 gap-y-1.5">
+							<h3 class="font-bold">Tags:</h3>
+							<a href="#" class="font-semibold transition-colors hover:text-accent">Translation & Localization</a>
+							<a href="#" class="font-semibold transition-colors hover:text-accent">Localization Technology</a>
+							<a href="#" class="font-semibold transition-colors hover:text-accent">AI Translation</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-theme="tertiary">
+					<div class="flex items-center gap-6">
+						<img class="aspect-square w-20 shrink-0 rounded-full object-cover sm:w-24 lg:w-32" src="https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433" alt="Jonny Stringer" />
+						<div>
+							<p class="mb-3 text-sm/none font-semibold text-accent sm:text-base/none">Author</p>
+							<p class="text-2xl/none font-bold sm:text-3xl/none">Jonny Stringer</p>
+							<p class="mt-2 text-base/none font-semibold text-foreground/80 sm:text-xl/none">Head of Content Marketing</p>
+						</div>
+					</div>
+
+					<div class="prose mt-6 max-w-none font-medium text-pretty lg:text-lg">
+						<p>Jonny leads content marketing at RWS and has spent over a decade translating complex localization topics into practical guidance for enterprise teams.</p>
+						<p>His focus is making technical subjects accessible while keeping quality, clarity and audience relevance at the center of every piece of content.</p>
+					</div>
+
+					<a href="#" class="btn btn-secondary btn-icon-right mt-6">
+						All from Jonny Stringer
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					</a>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<!-- Related articles -->
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div hidden class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>This is the subheading</p>
+			</div>
+
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>Related <em>articles</em></p>
+			</h2>
+
+			<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere.</p>
+			</div>
+
+			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
+				{
+					cards.map((card) => (
+						<>
+							<article class="group relative rounded-lg border border-foreground/10 bg-background text-left text-foreground" data-card>
+								<div class="flex h-full flex-col">
+									<div class="p-4">
+										<div class="mb-5 block overflow-hidden rounded">
+											<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
+										</div>
+
+										<span class="mb-3 inline-block rounded-full border border-foreground/10 bg-foreground/5 px-2 py-0.5 text-xs font-semibold text-foreground/80"> Article </span>
+
+										<h2 class="mb-2 text-2xl font-bold">
+											<p>
+												<a href="/resources/blog-1/">
+													This is an article title
+													<span class="absolute inset-0" />
+												</a>
+											</p>
+										</h2>
+
+										<div class="prose line-clamp-3 font-medium text-pretty text-foreground/80">
+											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
+										</div>
+									</div>
+
+									<div class="mt-auto px-4 pb-4">
+										<div class="flex items-center space-x-4">
+											<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+											<div>
+												<div class="font-semibold">Jese Leos</div>
+												<div class="text-sm font-medium text-foreground/80">Aug 15, 2021 • 16 min read</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</article>
+						</>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Call to action + form -->
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<div class="lg:col-span-7">
+				<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+					<p>This is the subheading</p>
+				</div>
+
+				<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<p>This is the heading</p>
+				</h2>
+
+				<div class="prose font-medium text-foreground/80 md:prose-lg">
+					<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+
+					<ul>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+					</ul>
+
+					<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
+				</div>
+
+				<div class="mt-8 flex flex-wrap items-center gap-4">
+					<a href="#" class="btn btn-secondary btn-icon-right">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						Find out more
+					</a>
+				</div>
+			</div>
+
+			<div class="h-full lg:col-span-5">
+				<div class="rounded-lg border border-foreground/10 bg-background p-8 text-foreground" data-card>
+					<h3 class="mb-4 text-2xl font-semibold">
+						<p>Book a meeting</p>
+					</h3>
+
+					<div class="prose mb-6 font-medium text-foreground/80">
+						<p>We're here to help you with any questions you have. Please fill out the form below and we'll get back to you as soon as possible.</p>
+					</div>
+
+					<div class="hubspot-form">
+						<div id="hs_2f5091f7-ff77-4faa-99bd-8af0a538b2d2" class="hs-form-html" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-activity-type="Contact Form" data-activity-subject="Contact Form: Contact" data-activity-campaign-id="" data-activity-interest-profile="" data-thank-you-message="Thank you for your interest. One of our specialists will be in touch with you soon." data-thank-you-page-url="" data-external-page-url="" data-post-back-on-submit="False" data-resource-url="" data-resource-file-name="" data-on-form-submitted="" data-submit-text="" data-conversion-level="primary" data-form-type="HubSpot" data-region="na1" data-calendly-enabled="False" data-calendly-config-id="" data-calendly-widget="" data-calendly-text="" data-hs-forms-root="true">
+							<form id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" action="https://forms.hsforms.com/submissions/v3/public/submit/formsnext/multipart/147991/80943ed9-df96-4201-84bd-0aa63e3f08e1" class="hs-form-private hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1_50a5e501-d8e3-426f-9d47-f5ae39a33270 hs-form stacked" target="target_iframe_80943ed9-df96-4201-84bd-0aa63e3f08e1" data-instance-id="50a5e501-d8e3-426f-9d47-f5ae39a33270" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-test-id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1">
+								<fieldset class="form-columns-2">
+									<div class="hs_name hs-name hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-name-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="name-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Name</span>
+												<span class="hs-form-required">*</span>
+											</label>
+											<input id="name-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="name" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="name" value="" />
+										</div>
+									</div>
+
+									<div class="hs_email hs-email hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-email-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="email-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Email</span>
+												<span class="hs-form-required">*</span>
+											</label>
+											<input id="email-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="email" required="" placeholder="" type="email" class="hs-input hs-field-ready" inputmode="email" autocomplete="email" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="hs_phone hs-phone hs-fieldtype-phonenumber field hs-form-field">
+										<div class="input">
+											<label id="label-phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Phone number</span>
+											</label>
+											<input id="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="phone" placeholder="" type="tel" class="hs-input hs-field-ready" inputmode="tel" autocomplete="tel" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-2">
+									<div class="hs_company hs-company hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-company-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="company-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Company</span>
+												<span class="hs-form-required">*</span>
+											</label>
+											<input id="company-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="company" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization" value="" />
+										</div>
+									</div>
+
+									<div class="hs_jobtitle hs-jobtitle hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Job title</span>
+												<span class="hs-form-required">*</span>
+											</label>
+											<input id="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="jobtitle" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization-title" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="legal-consent-container">
+										<div class="hs-richtext">
+											<p>By entering your personal data you are affirmatively consenting to our use of your personal data and our <a href="https://www.rws.com/legal/privacy/" target="_blank" rel="noopener">privacy policy</a>.</p>
+										</div>
+									</div>
+								</fieldset>
+
+								<div class="hs_submit hs-submit">
+									<div class="hs-field-desc" style="display: none;"></div>
+									<div class="actions">
+										<input type="submit" class="hs-button primary large" value="Send" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

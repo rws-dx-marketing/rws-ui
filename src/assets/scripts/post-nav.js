@@ -216,6 +216,11 @@ function getNavConfig(nav, options) {
 	}
 }
 
+function toObserverRootMargin(markerRatio) {
+	const percent = Math.max(0, Math.min(99, Math.round((1 - markerRatio) * 100)))
+	return `0px 0px -${percent}% 0px`
+}
+
 function createInstance(nav, options) {
 	const contentNodes = resolveContentNodes(nav, options)
 	if (!contentNodes.length) {
@@ -238,65 +243,102 @@ function createInstance(nav, options) {
 	const cardRoot = nav.closest('[data-card]')
 	const confettiCanvas = cardRoot ? cardRoot.querySelector('[data-scrollspy-confetti-canvas]') : null
 	const lastContentNode = contentNodes[contentNodes.length - 1]
+	const completionSentinel = document.createElement('span')
+	completionSentinel.dataset.scrollspyCompletionSentinel = 'true'
+	completionSentinel.setAttribute('aria-hidden', 'true')
+	completionSentinel.style.cssText = 'display:block;width:1px;height:1px;margin-top:-1px;pointer-events:none;'
+	lastContentNode.appendChild(completionSentinel)
 
+	let markerObserver = null
+	let completionObserver = null
 	let jsConfetti = null
-	let wasComplete = false
-	let activeId = navItems[0].id
-	let activeLink = null
-	let previousActiveIndex = headingIndexById.get(activeId) ?? 0
-	let ticking = false
+	const state = {
+		isComplete: false,
+		activeId: navItems[0].id,
+		activeIndex: headingIndexById.get(navItems[0].id) ?? 0,
+		activeLink: null,
+		resizeRafId: null,
+		applyScheduled: false,
+		isDestroyed: false,
+	}
 
-	function setActive(id, isComplete) {
-		const nextActiveLink = linkById.get(id)
-		if (!nextActiveLink) return
-
-		const activeIndex = headingIndexById.get(id) ?? 0
-		const isMovingForward = navConfig.useDirectionalDelay && activeIndex > previousActiveIndex
-
-		if (isComplete) {
-			if (activeLink) activeLink.dataset.navActive = 'false'
-		} else {
-			if (activeLink !== nextActiveLink && activeLink) activeLink.dataset.navActive = 'false'
-			nextActiveLink.dataset.navActive = 'true'
-		}
-		activeLink = nextActiveLink
-
+	function setRangeData(index) {
+		if (!Number.isInteger(navConfig.proximity) && !Number.isInteger(navConfig.hoverProximity)) return
 		for (let idx = 0; idx < links.length; idx += 1) {
-			const link = links[idx]
-			const distance = Math.abs(idx - activeIndex)
-			link.dataset.navDistance = String(distance)
-
-			if (navConfig.useProgressDots) {
-				link.dataset.navPast = idx < activeIndex ? 'true' : 'false'
-			} else {
-				delete link.dataset.navPast
-			}
-
-			if (navConfig.useDirectionalDelay) {
-				link.dataset.navDelay = idx === activeIndex && isMovingForward ? 'true' : 'false'
-			} else {
-				delete link.dataset.navDelay
-			}
-
+			const distance = Math.abs(idx - index)
 			if (Number.isInteger(navConfig.proximity)) {
-				link.dataset.navInRange = distance <= navConfig.proximity ? 'true' : 'false'
+				links[idx].dataset.navInRange = distance <= navConfig.proximity ? 'true' : 'false'
 			}
 			if (Number.isInteger(navConfig.hoverProximity)) {
-				link.dataset.navInHoverRange = distance <= navConfig.hoverProximity ? 'true' : 'false'
+				links[idx].dataset.navInHoverRange = distance <= navConfig.hoverProximity ? 'true' : 'false'
 			}
 		}
+	}
 
-		if (endLabel) endLabel.dataset.navActive = isComplete ? 'true' : 'false'
-		if (endIcon) endIcon.dataset.navActive = isComplete ? 'true' : 'false'
+	function updateProgressDots(previousIndex, nextIndex) {
+		if (!navConfig.useProgressDots || previousIndex === nextIndex) return
+		const start = Math.min(previousIndex, nextIndex)
+		const end = Math.max(previousIndex, nextIndex)
+		const isMovingForward = nextIndex > previousIndex
+		for (let idx = start; idx < end; idx += 1) {
+			links[idx].dataset.navPast = isMovingForward ? 'true' : 'false'
+		}
+	}
 
+	function updateDelay(previousIndex, nextIndex, isMovingForward) {
+		if (!navConfig.useDirectionalDelay) return
+		if (Number.isInteger(previousIndex) && links[previousIndex]) {
+			links[previousIndex].dataset.navDelay = 'false'
+		}
+		if (links[nextIndex]) {
+			links[nextIndex].dataset.navDelay = isMovingForward ? 'true' : 'false'
+		}
+	}
+
+	function updateRailHeight(link, isComplete) {
+		if (!link) return
 		const navRect = nav.getBoundingClientRect()
 		let activeHeight = Math.max(0, navRect.height - navConfig.railOffset * 2)
 		if (!isComplete) {
-			const linkRect = nextActiveLink.getBoundingClientRect()
+			const linkRect = link.getBoundingClientRect()
 			activeHeight = Math.max(0, linkRect.top - navRect.top + linkRect.height / 2 - navConfig.railOffset)
 		}
 		nav.style.setProperty('--post-nav-active-height', `${activeHeight}px`)
-		previousActiveIndex = activeIndex
+	}
+
+	function applyState(nextActiveId, nextIsComplete, force = false) {
+		const nextActiveLink = linkById.get(nextActiveId)
+		if (!nextActiveLink) return
+
+		const activeIndex = headingIndexById.get(nextActiveId) ?? 0
+		const isMovingForward = navConfig.useDirectionalDelay && activeIndex > state.activeIndex
+		const hasActiveChanged = state.activeId !== nextActiveId
+		const hasCompleteChanged = state.isComplete !== nextIsComplete
+		if (!force && !hasActiveChanged && !hasCompleteChanged) return
+		const didBecomeComplete = nextIsComplete && !state.isComplete
+
+		if (nextIsComplete) {
+			if (state.activeLink) state.activeLink.dataset.navActive = 'false'
+			nextActiveLink.dataset.navActive = 'false'
+		} else {
+			if (state.activeLink !== nextActiveLink && state.activeLink) state.activeLink.dataset.navActive = 'false'
+			nextActiveLink.dataset.navActive = 'true'
+		}
+
+		updateProgressDots(state.activeIndex, activeIndex)
+		updateDelay(state.activeIndex, activeIndex, isMovingForward)
+		setRangeData(activeIndex)
+
+		state.activeLink = nextActiveLink
+
+		if (endLabel) endLabel.dataset.navActive = nextIsComplete ? 'true' : 'false'
+		if (endIcon) endIcon.dataset.navActive = nextIsComplete ? 'true' : 'false'
+		updateRailHeight(nextActiveLink, nextIsComplete)
+		state.activeId = nextActiveId
+		state.isComplete = nextIsComplete
+		state.activeIndex = activeIndex
+
+		return didBecomeComplete
 	}
 
 	async function getJsConfetti() {
@@ -327,42 +369,44 @@ function createInstance(nav, options) {
 		}, 600)
 	}
 
-	function getCurrentNavItem() {
+	function computeLayoutState() {
 		const sectionMarker = window.innerHeight * options.offset
-		let current = navItems[0]
+		let activeMarkerId = navItems[0].id
 		for (let idx = 0; idx < navItems.length; idx += 1) {
 			const navItem = navItems[idx]
 			if (navItem.markerNode.getBoundingClientRect().top <= sectionMarker) {
-				current = navItem
+				activeMarkerId = navItem.id
 			} else {
 				break
 			}
 		}
-		return current
-	}
-
-	function updateFromScroll() {
 		const completionMarker = window.innerHeight * options.completion
-		const contentBottom = lastContentNode.getBoundingClientRect().bottom
-		const isComplete = contentBottom <= completionMarker
-		const current = getCurrentNavItem()
-		if (!current || !current.id) return
-
-		if (current.id !== activeId) activeId = current.id
-		setActive(activeId, isComplete)
-
-		if (isComplete && !wasComplete) {
-			void triggerEndConfetti()
+		return {
+			activeId: activeMarkerId,
+			isComplete: completionSentinel.getBoundingClientRect().top <= completionMarker,
 		}
-		wasComplete = isComplete
 	}
 
-	function scheduleUpdate() {
-		if (ticking) return
-		ticking = true
+	function scheduleApplyState() {
+		if (state.applyScheduled || state.isDestroyed) return
+		state.applyScheduled = true
 		window.requestAnimationFrame(() => {
-			updateFromScroll()
-			ticking = false
+			state.applyScheduled = false
+			if (state.isDestroyed) return
+			const nextLayoutState = computeLayoutState()
+			const didBecomeComplete = applyState(nextLayoutState.activeId, nextLayoutState.isComplete)
+			if (didBecomeComplete) {
+				void triggerEndConfetti()
+			}
+		})
+	}
+
+	function handleResize() {
+		if (state.resizeRafId !== null) return
+		state.resizeRafId = window.requestAnimationFrame(() => {
+			state.resizeRafId = null
+			if (state.isDestroyed) return
+			scheduleApplyState()
 		})
 	}
 
@@ -371,18 +415,62 @@ function createInstance(nav, options) {
 	}
 	for (const link of links) {
 		link.dataset.navActive = 'false'
+		if (navConfig.useProgressDots) {
+			link.dataset.navPast = 'false'
+		} else {
+			delete link.dataset.navPast
+		}
+		if (navConfig.useDirectionalDelay) {
+			link.dataset.navDelay = 'false'
+		} else {
+			delete link.dataset.navDelay
+		}
 	}
 	nav.style.setProperty('--post-nav-active-height', '0px')
-	setActive(activeId, false)
-	updateFromScroll()
-	window.addEventListener('scroll', scheduleUpdate, { passive: true })
-	window.addEventListener('resize', scheduleUpdate, { passive: true })
+	setRangeData(state.activeIndex)
+	const initialLayoutState = computeLayoutState()
+	applyState(initialLayoutState.activeId, initialLayoutState.isComplete, true)
+
+	markerObserver = new IntersectionObserver(() => scheduleApplyState(), {
+		root: null,
+		rootMargin: toObserverRootMargin(options.offset),
+		threshold: 0,
+	})
+	for (const item of navItems) {
+		markerObserver.observe(item.markerNode)
+	}
+
+	completionObserver = new IntersectionObserver(() => scheduleApplyState(), {
+		root: null,
+		rootMargin: toObserverRootMargin(options.completion),
+		threshold: 0,
+	})
+	completionObserver.observe(completionSentinel)
+	window.addEventListener('resize', handleResize, { passive: true })
 
 	return {
-		refresh: updateFromScroll,
+		refresh() {
+			if (state.isDestroyed) return
+			scheduleApplyState()
+		},
 		destroy() {
-			window.removeEventListener('scroll', scheduleUpdate)
-			window.removeEventListener('resize', scheduleUpdate)
+			state.isDestroyed = true
+			if (state.resizeRafId !== null) {
+				window.cancelAnimationFrame(state.resizeRafId)
+				state.resizeRafId = null
+			}
+			window.removeEventListener('resize', handleResize)
+			if (markerObserver) {
+				markerObserver.disconnect()
+				markerObserver = null
+			}
+			if (completionObserver) {
+				completionObserver.disconnect()
+				completionObserver = null
+			}
+			if (completionSentinel.parentNode) {
+				completionSentinel.parentNode.removeChild(completionSentinel)
+			}
 			for (const contentNode of contentNodes) {
 				contentNode.dataset.scrollspyInitialized = 'false'
 			}
