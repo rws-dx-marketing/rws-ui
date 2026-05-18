@@ -13,7 +13,6 @@ const secondaryNavTree = [
 						id: 'translation-language',
 						label: 'Translation & language',
 						href: '/what-we-do/language-expert-services/translation-services/translation-language',
-						includeInBreadcrumb: false,
 					},
 					{
 						id: 'video-audio',
@@ -24,13 +23,11 @@ const secondaryNavTree = [
 								id: 'video',
 								label: 'Video',
 								href: '/what-we-do/language-expert-services/translation-services/video-audio/video',
-								includeInBreadcrumb: false,
 							},
 							{
 								id: 'audio',
 								label: 'Audio',
 								href: '/what-we-do/language-expert-services/translation-services/video-audio/audio',
-								includeInBreadcrumb: false,
 							},
 						],
 					},
@@ -40,7 +37,6 @@ const secondaryNavTree = [
 				id: 'creative-digital-content',
 				label: 'Creative & digital content',
 				href: '/what-we-do/language-expert-services/creative-digital-content',
-				includeInBreadcrumb: false,
 			},
 		],
 	},
@@ -68,9 +64,10 @@ const findPathToNode = (nodes, targetPath, trail = []) => {
 }
 
 const toBreadcrumbs = (pathNodes, currentPath) => {
+	const isLeafNode = (node) => !node.children?.length
 	const filtered = pathNodes.filter((node, index) => {
 		if (index !== pathNodes.length - 1) return true
-		return node.includeInBreadcrumb !== false
+		return !isLeafNode(node)
 	})
 
 	return filtered.map((node) => ({
