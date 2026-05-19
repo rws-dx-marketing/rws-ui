@@ -57,3 +57,17 @@
 }
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+	@supports (container-type: scroll-state) {
+		.sticky {
+			container-type: scroll-state;
+		}
+	}
+}
+
+@custom-variant stuck {
+	@container scroll-state(stuck: top) {
+		@slot;
+	}
+}

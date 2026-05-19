@@ -27,12 +27,12 @@ import Layout from '../../layouts/Trados.astro'
 				<div class="btn-group rounded-full bg-card" role="group">
 					<button type="button" class="btn btn-outline btn-sm flex flex-col sm:btn-md" data-billing-option="monthly">
 						<span>Monthly contract</span>
-						<span class="block -mt-0.5 text-[0.75em] opacity-80">paid monthly</span>
+						<span class="-mt-0.5 block text-[0.75em] opacity-80">paid monthly</span>
 					</button>
 
 					<button type="button" class="btn btn-primary relative btn-sm flex flex-col sm:btn-md" data-billing-option="annual" data-billing-offer data-billing-active>
 						<span>Annual contract</span>
-						<span class="block -mt-0.5 text-[0.75em] opacity-80">paid monthly</span>
+						<span class="-mt-0.5 block text-[0.75em] opacity-80">paid monthly</span>
 
 						<span class="pointer-events-none absolute -top-11.5 left-[calc(50%-0.25rem)] -translate-x-1/2 -rotate-3 font-cursive text-lg/none font-semibold whitespace-nowrap text-accent">
 							Most popular
@@ -42,7 +42,7 @@ import Layout from '../../layouts/Trados.astro'
 
 					<button type="button" class="btn btn-outline btn-sm flex flex-col sm:btn-md" data-billing-option="annual-saver" data-billing-offer>
 						<span>Annual contract</span>
-						<span class="block -mt-0.5 text-[0.75em] opacity-80">paid yearly</span>
+						<span class="-mt-0.5 block text-[0.75em] opacity-80">paid yearly</span>
 					</button>
 				</div>
 
@@ -173,12 +173,12 @@ import Layout from '../../layouts/Trados.astro'
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M216,112V56a8,8,0,0,0-8-8H48a8,8,0,0,0-8,8v56c0,96,88,120,88,120S216,208,216,112Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="88 136 112 160 168 104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-								<span class="font-medium">Quality assurance</span>
+								<span class="font-medium">Quality assurance that happens to be much longer than the rest</span>
 							</li>
 						</ul>
 					</div>
 
-					<span class="absolute right-6 bottom-6 text-xs font-semibold text-foreground/50 xl:right-10 xl:bottom-10" data-offer-only data-conditions data-conditions-monthly="*Conditions apply (1)" data-conditions-annual="*Conditions apply (2)" data-conditions-annual-saver="*Conditions apply (3)">*Conditions apply</span>
+					<span class="block text-right text-xs font-semibold text-foreground/50" data-offer-only data-conditions data-conditions-monthly="*Conditions apply (1)" data-conditions-annual="*Conditions apply (2)" data-conditions-annual-saver="*Conditions apply (3)">*Conditions apply</span>
 				</div>
 
 				<!-- Card -->
@@ -264,7 +264,7 @@ import Layout from '../../layouts/Trados.astro'
 						</ul>
 					</div>
 
-					<span class="absolute right-6 bottom-6 text-xs font-semibold text-foreground/50 xl:right-10 xl:bottom-10" data-offer-only data-conditions data-conditions-monthly="*Conditions apply (1)" data-conditions-annual="*Conditions apply (2)" data-conditions-annual-saver="*Conditions apply (3)">*Conditions apply</span>
+					<span class="block text-right text-xs font-semibold text-foreground/50" data-offer-only data-conditions data-conditions-monthly="*Conditions apply (1)" data-conditions-annual="*Conditions apply (2)" data-conditions-annual-saver="*Conditions apply (3)">*Conditions apply</span>
 				</div>
 			</div>
 		</div>
@@ -284,9 +284,23 @@ import Layout from '../../layouts/Trados.astro'
 			</div>
 
 			<!-- Table -->
-			<div class="relative overflow-x-auto" role="region" aria-label="Comparison table">
+			<div class="relative overflow-x-auto md:overflow-visible" role="region" aria-label="Comparison table">
+				<div class="sticky top-0 z-20 hidden lg:block">
+					<div class="grid min-w-max grid-cols-3 rounded-t-lg border-b border-foreground/10 bg-foreground/2 text-center backdrop-blur stuck:rounded-t-none">
+						<div class="px-4 py-6"></div>
+
+						<div class="px-4 py-6">
+							<h3 class="text-lg font-bold text-foreground">Trados Go</h3>
+						</div>
+
+						<div class="px-4 py-6">
+							<h3 class="text-lg font-bold text-foreground">Trados Studio Freelance</h3>
+						</div>
+					</div>
+				</div>
+
 				<table class="w-full min-w-max text-left text-foreground/80">
-					<thead>
+					<thead class="lg:hidden">
 						<tr class="rounded-t-lg bg-foreground/2">
 							<th scope="col" class="w-1/3 px-4 py-6"></th>
 
@@ -294,7 +308,7 @@ import Layout from '../../layouts/Trados.astro'
 								<h3 class="text-lg font-bold text-foreground">Trados Go</h3>
 							</th>
 
-							<th scope="col" class="px-4 py-6 text-center">
+							<th scope="col" class="w-1/3 px-4 py-6 text-center">
 								<h3 class="text-lg font-bold text-foreground">Trados Studio Freelance</h3>
 							</th>
 						</tr>
@@ -303,9 +317,11 @@ import Layout from '../../layouts/Trados.astro'
 					<tbody>
 						<!-- Heading -->
 						<tr class="border-y border-foreground/10 bg-foreground/5">
-							<td colspan="3" class="p-4">
+							<td class="w-1/3 p-4">
 								<h4 class="text-lg font-semibold text-foreground">Capacity</h4>
 							</td>
+							<td class="w-1/3 p-4"></td>
+							<td class="w-1/3 p-4"></td>
 						</tr>
 
 						<!-- Feature -->
@@ -816,7 +832,7 @@ import Layout from '../../layouts/Trados.astro'
 				<div class="hidden lg:block"></div>
 
 				<div class="mb-8 border-b border-foreground/10 pb-8 text-center md:mb-0 md:border-b-0 md:pb-0">
-					<h3 class="mb-4 text-lg font-bold">Trados Go</h3>
+					<h3 class="mb-4 text-lg font-bold lg:hidden">Trados Go</h3>
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
 						<span class="text-[0.9em]">$</span>
@@ -842,7 +858,7 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 
 				<div class="text-center">
-					<h3 class="mb-4 text-lg font-bold">Trados Studio Freelance</h3>
+					<h3 class="mb-4 text-lg font-bold lg:hidden">Trados Studio Freelance</h3>
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
 						<span class="text-[0.9em]">$</span>
