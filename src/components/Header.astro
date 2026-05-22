@@ -942,6 +942,19 @@
 	</div>
 </aside>
 
+<dialog id="language-change-dialog" class="m-0 hidden h-screen max-h-none w-screen max-w-none scale-95 transform-gpu items-center justify-center bg-transparent p-6 opacity-0 transition transition-discrete outline-none backdrop:bg-transparent backdrop:transition backdrop:transition-discrete open:flex open:scale-100 open:opacity-100 open:backdrop:bg-black/50 starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-transparent">
+	<div class="relative w-full max-w-md rounded-lg bg-background p-6 text-foreground shadow-xl" data-theme="default">
+		<button type="button" commandfor="language-change-dialog" command="close" class="btn btn-ghost absolute top-3 right-3 p-2" aria-label="Close modal">
+			<svg class="size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+		</button>
+		<h3 class="text-xl/none font-semibold">Translation unavailable</h3>
+		<p class="mt-3 text-sm text-foreground/75">This page is not currently available in the selected language.</p>
+		<div class="mt-6 flex justify-end">
+			<button type="button" commandfor="language-change-dialog" command="close" class="btn btn-primary btn-sm">Okay</button>
+		</div>
+	</div>
+</dialog>
+
 <button id="mobile-shell-close-hitarea" type="button" class="pointer-events-none fixed right-0 bottom-0 left-(--mobile-menu-width) z-998 lg:hidden" style="top: var(--mobile-menu-top, 0px);" aria-label="Close main menu"></button>
 
 <style is:global>
@@ -961,11 +974,15 @@
 		const shellCloseHitarea = document.getElementById('mobile-shell-close-hitarea')
 		const menuClosedIcon = menuToggle?.querySelector('[data-icon-closed]')
 		const menuOpenIcon = menuToggle?.querySelector('[data-icon-open]')
+		const desktopLanguageMenu = document.getElementById('desktop-language-menu')
+		const desktopLanguageOptions = desktopLanguageMenu ? Array.from(desktopLanguageMenu.querySelectorAll('a[role="menuitem"]')) : []
+		const languageChangeDialog = document.getElementById('language-change-dialog')
 		const mobileMenuViews = menuPanel ? Array.from(menuPanel.querySelectorAll('[data-mobile-menu-view]')) : []
 		const desktopMenuButtons = header ? Array.from(header.querySelectorAll('button[popovertarget]')) : []
 		let lastFocusedElement = null
 		let closeCleanupTimer = null
 		let currentMobileView = 'root'
+		let savedDocumentOverflow = null
 		const getShellTarget = () => document.getElementById('page-shell') ?? document.querySelector('main')
 		const mobileViewForwardOffscreenClass = 'translate-x-[calc(100%+2rem)]'
 		const mobileViewBackOffscreenClass = '-translate-x-[calc(100%+2rem)]'
@@ -1093,6 +1110,16 @@
 				button.setAttribute('aria-expanded', String(isOpen))
 			})
 		}
+		const lockDocumentScroll = () => {
+			if (savedDocumentOverflow !== null) return
+			savedDocumentOverflow = document.documentElement.style.overflow || ''
+			document.documentElement.style.overflow = 'hidden'
+		}
+		const unlockDocumentScroll = () => {
+			if (savedDocumentOverflow === null) return
+			document.documentElement.style.overflow = savedDocumentOverflow
+			savedDocumentOverflow = null
+		}
 		window.addEventListener('load', updateGrowlerHeight)
 		window.addEventListener('load', updateHeaderHeight)
 		window.addEventListener('resize', updateGrowlerHeight)
@@ -1118,6 +1145,27 @@
 			const popover = document.getElementById(popoverId)
 			if (!(popover instanceof HTMLElement)) return
 			popover.addEventListener('toggle', syncDesktopMenuTriggerState)
+		})
+		if (languageChangeDialog instanceof HTMLDialogElement) {
+			languageChangeDialog.addEventListener('click', (event) => {
+				if (event.target === languageChangeDialog) languageChangeDialog.close()
+			})
+			languageChangeDialog.addEventListener('toggle', (event) => {
+				if (event.newState === 'open') {
+					lockDocumentScroll()
+				} else if (event.newState === 'closed') {
+					unlockDocumentScroll()
+				}
+			})
+		}
+		desktopLanguageOptions.forEach((option) => {
+			if (!(option instanceof HTMLAnchorElement)) return
+			option.addEventListener('click', (event) => {
+				event.preventDefault()
+				desktopLanguageMenu?.hidePopover?.()
+				if (!(languageChangeDialog instanceof HTMLDialogElement)) return
+				if (!languageChangeDialog.open) languageChangeDialog.showModal()
+			})
 		})
 
 		window.addEventListener('keydown', (event) => {
