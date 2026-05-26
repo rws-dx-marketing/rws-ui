@@ -1084,12 +1084,12 @@
 			}
 
 			if (isOpen) {
-				resetMobileMenuViews()
 				document.body.style.overflow = 'hidden'
 				document.body.style.backgroundColor = '#000'
 			} else {
 				const transitionDurationMs = getTransitionDurationMs()
 				closeCleanupTimer = window.setTimeout(() => {
+					resetMobileMenuViews()
 					if (shellTarget instanceof HTMLElement) {
 						shellLockClasses.forEach((className) => {
 							shellTarget.classList.remove(className)
@@ -1102,8 +1102,11 @@
 
 			if (isOpen) {
 				lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null
-				const firstMenuFocusable = menuPanel.querySelector('[data-mobile-focus], button, a')
-				if (firstMenuFocusable instanceof HTMLElement) firstMenuFocusable.focus()
+				const shouldMoveFocusIntoMenu = menuToggle.matches(':focus-visible')
+				if (shouldMoveFocusIntoMenu) {
+					const firstMenuFocusable = menuPanel.querySelector('[data-mobile-focus], button, a')
+					if (firstMenuFocusable instanceof HTMLElement) firstMenuFocusable.focus({ preventScroll: true })
+				}
 			} else if (lastFocusedElement instanceof HTMLElement) {
 				lastFocusedElement.focus()
 			}
