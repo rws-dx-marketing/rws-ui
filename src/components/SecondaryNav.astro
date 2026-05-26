@@ -62,13 +62,13 @@ const shouldRenderCurrentAsPill = Boolean(current?.href && breadcrumbs[0]?.href 
 
 			{
 				links.length ? (
-					<div id={mobileLinksPopoverId} popover="auto" role="menu" class="dropdown z-20 w-full overflow-clip bg-primary-darker px-5 py-3 shadow-lg sm:m-1.5 sm:w-80 sm:rounded" style="position-anchor: --secondary-nav-mobile-anchor; top: anchor(bottom); right: 0; left: auto;">
-						<ul class="space-y-2">
+					<div id={mobileLinksPopoverId} popover="auto" role="menu" class="dropdown px-5- z-20 w-full transform-none! overflow-clip bg-primary-darker py-3 shadow-lg sm:m-1.5 sm:w-80 sm:rounded" style="position-anchor: --secondary-nav-mobile-anchor; top: anchor(bottom); right: 0; left: auto;">
+						<ul>
 							{links.map((link) => {
 								const isActive = link.href === pathname
 								return (
 									<li>
-										<a href={link.href} role="menuitem" aria-current={isActive ? 'page' : undefined} class:list={['block w-fit text-sm text-white transition-colors', isActive ? 'font-semibold' : 'font-medium hover:text-primary-lightest']}>
+										<a href={link.href} role="menuitem" aria-current={isActive ? 'page' : undefined} class:list={['block px-5 py-2 text-sm text-white transition-colors', isActive ? 'font-semibold' : 'font-medium hover:text-primary-lighter']}>
 											{link.label}
 										</a>
 									</li>
