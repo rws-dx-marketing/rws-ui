@@ -947,10 +947,13 @@
 		<button type="button" commandfor="language-change-dialog" command="close" class="btn btn-ghost absolute top-3 right-3 p-2" aria-label="Close modal">
 			<svg class="size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 		</button>
-		<h3 class="text-xl/none font-semibold">Translation unavailable</h3>
-		<p class="mt-3 text-sm text-foreground/75">This page is not currently available in the selected language.</p>
+		<h3 class="text-xl/none font-semibold">Traducción no disponible</h3>
+
+		<div class="prose mt-3 font-medium text-foreground/80">
+			<p>Lamentablemente, esta página no está disponible en español. También puedes volver a la página anterior o ir a la página de inicio en español.</p>
+		</div>
 		<div class="mt-6 flex justify-end">
-			<button type="button" commandfor="language-change-dialog" command="close" class="btn btn-primary btn-sm">Okay</button>
+			<button type="button" commandfor="language-change-dialog" command="close" class="btn btn-tertiary btn-sm">Página principal en español</button>
 		</div>
 	</div>
 </dialog>
@@ -979,6 +982,17 @@
 		const languageChangeDialog = document.getElementById('language-change-dialog')
 		const mobileMenuViews = menuPanel ? Array.from(menuPanel.querySelectorAll('[data-mobile-menu-view]')) : []
 		const desktopMenuButtons = header ? Array.from(header.querySelectorAll('button[popovertarget]')) : []
+		const desktopPopoverPairs = desktopMenuButtons
+			.map((button, index) => {
+				if (!(button instanceof HTMLElement)) return null
+				const popoverId = button.getAttribute('popovertarget')
+				if (!popoverId) return null
+				const popover = document.getElementById(popoverId)
+				if (!(popover instanceof HTMLElement)) return null
+				return { button, popover, index }
+			})
+			.filter((pair) => pair !== null)
+		let currentDesktopOpenIndex = -1
 		let lastFocusedElement = null
 		let closeCleanupTimer = null
 		let currentMobileView = 'root'
@@ -1144,7 +1158,25 @@
 			if (!popoverId) return
 			const popover = document.getElementById(popoverId)
 			if (!(popover instanceof HTMLElement)) return
-			popover.addEventListener('toggle', syncDesktopMenuTriggerState)
+			const popoverPair = desktopPopoverPairs.find((pair) => pair.popover === popover)
+			if (!popoverPair) return
+			popover.addEventListener('beforetoggle', (event) => {
+				if (event.newState !== 'open') return
+				if (currentDesktopOpenIndex === -1 || currentDesktopOpenIndex === popoverPair.index) {
+					popover.dataset.motion = 'initial'
+				} else {
+					popover.dataset.motion = popoverPair.index > currentDesktopOpenIndex ? 'from-right' : 'from-left'
+				}
+			})
+			popover.addEventListener('toggle', (event) => {
+				const nextState = event.newState ?? (popover.matches(':popover-open') ? 'open' : 'closed')
+				if (nextState === 'open') {
+					currentDesktopOpenIndex = popoverPair.index
+				} else if (currentDesktopOpenIndex === popoverPair.index) {
+					currentDesktopOpenIndex = -1
+				}
+				syncDesktopMenuTriggerState()
+			})
 		})
 		if (languageChangeDialog instanceof HTMLDialogElement) {
 			languageChangeDialog.addEventListener('click', (event) => {

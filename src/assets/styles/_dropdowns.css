@@ -2,6 +2,39 @@
 	position-area: bottom span-left;
 	position-try-fallbacks: flip-inline;
 	position-try: flip-inline;
+	--dropdown-enter-x: 0px;
 
-	@apply inset-auto overflow-visible;
+	@apply inset-auto z-999 overflow-visible opacity-0;
+	transform: translateY(0.375rem) scale(0.985);
+	transition:
+		opacity calc(var(--default-transition-duration, 400ms) / 2) ease,
+		transform calc(var(--default-transition-duration, 400ms) / 2) ease,
+		overlay calc(var(--default-transition-duration, 400ms) / 2) ease allow-discrete,
+		display calc(var(--default-transition-duration, 400ms) / 2) ease allow-discrete;
+	transition-behavior: allow-discrete;
+}
+
+.dropdown[popover]:popover-open {
+	@apply opacity-100;
+	transform: translate(0, 0) scale(1);
+}
+
+.dropdown[popover][data-motion='from-right'] {
+	--dropdown-enter-x: -0.875rem;
+}
+
+.dropdown[popover][data-motion='from-left'] {
+	--dropdown-enter-x: 0.875rem;
+}
+
+@starting-style {
+	.dropdown[popover]:popover-open {
+		opacity: 0;
+		transform: translate(var(--dropdown-enter-x), 0.375rem) scale(0.985);
+	}
+
+	.dropdown[popover][data-motion='from-right']:popover-open,
+	.dropdown[popover][data-motion='from-left']:popover-open {
+		transform: translate(var(--dropdown-enter-x), 0) scale(1);
+	}
 }
