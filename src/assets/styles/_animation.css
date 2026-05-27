@@ -6,6 +6,20 @@
 			background-position: 200% 50%;
 		}
 	}
+
+	--animate-twinkle: twinkle 2s ease-in-out infinite;
+
+	@keyframes twinkle {
+		0%,
+		100% {
+			opacity: 0;
+			scale: 0.6;
+		}
+		50% {
+			opacity: 1;
+			scale: 1;
+		}
+	}
 }
 
 @layer base {
