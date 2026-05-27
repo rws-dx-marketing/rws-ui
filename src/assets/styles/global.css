@@ -37,7 +37,7 @@
 	} */
 
 	html {
-		@apply cursor-default scroll-smooth bg-background text-foreground antialiased;
+		@apply cursor-default scrollbar-gutter-stable scroll-smooth bg-background text-foreground antialiased;
 	}
 
 	:root {
