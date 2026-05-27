@@ -1,33 +1,33 @@
 const secondaryNavTree = [
 	{
-		id: 'language-expert-services',
-		label: 'Language expert services',
-		href: '/what-we-do/language-expert-services',
+		id: 'localization-services',
+		label: 'Localization services',
+		href: '/what-we-do/localization-services',
 		children: [
 			{
 				id: 'translation-services',
 				label: 'Translation services',
-				href: '/what-we-do/language-expert-services/translation-services',
+				href: '/what-we-do/localization-services/translation-services',
 				children: [
 					{
 						id: 'translation-language',
 						label: 'Translation & language',
-						href: '/what-we-do/language-expert-services/translation-services/translation-language',
+						href: '/what-we-do/localization-services/translation-services/translation-language',
 					},
 					{
 						id: 'video-audio',
 						label: 'Video & audio',
-						href: '/what-we-do/language-expert-services/translation-services/video-audio',
+						href: '/what-we-do/localization-services/translation-services/video-audio',
 						children: [
 							{
 								id: 'video',
 								label: 'Video',
-								href: '/what-we-do/language-expert-services/translation-services/video-audio/video',
+								href: '/what-we-do/localization-services/translation-services/video-audio/video',
 							},
 							{
 								id: 'audio',
 								label: 'Audio',
-								href: '/what-we-do/language-expert-services/translation-services/video-audio/audio',
+								href: '/what-we-do/localization-services/translation-services/video-audio/audio',
 							},
 						],
 					},
@@ -36,7 +36,7 @@ const secondaryNavTree = [
 			{
 				id: 'creative-digital-content',
 				label: 'Creative & digital content',
-				href: '/what-we-do/language-expert-services/creative-digital-content',
+				href: '/what-we-do/localization-services/creative-digital-content',
 			},
 		],
 	},
@@ -109,4 +109,4 @@ export const resolveSecondaryNav = (pathname) => {
 	}
 }
 
-export { secondaryNavTree }
+export { normalizePath, secondaryNavTree }

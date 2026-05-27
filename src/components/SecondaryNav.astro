@@ -1,13 +1,17 @@
 ---
+import { normalizePath } from '../utils/secondary-nav'
+
 const { breadcrumbs = [], links = [], pathname = '/', current = null, parent = null } = Astro.props
+const currentPath = normalizePath(pathname)
 const mobileLinksPopoverId = `secondary-nav-links-${
-	pathname
+	currentPath
 		.replace(/[^a-z0-9]+/gi, '-')
 		.replace(/^-|-$/g, '')
 		.toLowerCase() || 'root'
 }`
 const currentLabel = current?.label ?? breadcrumbs.at(-1)?.label ?? ''
-const shouldRenderCurrentAsPill = Boolean(current?.href && breadcrumbs[0]?.href === current.href)
+const shouldRenderCurrentAsPill = Boolean(current?.href && normalizePath(breadcrumbs[0]?.href) === normalizePath(current.href))
+const isLinkActive = (href) => normalizePath(href) === currentPath
 ---
 
 <section class="bg-primary text-white" style="anchor-name: --secondary-nav-mobile-anchor;" data-theme="primary">
@@ -65,7 +69,7 @@ const shouldRenderCurrentAsPill = Boolean(current?.href && breadcrumbs[0]?.href 
 					<div id={mobileLinksPopoverId} popover="auto" role="menu" class="dropdown px-5- z-20 w-full transform-none! overflow-clip bg-primary-darker py-3 shadow-lg sm:m-1.5 sm:w-80 sm:rounded" style="position-anchor: --secondary-nav-mobile-anchor; top: anchor(bottom); right: 0; left: auto;">
 						<ul>
 							{links.map((link) => {
-								const isActive = link.href === pathname
+								const isActive = isLinkActive(link.href)
 								return (
 									<li>
 										<a href={link.href} role="menuitem" aria-current={isActive ? 'page' : undefined} class:list={['block px-5 py-2 text-sm text-white transition-colors', isActive ? 'font-semibold' : 'font-medium hover:text-primary-lighter']}>
@@ -137,10 +141,10 @@ const shouldRenderCurrentAsPill = Boolean(current?.href && breadcrumbs[0]?.href 
 					<nav aria-label="Section pages" class="self-stretch">
 						<ul class="flex h-full flex-wrap items-stretch gap-px">
 							{links.map((link) => {
-								const isActive = link.href === pathname
+								const isActive = isLinkActive(link.href)
 								return (
 									<li class="flex h-full">
-										<a href={link.href} aria-current={isActive ? 'page' : undefined} class:list={['py-3- flex h-full items-center px-2 text-sm font-semibold transition-colors hover:bg-primary-dark', isActive ? 'bg-primary-dark' : '']}>
+										<a href={link.href} aria-current={isActive ? 'page' : undefined} class:list={['py-3- flex h-full items-center px-2 text-sm font-semibold transition-colors hover:bg-primary-dark aria-[current=page]:bg-primary-dark']}>
 											{link.label}
 										</a>
 									</li>
