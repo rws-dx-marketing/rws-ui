@@ -10,9 +10,9 @@ const cards = [1, 2, 3]
 
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<div class="mx-auto mb-8 max-w-screen-xl px-8 lg:px-12 xl:mb-12">
-			<div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+			<div class="grid gap-8 sm:data-[count='3']:grid-cols-3 sm:data-[count='4']:grid-cols-2 sm:data-[count='5']:grid-cols-2 lg:data-[count='4']:grid-cols-4 lg:data-[count='5']:grid-cols-5" data-count="3">
 				<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
-					<h3 class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 200ms" data-count-up>50%</h3>
+					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 200ms" data-count-up>50%</p>
 
 					<div class="intersect-once intersect:motion-preset-slide-up-sm" style="--motion-delay: 200ms">
 						<p class="text-lg/tight font-bold">increase in revenue</p>
@@ -30,7 +30,7 @@ const cards = [1, 2, 3]
 				</div>
 
 				<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
-					<h3 class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 400ms" data-count-up>123</h3>
+					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 400ms" data-count-up>123</p>
 
 					<div class="intersect-once intersect:motion-preset-slide-up-sm" style="--motion-delay: 400ms">
 						<p class="text-lg/tight font-bold">weeks</p>
@@ -38,7 +38,16 @@ const cards = [1, 2, 3]
 					</div>
 				</div>
 
-				<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
+				<div hidden class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
+					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 500ms" data-count-up>10k-13k</p>
+
+					<div class="intersect-once intersect:motion-preset-slide-up-sm" style="--motion-delay: 500ms">
+						<p class="text-lg/tight font-bold">turnaround time</p>
+						<p>compared to 2016</p>
+					</div>
+				</div>
+
+				<div hidden class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
 					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 500ms" data-count-up>10k-13k</p>
 
 					<div class="intersect-once intersect:motion-preset-slide-up-sm" style="--motion-delay: 500ms">
@@ -98,6 +107,13 @@ const cards = [1, 2, 3]
 								<a href="#" class="btn btn-secondary btn-sm">Call to action</a>
 							</div>
 						</div>
+					</div>
+
+					<div>
+						<button class="btn btn-outline btn-icon-right w-full">
+							Save as PDF
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="128" y1="144" x2="128" y2="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="216 144 216 208 40 208 40 144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><polyline points="168 104 128 144 88 104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						</button>
 					</div>
 				</div>
 			</aside>

@@ -47,7 +47,7 @@
 
 [data-theme='dots'],
 [data-theme='dots-enhanced'] {
-	--background: color-mix(in oklch, var(--color-tertiary-lightest) 33%, transparent);
+	--background: color-mix(in oklch, var(--color-tertiary-50) 33%, transparent);
 	--foreground: var(--color-gray-900);
 	--accent: var(--color-primary);
 	--accent-foreground: var(--color-white);
