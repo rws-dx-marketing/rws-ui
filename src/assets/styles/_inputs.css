@@ -65,3 +65,7 @@
 @utility input-lg {
 	@apply px-5 pt-2.25 pb-2.75 text-lg;
 }
+
+@utility input-xl {
+	@apply px-6 pt-3 pb-3.5 text-xl;
+}
