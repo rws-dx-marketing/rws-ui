@@ -45,4 +45,13 @@ Animations use Tailwind Motion's `intersect:motion-preset-*` classes with `inter
 Static data (e.g. partner lists) lives in `src/data/` as JS/TS modules and is imported directly into `.astro` files at build time.
 
 ### Theming
-Components accept `data-theme` attributes to switch between light/dark visual variants. The theme toggle script sets `data-theme` on `<html>` and persists to localStorage.
+Components accept `data-theme` attributes to switch between visual variants.
+
+## Response Style
+
+- Be concise. State the fix first, reasoning second.
+- No preamble, no flattering summaries, no closing fluff.
+- Prefer targeted edits over rewriting large files.
+- Read each file once unless it changed.
+- When debugging: form a hypothesis, test it, report result. Do not explore multiple theories simultaneously.
+- If stuck after two attempts, stop and ask me a specific question rather than continuing to try things.
