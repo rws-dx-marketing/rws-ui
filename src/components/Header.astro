@@ -1261,7 +1261,7 @@
 		const searchDivider = document.getElementById('search-divider')
 		const searchForm = document.getElementById('search-form')
 
-		const DUMMY_RESPONSE = "That's a great question. RWS is a world-leading provider of technology-enabled language, content management and intellectual property services. Is there anything specific you'd like to know?"
+		const DUMMY_RESPONSE = 'I’m Ask RWS – here to help you quickly find the most relevant and accurate information on RWS technologies, services, solutions and insights. What would you like to know?'
 		const MAX_MESSAGES_HEIGHT = Math.floor(window.innerHeight * 0.45)
 
 		function syncHeight() {
@@ -1278,6 +1278,25 @@
 			const el = document.createElement('div')
 			el.className = role === 'user' ? 'self-end max-w-[80%] rounded-2xl rounded-br-sm bg-foreground/5 px-4 py-3 text-sm font-medium text-foreground' : 'self-start max-w-[80%] rounded-2xl rounded-bl-sm bg-accent/10 px-4 py-3 text-sm font-medium text-foreground'
 			el.textContent = text
+			searchMessages.appendChild(el)
+			syncHeight()
+			return el
+		}
+
+		function appendPageCard({ href, image, alt, title, excerpt }) {
+			if (!(searchMessages instanceof HTMLElement)) return null
+			const el = document.createElement('a')
+			el.href = href
+			el.className = 'flex w-full max-w-[75%] items-center overflow-clip rounded bg-linear-to-r from-transparent from-[0.5rem] via-tertiary via-[0.5rem] to-tertiary text-white no-underline transition-opacity hover:opacity-90'
+			el.innerHTML = `
+					<div class="shrink-0">
+						<img src="${image}" alt="${alt}" class="size-24 object-cover" />
+					</div>
+					<div class="min-w-0 p-5">
+						<p class="truncate text-sm font-semibold">${title}</p>
+						<p class="mt-0.5 line-clamp-2 font-medium text-xs text-white/80">${excerpt}</p>
+					</div>
+				`
 			searchMessages.appendChild(el)
 			syncHeight()
 			return el
@@ -1348,6 +1367,13 @@
 				setTimeout(() => {
 					loader?.remove()
 					appendMessage(DUMMY_RESPONSE, 'assistant')
+					appendPageCard({
+						href: '#',
+						image: 'https://placehold.co/512',
+						alt: 'Placeholder',
+						title: 'Translation Services',
+						excerpt: 'Expert human translation across 200+ languages, combining specialist linguists with cutting-edge technology to deliver accuracy at scale.',
+					})
 				}, 2000)
 			})
 		}
