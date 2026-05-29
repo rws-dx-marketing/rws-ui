@@ -960,12 +960,11 @@
 
 <button id="mobile-shell-close-hitarea" type="button" class="pointer-events-none fixed right-0 bottom-0 left-(--mobile-menu-width) z-998 lg:hidden" style="top: var(--mobile-menu-top, 0px);" aria-label="Close main menu"></button>
 
-<!-- Search dialog -->
 <dialog id="search-dialog" class="m-0 hidden h-screen max-h-none w-screen max-w-none scale-95 transform-gpu flex-col items-center justify-center gap-6 bg-transparent p-6 opacity-0 transition transition-discrete outline-none backdrop:bg-transparent backdrop:transition backdrop:transition-discrete open:flex open:scale-100 open:opacity-100 open:backdrop:bg-black/90 starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-transparent">
 	<h2 class="text-3xl font-extrabold text-white">Ask RWS</h2>
 	<div class="w-full max-w-2xl" data-theme="default">
-		<div class="rounded-4xl bg-background">
-			<div id="search-chat" class="h-0 overflow-y-auto transition-[height]">
+		<div class="overflow-clip rounded-4xl bg-background">
+			<div id="search-chat" class="h-0 scrollbar-thin scrollbar-thumb-accent scrollbar-track-accent/10 scrollbar-gutter-stable overflow-y-auto transition-[height]">
 				<div id="search-messages" class="flex flex-col gap-3"></div>
 			</div>
 
