@@ -149,23 +149,24 @@
 }
 
 @layer components {
-	.btn-stars {
-		& svg path {
-			@apply opacity-0;
+	.stars {
+		& svg path[class] {
+			@apply scale-0;
+			paint-order: stroke;
 		}
 
-		& svg path:nth-child(1) {
+		& svg path:nth-child(1 of [class]) {
 			@apply origin-center animate-twinkle;
 			transform-box: fill-box;
 		}
 
-		& svg path:nth-child(2) {
+		& svg path:nth-child(2 of [class]) {
 			@apply origin-center animate-twinkle;
 			transform-box: fill-box;
 			animation-delay: 0.6s;
 		}
 
-		& svg path:nth-child(3) {
+		& svg path:nth-child(3 of [class]) {
 			@apply origin-center animate-twinkle;
 			transform-box: fill-box;
 			animation-delay: 1.2s;
