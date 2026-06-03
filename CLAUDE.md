@@ -47,6 +47,10 @@ Static data (e.g. partner lists) lives in `src/data/` as JS/TS modules and is im
 ### Theming
 Components accept `data-theme` attributes to switch between visual variants.
 
+## Project context
+
+This repo is a **design/prototype playground** — components and scripts are built here first, then ported to the real production codebase, which is a **.NET / Razor** project in a separate repo. When something works here but not there, the most likely causes are markup differences (missing IDs, different element structure) rather than script bugs.
+
 ## Response Style
 
 - Be concise. State the fix first, reasoning second.
