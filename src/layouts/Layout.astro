@@ -29,7 +29,7 @@ const secondaryNav = resolveSecondaryNav(pathname)
 	<body>
 		<Header />
 
-		<div id="page-shell" class="isolate origin-right bg-white transition-[translate,scale,height,border-radius] motion-reduce:transition-none">
+		<div id="page-shell" class="isolate origin-right bg-white transition-[translate,scale,height,border-radius] motion-reduce:transition-none lg:transition-none">
 			{secondaryNav ? <SecondaryNav breadcrumbs={secondaryNav.breadcrumbs} links={secondaryNav.links} current={secondaryNav.current} parent={secondaryNav.parent} pathname={pathname} /> : null}
 			<slot />
 		</div>

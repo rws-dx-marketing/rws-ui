@@ -203,11 +203,11 @@
 
 					<div id="desktop-about-menu" popover="auto" role="menu" aria-labelledby="desktop-about-menu-button" class="dropdown z-20 mt-2 overflow-clip rounded-lg bg-tertiary-lightest p-4 shadow-lg" style="--dropdown-ideal-width: 56rem; position-anchor: --desktop-about-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
 						<div class="grid grid-cols-3 gap-4">
-							<section>
+							<section class="flex h-full flex-col">
 								<div class="mb-3 px-3">
 									<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-tertiary/66 uppercase">Use cases</a>
 								</div>
-								<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
+								<div class="h-full rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
 									<ul class="space-y-1">
 										<li>
 											<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
@@ -248,11 +248,11 @@
 								</div>
 							</section>
 
-							<section>
+							<section class="flex h-full flex-col">
 								<div class="mb-3 px-3">
 									<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-tertiary/66 uppercase">Industries</a>
 								</div>
-								<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
+								<div class="h-full rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
 									<ul class="space-y-1">
 										<li><a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15"><span class="inline-flex size-4 shrink-0 items-center justify-center" hidden aria-hidden="true"></span><span>Aero &amp; defense</span></a></li>
 										<li><a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15"><span class="inline-flex size-4 shrink-0 items-center justify-center" hidden aria-hidden="true"></span><span>Automotive</span></a></li>
@@ -269,11 +269,11 @@
 								</div>
 							</section>
 
-							<section>
+							<section class="flex h-full flex-col">
 								<div class="mb-3 px-3">
 									<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-tertiary/66 uppercase">Roles</a>
 								</div>
-								<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
+								<div class="h-full rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
 									<ul class="space-y-1">
 										<li><a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15"><span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>AI training data</span></a></li>
 										<li><a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15"><span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Secure MT</span></a></li>
@@ -815,7 +815,7 @@
 							</section>
 						</li>
 
-						<li>
+						<!-- <li>
 							<button type="button" data-mobile-menu-target="resources" class="flex w-full items-center justify-between gap-x-4 text-left text-2xl/none font-medium">
 								Resources
 								<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
@@ -911,14 +911,14 @@
 									</section>
 								</div>
 							</section>
-						</li>
+						</li> -->
 
 						<li>
-							<button type="button" data-mobile-menu-target="resources-alt" class="flex w-full items-center justify-between gap-x-4 text-left text-2xl/none font-medium">
-								Resources alt
+							<button type="button" data-mobile-menu-target="resources" class="flex w-full items-center justify-between gap-x-4 text-left text-2xl/none font-medium">
+								Resources
 								<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 							</button>
-							<section data-mobile-menu-view="resources-alt" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
+							<section data-mobile-menu-view="resources" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
 								<div class="mb-8 flex items-center gap-3">
 									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
 										<span class="sr-only">Back</span>
