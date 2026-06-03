@@ -5,6 +5,7 @@ import countUp from './count-up'
 import dotsGrid from './dots-grid'
 import dropdownFilters from './dropdown-filters'
 import dropdownLabels from './dropdown-labels'
+import accordion from './accordion'
 import primaryNav from './primary-nav'
 import postNav from './post-nav'
 
@@ -28,6 +29,7 @@ if (typeof window !== 'undefined') {
 		dropdownFilters()
 		cardFilters()
 		dropdownLabels()
+		accordion()
 		postNav()
 	})
 }
