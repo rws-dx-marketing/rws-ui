@@ -269,6 +269,9 @@ export default function primaryNav() {
 	setMenuState(false)
 	resetMobileMenuViews()
 	syncDesktopMenuTriggerState()
+	requestAnimationFrame(() => {
+		menuPanel?.classList.add('transition-transform')
+	})
 
 	if ('ResizeObserver' in window && growler) {
 		const resizeObserver = new ResizeObserver(() => {
