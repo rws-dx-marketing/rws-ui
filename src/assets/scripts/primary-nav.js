@@ -2,7 +2,6 @@ export default function primaryNav() {
 	if (typeof window === 'undefined') return
 
 	const root = document.documentElement
-	const growler = document.getElementById('growler')
 	const header = document.getElementById('site-header')
 	const menuToggle = document.getElementById('mobile-menu-toggle')
 	const menuPanel = document.getElementById('mobile-menu-panel')
@@ -47,18 +46,12 @@ export default function primaryNav() {
 	const mobileViewForwardOffscreenClass = 'translate-x-[calc(100%+2rem)]'
 	const mobileViewBackOffscreenClass = '-translate-x-[calc(100%+2rem)]'
 	const shellMotionClasses = ['translate-x-[calc(var(--mobile-menu-width)-10vw)]', 'scale-90']
-	const shellLockClasses = []
 	const getTransitionDurationMs = () => {
 		const rawDuration = getComputedStyle(root).getPropertyValue('--default-transition-duration').trim()
 		if (!rawDuration) return 400
 		if (rawDuration.endsWith('ms')) return Number.parseFloat(rawDuration) || 400
 		if (rawDuration.endsWith('s')) return (Number.parseFloat(rawDuration) || 0.4) * 1000
 		return Number.parseFloat(rawDuration) || 400
-	}
-
-	const updateHeaderHeight = () => {
-		if (!root || !header) return
-		root.style.setProperty('--mobile-menu-top', `${Math.max(0, header.getBoundingClientRect().bottom)}px`)
 	}
 
 	const getMobileMenuView = (viewId) => mobileMenuViews.find((view) => view instanceof HTMLElement && view.dataset.mobileMenuView === viewId)
@@ -75,7 +68,6 @@ export default function primaryNav() {
 		currentMobileView = 'root'
 	}
 	const setMobileMenuView = (nextViewId) => {
-		console.log('[primary-nav] mobile view', currentMobileView, '→', nextViewId)
 		const currentView = getMobileMenuView(currentMobileView)
 		const nextView = getMobileMenuView(nextViewId)
 		if (!(currentView instanceof HTMLElement) || !(nextView instanceof HTMLElement)) return
@@ -96,11 +88,11 @@ export default function primaryNav() {
 	}
 
 	const setMenuState = (isOpen) => {
-		console.log('[primary-nav] mobile menu', isOpen ? 'open' : 'close')
 		if (!menuToggle || !menuPanel || !shellCloseHitarea) return
 		const shellTarget = getShellTarget()
 		const transitionDurationMs = getTransitionDurationMs()
-		// Capture before lockDocumentScroll — iOS Safari changes getBCR values after body becomes fixed
+		// Capture shell rect before lockDocumentScroll — on Android, body becomes position:fixed
+		// which changes getBoundingClientRect values for elements inside it.
 		const preScrollY = window.scrollY
 		const preShellRect = shellTarget instanceof HTMLElement ? shellTarget.getBoundingClientRect() : null
 		if (closeCleanupTimer) {
@@ -109,14 +101,13 @@ export default function primaryNav() {
 		}
 		root.dataset.mobileMenuOpen = isOpen ? 'true' : 'false'
 		if (isOpen) {
-			// Force header visible (it may be auto-hidden by scroll) and anchor the menu below it.
-			// Derive --mobile-menu-top from offsetHeight rather than BCR — BCR is unreliable mid-transition
-			// and on iOS where there's no body-fixed to reset the sticky scroll context.
+			// Force header visible (it may be auto-hidden by scroll). Suppress its CSS transition
+			// so it snaps instantly rather than animating during menu open. BCR is read after the
+			// property change so it correctly includes growler height when at the top of the page.
 			if (header instanceof HTMLElement) {
 				header.style.transition = 'none'
 				root.style.setProperty('--header-top', '0px')
 				root.style.setProperty('--secondary-nav-top', `${header.offsetHeight}px`)
-				// Use BCR after forcing header visible — correctly includes growler height at top of page
 				root.style.setProperty('--mobile-menu-top', `${Math.max(0, header.getBoundingClientRect().bottom)}px`)
 				requestAnimationFrame(() => { header.style.transition = '' })
 			}
@@ -140,9 +131,6 @@ export default function primaryNav() {
 				shellTarget.style.willChange = 'transform, clip-path'
 				shellTarget.style.clipPath = shellClipPath
 				shellMotionClasses.forEach((className) => {
-					shellTarget.classList.add(className)
-				})
-				shellLockClasses.forEach((className) => {
 					shellTarget.classList.add(className)
 				})
 			}
@@ -175,9 +163,6 @@ export default function primaryNav() {
 			closeCleanupTimer = window.setTimeout(() => {
 				resetMobileMenuViews()
 				if (shellTarget instanceof HTMLElement) {
-					shellLockClasses.forEach((className) => {
-						shellTarget.classList.remove(className)
-					})
 					shellTarget.style.transformOrigin = ''
 					shellTarget.style.willChange = ''
 					if (clipAnimation) {
@@ -311,7 +296,6 @@ export default function primaryNav() {
 		})
 		popover.addEventListener('toggle', (event) => {
 			const nextState = event.newState ?? (popover.matches(':popover-open') ? 'open' : 'closed')
-			console.log('[primary-nav] desktop popover', popover.id, nextState)
 			if (nextState === 'open') {
 				currentDesktopOpenIndex = popoverPair.index
 			} else if (currentDesktopOpenIndex === popoverPair.index) {
@@ -325,7 +309,6 @@ export default function primaryNav() {
 			if (event.target === languageChangeDialog) languageChangeDialog.close()
 		})
 		languageChangeDialog.addEventListener('toggle', (event) => {
-			console.log('[primary-nav] language dialog', event.newState)
 			if (event.newState === 'open') {
 				lockDocumentScroll()
 			} else if (event.newState === 'closed') {
@@ -446,7 +429,6 @@ export default function primaryNav() {
 			if (event.newState === 'open') resetSearch()
 		})
 		searchDialog.addEventListener('toggle', (event) => {
-			console.log('[primary-nav] search dialog', event.newState)
 			if (event.newState === 'open') {
 				lockDocumentScroll()
 				searchInput?.focus()
@@ -489,7 +471,6 @@ export default function primaryNav() {
 	}
 
 	searchToggle?.addEventListener('click', () => {
-		console.log('[primary-nav] search toggle clicked')
 		if (searchDialog instanceof HTMLDialogElement && !searchDialog.open) searchDialog.showModal()
 	})
 }
