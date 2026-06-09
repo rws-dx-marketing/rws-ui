@@ -36,13 +36,12 @@ export default function primaryNav() {
 	let lastFocusedElement = null
 	let closeCleanupTimer = null
 	let currentMobileView = 'root'
-	let savedDocumentOverflow = null
-	let savedBodyOverflow = null
+	let scrollLocked = false
 	const getShellTarget = () => document.getElementById('page-shell') ?? document.querySelector('main')
 	const mobileViewForwardOffscreenClass = 'translate-x-[calc(100%+2rem)]'
 	const mobileViewBackOffscreenClass = '-translate-x-[calc(100%+2rem)]'
-	const shellMotionClasses = ['translate-x-[calc(var(--mobile-menu-width)-10vw)]', 'translate-y-(--popup-link)', 'scale-90', 'rounded-2xl']
-	const shellLockClasses = ['h-[calc(100dvh-var(--mobile-menu-top))]', 'overflow-clip']
+	const shellMotionClasses = ['translate-x-[calc(var(--mobile-menu-width)-10vw)]', 'scale-90', 'rounded-2xl']
+	const shellLockClasses = []
 	const getTransitionDurationMs = () => {
 		const rawDuration = getComputedStyle(root).getPropertyValue('--default-transition-duration').trim()
 		if (!rawDuration) return 400
@@ -51,17 +50,11 @@ export default function primaryNav() {
 		return Number.parseFloat(rawDuration) || 400
 	}
 
-	const updateGrowlerHeight = () => {
-		if (!root) return
-		const growlerHeight = growler && !growler.hidden ? growler.offsetHeight : 0
-		root.style.setProperty('--popup-link', `${growlerHeight}px`)
-	}
-
 	const updateHeaderHeight = () => {
 		if (!root || !header) return
-		const popupOffset = Number.parseFloat(getComputedStyle(root).getPropertyValue('--popup-link')) || 0
-		root.style.setProperty('--mobile-menu-top', `${popupOffset + header.offsetHeight}px`)
+		root.style.setProperty('--mobile-menu-top', `${Math.max(0, header.getBoundingClientRect().bottom)}px`)
 	}
+
 	const getMobileMenuView = (viewId) => mobileMenuViews.find((view) => view instanceof HTMLElement && view.dataset.mobileMenuView === viewId)
 	const resetMobileMenuViews = () => {
 		mobileMenuViews.forEach((view) => {
@@ -107,6 +100,7 @@ export default function primaryNav() {
 		}
 		root.dataset.mobileMenuOpen = isOpen ? 'true' : 'false'
 		if (isOpen) {
+			updateHeaderHeight()
 			lockDocumentScroll()
 		}
 		menuToggle.setAttribute('aria-expanded', String(isOpen))
@@ -117,6 +111,14 @@ export default function primaryNav() {
 		if (menuOpenIcon instanceof HTMLElement) menuOpenIcon.hidden = !isOpen
 		if (shellTarget instanceof HTMLElement) {
 			if (isOpen) {
+				const shellRect = shellTarget.getBoundingClientRect()
+				const shellDocTop = shellRect.top + window.scrollY
+				const menuTop = parseFloat(getComputedStyle(root).getPropertyValue('--mobile-menu-top')) || 0
+				const topClip = Math.max(0, menuTop - shellRect.top)
+				const bottomClip = Math.max(0, shellRect.bottom - window.innerHeight)
+				const originY = window.scrollY + window.innerHeight / 2 - shellDocTop
+				shellTarget.style.transformOrigin = `right ${originY}px`
+				shellTarget.style.clipPath = `inset(${topClip}px 0 ${bottomClip}px 0 round 1rem)`
 				shellMotionClasses.forEach((className) => {
 					shellTarget.classList.add(className)
 				})
@@ -139,6 +141,8 @@ export default function primaryNav() {
 					shellLockClasses.forEach((className) => {
 						shellTarget.classList.remove(className)
 					})
+					shellTarget.style.transformOrigin = ''
+					shellTarget.style.clipPath = ''
 				}
 				unlockDocumentScroll()
 				document.body.style.backgroundColor = ''
@@ -172,25 +176,23 @@ export default function primaryNav() {
 			button.setAttribute('aria-expanded', String(isOpen))
 		})
 	}
+	const preventScroll = (e) => {
+		e.preventDefault()
+	}
 	const lockDocumentScroll = () => {
-		if (savedDocumentOverflow !== null) return
-		savedDocumentOverflow = document.documentElement.style.overflow || ''
-		savedBodyOverflow = document.body.style.overflow || ''
+		if (scrollLocked) return
+		scrollLocked = true
 		document.documentElement.style.overflow = 'hidden'
-		document.body.style.overflow = 'hidden'
+		document.addEventListener('wheel', preventScroll, { passive: false })
+		document.addEventListener('touchmove', preventScroll, { passive: false })
 	}
 	const unlockDocumentScroll = () => {
-		if (savedDocumentOverflow === null) return
-		document.documentElement.style.overflow = savedDocumentOverflow
-		document.body.style.overflow = savedBodyOverflow
-		savedDocumentOverflow = null
-		savedBodyOverflow = null
+		if (!scrollLocked) return
+		scrollLocked = false
+		document.documentElement.style.overflow = ''
+		document.removeEventListener('wheel', preventScroll)
+		document.removeEventListener('touchmove', preventScroll)
 	}
-	window.addEventListener('load', updateGrowlerHeight)
-	window.addEventListener('load', updateHeaderHeight)
-	window.addEventListener('resize', updateGrowlerHeight)
-	window.addEventListener('resize', updateHeaderHeight)
-
 	menuToggle?.addEventListener('click', toggleMenu)
 	shellCloseHitarea?.addEventListener('click', closeMenu)
 	menuPanel?.addEventListener('click', (event) => {
@@ -272,15 +274,6 @@ export default function primaryNav() {
 	requestAnimationFrame(() => {
 		menuPanel?.classList.add('transition-transform')
 	})
-
-	if ('ResizeObserver' in window && growler) {
-		const resizeObserver = new ResizeObserver(() => {
-			updateGrowlerHeight()
-			updateHeaderHeight()
-		})
-		resizeObserver.observe(growler)
-		if (header) resizeObserver.observe(header)
-	}
 
 	const searchToggle = document.getElementById('search-toggle')
 	const searchDialog = document.getElementById('search-dialog')

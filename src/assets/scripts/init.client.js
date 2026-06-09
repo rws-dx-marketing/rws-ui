@@ -7,6 +7,7 @@ import dropdownFilters from './dropdown-filters'
 import dropdownLabels from './dropdown-labels'
 import accordion from './accordion'
 import primaryNav from './primary-nav'
+import headerScroll from './header-scroll'
 import postNav from './post-nav'
 
 if (typeof window !== 'undefined') {
@@ -25,6 +26,7 @@ if (typeof window !== 'undefined') {
 	window.addEventListener('load', () => {
 		initFlowbite()
 		primaryNav()
+		headerScroll()
 		dotsGrid()
 		dropdownFilters()
 		cardFilters()
