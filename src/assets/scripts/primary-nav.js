@@ -177,6 +177,7 @@ export default function primaryNav() {
 		})
 	}
 	const preventScroll = (e) => {
+		if (e.target instanceof Node && menuPanel?.contains(e.target)) return
 		e.preventDefault()
 	}
 	const lockDocumentScroll = () => {
