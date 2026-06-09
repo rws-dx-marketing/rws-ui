@@ -32,11 +32,14 @@ export default function primaryNav() {
 			return { button, popover, index }
 		})
 		.filter((pair) => pair !== null)
+	const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+	let touchStartY = 0
 	let currentDesktopOpenIndex = -1
 	let lastFocusedElement = null
 	let closeCleanupTimer = null
 	let currentMobileView = 'root'
 	let scrollLocked = false
+	let lockedScrollY = 0
 	let shellClipPath = ''
 	let shellClipValues = { topClip: 0, bottomClip: 0 }
 	let clipAnimation = null
@@ -97,33 +100,40 @@ export default function primaryNav() {
 		if (!menuToggle || !menuPanel || !shellCloseHitarea) return
 		const shellTarget = getShellTarget()
 		const transitionDurationMs = getTransitionDurationMs()
+		// Capture before lockDocumentScroll — iOS Safari changes getBCR values after body becomes fixed
+		const preScrollY = window.scrollY
+		const preShellRect = shellTarget instanceof HTMLElement ? shellTarget.getBoundingClientRect() : null
 		if (closeCleanupTimer) {
 			window.clearTimeout(closeCleanupTimer)
 			closeCleanupTimer = null
 		}
 		root.dataset.mobileMenuOpen = isOpen ? 'true' : 'false'
 		if (isOpen) {
-			updateHeaderHeight()
-			lockDocumentScroll()
-		}
-		menuToggle.setAttribute('aria-expanded', String(isOpen))
-		menuPanel.setAttribute('aria-hidden', String(!isOpen))
-		menuPanel.style.translate = isOpen ? '0' : '-100%'
-		shellCloseHitarea.style.pointerEvents = isOpen ? 'auto' : 'none'
-		if (menuClosedIcon instanceof HTMLElement) menuClosedIcon.hidden = isOpen
-		if (menuOpenIcon instanceof HTMLElement) menuOpenIcon.hidden = !isOpen
-		if (shellTarget instanceof HTMLElement) {
-			if (isOpen) {
+			// Force header visible (it may be auto-hidden by scroll) and anchor the menu below it.
+			// Derive --mobile-menu-top from offsetHeight rather than BCR — BCR is unreliable mid-transition
+			// and on iOS where there's no body-fixed to reset the sticky scroll context.
+			if (header instanceof HTMLElement) {
+				header.style.transition = 'none'
+				root.style.setProperty('--header-top', '0px')
+				root.style.setProperty('--secondary-nav-top', `${header.offsetHeight}px`)
+				// Use BCR after forcing header visible — correctly includes growler height at top of page
+				root.style.setProperty('--mobile-menu-top', `${Math.max(0, header.getBoundingClientRect().bottom)}px`)
+				requestAnimationFrame(() => { header.style.transition = '' })
+			}
+			// Apply shell transforms and background BEFORE locking scroll.
+			// iOS Safari fires a synchronous repaint when body becomes position:fixed —
+			// if the shell is already composited and clipped the repaint shows no white flash.
+			if (shellTarget instanceof HTMLElement) {
 				if (clipAnimation) {
 					clipAnimation.cancel()
 					clipAnimation = null
 				}
-				const shellRect = shellTarget.getBoundingClientRect()
-				const shellDocTop = shellRect.top + window.scrollY
+				const shellRect = preShellRect ?? shellTarget.getBoundingClientRect()
+				const shellDocTop = shellRect.top + preScrollY
 				const menuTop = parseFloat(getComputedStyle(root).getPropertyValue('--mobile-menu-top')) || 0
 				const topClip = Math.max(0, menuTop - shellRect.top)
 				const bottomClip = Math.max(0, shellRect.bottom - window.innerHeight)
-				const originY = window.scrollY + window.innerHeight / 2 - shellDocTop
+				const originY = preScrollY + window.innerHeight / 2 - shellDocTop
 				shellTarget.style.transformOrigin = `right ${originY}px`
 				shellClipValues = { topClip, bottomClip }
 				shellClipPath = `inset(${topClip}px 0 ${bottomClip}px 0 round 1rem)`
@@ -135,26 +145,33 @@ export default function primaryNav() {
 				shellLockClasses.forEach((className) => {
 					shellTarget.classList.add(className)
 				})
-			} else {
-				if (clipAnimation) {
-					clipAnimation.cancel()
-					clipAnimation = null
-				}
-				if (shellClipPath) {
-					// Animate only the corner radius — keep topClip/bottomClip identical so the
-					// crop stays intact during the transition. Only round 1rem → 0rem changes.
-					const { topClip, bottomClip } = shellClipValues
-					clipAnimation = shellTarget.animate([{ clipPath: `inset(${topClip}px 0 ${bottomClip}px 0 round 1rem)` }, { clipPath: `inset(${topClip}px 0 ${bottomClip}px 0 round 0rem)` }], { duration: transitionDurationMs, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' })
-				}
-				shellMotionClasses.forEach((className) => {
-					shellTarget.classList.remove(className)
-				})
 			}
+			document.body.style.backgroundColor = '#000'
+			lockDocumentScroll()
+		}
+		menuToggle.setAttribute('aria-expanded', String(isOpen))
+		menuPanel.setAttribute('aria-hidden', String(!isOpen))
+		menuPanel.style.translate = isOpen ? '0' : '-100%'
+		shellCloseHitarea.style.pointerEvents = isOpen ? 'auto' : 'none'
+		if (menuClosedIcon instanceof HTMLElement) menuClosedIcon.hidden = isOpen
+		if (menuOpenIcon instanceof HTMLElement) menuOpenIcon.hidden = !isOpen
+		if (!isOpen && shellTarget instanceof HTMLElement) {
+			if (clipAnimation) {
+				clipAnimation.cancel()
+				clipAnimation = null
+			}
+			if (shellClipPath) {
+				// Animate only the corner radius — keep topClip/bottomClip identical so the
+				// crop stays intact during the transition. Only round 1rem → 0rem changes.
+				const { topClip, bottomClip } = shellClipValues
+				clipAnimation = shellTarget.animate([{ clipPath: `inset(${topClip}px 0 ${bottomClip}px 0 round 1rem)` }, { clipPath: `inset(${topClip}px 0 ${bottomClip}px 0 round 0rem)` }], { duration: transitionDurationMs, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' })
+			}
+			shellMotionClasses.forEach((className) => {
+				shellTarget.classList.remove(className)
+			})
 		}
 
-		if (isOpen) {
-			document.body.style.backgroundColor = '#000'
-		} else {
+		if (!isOpen) {
 			closeCleanupTimer = window.setTimeout(() => {
 				resetMobileMenuViews()
 				if (shellTarget instanceof HTMLElement) {
@@ -201,23 +218,67 @@ export default function primaryNav() {
 			button.setAttribute('aria-expanded', String(isOpen))
 		})
 	}
+	const trackTouchStart = (e) => {
+		touchStartY = e.touches[0]?.clientY ?? 0
+	}
 	const preventScroll = (e) => {
-		if (e.target instanceof Node && menuPanel?.contains(e.target)) return
-		e.preventDefault()
+		if (e.type === 'wheel') {
+			if (e.target instanceof Node && menuPanel?.contains(e.target)) return
+			e.preventDefault()
+			return
+		}
+		// touchmove (iOS): prevent page scroll while allowing panel views to scroll,
+		// but block at scroll boundaries to stop chaining to the page.
+		if (!(e.target instanceof Node) || !menuPanel?.contains(e.target)) {
+			e.preventDefault()
+			return
+		}
+		const view = e.target instanceof Element ? e.target.closest('[data-mobile-menu-view]') : null
+		if (!(view instanceof HTMLElement)) {
+			e.preventDefault()
+			return
+		}
+		const { scrollTop, scrollHeight, clientHeight } = view
+		const touchY = e.touches[0]?.clientY ?? touchStartY
+		const atTop = scrollTop <= 0
+		const atBottom = scrollTop + clientHeight >= scrollHeight - 1
+		// finger moving down = scrolling up toward top; finger moving up = scrolling down toward bottom
+		if ((touchY > touchStartY && atTop) || (touchY < touchStartY && atBottom)) {
+			e.preventDefault()
+		}
 	}
 	const lockDocumentScroll = () => {
 		if (scrollLocked) return
 		scrollLocked = true
-		document.documentElement.style.overflow = 'hidden'
+		lockedScrollY = window.scrollY
+		document.documentElement.style.backgroundColor = '#000'
+		if (isIOS) {
+			// Prevent scroll via touchmove — avoids position:fixed which triggers
+			// a repaint flash on iOS Safari, and avoids overflow:hidden on html
+			// which breaks position:sticky for the header.
+			document.addEventListener('touchstart', trackTouchStart, { passive: true })
+			document.addEventListener('touchmove', preventScroll, { passive: false })
+		} else {
+			document.body.style.top = `-${lockedScrollY}px`
+			document.body.style.position = 'fixed'
+			document.body.style.width = '100%'
+		}
 		document.addEventListener('wheel', preventScroll, { passive: false })
-		document.addEventListener('touchmove', preventScroll, { passive: false })
 	}
 	const unlockDocumentScroll = () => {
 		if (!scrollLocked) return
 		scrollLocked = false
-		document.documentElement.style.overflow = ''
+		document.documentElement.style.backgroundColor = ''
+		if (isIOS) {
+			document.removeEventListener('touchstart', trackTouchStart)
+			document.removeEventListener('touchmove', preventScroll)
+		} else {
+			document.body.style.position = ''
+			document.body.style.top = ''
+			document.body.style.width = ''
+			window.scrollTo({ top: lockedScrollY, behavior: 'instant' })
+		}
 		document.removeEventListener('wheel', preventScroll)
-		document.removeEventListener('touchmove', preventScroll)
 	}
 	menuToggle?.addEventListener('click', toggleMenu)
 	shellCloseHitarea?.addEventListener('click', closeMenu)
