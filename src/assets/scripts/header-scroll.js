@@ -5,91 +5,100 @@ export default function headerScroll() {
 	const header = document.getElementById('site-header')
 	if (!header) return
 
-	let lastScrollY = 0
+	let lastScrollY = window.scrollY
 	let headerHidden = false
-	let isTouching = false
-	let touchEndTime = 0
-	let lastTouchY = 0
-	const HIDE_THRESHOLD = 100
-	const SCROLL_DELTA = 8
-	const TOUCH_DELTA = 5
-	const MOMENTUM_GRACE_MS = 400
+	let downAccumulator = 0
+	let peakScrollY = 0
+	const HIDE_THRESHOLD = 0
+	const HIDE_AFTER = 20
+	const SHOW_AFTER = 80
 
 	const hideHeader = () => {
+		if (headerHidden) return
 		headerHidden = true
+		downAccumulator = 0
+		peakScrollY = window.scrollY
 		root.style.setProperty('--header-top', `-${header.offsetHeight}px`)
 		root.style.setProperty('--secondary-nav-top', '0px')
 	}
 	const showHeader = () => {
+		if (!headerHidden) return
 		headerHidden = false
 		root.style.setProperty('--header-top', '0px')
 		root.style.setProperty('--secondary-nav-top', `${header.offsetHeight}px`)
 	}
-	const initStickyOffsets = () => {
-		root.style.setProperty('--header-top', '0px')
-		root.style.setProperty('--secondary-nav-top', `${header.offsetHeight}px`)
-	}
-
-	const applyDirection = (scrollY, delta) => {
-		if (scrollY < HIDE_THRESHOLD) {
-			if (headerHidden) showHeader()
-		} else if (delta > 0 && !headerHidden) {
-			hideHeader()
-		} else if (delta < 0 && headerHidden) {
-			showHeader()
+	const syncOffsets = () => {
+		if (headerHidden) {
+			root.style.setProperty('--header-top', `-${header.offsetHeight}px`)
+			root.style.setProperty('--secondary-nav-top', '0px')
+		} else {
+			root.style.setProperty('--header-top', '0px')
+			root.style.setProperty('--secondary-nav-top', `${header.offsetHeight}px`)
 		}
 	}
 
-	// Touch: use finger movement delta — fires only during active drag, never during momentum
-	window.addEventListener('touchstart', (e) => {
-		isTouching = true
-		lastTouchY = e.touches[0].clientY
-	}, { passive: true })
+	// If the page is loaded/restored mid-scroll, hide immediately without transition
+	// to avoid a flash of the header before the IO fires.
+	if (window.scrollY > HIDE_THRESHOLD) {
+		const noTransition = document.createElement('style')
+		noTransition.textContent = '*{transition:none!important}'
+		document.head.appendChild(noTransition)
+		hideHeader()
+		requestAnimationFrame(() => requestAnimationFrame(() => noTransition.remove()))
+	}
 
-	window.addEventListener('touchend', () => {
-		isTouching = false
-		touchEndTime = Date.now()
-	}, { passive: true })
+	// IO handles the reliable initial hide (sentinel exits viewport top) and
+	// the show when the user scrolls all the way back to the top.
+	const sentinel = document.createElement('div')
+	sentinel.setAttribute('aria-hidden', 'true')
+	sentinel.style.cssText = `position:absolute;top:${HIDE_THRESHOLD}px;height:1px;left:0;right:0;pointer-events:none;`
+	document.body.insertBefore(sentinel, document.body.firstChild)
 
-	window.addEventListener('touchcancel', () => {
-		isTouching = false
-		touchEndTime = Date.now()
-	}, { passive: true })
+	new IntersectionObserver(
+		([entry]) => {
+			if (root.dataset.mobileMenuOpen === 'true') return
+			if (entry.isIntersecting) {
+				showHeader()
+			} else if (entry.boundingClientRect.top < 0) {
+				hideHeader()
+			}
+		},
+		{ threshold: 0 },
+	).observe(sentinel)
 
-	window.addEventListener('touchmove', (e) => {
-		const touchY = e.touches[0].clientY
-		const delta = lastTouchY - touchY // positive = finger moving up = scrolling down
-		lastTouchY = touchY
-		if (Math.abs(delta) < TOUCH_DELTA) return
-		applyDirection(window.scrollY, delta)
-	}, { passive: true })
+	// Scroll event handles two cases the IO cannot:
+	// 1. Showing mid-page when the user scrolls up SHOW_AFTER px from their peak.
+	// 2. Re-hiding after a mid-page show — the IO won't fire again because the
+	//    sentinel's intersection state hasn't changed (still above the viewport).
+	window.addEventListener(
+		'scroll',
+		() => {
+			if (root.dataset.mobileMenuOpen === 'true') return
 
-	// Non-touch scroll: mouse wheel, keyboard, scrollbar drag
-	window.addEventListener('scroll', () => {
-		const scrollY = window.scrollY
-		const delta = scrollY - lastScrollY
-		lastScrollY = scrollY
+			const scrollY = window.scrollY
+			const delta = scrollY - lastScrollY
+			lastScrollY = scrollY
 
-		if (isTouching) return // direction handled by touchmove
+			if (!headerHidden) {
+				if (scrollY >= HIDE_THRESHOLD && delta > 0) {
+					downAccumulator += delta
+					if (downAccumulator >= HIDE_AFTER) hideHeader()
+				} else {
+					downAccumulator = 0
+				}
+			} else {
+				downAccumulator = 0
+				if (scrollY > peakScrollY) peakScrollY = scrollY
+				if (scrollY <= peakScrollY - SHOW_AFTER) showHeader()
+			}
+		},
+		{ passive: true },
+	)
 
-		// Near the top: always safe to show header regardless of momentum phase
-		if (scrollY < HIDE_THRESHOLD) {
-			if (headerHidden) showHeader()
-			return
-		}
-
-		// Ignore directional changes during momentum deceleration after touch
-		if (Date.now() - touchEndTime < MOMENTUM_GRACE_MS) return
-
-		if (Math.abs(delta) < SCROLL_DELTA) return
-		applyDirection(scrollY, delta)
-	}, { passive: true })
-
-	window.addEventListener('load', initStickyOffsets)
-	window.addEventListener('resize', initStickyOffsets)
+	window.addEventListener('load', syncOffsets)
+	window.addEventListener('resize', syncOffsets)
 
 	if ('ResizeObserver' in window) {
-		const resizeObserver = new ResizeObserver(initStickyOffsets)
-		resizeObserver.observe(header)
+		new ResizeObserver(syncOffsets).observe(header)
 	}
 }

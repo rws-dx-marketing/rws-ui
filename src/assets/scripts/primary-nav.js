@@ -37,10 +37,13 @@ export default function primaryNav() {
 	let closeCleanupTimer = null
 	let currentMobileView = 'root'
 	let scrollLocked = false
+	let shellClipPath = ''
+	let shellClipValues = { topClip: 0, bottomClip: 0 }
+	let clipAnimation = null
 	const getShellTarget = () => document.getElementById('page-shell') ?? document.querySelector('main')
 	const mobileViewForwardOffscreenClass = 'translate-x-[calc(100%+2rem)]'
 	const mobileViewBackOffscreenClass = '-translate-x-[calc(100%+2rem)]'
-	const shellMotionClasses = ['translate-x-[calc(var(--mobile-menu-width)-10vw)]', 'scale-90', 'rounded-2xl']
+	const shellMotionClasses = ['translate-x-[calc(var(--mobile-menu-width)-10vw)]', 'scale-90']
 	const shellLockClasses = []
 	const getTransitionDurationMs = () => {
 		const rawDuration = getComputedStyle(root).getPropertyValue('--default-transition-duration').trim()
@@ -111,6 +114,10 @@ export default function primaryNav() {
 		if (menuOpenIcon instanceof HTMLElement) menuOpenIcon.hidden = !isOpen
 		if (shellTarget instanceof HTMLElement) {
 			if (isOpen) {
+				if (clipAnimation) {
+					clipAnimation.cancel()
+					clipAnimation = null
+				}
 				const shellRect = shellTarget.getBoundingClientRect()
 				const shellDocTop = shellRect.top + window.scrollY
 				const menuTop = parseFloat(getComputedStyle(root).getPropertyValue('--mobile-menu-top')) || 0
@@ -118,7 +125,10 @@ export default function primaryNav() {
 				const bottomClip = Math.max(0, shellRect.bottom - window.innerHeight)
 				const originY = window.scrollY + window.innerHeight / 2 - shellDocTop
 				shellTarget.style.transformOrigin = `right ${originY}px`
-				shellTarget.style.clipPath = `inset(${topClip}px 0 ${bottomClip}px 0 round 1rem)`
+				shellClipValues = { topClip, bottomClip }
+				shellClipPath = `inset(${topClip}px 0 ${bottomClip}px 0 round 1rem)`
+				shellTarget.style.willChange = 'transform, clip-path'
+				shellTarget.style.clipPath = shellClipPath
 				shellMotionClasses.forEach((className) => {
 					shellTarget.classList.add(className)
 				})
@@ -126,6 +136,16 @@ export default function primaryNav() {
 					shellTarget.classList.add(className)
 				})
 			} else {
+				if (clipAnimation) {
+					clipAnimation.cancel()
+					clipAnimation = null
+				}
+				if (shellClipPath) {
+					// Animate only the corner radius — keep topClip/bottomClip identical so the
+					// crop stays intact during the transition. Only round 1rem → 0rem changes.
+					const { topClip, bottomClip } = shellClipValues
+					clipAnimation = shellTarget.animate([{ clipPath: `inset(${topClip}px 0 ${bottomClip}px 0 round 1rem)` }, { clipPath: `inset(${topClip}px 0 ${bottomClip}px 0 round 0rem)` }], { duration: transitionDurationMs, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' })
+				}
 				shellMotionClasses.forEach((className) => {
 					shellTarget.classList.remove(className)
 				})
@@ -142,6 +162,11 @@ export default function primaryNav() {
 						shellTarget.classList.remove(className)
 					})
 					shellTarget.style.transformOrigin = ''
+					shellTarget.style.willChange = ''
+					if (clipAnimation) {
+						clipAnimation.cancel()
+						clipAnimation = null
+					}
 					shellTarget.style.clipPath = ''
 				}
 				unlockDocumentScroll()
