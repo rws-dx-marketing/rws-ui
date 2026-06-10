@@ -20,6 +20,7 @@ export default function headerScroll() {
 		peakScrollY = window.scrollY
 		root.style.setProperty('--header-top', `-${header.offsetHeight}px`)
 		root.style.setProperty('--secondary-nav-top', '0px')
+		header.querySelectorAll(':popover-open').forEach((p) => p.hidePopover())
 	}
 	const showHeader = () => {
 		if (!headerHidden) return
