@@ -39,20 +39,57 @@ async function openItem(item) {
 	body.style.height = ''
 }
 
+function updateLockedState(items, persist) {
+	const openItems = items.filter((i) => i.open)
+	items.forEach((item) => {
+		if (persist && openItems.length <= 1 && item.open) {
+			item.setAttribute('data-accordion-locked', '')
+		} else {
+			item.removeAttribute('data-accordion-locked')
+		}
+	})
+}
+
 export default function accordion() {
+	accordionImageSwap()
 	document.querySelectorAll('[data-accordion]').forEach((accordion) => {
 		const items = Array.from(accordion.querySelectorAll('details'))
+		const multi = accordion.hasAttribute('data-accordion-multi')
+		const persist = accordion.hasAttribute('data-accordion-persist')
+
 		items.forEach((item) => {
 			if (item.open) item.setAttribute('data-open', '')
-			item.querySelector('summary')?.addEventListener('click', (e) => {
+		})
+		updateLockedState(items, persist)
+
+		items.forEach((item) => {
+			item.querySelector('summary')?.addEventListener('click', async (e) => {
 				e.preventDefault()
 				if (item.open) {
-					closeItem(item)
+					if (persist && items.filter((i) => i.open).length <= 1) return
+					await closeItem(item)
 				} else {
-					items.forEach((other) => {
-						if (other !== item && other.open) closeItem(other)
-					})
-					openItem(item)
+					const toClose = multi ? [] : items.filter((other) => other !== item && other.open)
+					await Promise.all([...toClose.map(closeItem), openItem(item)])
+				}
+				updateLockedState(items, persist)
+			})
+		})
+	})
+}
+
+function accordionImageSwap() {
+	document.querySelectorAll('[data-image-swap]').forEach((section) => {
+		const img = section.querySelector('[data-image-target]')
+		if (!img) return
+		section.querySelectorAll('details[data-image]').forEach((details) => {
+			details.querySelector('summary')?.addEventListener('click', () => {
+				if (!details.open && details.dataset.image) {
+					img.setAttribute('data-swapping', '')
+					setTimeout(() => {
+						img.src = details.dataset.image
+						img.removeAttribute('data-swapping')
+					}, DURATION)
 				}
 			})
 		})
