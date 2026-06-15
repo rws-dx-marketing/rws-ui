@@ -1,0 +1,70 @@
+---
+import TrainAIBench from '../../layouts/TrainAIBench.astro'
+---
+
+<TrainAIBench title="Economics – TrainAI Bench">
+	<!-- Hero -->
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>Consectetur adipiscing elit</p>
+			</div>
+
+			<h1 class="mx-auto mb-6 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+				<p>Economics</p>
+			</h1>
+
+			<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+				<p>What does multilingual quality cost me per task and what are the trade-offs? Lorem ipsum dolor sit, amet consectetur adipisicing elit vitae quo.</p>
+			</div>
+
+			<div hidden class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+				<a href="#" class="btn btn-primary btn-xl">View leaderboard</a>
+				<a href="#" class="btn btn-outline btn-xl">Read methodology</a>
+			</div>
+		</div>
+	</section>
+
+	<section hidden class="bg-background py-16 text-foreground" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<h1 class="text-3xl font-bold tracking-tight">Economics</h1>
+			<p class="mt-3 max-w-2xl text-base font-medium text-foreground/70">Cost per word and cost-quality trade-offs across benchmarked models.</p>
+
+			<div class="mt-10 overflow-x-auto rounded-lg border border-foreground/10">
+				<table class="w-full text-sm">
+					<thead class="border-b border-foreground/10 bg-foreground/3">
+						<tr>
+							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/50 uppercase">Model</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">Cost / 1k tokens</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">Cost / word</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">COMET</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">Quality / cost</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-foreground/5">
+						{
+							[
+								{ model: 'Language Weaver', cost1k: '$0.006', costWord: '$0.0001', comet: '86.8', ratio: 'Excellent' },
+								{ model: 'NLLB-200 (self-hosted)', cost1k: '—', costWord: '$0.00003', comet: '81.5', ratio: 'Very high' },
+								{ model: 'DeepL', cost1k: '$0.025', costWord: '$0.0005', comet: '86.1', ratio: 'High' },
+								{ model: 'Llama 3.1 405B', cost1k: '$0.003', costWord: '$0.00008', comet: '84.7', ratio: 'High' },
+								{ model: 'Mistral Large', cost1k: '$0.004', costWord: '$0.0001', comet: '83.2', ratio: 'Good' },
+								{ model: 'Gemini 1.5 Pro', cost1k: '$0.007', costWord: '$0.00018', comet: '87.3', ratio: 'Good' },
+								{ model: 'Claude 3.5 Sonnet', cost1k: '$0.015', costWord: '$0.0004', comet: '88.9', ratio: 'Moderate' },
+								{ model: 'GPT-4o', cost1k: '$0.015', costWord: '$0.0004', comet: '89.4', ratio: 'Moderate' },
+							].map((row) => (
+								<tr class="transition-colors hover:bg-foreground/2">
+									<td class="px-4 py-3.5 font-medium">{row.model}</td>
+									<td class="px-4 py-3.5 text-right text-foreground/75 tabular-nums">{row.cost1k}</td>
+									<td class="px-4 py-3.5 text-right text-foreground/75 tabular-nums">{row.costWord}</td>
+									<td class="px-4 py-3.5 text-right font-semibold tabular-nums">{row.comet}</td>
+									<td class="px-4 py-3.5 text-right font-semibold text-foreground/75">{row.ratio}</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</TrainAIBench>

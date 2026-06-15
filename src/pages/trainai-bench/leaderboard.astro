@@ -1,0 +1,155 @@
+---
+import TrainAIBench from '../../layouts/TrainAIBench.astro'
+---
+
+<TrainAIBench title="Leaderboard – TrainAI Bench">
+	<!-- Hero -->
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>Consectetur adipiscing elit</p>
+			</div>
+
+			<h1 class="mx-auto mb-6 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+				<p>Leaderboard</p>
+			</h1>
+
+			<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+				<p>What's the overall state of multilingual AI across all models, languages and tasks? Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+			</div>
+
+			<div hidden class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+				<a href="#" class="btn btn-primary btn-xl">View leaderboard</a>
+				<a href="#" class="btn btn-outline btn-xl">Read methodology</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Filters + charts -->
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<!-- Filters -->
+			<div class="top-[calc(var(--header-top)+5rem)] z-999 rounded-lg border border-foreground/10 bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
+				<div class="flex flex-col items-center justify-between gap-4 p-4 md:flex-row">
+					<div class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground/5 p-1.25">
+						<button class="btn btn-ghost rounded-sm text-foreground/80 data-[active]:bg-background data-[active]:text-foreground" data-active>Grammar</button>
+						<button class="btn btn-ghost rounded-sm text-foreground/80">Translation</button>
+						<button class="btn btn-ghost rounded-sm text-foreground/80">Tokenizer</button>
+					</div>
+
+					<div class="flex gap-4">
+						<!-- Languages -->
+						<div>
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="language-filter-button" popovertarget="language-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --language-filter-anchor;">
+								<span class="flex-1 text-left">Languages</span>
+								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							</button>
+
+							<div data-card id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground/10 shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
+								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="language-filter-button">
+									{
+										['Albanian', 'Arabic', 'Assamese', 'Basque', 'Czech', 'English', 'Fijian', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi', 'Hungarian', 'Icelandic', 'Japanese', 'Khmer', 'Kinyarwanda', 'Korean', 'Kyrgyz', 'Nepali', 'Polish', 'Russian', 'Simplified Chinese', 'Spanish', 'Swahili', 'Tagalog', 'Tamil', 'Thai', 'Turkish', 'Vietnamese', 'Welsh', 'Zulu'].map((lang) => (
+											<li>
+												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+													<input data-filter-input type="checkbox" value={lang.toLowerCase().replace(/\s+/g, '-')} name="language" class="input input-checkbox" />
+													{lang}
+												</label>
+											</li>
+										))
+									}
+								</ul>
+								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent" disabled>Clear selected</button></div>
+							</div>
+						</div>
+
+						<!-- Models -->
+						<div>
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="model-filter-button" popovertarget="model-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --model-filter-anchor;">
+								<span class="flex-1 text-left">Models</span>
+								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							</button>
+
+							<div data-card id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground/10 shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-left;">
+								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="model-filter-button">
+									{
+										['claude-opus-4.6', 'claude-sonnet-4.6', 'jamba-2', 'claude-haiku-4.6', 'deepseek-v3.2', 'grok-4.20', 'llama-4-scout', 'deepseek-r2', 'gpt-5-mini', 'gemini-3-flash-preview', 'yi-2-large', 'qwen-3-72b', 'gemini-3-pro-preview', 'mistral-medium-3', 'command-r-plus', 'gpt-5.4', 'gpt-5', 'llama-4-maverick', 'gpt-5-nano', 'phi-5', 'mistral-large-3', 'qwen-3-235b', 'gemini-3-pro', 'command-r', 'kimi-k2.6'].map((model) => (
+											<li>
+												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+													<input data-filter-input type="checkbox" value={model} name="model" class="input input-checkbox" />
+													{model}
+												</label>
+											</li>
+										))
+									}
+								</ul>
+								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent" disabled>Clear selected</button></div>
+							</div>
+						</div>
+
+						<!-- Filters -->
+						<div>
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" type="button">
+								<span class="flex-1 text-left">Filters</span>
+								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Charts -->
+			<div class="mt-8 grid aspect-2/1 place-items-center rounded-lg border border-foreground/5 bg-foreground/2.5">
+				<h3 class="font-medium text-foreground/80">Heatmap</h3>
+			</div>
+
+			<div class="mt-8 grid aspect-2/1 place-items-center rounded-lg border border-foreground/5 bg-foreground/2.5">
+				<h3 class="font-medium text-foreground/80">Bar chart</h3>
+			</div>
+		</div>
+	</section>
+
+	<section hidden class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="overflow-x-auto rounded-lg border border-foreground/10">
+				<table class="w-full text-sm">
+					<thead class="border-b border-foreground/10 bg-foreground/3">
+						<tr>
+							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/50 uppercase">Rank</th>
+							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/50 uppercase">Model</th>
+							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/50 uppercase">Provider</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">COMET</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">BLEU</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">Human eval</th>
+						</tr>
+					</thead>
+					<tbody class="divide-y divide-foreground/5">
+						{
+							[
+								{ rank: 1, model: 'GPT-4o', provider: 'OpenAI', comet: '89.4', bleu: '42.1', human: '4.6' },
+								{ rank: 2, model: 'Claude 3.5 Sonnet', provider: 'Anthropic', comet: '88.9', bleu: '41.7', human: '4.5' },
+								{ rank: 3, model: 'Gemini 1.5 Pro', provider: 'Google', comet: '87.3', bleu: '40.2', human: '4.4' },
+								{ rank: 4, model: 'Language Weaver', provider: 'RWS', comet: '86.8', bleu: '39.9', human: '4.4' },
+								{ rank: 5, model: 'DeepL', provider: 'DeepL', comet: '86.1', bleu: '39.1', human: '4.3' },
+								{ rank: 6, model: 'Llama 3.1 405B', provider: 'Meta', comet: '84.7', bleu: '37.8', human: '4.1' },
+								{ rank: 7, model: 'Mistral Large', provider: 'Mistral', comet: '83.2', bleu: '36.5', human: '4.0' },
+								{ rank: 8, model: 'NLLB-200', provider: 'Meta', comet: '81.5', bleu: '34.2', human: '3.8' },
+							].map((row) => (
+								<tr class="transition-colors hover:bg-foreground/2">
+									<td class="px-4 py-3.5 font-semibold">{row.rank}</td>
+									<td class="px-4 py-3.5 font-medium">{row.model}</td>
+									<td class="px-4 py-3.5 text-foreground/65">{row.provider}</td>
+									<td class="px-4 py-3.5 text-right font-semibold tabular-nums">{row.comet}</td>
+									<td class="px-4 py-3.5 text-right font-medium text-foreground/75 tabular-nums">{row.bleu}</td>
+									<td class="px-4 py-3.5 text-right font-medium text-foreground/75 tabular-nums">{row.human}</td>
+								</tr>
+							))
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</TrainAIBench>

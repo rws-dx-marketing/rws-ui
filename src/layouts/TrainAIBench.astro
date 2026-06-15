@@ -1,0 +1,269 @@
+---
+import '../assets/styles/global.css'
+
+const { title = 'TrainAI Bench – RWS' } = Astro.props
+const pathname = Astro.url.pathname
+
+const navItems = [
+	// { label: 'Home', href: '/trainai-bench' },
+	{ label: 'Leaderboard', href: '/trainai-bench/leaderboard' },
+	{ label: 'By language', href: '/trainai-bench/by-language' },
+	{ label: 'By model', href: '/trainai-bench/by-model' },
+	{ label: 'Economics', href: '/trainai-bench/economics' },
+	{ label: 'Methodology', href: '/trainai-bench/methodology' },
+	{ label: 'Insights', href: '/trainai-bench/insights' },
+]
+
+function isActive(href: string) {
+	if (href === '/trainai-bench') return pathname === '/trainai-bench' || pathname === '/trainai-bench/'
+	return pathname.startsWith(href)
+}
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>{title}</title>
+		<script>
+			if (localStorage.getItem('color-theme') === 'dark') {
+				document.documentElement.classList.add('dark')
+			} else {
+				document.documentElement.classList.remove('dark')
+			}
+		</script>
+	</head>
+	<body>
+		<header id="site-header" class="sticky top-(--header-top) z-50 border-b border-foreground/5 bg-background py-2.5 text-foreground transition-[top] duration-300" data-theme="default" style="anchor-name: --site-header-anchor;">
+			<div class="mx-auto flex max-w-screen-2xl items-center gap-x-6 px-2.5 lg:px-4.5">
+				<button id="mobile-menu-toggle" type="button" class="btn btn-ghost btn-sm size-8.75 lg:hidden" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Toggle main menu">
+					<span class="sr-only">Open main menu</span>
+					<span data-icon-closed>
+						<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="64" x2="216" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="40" y1="192" x2="216" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+					</span>
+					<span data-icon-open hidden>
+						<svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+					</span>
+				</button>
+
+				<div class="mx-auto flex items-center gap-3 lg:mx-0">
+					<a href="/trainai-bench" class="-mt-1.25">
+						<img src="https://www.rws.com/media/images/logo-rws_tcm228-236815.svg" alt="RWS" class="h-7.5" draggable="false" loading="eager" />
+					</a>
+
+					<div class="-mt-0.5 border-l-2 py-1.5 pl-3">
+						<a href="/trainai-bench" class="block text-xl/none font-bold">TrainAi Bench</a>
+					</div>
+				</div>
+
+				<nav class="hidden lg:block">
+					<ul class="flex gap-x-4.5">
+						{
+							navItems.map((item) => (
+								<li>
+									<a href={item.href} class:list={['block text-sm font-extrabold transition-colors', isActive(item.href) ? 'text-foreground' : 'hover:text-foreground/50']} aria-current={isActive(item.href) ? 'page' : undefined}>
+										{item.label}
+									</a>
+								</li>
+							))
+						}
+					</ul>
+				</nav>
+
+				<div class="flex items-center gap-x-2 lg:ml-auto">
+					<button hidden id="theme-toggle" type="button" class="btn btn-ghost btn-sm mr-2">
+						<svg id="theme-toggle-dark-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+						<svg id="theme-toggle-light-icon" class="hidden h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+					</button>
+
+					<div class="hidden items-center gap-x-4.5 lg:flex">
+						<div>
+							<button id="desktop-my-rws-menu-button" type="button" class="flex items-center gap-1 text-sm font-semibold transition-colors hover:text-foreground/50 aria-expanded:text-foreground/50" popovertarget="desktop-my-rws-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-my-rws-menu" style="anchor-name: --desktop-my-rws-anchor;">
+								<span>My RWS</span>
+								<svg class="mt-0.25 size-3 text-foreground/45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="30"></polyline></svg>
+							</button>
+
+							<div id="desktop-my-rws-menu" popover="auto" role="menu" aria-labelledby="desktop-my-rws-menu-button" class="dropdown z-20 mt-2 w-60 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="position-anchor: --desktop-my-rws-anchor; top: anchor(--site-header-anchor bottom); right: anchor(right); left: auto; position-area: unset; position-try: none;">
+								<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
+									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+										<span>My Account</span>
+									</a>
+									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+										<span>Technical support</span>
+									</a>
+									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+										<span>Training &amp; certification</span>
+									</a>
+									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+										<span>Professional services</span>
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div>
+							<button id="desktop-language-menu-button" type="button" class="flex items-center gap-1 text-sm font-semibold transition-colors hover:text-foreground/50 aria-expanded:text-foreground/50" popovertarget="desktop-language-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-language-menu" style="anchor-name: --desktop-language-anchor;">
+								<span class="sr-only">Language</span>
+								<span>EN</span>
+								<svg class="mt-0.25 size-3 text-foreground/45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="30"></polyline></svg>
+							</button>
+
+							<div id="desktop-language-menu" popover="auto" role="menu" aria-labelledby="desktop-language-menu-button" class="dropdown z-20 mt-2 w-32 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="position-anchor: --desktop-language-anchor; top: anchor(--site-header-anchor bottom); right: anchor(right); left: auto; position-area: unset; position-try: none;">
+								<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
+									<a href="#" role="menuitem" aria-label="English" lang="en-gb" class="block rounded-md bg-tertiary-lighter/10 px-2 py-1.5 text-sm font-semibold transition-colors hover:bg-tertiary-lighter/15">English</a>
+									<a href="#" role="menuitem" aria-label="Deutsch" lang="de-de" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">Deutsch</a>
+									<a href="#" role="menuitem" aria-label="Français" lang="fr-fr" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">Français</a>
+									<a href="#" role="menuitem" aria-label="Español" lang="es-ES" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">Español</a>
+									<a href="#" role="menuitem" aria-label="Italiano" lang="it-it" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">Italiano</a>
+									<a href="#" role="menuitem" aria-label="简体中文" lang="zh-CN" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">简体中文</a>
+									<a href="#" role="menuitem" aria-label="繁體中文" lang="zh-TW" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">繁體中文</a>
+									<a href="#" role="menuitem" aria-label="日本語" lang="ja-JP" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">日本語</a>
+									<a href="#" role="menuitem" aria-label="한국어" lang="ko-KR" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">한국어</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<button id="search-toggle" type="button" class="btn btn-ghost stars group btn-sm size-8.75 hover:bg-gray-100">
+						<span class="sr-only">Search</span>
+						<svg class="size-5 lg:size-4.5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+							<path d="M11.256 11.256a.844.844 0 0 1 1.193 0l3.898 3.897a.844.844 0 0 1-1.194 1.194l-3.897-3.898a.844.844 0 0 1 0-1.193"></path>
+							<path d="M12.656 7.875a4.781 4.781 0 1 0-9.562 0 4.781 4.781 0 0 0 9.562 0m1.688 0a6.469 6.469 0 1 1-12.938 0 6.469 6.469 0 0 1 12.938 0"></path>
+							<path class="fill-primary stroke-white stroke-4 transition-colors group-hover:stroke-gray-100" d="M10.33 0c.27 0 .518.158.633.403l.373.8c.264.566.718 1.02 1.283 1.283l.8.374a.699.699 0 0 1 0 1.266l-.8.374a2.65 2.65 0 0 0-1.283 1.283l-.373.8a.699.699 0 0 1-1.266 0l-.374-.8A2.65 2.65 0 0 0 8.04 4.5l-.8-.374a.699.699 0 0 1 0-1.266l.8-.374a2.65 2.65 0 0 0 1.283-1.283l.374-.8A.7.7 0 0 1 10.33 0"></path>
+							<path class="fill-secondary stroke-white stroke-4 transition-colors group-hover:stroke-gray-100" d="M15.737 3.493a.45.45 0 0 1 .409.26l.24.516c.17.365.464.658.829.828l.516.241a.451.451 0 0 1 0 .817l-.517.241c-.364.17-.657.463-.827.828l-.241.516a.45.45 0 0 1-.817 0l-.241-.516a1.7 1.7 0 0 0-.828-.828l-.516-.241a.451.451 0 0 1 0-.817l.516-.241c.365-.17.658-.463.828-.828l.241-.516a.45.45 0 0 1 .408-.26"></path>
+						</svg>
+					</button>
+
+					<a href="/trainai-bench/register" class="btn btn-tertiary btn-sm hidden lg:block">Register</a>
+				</div>
+			</div>
+
+			<div id="mobile-menu-panel" class="fixed inset-x-auto top-(--mobile-menu-top) bottom-0 left-0 z-999 w-(--mobile-menu-width) -translate-x-full overflow-clip bg-black/95 px-5 text-white lg:hidden" aria-hidden="true">
+				<div class="relative h-full">
+					<section data-mobile-menu-view="root" class="absolute inset-0 flex translate-x-0 scrollbar-none flex-col overflow-y-auto py-16 transition-transform">
+						<nav aria-label="Mobile main navigation">
+							<ul class="grid gap-y-6">
+								{
+									navItems.map((item) => (
+										<li>
+											<a href={item.href} data-mobile-focus class:list={['block text-2xl/none font-medium', isActive(item.href) ? 'text-white' : 'text-white/80']} aria-current={isActive(item.href) ? 'page' : undefined}>
+												{item.label}
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						</nav>
+
+						<div class="mt-auto space-y-4 pt-12">
+							<div class="flex items-center gap-6">
+								<button type="button" data-mobile-menu-target="my-rws" class="flex items-center gap-1.5 text-base font-semibold text-white/80 transition-colors hover:text-white">
+									My RWS
+									<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+								</button>
+								<button type="button" data-mobile-menu-target="language" class="flex items-center gap-1.5 text-base font-semibold text-white/80 transition-colors hover:text-white">
+									EN
+									<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+								</button>
+							</div>
+							<a href="/trainai-bench/register" class="btn btn-tertiary btn-md w-full">Get started</a>
+						</div>
+					</section>
+
+					<section data-mobile-menu-view="my-rws" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
+						<div class="mb-8 flex items-center gap-3">
+							<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+								<span class="sr-only">Back</span>
+								<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+							</button>
+							<h2 class="text-2xl/none font-semibold">My RWS</h2>
+						</div>
+						<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
+							<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"><span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>My Account</span></a>
+							<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"><span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Technical support</span></a>
+							<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"><span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Training &amp; certification</span></a>
+							<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"><span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Professional services</span></a>
+						</div>
+					</section>
+
+					<section data-mobile-menu-view="language" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
+						<div class="mb-8 flex items-center gap-3">
+							<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+								<span class="sr-only">Back</span>
+								<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+							</button>
+							<h2 class="text-2xl/none font-semibold">Language</h2>
+						</div>
+						<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
+							<a href="#" role="menuitem" aria-label="English" lang="en-gb" class="block rounded-md bg-white/10 px-2 py-1.5 text-sm font-semibold transition-colors hover:bg-white/15">English</a>
+							<a href="#" role="menuitem" aria-label="Deutsch" lang="de-de" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">Deutsch</a>
+							<a href="#" role="menuitem" aria-label="Français" lang="fr-fr" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">Français</a>
+							<a href="#" role="menuitem" aria-label="Español" lang="es-ES" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">Español</a>
+							<a href="#" role="menuitem" aria-label="Italiano" lang="it-it" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">Italiano</a>
+							<a href="#" role="menuitem" aria-label="简体中文" lang="zh-CN" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">简体中文</a>
+							<a href="#" role="menuitem" aria-label="繁體中文" lang="zh-TW" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">繁體中文</a>
+							<a href="#" role="menuitem" aria-label="日本語" lang="ja-JP" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">日本語</a>
+							<a href="#" role="menuitem" aria-label="한국어" lang="ko-KR" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">한국어</a>
+						</div>
+					</section>
+				</div>
+			</div>
+		</header>
+
+		<button id="mobile-shell-close-hitarea" type="button" class="pointer-events-none fixed right-0 bottom-0 left-(--mobile-menu-width) z-998 lg:hidden" style="top: var(--mobile-menu-top, 0px);" aria-label="Close main menu"></button>
+
+		<dialog id="search-dialog" class="m-0 hidden h-screen max-h-none w-screen max-w-none scale-95 transform-gpu flex-col items-center justify-center gap-6 bg-transparent p-6 opacity-0 transition transition-discrete outline-none backdrop:bg-transparent backdrop:transition backdrop:transition-discrete open:flex open:scale-100 open:opacity-100 open:backdrop:bg-black/90 starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-transparent">
+			<div class="w-full max-w-2xl" data-theme="default">
+				<div class="overflow-clip rounded-4xl bg-background">
+					<div id="search-chat" class="h-0 scrollbar-thin scrollbar-thumb-accent scrollbar-track-accent/10 scrollbar-gutter-stable overflow-y-auto transition-[height]">
+						<div id="search-messages" class="flex flex-col gap-3"></div>
+					</div>
+
+					<hr id="search-divider" hidden class="mx-6 border-foreground/15" />
+
+					<form id="search-form">
+						<div class="relative">
+							<div class="stars pointer-events-none absolute top-1/2 left-5 -translate-y-1/2">
+								<svg class="size-5" viewBox="0 0 23 22" xmlns="http://www.w3.org/2000/svg">
+									<path class="fill-primary" fill-rule="evenodd" clip-rule="evenodd" d="M8.93188 2.02435C8.57175 1.02574 7.17663 1.02574 6.81651 2.02435L5.19611 6.53371L0.740096 8.17351C-0.246699 8.53794 -0.246699 9.94977 0.740096 10.3142L5.19611 11.954L6.81651 16.4634C7.17663 17.462 8.57175 17.462 8.93188 16.4634L10.5523 11.954L15.0083 10.3142C15.9951 9.94977 15.9951 8.53794 15.0083 8.17351L10.5523 6.53371L8.93188 2.02435Z"></path>
+									<path class="fill-tertiary" fill-rule="evenodd" clip-rule="evenodd" d="M18.7724 12.5805C18.5491 11.9611 17.6838 11.9611 17.4605 12.5805L16.4555 15.3772L13.6919 16.3942C13.0799 16.6202 13.0799 17.4958 13.6919 17.7218L16.4555 18.7388L17.4605 21.5355C17.6838 22.1549 18.5491 22.1549 18.7724 21.5355L19.7774 18.7388L22.541 17.7218C23.153 17.4958 23.153 16.6202 22.541 16.3942L19.7774 15.3772L18.7724 12.5805Z"></path>
+									<path class="fill-secondary" fill-rule="evenodd" clip-rule="evenodd" d="M18.4338 0.224759C18.3258 -0.0749196 17.9071 -0.0749196 17.799 0.224759L17.3127 1.578L15.9755 2.0701C15.6794 2.17946 15.6794 2.60315 15.9755 2.71251L17.3127 3.20461L17.799 4.55785C17.9071 4.85753 18.3258 4.85753 18.4338 4.55785L18.9201 3.20461L20.2573 2.71251C20.5535 2.60315 20.5535 2.17946 20.2573 2.0701L18.9201 1.578L18.4338 0.224759Z"></path>
+								</svg>
+							</div>
+
+							<input id="search-input" type="text" placeholder="Ask something..." class="input input-search h-16 rounded-4xl border-none input-lg pr-[3.5rem] pl-13 focus:ring-0" autocomplete="off" />
+
+							<button type="submit" class="btn absolute top-1/2 right-3 size-10 -translate-y-1/2 bg-gray-100 hover:bg-primary hover:text-white">
+								<span class="sr-only">Submit</span>
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="size-4"><rect width="256" height="256" fill="none"></rect><line x1="128" y1="216" x2="128" y2="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="56 112 128 40 200 112" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</dialog>
+
+		<style is:global>
+			:root {
+				--mobile-menu-width: min(22rem, 82vw);
+				--mobile-menu-top: 0px;
+			}
+		</style>
+
+		<div id="page-shell" class="isolate origin-right bg-white transition-[translate,scale,height] motion-reduce:transition-none lg:transition-none">
+			<slot />
+		</div>
+
+		<script src="../assets/scripts/init.client.js"></script>
+		<script src="../assets/scripts/theme.client.js"></script>
+		<script src="../assets/scripts/btn-magnet.js"></script>
+	</body>
+</html>

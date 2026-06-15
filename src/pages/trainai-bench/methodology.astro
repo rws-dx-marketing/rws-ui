@@ -1,0 +1,61 @@
+---
+import TrainAIBench from '../../layouts/TrainAIBench.astro'
+---
+
+<TrainAIBench title="Methodology – TrainAI Bench">
+	<!-- Hero -->
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>Consectetur adipiscing elit</p>
+			</div>
+
+			<h1 class="mx-auto mb-6 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+				<p>Methodology</p>
+			</h1>
+
+			<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+				<p>How does this benchmark work and why should I trust it? Lorem ipsum dolor sit, amet consectetur adipisicing elit vitae quo animi suspendisse luctus.</p>
+			</div>
+
+			<div hidden class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+				<a href="#" class="btn btn-primary btn-xl">View leaderboard</a>
+				<a href="#" class="btn btn-outline btn-xl">Read methodology</a>
+			</div>
+		</div>
+	</section>
+
+	<section hidden class="bg-background py-16 text-foreground" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="mx-auto max-w-3xl">
+				<h1 class="text-3xl font-bold tracking-tight">Methodology</h1>
+				<p class="mt-3 text-base font-medium text-foreground/70">How we evaluate and score AI translation quality.</p>
+
+				<div class="prose prose-base mt-10 font-medium text-foreground/80">
+					<h2>Overview</h2>
+					<p>TrainAI Bench uses a combination of automatic metrics and human evaluation to produce a holistic picture of translation quality. All models are evaluated under the same conditions on the same test sets.</p>
+
+					<h2>Automatic metrics</h2>
+					<p>We report three primary automatic metrics:</p>
+					<ul>
+						<li><strong>COMET</strong> – a neural reference-based metric trained on human judgements. Scores typically range from 0–100.</li>
+						<li><strong>BLEU</strong> – a classic n-gram precision metric. Useful for trend analysis but less correlated with human judgement than COMET.</li>
+						<li><strong>ChrF</strong> – character-level F-score, particularly useful for morphologically rich languages.</li>
+					</ul>
+
+					<h2>Human evaluation</h2>
+					<p>A subset of outputs are evaluated by professional translators using a Direct Assessment (DA) protocol. Evaluators rate fluency and adequacy independently on a 1–5 scale.</p>
+
+					<h2>Test sets</h2>
+					<p>We use publicly available test sets from WMT and Flores-200, supplemented with domain-specific sets covering legal, medical, technical, and marketing content.</p>
+
+					<h2>Model evaluation conditions</h2>
+					<p>All models are evaluated using default API settings with no system prompt unless required for operation. Temperature is set to 0 for deterministic outputs.</p>
+
+					<h2>Updates</h2>
+					<p>The benchmark is updated quarterly. Results from previous quarters are archived and remain accessible.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+</TrainAIBench>

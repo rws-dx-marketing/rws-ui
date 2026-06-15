@@ -1,0 +1,84 @@
+---
+import TrainAIBench from '../../layouts/TrainAIBench.astro'
+---
+
+<TrainAIBench title="Register – TrainAI Bench">
+	<!-- Hero -->
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>Consectetur adipiscing elit</p>
+			</div>
+
+			<h1 class="mx-auto mb-6 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+				<p>Register</p>
+			</h1>
+
+			<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+				<p>Where can I get more in-depth information? Lorem ipsum dolor sit, amet consectetur adipisicing elit vitae quo animi suspendisse luctus tortor.</p>
+			</div>
+
+			<div hidden class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+				<a href="#" class="btn btn-primary btn-xl">View leaderboard</a>
+				<a href="#" class="btn btn-outline btn-xl">Read methodology</a>
+			</div>
+		</div>
+	</section>
+
+	<section hidden class="bg-background py-20 text-foreground" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="mx-auto max-w-lg">
+				<h1 class="text-3xl font-bold tracking-tight">Get access</h1>
+				<p class="mt-3 text-base font-medium text-foreground/70">Register to explore the full TrainAI Bench dataset, including detailed per-language and per-domain breakdowns.</p>
+
+				<form class="mt-10 grid gap-5">
+					<div class="grid gap-5 sm:grid-cols-2">
+						<div>
+							<label for="first-name" class="mb-1.5 block text-sm font-semibold">First name</label>
+							<input id="first-name" type="text" name="first_name" autocomplete="given-name" class="input w-full" placeholder="Jane" required />
+						</div>
+						<div>
+							<label for="last-name" class="mb-1.5 block text-sm font-semibold">Last name</label>
+							<input id="last-name" type="text" name="last_name" autocomplete="family-name" class="input w-full" placeholder="Smith" required />
+						</div>
+					</div>
+
+					<div>
+						<label for="email" class="mb-1.5 block text-sm font-semibold">Work email</label>
+						<input id="email" type="email" name="email" autocomplete="email" class="input w-full" placeholder="jane@company.com" required />
+					</div>
+
+					<div>
+						<label for="company" class="mb-1.5 block text-sm font-semibold">Company</label>
+						<input id="company" type="text" name="company" autocomplete="organization" class="input w-full" placeholder="Acme Corp" />
+					</div>
+
+					<div>
+						<label for="role" class="mb-1.5 block text-sm font-semibold">Role</label>
+						<select id="role" name="role" class="input w-full">
+							<option value="" disabled selected>Select your role</option>
+							<option>AI / ML Engineer</option>
+							<option>Data Scientist</option>
+							<option>Localization Manager</option>
+							<option>Product Manager</option>
+							<option>Researcher</option>
+							<option>Other</option>
+						</select>
+					</div>
+
+					<div>
+						<label for="use-case" class="mb-1.5 block text-sm font-semibold">How will you use the data? <span class="font-normal text-foreground/50">(optional)</span></label>
+						<textarea id="use-case" name="use_case" rows="3" class="input w-full resize-none" placeholder="e.g. evaluating models for our multilingual product..."></textarea>
+					</div>
+
+					<div class="flex items-start gap-3">
+						<input id="agree" type="checkbox" name="agree" class="mt-0.5 size-4 shrink-0 accent-accent" required />
+						<label for="agree" class="text-sm font-medium text-foreground/70">I agree to the <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">terms of use</a> and <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">privacy policy</a>.</label>
+					</div>
+
+					<button type="submit" class="btn btn-tertiary btn-lg w-full">Request access</button>
+				</form>
+			</div>
+		</div>
+	</section>
+</TrainAIBench>
