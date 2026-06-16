@@ -51,7 +51,7 @@ function updateLockedState(items, persist) {
 }
 
 export default function accordion() {
-	accordionImageSwap()
+	accordionPanelSwap()
 	document.querySelectorAll('[data-accordion]').forEach((accordion) => {
 		const items = Array.from(accordion.querySelectorAll('details'))
 		const multi = accordion.hasAttribute('data-accordion-multi')
@@ -78,19 +78,40 @@ export default function accordion() {
 	})
 }
 
-function accordionImageSwap() {
-	document.querySelectorAll('[data-image-swap]').forEach((section) => {
-		const img = section.querySelector('[data-image-target]')
-		if (!img) return
-		section.querySelectorAll('details[data-image]').forEach((details) => {
-			details.querySelector('summary')?.addEventListener('click', () => {
-				if (!details.open && details.dataset.image) {
-					img.setAttribute('data-swapping', '')
-					setTimeout(() => {
-						img.src = details.dataset.image
-						img.removeAttribute('data-swapping')
-					}, DURATION)
+function accordionPanelSwap() {
+	document.querySelectorAll('[data-panel-swap]').forEach((section) => {
+		const panels = Array.from(section.querySelectorAll('[data-panel]'))
+		if (!panels.length) return
+		const items = Array.from(section.querySelectorAll('[data-accordion] details'))
+
+		const activate = (index) => {
+			const outgoing = panels.find((p) => p.hasAttribute('data-active'))
+			const duration = outgoing ? parseFloat(getComputedStyle(outgoing).transitionDuration) * 1000 : 0
+
+			panels.forEach((panel, i) => {
+				if (i === index) {
+					panel.setAttribute('data-active', '')
+					panel.removeAttribute('data-swapping')
+				} else if (panel === outgoing) {
+					panel.removeAttribute('data-active')
+					panel.setAttribute('data-swapping', '')
+				} else {
+					panel.removeAttribute('data-active')
+					panel.removeAttribute('data-swapping')
 				}
+			})
+
+			if (outgoing && outgoing !== panels[index]) {
+				setTimeout(() => outgoing.removeAttribute('data-swapping'), duration)
+			}
+		}
+
+		const initialIndex = items.findIndex((item) => item.open)
+		activate(initialIndex >= 0 ? initialIndex : 0)
+
+		items.forEach((details, index) => {
+			details.querySelector('summary')?.addEventListener('click', () => {
+				if (!details.open) activate(index)
 			})
 		})
 	})
