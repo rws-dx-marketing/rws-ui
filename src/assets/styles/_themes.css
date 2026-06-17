@@ -148,7 +148,7 @@
 	--gradient: var(--theme-default-gradient);
 }
 
-section:has(.dots-enhanced) {
+section:has(.dots-svg) {
 	@apply isolate;
 }
 
