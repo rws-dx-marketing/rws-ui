@@ -4,6 +4,7 @@ export default function headerScroll() {
 	const root = document.documentElement
 	const header = document.getElementById('site-header')
 	if (!header) return
+	const secondaryNav = document.getElementById('secondary-nav')
 
 	let lastScrollY = window.scrollY
 	let headerHidden = false
@@ -13,6 +14,8 @@ export default function headerScroll() {
 	const HIDE_AFTER = 20
 	const SHOW_AFTER = 80
 
+	const secondaryNavHeight = () => secondaryNav?.offsetHeight ?? 0
+
 	const hideHeader = () => {
 		if (headerHidden) return
 		headerHidden = true
@@ -20,6 +23,7 @@ export default function headerScroll() {
 		peakScrollY = window.scrollY
 		root.style.setProperty('--header-top', `-${header.offsetHeight}px`)
 		root.style.setProperty('--secondary-nav-top', '0px')
+		root.style.setProperty('--content-top', `${secondaryNavHeight()}px`)
 		header.querySelectorAll(':popover-open').forEach((p) => p.hidePopover())
 	}
 	const showHeader = () => {
@@ -27,14 +31,17 @@ export default function headerScroll() {
 		headerHidden = false
 		root.style.setProperty('--header-top', '0px')
 		root.style.setProperty('--secondary-nav-top', `${header.offsetHeight}px`)
+		root.style.setProperty('--content-top', `${header.offsetHeight + secondaryNavHeight()}px`)
 	}
 	const syncOffsets = () => {
 		if (headerHidden) {
 			root.style.setProperty('--header-top', `-${header.offsetHeight}px`)
 			root.style.setProperty('--secondary-nav-top', '0px')
+			root.style.setProperty('--content-top', `${secondaryNavHeight()}px`)
 		} else {
 			root.style.setProperty('--header-top', '0px')
 			root.style.setProperty('--secondary-nav-top', `${header.offsetHeight}px`)
+			root.style.setProperty('--content-top', `${header.offsetHeight + secondaryNavHeight()}px`)
 		}
 	}
 
@@ -101,5 +108,6 @@ export default function headerScroll() {
 
 	if ('ResizeObserver' in window) {
 		new ResizeObserver(syncOffsets).observe(header)
+		if (secondaryNav) new ResizeObserver(syncOffsets).observe(secondaryNav)
 	}
 }

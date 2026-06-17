@@ -1,8 +1,8 @@
 ---
-import TrainAIBench from '../../layouts/TrainAIBench.astro'
+import Layout from '../../layouts/Layout.astro'
 ---
 
-<TrainAIBench title="Economics – TrainAI Bench">
+<Layout title="Economics – TrainAI Bench">
 	<!-- Hero -->
 	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
@@ -21,6 +21,111 @@ import TrainAIBench from '../../layouts/TrainAIBench.astro'
 			<div hidden class="flex flex-col gap-4 sm:flex-row sm:justify-center">
 				<a href="#" class="btn btn-primary btn-xl">View leaderboard</a>
 				<a href="#" class="btn btn-outline btn-xl">Read methodology</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Filters + charts -->
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<!-- Filters -->
+			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground/10 bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
+				<div class="flex flex-col items-center justify-between gap-4 p-4 md:flex-row">
+					<div class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground/5 p-1.25">
+						<button class="btn btn-ghost rounded-sm text-foreground/80 data-[active]:bg-background data-[active]:text-foreground" data-active>Grammar</button>
+						<button class="btn btn-ghost rounded-sm text-foreground/80">Translation</button>
+						<button class="btn btn-ghost rounded-sm text-foreground/80">Tokenizer</button>
+					</div>
+
+					<div class="flex gap-4">
+						<!-- Languages -->
+						<div>
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="language-filter-button" popovertarget="language-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --language-filter-anchor;">
+								<span class="flex-1 text-left">Languages</span>
+								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							</button>
+
+							<div data-card id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground/10 shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
+								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="language-filter-button">
+									{
+										['Albanian', 'Arabic', 'Assamese', 'Basque', 'Czech', 'English', 'Fijian', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi', 'Hungarian', 'Icelandic', 'Japanese', 'Khmer', 'Kinyarwanda', 'Korean', 'Kyrgyz', 'Nepali', 'Polish', 'Russian', 'Simplified Chinese', 'Spanish', 'Swahili', 'Tagalog', 'Tamil', 'Thai', 'Turkish', 'Vietnamese', 'Welsh', 'Zulu'].map((lang) => (
+											<li>
+												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+													<input data-filter-input type="checkbox" value={lang.toLowerCase().replace(/\s+/g, '-')} name="language" class="input input-checkbox" />
+													{lang}
+												</label>
+											</li>
+										))
+									}
+								</ul>
+								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent" disabled>Clear selected</button></div>
+							</div>
+						</div>
+
+						<!-- Models -->
+						<div>
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="model-filter-button" popovertarget="model-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --model-filter-anchor;">
+								<span class="flex-1 text-left">Models</span>
+								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							</button>
+
+							<div data-card id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground/10 shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-left;">
+								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="model-filter-button">
+									{
+										['claude-opus-4.6', 'claude-sonnet-4.6', 'jamba-2', 'claude-haiku-4.6', 'deepseek-v3.2', 'grok-4.20', 'llama-4-scout', 'deepseek-r2', 'gpt-5-mini', 'gemini-3-flash-preview', 'yi-2-large', 'qwen-3-72b', 'gemini-3-pro-preview', 'mistral-medium-3', 'command-r-plus', 'gpt-5.4', 'gpt-5', 'llama-4-maverick', 'gpt-5-nano', 'phi-5', 'mistral-large-3', 'qwen-3-235b', 'gemini-3-pro', 'command-r', 'kimi-k2.6'].map((model) => (
+											<li>
+												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+													<input data-filter-input type="checkbox" value={model} name="model" class="input input-checkbox" />
+													{model}
+												</label>
+											</li>
+										))
+									}
+								</ul>
+								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent" disabled>Clear selected</button></div>
+							</div>
+						</div>
+
+						<!-- Filters -->
+						<div>
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" type="button">
+								<span class="flex-1 text-left">Filters</span>
+								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Charts -->
+			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+				<h3 class="mb-4 text-xl font-bold text-foreground/80">Latency bar chart</h3>
+				<ul>
+					<li>Avg seconds to respond (bar) + median (dot overlay) per model, brand color-coded, model variants toggle</li>
+				</ul>
+			</div>
+
+			<div class="grid gap-8 md:grid-cols-2">
+				<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8 md:aspect-square">
+					<h3 class="mb-4 text-xl font-bold text-foreground/80">Cost vs. performance scatter</h3>
+					<ul class="font-medium text-foreground/80">
+						<li>Score (%) vs. cost per 1M output tokens (USD)</li>
+						<li>Toggle: price list / total cost views</li>
+						<li>Pareto frontier line, brand color-coded dots</li>
+						<li>Zoom/pan, tooltip on hover</li>
+					</ul>
+				</div>
+
+				<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8 md:aspect-square">
+					<h3 class="mb-4 text-xl font-bold text-foreground/80">Score vs. latency scatter</h3>
+					<ul class="font-medium text-foreground/80">
+						<li>Score (%) vs. avg latency (seconds)</li>
+						<li>Brand color-coded, companion data table below</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -67,4 +172,4 @@ import TrainAIBench from '../../layouts/TrainAIBench.astro'
 			</div>
 		</div>
 	</section>
-</TrainAIBench>
+</Layout>

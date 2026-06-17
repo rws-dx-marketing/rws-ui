@@ -1,10 +1,10 @@
 ---
-import TrainAIBench from '../../layouts/TrainAIBench.astro'
+import Layout from '../../layouts/Layout.astro'
 ---
 
-<TrainAIBench title="Methodology – TrainAI Bench">
+<Layout title="Methodology – TrainAI Bench">
 	<!-- Hero -->
-	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- bg-background pt-16 pb-12 text-foreground md:pt-20 md:pb-16 lg:pt-24 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
 				<p>Consectetur adipiscing elit</p>
@@ -21,6 +21,118 @@ import TrainAIBench from '../../layouts/TrainAIBench.astro'
 			<div hidden class="flex flex-col gap-4 sm:flex-row sm:justify-center">
 				<a href="#" class="btn btn-primary btn-xl">View leaderboard</a>
 				<a href="#" class="btn btn-outline btn-xl">Read methodology</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Overview -->
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+		<div class="mx-auto grid max-w-screen-xl items-start gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<div class="lg:col-span-4">
+				<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+					<p>Overview</p>
+				</div>
+
+				<h2 class="mb-6 max-w-[24ch] text-3xl font-bold tracking-tight text-pretty xl:text-4xl">
+					<p>Lorem ipsum dolor sit</p>
+				</h2>
+
+				<div class="prose font-medium text-foreground/80 md:prose-lg">
+					<p>Language scope: 30 languages including Basque, Kyrgyz, Kinyarwanda, Fijian (long-tail). Design principles:</p>
+					<ul>
+						<li>Private dataset</li>
+						<li>Independent (RWS doesn't build models)</li>
+						<li>Continuous</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="lg:col-span-8">
+				<div class="rounded-lg border border-foreground/10 bg-background px-5.5 pt-5 pb-0 text-foreground" data-card>
+					<div class="divide-y divide-foreground/10" data-accordion data-accordion-persist>
+						<details class="group" open>
+							<summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-left font-semibold group-first:pt-0 in-data-[accordion-locked]:cursor-default md:text-lg">
+								<span class="text-pretty transition-colors group-hover:text-accent in-data-open:text-accent">Grammar check</span>
+								<svg class="size-5 shrink-0 transition-[color,rotate] group-hover:text-accent group-data-[open]:rotate-180 in-data-open:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							</summary>
+							<div>
+								<div class="border-t border-foreground/10 py-5">
+									<div class="prose font-medium text-foreground/80 md:prose-lg">
+										<p>100 sentences/lang, 50/50 split, MCC metric, 3 linguists/sentence</p>
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex.</p>
+										<p>Integer auctor nulla vel leo facilisis, nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet purus.</p>
+									</div>
+								</div>
+							</div>
+						</details>
+
+						<details class="group">
+							<summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-left font-semibold group-first:pt-0 in-data-[accordion-locked]:cursor-default md:text-lg">
+								<span class="text-pretty transition-colors group-hover:text-accent in-data-open:text-accent">Roundtrip translation</span>
+								<svg class="size-5 shrink-0 transition-[color,rotate] group-hover:text-accent group-data-[open]:rotate-180 in-data-open:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							</summary>
+							<div>
+								<div class="border-t border-foreground/10 py-5">
+									<div class="prose font-medium text-foreground/80 md:prose-lg">
+										<p>100 sentences/lang, 8 error categories, 3-provider LLM judges</p>
+										<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet purus. Vivamus faucibus neque risus, et dapibus tortor.</p>
+										<p>Donec facilisis justo id leo porttitor consequat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+									</div>
+								</div>
+							</div>
+						</details>
+
+						<details class="group">
+							<summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-left font-semibold group-first:pt-0 in-data-[accordion-locked]:cursor-default md:text-lg">
+								<span class="text-pretty transition-colors group-hover:text-accent in-data-open:text-accent">Tokenizer efficiency</span>
+								<svg class="size-5 shrink-0 transition-[color,rotate] group-hover:text-accent group-data-[open]:rotate-180 in-data-open:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							</summary>
+							<div>
+								<div class="border-t border-foreground/10 py-5">
+									<div class="prose font-medium text-foreground/80 md:prose-lg">
+										<p>Chars/token, TTFT latency, direct cost impact</p>
+										<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Proin vel ante a orci tempus eleifend ut et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+										<p>Vivamus luctus urna sed urna ultricies ac tempor dui sagittis. In condimentum facilisis porta. Sed nec diam eu diam mattis viverra nulla luctus augue.</p>
+									</div>
+								</div>
+							</div>
+						</details>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Copy -->
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>Detailed methodology</p>
+			</div>
+
+			<h2 class="mb-6 max-w-[24ch] text-3xl font-bold tracking-tight text-pretty xl:text-4xl">
+				<p>Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur</p>
+			</h2>
+
+			<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere.</p>
+			</div>
+
+			<div class="mt-12 grid items-start gap-12 lg:mt-16 lg:grid-cols-12 xl:gap-16">
+				<div class="lg:col-span-8">
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<p>Complete BENCHMARK.md equivalent: dataset construction, temperature policy, language scope selection criteria, judge panel configuration, 8 translation error categories with examples, scoring rubrics</p>
+						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum, molestias nostrum dolor ut et repudiandae iusto, debitis, fugit quidem id nisi tempora non praesentium aspernatur maxime neque eum corporis eius. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, mollitia totam. Quo asperiores magni a quod assumenda nesciunt, iure architecto consectetur dolorum numquam ad fuga dolores tenetur reprehenderit sit quasi.</p>
+						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum, molestias nostrum dolor ut et repudiandae iusto, debitis, fugit quidem id nisi tempora non praesentium aspernatur maxime neque eum corporis eius. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, mollitia totam. Quo asperiores magni a quod assumenda nesciunt, iure architecto consectetur dolorum numquam ad fuga dolores tenetur reprehenderit sit quasi.</p>
+						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum, molestias nostrum dolor ut et repudiandae iusto, debitis, fugit quidem id nisi tempora non praesentium aspernatur maxime neque eum corporis eius. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, mollitia totam. Quo asperiores magni a quod assumenda nesciunt, iure architecto consectetur dolorum numquam ad fuga dolores tenetur reprehenderit sit quasi.</p>
+						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum, molestias nostrum dolor ut et repudiandae iusto, debitis, fugit quidem id nisi tempora non praesentium aspernatur maxime neque eum corporis eius. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, mollitia totam. Quo asperiores magni a quod assumenda nesciunt, iure architecto consectetur dolorum numquam ad fuga dolores tenetur reprehenderit sit quasi.</p>
+						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum, molestias nostrum dolor ut et repudiandae iusto, debitis, fugit quidem id nisi tempora non praesentium aspernatur maxime neque eum corporis eius. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, mollitia totam. Quo asperiores magni a quod assumenda nesciunt, iure architecto consectetur dolorum numquam ad fuga dolores tenetur reprehenderit sit quasi.</p>
+					</div>
+				</div>
+
+				<div class="lg:sticky lg:top-[calc(var(--content-top)+2rem)] lg:col-span-4 lg:transition-[top] lg:duration-300">
+					<img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/search-mockup.png" alt="Graphs" class="w-full object-cover" />
+				</div>
 			</div>
 		</div>
 	</section>
@@ -58,4 +170,4 @@ import TrainAIBench from '../../layouts/TrainAIBench.astro'
 			</div>
 		</div>
 	</section>
-</TrainAIBench>
+</Layout>

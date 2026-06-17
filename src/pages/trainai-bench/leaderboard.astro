@@ -1,8 +1,8 @@
 ---
-import TrainAIBench from '../../layouts/TrainAIBench.astro'
+import Layout from '../../layouts/Layout.astro'
 ---
 
-<TrainAIBench title="Leaderboard – TrainAI Bench">
+<Layout title="Leaderboard – TrainAI Bench">
 	<!-- Hero -->
 	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
@@ -29,7 +29,7 @@ import TrainAIBench from '../../layouts/TrainAIBench.astro'
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Filters -->
-			<div class="top-[calc(var(--header-top)+5rem)] z-999 rounded-lg border border-foreground/10 bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
+			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground/10 bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
 				<div class="flex flex-col items-center justify-between gap-4 p-4 md:flex-row">
 					<div class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground/5 p-1.25">
 						<button class="btn btn-ghost rounded-sm text-foreground/80 data-[active]:bg-background data-[active]:text-foreground" data-active>Grammar</button>
@@ -101,12 +101,20 @@ import TrainAIBench from '../../layouts/TrainAIBench.astro'
 			</div>
 
 			<!-- Charts -->
-			<div class="mt-8 grid aspect-2/1 place-items-center rounded-lg border border-foreground/5 bg-foreground/2.5">
-				<h3 class="font-medium text-foreground/80">Heatmap</h3>
+			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+				<h3 class="mb-4 text-xl font-bold text-foreground/80">Heatmap – grammar MCC by model × language</h3>
+				<ul class="font-medium text-foreground/80">
+					<li>Models (rows) × 30 languages (columns)</li>
+					<li>Color gradient: red (low) → green (high)</li>
+					<li>Tooltip on hover, language sort (alpha/by score), model variants toggle</li>
+				</ul>
 			</div>
 
-			<div class="mt-8 grid aspect-2/1 place-items-center rounded-lg border border-foreground/5 bg-foreground/2.5">
-				<h3 class="font-medium text-foreground/80">Bar chart</h3>
+			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+				<h3 class="mb-4 text-xl font-bold text-foreground/80">Bar chart – grammar MCC by model</h3>
+				<ul class="font-medium text-foreground/80">
+					<li>Aggregate score per model, brand color-coded</li>
+				</ul>
 			</div>
 		</div>
 	</section>
@@ -152,4 +160,4 @@ import TrainAIBench from '../../layouts/TrainAIBench.astro'
 			</div>
 		</div>
 	</section>
-</TrainAIBench>
+</Layout>

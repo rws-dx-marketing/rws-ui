@@ -1,4 +1,5 @@
 ---
+// @ts-nocheck
 import { normalizePath } from '../utils/secondary-nav'
 
 const { breadcrumbs = [], links = [], pathname = '/', current = null, parent = null } = Astro.props
@@ -14,7 +15,7 @@ const shouldRenderCurrentAsPill = Boolean(current?.href && normalizePath(breadcr
 const isLinkActive = (href) => normalizePath(href) === currentPath
 ---
 
-<section class="sticky top-(--secondary-nav-top) z-40 bg-primary text-white transition-[top] duration-300" style="anchor-name: --secondary-nav-mobile-anchor;" data-theme="primary">
+<section id="secondary-nav" class="sticky top-(--secondary-nav-top) z-40 bg-primary text-white transition-[top] duration-300" style="anchor-name: --secondary-nav-mobile-anchor;" data-theme="primary">
 	<div class="py-2.5- mx-auto max-w-screen-2xl px-4.5">
 		<div class="lg:hidden">
 			<div class="flex h-11 items-center justify-between gap-3">

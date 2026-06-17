@@ -1,5 +1,19 @@
 const secondaryNavTree = [
 	{
+		id: 'trainai-bench',
+		label: 'TrainAI Bench',
+		href: '/trainai-bench',
+		children: [
+			{ id: 'trainai-bench-leaderboard', label: 'Leaderboard', href: '/trainai-bench/leaderboard' },
+			{ id: 'trainai-bench-by-language', label: 'By language', href: '/trainai-bench/by-language' },
+			{ id: 'trainai-bench-by-model', label: 'By model', href: '/trainai-bench/by-model' },
+			{ id: 'trainai-bench-economics', label: 'Economics', href: '/trainai-bench/economics' },
+			{ id: 'trainai-bench-methodology', label: 'Methodology', href: '/trainai-bench/methodology' },
+			{ id: 'trainai-bench-insights', label: 'Insights', href: '/trainai-bench/insights' },
+			{ id: 'trainai-bench-register', label: 'Register', href: '/trainai-bench/register' },
+		],
+	},
+	{
 		id: 'localization-services',
 		label: 'Localization services',
 		href: '/what-we-do/localization-services',

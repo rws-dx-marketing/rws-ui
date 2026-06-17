@@ -1,41 +1,50 @@
-<!-- Growler -->
-<section id="growler" class="flex min-h-12 w-full justify-between border-b border-foreground/5 bg-background py-2 text-foreground" role="alert" data-theme="secondary">
-	<div class="mx-auto max-w-7xl px-3 sm:px-4">
-		<div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-			<div class="text-center text-sm font-medium text-pretty">
-				<p>We just launched the most amazing thing.</p>
+---
+const growlerPaths = ['/'];
+const showGrowler = growlerPaths.includes(Astro.url.pathname);
+---
+
+{showGrowler && (
+	<>
+		<!-- Growler -->
+		<section id="growler" class="flex min-h-12 w-full justify-between border-b border-foreground/5 bg-background py-2 text-foreground" role="alert" data-theme="secondary">
+			<div class="mx-auto max-w-7xl px-3 sm:px-4">
+				<div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
+					<div class="text-center text-sm font-medium text-pretty">
+						<p>We just launched the most amazing thing.</p>
+					</div>
+
+					<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
+						Check it out
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Growler with close -->
+		<section hidden id="growler" tabindex="-1" class="fixed z-999 flex w-full justify-between border border-b border-foreground/10 bg-background py-3 text-foreground" role="alert" data-theme="primary">
+			<div class="max-w-screen-xl- mx-auto pr-12 pl-3 sm:pl-4 lg:px-16">
+				<p class="text-sm font-medium lg:text-center">
+					<!-- Text -->
+					<span class="mr-2">We have launched Flowbite Blocks including over 120+ website sections!</span>
+
+					<!-- Link -->
+					<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
+						Check it out
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					</a>
+				</p>
 			</div>
 
-			<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
-				Check it out
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-			</a>
-		</div>
-	</div>
-</section>
-
-<!-- Growler with close -->
-<section hidden id="growler" tabindex="-1" class="fixed z-999 flex w-full justify-between border border-b border-foreground/10 bg-background py-3 text-foreground" role="alert" data-theme="primary">
-	<div class="max-w-screen-xl- mx-auto pr-12 pl-3 sm:pl-4 lg:px-16">
-		<p class="text-sm font-medium lg:text-center">
-			<!-- Text -->
-			<span class="mr-2">We have launched Flowbite Blocks including over 120+ website sections!</span>
-
-			<!-- Link -->
-			<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
-				Check it out
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-			</a>
-		</p>
-	</div>
-
-	<!-- Close button -->
-	<div class="absolute top-1/2 right-2.5 -translate-y-1/2">
-		<button type="button" class="btn btn-ghost btn-md aspect-square p-1.5">
-			<svg class="m-0!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-		</button>
-	</div>
-</section>
+			<!-- Close button -->
+			<div class="absolute top-1/2 right-2.5 -translate-y-1/2">
+				<button type="button" class="btn btn-ghost btn-md aspect-square p-1.5">
+					<svg class="m-0!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+				</button>
+			</div>
+		</section>
+	</>
+)}
 
 <header id="site-header" class="sticky top-(--header-top) z-50 border-b border-foreground/5 bg-background py-2.5 text-foreground transition-[top] duration-300" data-theme="default" style="anchor-name: --site-header-anchor;">
 	<div class="mx-auto flex max-w-screen-2xl items-center gap-x-6 px-2.5 lg:px-4.5">
