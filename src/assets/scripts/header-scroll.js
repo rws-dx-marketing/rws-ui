@@ -14,6 +14,8 @@ export default function headerScroll() {
 	const HIDE_AFTER = 20
 	const SHOW_AFTER = 80
 
+	const growler = document.getElementById('growler')
+	const growlerHeight = () => growler?.offsetHeight ?? 0
 	const secondaryNavHeight = () => secondaryNav?.offsetHeight ?? 0
 
 	const hideHeader = () => {
@@ -34,6 +36,7 @@ export default function headerScroll() {
 		root.style.setProperty('--content-top', `${header.offsetHeight + secondaryNavHeight()}px`)
 	}
 	const syncOffsets = () => {
+		root.style.setProperty('--chrome-height', `${growlerHeight() + header.offsetHeight + secondaryNavHeight()}px`)
 		if (headerHidden) {
 			root.style.setProperty('--header-top', `-${header.offsetHeight}px`)
 			root.style.setProperty('--secondary-nav-top', '0px')
