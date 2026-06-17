@@ -8,9 +8,7 @@ export default function primaryNav() {
 	const shellCloseHitarea = document.getElementById('mobile-shell-close-hitarea')
 	const menuClosedIcon = menuToggle?.querySelector('[data-icon-closed]')
 	const menuOpenIcon = menuToggle?.querySelector('[data-icon-open]')
-	const desktopLanguageMenu = document.getElementById('desktop-language-menu')
-	const desktopLanguageOptions = desktopLanguageMenu ? Array.from(desktopLanguageMenu.querySelectorAll('a[role="menuitem"]')) : []
-	const languageChangeDialog = document.getElementById('language-change-dialog')
+	const languageChangeDialogs = Array.from(document.querySelectorAll('#language-change-dialog, [id^="language-dialog-mobile-"], [id^="language-dialog-desktop-"]')).filter((el) => el instanceof HTMLDialogElement)
 	const mobileMenuViews = menuPanel ? Array.from(menuPanel.querySelectorAll('[data-mobile-menu-view]')) : []
 	const panelInner = menuPanel?.querySelector(':scope > div')
 	if (panelInner instanceof HTMLElement) {
@@ -109,7 +107,9 @@ export default function primaryNav() {
 				root.style.setProperty('--header-top', '0px')
 				root.style.setProperty('--secondary-nav-top', `${header.offsetHeight}px`)
 				root.style.setProperty('--mobile-menu-top', `${Math.max(0, header.getBoundingClientRect().bottom)}px`)
-				requestAnimationFrame(() => { header.style.transition = '' })
+				requestAnimationFrame(() => {
+					header.style.transition = ''
+				})
 			}
 			// Apply shell transforms and background BEFORE locking scroll.
 			// iOS Safari fires a synchronous repaint when body becomes position:fixed —
@@ -171,7 +171,9 @@ export default function primaryNav() {
 					}
 					shellTarget.style.clipPath = ''
 				}
-				unlockDocumentScroll()
+				if (!languageChangeDialogs.some((d) => d.open)) {
+					unlockDocumentScroll()
+				}
 				document.body.style.backgroundColor = ''
 			}, transitionDurationMs)
 		}
@@ -304,25 +306,17 @@ export default function primaryNav() {
 			syncDesktopMenuTriggerState()
 		})
 	})
-	if (languageChangeDialog instanceof HTMLDialogElement) {
-		languageChangeDialog.addEventListener('click', (event) => {
-			if (event.target === languageChangeDialog) languageChangeDialog.close()
+	languageChangeDialogs.forEach((dialog) => {
+		dialog.addEventListener('click', (event) => {
+			if (event.target === dialog) dialog.close()
 		})
-		languageChangeDialog.addEventListener('toggle', (event) => {
+		dialog.addEventListener('toggle', (event) => {
 			if (event.newState === 'open') {
+				if (root.dataset.mobileMenuOpen === 'true') closeMenu()
 				lockDocumentScroll()
 			} else if (event.newState === 'closed') {
 				unlockDocumentScroll()
 			}
-		})
-	}
-	desktopLanguageOptions.forEach((option) => {
-		if (!(option instanceof HTMLAnchorElement)) return
-		option.addEventListener('click', (event) => {
-			event.preventDefault()
-			desktopLanguageMenu?.hidePopover?.()
-			if (!(languageChangeDialog instanceof HTMLDialogElement)) return
-			if (!languageChangeDialog.open) languageChangeDialog.showModal()
 		})
 	})
 
