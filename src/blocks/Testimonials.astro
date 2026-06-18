@@ -1,0 +1,113 @@
+---
+// @ts-nocheck
+const {
+	testimonials = [
+		{
+			quote: "1. For Chinese enterprises expanding globally, RWS's global resources combined with localized Chinese services effectively enhance IP process management efficiency. They are an excellent global partner.",
+		},
+		{
+			quote: "2. For Chinese enterprises expanding globally, RWS's global resources combined with localized Chinese services effectively enhance IP process management efficiency. They are an excellent global partner.",
+		},
+		{
+			quote: "3. For Chinese enterprises expanding globally, RWS's global resources combined with localized Chinese services effectively enhance IP process management efficiency. They are an excellent global partner.",
+		},
+	],
+} = Astro.props
+
+const N = testimonials.length
+---
+
+<section class="overflow-hidden bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+		<div data-carousel class="relative">
+			<div data-carousel="viewport">
+				<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom">
+
+  				{
+  					testimonials.map((t) => (
+  						<div data-carousel="slide" class="basis-full shrink-0 min-w-0">
+  							<figure class="mx-auto max-w-xl text-center px-8 lg:px-12">
+  								<div class="svg-current mx-auto mb-2 size-12 text-accent">
+  									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  										<rect width="256" height="256" fill="none" />
+  										<path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z" />
+  									</svg>
+  								</div>
+
+  								<blockquote class="text-center">
+  									<p class="text-2xl font-medium text-pretty">{`"${t.quote}"`}</p>
+  								</blockquote>
+
+  								{t.author && (
+  									<figcaption class="mt-6 flex items-center justify-center space-x-3">
+  										{t.avatar && <img class="size-6 rounded-full" src={t.avatar} alt="" />}
+  										<div class="flex items-center divide-x divide-foreground/66">
+  											<div class="pr-3 font-medium">{t.author}</div>
+  											{t.role && <div class="pl-3 text-sm font-medium text-foreground/80">{t.role}</div>}
+  										</div>
+  									</figcaption>
+  								)}
+  							</figure>
+  						</div>
+  					))
+  				}
+
+					<!-- <div data-carousel="slide" class="basis-full shrink-0 min-w-0 text-center">Slide 1</div>
+					<div data-carousel="slide" class="basis-full shrink-0 min-w-0 text-center">Slide 2</div>
+					<div data-carousel="slide" class="basis-full shrink-0 min-w-0 text-center">Slide 3</div> -->
+				</div>
+			</div>
+
+			<div class="pointer-events-none hidden md:flex w-full justify-between absolute top-1/2 -translate-y-[calc(50%+var(--spacing)*6)] max-w-screen-xl left-1/2 -translate-x-1/2 px-8 lg:px-12">
+   			<button data-carousel="prev" class="transition-opacity disabled:opacity-50 pointer-events-auto">
+   			  <span class="sr-only">Scroll to prev</span>
+  				<svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
+   			</button>
+
+   			<button data-carousel="next" class="transition-opacity disabled:opacity-50 pointer-events-auto">
+   			  <span class="sr-only">Scroll to next</span>
+  				<svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
+   			</button>
+			</div>
+
+ 			<div data-carousel="dots" class="flex gap-2 justify-center mt-12"></div>
+
+ 			<script type="text/template" id="dot-template">
+				<button data-carousel="dot" class="size-3 bg-foreground transition-opacity rounded-full opacity-50 data-selected:opacity-100">
+ 					<!-- Button content -->
+				</button>
+ 			</script>
+		</div>
+</section>
+
+<!-- <section class="relative bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="primary">
+	<div class="flex snap-x snap-mandatory scrollbar-none gap-4 overflow-x-auto overscroll-x-contain scroll-smooth" data-carousel>
+		{
+			testimonials.map((t) => (
+				<div class="shrink-0 basis-full snap-center px-8 lg:px-12">
+					<figure class="mx-auto max-w-lg text-center">
+						<div class="svg-current mx-auto mb-2 size-12 text-accent">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none" />
+								<path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z" />
+							</svg>
+						</div>
+
+						<blockquote class="text-center">
+							<p class="text-2xl font-medium text-pretty">{`"${t.quote}"`}</p>
+						</blockquote>
+
+						{t.author && (
+							<figcaption class="mt-6 flex items-center justify-center space-x-3">
+								{t.avatar && <img class="size-6 rounded-full" src={t.avatar} alt="" />}
+								<div class="flex items-center divide-x divide-foreground/66">
+									<div class="pr-3 font-medium">{t.author}</div>
+									{t.role && <div class="pl-3 text-sm font-medium text-foreground/80">{t.role}</div>}
+								</div>
+							</figcaption>
+						)}
+					</figure>
+				</div>
+			))
+		}
+	</div>
+</section> -->

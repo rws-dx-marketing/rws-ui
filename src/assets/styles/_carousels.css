@@ -1,0 +1,40 @@
+// CSS-only experiment
+
+[data-carousel] {
+	scroll-marker-group: after;
+	--gutter: 1.5rem;
+}
+
+[data-carousel]::scroll-button(*) {
+	@apply absolute top-1/2 -translate-y-[calc(-50%+var(--gutter))] cursor-pointer border-none bg-transparent transition-opacity;
+}
+
+[data-carousel]::scroll-button(*):disabled {
+	@apply cursor-default opacity-10;
+	color: initial;
+}
+
+[data-carousel]::scroll-button(left) {
+	@apply left-4.5 size-6 bg-foreground mask-contain mask-center mask-no-repeat text-[0px];
+	content: '←' / 'Previous';
+	mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><polyline points='160 208 80 128 160 48' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='24'/></svg>");
+}
+
+[data-carousel]::scroll-button(right) {
+	@apply right-4.5 size-6 bg-foreground mask-contain mask-center mask-no-repeat text-[0px];
+	content: '→' / 'Next';
+	mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><polyline points='96 48 176 128 96 208' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='24'/></svg>");
+}
+
+[data-carousel]::scroll-marker-group {
+	@apply mt-[calc(var(--gutter)*2)] flex items-center justify-center gap-2;
+}
+
+[data-carousel] > ::scroll-marker {
+	@apply block size-3 rounded-full bg-foreground/15 transition-colors;
+	content: '';
+}
+
+[data-carousel] > ::scroll-marker:target-current {
+	@apply bg-accent;
+}
