@@ -1,0 +1,124 @@
+<!-- <style is:global>
+	@media (min-width: 1024px) {
+		html:has([data-split-steps]) {
+			scroll-snap-type: y proximity;
+		}
+	}
+</style> -->
+<section class="bg-background text-foreground" data-split-steps data-active-step="1" data-theme="pale">
+	<!-- Mobile image (hidden on lg+) -->
+	<div class="mx-auto max-w-screen-xl px-8 pt-12 lg:hidden">
+		<!-- <img src="/images/placeholder-1.png" alt="Placeholder" class="aspect-video w-full rounded-lg object-cover" draggable="false" /> -->
+
+		<div class="relative aspect-square w-1/2">
+			<div class="aspect-square animate-spin transition-colors [animation-duration:5s] in-data-[active-step='1']:bg-primary in-data-[active-step='2']:bg-secondary in-data-[active-step='3']:bg-tertiary"></div>
+			<div class="absolute top-0 aspect-square size-full animate-ping rounded-full transition-colors [animation-duration:2s] in-data-[active-step='1']:bg-primary in-data-[active-step='2']:bg-secondary in-data-[active-step='3']:bg-tertiary"></div>
+		</div>
+	</div>
+
+	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+		<div class="lg:grid lg:grid-cols-12 lg:gap-16 xl:gap-20">
+			<!-- Scrolling steps -->
+			<div class="lg:col-span-6">
+				<!-- Step 1 -->
+				<div class="flex min-h-screen items-center py-20 lg:snap-center" data-step="1">
+					<div class="intersect-once intersect:motion-preset-fade-up">
+						<p class="mb-3 font-bold text-foreground/80 xl:text-lg">Step one</p>
+
+						<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
+						</h2>
+
+						<div class="prose font-medium text-foreground/80 md:prose-lg">
+							<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat.</p>
+						</div>
+
+						<div class="mt-8 flex flex-wrap items-center gap-4">
+							<a href="#" class="btn btn-primary btn-icon-right">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+								Find out more
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Step 2 -->
+				<div class="flex min-h-screen items-center py-20 lg:snap-center" data-step="2">
+					<div class="intersect-once intersect:motion-preset-fade-up">
+						<p class="mb-3 font-bold text-foreground/80 xl:text-lg">Step two</p>
+
+						<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+							Suspendisse luctus <em>tortor placerat</em> erat consequat
+						</h2>
+
+						<div class="prose font-medium text-foreground/80 md:prose-lg">
+							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget.</p>
+						</div>
+
+						<div class="mt-8 flex flex-wrap items-center gap-4">
+							<a href="#" class="btn btn-secondary btn-icon-right">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+								Find out more
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Step 3 -->
+				<div class="flex min-h-screen items-center py-20 lg:snap-center" data-step="3">
+					<div class="intersect-once intersect:motion-preset-fade-up">
+						<p class="mb-3 font-bold text-foreground/80 xl:text-lg">Step three</p>
+
+						<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+							Pellentesque habitant <em>morbi tristique</em> senectus et netus
+						</h2>
+
+						<div class="prose font-medium text-foreground/80 md:prose-lg">
+							<p>Integer in feugiat lorem. Nulla facilisi. Maecenas aliquam turpis at ex malesuada, vitae hendrerit velit sodales. Duis nec risus at enim commodo tincidunt.</p>
+						</div>
+
+						<div class="mt-8 flex flex-wrap items-center gap-4">
+							<a href="#" class="btn btn-tertiary btn-icon-right">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+								Find out more
+							</a>
+							<!-- <a href="#" class="btn btn-secondary btn-icon-right">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 256 256"><path d="M228,104a12,12,0,0,1-24,0V69l-59.51,59.51a12,12,0,0,1-17-17L187,52H152a12,12,0,0,1,0-24h64a12,12,0,0,1,12,12Zm-44,24a12,12,0,0,0-12,12v64H52V84h64a12,12,0,0,0,0-24H48A20,20,0,0,0,28,80V208a20,20,0,0,0,20,20H176a20,20,0,0,0,20-20V140A12,12,0,0,0,184,128Z"></path></svg>
+								External link
+							</a> -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Sticky image (lg+) -->
+			<div class="hidden lg:col-span-6 lg:block">
+				<div class="sticky top-0 flex h-screen items-center justify-center">
+					<!-- <img src="/images/placeholder-1.png" alt="Placeholder" class="aspect-square w-full rounded-lg object-cover" draggable="false" /> -->
+
+					<div class="relative aspect-square w-1/2">
+						<div class="aspect-square animate-spin transition-colors [animation-duration:5s] in-data-[active-step='1']:bg-primary in-data-[active-step='2']:bg-secondary in-data-[active-step='3']:bg-tertiary"></div>
+						<div class="absolute top-0 aspect-square size-full animate-ping rounded-full transition-colors [animation-duration:2s] in-data-[active-step='1']:bg-primary in-data-[active-step='2']:bg-secondary in-data-[active-step='3']:bg-tertiary"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const section = document.querySelector('[data-split-steps]')
+	if (section) {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						section.setAttribute('data-active-step', entry.target.getAttribute('data-step') ?? '')
+					}
+				}
+			},
+			{ rootMargin: '-50% 0px -50% 0px' },
+		)
+		section.querySelectorAll('[data-step]').forEach((panel) => observer.observe(panel))
+	}
+</script>

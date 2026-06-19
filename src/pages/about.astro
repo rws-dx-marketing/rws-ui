@@ -1,11 +1,66 @@
 ---
 import Layout from '../layouts/Layout.astro'
-
-import HeroFeatures from '../blocks/HeroFeatures.astro'
-import HeroForm from '../blocks/HeroForm.astro'
+import SplitSteps from '../blocks/SplitSteps.astro'
 ---
 
 <Layout title="About – RWS UI">
-	<HeroFeatures />
-	<HeroForm />
+	<!-- Hero -->
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-20 text-foreground md:pt-24 lg:pt-32" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>By language experts</p>
+			</div>
+
+			<h1 class="mx-auto mb-6 max-w-[16ch] text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">
+				<p>Does your AI actually <em>speak the language</em>?</p>
+			</h1>
+
+			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos reprehenderit libero ut eligendi? Laudantium quod quas asperiores magni dolore.</p>
+			</div>
+
+			<div hidden class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+				<a href="/trainai-bench/leaderboard" class="btn btn-primary btn-xl">View leaderboard</a>
+				<a href="/trainai-bench/methodology" class="btn btn-outline btn-xl">Read methodology</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Stats -->
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="grid gap-8 sm:data-[count='3']:grid-cols-3 sm:data-[count='4']:grid-cols-2 sm:data-[count='5']:grid-cols-2 lg:data-[count='4']:grid-cols-4 lg:data-[count='5']:grid-cols-5" data-count="3">
+				<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
+					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 200ms" data-count-up>50%</p>
+
+					<div class="intersect-once intersect:motion-preset-slide-up-sm" style="--motion-delay: 200ms">
+						<p class="text-lg/tight font-bold">increase in revenue</p>
+						<p>for new customers</p>
+					</div>
+				</div>
+
+				<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
+					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 300ms" data-count-up>99+</p>
+
+					<div class="intersect-once intersect:motion-preset-slide-up-sm" style="--motion-delay: 300ms">
+						<p class="text-lg/tight font-bold">managed projects</p>
+						<p>across multiple regions</p>
+					</div>
+				</div>
+
+				<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
+					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style="--motion-delay: 400ms" data-count-up>123</p>
+
+					<div class="intersect-once intersect:motion-preset-slide-up-sm" style="--motion-delay: 400ms">
+						<p class="text-lg/tight font-bold">weeks</p>
+						<p>of continual growth</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<SplitSteps />
+
+	<section class="h-[100svh] bg-background" data-theme="tertiary"></section>
 </Layout>
