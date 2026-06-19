@@ -1,8 +1,8 @@
 import EmblaCarousel from 'embla-carousel'
 // import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
+import AutoHeightPlugin from 'embla-carousel-auto-height'
 
-export default function carousel() {
-	const wrapperNode = document.querySelector('[data-carousel]')
+function initCarousel(wrapperNode) {
 	const viewportNode = wrapperNode.querySelector('[data-carousel="viewport"]')
 	const prevButtonNode = wrapperNode.querySelector('[data-carousel="prev"]')
 	const nextButtonNode = wrapperNode.querySelector('[data-carousel="next"]')
@@ -13,11 +13,13 @@ export default function carousel() {
 		{
 			loop: false,
 			skipSnaps: true,
+			draggable: wrapperNode.querySelectorAll('[data-carousel="slide"]').length <= 1 ? false : true,
 		},
-		// [WheelGesturesPlugin()],
+		[
+			// WheelGesturesPlugin(),
+			AutoHeightPlugin(),
+		],
 	)
-
-	// console.log('emblaApi', emblaApi)
 
 	emblaApi.on('scroll', (emblaApi, event) => {
 		const { isDragging } = event.detail
@@ -51,7 +53,7 @@ export default function carousel() {
 	let dotNodes = []
 
 	const createDotButtonHtml = (emblaApi, dotsNode) => {
-		const dotTemplate = document.getElementById('dot-template')
+		const dotTemplate = wrapperNode.querySelector('[data-carousel="dot-template"]')
 		const snapList = emblaApi.snapList()
 		dotsNode.innerHTML = snapList.reduce((acc) => acc + dotTemplate.innerHTML, '')
 		return Array.from(dotsNode.querySelectorAll('[data-carousel="dot"]'))
@@ -80,4 +82,8 @@ export default function carousel() {
 	createAndSetupDotButtons(emblaApi, dotsNode)
 	emblaApi.on('reinit', () => createAndSetupDotButtons(emblaApi, dotsNode))
 	emblaApi.on('select', (emblaApi) => toggleDotButtonsActive(emblaApi, dotNodes))
+}
+
+export default function carousel() {
+	document.querySelectorAll('[data-carousel]:not([data-carousel] [data-carousel])').forEach(initCarousel)
 }
