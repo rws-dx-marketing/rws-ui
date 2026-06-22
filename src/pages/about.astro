@@ -57,7 +57,7 @@ const gridCols = gridColsByCount[stats.length] ?? gridColsByCount[3]
 
 							<div class="intersect-once intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + index * 100}ms`}>
 								<p class="text-lg/tight font-bold">{stat.label}</p>
-								{stat.note && <p>{stat.note}</p>}
+								{stat.note && <p class="font-medium">{stat.note}</p>}
 							</div>
 						</div>
 					))
