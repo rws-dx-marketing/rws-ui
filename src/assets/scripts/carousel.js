@@ -52,11 +52,22 @@ function initCarousel(wrapperNode) {
 
 	let dotNodes = []
 
+	const dotIconSources = Array.from(wrapperNode.querySelectorAll('[data-carousel="dot-icon-source"]'))
+
 	const createDotButtonHtml = (emblaApi, dotsNode) => {
 		const dotTemplate = wrapperNode.querySelector('[data-carousel="dot-template"]')
 		const snapList = emblaApi.snapList()
 		dotsNode.innerHTML = snapList.reduce((acc) => acc + dotTemplate.innerHTML, '')
 		return Array.from(dotsNode.querySelectorAll('[data-carousel="dot"]'))
+	}
+
+	const setupDotIcons = (dotNodes) => {
+		if (!dotIconSources.length) return
+		dotNodes.forEach((dotNode, index) => {
+			const slot = dotNode.querySelector('[data-carousel="dot-icon"]')
+			const source = dotIconSources[index % dotIconSources.length]
+			if (slot && source) slot.innerHTML = source.innerHTML
+		})
 	}
 
 	const addDotButtonClickHandlers = (emblaApi, dotNodes) => {
@@ -75,6 +86,7 @@ function initCarousel(wrapperNode) {
 
 	const createAndSetupDotButtons = (emblaApi, dotsNode) => {
 		dotNodes = createDotButtonHtml(emblaApi, dotsNode)
+		setupDotIcons(dotNodes)
 		addDotButtonClickHandlers(emblaApi, dotNodes)
 		toggleDotButtonsActive(emblaApi, dotNodes)
 	}
