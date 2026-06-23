@@ -1,4 +1,5 @@
 import EmblaCarousel from 'embla-carousel'
+import { Observer } from 'tailwindcss-intersect'
 // import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
 // import AutoHeightPlugin from 'embla-carousel-auto-height'
 
@@ -76,6 +77,15 @@ function initCarousel(wrapperNode) {
 		})
 	}
 
+	const setupDotDelays = (dotNodes) => {
+		dotNodes.forEach((dotNode, index) => {
+			const motionNode = dotNode.querySelector('.intersect-once')
+			if (!motionNode) return
+			motionNode.style.setProperty('--motion-delay', `${200 + index * 100}ms`)
+			motionNode.setAttribute('no-intersect', '')
+		})
+	}
+
 	const toggleDotButtonsActive = (emblaApi, dotNodes) => {
 		if (!dotNodes.length) return
 		const previous = emblaApi.previousSnap()
@@ -87,8 +97,10 @@ function initCarousel(wrapperNode) {
 	const createAndSetupDotButtons = (emblaApi, dotsNode) => {
 		dotNodes = createDotButtonHtml(emblaApi, dotsNode)
 		setupDotIcons(dotNodes)
+		setupDotDelays(dotNodes)
 		addDotButtonClickHandlers(emblaApi, dotNodes)
 		toggleDotButtonsActive(emblaApi, dotNodes)
+		Observer.observe()
 	}
 
 	createAndSetupDotButtons(emblaApi, dotsNode)

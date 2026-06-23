@@ -47,7 +47,7 @@ const {
 					testimonials.map((t) => (
 						<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 							<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
-								<div class="svg-current mx-auto mb-5 size-12 text-accent">
+								<div class="intersect-once svg-current mx-auto mb-5 size-12 text-accent intersect:motion-preset-rebound-up" style="--motion-delay: 200ms">
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
 										<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
 											<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z" />
@@ -104,9 +104,11 @@ const {
 		{
 			variant === 'morphing-dots' && (
 				<script type="text/template" data-carousel="dot-template">
-					<button data-carousel="dot" class="relative size-3 text-accent transition-transform has-[~[data-selected]]:-translate-x-1 [[data-selected]~&]:translate-x-1">
-						<span class="absolute inset-0 rounded-full bg-current opacity-50 transition-all in-data-selected:scale-0 in-data-selected:opacity-0"></span>
-						<span data-carousel="dot-icon" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 scale-50 opacity-0 transition-all in-data-selected:scale-100 in-data-selected:opacity-100 [&>svg]:size-full"></span>
+					<button data-carousel="dot" class="relative size-3 text-accent transition-[translate] has-[~[data-selected]]:-translate-x-1 [[data-selected]~&]:translate-x-1">
+						<span class="intersect-once absolute inset-0 intersect:motion-preset-rebound-down">
+							<span class="absolute inset-0 rounded-full bg-current opacity-50 transition-all in-data-selected:scale-0 in-data-selected:opacity-0"></span>
+							<span data-carousel="dot-icon" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 scale-50 opacity-0 transition-all in-data-selected:scale-100 in-data-selected:opacity-100 [&>svg]:size-full"></span>
+						</span>
 					</button>
 				</script>
 			)
