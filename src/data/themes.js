@@ -6,6 +6,4 @@ export const themes = [
 	'primary',
 	'secondary',
 	'tertiary',
-] as const
-
-export type Theme = (typeof themes)[number]
+]

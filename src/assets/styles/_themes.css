@@ -29,8 +29,7 @@
 	--input: var(--theme-default-input);
 	--gradient: var(--theme-default-gradient);
 
-	[data-card] {
-		/*--background: color-mix(in oklch, var(--color-tertiary-lightest) 25%, transparent);*/
+	[data-card]:not(.outline-24 [data-card]) {
 		--background: var(--color-tertiary-lightest);
 		--input: var(--color-white);
 	}
@@ -48,7 +47,6 @@
 
 [data-theme='dots'],
 [data-theme='dots-enhanced'] {
-	/*--background: color-mix(in oklch, var(--color-tertiary-50) 33%, transparent);*/
 	--background: var(--color-tertiary-lightest);
 	--foreground: var(--color-gray-900);
 	--accent: var(--color-primary);

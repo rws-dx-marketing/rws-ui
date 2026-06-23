@@ -1,6 +1,6 @@
 import EmblaCarousel from 'embla-carousel'
 // import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
-import AutoHeightPlugin from 'embla-carousel-auto-height'
+// import AutoHeightPlugin from 'embla-carousel-auto-height'
 
 function initCarousel(wrapperNode) {
 	const viewportNode = wrapperNode.querySelector('[data-carousel="viewport"]')
@@ -17,7 +17,7 @@ function initCarousel(wrapperNode) {
 		},
 		[
 			// WheelGesturesPlugin(),
-			AutoHeightPlugin(),
+			// AutoHeightPlugin(),
 		],
 	)
 

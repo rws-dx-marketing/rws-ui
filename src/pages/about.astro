@@ -2,23 +2,7 @@
 // @ts-nocheck
 import Layout from '../layouts/Layout.astro'
 import SplitSteps from '../blocks/SplitSteps.astro'
-
-const stats = [
-	{ value: '50%', label: 'increase in revenue', note: 'for new customers' },
-	{ value: '99+', label: 'managed projects', note: 'across multiple regions' },
-	{ value: '123', label: 'weeks', note: 'of continual growth' },
-]
-
-const gridColsByCount = {
-	1: 'grid-cols-1',
-	2: 'sm:grid-cols-2',
-	3: 'sm:grid-cols-3',
-	4: 'sm:grid-cols-2 lg:grid-cols-4',
-	5: 'sm:grid-cols-2 lg:grid-cols-5',
-	6: 'sm:grid-cols-2 lg:grid-cols-3',
-}
-
-const gridCols = gridColsByCount[stats.length] ?? gridColsByCount[3]
+import Stats from '../blocks/Stats.astro'
 ---
 
 <Layout title="About – RWS UI">
@@ -45,26 +29,7 @@ const gridCols = gridColsByCount[stats.length] ?? gridColsByCount[3]
 	</section>
 
 	<!-- Stats -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
-		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-			<div class:list={['grid gap-8', gridCols]}>
-				{
-					stats.map((stat, index) => (
-						<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
-							<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style={`--motion-delay: ${200 + index * 100}ms`} data-count-up>
-								{stat.value}
-							</p>
-
-							<div class="intersect-once intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + index * 100}ms`}>
-								<p class="text-lg/tight font-bold">{stat.label}</p>
-								{stat.note && <p class="font-medium">{stat.note}</p>}
-							</div>
-						</div>
-					))
-				}
-			</div>
-		</div>
-	</section>
+	<Stats theme="default" />
 
 	<SplitSteps />
 

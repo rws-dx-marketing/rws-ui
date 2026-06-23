@@ -3,7 +3,6 @@
 import { dotIcons } from '../data/carousel-icons'
 import type { Theme } from '../data/themes'
 
-// Variants: 'morphing-dots' | 'simple-dots'
 type Variant = 'morphing-dots' | 'simple-dots'
 
 interface Props {
@@ -20,10 +19,12 @@ const {
 			quote: 'Nunc sit amet est semper ligula lacinia faucibus scelerisque sed elit. Quisque sagittis, urna sed elementum tempus, dolor dolor mollis nulla, at gravida orci sapien quis felis. In pulvinar metus sed tellus ornare porta.',
 			avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png',
 			author: 'Michael Gough',
-			role: 'CEO at Google',
+			role: 'CEO at Canva',
+			logo: '/logos/canva.svg',
 		},
 		{
 			quote: 'Donec quis viverra ante, tempus convallis mauris. Mauris tempor orci sit amet mi accumsan ultricies. Phasellus cursus massa felis, id volutpat lectus suscipit sit amet. Aenean eleifend orci at est iaculis rutrum.',
+			logo: '/logos/alibaba.svg',
 		},
 		{
 			quote: 'Donec quis viverra ante, tempus convallis mauris. Mauris tempor orci sit amet mi accumsan ultricies. Phasellus cursus massa felis, id volutpat lectus suscipit sit amet. Aenean eleifend orci at est iaculis rutrum.',
@@ -46,7 +47,7 @@ const {
 					testimonials.map((t) => (
 						<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 							<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
-								<div class="svg-current mx-auto mb-2 size-12 text-accent">
+								<div class="svg-current mx-auto mb-5 size-12 text-accent">
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
 										<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
 											<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z" />
@@ -72,6 +73,12 @@ const {
 											{t.role && <div class="pl-3 text-sm font-medium text-foreground/80">{t.role}</div>}
 										</div>
 									</figcaption>
+								)}
+
+								{t.logo && (
+									<div class="mt-6 flex items-center justify-center">
+										<img class="max-h-14 object-contain" src={t.logo} />
+									</div>
 								)}
 							</figure>
 						</div>
