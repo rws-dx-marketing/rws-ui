@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Split from '../../blocks/Split.astro'
+import { themes } from '../../data/themes'
+
+const variants = ['lead-image', 'double-image-list', 'features-grid', 'features-rows', 'logos-image', 'video-text', 'stats-form'] as const
+---
+
+<Layout>
+	{variants.map((variant) => themes.map((theme) => <Split variant={variant} theme={theme} />))}
+</Layout>

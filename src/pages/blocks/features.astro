@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Features from '../../blocks/Features.astro'
+import { themes } from '../../data/themes'
+---
+
+<Layout>
+	{themes.map((theme) => <Features theme={theme} />)}
+</Layout>

@@ -1,8 +1,20 @@
 ---
 // @ts-nocheck
 import { dotIcons } from '../data/carousel-icons'
+import type { Theme } from '../data/themes'
+
+// Variants: 'morphing-dots' | 'simple-dots'
+type Variant = 'morphing-dots' | 'simple-dots'
+
+interface Props {
+	variant?: Variant
+	theme?: Theme
+	testimonials?: { quote: string; author?: string; role?: string; avatar?: string }[]
+}
 
 const {
+	variant = 'morphing-dots',
+	theme = 'default',
 	testimonials = [
 		{
 			quote: 'Nunc sit amet est semper ligula lacinia faucibus scelerisque sed elit. Quisque sagittis, urna sed elementum tempus, dolor dolor mollis nulla, at gravida orci sapien quis felis. In pulvinar metus sed tellus ornare porta.',
@@ -20,16 +32,13 @@ const {
 			quote: 'Donec quis viverra ante, tempus convallis mauris. Mauris tempor orci sit amet mi accumsan ultricies. Phasellus cursus massa felis, id volutpat lectus suscipit sit amet. Aenean eleifend orci at est iaculis rutrum.',
 		},
 		{
-			// quote: 'Donec quis viverra ante, tempus convallis mauris. Mauris tempor orci sit amet mi accumsan ultricies. Phasellus cursus massa felis, id volutpat lectus suscipit sit amet. Aenean eleifend orci at est iaculis rutrum.',
 			quote: 'Sed cursus eu ex eu vestibulum pellentesque porta gravida nunc, id vulputate sem etiam dapibus sapien. Mauris tempor orci sit amet mi accumsan ultricies.',
 		},
 	],
 } = Astro.props
-
-const N = testimonials.length
 ---
 
-<section class="overflow-hidden bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+<section class="overflow-hidden bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 	<div data-carousel class="relative">
 		<div data-carousel="viewport" class="transition-[height]">
 			<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-start">
@@ -38,19 +47,14 @@ const N = testimonials.length
 						<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 							<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
 								<div class="svg-current mx-auto mb-2 size-12 text-accent">
-									<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-										<rect width="256" height="256" fill="none" />
-										<path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z" />
-									</svg> -->
-
 									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
-									  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
-											<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"/>
-											<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"/>
+										<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
+											<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z" />
+											<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z" />
 										</g>
 										<defs>
-										  <clipPath id="a">
-												<path fill="#fff" d="M0 0h393v285H0z"/>
+											<clipPath id="a">
+												<path fill="#fff" d="M0 0h393v285H0z" />
 											</clipPath>
 										</defs>
 									</svg>
@@ -90,115 +94,33 @@ const N = testimonials.length
 
 		<div data-carousel="dots" class="mt-12 flex items-center justify-center gap-3"></div>
 
-		<script type="text/template" data-carousel="dot-template">
-			<button data-carousel="dot" class="relative size-3 text-accent transition-transform [[data-selected]~&]:translate-x-1 has-[~[data-selected]]:-translate-x-1">
-				<span class="absolute inset-0 rounded-full bg-current opacity-50 transition-all in-data-selected:scale-0 in-data-selected:opacity-0"></span>
-				<span data-carousel="dot-icon" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 scale-50 opacity-0 transition-all in-data-selected:scale-100 in-data-selected:opacity-100 [&>svg]:size-full"></span>
-			</button>
-		</script>
-
-		<div hidden>
-			{dotIcons.map((icon) => <div data-carousel="dot-icon-source" set:html={icon}></div>)}
-		</div>
-	</div>
-</section>
-
-<section class="overflow-hidden bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
-	<div data-carousel class="relative">
-		<div data-carousel="viewport" class="transition-[height]">
-			<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-start">
-				{
-					testimonials.map((t) => (
-						<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
-							<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
-								<div class="svg-current mx-auto mb-2 size-12 text-accent">
-									<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-										<rect width="256" height="256" fill="none" />
-										<path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z" />
-									</svg> -->
-
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
-									  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
-											<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"/>
-											<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"/>
-										</g>
-										<defs>
-										  <clipPath id="a">
-												<path fill="#fff" d="M0 0h393v285H0z"/>
-											</clipPath>
-										</defs>
-									</svg>
-								</div>
-
-								<blockquote class="space-y-[0.5em] text-center text-2xl font-medium text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
-									<p>{t.quote}</p>
-								</blockquote>
-
-								{t.author && (
-									<figcaption class="mt-6 flex items-center justify-center space-x-3">
-										{t.avatar && <img class="size-6 rounded-full" src={t.avatar} alt="" />}
-										<div class="flex items-center divide-x divide-foreground/66">
-											<div class="pr-3 font-medium">{t.author}</div>
-											{t.role && <div class="pl-3 text-sm font-medium text-foreground/80">{t.role}</div>}
-										</div>
-									</figcaption>
-								)}
-							</figure>
-						</div>
-					))
-				}
-			</div>
-		</div>
-
-		<div class="pointer-events-none absolute top-1/2 left-1/2 hidden w-full max-w-screen-xl -translate-x-1/2 -translate-y-[calc(50%+var(--spacing)*6)] justify-between px-8 lg:flex lg:px-12">
-			<button data-carousel="prev" class="pointer-events-auto transition-opacity disabled:opacity-50">
-				<span class="sr-only">Scroll to prev</span>
-				<svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-			</button>
-
-			<button data-carousel="next" class="pointer-events-auto transition-opacity disabled:opacity-50">
-				<span class="sr-only">Scroll to next</span>
-				<svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-			</button>
-		</div>
-
-		<div data-carousel="dots" class="mt-12 flex items-center justify-center gap-3"></div>
-
-		<script type="text/template" data-carousel="dot-template">
-			<button data-carousel="dot" class="size-3 rounded-full bg-current text-accent opacity-50 transition-opacity data-selected:opacity-100"></button>
-		</script>
-	</div>
-</section>
-
-<!-- <section class="relative bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="primary">
-	<div class="flex snap-x snap-mandatory scrollbar-none gap-4 overflow-x-auto overscroll-x-contain scroll-smooth" data-carousel>
 		{
-			testimonials.map((t) => (
-				<div class="shrink-0 basis-full snap-center px-8 lg:px-12">
-					<figure class="mx-auto max-w-lg text-center">
-						<div class="svg-current mx-auto mb-2 size-12 text-accent">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-								<rect width="256" height="256" fill="none" />
-								<path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z" />
-							</svg>
-						</div>
+			variant === 'morphing-dots' && (
+				<script type="text/template" data-carousel="dot-template">
+					<button data-carousel="dot" class="relative size-3 text-accent transition-transform has-[~[data-selected]]:-translate-x-1 [[data-selected]~&]:translate-x-1">
+						<span class="absolute inset-0 rounded-full bg-current opacity-50 transition-all in-data-selected:scale-0 in-data-selected:opacity-0"></span>
+						<span data-carousel="dot-icon" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 scale-50 opacity-0 transition-all in-data-selected:scale-100 in-data-selected:opacity-100 [&>svg]:size-full"></span>
+					</button>
+				</script>
+			)
+		}
 
-						<blockquote class="text-center">
-							<p class="text-2xl font-medium text-pretty">{`"${t.quote}"`}</p>
-						</blockquote>
-
-						{t.author && (
-							<figcaption class="mt-6 flex items-center justify-center space-x-3">
-								{t.avatar && <img class="size-6 rounded-full" src={t.avatar} alt="" />}
-								<div class="flex items-center divide-x divide-foreground/66">
-									<div class="pr-3 font-medium">{t.author}</div>
-									{t.role && <div class="pl-3 text-sm font-medium text-foreground/80">{t.role}</div>}
-								</div>
-							</figcaption>
-						)}
-					</figure>
+		{
+			variant === 'morphing-dots' && (
+				<div hidden>
+					{dotIcons.map((icon) => (
+						<div data-carousel="dot-icon-source" set:html={icon} />
+					))}
 				</div>
-			))
+			)
+		}
+
+		{
+			variant === 'simple-dots' && (
+				<script type="text/template" data-carousel="dot-template">
+					<button data-carousel="dot" class="size-3 rounded-full bg-current text-accent opacity-50 transition-opacity data-selected:opacity-100"></button>
+				</script>
+			)
 		}
 	</div>
-</section> -->
+</section>

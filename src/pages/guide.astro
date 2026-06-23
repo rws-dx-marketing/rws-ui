@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { themes } from '../data/themes'
 
 const semanticPrimary = [
 	{ name: 'primary-lightest', className: 'bg-primary-lightest' },
@@ -97,15 +98,13 @@ const grayScale = [
 	{ value: 950, className: 'bg-gray-950' },
 ]
 
-const themeVariants = [
-	{ name: 'Default', theme: 'default' },
-	{ name: 'Pale', theme: 'pale' },
-	{ name: 'Dots', theme: 'dots' },
-	{ name: 'Dots Enhanced', theme: 'dots-enhanced' },
-	{ name: 'Primary', theme: 'primary' },
-	{ name: 'Secondary', theme: 'secondary' },
-	{ name: 'Tertiary', theme: 'tertiary' },
-]
+const themeVariants = themes.map((theme) => ({
+	theme,
+	name: theme
+		.split('-')
+		.map((w) => w[0].toUpperCase() + w.slice(1))
+		.join(' '),
+}))
 ---
 
 <Layout title="Style guide – RWS UI">
@@ -427,7 +426,7 @@ const themeVariants = [
 
 			{
 				themeVariants.map((variant) => (
-					<div class="bg-background p-12 text-foreground" data-theme={variant.theme}>
+					<div class="isolate bg-background p-12 text-foreground" data-theme={variant.theme}>
 						<h4 class="text-lg font-bold">{variant.name}</h4>
 						<p class="text-foreground/80">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 

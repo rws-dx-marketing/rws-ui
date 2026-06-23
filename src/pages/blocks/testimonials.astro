@@ -1,0 +1,14 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Testimonials from '../../blocks/Testimonials.astro'
+import { themes } from '../../data/themes'
+
+const variants = [
+	'morphing-dots',
+	// 'simple-dots'
+] as const
+---
+
+<Layout>
+	{variants.map((variant) => themes.map((theme) => <Testimonials variant={variant} theme={theme} />))}
+</Layout>

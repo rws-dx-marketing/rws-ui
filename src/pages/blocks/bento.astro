@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import BentoGrids from '../../blocks/BentoGrids.astro'
+import { themes } from '../../data/themes'
+
+const variants = ['four-card', 'three-card'] as const
+---
+
+<Layout>
+	{variants.map((variant) => themes.map((theme) => <BentoGrids variant={variant} theme={theme} />))}
+</Layout>

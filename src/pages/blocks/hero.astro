@@ -1,0 +1,9 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Hero from '../../blocks/Hero.astro'
+import { themes } from '../../data/themes'
+---
+
+<Layout>
+	{themes.map((theme) => <Hero theme={theme} />)}
+</Layout>

@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import Accordions from '../../blocks/Accordions.astro'
+import { themes } from '../../data/themes'
+
+const variants = ['centered', 'side-by-side', 'panel-swap'] as const
+---
+
+<Layout>
+	{variants.map((variant) => themes.map((theme) => <Accordions variant={variant} theme={theme} />))}
+</Layout>
