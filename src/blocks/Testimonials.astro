@@ -39,10 +39,10 @@ const {
 } = Astro.props
 ---
 
-<section class="overflow-hidden bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+<section class="overflow-hidden bg-background pt-12 pb-15 text-foreground md:pt-16 md:pb-19 lg:pt-20 lg:pb-23" data-theme={theme}>
 	<div data-carousel class="relative">
-		<div data-carousel="viewport" class="transition-[height]">
-			<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-start">
+		<div data-carousel="viewport" class="transition-[height]-">
+			<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-center">
 				{
 					testimonials.map((t) => (
 						<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
@@ -104,7 +104,7 @@ const {
 		{
 			variant === 'morphing-dots' && (
 				<script type="text/template" data-carousel="dot-template">
-					<button data-carousel="dot" class="relative size-3 text-accent transition-[translate] has-[~[data-selected]]:-translate-x-1 [[data-selected]~&]:translate-x-1">
+					<button data-carousel="dot" class="relative -mb-3 size-3 text-accent transition-[translate] has-[~[data-selected]]:-translate-x-1 [[data-selected]~&]:translate-x-1">
 						<span class="intersect-once absolute inset-0 intersect:motion-preset-rebound-down">
 							<span class="absolute inset-0 rounded-full bg-current opacity-50 transition-all in-data-selected:scale-0 in-data-selected:opacity-0"></span>
 							<span data-carousel="dot-icon" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 scale-50 opacity-0 transition-all in-data-selected:scale-100 in-data-selected:opacity-100 [&>svg]:size-full"></span>
