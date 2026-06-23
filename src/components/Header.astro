@@ -329,6 +329,26 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname);
 				</li>
 
 				<li>
+					<button id="desktop-ecosystem-menu-button" type="button" class="flex items-center gap-1 text-sm font-extrabold transition-colors hover:text-foreground/50 aria-expanded:text-foreground/50" popovertarget="desktop-ecosystem-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-ecosystem-menu" style="anchor-name: --desktop-ecosystem-anchor;">
+						<span>Ecosystem</span>
+						<svg class="mt-0.25 size-3 text-foreground/45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="36"></polyline></svg>
+					</button>
+
+					<div id="desktop-ecosystem-menu" popover="auto" role="menu" aria-labelledby="desktop-ecosystem-menu-button" class="dropdown z-20 mt-2 w-60 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="position-anchor: --desktop-ecosystem-anchor; top: anchor(--site-header-anchor bottom); left: anchor(left); position-area: unset; position-try: none;">
+						<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
+							<a href="/partners" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+								<span>Partners</span>
+							</a>
+							<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+								<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
+								<span>Need a hand getting started?</span>
+							</a>
+						</div>
+					</div>
+				</li>
+
+				<li>
 					<button id="desktop-resources-mega2-button" type="button" class="flex items-center gap-1 text-sm font-extrabold transition-colors hover:text-foreground/50 aria-expanded:text-foreground/50" popovertarget="desktop-resources-mega2" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-resources-mega2" style="anchor-name: --desktop-resources-mega2-anchor;">
 						<span>Resources</span>
 						<svg class="mt-0.25 size-3 text-foreground/45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="36"></polyline></svg>
@@ -968,6 +988,36 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname);
 								</div>
 							</section>
 						</li> -->
+
+						<li>
+							<button type="button" data-mobile-menu-target="ecosystem" class="flex w-full items-center justify-between gap-x-4 text-left text-2xl/none font-medium">
+								Ecosystem
+								<svg class="size-5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+							</button>
+							<section data-mobile-menu-view="ecosystem" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
+								<div class="mb-8 flex items-center gap-3">
+									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+										<span class="sr-only">Back</span>
+										<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
+									</button>
+									<h2 class="text-2xl/none font-semibold">Ecosystem</h2>
+								</div>
+								<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
+									<a href="/partners" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true">
+											<svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+										</span>
+										<span>Partners</span>
+									</a>
+									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true">
+											<svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+										</span>
+										<span>Need a hand getting started?</span>
+									</a>
+								</div>
+							</section>
+						</li>
 
 						<li>
 							<button type="button" data-mobile-menu-target="resources" class="flex w-full items-center justify-between gap-x-4 text-left text-2xl/none font-medium">

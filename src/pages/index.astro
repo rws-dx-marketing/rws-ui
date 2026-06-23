@@ -3,10 +3,20 @@ import Layout from '../layouts/Layout.astro'
 
 import Hero from '../blocks/Hero.astro'
 import Logos from '../blocks/Logos.astro'
+import Split from '../blocks/Split.astro'
+import BentoGrids from '../blocks/BentoGrids.astro'
 ---
 
 <Layout>
 	<Hero theme="default" />
 
 	<Logos />
+
+	<Split theme="pale" variant="lead-image" />
+
+	<BentoGrids />
+
+	<Split theme="tertiary" variant="lead-image" />
+
+	<Split theme="dots" variant="stats-form" />
 </Layout>
