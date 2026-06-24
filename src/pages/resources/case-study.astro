@@ -206,10 +206,10 @@ const cards = [1, 2, 3]
 				<div class="overflow-hidden rounded-lg bg-background text-foreground" data-theme="tertiary">
 					<div data-carousel class="relative py-12">
 						<div data-carousel="viewport" class="transition-[height]">
-							<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-start">
+							<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-center">
 								<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 									<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
-										<div class="svg-current mx-auto mb-2 size-12 text-accent">
+										<div class="svg-current mx-auto mb-5 size-12 text-accent">
 											<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> -->
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
 											  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
@@ -226,13 +226,27 @@ const cards = [1, 2, 3]
 										<blockquote class="space-y-[0.5em] text-center text-2xl font-medium text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
 										<p>Nunc sit amet est semper ligula lacinia faucibus scelerisque sed elit. Quisque sagittis, urna sed elementum tempus, dolor dolor mollis nulla, at gravida orci sapien quis felis.</p>
 										</blockquote>
-										<figcaption class="mt-6 flex items-center justify-center space-x-3">
+										<figcaption class="mt-6 flex items-center justify-center">
 											<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
 											<div class="flex items-center divide-x divide-foreground/66">
-												<div class="pr-3 font-medium">Michael Gough</div>
-												<div class="pl-3 text-sm font-medium text-foreground/80">CEO at Google</div>
+												<div class="px-3 font-semibold">Michael Gough</div>
+												<div class="px-3 font-medium text-foreground/80">CEO at Canva</div>
+												<div class="px-3 font-medium text-foreground/80 transition-colors hover:text-accent">
+													<a href="#" class="group relative">
+														Read case study
+														<svg class="absolute top-1/2 left-full mt-0.25 ml-1 size-4 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+															<rect width="256" height="256" fill="none" />
+															<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17" />
+															<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17" />
+														</svg>
+													</a>
+												</div>
 											</div>
 										</figcaption>
+
+										<div class="mt-6 flex items-center justify-center">
+											<img class="max-h-14 object-contain" src="/logos/canva.svg" />
+										</div>
 									</figure>
 								</div>
 							</div>
@@ -260,10 +274,10 @@ const cards = [1, 2, 3]
 				<div class="overflow-hidden rounded-lg bg-background text-foreground" data-theme="primary">
 					<div data-carousel class="relative py-12">
 						<div data-carousel="viewport" class="transition-[height]">
-							<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-start">
+							<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-center">
 								<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 									<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
-										<div class="svg-current mx-auto mb-2 size-12 text-accent">
+										<div class="svg-current mx-auto mb-5 size-12 text-accent">
 											<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> -->
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
 											  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
@@ -280,18 +294,19 @@ const cards = [1, 2, 3]
 										<blockquote class="space-y-[0.5em] text-center text-2xl font-medium text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
 											<p>Nunc sit amet est semper ligula lacinia faucibus scelerisque sed elit. Quisque sagittis, urna sed elementum tempus, dolor dolor mollis nulla, at gravida orci sapien quis felis.</p>
 										</blockquote>
-										<figcaption class="mt-6 flex items-center justify-center space-x-3">
+										<figcaption class="mt-6 flex items-center justify-center">
 											<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
 											<div class="flex items-center divide-x divide-foreground/66">
-												<div class="pr-3 font-medium">Michael Gough</div>
-												<div class="pl-3 text-sm font-medium text-foreground/80">CEO at Google</div>
+												<div class="px-3 font-semibold">Michael Gough</div>
+												<div class="px-3 font-medium text-foreground/80">CEO at Canva</div>
+
 											</div>
 										</figcaption>
 									</figure>
 								</div>
 								<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 									<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
-										<div class="svg-current mx-auto mb-2 size-12 text-accent">
+										<div class="svg-current mx-auto mb-5 size-12 text-accent">
 											<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> -->
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
 											  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
@@ -312,7 +327,7 @@ const cards = [1, 2, 3]
 								</div>
 								<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 									<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
-										<div class="svg-current mx-auto mb-2 size-12 text-accent">
+										<div class="svg-current mx-auto mb-5 size-12 text-accent">
 											<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> -->
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
 											  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">

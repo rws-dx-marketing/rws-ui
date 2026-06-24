@@ -20,6 +20,7 @@ const {
 			avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png',
 			author: 'Michael Gough',
 			role: 'CEO at Canva',
+			link: '/resources/case-study',
 			logo: '/logos/canva.svg',
 		},
 		{
@@ -28,6 +29,8 @@ const {
 		},
 		{
 			quote: 'Donec quis viverra ante, tempus convallis mauris. Mauris tempor orci sit amet mi accumsan ultricies. Phasellus cursus massa felis, id volutpat lectus suscipit sit amet. Aenean eleifend orci at est iaculis rutrum.',
+			author: 'John Doe',
+			link: '/resources/case-study',
 		},
 		{
 			quote: 'Donec quis viverra ante, tempus convallis mauris. Mauris tempor orci sit amet mi accumsan ultricies. Phasellus cursus massa felis, id volutpat lectus suscipit sit amet. Aenean eleifend orci at est iaculis rutrum.',
@@ -66,11 +69,23 @@ const {
 								</blockquote>
 
 								{t.author && (
-									<figcaption class="mt-6 flex items-center justify-center space-x-3">
+									<figcaption class="mt-6 flex items-center justify-center">
 										{t.avatar && <img class="size-6 rounded-full" src={t.avatar} alt="" />}
 										<div class="flex items-center divide-x divide-foreground/66">
-											<div class="pr-3 font-medium">{t.author}</div>
-											{t.role && <div class="pl-3 text-sm font-medium text-foreground/80">{t.role}</div>}
+											<div class="px-3 font-semibold">{t.author}</div>
+											{t.role && <div class="px-3 font-medium text-foreground/80">{t.role}</div>}
+											{t.link && (
+												<div class="px-3 font-medium text-foreground/80 transition-colors hover:text-accent">
+													<a href={t.link} class="group relative">
+														Read case study
+														<svg class="absolute top-1/2 left-full mt-0.25 ml-1 size-4 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+															<rect width="256" height="256" fill="none" />
+															<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17" />
+															<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17" />
+														</svg>
+													</a>
+												</div>
+											)}
 										</div>
 									</figcaption>
 								)}
