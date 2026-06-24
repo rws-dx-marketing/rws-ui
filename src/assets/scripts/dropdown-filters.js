@@ -83,7 +83,7 @@ function getSelectInitialValue(select) {
 }
 
 function getPersistedSelects(root) {
-	// These controls live outside the filters form on the partners page.
+	// These controls live outside the filters form.
 	return Array.from(document.querySelectorAll('select[name="sort-by"], select[name="items-per-page"]'))
 		.filter((control) => control instanceof HTMLSelectElement)
 		.map((select) => ({

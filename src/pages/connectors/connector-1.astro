@@ -1,0 +1,332 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import ResourceHero from '../../blocks/ResourceHero.astro'
+
+const cards = [1, 2, 3]
+---
+
+<Layout title="Connector 1 – RWS UI">
+	<ResourceHero
+		layout="wide-text"
+		title="Streamlining Global IP Renewals for Alibaba"
+		logo={{ src: '/logos/canva.svg', alt: 'Alibaba' }}
+		description="Alibaba Group manages a vast global patent portfolio across multiple jurisdictions and legal entities. As overseas patent annuity volumes continued to grow, efficiency, responsiveness, and flexibility became critical. By partnering with RWS for IP renewals, Alibaba transformed its global annuity management process. The result was faster communication, reduced risk, and scalable support aligned to Alibaba’s growth strategy."
+		cta={{ href: '#form', text: 'Find out more' }}
+		image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }}
+	/>
+
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
+		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+			<aside class="hidden lg:col-span-4 lg:block">
+				<div class="sticky top-20 grid gap-8 xl:gap-12">
+					<div class="relative rounded-lg bg-background p-10 text-foreground" data-card>
+						<!-- <h4 class="mb-6 text-lg font-bold">Key details</h4> -->
+
+						<ul class="grid gap-4">
+							<li>
+								<p class="font-bold">Client</p>
+								<p>Alibaba Group</p>
+							</li>
+
+							<li>
+								<p class="font-bold">Webite</p>
+								<p><a href="https://www.alibaba.com" target="_blank">alibaba.com</a></p>
+							</li>
+
+							<li>
+								<p class="font-bold">Connector type</p>
+								<p>Technology connector</p>
+							</li>
+
+							<li>
+								<p class="font-bold">Product</p>
+								<p>Tridion</p>
+							</li>
+
+							<li>
+								<p class="font-bold">Solution</p>
+								<p>Language Platforms</p>
+							</li>
+
+							<li>
+								<p class="font-bold">Industry</p>
+								<p>Life sciences</p>
+							</li>
+
+							<li>
+								<p class="font-bold">Service areas</p>
+								<p>Translation localisation</p>
+							</li>
+
+							<li>
+								<p class="font-bold">Region</p>
+								<p>Argentina</p>
+							</li>
+						</ul>
+					</div>
+
+					<div class="rounded-lg bg-background p-6 text-foreground" data-card>
+						<div class="flex items-start gap-6">
+							<div class="w-1/3 max-w-24 shrink-0">
+								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+							</div>
+							<div>
+								<h4 class="mb-2 text-lg font-semibold">Lorem ipsum dolor</h4>
+
+								<div class="prose mb-4 text-sm/normal font-medium text-foreground/80">
+									<p>Tenetur et nesciunt neque, asperiores dolorem repudian, tempora provident fugit?</p>
+								</div>
+
+								<a href="#" class="btn btn-secondary btn-sm">Call to action</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+
+			<article class="col-span-full grid items-start gap-8 lg:col-span-8 xl:gap-12">
+				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
+					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
+						<p>Alibaba Cloud provides a comprehensive suite of cloud computing services to help power and grow a business, including merchants doing business on Alibaba Group marketplaces, start-ups, corporations and government organizations. Alibaba Cloud ranks as the third largest public cloud services provider globally and is the largest public cloud services provider in the China market.</p>
+						<h2>Lorem ipsum dolor sit amet</h2>
+						<p>It currently powers over half of China-based websites. The partnership has co-developed a solution designed to help global brands launch and grow their digital business across the China and Asia markets. China holds enormous potential for global brands. Engaging with customers across China and Asia involves language and other complex challenges. Global organizations can now use RWS’s web content management, Tridion, and machine translation solutions, hosted on Alibaba Cloud, to deliver next-generation digital experiences – in any language – for customers across Asia.</p>
+						<h2>How we work together</h2>
+						<p>The partnership between RWS and Alibaba Cloud is aligned with both companies’ commitment to facilitating cross border business – RWS on content management and translation and Alibaba on promoting international trade. This approach ensures content is created, managed, translated and delivered to customers in a way that provides one continuous digital experience. Our comprehensive China delivery platform features: Professional Internet Content Provider (ICP) filing and license consulting support. Extensive network coverage through Alibaba’s 8 regions of data centers in China. High performance processing. Advanced security. RWS web content, structured content management, machine translation and language services solutions.</p>
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<!-- Related articles -->
+	<section hidden class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
+			<!-- Subheading -->
+			<div hidden class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>This is the subheading</p>
+			</div>
+
+			<!-- Heading -->
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>Related <em>articles</em></p>
+			</h2>
+
+			<!-- Copy -->
+			<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere.</p>
+			</div>
+
+			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
+				{
+					cards.map((card) => (
+						<>
+							{/* Variant 1: full-card clickable + author info */}
+							<article class="group relative rounded-lg border border-foreground/10 bg-background text-left text-foreground" data-card>
+								<div class="flex h-full flex-col">
+									<div class="p-4">
+										<div class="mb-5 block overflow-hidden rounded">
+											<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
+										</div>
+
+										<span class="mb-3 inline-block rounded-full border border-foreground/10 bg-foreground/5 px-2 py-0.5 text-xs font-semibold text-foreground/80"> Article </span>
+
+										<h2 class="mb-2 text-2xl font-bold">
+											<p>
+												<a href="/resources/blog-1/">
+													This is an article title
+													<span class="absolute inset-0" />
+												</a>
+											</p>
+										</h2>
+
+										<div class="prose line-clamp-3 font-medium text-pretty text-foreground/80">
+											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
+										</div>
+									</div>
+
+									<div class="mt-auto px-4 pb-4">
+										<div class="flex items-center space-x-4">
+											<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+											<div>
+												<div class="font-semibold">Jese Leos</div>
+												<div class="text-sm font-medium text-foreground/80">Aug 15, 2021 • 16 min read</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</article>
+						</>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Call to action + form -->
+	<section id="form" class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<div class="lg:col-span-7">
+				<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+					<p>This is the subheading</p>
+				</div>
+
+				<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<p>This is the heading</p>
+				</h2>
+
+				<div class="prose font-medium text-foreground/80 md:prose-lg">
+					<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+
+					<ul>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+					</ul>
+
+					<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
+				</div>
+
+				<div class="mt-8 flex flex-wrap items-center gap-4">
+					<a href="#" class="btn btn-secondary btn-icon-right">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						Find out more
+					</a>
+				</div>
+
+				<hr hidden class="mt-12 mb-8 border-foreground/10" />
+
+				<!-- Stats -->
+				<div hidden class="mt-8">
+					<!-- border-t border-foreground/10 pt-8 -->
+					<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
+								<div>Our Active</div>
+								<div>Users</div>
+							</div>
+						</li>
+
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">3k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
+								<div>Professional</div>
+								<div>Creators</div>
+							</div>
+						</li>
+
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">560k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
+								<div>Weekly</div>
+								<div>Downloads</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="h-full lg:col-span-5">
+				<div class="rounded-lg border border-foreground/10 bg-background p-8 text-foreground" data-card>
+					<h3 class="mb-4 text-2xl font-semibold">
+						<p>Book a meeting</p>
+					</h3>
+
+					<div class="prose mb-6 font-medium text-foreground/80">
+						<p>We're here to help you with any questions you have. Please fill out the form below and we'll get back to you as soon as possible.</p>
+					</div>
+
+					<div class="hubspot-form">
+						<div id="hs_2f5091f7-ff77-4faa-99bd-8af0a538b2d2" class="hs-form-html" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-activity-type="Contact Form" data-activity-subject="Contact Form: Contact" data-activity-campaign-id="" data-activity-interest-profile="" data-thank-you-message="Thank you for your interest. One of our specialists will be in touch with you soon." data-thank-you-page-url="" data-external-page-url="" data-post-back-on-submit="False" data-resource-url="" data-resource-file-name="" data-on-form-submitted="" data-submit-text="" data-conversion-level="primary" data-form-type="HubSpot" data-region="na1" data-calendly-enabled="False" data-calendly-config-id="" data-calendly-widget="" data-calendly-text="" data-hs-forms-root="true">
+							<form id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" action="https://forms.hsforms.com/submissions/v3/public/submit/formsnext/multipart/147991/80943ed9-df96-4201-84bd-0aa63e3f08e1" class="hs-form-private hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1_50a5e501-d8e3-426f-9d47-f5ae39a33270 hs-form stacked" target="target_iframe_80943ed9-df96-4201-84bd-0aa63e3f08e1" data-instance-id="50a5e501-d8e3-426f-9d47-f5ae39a33270" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-test-id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1">
+								<fieldset class="form-columns-2">
+									<div class="hs_name hs-name hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-name-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="name-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Name</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="name-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="name" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="name" value="" />
+										</div>
+									</div>
+
+									<div class="hs_email hs-email hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-email-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="email-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Email</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="email-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="email" required="" placeholder="" type="email" class="hs-input hs-field-ready" inputmode="email" autocomplete="email" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="hs_phone hs-phone hs-fieldtype-phonenumber field hs-form-field">
+										<div class="input">
+											<label id="label-phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Phone number</span>
+											</label>
+
+											<input id="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="phone" placeholder="" type="tel" class="hs-input hs-field-ready" inputmode="tel" autocomplete="tel" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-2">
+									<div class="hs_company hs-company hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-company-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="company-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Company</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="company-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="company" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization" value="" />
+										</div>
+									</div>
+
+									<div class="hs_jobtitle hs-jobtitle hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Job title</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="jobtitle" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization-title" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="legal-consent-container">
+										<div class="hs-richtext">
+											<p>By entering your personal data you are affirmatively consenting to our use of your personal data and our <a href="https://www.rws.com/legal/privacy/" target="_blank" rel="noopener">privacy policy</a>.</p>
+										</div>
+									</div>
+								</fieldset>
+
+								<div class="hs_submit hs-submit">
+									<div class="hs-field-desc" style="display: none;"></div>
+									<div class="actions">
+										<input type="submit" class="hs-button primary large" value="Send" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

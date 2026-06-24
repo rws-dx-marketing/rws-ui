@@ -44,7 +44,7 @@ function matchesSearch(card, query) {
 }
 
 function updateResultsCount(visibleCount) {
-	const resultsCount = document.querySelector('[data-partners-results-count]')
+	const resultsCount = document.querySelector('[data-card-results-count]')
 	if (!resultsCount) return
 
 	const suffix = visibleCount === 1 ? 'result' : 'results'

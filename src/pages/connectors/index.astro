@@ -2,14 +2,14 @@
 import Layout from '../../layouts/Layout.astro'
 import FilterDropdown from '../../components/FilterDropdown.astro'
 import FilterOption from '../../components/FilterOption.astro'
-import data from '../../data/partners/filters.json'
+import data from '../../data/connectors/filters.json'
 
 const cards = [
 	{
 		logo: '/logos/alibaba.svg',
 		name: 'Alibaba',
 		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
-		tags: ['Technology partner', 'Trados', 'Intelligent Knowledge Platforms'],
+		tags: ['Technology connector', 'Trados', 'Intelligent Knowledge Platforms'],
 		filters: {
 			'partner-type': ['technology-partner'],
 			'product': ['trados'],
@@ -23,7 +23,7 @@ const cards = [
 		logo: '/logos/canva.svg',
 		name: 'Canva',
 		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
-		tags: ['Technology partner', 'Language Weaver', 'Language Platforms'],
+		tags: ['Technology connector', 'Language Weaver', 'Language Platforms'],
 		filters: {
 			'partner-type': ['technology-partner'],
 			'product': ['language-weaver'],
@@ -37,7 +37,7 @@ const cards = [
 		logo: '/logos/hp.svg',
 		name: 'HP',
 		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
-		tags: ['Solution partner', 'Tridion', 'Language Platforms'],
+		tags: ['Solution connector', 'Tridion', 'Language Platforms'],
 		filters: {
 			'partner-type': ['solution-partner'],
 			'product': ['tridion'],
@@ -65,7 +65,7 @@ const cards = [
 		logo: 'https://www.rws.com/media/images/Acodis-Logo-RGB_tcm228-252243.png?v=20260430125156',
 		name: 'Acodis',
 		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
-		tags: ['Training partner', 'Trados', 'AI Data Services'],
+		tags: ['Training connector', 'Trados', 'AI Data Services'],
 		filters: {
 			'partner-type': ['training-partner'],
 			'product': ['trados'],
@@ -79,7 +79,7 @@ const cards = [
 		logo: 'https://www.rws.com/media/images/Bynder-Logo-Vertical-Blue_tcm228-179142.png?v=20260430125156',
 		name: 'Bynder',
 		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
-		tags: ['Technology partner', 'Language Weaver', 'Intelligent Knowledge Platforms'],
+		tags: ['Technology connector', 'Language Weaver', 'Intelligent Knowledge Platforms'],
 		filters: {
 			'partner-type': ['technology-partner'],
 			'product': ['language-weaver'],
@@ -93,7 +93,7 @@ const cards = [
 		logo: 'https://www.rws.com/media/images/etteplan-electric-blue-vertical-rgb_tcm228-192864.png?v=20260430125156',
 		name: 'Etteplan',
 		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
-		tags: ['Solution partner', 'Tridion', 'IP Platforms'],
+		tags: ['Solution connector', 'Tridion', 'IP Platforms'],
 		filters: {
 			'partner-type': ['solution-partner'],
 			'product': ['tridion'],
@@ -121,7 +121,7 @@ const cards = [
 		logo: 'https://www.rws.com/media/images/Plus-Ops_tcm228-168036.jpg?v=20260430125156',
 		name: 'PlusOps',
 		description: '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>',
-		tags: ['Training partner', 'Trados', 'Language Platforms'],
+		tags: ['Training connector', 'Trados', 'Language Platforms'],
 		filters: {
 			'partner-type': ['training-partner'],
 			'product': ['trados'],
@@ -134,7 +134,7 @@ const cards = [
 ]
 ---
 
-<Layout title="Partners – RWS UI">
+<Layout title="Connectors – RWS UI">
 	<section class="bg-background pt-20 pb-0 text-foreground md:pt-24 lg:pt-32" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 			<div hidden class="mb-3 font-bold text-foreground/80 xl:text-lg">
@@ -142,7 +142,7 @@ const cards = [
 			</div>
 
 			<h1 class="mx-auto mb-5 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
-				<p>Partners</p>
+				<p>Connectors</p>
 			</h1>
 
 			<div class="mx-auto mb-8 max-w-[52ch] text-xl font-medium text-pretty text-foreground/80 xl:text-2xl">
@@ -258,7 +258,7 @@ const cards = [
 
 										<h2 class="mb-2 text-2xl font-bold">
 											<p>
-												<a href="/partners/partner-1/">
+												<a href="/connectors/connector-1/">
 													{card.name}
 													<span class="absolute inset-0" />
 												</a>
@@ -299,7 +299,7 @@ const cards = [
 			</div>
 
 			<div class="mt-12 pt-12 pb-24 text-center" data-card-empty-state hidden>
-				<p class="text-2xl font-bold">No partners found</p>
+				<p class="text-2xl font-bold">No connectors found</p>
 				<p class="mt-2 text-xl font-medium text-foreground/80">Try removing a filter or search for a different term.</p>
 			</div>
 		</div>
