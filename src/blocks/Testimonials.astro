@@ -76,9 +76,9 @@ const {
 											{t.role && <div class="px-3 font-medium text-foreground/80">{t.role}</div>}
 											{t.link && (
 												<div class="px-3 font-medium text-foreground/80 transition-colors hover:text-accent">
-													<a href={t.link} class="group relative">
+													<a href={t.link} class="inline-flex items-center">
 														Read case study
-														<svg class="absolute top-1/2 left-full mt-0.25 ml-1 size-4 -translate-y-1/2 opacity-0 transition-opacity group-hover:opacity-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+														<svg class="mt-0.25 ml-1 size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 															<rect width="256" height="256" fill="none" />
 															<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17" />
 															<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17" />
@@ -92,7 +92,7 @@ const {
 
 								{t.logo && (
 									<div class="mt-6 flex items-center justify-center">
-										<img class="max-h-14 object-contain" src={t.logo} />
+										<img class="max-h-14 object-contain" src={t.logo} draggable="false" />
 									</div>
 								)}
 							</figure>
