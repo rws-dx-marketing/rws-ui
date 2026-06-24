@@ -1,12 +1,23 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import BlogHero from '../../blocks/BlogHero.astro'
+import ResourceHero from '../../blocks/ResourceHero.astro'
 
 const cards = [1, 2, 3]
 ---
 
 <Layout title="Blog 1 Long – RWS UI">
-	<BlogHero />
+	<ResourceHero
+		title="Behind AI hallucinations: when model errors are really training data problems"
+		date="5 days ago"
+		readTime="10 min read"
+		image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }}
+		author={{
+			name: 'Stacy Ayers',
+			role: 'Head of Quality, TrainAI',
+			avatar: 'https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433',
+		}}
+		share
+	/>
 
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">

@@ -1,14 +1,21 @@
 ---
 // @ts-nocheck
 import Layout from '../../layouts/Layout.astro'
-import CaseStudyHero from '../../blocks/CaseStudyHero.astro'
+import ResourceHero from '../../blocks/ResourceHero.astro'
 import { dotIcons } from '../../data/carousel-icons'
 
 const cards = [1, 2, 3]
 ---
 
 <Layout title="Case study – RWS UI">
-	<CaseStudyHero />
+	<ResourceHero
+		layout="wide-text"
+		title="Streamlining Global IP Renewals for Alibaba"
+		logo={{ src: '/logos/alibaba.svg', alt: 'Alibaba' }}
+		description="Alibaba Group manages a vast global patent portfolio across multiple jurisdictions and legal entities. As overseas patent annuity volumes continued to grow, efficiency, responsiveness, and flexibility became critical. By partnering with RWS for IP renewals, Alibaba transformed its global annuity management process. The result was faster communication, reduced risk, and scalable support aligned to Alibaba’s growth strategy."
+		cta={{ href: '#form', text: 'Find out more' }}
+		image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }}
+	/>
 
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto mb-8 max-w-screen-xl px-8 lg:px-12 xl:mb-12">

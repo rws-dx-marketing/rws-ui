@@ -1,0 +1,152 @@
+---
+interface Author {
+	name: string
+	role?: string
+	avatar: string
+	href?: string
+}
+
+interface Cta {
+	href: string
+	text: string
+}
+
+interface Image {
+	src: string
+	alt: string
+}
+
+interface Logo {
+	src: string
+	alt: string
+	hidden?: boolean
+}
+
+interface Props {
+	title: string
+	image: Image
+	date?: string
+	readTime?: string
+	logo?: Logo
+	description?: string
+	author?: Author
+	share?: boolean
+	cta?: Cta
+	layout?: 'split' | 'wide-text'
+}
+
+const {
+	title,
+	image,
+	date,
+	readTime,
+	logo,
+	description,
+	author,
+	share = false,
+	cta,
+	layout = 'split',
+} = Astro.props
+
+const textCols = layout === 'wide-text' ? 'lg:col-span-7' : 'lg:col-span-6'
+const imageCols = layout === 'wide-text' ? 'lg:col-span-5' : 'lg:col-span-6'
+const titleMargin = description || cta ? 'mb-6' : ''
+const showMeta = date || readTime
+---
+
+<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+		<div class={textCols}>
+			{
+				showMeta && (
+					<div class="mb-3 flex items-center gap-6 font-bold text-foreground/50">
+						{date && <p>{date}</p>}
+
+						{readTime && (
+							<div class="flex items-center gap-1">
+								<div class="svg-current size-4 shrink-0">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="red"><rect width="256" height="256" fill="none" /><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm56,112H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48a8,8,0,0,1,0,16Z" /></svg>
+								</div>
+								<p>{readTime}</p>
+							</div>
+						)}
+					</div>
+				)
+			}
+
+			{
+				logo && (
+					<div class="mb-6">
+						<img src={logo.src} alt={logo.alt} class="max-h-10 object-contain xl:max-h-16" draggable="false" />
+					</div>
+				)
+			}
+
+			<h2 class={`${titleMargin} text-4xl font-bold tracking-tight text-balance md:text-5xl xl:text-6xl`}>{title}</h2>
+
+			{
+				description && (
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<p>{description}</p>
+					</div>
+				)
+			}
+
+			{
+				cta && (
+					<div class="mt-8 flex flex-wrap items-center gap-4">
+						<a href={cta.href} class="btn btn-secondary btn-icon-right btn-md">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none" /><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" /><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" /></svg>
+							{cta.text}
+						</a>
+					</div>
+				)
+			}
+
+			{
+				(author || share) && (
+					<div class="mt-8 flex items-end justify-between">
+						{author ? (
+							<div class="flex items-center">
+								<a href={author.href ?? '#'} rel="author" class="mr-4">
+									<img class="size-12 overflow-clip rounded-full object-cover" src={author.avatar} alt={author.name} />
+								</a>
+								<div>
+									<a href={author.href ?? '#'} rel="author" class="text-lg font-bold transition-colors hover:text-accent">
+										{author.name}
+									</a>
+									{author.role && <p class="text-sm font-medium text-foreground/80">{author.role}</p>}
+								</div>
+							</div>
+						) : (
+							<div />
+						)}
+
+						{share && (
+							<div class="flex items-center gap-2">
+								<a href="#" class="svg-current size-6 text-foreground/33 transition-colors hover:text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm4.682 6.273A3.273 3.273 0 0 1 12.954 4h2.91c.2 0 .363.163.363.364v2.909c0 .2-.163.363-.363.363h-1.455a1.09 1.09 0 0 0-1.09 1.091v1.091h2.545a.364.364 0 0 1 .352.452l-.727 2.91a.36.36 0 0 1-.353.274h-1.818v6.182a.364.364 0 0 1-.364.364h-2.909a.364.364 0 0 1-.363-.364v-6.181H7.864a.364.364 0 0 1-.364-.364v-2.91c0-.2.163-.363.364-.363h1.818z" clip-rule="evenodd" /></svg>
+									<span class="sr-only">Share on Facebook</span>
+								</a>
+								<a href="#" class="svg-current size-6 text-foreground/33 transition-colors hover:text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm-.334 3.5a.75.75 0 0 0-.338 1.154l5.614 7.45l-5.915 6.345l-.044.051H6.03l4.83-5.179l3.712 4.928a.75.75 0 0 0 .337.251h4.422a.75.75 0 0 0 .336-1.154l-5.614-7.45L20.017 4.5h-2.05l-4.83 5.18l-3.714-4.928a.75.75 0 0 0-.337-.252zm10.88 13.548L6.431 5.952H8.45l9.114 12.095z" clip-rule="evenodd" /></svg>
+									<span class="sr-only">Share on Twitter</span>
+								</a>
+								<a href="#" class="svg-current size-6 text-foreground/33 transition-colors hover:text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm1.205 6.91a1.705 1.705 0 1 0 0-3.41a1.705 1.705 0 0 0 0 3.41M7.909 19.5V9.273H4.5V19.5h3.41Zm4.432-10.227H9.273V19.5h3.068v-6.17c.395-.642 1.077-1.33 2.045-1.33c1.364 0 1.705 1.364 1.705 2.046V19.5H19.5v-5.454c0-1.828-.797-4.773-3.75-4.773c-1.878 0-2.92.685-3.41 1.327z" clip-rule="evenodd" /></svg>
+									<span class="sr-only">Share on LinkedIn</span>
+								</a>
+							</div>
+						)}
+					</div>
+				)
+			}
+		</div>
+
+		<div class={`h-full ${imageCols}`}>
+			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
+				<img src={image.src} alt={image.alt} class="aspect-video size-full rounded-lg object-cover" draggable="false" />
+			</div>
+		</div>
+	</div>
+</section>

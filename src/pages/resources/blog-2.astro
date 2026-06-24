@@ -1,10 +1,21 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import BlogHero from '../../blocks/BlogHero.astro'
+import ResourceHero from '../../blocks/ResourceHero.astro'
 ---
 
 <Layout title="Blog 2 – RWS UI">
-	<BlogHero />
+	<ResourceHero
+		title="Behind AI hallucinations: when model errors are really training data problems"
+		date="5 days ago"
+		readTime="10 min read"
+		image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }}
+		author={{
+			name: 'Stacy Ayers',
+			role: 'Head of Quality, TrainAI',
+			avatar: 'https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433',
+		}}
+		share
+	/>
 
 	<aside class="group/post-nav fixed top-1/2 left-2 z-20 hidden w-8 -translate-y-1/2 overflow-hidden transition-[width] duration-200 hover:w-[min(10rem,20vw)] motion-reduce:transition-none lg:flex motion-reduce:[&_a]:transition-none motion-reduce:[&_span]:transition-none" hidden>
 		<nav aria-label="Section navigation" class="relative flex w-full flex-col gap-3 rounded-lg border border-foreground/5 bg-background/66 py-4 pr-3 pl-3.75 text-foreground backdrop-blur-lg" data-theme="default" data-scrollspy-nav data-scrollspy-anchor-target="section" data-scrollspy-rail-offset="24" data-scrollspy-progress-dots data-scrollspy-directional-delay>
