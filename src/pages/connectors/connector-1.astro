@@ -1,25 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro'
 import ResourceHero from '../../blocks/ResourceHero.astro'
+import Accordions from '../../blocks/Accordions.astro'
 
 const cards = [1, 2, 3]
 ---
 
 <Layout title="Connector 1 – RWS UI">
-	<ResourceHero
-		layout="wide-text"
-		title="Streamlining Global IP Renewals for Alibaba"
-		logo={{ src: '/logos/canva.svg', alt: 'Alibaba' }}
-		description="Alibaba Group manages a vast global patent portfolio across multiple jurisdictions and legal entities. As overseas patent annuity volumes continued to grow, efficiency, responsiveness, and flexibility became critical. By partnering with RWS for IP renewals, Alibaba transformed its global annuity management process. The result was faster communication, reduced risk, and scalable support aligned to Alibaba’s growth strategy."
-		cta={{ href: '#form', text: 'Find out more' }}
-		image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }}
-	/>
+	<ResourceHero layout="wide-text" title="Adobe Experience Manager (AEM)" logo={{ src: '/logos/adobe.svg', alt: 'Adobe' }} description="This integration gives greater control of translation to users of AEM Sites, AEM Assets and XML Documentation for AEM. It adds a range of translation management features directly to AEM, both 6.x and cloud versions, helping AEM users to create and manage multilingual content much more easily." cta={{ href: '#form', text: 'Find out more' }} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
 
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
 			<aside class="hidden lg:col-span-4 lg:block">
 				<div class="sticky top-20 grid gap-8 xl:gap-12">
-					<div class="relative rounded-lg bg-background p-10 text-foreground" data-card>
+					<div hidden class="relative rounded-lg bg-background p-10 text-foreground" data-card>
 						<!-- <h4 class="mb-6 text-lg font-bold">Key details</h4> -->
 
 						<ul class="grid gap-4">
@@ -77,7 +71,7 @@ const cards = [1, 2, 3]
 									<p>Tenetur et nesciunt neque, asperiores dolorem repudian, tempora provident fugit?</p>
 								</div>
 
-								<a href="#" class="btn btn-secondary btn-sm">Call to action</a>
+								<a href="#" class="btn btn-primary btn-sm">Get connector</a>
 							</div>
 						</div>
 					</div>
@@ -87,16 +81,26 @@ const cards = [1, 2, 3]
 			<article class="col-span-full grid items-start gap-8 lg:col-span-8 xl:gap-12">
 				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
-						<p>Alibaba Cloud provides a comprehensive suite of cloud computing services to help power and grow a business, including merchants doing business on Alibaba Group marketplaces, start-ups, corporations and government organizations. Alibaba Cloud ranks as the third largest public cloud services provider globally and is the largest public cloud services provider in the China market.</p>
-						<h2>Lorem ipsum dolor sit amet</h2>
-						<p>It currently powers over half of China-based websites. The partnership has co-developed a solution designed to help global brands launch and grow their digital business across the China and Asia markets. China holds enormous potential for global brands. Engaging with customers across China and Asia involves language and other complex challenges. Global organizations can now use RWS’s web content management, Tridion, and machine translation solutions, hosted on Alibaba Cloud, to deliver next-generation digital experiences – in any language – for customers across Asia.</p>
-						<h2>How we work together</h2>
-						<p>The partnership between RWS and Alibaba Cloud is aligned with both companies’ commitment to facilitating cross border business – RWS on content management and translation and Alibaba on promoting international trade. This approach ensures content is created, managed, translated and delivered to customers in a way that provides one continuous digital experience. Our comprehensive China delivery platform features: Professional Internet Content Provider (ICP) filing and license consulting support. Extensive network coverage through Alibaba’s 8 regions of data centers in China. High performance processing. Advanced security. RWS web content, structured content management, machine translation and language services solutions.</p>
+						<p>Within AEM it offers:</p>
+						<ul>
+							<li>A project creation wizard, guiding users to push content to Trados for translation</li>
+							<li>An option to approve the cost before translation proceeds</li>
+							<li>A detailed project overview, showing project workflow status</li>
+							<li>A scheduler to automate retrieval of translated content back from Trados</li>
+						</ul>
+						<h2>What we offer</h2>
+						<p>Nulla congue dictum arcu. Aliquam iaculis ultrices pretium. Etiam nec tortor varius, consequat augue vitae, efficitur massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent feugiat facilisis arcu nec tincidunt. Sed hendrerit ante ac felis ultrices, vel sollicitudin sem imperdiet. Praesent pretium lobortis viverra.</p>
+						<h2>How it works</h2>
+						<p>Praesent sed lacinia tortor, et convallis lacus. Donec convallis tellus eu nibh blandit, vel venenatis lectus malesuada. Phasellus ut sapien viverra, gravida mauris vitae, tincidunt dui. Praesent accumsan faucibus arcu et tempor. Vivamus lacinia felis non dui rhoncus volutpat. Pellentesque eleifend libero euismod dictum elementum. Integer egestas a enim quis venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam est urna, condimentum sed ultrices sed, mollis eget tortor. Donec dolor erat, scelerisque eget odio id, elementum lobortis augue. Quisque pellentesque in dolor sit amet viverra. Sed sit amet nisl pulvinar, mollis velit vitae, iaculis nisl. Nulla blandit vitae metus sed laoreet. Nam at tortor vitae erat molestie vulputate. Nullam sollicitudin non mi vitae vulputate. Quisque hendrerit nulla egestas velit gravida vehicula et quis augue.</p>
 					</div>
 				</div>
 			</article>
 		</div>
 	</section>
+
+	<!-- FAQs -->
+	<Accordions theme="default" variant="panel-swap" />
+	<!-- variant="side-by-side" -->
 
 	<!-- Related articles -->
 	<section hidden class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
@@ -163,7 +167,7 @@ const cards = [1, 2, 3]
 	</section>
 
 	<!-- Call to action + form -->
-	<section id="form" class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section id="form" class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-7">
 				<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
