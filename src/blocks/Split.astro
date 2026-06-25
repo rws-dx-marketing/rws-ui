@@ -659,7 +659,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 }
 
 {
-	variant === 'logos-image' && (
+	variant === 'logos-animation' && (
 <section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 		<div class="lg:col-span-6">
@@ -672,7 +672,6 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 			</h2>
 
 			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p>
 				<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet purus. Vivamus faucibus neque risus, et dapibus tortor<!-- dignissim in. Donec facilisis justo id leo porttitor consequat -->.</p>
 			</div>
 
@@ -742,10 +741,25 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 		<div class="h-full lg:col-span-6">
 			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<img src="/images/placeholder-3.png" alt="Placeholder" class="aspect-video h-full w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
+				<div data-lottie="map" class="h-full"></div>
 			</div>
 		</div>
 	</div>
+
+	<script>
+		import lottie from 'lottie-web'
+		import animationData from '../data/animations/map.json'
+
+		document.querySelectorAll('[data-lottie="map"]').forEach((el) => {
+			lottie.loadAnimation({
+				container: el,
+				renderer: 'svg',
+				loop: true,
+				autoplay: true,
+				animationData,
+			})
+		})
+	</script>
 </section>
 	)
 }
