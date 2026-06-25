@@ -1,7 +1,6 @@
 ---
 import type { Theme } from '../data/themes'
 
-// Variants: 'centered' | 'side-by-side' | 'panel-swap'
 type Variant = 'centered' | 'side-by-side' | 'panel-swap'
 
 interface Props {
@@ -313,7 +312,7 @@ const { variant = 'centered', theme = 'default' } = Astro.props
 						</div>
 					</div>
 
-					<div class="lg:sticky lg:top-[calc(var(--content-top)+1rem)] lg:col-span-4 lg:transition-[top] lg:duration-300">
+					<div class="lg:sticky lg:top-[calc(var(--content-top)+4rem)] lg:col-span-4 lg:transition-[top] lg:duration-300">
 						<div class="grid">
 							<div data-panel data-active class="translate-y-8 opacity-0 transition-[opacity,translate] [grid-area:1/1] data-active:translate-y-0 data-active:opacity-100 data-swapping:-translate-y-8 data-swapping:opacity-0">
 								<img src="/images/placeholder-1.png" alt="" class="aspect-square w-full rounded-lg object-cover" />

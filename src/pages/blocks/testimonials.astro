@@ -35,5 +35,18 @@ const variants = [
 		</div>
 	</section>
 
-	{variants.map((variant) => themes.map((theme) => <Testimonials variant={variant} theme={theme} />))}
+	{
+		variants.map((variant) =>
+			themes.map((theme, i) =>
+				i === 0 ? (
+					<>
+						<div id={variant} />
+						<Testimonials variant={variant} theme={theme} />
+					</>
+				) : (
+					<Testimonials variant={variant} theme={theme} />
+				),
+			),
+		)
+	}
 </Layout>

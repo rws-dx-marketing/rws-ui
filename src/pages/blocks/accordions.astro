@@ -32,5 +32,18 @@ const variants = ['centered', 'side-by-side', 'panel-swap']
 		</div>
 	</section>
 
-	{variants.map((variant) => themes.map((theme) => <Accordions variant={variant} theme={theme} />))}
+	{
+		variants.map((variant) =>
+			themes.map((theme, i) =>
+				i === 0 ? (
+					<>
+						<div id={variant} />
+						<Accordions variant={variant} theme={theme} />
+					</>
+				) : (
+					<Accordions variant={variant} theme={theme} />
+				),
+			),
+		)
+	}
 </Layout>

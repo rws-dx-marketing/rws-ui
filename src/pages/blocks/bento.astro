@@ -32,5 +32,18 @@ const variants = ['four-card', 'three-card']
 		</div>
 	</section>
 
-	{variants.map((variant) => themes.map((theme) => <BentoGrids variant={variant} theme={theme} />))}
+	{
+		variants.map((variant) =>
+			themes.map((theme, i) =>
+				i === 0 ? (
+					<>
+						<div id={variant} />
+						<BentoGrids variant={variant} theme={theme} />
+					</>
+				) : (
+					<BentoGrids variant={variant} theme={theme} />
+				),
+			),
+		)
+	}
 </Layout>

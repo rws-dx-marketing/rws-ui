@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro'
 import Split from '../../blocks/Split.astro'
 import { themes } from '../../data/themes'
 
-const variants = ['lead-image', 'double-image-list', 'features-grid', 'features-rows', 'logos-image', 'video-text', 'stats-form']
+const variants = ['lead-image', 'double-image-list', 'features-row', 'features-grid', 'logos-image', 'video-text', 'stats-form']
 ---
 
 <Layout title="Split – RWS UI">
@@ -32,5 +32,18 @@ const variants = ['lead-image', 'double-image-list', 'features-grid', 'features-
 		</div>
 	</section>
 
-	{variants.map((variant) => themes.map((theme) => <Split variant={variant} theme={theme} />))}
+	{
+		variants.map((variant) =>
+			themes.map((theme, i) =>
+				i === 0 ? (
+					<>
+						<div id={variant} />
+						<Split variant={variant} theme={theme} />
+					</>
+				) : (
+					<Split variant={variant} theme={theme} />
+				),
+			),
+		)
+	}
 </Layout>
