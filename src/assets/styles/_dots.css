@@ -1,0 +1,7 @@
+.dots {
+	@apply pointer-events-none absolute inset-0 -z-1 size-full;
+}
+
+.dot {
+	fill: color-mix(in oklch, var(--foreground) 20%, transparent);
+}

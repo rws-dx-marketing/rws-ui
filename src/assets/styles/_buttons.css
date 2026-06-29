@@ -57,23 +57,23 @@
 	}
 
 	.btn-primary {
-		@apply bg-primary text-white shadow-xs hover:bg-primary-dark focus-visible:bg-primary-dark focus-visible:ring-primary-lighter;
+		@apply bg-primary text-white shadow-xs hover:bg-primary-strong focus-visible:bg-primary-strong focus-visible:ring-primary-soft;
 	}
 
 	.btn-secondary {
-		@apply bg-secondary text-white shadow-xs hover:bg-secondary-dark focus-visible:bg-secondary-dark focus-visible:ring-secondary-lighter;
+		@apply bg-secondary text-white shadow-xs hover:bg-secondary-strong focus-visible:bg-secondary-strong focus-visible:ring-secondary-soft;
 	}
 
 	.btn-tertiary {
-		@apply bg-tertiary text-white shadow-xs hover:bg-tertiary-dark focus-visible:bg-tertiary-dark focus-visible:ring-tertiary-200;
+		@apply bg-tertiary text-white shadow-xs hover:bg-tertiary-strong focus-visible:bg-tertiary-strong focus-visible:ring-tertiary-soft;
 	}
 
 	.btn-outline {
-		@apply border border-foreground/15 bg-transparent text-foreground hover:bg-foreground/5 focus-visible:bg-foreground/5 focus-visible:ring-foreground/10;
+		@apply border border-foreground/15 bg-transparent text-foreground hover:bg-foreground-softest focus-visible:bg-foreground-softest focus-visible:ring-foreground-soft;
 	}
 
 	.btn-ghost {
-		@apply bg-transparent hover:bg-foreground/5 focus-visible:bg-foreground/5 focus-visible:ring-foreground/10;
+		@apply bg-transparent hover:bg-foreground-softest focus-visible:bg-foreground-softest focus-visible:ring-foreground-soft;
 	}
 
 	.btn-link {

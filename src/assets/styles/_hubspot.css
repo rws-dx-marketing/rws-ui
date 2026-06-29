@@ -106,7 +106,8 @@
 		}
 
 		input[type='submit'] {
-			@apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-primary px-4 pt-[0.46875rem] pb-[0.53125rem] text-center text-base font-semibold text-white shadow-xs transition-colors select-none hover:bg-primary-dark focus-visible:bg-primary-dark focus-visible:ring-4 focus-visible:ring-primary-lighter focus-visible:outline-none;
+			@apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-primary px-4 pt-[0.46875rem] pb-[0.53125rem] text-center text-base font-semibold text-white shadow-xs transition-colors select-none  focus-visible:ring-4 focus-visible:outline-none;
+			/* hover:bg-primary-dark focus-visible:bg-primary-dark focus-visible:ring-primary-lighter */
 		}
 
 		.actions {
@@ -157,11 +158,13 @@
 		}
 
 		.hsfc-DropdownOptions__List__ListItem {
-			@apply cursor-pointer! bg-background! px-2.5! py-2! text-foreground! filter-none! transition-colors! hover:bg-primary-lightest/50!;
+			@apply cursor-pointer! bg-background! px-2.5! py-2! text-foreground! filter-none! transition-colors!;
+			/* hover:bg-primary-lightest/50! */
 		}
 
 		.hsfc-DropdownOptions__List__ListItem--selected {
-			@apply bg-primary-lightest! text-primary! hover:bg-primary-lightest!;
+			@apply text-primary!;
+			/* bg-primary-lightest! hover:bg-primary-lightest! */
 		}
 
 		.hsfc-RadioFieldGroup__Options {
@@ -221,7 +224,8 @@
 		}
 
 		.hsfc-Button {
-			@apply inline-flex! items-center! justify-center! rounded-full! border! border-transparent! bg-primary! px-4! pt-[0.46875rem]! pb-[0.53125rem]! text-center! font-sans! text-base! font-semibold! text-white! shadow-xs! transition-colors! select-none! hover:bg-primary-dark! not-disabled:hover:transform-none! focus-visible:bg-primary-dark! focus-visible:ring-4! focus-visible:ring-primary-lighter! focus-visible:outline-none! disabled:bg-primary-light! disabled:brightness-100!;
+			@apply inline-flex! items-center! justify-center! rounded-full! border! border-transparent! bg-primary! px-4! pt-[0.46875rem]! pb-[0.53125rem]! text-center! font-sans! text-base! font-semibold! text-white! shadow-xs! transition-colors! select-none! not-disabled:hover:transform-none! focus-visible:ring-4!  focus-visible:outline-none! disabled:brightness-100!;
+			/* hover:bg-primary-dark! focus-visible:bg-primary-dark! focus-visible:ring-primary-lighter! disabled:bg-primary-light! */
 		}
 
 		.hsfc-Step__Banner:empty {

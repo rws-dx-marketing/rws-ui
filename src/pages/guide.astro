@@ -3,99 +3,39 @@ import Layout from '../layouts/Layout.astro'
 import { themes } from '../data/themes'
 
 const semanticPrimary = [
-	{ name: 'primary-lightest', className: 'bg-primary-lightest' },
-	{ name: 'primary-lighter', className: 'bg-primary-lighter' },
-	{ name: 'primary-light', className: 'bg-primary-light' },
+	{ name: 'primary-softest', className: 'bg-primary-softest' },
+	{ name: 'primary-softer', className: 'bg-primary-softer' },
+	{ name: 'primary-soft', className: 'bg-primary-soft' },
+	{ name: 'primary-muted', className: 'bg-primary-muted' },
 	{ name: 'primary', className: 'bg-primary' },
-	{ name: 'primary-dark', className: 'bg-primary-dark' },
-	{ name: 'primary-darker', className: 'bg-primary-darker' },
-	{ name: 'primary-darkest', className: 'bg-primary-darkest' },
+	{ name: 'primary-strong', className: 'bg-primary-strong' },
 ]
 
 const semanticSecondary = [
-	{ name: 'secondary-lightest', className: 'bg-secondary-lightest' },
-	{ name: 'secondary-lighter', className: 'bg-secondary-lighter' },
-	{ name: 'secondary-light', className: 'bg-secondary-light' },
+	{ name: 'secondary-softest', className: 'bg-secondary-softest' },
+	{ name: 'secondary-softer', className: 'bg-secondary-softer' },
+	{ name: 'secondary-soft', className: 'bg-secondary-soft' },
+	{ name: 'secondary-muted', className: 'bg-secondary-muted' },
 	{ name: 'secondary', className: 'bg-secondary' },
-	{ name: 'secondary-dark', className: 'bg-secondary-dark' },
-	{ name: 'secondary-darker', className: 'bg-secondary-darker' },
-	{ name: 'secondary-darkest', className: 'bg-secondary-darkest' },
+	{ name: 'secondary-strong', className: 'bg-secondary-strong' },
 ]
 
 const semanticTertiary = [
-	{ name: 'tertiary-lightest', className: 'bg-tertiary-lightest' },
-	{ name: 'tertiary-lighter', className: 'bg-tertiary-lighter' },
-	{ name: 'tertiary-light', className: 'bg-tertiary-light' },
+	{ name: 'tertiary-softest', className: 'bg-tertiary-softest' },
+	{ name: 'tertiary-softer', className: 'bg-tertiary-softer' },
+	{ name: 'tertiary-soft', className: 'bg-tertiary-soft' },
+	{ name: 'tertiary-muted', className: 'bg-tertiary-muted' },
 	{ name: 'tertiary', className: 'bg-tertiary' },
-	{ name: 'tertiary-dark', className: 'bg-tertiary-dark' },
-	{ name: 'tertiary-darker', className: 'bg-tertiary-darker' },
-	{ name: 'tertiary-darkest', className: 'bg-tertiary-darkest' },
+	{ name: 'tertiary-strong', className: 'bg-tertiary-strong' },
 ]
 
-const semanticGray = [
-	{ name: 'gray-lightest', className: 'bg-gray-50' },
-	{ name: 'gray-lighter', className: 'bg-gray-200' },
-	{ name: 'gray-light', className: 'bg-gray-400' },
-	{ name: 'gray', className: 'bg-gray-500' },
-	{ name: 'gray-dark', className: 'bg-gray-600' },
-	{ name: 'gray-darker', className: 'bg-gray-800' },
-	{ name: 'gray-darkest', className: 'bg-gray-950' },
-]
-
-const primaryScale = [
-	{ value: 50, className: 'bg-primary-50' },
-	{ value: 100, className: 'bg-primary-100' },
-	{ value: 200, className: 'bg-primary-200' },
-	{ value: 300, className: 'bg-primary-300' },
-	{ value: 400, className: 'bg-primary-400' },
-	{ value: 500, className: 'bg-primary-500' },
-	{ value: 600, className: 'bg-primary-600' },
-	{ value: 700, className: 'bg-primary-700' },
-	{ value: 800, className: 'bg-primary-800' },
-	{ value: 900, className: 'bg-primary-900' },
-	{ value: 950, className: 'bg-primary-950' },
-]
-
-const secondaryScale = [
-	{ value: 50, className: 'bg-secondary-50' },
-	{ value: 100, className: 'bg-secondary-100' },
-	{ value: 200, className: 'bg-secondary-200' },
-	{ value: 300, className: 'bg-secondary-300' },
-	{ value: 400, className: 'bg-secondary-400' },
-	{ value: 500, className: 'bg-secondary-500' },
-	{ value: 600, className: 'bg-secondary-600' },
-	{ value: 700, className: 'bg-secondary-700' },
-	{ value: 800, className: 'bg-secondary-800' },
-	{ value: 900, className: 'bg-secondary-900' },
-	{ value: 950, className: 'bg-secondary-950' },
-]
-
-const tertiaryScale = [
-	{ value: 50, className: 'bg-tertiary-50' },
-	{ value: 100, className: 'bg-tertiary-100' },
-	{ value: 200, className: 'bg-tertiary-200' },
-	{ value: 300, className: 'bg-tertiary-300' },
-	{ value: 400, className: 'bg-tertiary-400' },
-	{ value: 500, className: 'bg-tertiary-500' },
-	{ value: 600, className: 'bg-tertiary-600' },
-	{ value: 700, className: 'bg-tertiary-700' },
-	{ value: 800, className: 'bg-tertiary-800' },
-	{ value: 900, className: 'bg-tertiary-900' },
-	{ value: 950, className: 'bg-tertiary-950' },
-]
-
-const grayScale = [
-	{ value: 50, className: 'bg-gray-50' },
-	{ value: 100, className: 'bg-gray-100' },
-	{ value: 200, className: 'bg-gray-200' },
-	{ value: 300, className: 'bg-gray-300' },
-	{ value: 400, className: 'bg-gray-400' },
-	{ value: 500, className: 'bg-gray-500' },
-	{ value: 600, className: 'bg-gray-600' },
-	{ value: 700, className: 'bg-gray-700' },
-	{ value: 800, className: 'bg-gray-800' },
-	{ value: 900, className: 'bg-gray-900' },
-	{ value: 950, className: 'bg-gray-950' },
+const semanticNeutral = [
+	{ name: 'foreground-softest', className: 'bg-foreground-softest' },
+	{ name: 'foreground-softer', className: 'bg-foreground-softer' },
+	{ name: 'foreground-soft', className: 'bg-foreground-soft' },
+	{ name: 'foreground-muted', className: 'bg-foreground-muted' },
+	{ name: 'foreground', className: 'bg-foreground' },
+	{ name: 'foreground-strong', className: 'bg-foreground-strong' },
 ]
 
 const themeVariants = themes.map((theme) => ({
@@ -118,7 +58,7 @@ const themeVariants = themes.map((theme) => ({
 			<h2 class="text-2xl font-semibold">Colours</h2>
 			<h3 class="text-xl font-semibold">Primary / Hidcote Blue</h3>
 			<!-- <p class="mt-2 text-body-subtle">Named tokens mapped to the primary palette.</p> -->
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
 				{
 					semanticPrimary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
@@ -131,28 +71,11 @@ const themeVariants = themes.map((theme) => ({
 					))
 				}
 			</div>
-			<!-- <h3 class="text-xl font-semibold ">Full scale</h3> -->
-			<!-- <p class="mt-2 text-body-subtle">All primary values from 50 to 950.</p> -->
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-11">
-				{
-					primaryScale.map((item) => {
-						return (
-							<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
-								<div class:list={['aspect-square', 'w-full', 'rounded', item.className]} />
-								<div class="mt-3 space-y-1 text-sm text-body">
-									<span class="block text-center font-semibold">{item.value}</span>
-									{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
-								</div>
-							</div>
-						)
-					})
-				}
-			</div>
 		</section>
 
 		<section class="mb-12 space-y-6">
 			<h3 class="text-xl font-semibold">Secondary / Hillier Pink</h3>
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
 				{
 					semanticSecondary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
@@ -165,27 +88,11 @@ const themeVariants = themes.map((theme) => ({
 					))
 				}
 			</div>
-
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-11">
-				{
-					secondaryScale.map((item) => {
-						return (
-							<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
-								<div class:list={['aspect-square', 'w-full', 'rounded', item.className]} />
-								<div class="mt-3 space-y-1 text-sm text-body">
-									<span class="block text-center font-semibold">{item.value}</span>
-									{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
-								</div>
-							</div>
-						)
-					})
-				}
-			</div>
 		</section>
 
 		<section class="mb-12 space-y-6">
 			<h3 class="text-xl font-semibold">Tertiary / Galaxy Purple</h3>
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
 				{
 					semanticTertiary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
@@ -198,53 +105,21 @@ const themeVariants = themes.map((theme) => ({
 					))
 				}
 			</div>
-
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-11">
-				{
-					tertiaryScale.map((item) => {
-						return (
-							<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
-								<div class:list={['aspect-square', 'w-full', 'rounded', item.className]} />
-								<div class="mt-3 space-y-1 text-sm text-body">
-									<span class="block text-center font-semibold">{item.value}</span>
-									{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
-								</div>
-							</div>
-						)
-					})
-				}
-			</div>
 		</section>
 
 		<section class="mb-12 space-y-6">
-			<h3 class="text-xl font-semibold">Gray</h3>
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
+			<h3 class="text-xl font-semibold">Neutral</h3>
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
 				{
-					semanticGray.map((item) => (
+					semanticNeutral.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
 							<div class={`aspect-video w-full rounded ${item.className}`} />
 							<div class="mt-3 space-y-1 text-sm text-body">
-								<span class="block text-center font-semibold">{item.name.replace('gray-', '')}</span>
+								<span class="block text-center font-semibold">{item.name.replace('foreground-', '')}</span>
 								{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
 							</div>
 						</div>
 					))
-				}
-			</div>
-			<!-- <h3 class="text-xl font-semibold ">Full scale</h3> -->
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-11">
-				{
-					grayScale.map((item) => {
-						return (
-							<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
-								<div class:list={['aspect-square', 'w-full', 'rounded', item.className]} />
-								<div class="mt-3 space-y-1 text-sm text-body">
-									<span class="block text-center font-semibold">{item.value}</span>
-									{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
-								</div>
-							</div>
-						)
-					})
 				}
 			</div>
 		</section>

@@ -270,7 +270,7 @@ import Layout from '../layouts/Layout.astro'
 
 	const getNeutralColor = () => {
 		const computedStyle = getComputedStyle(document.documentElement)
-		return computedStyle.getPropertyValue('--color-gray-100').trim() || '#1447E6'
+		return computedStyle.getPropertyValue('--color-neutral-100').trim() || '#1447E6'
 	}
 
 	const areaChartDatasets = {

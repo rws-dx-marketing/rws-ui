@@ -94,7 +94,8 @@ const isLinkActive = (href) => normalizePath(href) === currentPath
 								<li class="min-w-0">
 									{index === 0 ? (
 										item.href ? (
-											<a href={item.href} class="flex w-fit items-center gap-2 rounded-md bg-primary-dark px-2 py-1 text-sm font-semibold transition-colors hover:bg-primary-darker">
+											<a href={item.href} class="flex w-fit items-center gap-2 rounded-md px-2 py-1 text-sm font-semibold transition-colors ">
+											<!-- bg-primary-dark hover:bg-primary-darker -->
 												<span class="inline-flex size-4 shrink-0 items-center justify-center [&>svg]:size-full" aria-hidden="true">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
 														<path fill="#8353fd" d="M7.127 12.483h2.165a5.4 5.4 0 0 1-3.122.983A5.46 5.46 0 0 1 .9 9.416v-.002a5.5 5.5 0 0 1-.182-1.411 5.463 5.463 0 0 1 7.798-4.944q.073.034.14.07c.006 0 .012.006.017.009l.105.057q.059.028.117.065c.062.035.127.076.189.114q.114.068.219.146H7.135a.796.796 0 0 0-.792.794v7.378c0 .436.357.793.792.793z" />
@@ -145,7 +146,8 @@ const isLinkActive = (href) => normalizePath(href) === currentPath
 								const isActive = isLinkActive(link.href)
 								return (
 									<li class="flex h-full">
-										<a href={link.href} aria-current={isActive ? 'page' : undefined} class:list={['py-3- flex h-full items-center px-2 text-sm font-semibold transition-colors hover:bg-primary-dark aria-[current=page]:bg-primary-dark']}>
+										<a href={link.href} aria-current={isActive ? 'page' : undefined} class:list={['py-3- flex h-full items-center px-2 text-sm font-semibold transition-colors']}>
+										<!-- hover:bg-primary-dark aria-[current=page]:bg-primary-dark -->
 											{link.label}
 										</a>
 									</li>

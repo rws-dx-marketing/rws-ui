@@ -3,7 +3,7 @@ import { Observer } from 'tailwindcss-intersect'
 
 import cardFilters from './card-filters'
 import countUp from './count-up'
-import dotsGrid from './dots-grid'
+import dots from './dots'
 import dropdownFilters from './dropdown-filters'
 import dropdownLabels from './dropdown-labels'
 import accordion from './accordion'
@@ -29,7 +29,7 @@ if (typeof window !== 'undefined') {
 		// initFlowbite()
 		primaryNav()
 		headerScroll()
-		dotsGrid()
+		dots()
 		dropdownFilters()
 		cardFilters()
 		dropdownLabels()
