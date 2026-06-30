@@ -427,57 +427,72 @@ const matrix = [
 		</section>
 
 		<!-- Comparison table -->
-		<section class="bg-background py-16 text-foreground md:py-20" data-theme="default">
-			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-				<div class="mx-auto mb-10 max-w-xl text-center">
-					<span class="text-xs font-bold tracking-wider text-primary uppercase">Compare plans</span>
-					<h2 class="mt-3 text-3xl font-bold tracking-tight xl:text-4xl">Compare every feature</h2>
-					<p class="mt-3 font-medium text-pretty text-foreground/80" data-comparison-subtitle>See exactly what's included across the “{defaultSegment.label}” plans.</p>
-				</div>
+		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+  		<div class="mx-auto max-w-screen-xl px-8 lg:px-12 *:mx-auto text-center">
+    		<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+     			<p>Compare plans</p>
+    		</div>
 
-				<div class="overflow-x-auto">
-					<div class="min-w-[640px] overflow-hidden rounded-lg border border-foreground/10">
+        <h2 class="mb-6 max-w-[24ch] text-3xl font-bold tracking-tight text-pretty xl:text-4xl">
+          <p>Compare every feature</p>
+        </h2>
+
+        <div class="prose font-medium text-foreground/80 md:prose-lg">
+          <p data-comparison-subtitle>See exactly what's included across the “{defaultSegment.label}” plans.</p>
+        </div>
+  		</div>
+		</section>
+
+		<section class="bg-background pb-16 text-foreground md:pb-20" data-theme="default">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<div class="overflow-x-auto lg:overflow-visible">
+					<div class="min-w-[56rem] rounded-lg overflow-clip border border-foreground/10" data-accordion data-accordion-multi>
 						<!-- Column header -->
-						<div data-comparison data-comparison-header class="sticky top-0 z-20 grid items-start border-b border-foreground/10 bg-background/95 backdrop-blur group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(6rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(6rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(6rem,1fr))]">
-							<div class="self-center px-4 py-5 text-xs font-bold tracking-wider text-foreground/50 uppercase">Features</div>
-							{
-								order.map((id) => {
-									const p = products[id]
-									const [brand, productName] = splitName(p.name)
-									return (
-										<div data-segment data-segments={segmentTokens[id]} class="flex flex-col items-center px-3 py-5 text-center">
-											<span class="text-sm leading-tight font-semibold">
-												<>
-													<span>{brand} </span>
-													<span class="text-secondary">{productName}</span>
-												</>
-											</span>
-											<span class="mt-1 text-xs text-foreground/60">
-												{p.priceType === 'billing' && (
-													<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
-														£{p.price.annualGbp}
-													</span>
-												)}
-												{p.priceType === 'none' && ' '}
-											</span>
-											<a href="#" class="btn btn-tertiary btn-xs mt-3 whitespace-nowrap">
-												{p.ctas[0].label}
-											</a>
-										</div>
-									)
-								})
-							}
+						<div class="sticky top-(--content-top) transition-[top] duration-300 z-20">
+  						<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b border-foreground/10 bg-background/50 backdrop-blur stuck:rounded-t-none group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))]">
+  							<div></div>
+  							{
+  								order.map((id) => {
+  									const p = products[id]
+  									const [brand, productName] = splitName(p.name)
+  									return (
+  										<div data-segment data-segments={segmentTokens[id]} class="flex flex-col items-center px-3 py-5 text-center">
+  											<span class="text-base leading-tight font-semibold">
+  												<span>{brand} </span>
+  												<span class="text-secondary">{productName}</span>
+  											</span>
+  											<span class="mt-1 text-xs text-foreground/60">
+  												{p.priceType === 'billing' && (
+  													<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
+  														£{p.price.annualGbp}
+  													</span>
+  												)}
+  												<!-- {p.priceType === 'none' && ' '} -->
+  											</span>
+  											<a href="#" class="btn btn-tertiary btn-xs mt-3 whitespace-nowrap">
+  												{p.ctas[0].label}
+  											</a>
+  										</div>
+  									)
+  								})
+  							}
+  						</div>
 						</div>
 
 						<!-- Sections -->
 						{
 							matrix.map((sec) => (
-								<>
-									<div class="border-y border-foreground/10 bg-foreground/5 px-4 py-3">
-										<h4 class="text-base font-semibold">{sec.title}</h4>
-									</div>
+								<details class="group/sec" open>
+									<summary class="flex cursor-pointer list-none items-center justify-between border-b border-foreground/10 group-[&:last-child:not([open])]/sec:border-b-0 bg-foreground/5 px-4 py-3">
+										<h4 class="text-base font-semibold transition-colors">{sec.title}</h4>
+										<svg class="size-5 shrink-0 text-foreground/50 transition-[color,rotate] group-data-[open]/sec:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+											<rect width="256" height="256" fill="none" />
+											<polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</svg>
+									</summary>
+									<div>
 									{sec.rows.map((r) => (
-										<div data-comparison class="grid items-stretch border-b border-foreground/10 last:border-b-0 group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(6rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(6rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(6rem,1fr))]">
+										<div data-comparison class="grid border-b border-foreground/10 group-last/sec:last:border-b-0 group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))]">
 											<div class="flex items-center px-4 py-4 text-sm font-medium">{r.label}</div>
 											{order.map((id) => {
 												const v = r.vals[id]
@@ -485,8 +500,9 @@ const matrix = [
 													<div data-segment data-segments={segmentTokens[id]} class="flex items-center justify-center border-l border-foreground/5 px-3 py-4 text-center">
 														{v === true && (
 															<span class="flex size-5 items-center justify-center rounded-full bg-accent/12 text-accent">
-																<svg viewBox="0 0 12 12" class="size-3" fill="none" aria-hidden="true">
-																	<path d="M2.5 6.2l2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+																<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
+																		<rect width="256" height="256" fill="none" />
+																	<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
 																</svg>
 															</span>
 														)}
@@ -496,13 +512,11 @@ const matrix = [
 															</span>
 														)}
 														{typeof v === 'string' && (
-															<span class="flex flex-col items-center gap-1">
+															<span class="flex items-center gap-3">
 																<span class="text-sm font-medium">{v}</span>
 																{r.lw && v === 'Add-on' && (
 																	<span class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/8 px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-primary uppercase">
-																		<svg width="7" height="7" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-																			<path d="M8.4 1.2 3.1 8.1h3.1l-.8 4.7 5.4-7.1H7.6l.8-4.5z" fill="currentColor" />
-																		</svg>
+																	<svg class="size-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z"/></svg>
 																		LW Pro
 																	</span>
 																)}
@@ -513,7 +527,8 @@ const matrix = [
 											})}
 										</div>
 									))}
-								</>
+									</div>
+								</details>
 							))
 						}
 					</div>
