@@ -167,21 +167,182 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<!-- Charts -->
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+			<div class="relative z-[1] mt-8 overflow-hidden rounded-lg border border-foreground/5 bg-foreground/2.5 text-foreground">
+				<div class="flex flex-col gap-4 border-b border-foreground/10 px-6 py-4">
+					<div>
+						<h3 class="m-0 text-xl font-bold text-foreground/80">Bar chart — all models ranked by grammar MCC for Thai</h3>
+					</div>
+
+					<div class="flex items-center justify-between gap-4">
+						<div class="flex min-w-0 items-center gap-[18px]">
+							<div class="inline-flex gap-0.5 rounded bg-foreground/5 p-1.25">
+								<button type="button" class="btn btn-ghost rounded-sm bg-background text-foreground">Grammar</button>
+								<button type="button" class="btn btn-ghost rounded-sm text-foreground/80">Translation</button>
+								<button type="button" class="btn btn-ghost rounded-sm text-foreground/80">Tokenizer</button>
+							</div>
+							<div hidden class="min-w-0">
+								<h3 class="m-0 text-xl font-bold text-foreground/80">Bar chart — all models ranked by grammar MCC for Thai</h3>
+								<p class="mt-0.5 mb-0 text-xs text-foreground/40">Horizontal bars · brand color-coded · sorted by score</p>
+							</div>
+						</div>
+						<div class="flex flex-none flex-col items-end gap-2">
+							<span class="inline-flex items-center rounded-full border border-accent/20 bg-accent/10 px-2.5 py-1 text-xs font-bold text-accent tabular-nums">11 of 34 models</span>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="relative px-6 pt-5 pb-2.5">
+						<div class="relative">
+							<div class="pointer-events-none absolute top-0 bottom-0" style="left: calc(184px); right: 40px;">
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 0%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 20%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/35 bg-foreground/[0.06]" style="left: 40%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 60%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 80%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 100%;"></span>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Grok 4.20</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(17, 17, 17);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 43.6436%; background: rgb(17, 17, 17);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 83.6436%;">0.44</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Gemini 3.1 Pro Preview</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(66, 133, 244);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 22.7836%; background: rgb(66, 133, 244);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 62.7836%;">0.23</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Gemini 3.5 Flash</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(66, 133, 244);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 5.48357%; background: rgb(66, 133, 244);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 45.4836%;">0.05</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Mistral Medium 3.1</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(255, 112, 0);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 4.82805%; background: rgb(255, 112, 0);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 44.828%;">0.05</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Gemini 3 Flash Preview</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(66, 133, 244);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 4.45435%; background: rgb(66, 133, 244);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 44.4544%;">0.04</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Claude Opus 4.5</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(217, 119, 87);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 2.54906%; background: rgb(217, 119, 87);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 42.5491%;">0.03</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Gemma 4 31B</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(66, 133, 244);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 2.37624%; background: rgb(66, 133, 244);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 42.3762%;">0.02</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Mistral Medium 3.5</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(255, 112, 0);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 1.2%; background: rgb(255, 112, 0);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 40%;">0.00</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">GPT-5</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(16, 163, 127);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 35.9709%; width: 4.02911%; background: rgb(16, 163, 127);"></div>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 35.9709%;">-0.04</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Command A Translate</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(57, 89, 76);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 35.4117%; width: 4.58831%; background: rgb(57, 89, 76);"></div>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 35.4117%;">-0.05</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">GLM 5.2</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(14, 165, 233);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 6.94303%; width: 33.057%; background: rgb(14, 165, 233);"></div>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 6.94303%;">-0.33</span>
+								</div>
+							</div>
+						</div>
+						<div class="relative mt-0.5 h-4" style="margin-left: calc(184px); margin-right: 40px;">
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 0%;">-0.40</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 20%;">-0.20</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 40%;">0.00</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 60%;">0.20</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 80%;">0.40</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 100%;">0.60</span>
+						</div>
+						<p class="mt-1.5 text-center text-[11px] text-foreground/40">MCC</p>
+					</div>
+				</div>
+				<div class="border-t border-foreground/10 px-6 py-3">
+					<a class="text-[13px] font-semibold text-accent no-underline hover:underline" href="#methodology">How we measure this — methodology &amp; metric definitions →</a>
+				</div>
+			</div>
+
+			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground/80">Bar chart – all models ranked by grammar MCC</h3>
 				<ul class="font-medium text-foreground/80">
 					<li>Horizontal bars, brand color-coded, sorted by score</li>
 				</ul>
 			</div>
 
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground/80">Bar chart – all models ranked by translation MCC</h3>
 				<ul class="font-medium text-foreground/80">
 					<li>Horizontal bars, brand color-coded, sorted by score</li>
 				</ul>
 			</div>
 
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground/80">Bar chart – all models ranked by characters per token</h3>
 				<ul class="font-medium text-foreground/80">
 					<li>Horizontal bars, brand color-coded, sorted by score</li>
