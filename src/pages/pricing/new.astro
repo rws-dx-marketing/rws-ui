@@ -4,17 +4,12 @@ import Layout from '../../layouts/Layout.astro'
 
 // ── Audience segments (the radio group) ───────────────────────────────────
 const segments = [
-	{ key: 'translate', label: 'I translate', sub: 'Freelancers', popular: 'freelance', icon: 'user' },
-	{ key: 'sell', label: 'I sell translations', sub: 'LSPs & teams', popular: 'team', icon: 'users' },
-	{ key: 'need', label: 'I need translation', sub: 'Businesses', popular: 'business', icon: 'building' },
+	{ key: 'translate', label: 'I translate', sub: 'Freelancers', icon: 'user', popular: 'freelance', subtitle: 'For individual translators. 14 day risk-free trial.' },
+	{ key: 'sell', label: 'I sell translations', sub: 'LSPs & teams', icon: 'users', popular: 'team', subtitle: 'Built for language service providers and translation teams who deliver for clients.' },
+	{ key: 'need', label: 'I need translation', sub: 'Businesses', icon: 'building', popular: 'business', subtitle: 'For businesses and enterprises managing translation at scale, securely.' },
 ]
 const DEFAULT_SEGMENT = 'sell'
-
-const segmentSubtitles = {
-	translate: 'For individual translators. 14 day risk-free trial.',
-	sell: 'Built for language service providers and translation teams who deliver for clients.',
-	need: 'For businesses and enterprises managing translation at scale, securely.',
-}
+const defaultSegment = segments.find((s) => s.key === DEFAULT_SEGMENT)
 
 // ── Products ───────────────────────────────────────────────────────────────
 // `order` fixes the DOM order so each segment's products stay contiguous and in
@@ -193,7 +188,6 @@ const matrix = [
 		<section class="bg-background pt-20 pb-0 text-foreground md:pt-24 lg:pt-32" data-theme="default">
 			<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 				<span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent/15 bg-accent/10 px-4 py-1 text-center text-sm" role="alert">
-					<!-- <span class="mr-3 -ml-3 shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground">New</span> -->
 					<span class="py-1 text-sm font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
 				</span>
 
@@ -212,7 +206,7 @@ const matrix = [
 						{
 							segments.map((s) => (
 								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground/80 transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:segment-option-${s.key};view-transition-class:segment-option`}>
-									<input type="radio" name="segment" value={s.key} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
+									<input type="radio" name="segment" value={s.key} data-popular={s.popular} data-label={s.label} data-subtitle={s.subtitle} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
 									<span class="text-sm leading-tight font-semibold sm:text-base">{s.label}</span>
 
 									<span class="mt-0.5 flex items-center gap-1.5">
@@ -249,63 +243,7 @@ const matrix = [
 				</div>
 
 				<div class="mt-5 text-foreground/80">
-					<p data-segment-subtitle>{segmentSubtitles[DEFAULT_SEGMENT]}</p>
-				</div>
-			</div>
-		</section>
-
-		<!-- Hero + controls -->
-		<section hidden class="bg-background pt-16 pb-8 text-foreground" data-theme="dots">
-			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-				<div class="mx-auto max-w-2xl text-center">
-					<span class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/8 px-4 py-1.5 text-xs font-bold tracking-wider text-accent uppercase">Summer discount — 10% off</span>
-					<!-- <span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent/15 bg-accent/10 px-4 py-1.5 text-center transition-colors hover:bg-foreground/10" role="alert">
-						<span class="text-xs font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
-					</span> -->
-
-					<h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl xl:text-6xl">
-						Trados <span class="text-gradient">Pricing.</span>
-					</h1>
-				</div>
-
-				<!-- Segment control (radio group) -->
-				<div class="mt-10 flex justify-center">
-					<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-2xl rounded-full border border-foreground/10 bg-card p-1.5 shadow-sm">
-						{
-							segments.map((s) => (
-								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground/70 transition-colors has-[:checked]:bg-gradient has-[:checked]:text-white">
-									<input type="radio" name="segment" value={s.key} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
-									<span class="text-sm leading-tight font-semibold sm:text-base">{s.label}</span>
-									<span class="mt-0.5 text-xs opacity-80">{s.sub}</span>
-								</label>
-							))
-						}
-					</fieldset>
-				</div>
-
-				<p class="mt-4 text-center text-sm text-foreground/60" data-segment-subtitle>{segmentSubtitles[DEFAULT_SEGMENT]}</p>
-
-				<!-- Billing + currency (only relevant to priced plans) -->
-				<div data-segment data-segments="translate" class="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
-					<div class="btn-group rounded-full bg-card" role="group" aria-label="Billing">
-						<button type="button" class="btn btn-outline btn-sm" data-billing="monthly">Monthly</button>
-						<button type="button" class="btn btn-primary btn-sm" data-billing="annual">Annual</button>
-					</div>
-
-					<ul class="flex items-center gap-4 uppercase">
-						{
-							['GBP', 'USD', 'EUR'].map((code) => (
-								<li>
-									<div class="inline-flex items-center gap-2">
-										<input id={`currency-${code}`} type="radio" value={code} name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" checked={code === 'GBP'} />
-										<label for={`currency-${code}`} class="text-sm font-semibold">
-											{code}
-										</label>
-									</div>
-								</li>
-							))
-						}
-					</ul>
+					<p data-segment-subtitle>{defaultSegment.subtitle}</p>
 				</div>
 			</div>
 		</section>
@@ -416,17 +354,17 @@ const matrix = [
 										</div>
 										)}
 
-										{p.segments.map((seg) => (
-											<p data-segment data-segments={seg} class="text-sm/relaxed font-medium text-pretty text-foreground/80">
-												{p.desc[seg]}
+										{p.segments.map((segment) => (
+											<p data-segment data-segments={segment} class="text-sm/relaxed font-medium text-pretty text-foreground/80">
+												{p.desc[segment]}
 											</p>
 										))}
 
 										<hr class="my-4 border-foreground/10" />
 
-										{p.segments.map((seg) => (
-											<ul data-segment data-segments={seg} role="list" class="flex flex-1 flex-col gap-3 text-left">
-												{p.features[seg].map((f) => (
+										{p.segments.map((segment) => (
+											<ul data-segment data-segments={segment} role="list" class="flex flex-1 flex-col gap-3 text-left">
+												{p.features[segment].map((f) => (
 													<li class="flex items-start gap-2.5">
 														<span class="mt-0.25 flex size-4.5 shrink-0 items-center justify-center rounded-full bg-accent/12 text-accent">
 															<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -494,7 +432,7 @@ const matrix = [
 				<div class="mx-auto mb-10 max-w-xl text-center">
 					<span class="text-xs font-bold tracking-wider text-primary uppercase">Compare plans</span>
 					<h2 class="mt-3 text-3xl font-bold tracking-tight xl:text-4xl">Compare every feature</h2>
-					<p class="mt-3 font-medium text-pretty text-foreground/80" data-comparison-subtitle>See exactly what's included across the “{segments.find((s) => s.key === DEFAULT_SEGMENT).label}” plans.</p>
+					<p class="mt-3 font-medium text-pretty text-foreground/80" data-comparison-subtitle>See exactly what's included across the “{defaultSegment.label}” plans.</p>
 				</div>
 
 				<div class="overflow-x-auto">
@@ -661,18 +599,14 @@ const matrix = [
 	const root = document.querySelector('[data-pricing]')
 	if (root) {
 		const params = new URLSearchParams(location.search)
-		const SEG_DEFAULT = root.getAttribute('data-active-segment') || 'sell'
-		const segmentDefaults = { translate: 'freelance', sell: 'team', need: 'business' }
-		// Default "most popular" card per segment. Overridable via ?popular=<productId>.
-		const popularDefaults = { translate: 'freelance', sell: 'team', need: 'business' }
-		const segmentLabel = { translate: 'I translate', sell: 'I sell translations', need: 'I need translation' }
-		const segmentSubtitles = {
-			translate: 'For individual translators. 14 day risk-free trial.',
-			sell: 'Built for language service providers and translation teams who deliver for clients.',
-			need: 'For businesses and enterprises managing translation at scale, securely.',
-		}
+		const SEGMENT_DEFAULT = root.getAttribute('data-active-segment') || 'sell'
 		const canVT = typeof document.startViewTransition === 'function' && !matchMedia('(prefers-reduced-motion: reduce)').matches
 		const radios = Array.from(root.querySelectorAll('input[name="segment"]'))
+		// Segment metadata (label, subtitle, popular default) lives on each radio's
+		// data-* attributes so a CMS can drive it from the rendered markup.
+		const segmentInput = (segment) => radios.find((r) => r.value === segment)
+		const segmentOrder = radios.map((r) => r.value)
+		const isSegment = (segment) => segmentOrder.includes(segment)
 
 		// Shared billing/currency state (declared up here so the segment logic can
 		// reposition the billing pills when priced cards become visible again).
@@ -682,7 +616,7 @@ const matrix = [
 		let billing = 'annual'
 		let cadence = 'yearly'
 
-		const activeSeg = () => root.getAttribute('data-active-segment') || SEG_DEFAULT
+		const activeSegment = () => root.getAttribute('data-active-segment') || SEGMENT_DEFAULT
 
 		// Slide the gradient pill to sit behind the active segment label. Measured
 		// from the live label so it tracks gaps, padding and responsive sizing.
@@ -690,7 +624,7 @@ const matrix = [
 		function positionIndicator() {
 			if (!pill) return
 			const fs = pill.parentElement
-			const input = fs.querySelector('input[name="segment"][value="' + activeSeg() + '"]')
+			const input = fs.querySelector('input[name="segment"][value="' + activeSegment() + '"]')
 			const label = input && input.closest('label')
 			if (!label) return
 			pill.style.width = label.offsetWidth + 'px'
@@ -698,77 +632,77 @@ const matrix = [
 		}
 
 		function applyPopular() {
-			const seg = activeSeg()
-			const visible = Array.from(root.querySelectorAll('[data-product][data-segments~="' + seg + '"]')).map((c) => c.dataset.product)
+			const segment = activeSegment()
+			const visible = Array.from(root.querySelectorAll('[data-product][data-segments~="' + segment + '"]')).map((c) => c.dataset.product)
 			// ?popular= is a positional comma list mapped to segmentOrder [translate, sell, need].
 			// A trailing segment with no value inherits the last value given (so two values
 			// still cover all three), but an explicit value always supersedes that carry-over.
 			// A value not visible in its segment falls back to the segment default.
 			const list = (params.get('popular') || '').split(',').map((s) => s.trim())
-			const idx = segmentOrder.indexOf(seg)
+			const idx = segmentOrder.indexOf(segment)
 			const want = idx < list.length ? list[idx] : list[list.length - 1]
-			const pop = want && visible.includes(want) ? want : popularDefaults[seg]
+			// Default falls back to the active segment radio's data-popular (CMS-set).
+			const pop = want && visible.includes(want) ? want : segmentInput(segment)?.dataset.popular
 			root.querySelectorAll('[data-product]').forEach((wrap) => {
 				const card = wrap.querySelector('[data-card]')
 				if (card) card.toggleAttribute('data-popular', wrap.dataset.product === pop)
 			})
 		}
 
-		function applySeg(seg) {
-			root.setAttribute('data-active-segment', seg)
-			const r = radios.find((r) => r.value === seg)
+		function applySegment(segment) {
+			root.setAttribute('data-active-segment', segment)
+			const r = radios.find((r) => r.value === segment)
 			if (r) r.checked = true
+			const input = segmentInput(segment)
 			root.querySelectorAll('[data-segment-subtitle]').forEach((sub) => {
-				sub.textContent = segmentSubtitles[seg]
+				sub.textContent = input?.dataset.subtitle || ''
 			})
 			const cmp = root.querySelector('[data-comparison-subtitle]')
-			if (cmp) cmp.textContent = 'See exactly what’s included across the “' + segmentLabel[seg] + '” plans.'
+			if (cmp) cmp.textContent = 'See exactly what’s included across the “' + (input?.dataset.label || '') + '” plans.'
 			applyPopular()
 			positionIndicator()
 		}
-
-		const segmentOrder = ['translate', 'sell', 'need']
 
 		// A card that's in both segments morphs between its slots; one that only
 		// exists on one side slides in/out.
 		function tagCards(cur, next) {
 			root.querySelectorAll('[data-product][data-segments]').forEach((el) => {
-				const segs = el.getAttribute('data-segments').split(' ')
-				const persists = segs.includes(cur) && segs.includes(next)
+				const segments = el.getAttribute('data-segments').split(' ')
+				const persists = segments.includes(cur) && segments.includes(next)
 				el.style.setProperty('view-transition-class', persists ? 'card-morph' : 'card-move')
 			})
 		}
 
-		function setSeg(seg) {
-			const cur = activeSeg()
-			if (seg === cur || !segmentDefaults[seg]) return
+		function setSegment(segment) {
+			const cur = activeSegment()
+			if (segment === cur || !isSegment(segment)) return
 			if (!canVT) {
-				applySeg(seg)
+				applySegment(segment)
 				return
 			}
 			const el = document.documentElement
-			el.dataset.segmentDirection = segmentOrder.indexOf(seg) > segmentOrder.indexOf(cur) ? 'forward' : 'back'
-			tagCards(cur, seg)
-			const t = document.startViewTransition(() => applySeg(seg))
+			el.dataset.segmentDirection = segmentOrder.indexOf(segment) > segmentOrder.indexOf(cur) ? 'forward' : 'back'
+			tagCards(cur, segment)
+			const t = document.startViewTransition(() => applySegment(segment))
 			t.finished.finally(() => delete el.dataset.segmentDirection)
 		}
 
 		radios.forEach((radio) => {
 			radio.addEventListener('click', (e) => {
-				if (radio.value === activeSeg()) return
+				if (radio.value === activeSegment()) return
 				e.preventDefault()
-				setSeg(radio.value)
+				setSegment(radio.value)
 			})
 			radio.addEventListener('keyup', () => {
-				if (radio.checked) setSeg(radio.value)
+				if (radio.checked) setSegment(radio.value)
 			})
 		})
 
 		// Initial state from the URL (?segment=…), applied without a transition.
 		// Suppress the pill's transition so it doesn't grow/slide in on first paint.
 		if (pill) pill.style.transition = 'none'
-		const initSeg = params.get('segment')
-		applySeg(initSeg && segmentDefaults[initSeg] ? initSeg : activeSeg())
+		const initSegment = params.get('segment')
+		applySegment(initSegment && isSegment(initSegment) ? initSegment : activeSegment())
 		requestAnimationFrame(() => {
 			positionIndicator()
 			if (pill) pill.style.transition = ''
