@@ -1,0 +1,778 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+
+// ── Audience segments (the radio group) ───────────────────────────────────
+const segments = [
+	{ key: 'translate', label: 'I translate', sub: 'Freelancers', popular: 'freelance', icon: 'user' },
+	{ key: 'sell', label: 'I sell translations', sub: 'LSPs & teams', popular: 'team', icon: 'users' },
+	{ key: 'need', label: 'I need translation', sub: 'Businesses', popular: 'business', icon: 'building' },
+]
+const DEFAULT_SEGMENT = 'translate'
+
+const segmentSubs = {
+	translate: 'For individual translators. 14 day risk-free trial.',
+	sell: 'Built for language service providers and translation teams who deliver for clients.',
+	need: 'For businesses and enterprises managing translation at scale, securely.',
+}
+
+// ── Products ───────────────────────────────────────────────────────────────
+// `order` fixes the DOM order so each segment's products stay contiguous and in
+// the right sequence once the others are hidden.
+const order = ['go', 'freelance', 'studioPro', 'team', 'business', 'enterprise', 'edge']
+
+const products = {
+	go: {
+		name: 'Trados Studio Go',
+		tag: 'Browser CAT tool',
+		segments: ['translate'],
+		priceType: 'billing',
+		price: { monthlyGbp: 27, annualGbp: 20, wasGbp: 24, yearGbp: 240 },
+		desc: { translate: 'Quick to set up and reach from anywhere. The browser CAT tool with everything you need to stay productive on the move.' },
+		features: { translate: ['Browser-based — nothing to install', '1M cloud words per year', 'Translation memory & terminology', 'AI Smart Help & guided tours', '10+ AppStore apps'] },
+		ctas: [
+			{ label: 'Start free trial', primary: true },
+			{ label: 'Buy now', primary: false },
+		],
+		lw: { name: 'Language Weaver Pro', line: 'Add secure, generative machine translation — 6M characters included to start.' },
+	},
+	freelance: {
+		name: 'Trados Studio Freelance',
+		tag: 'Desktop + cloud',
+		segments: ['translate'],
+		priceType: 'billing',
+		price: { monthlyGbp: 38, annualGbp: 28.33, yearGbp: 340 },
+		desc: { translate: 'Desktop and cloud in one. A complete professional environment with advanced features, flexibility and full control.' },
+		features: { translate: ['Desktop + browser working', 'Unlimited desktop throughput', 'MultiTerm terminology management', 'AI Assistant in the desktop app', '150+ AppStore apps'] },
+		ctas: [
+			{ label: 'Start free trial', primary: true },
+			{ label: 'Buy now', primary: false },
+		],
+		lw: { name: 'Language Weaver Pro', line: 'Add secure, generative machine translation — 6M characters included to start.' },
+	},
+	studioPro: {
+		name: 'Trados Studio Pro',
+		tag: 'Power-user desktop CAT',
+		segments: ['sell'],
+		priceType: 'none',
+		desc: { sell: 'The power-user desktop CAT tool — maximum productivity, deep customization and 150+ apps for high-volume professionals.' },
+		features: { sell: ['Everything in Freelance', 'Multi-user file handling', 'Advanced project automation', 'Full AppStore + API access', 'Server & GroupShare projects'] },
+		ctas: [
+			{ label: 'Start free trial', primary: true },
+			{ label: 'Buy now', primary: false },
+		],
+		lw: { name: 'Language Weaver Pro', line: 'Add secure generative MT to supercharge high-volume desktop productivity.' },
+	},
+	team: {
+		name: 'Trados Team',
+		tag: 'Cloud collaboration',
+		segments: ['sell', 'need'],
+		priceType: 'none',
+		desc: {
+			sell: 'Built for growing LSPs. Run client projects together in the cloud, protect quality with AI review, and keep small teams delivering on deadline.',
+			need: 'Built for in-house teams. Give everyone one place to translate company content together — shared memories and AI review, with no TMS to administer.',
+		},
+		features: {
+			sell: ['Shared client projects in the cloud', 'AI-powered review to protect margins', 'Assign roles across your team', 'Reusable TMs & termbases per client', 'Collaborate live on every delivery'],
+			need: ['One workspace for all company content', 'AI-powered review for brand consistency', 'Simple roles for staff & reviewers', 'Central TM & terminology for your brand', 'Collaborate with zero IT overhead'],
+		},
+		ctas: [
+			{ label: 'Start free trial', primary: true },
+			{ label: 'Buy now', primary: false },
+		],
+		lw: { name: 'Language Weaver Pro', line: 'Secure generative MT across every project your team runs.' },
+	},
+	business: {
+		name: 'Trados Business',
+		tag: 'Out-of-the-box TMS',
+		segments: ['sell', 'need'],
+		priceType: 'none',
+		desc: {
+			sell: 'For language-service providers scaling up. An out-of-the-box TMS with vendor and freelancer management, automated client workflows and the reporting clients expect.',
+			need: 'For businesses bringing translation in-house. Automated workflows, dashboards and connectors plug Trados into the content your organization already produces.',
+		},
+		features: {
+			sell: ['Out-of-the-box TMS for LSPs', 'Manage vendors & freelance supply chain', 'Automate repeatable client workflows', 'Margin, cost & delivery dashboards', 'Connect to client content sources'],
+			need: ['Out-of-the-box TMS for your business', 'Automate internal translation requests', 'Dashboards for cost & turnaround', 'Connectors to your CMS & repositories', 'Manage internal & external linguists'],
+		},
+		ctas: [{ label: 'Speak to sales', primary: true }],
+		lw: { name: 'Language Weaver Pro', line: 'Enterprise-grade secure MT built into your workflows.' },
+	},
+	enterprise: {
+		name: 'Trados Enterprise',
+		tag: 'Fully customizable TMS',
+		segments: ['need'],
+		priceType: 'none',
+		desc: { need: 'A fully customizable TMS with SSO, advanced workflows and enterprise security for global content operations.' },
+		features: { need: ['Everything in Business', 'SSO & advanced security', 'Custom workflows & CPQ', 'Dedicated success team', 'Unlimited scale'] },
+		ctas: [{ label: 'Speak to sales', primary: true }],
+		lw: { name: 'Language Weaver Pro', line: 'Secure, adaptive MT at enterprise scale — fully governed and customizable.' },
+	},
+	edge: {
+		name: 'Trados Edge / GroupShare',
+		tag: 'On-prem & private cloud',
+		segments: ['need'],
+		priceType: 'none',
+		desc: { need: 'On-premises and private-cloud deployment for total data sovereignty and control.' },
+		features: { need: ['On-premises deployment', 'Full data sovereignty', 'Private-cloud option', 'Server-based collaboration', 'Air-gapped capable'] },
+		ctas: [{ label: 'Speak to sales', primary: true }],
+		lw: { name: 'Language Weaver Edge', line: 'On-premises machine translation for fully air-gapped, sovereign environments.' },
+	},
+}
+
+// Tokens used by the segment show/hide CSS (a product can live in several segments).
+const segTokens = Object.fromEntries(order.map((id) => [id, products[id].segments.join(' ')]))
+
+const splitName = (name) => (name.startsWith('Trados ') ? ['Trados', name.slice(7)] : ['', name])
+
+// ── Comparison matrix ──────────────────────────────────────────────────────
+const matrix = [
+	{
+		title: 'Capacity',
+		rows: [
+			{ label: 'Languages', vals: { go: 'Unlimited', freelance: 'Unlimited', studioPro: 'Unlimited', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Cloud throughput (words / yr)', vals: { go: '1M', freelance: '1M', studioPro: '5M', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Desktop throughput', vals: { go: false, freelance: 'Unlimited', studioPro: 'Unlimited', team: false, business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Users included', vals: { go: '1', freelance: '1', studioPro: '1', team: 'Up to 10', business: 'Custom', enterprise: 'Unlimited', edge: 'Custom' } },
+		],
+	},
+	{
+		title: 'Translation features',
+		rows: [
+			{ label: 'Online (browser) editor', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Desktop editor (Trados Studio)', vals: { go: false, freelance: true, studioPro: true, team: 'Add-on', business: true, enterprise: true, edge: true } },
+			{ label: 'Translation memory & engines', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Terminology management', vals: { go: 'Browser', freelance: 'MultiTerm', studioPro: 'MultiTerm', team: 'Browser', business: true, enterprise: true, edge: true } },
+			{ label: 'Quality assurance checks', vals: { go: false, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Customize with AppStore apps', vals: { go: '10+', freelance: '150+', studioPro: '150+', team: '50+', business: '150+', enterprise: '150+', edge: '150+' } },
+		],
+	},
+	{
+		title: 'Linguistic AI',
+		rows: [
+			{ label: 'Smart Help (AI assistant)', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'AI Assistant in desktop', vals: { go: false, freelance: true, studioPro: true, team: false, business: true, enterprise: true, edge: true } },
+			{ label: 'Language Weaver generative MT', lw: true, vals: { go: 'Add-on', freelance: 'Add-on', studioPro: 'Add-on', team: 'Add-on', business: 'Included', enterprise: 'Included', edge: 'Edge' } },
+			{ label: '3rd-party MT & LLM providers', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+		],
+	},
+	{
+		title: 'Collaboration & workflow',
+		rows: [
+			{ label: 'Cloud projects', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Real-time collaboration', vals: { go: false, freelance: false, studioPro: false, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Workflow automation', vals: { go: false, freelance: false, studioPro: 'Basic', team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
+			{ label: 'Vendor & supply-chain management', vals: { go: false, freelance: false, studioPro: false, team: false, business: true, enterprise: true, edge: true } },
+			{ label: 'Roles & permissions', vals: { go: false, freelance: false, studioPro: false, team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
+		],
+	},
+	{
+		title: 'Integrations & security',
+		rows: [
+			{ label: 'API access', vals: { go: false, freelance: false, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Built-in cloud connectors', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'CMS & content connectors', vals: { go: false, freelance: false, studioPro: false, team: false, business: true, enterprise: true, edge: true } },
+			{ label: 'SSO & advanced security', vals: { go: false, freelance: false, studioPro: false, team: false, business: false, enterprise: true, edge: true } },
+			{ label: 'On-premise / private cloud', vals: { go: false, freelance: false, studioPro: false, team: false, business: false, enterprise: 'Option', edge: true } },
+		],
+	},
+	{
+		title: 'Support & onboarding',
+		rows: [
+			{ label: 'Community & Knowledge Base', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Standard support', vals: { go: 'Add-on', freelance: 'Add-on', studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Dedicated success manager', vals: { go: false, freelance: false, studioPro: false, team: false, business: 'Option', enterprise: true, edge: true } },
+			{ label: 'Guided onboarding & tours', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+		],
+	},
+]
+---
+
+<Layout title="Trados Pricing – RWS UI">
+	<div class="group" data-pricing data-active-segment={DEFAULT_SEGMENT}>
+		<section class="bg-background pt-20 pb-0 text-foreground md:pt-24 lg:pt-32" data-theme="default">
+			<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+				<span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent/15 bg-accent/10 px-4 py-1 text-center text-sm" role="alert">
+					<!-- <span class="mr-3 -ml-3 shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground">New</span> -->
+					<span class="py-1 text-sm font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
+				</span>
+
+				<h1 class="mx-auto mb-5 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+					<p>Trados <em>Pricing.</em></p>
+				</h1>
+			</div>
+		</section>
+
+		<!-- Segment control (radio group) -->
+		<section class="bg-background pt-8 pb-8 text-foreground md:pt-12 md:pb-12 lg:pt-16 lg:pb-16" data-theme="default">
+			<div class="mx-auto max-w-screen-xl px-8 text-center">
+				<div class="flex justify-center">
+					<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-xl rounded-full border border-foreground/10 bg-foreground/5 p-1.5">
+						<span data-seg-indicator aria-hidden="true" class="pointer-events-none shadow-xl absolute top-1.5 bottom-1.5 left-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary transition-[transform,width] duration-300 ease-out motion-reduce:transition-none" style="view-transition-name:seg-pill"></span>
+						{
+							segments.map((s) => (
+								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground/80 transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:seg-opt-${s.key};view-transition-class:seg-opt`}>
+									<input type="radio" name="segment" value={s.key} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
+									<span class="text-sm leading-tight font-semibold sm:text-base">{s.label}</span>
+
+									<span class="mt-0.5 flex items-center gap-1.5">
+										{s.icon === 'user' && (
+											<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+												<circle cx="12" cy="7" r="4" />
+											</svg>
+										)}
+										{s.icon === 'users' && (
+											<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+												<path d="M16 3.128a4 4 0 0 1 0 7.744" />
+												<path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+												<circle cx="9" cy="7" r="4" />
+											</svg>
+										)}
+										{s.icon === 'building' && (
+											<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M10 12h4" />
+												<path d="M10 8h4" />
+												<path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+												<path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+												<path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" />
+											</svg>
+										)}
+
+										<span class="text-xs opacity-80">{s.sub}</span>
+									</span>
+								</label>
+							))
+						}
+					</fieldset>
+				</div>
+
+				<div class="mt-5 text-foreground/80">
+					<p data-segment-sub>{segmentSubs[DEFAULT_SEGMENT]}</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Hero + controls -->
+		<section hidden class="bg-background pt-16 pb-8 text-foreground" data-theme="dots">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<div class="mx-auto max-w-2xl text-center">
+					<span class="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/8 px-4 py-1.5 text-xs font-bold tracking-wider text-accent uppercase">Summer discount — 10% off</span>
+					<!-- <span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent/15 bg-accent/10 px-4 py-1.5 text-center transition-colors hover:bg-foreground/10" role="alert">
+						<span class="text-xs font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
+					</span> -->
+
+					<h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl xl:text-6xl">
+						Trados <span class="text-gradient">Pricing.</span>
+					</h1>
+				</div>
+
+				<!-- Segment control (radio group) -->
+				<div class="mt-10 flex justify-center">
+					<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-2xl rounded-full border border-foreground/10 bg-card p-1.5 shadow-sm">
+						{
+							segments.map((s) => (
+								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground/70 transition-colors has-[:checked]:bg-gradient has-[:checked]:text-white">
+									<input type="radio" name="segment" value={s.key} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
+									<span class="text-sm leading-tight font-semibold sm:text-base">{s.label}</span>
+									<span class="mt-0.5 text-xs opacity-80">{s.sub}</span>
+								</label>
+							))
+						}
+					</fieldset>
+				</div>
+
+				<p class="mt-4 text-center text-sm text-foreground/60" data-segment-sub>{segmentSubs[DEFAULT_SEGMENT]}</p>
+
+				<!-- Billing + currency (only relevant to priced plans) -->
+				<div data-seg data-segments="translate" class="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+					<div class="btn-group rounded-full bg-card" role="group" aria-label="Billing">
+						<button type="button" class="btn btn-outline btn-sm" data-billing="monthly">Monthly</button>
+						<button type="button" class="btn btn-primary btn-sm" data-billing="annual">Annual</button>
+					</div>
+
+					<ul class="flex items-center gap-4 uppercase">
+						{
+							['GBP', 'USD', 'EUR'].map((code) => (
+								<li>
+									<div class="inline-flex items-center gap-2">
+										<input id={`currency-${code}`} type="radio" value={code} name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" checked={code === 'GBP'} />
+										<label for={`currency-${code}`} class="text-sm font-semibold">
+											{code}
+										</label>
+									</div>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<!-- Cards -->
+		<section class="bg-background pt-8 pb-8 text-foreground md:pt-12 md:pb-12 lg:pt-16 lg:pb-16" data-theme="dots">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<div class="flex flex-wrap justify-center gap-6">
+					{
+						order.map((id) => {
+							const p = products[id]
+							const [brand, productName] = splitName(p.name)
+							return (
+								<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=translate]:sm:w-80" data-product={id} data-seg data-segments={segTokens[id]} style={`view-transition-name:card-${id}`}>
+									<div data-card class="relative flex w-full flex-1 flex-col rounded-lg border border-foreground/10 bg-background p-6 text-foreground">
+										<span data-popular-badge class="absolute -top-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-gradient px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow-md">
+											★ Most popular
+										</span>
+
+										<span class="text-xs font-bold tracking-wider text-primary uppercase">{p.tag}</span>
+
+										<h3 class="mt-2 text-2xl font-bold tracking-tight">
+											<span>{brand}</span> <span class="text-secondary">{productName}</span>
+										</h3>
+
+										<hr class="my-4 border-foreground/10" />
+
+										{p.priceType === 'billing' && (
+										<div class="flex items-center gap-2 mb-3">
+										  <div class="flex  w-fit border border-foreground/10 bg-foreground/5 rounded-full p-0.5">
+  											<button class="btn btn-xs bg-background shadow">Monthly</button>
+  											<button class="btn btn-xs">Annual</button>
+											</div>
+
+											<span class="text-[0.625rem]/none text-foreground/40 font-bold tracking-wider uppercase">Contract duration</span>
+										</div>
+
+											<div class="mb-4">
+												<div class="flex items-baseline gap-2">
+													{p.price.wasGbp != null && (
+														<span data-was data-was-gbp={p.price.wasGbp} class="text-lg font-medium text-foreground/40 line-through">
+															£{p.price.wasGbp}
+														</span>
+													)}
+
+													<span class="text-4xl font-bold tracking-tight" data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp}>
+														£{p.price.annualGbp}
+													</span>
+												</div>
+
+												<p class="mt-1 text-sm font-medium text-foreground/60">
+													<span data-bill-note data-note-monthly="per user / month · billed monthly" data-note-annual={`per user / month · £${p.price.yearGbp} billed yearly`}>
+														per user / month · £{p.price.yearGbp} billed yearly
+													</span>
+												</p>
+											</div>
+										)}
+
+										{p.segments.map((seg) => (
+											<p data-seg data-segments={seg} class="text-sm/relaxed font-medium text-pretty text-foreground/80">
+												{p.desc[seg]}
+											</p>
+										))}
+
+										<hr class="my-4 border-foreground/10" />
+
+										{p.segments.map((seg) => (
+											<ul data-seg data-segments={seg} role="list" class="flex flex-1 flex-col gap-3 text-left">
+												{p.features[seg].map((f) => (
+													<li class="flex items-start gap-2.5">
+														<span class="mt-0.25 flex size-4.5 shrink-0 items-center justify-center rounded-full bg-accent/12 text-accent">
+															<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+																<rect width="256" height="256" fill="none" />
+																<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+															</svg>
+														</span>
+														<span class="text-sm/snug text-foreground/90">{f}</span>
+													</li>
+												))}
+											</ul>
+										))}
+
+										<div class="mt-5 flex flex-col gap-2.5">
+											{p.ctas.map((c) => (
+												<a href="#" class={`btn w-full text-sm ${c.primary ? 'btn-tertiary' : 'btn-outline'}`}>
+													{c.label}
+												</a>
+											))}
+										</div>
+									</div>
+
+									<div class="relative">
+										<div class="grid h-10 place-items-center">
+											<span class="h-full w-0.5 bg-linear-to-b from-primary/50 to-secondary/50 [grid-area:1/1]" />
+
+											<span class="flex size-6 items-center justify-center rounded-full border-2 border-primary bg-card text-base font-bold text-primary [grid-area:1/1]">
+												<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+													<rect width="256" height="256" fill="none" />
+													<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+													<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+												</svg>
+											</span>
+										</div>
+
+										<div class="rounded-lg bg-background" data-card>
+											<div class="rounded-lg border border-primary/15 bg-linear-to-br from-primary/7.5 to-secondary/7.5 p-4 text-left">
+												<div class="flex items-center gap-2">
+													<span class="flex size-5 items-center justify-center rounded-sm bg-linear-to-br from-primary to-secondary text-white">
+														<svg class="size-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+															<rect width="256" height="256" fill="none" />
+															<path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z" />
+														</svg>
+													</span>
+													<span class="text-sm font-semibold text-tertiary">+ {p.lw.name}</span>
+													<span class="mt-1 ml-auto text-xs text-[0.625rem] font-bold tracking-wide text-accent/66 uppercase">Add-on</span>
+												</div>
+												<p class="mt-1.5 text-xs/snug text-pretty text-foreground/80">{p.lw.line}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							)
+						})
+					}
+				</div>
+
+				<p class="mx-auto mt-8 max-w-4xl text-center text-xs/relaxed font-medium text-foreground/50">*New Trados subscriptions only. Get instant access to Studio 2024, plus Studio 2026 at launch. Applies to first-year annual plans. Prices exclude VAT.</p>
+			</div>
+		</section>
+
+		<!-- Comparison table -->
+		<section class="bg-background py-16 text-foreground md:py-20" data-theme="default">
+			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+				<div class="mx-auto mb-10 max-w-xl text-center">
+					<span class="text-xs font-bold tracking-wider text-primary uppercase">Compare plans</span>
+					<h2 class="mt-3 text-3xl font-bold tracking-tight xl:text-4xl">Compare every feature</h2>
+					<p class="mt-3 font-medium text-pretty text-foreground/80" data-compare-sub>See exactly what's included across the “{segments.find((s) => s.key === DEFAULT_SEGMENT).label}” plans.</p>
+				</div>
+
+				<div class="overflow-x-auto">
+					<div class="min-w-[640px] overflow-hidden rounded-lg border border-foreground/10">
+						<!-- Column header -->
+						<div data-cmp data-cmp-header class="sticky top-0 z-20 grid items-start border-b border-foreground/10 bg-background/95 backdrop-blur">
+							<div class="self-center px-4 py-5 text-xs font-bold tracking-wider text-foreground/50 uppercase">Features</div>
+							{
+								order.map((id) => {
+									const p = products[id]
+									const [brand, productName] = splitName(p.name)
+									return (
+										<div data-seg data-segments={segTokens[id]} class="flex flex-col items-center px-3 py-5 text-center">
+											<span class="text-sm leading-tight font-semibold">
+												<>
+													<span>{brand} </span>
+													<span class="text-secondary">{productName}</span>
+												</>
+											</span>
+											<span class="mt-1 text-xs text-foreground/60">
+												{p.priceType === 'billing' && (
+													<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp}>
+														£{p.price.annualGbp}
+													</span>
+												)}
+												{p.priceType === 'none' && ' '}
+											</span>
+											<a href="#" class="btn btn-tertiary btn-xs mt-3 whitespace-nowrap">
+												{p.ctas[0].label}
+											</a>
+										</div>
+									)
+								})
+							}
+						</div>
+
+						<!-- Sections -->
+						{
+							matrix.map((sec) => (
+								<>
+									<div class="border-y border-foreground/10 bg-foreground/5 px-4 py-3">
+										<h4 class="text-base font-semibold">{sec.title}</h4>
+									</div>
+									{sec.rows.map((r) => (
+										<div data-cmp class="grid items-stretch border-b border-foreground/10 last:border-b-0">
+											<div class="flex items-center px-4 py-4 text-sm font-medium">{r.label}</div>
+											{order.map((id) => {
+												const v = r.vals[id]
+												return (
+													<div data-seg data-segments={segTokens[id]} class="flex items-center justify-center border-l border-foreground/5 px-3 py-4 text-center">
+														{v === true && (
+															<span class="flex size-5 items-center justify-center rounded-full bg-accent/12 text-accent">
+																<svg viewBox="0 0 12 12" class="size-3" fill="none" aria-hidden="true">
+																	<path d="M2.5 6.2l2.2 2.2 4.8-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
+																</svg>
+															</span>
+														)}
+														{(v === false || v == null) && (
+															<span class="text-foreground/30" aria-label="Not included">
+																–
+															</span>
+														)}
+														{typeof v === 'string' && (
+															<span class="flex flex-col items-center gap-1">
+																<span class="text-sm font-medium">{v}</span>
+																{r.lw && v === 'Add-on' && (
+																	<span class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/8 px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-primary uppercase">
+																		<svg width="7" height="7" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+																			<path d="M8.4 1.2 3.1 8.1h3.1l-.8 4.7 5.4-7.1H7.6l.8-4.5z" fill="currentColor" />
+																		</svg>
+																		LW Pro
+																	</span>
+																)}
+															</span>
+														)}
+													</div>
+												)
+											})}
+										</div>
+									))}
+								</>
+							))
+						}
+					</div>
+				</div>
+
+				<p class="mx-auto mt-8 max-w-3xl text-center text-xs/relaxed text-foreground/50">Trados Go and Trados Freelance prices reflect per-user list pricing (excluding VAT). Studio Pro, Team, Business, Enterprise and Edge / GroupShare are tailored to your needs — speak to sales for a quote. Prices are set in GBP; other currencies are indicative conversions.</p>
+			</div>
+		</section>
+	</div>
+</Layout>
+
+<style>
+	/* Segment-driven show/hide. Each `[data-seg]` element carries `data-segments`
+	   tokens; anything that doesn't match the active segment is removed. */
+	[data-pricing][data-active-segment='translate'] [data-seg]:not([data-segments~='translate']),
+	[data-pricing][data-active-segment='sell'] [data-seg]:not([data-segments~='sell']),
+	[data-pricing][data-active-segment='need'] [data-seg]:not([data-segments~='need']) {
+		display: none !important;
+	}
+
+	/* Comparison grid: one label column + one column per visible product. */
+	[data-pricing][data-active-segment='translate'] [data-cmp] {
+		grid-template-columns: 16.5rem repeat(2, minmax(6rem, 1fr));
+	}
+	[data-pricing][data-active-segment='sell'] [data-cmp] {
+		grid-template-columns: 16.5rem repeat(3, minmax(6rem, 1fr));
+	}
+	[data-pricing][data-active-segment='need'] [data-cmp] {
+		grid-template-columns: 16.5rem repeat(4, minmax(6rem, 1fr));
+	}
+
+	/* Most-popular treatment. */
+	[data-popular-badge] {
+		display: none;
+	}
+	[data-card][data-popular] [data-popular-badge] {
+		display: inline-flex;
+	}
+	[data-card][data-popular] {
+		border-color: var(--accent);
+		box-shadow: 0 14px 36px -10px color-mix(in oklch, var(--accent) 45%, transparent);
+	}
+</style>
+
+<style is:global>
+	/* View-transition pseudo-elements live on the document root, so they can't be
+	   component-scoped. Each card has a unique `view-transition-name`, plus a
+	   per-transition `view-transition-class` set in script:
+	     • card-morph — the plan exists in both the old and new segment (e.g. Team,
+	       Business), so it smoothly morphs from its old slot to its new one.
+	     • card-move  — the plan only exists on one side, so it slides in/out in the
+	       direction of travel (`data-seg-dir` on <html>). */
+	@media (prefers-reduced-motion: no-preference) {
+		::view-transition-group(.card-morph),
+		::view-transition-group(.card-move),
+		::view-transition-old(.card-move),
+		::view-transition-new(.card-move),
+		::view-transition-group(seg-pill),
+		::view-transition-group(.seg-opt) {
+			animation-duration: 0.45s;
+			animation-timing-function: cubic-bezier(0.5, 0.05, 0.2, 1);
+		}
+
+		:root[data-seg-dir='forward']::view-transition-old(.card-move) {
+			animation-name: card-exit-left;
+		}
+		:root[data-seg-dir='forward']::view-transition-new(.card-move) {
+			animation-name: card-enter-right;
+		}
+		:root[data-seg-dir='back']::view-transition-old(.card-move) {
+			animation-name: card-exit-right;
+		}
+		:root[data-seg-dir='back']::view-transition-new(.card-move) {
+			animation-name: card-enter-left;
+		}
+	}
+
+	@keyframes card-exit-left {
+		to {
+			transform: translateX(-160%);
+			opacity: 0;
+		}
+	}
+	@keyframes card-enter-right {
+		from {
+			transform: translateX(160%);
+			opacity: 0;
+		}
+	}
+	@keyframes card-exit-right {
+		to {
+			transform: translateX(160%);
+			opacity: 0;
+		}
+	}
+	@keyframes card-enter-left {
+		from {
+			transform: translateX(-160%);
+			opacity: 0;
+		}
+	}
+</style>
+
+<script>
+	// @ts-nocheck
+	const root = document.querySelector('[data-pricing]')
+	if (root) {
+		const params = new URLSearchParams(location.search)
+		const SEG_DEFAULT = root.getAttribute('data-active-segment') || 'sell'
+		const segDefaults = { translate: 'freelance', sell: 'team', need: 'business' }
+		const segLabel = { translate: 'I translate', sell: 'I sell translations', need: 'I need translation' }
+		const segSub = {
+			translate: 'For individual translators. 14 day risk-free trial.',
+			sell: 'Built for language service providers and translation teams who deliver for clients.',
+			need: 'For businesses and enterprises managing translation at scale, securely.',
+		}
+		const canVT = typeof document.startViewTransition === 'function' && !matchMedia('(prefers-reduced-motion: reduce)').matches
+		const radios = Array.from(root.querySelectorAll('input[name="segment"]'))
+
+		const activeSeg = () => root.getAttribute('data-active-segment') || SEG_DEFAULT
+
+		// Slide the gradient pill to sit behind the active segment label. Measured
+		// from the live label so it tracks gaps, padding and responsive sizing.
+		const pill = root.querySelector('[data-seg-indicator]')
+		function positionIndicator() {
+			if (!pill) return
+			const fs = pill.parentElement
+			const input = fs.querySelector('input[name="segment"][value="' + activeSeg() + '"]')
+			const label = input && input.closest('label')
+			if (!label) return
+			pill.style.width = label.offsetWidth + 'px'
+			pill.style.transform = 'translateX(' + label.offsetLeft + 'px)'
+		}
+
+		function applyPopular() {
+			const seg = activeSeg()
+			const visible = Array.from(root.querySelectorAll('[data-card][data-segments~="' + seg + '"]')).map((c) => c.dataset.product)
+			let pop = params.get('popular')
+			if (!pop || !visible.includes(pop)) pop = segDefaults[seg]
+			root.querySelectorAll('[data-card]').forEach((c) => {
+				c.toggleAttribute('data-popular', c.dataset.product === pop)
+			})
+		}
+
+		function applySeg(seg) {
+			root.setAttribute('data-active-segment', seg)
+			const r = radios.find((r) => r.value === seg)
+			if (r) r.checked = true
+			root.querySelectorAll('[data-segment-sub]').forEach((sub) => {
+				sub.textContent = segSub[seg]
+			})
+			const cmp = root.querySelector('[data-compare-sub]')
+			if (cmp) cmp.textContent = 'See exactly what’s included across the “' + segLabel[seg] + '” plans.'
+			applyPopular()
+			positionIndicator()
+		}
+
+		const segOrder = ['translate', 'sell', 'need']
+
+		// A card that's in both segments morphs between its slots; one that only
+		// exists on one side slides in/out.
+		function tagCards(cur, next) {
+			root.querySelectorAll('[data-product][data-segments]').forEach((el) => {
+				const segs = el.getAttribute('data-segments').split(' ')
+				const persists = segs.includes(cur) && segs.includes(next)
+				el.style.setProperty('view-transition-class', persists ? 'card-morph' : 'card-move')
+			})
+		}
+
+		function setSeg(seg) {
+			const cur = activeSeg()
+			if (seg === cur || !segDefaults[seg]) return
+			if (!canVT) {
+				applySeg(seg)
+				return
+			}
+			const el = document.documentElement
+			el.dataset.segDir = segOrder.indexOf(seg) > segOrder.indexOf(cur) ? 'forward' : 'back'
+			tagCards(cur, seg)
+			const t = document.startViewTransition(() => applySeg(seg))
+			t.finished.finally(() => delete el.dataset.segDir)
+		}
+
+		radios.forEach((radio) => {
+			radio.addEventListener('click', (e) => {
+				if (radio.value === activeSeg()) return
+				e.preventDefault()
+				setSeg(radio.value)
+			})
+			radio.addEventListener('keyup', () => {
+				if (radio.checked) setSeg(radio.value)
+			})
+		})
+
+		// Initial state from the URL (?segment=…), applied without a transition.
+		// Suppress the pill's transition so it doesn't grow/slide in on first paint.
+		if (pill) pill.style.transition = 'none'
+		const initSeg = params.get('segment')
+		applySeg(initSeg && segDefaults[initSeg] ? initSeg : activeSeg())
+		requestAnimationFrame(() => {
+			positionIndicator()
+			if (pill) pill.style.transition = ''
+		})
+		// Keep the pill aligned on resize.
+		addEventListener('resize', positionIndicator)
+
+		// ── Billing + currency (priced plans only) ──────────────────────────────
+		const rates = { GBP: { sym: '£', rate: 1 }, USD: { sym: '$', rate: 1.27 }, EUR: { sym: '€', rate: 1.17 } }
+		let currency = 'GBP'
+		let billing = 'annual'
+		const money = (gbp) => {
+			const c = rates[currency]
+			if (currency === 'GBP') return c.sym + (Number.isInteger(gbp) ? gbp : gbp.toFixed(2))
+			return c.sym + Math.round(gbp * c.rate).toLocaleString('en-US')
+		}
+		function refreshPrices() {
+			root.querySelectorAll('[data-price]').forEach((el) => {
+				const gbp = parseFloat(billing === 'annual' ? el.dataset.annualGbp : el.dataset.monthlyGbp)
+				if (!isNaN(gbp)) el.textContent = money(gbp)
+			})
+			root.querySelectorAll('[data-was]').forEach((el) => {
+				const gbp = parseFloat(el.dataset.wasGbp || '')
+				const show = billing === 'annual' && !isNaN(gbp)
+				el.hidden = !show
+				if (show) el.textContent = money(gbp)
+			})
+			root.querySelectorAll('[data-bill-note]').forEach((el) => {
+				el.textContent = billing === 'annual' ? el.dataset.noteAnnual : el.dataset.noteMonthly
+			})
+		}
+		root.querySelectorAll('[data-billing]').forEach((btn) => {
+			btn.addEventListener('click', () => {
+				billing = btn.dataset.billing
+				root.querySelectorAll('[data-billing]').forEach((b) => {
+					const on = b === btn
+					b.classList.toggle('btn-primary', on)
+					b.classList.toggle('btn-outline', !on)
+				})
+				refreshPrices()
+			})
+		})
+		root.querySelectorAll('input[name="currency"]').forEach((r) => {
+			r.addEventListener('change', () => {
+				if (r.checked) {
+					currency = r.value
+					refreshPrices()
+				}
+			})
+		})
+		refreshPrices()
+	}
+</script>
