@@ -8,9 +8,9 @@ const segments = [
 	{ key: 'sell', label: 'I sell translations', sub: 'LSPs & teams', popular: 'team', icon: 'users' },
 	{ key: 'need', label: 'I need translation', sub: 'Businesses', popular: 'business', icon: 'building' },
 ]
-const DEFAULT_SEGMENT = 'translate'
+const DEFAULT_SEGMENT = 'sell'
 
-const segmentSubs = {
+const segmentSubtitles = {
 	translate: 'For individual translators. 14 day risk-free trial.',
 	sell: 'Built for language service providers and translation teams who deliver for clients.',
 	need: 'For businesses and enterprises managing translation at scale, securely.',
@@ -19,7 +19,7 @@ const segmentSubs = {
 // ── Products ───────────────────────────────────────────────────────────────
 // `order` fixes the DOM order so each segment's products stay contiguous and in
 // the right sequence once the others are hidden.
-const order = ['go', 'freelance', 'studioPro', 'team', 'business', 'enterprise', 'edge']
+const order = ['go', 'freelance', 'pro', 'team', 'business', 'enterprise', 'edge']
 
 const products = {
 	go: {
@@ -27,7 +27,7 @@ const products = {
 		tag: 'Browser CAT tool',
 		segments: ['translate'],
 		priceType: 'billing',
-		price: { monthlyGbp: 27, annualGbp: 20, wasGbp: 24, yearGbp: 240 },
+		price: { monthlyGbp: 27, annualGbp: 20, annualMonthlyGbp: 22.5, wasGbp: 24 },
 		desc: { translate: 'Quick to set up and reach from anywhere. The browser CAT tool with everything you need to stay productive on the move.' },
 		features: { translate: ['Browser-based — nothing to install', '1M cloud words per year', 'Translation memory & terminology', 'AI Smart Help & guided tours', '10+ AppStore apps'] },
 		ctas: [
@@ -41,7 +41,7 @@ const products = {
 		tag: 'Desktop + cloud',
 		segments: ['translate'],
 		priceType: 'billing',
-		price: { monthlyGbp: 38, annualGbp: 28.33, yearGbp: 340 },
+		price: { monthlyGbp: 38, annualGbp: 28.33, annualMonthlyGbp: 31.5 },
 		desc: { translate: 'Desktop and cloud in one. A complete professional environment with advanced features, flexibility and full control.' },
 		features: { translate: ['Desktop + browser working', 'Unlimited desktop throughput', 'MultiTerm terminology management', 'AI Assistant in the desktop app', '150+ AppStore apps'] },
 		ctas: [
@@ -50,7 +50,7 @@ const products = {
 		],
 		lw: { name: 'Language Weaver Pro', line: 'Add secure, generative machine translation — 6M characters included to start.' },
 	},
-	studioPro: {
+	pro: {
 		name: 'Trados Studio Pro',
 		tag: 'Power-user desktop CAT',
 		segments: ['sell'],
@@ -121,7 +121,7 @@ const products = {
 }
 
 // Tokens used by the segment show/hide CSS (a product can live in several segments).
-const segTokens = Object.fromEntries(order.map((id) => [id, products[id].segments.join(' ')]))
+const segmentTokens = Object.fromEntries(order.map((id) => [id, products[id].segments.join(' ')]))
 
 const splitName = (name) => (name.startsWith('Trados ') ? ['Trados', name.slice(7)] : ['', name])
 
@@ -130,59 +130,59 @@ const matrix = [
 	{
 		title: 'Capacity',
 		rows: [
-			{ label: 'Languages', vals: { go: 'Unlimited', freelance: 'Unlimited', studioPro: 'Unlimited', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
-			{ label: 'Cloud throughput (words / yr)', vals: { go: '1M', freelance: '1M', studioPro: '5M', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
-			{ label: 'Desktop throughput', vals: { go: false, freelance: 'Unlimited', studioPro: 'Unlimited', team: false, business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
-			{ label: 'Users included', vals: { go: '1', freelance: '1', studioPro: '1', team: 'Up to 10', business: 'Custom', enterprise: 'Unlimited', edge: 'Custom' } },
+			{ label: 'Languages', vals: { go: 'Unlimited', freelance: 'Unlimited', pro: 'Unlimited', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Cloud throughput (words / yr)', vals: { go: '1M', freelance: '1M', pro: '5M', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Desktop throughput', vals: { go: false, freelance: 'Unlimited', pro: 'Unlimited', team: false, business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Users included', vals: { go: '1', freelance: '1', pro: '1', team: 'Up to 10', business: 'Custom', enterprise: 'Unlimited', edge: 'Custom' } },
 		],
 	},
 	{
 		title: 'Translation features',
 		rows: [
-			{ label: 'Online (browser) editor', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Desktop editor (Trados Studio)', vals: { go: false, freelance: true, studioPro: true, team: 'Add-on', business: true, enterprise: true, edge: true } },
-			{ label: 'Translation memory & engines', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Terminology management', vals: { go: 'Browser', freelance: 'MultiTerm', studioPro: 'MultiTerm', team: 'Browser', business: true, enterprise: true, edge: true } },
-			{ label: 'Quality assurance checks', vals: { go: false, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Customize with AppStore apps', vals: { go: '10+', freelance: '150+', studioPro: '150+', team: '50+', business: '150+', enterprise: '150+', edge: '150+' } },
+			{ label: 'Online (browser) editor', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Desktop editor (Trados Studio)', vals: { go: false, freelance: true, pro: true, team: 'Add-on', business: true, enterprise: true, edge: true } },
+			{ label: 'Translation memory & engines', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Terminology management', vals: { go: 'Browser', freelance: 'MultiTerm', pro: 'MultiTerm', team: 'Browser', business: true, enterprise: true, edge: true } },
+			{ label: 'Quality assurance checks', vals: { go: false, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Customize with AppStore apps', vals: { go: '10+', freelance: '150+', pro: '150+', team: '50+', business: '150+', enterprise: '150+', edge: '150+' } },
 		],
 	},
 	{
 		title: 'Linguistic AI',
 		rows: [
-			{ label: 'Smart Help (AI assistant)', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'AI Assistant in desktop', vals: { go: false, freelance: true, studioPro: true, team: false, business: true, enterprise: true, edge: true } },
-			{ label: 'Language Weaver generative MT', lw: true, vals: { go: 'Add-on', freelance: 'Add-on', studioPro: 'Add-on', team: 'Add-on', business: 'Included', enterprise: 'Included', edge: 'Edge' } },
-			{ label: '3rd-party MT & LLM providers', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Smart Help (AI assistant)', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'AI Assistant in desktop', vals: { go: false, freelance: true, pro: true, team: false, business: true, enterprise: true, edge: true } },
+			{ label: 'Language Weaver generative MT', lw: true, vals: { go: 'Add-on', freelance: 'Add-on', pro: 'Add-on', team: 'Add-on', business: 'Included', enterprise: 'Included', edge: 'Edge' } },
+			{ label: '3rd-party MT & LLM providers', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
 		],
 	},
 	{
 		title: 'Collaboration & workflow',
 		rows: [
-			{ label: 'Cloud projects', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Real-time collaboration', vals: { go: false, freelance: false, studioPro: false, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Workflow automation', vals: { go: false, freelance: false, studioPro: 'Basic', team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
-			{ label: 'Vendor & supply-chain management', vals: { go: false, freelance: false, studioPro: false, team: false, business: true, enterprise: true, edge: true } },
-			{ label: 'Roles & permissions', vals: { go: false, freelance: false, studioPro: false, team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
+			{ label: 'Cloud projects', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Real-time collaboration', vals: { go: false, freelance: false, pro: false, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Workflow automation', vals: { go: false, freelance: false, pro: 'Basic', team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
+			{ label: 'Vendor & supply-chain management', vals: { go: false, freelance: false, pro: false, team: false, business: true, enterprise: true, edge: true } },
+			{ label: 'Roles & permissions', vals: { go: false, freelance: false, pro: false, team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
 		],
 	},
 	{
 		title: 'Integrations & security',
 		rows: [
-			{ label: 'API access', vals: { go: false, freelance: false, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Built-in cloud connectors', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'CMS & content connectors', vals: { go: false, freelance: false, studioPro: false, team: false, business: true, enterprise: true, edge: true } },
-			{ label: 'SSO & advanced security', vals: { go: false, freelance: false, studioPro: false, team: false, business: false, enterprise: true, edge: true } },
-			{ label: 'On-premise / private cloud', vals: { go: false, freelance: false, studioPro: false, team: false, business: false, enterprise: 'Option', edge: true } },
+			{ label: 'API access', vals: { go: false, freelance: false, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Built-in cloud connectors', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'CMS & content connectors', vals: { go: false, freelance: false, pro: false, team: false, business: true, enterprise: true, edge: true } },
+			{ label: 'SSO & advanced security', vals: { go: false, freelance: false, pro: false, team: false, business: false, enterprise: true, edge: true } },
+			{ label: 'On-premise / private cloud', vals: { go: false, freelance: false, pro: false, team: false, business: false, enterprise: 'Option', edge: true } },
 		],
 	},
 	{
 		title: 'Support & onboarding',
 		rows: [
-			{ label: 'Community & Knowledge Base', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Standard support', vals: { go: 'Add-on', freelance: 'Add-on', studioPro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Dedicated success manager', vals: { go: false, freelance: false, studioPro: false, team: false, business: 'Option', enterprise: true, edge: true } },
-			{ label: 'Guided onboarding & tours', vals: { go: true, freelance: true, studioPro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Community & Knowledge Base', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Standard support', vals: { go: 'Add-on', freelance: 'Add-on', pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Dedicated success manager', vals: { go: false, freelance: false, pro: false, team: false, business: 'Option', enterprise: true, edge: true } },
+			{ label: 'Guided onboarding & tours', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
 		],
 	},
 ]
@@ -208,10 +208,10 @@ const matrix = [
 			<div class="mx-auto max-w-screen-xl px-8 text-center">
 				<div class="flex justify-center">
 					<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-xl rounded-full border border-foreground/10 bg-foreground/5 p-1.5">
-						<span data-seg-indicator aria-hidden="true" class="pointer-events-none shadow-xl absolute top-1.5 bottom-1.5 left-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary transition-[transform,width] duration-300 ease-out motion-reduce:transition-none" style="view-transition-name:seg-pill"></span>
+						<span data-segment-indicator aria-hidden="true" class="pointer-events-none shadow-xl absolute top-1.5 bottom-1.5 left-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary transition-[transform,width] duration-300 ease-out motion-reduce:transition-none" style="view-transition-name:segment-pill"></span>
 						{
 							segments.map((s) => (
-								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground/80 transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:seg-opt-${s.key};view-transition-class:seg-opt`}>
+								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground/80 transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:segment-option-${s.key};view-transition-class:segment-option`}>
 									<input type="radio" name="segment" value={s.key} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
 									<span class="text-sm leading-tight font-semibold sm:text-base">{s.label}</span>
 
@@ -249,7 +249,7 @@ const matrix = [
 				</div>
 
 				<div class="mt-5 text-foreground/80">
-					<p data-segment-sub>{segmentSubs[DEFAULT_SEGMENT]}</p>
+					<p data-segment-subtitle>{segmentSubtitles[DEFAULT_SEGMENT]}</p>
 				</div>
 			</div>
 		</section>
@@ -283,10 +283,10 @@ const matrix = [
 					</fieldset>
 				</div>
 
-				<p class="mt-4 text-center text-sm text-foreground/60" data-segment-sub>{segmentSubs[DEFAULT_SEGMENT]}</p>
+				<p class="mt-4 text-center text-sm text-foreground/60" data-segment-subtitle>{segmentSubtitles[DEFAULT_SEGMENT]}</p>
 
 				<!-- Billing + currency (only relevant to priced plans) -->
-				<div data-seg data-segments="translate" class="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+				<div data-segment data-segments="translate" class="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
 					<div class="btn-group rounded-full bg-card" role="group" aria-label="Billing">
 						<button type="button" class="btn btn-outline btn-sm" data-billing="monthly">Monthly</button>
 						<button type="button" class="btn btn-primary btn-sm" data-billing="annual">Annual</button>
@@ -319,13 +319,36 @@ const matrix = [
 							const p = products[id]
 							const [brand, productName] = splitName(p.name)
 							return (
-								<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=translate]:sm:w-80" data-product={id} data-seg data-segments={segTokens[id]} style={`view-transition-name:card-${id}`}>
-									<div data-card class="relative flex w-full flex-1 flex-col rounded-lg border border-foreground/10 bg-background p-6 text-foreground">
-										<span data-popular-badge class="absolute -top-3 left-1/2 z-10 -translate-x-1/2 rounded-full bg-gradient px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow-md">
-											★ Most popular
+								<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=translate]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} style={`view-transition-name:card-${id}`}>
+									<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground/10 bg-background p-6 text-foreground data-popular:border-accent data-popular:glow-animate">
+										<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 rounded-full items-center gap-1 bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
+										  <svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></svg>
+											Most popular
 										</span>
 
-										<span class="text-xs font-bold tracking-wider text-primary uppercase">{p.tag}</span>
+										{p.priceType === 'billing' && (
+										<div class="absolute top-4 right-4">
+											<button class="btn btn-xs btn-outline btn-icon-both w-full px-2 rounded-full bg-background font-bold tracking-wider text-foreground/40" id={`currency-button-${id}`} popovertarget={`currency-popover-${id}`} popovertargetaction="toggle" type="button" style={`anchor-name: --currency-anchor-${id};`}>
+												<span class="flex-1 text-left" data-currency-label>GBP</span>
+												<svg class="ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></polyline></svg>
+											</button>
+
+											<div data-card id={`currency-popover-${id}`} popover="auto" role="menu" aria-labelledby={`currency-button-${id}`} class="dropdown z-10 mt-1 w-fit rounded border border-foreground/10 shadow-lg" style={`position-anchor: --currency-anchor-${id}; position-area: bottom span-left;`}>
+												<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-xs font-bold tracking-wider select-none">
+													{[['GBP', '£'], ['USD', '$'], ['EUR', '€']].map(([code, sym]) => (
+														<li>
+															<label class="inline-flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-accent/5 has-checked:bg-accent/10">
+																<input hidden data-currency-option type="radio" value={code} name={`currency-${id}`} class="input input-radio" checked={code === 'GBP'} />
+																{sym} {code}
+															</label>
+														</li>
+													))}
+												</ul>
+											</div>
+										</div>
+										)}
+
+										<span class="-mt-0.5 text-xs font-bold tracking-wider text-primary uppercase">{p.tag}</span>
 
 										<h3 class="mt-2 text-2xl font-bold tracking-tight">
 											<span>{brand}</span> <span class="text-secondary">{productName}</span>
@@ -335,37 +358,66 @@ const matrix = [
 
 										{p.priceType === 'billing' && (
 										<div class="flex items-center gap-2 mb-3">
-										  <div class="flex  w-fit border border-foreground/10 bg-foreground/5 rounded-full p-0.5">
-  											<button class="btn btn-xs bg-background shadow">Monthly</button>
-  											<button class="btn btn-xs">Annual</button>
+										  <div class="grid w-fit grid-cols-2 rounded-full border border-foreground/10 bg-foreground/5 p-0.5">
+  											<button type="button" data-billing="monthly" class="btn btn-xs transition-all">Monthly</button>
+  											<button type="button" data-billing="annual" class="btn btn-xs transition-all">Annual</button>
 											</div>
 
 											<span class="text-[0.625rem]/none text-foreground/40 font-bold tracking-wider uppercase">Contract duration</span>
 										</div>
 
-											<div class="mb-4">
-												<div class="flex items-baseline gap-2">
-													{p.price.wasGbp != null && (
-														<span data-was data-was-gbp={p.price.wasGbp} class="text-lg font-medium text-foreground/40 line-through">
-															£{p.price.wasGbp}
-														</span>
-													)}
+										<div data-annual-pill hidden class="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-emerald-500/12 px-3 py-1 text-xs font-semibold text-emerald-600">
+								      <svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><rect x="32" y="80" width="192" height="48" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M208,128v72a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="128" y1="80" x2="128" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M176.79,31.21c9.34,9.34,9.89,25.06,0,33.82C159.88,80,128,80,128,80s0-31.88,15-48.79C151.73,21.32,167.45,21.87,176.79,31.21Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M79.21,31.21c-9.34,9.34-9.89,25.06,0,33.82C96.12,80,128,80,128,80s0-31.88-15-48.79C104.27,21.32,88.55,21.87,79.21,31.21Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
+											2 months free with code PLFY26*
+										</div>
 
-													<span class="text-4xl font-bold tracking-tight" data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp}>
-														£{p.price.annualGbp}
-													</span>
-												</div>
+										<div class="mb-4">
+											<div class="flex items-baseline gap-2">
+												<span data-was data-was-yearly={p.price.wasGbp ?? ''} data-was-monthly={p.price.monthlyGbp} hidden class="text-lg font-medium text-foreground/40 line-through">
+													£{p.price.wasGbp ?? ''}
+												</span>
 
-												<p class="mt-1 text-sm font-medium text-foreground/60">
-													<span data-bill-note data-note-monthly="per user / month · billed monthly" data-note-annual={`per user / month · £${p.price.yearGbp} billed yearly`}>
-														per user / month · £{p.price.yearGbp} billed yearly
-													</span>
-												</p>
+												<span class="text-4xl font-bold tracking-tight" data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
+													£{p.price.annualGbp}
+												</span>
 											</div>
+
+											<p class="mt-1 text-sm font-medium text-foreground/60">
+												<span data-billing-note>
+													<span data-note-rolling hidden>per user / month · billed monthly</span>
+													<span data-note-annual>per user / month · <span data-year-total>£240 </span>billed&nbsp;
+														<button
+															type="button"
+															data-cadence-trigger
+															id={`cadence-button-${id}`}
+															popovertarget={`cadence-popover-${id}`}
+															popovertargetaction="toggle"
+															style={`anchor-name: --cadence-anchor-${id};`}
+															class="cursor-pointer font-semibold text-primary underline decoration-dotted underline-offset-2"
+														>
+														  <span data-cadence-label>yearly</span>
+														</button>
+													  														</span>
+												</span>
+											</p>
+
+											<div data-card id={`cadence-popover-${id}`} popover="auto" role="menu" aria-labelledby={`cadence-button-${id}`} class="dropdown z-10 mt-1 w-max rounded border border-foreground/10 shadow-lg" style={`position-anchor: --cadence-anchor-${id}; position-area: bottom span-left;`}>
+												<ul class="grid gap-px p-2 text-sm font-medium select-none">
+													{[['yearly', 'Billed yearly (annual contract)'], ['monthly', 'Billed monthly (annual contract)']].map(([val, label]) => (
+														<li>
+															<label class="inline-flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 whitespace-nowrap transition-colors hover:bg-accent/5 has-checked:bg-accent/10">
+																<input hidden data-cadence-option type="radio" value={val} name={`cadence-${id}`} class="input input-radio" checked={val === 'yearly'} />
+																{label}
+															</label>
+														</li>
+													))}
+												</ul>
+											</div>
+										</div>
 										)}
 
 										{p.segments.map((seg) => (
-											<p data-seg data-segments={seg} class="text-sm/relaxed font-medium text-pretty text-foreground/80">
+											<p data-segment data-segments={seg} class="text-sm/relaxed font-medium text-pretty text-foreground/80">
 												{p.desc[seg]}
 											</p>
 										))}
@@ -373,7 +425,7 @@ const matrix = [
 										<hr class="my-4 border-foreground/10" />
 
 										{p.segments.map((seg) => (
-											<ul data-seg data-segments={seg} role="list" class="flex flex-1 flex-col gap-3 text-left">
+											<ul data-segment data-segments={seg} role="list" class="flex flex-1 flex-col gap-3 text-left">
 												{p.features[seg].map((f) => (
 													<li class="flex items-start gap-2.5">
 														<span class="mt-0.25 flex size-4.5 shrink-0 items-center justify-center rounded-full bg-accent/12 text-accent">
@@ -390,7 +442,7 @@ const matrix = [
 
 										<div class="mt-5 flex flex-col gap-2.5">
 											{p.ctas.map((c) => (
-												<a href="#" class={`btn w-full text-sm ${c.primary ? 'btn-tertiary' : 'btn-outline'}`}>
+												<a href="#" class={`btn w-full text-sm ${c.primary ? 'btn-tertiary group-data-popular/card:bg-linear-to-br from-secondary to-tertiary bg-origin-border' : 'btn-outline'}`}>
 													{c.label}
 												</a>
 											))}
@@ -399,9 +451,9 @@ const matrix = [
 
 									<div class="relative">
 										<div class="grid h-10 place-items-center">
-											<span class="h-full w-0.5 bg-linear-to-b from-primary/50 to-secondary/50 [grid-area:1/1]" />
+											<span class="h-full w-0.5 bg-linear-to-br from-primary/15 to-secondary/15 [grid-area:1/1]" />
 
-											<span class="flex size-6 items-center justify-center rounded-full border-2 border-primary bg-card text-base font-bold text-primary [grid-area:1/1]">
+											<span class="shadow flex size-6 items-center justify-center rounded-full border-2 border-primary bg-card text-base font-bold text-primary [grid-area:1/1]">
 												<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 													<rect width="256" height="256" fill="none" />
 													<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
@@ -442,20 +494,20 @@ const matrix = [
 				<div class="mx-auto mb-10 max-w-xl text-center">
 					<span class="text-xs font-bold tracking-wider text-primary uppercase">Compare plans</span>
 					<h2 class="mt-3 text-3xl font-bold tracking-tight xl:text-4xl">Compare every feature</h2>
-					<p class="mt-3 font-medium text-pretty text-foreground/80" data-compare-sub>See exactly what's included across the “{segments.find((s) => s.key === DEFAULT_SEGMENT).label}” plans.</p>
+					<p class="mt-3 font-medium text-pretty text-foreground/80" data-comparison-subtitle>See exactly what's included across the “{segments.find((s) => s.key === DEFAULT_SEGMENT).label}” plans.</p>
 				</div>
 
 				<div class="overflow-x-auto">
 					<div class="min-w-[640px] overflow-hidden rounded-lg border border-foreground/10">
 						<!-- Column header -->
-						<div data-cmp data-cmp-header class="sticky top-0 z-20 grid items-start border-b border-foreground/10 bg-background/95 backdrop-blur">
+						<div data-comparison data-comparison-header class="sticky top-0 z-20 grid items-start border-b border-foreground/10 bg-background/95 backdrop-blur group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(6rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(6rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(6rem,1fr))]">
 							<div class="self-center px-4 py-5 text-xs font-bold tracking-wider text-foreground/50 uppercase">Features</div>
 							{
 								order.map((id) => {
 									const p = products[id]
 									const [brand, productName] = splitName(p.name)
 									return (
-										<div data-seg data-segments={segTokens[id]} class="flex flex-col items-center px-3 py-5 text-center">
+										<div data-segment data-segments={segmentTokens[id]} class="flex flex-col items-center px-3 py-5 text-center">
 											<span class="text-sm leading-tight font-semibold">
 												<>
 													<span>{brand} </span>
@@ -464,7 +516,7 @@ const matrix = [
 											</span>
 											<span class="mt-1 text-xs text-foreground/60">
 												{p.priceType === 'billing' && (
-													<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp}>
+													<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
 														£{p.price.annualGbp}
 													</span>
 												)}
@@ -487,12 +539,12 @@ const matrix = [
 										<h4 class="text-base font-semibold">{sec.title}</h4>
 									</div>
 									{sec.rows.map((r) => (
-										<div data-cmp class="grid items-stretch border-b border-foreground/10 last:border-b-0">
+										<div data-comparison class="grid items-stretch border-b border-foreground/10 last:border-b-0 group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(6rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(6rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(6rem,1fr))]">
 											<div class="flex items-center px-4 py-4 text-sm font-medium">{r.label}</div>
 											{order.map((id) => {
 												const v = r.vals[id]
 												return (
-													<div data-seg data-segments={segTokens[id]} class="flex items-center justify-center border-l border-foreground/5 px-3 py-4 text-center">
+													<div data-segment data-segments={segmentTokens[id]} class="flex items-center justify-center border-l border-foreground/5 px-3 py-4 text-center">
 														{v === true && (
 															<span class="flex size-5 items-center justify-center rounded-full bg-accent/12 text-accent">
 																<svg viewBox="0 0 12 12" class="size-3" fill="none" aria-hidden="true">
@@ -536,35 +588,12 @@ const matrix = [
 </Layout>
 
 <style>
-	/* Segment-driven show/hide. Each `[data-seg]` element carries `data-segments`
+	/* Segment-driven show/hide. Each `[data-segment]` element carries `data-segments`
 	   tokens; anything that doesn't match the active segment is removed. */
-	[data-pricing][data-active-segment='translate'] [data-seg]:not([data-segments~='translate']),
-	[data-pricing][data-active-segment='sell'] [data-seg]:not([data-segments~='sell']),
-	[data-pricing][data-active-segment='need'] [data-seg]:not([data-segments~='need']) {
+	[data-pricing][data-active-segment='translate'] [data-segment]:not([data-segments~='translate']),
+	[data-pricing][data-active-segment='sell'] [data-segment]:not([data-segments~='sell']),
+	[data-pricing][data-active-segment='need'] [data-segment]:not([data-segments~='need']) {
 		display: none !important;
-	}
-
-	/* Comparison grid: one label column + one column per visible product. */
-	[data-pricing][data-active-segment='translate'] [data-cmp] {
-		grid-template-columns: 16.5rem repeat(2, minmax(6rem, 1fr));
-	}
-	[data-pricing][data-active-segment='sell'] [data-cmp] {
-		grid-template-columns: 16.5rem repeat(3, minmax(6rem, 1fr));
-	}
-	[data-pricing][data-active-segment='need'] [data-cmp] {
-		grid-template-columns: 16.5rem repeat(4, minmax(6rem, 1fr));
-	}
-
-	/* Most-popular treatment. */
-	[data-popular-badge] {
-		display: none;
-	}
-	[data-card][data-popular] [data-popular-badge] {
-		display: inline-flex;
-	}
-	[data-card][data-popular] {
-		border-color: var(--accent);
-		box-shadow: 0 14px 36px -10px color-mix(in oklch, var(--accent) 45%, transparent);
 	}
 </style>
 
@@ -575,28 +604,28 @@ const matrix = [
 	     • card-morph — the plan exists in both the old and new segment (e.g. Team,
 	       Business), so it smoothly morphs from its old slot to its new one.
 	     • card-move  — the plan only exists on one side, so it slides in/out in the
-	       direction of travel (`data-seg-dir` on <html>). */
+	       direction of travel (`data-segment-direction` on <html>). */
 	@media (prefers-reduced-motion: no-preference) {
 		::view-transition-group(.card-morph),
 		::view-transition-group(.card-move),
 		::view-transition-old(.card-move),
 		::view-transition-new(.card-move),
-		::view-transition-group(seg-pill),
-		::view-transition-group(.seg-opt) {
+		::view-transition-group(segment-pill),
+		::view-transition-group(.segment-option) {
 			animation-duration: 0.45s;
 			animation-timing-function: cubic-bezier(0.5, 0.05, 0.2, 1);
 		}
 
-		:root[data-seg-dir='forward']::view-transition-old(.card-move) {
+		:root[data-segment-direction='forward']::view-transition-old(.card-move) {
 			animation-name: card-exit-left;
 		}
-		:root[data-seg-dir='forward']::view-transition-new(.card-move) {
+		:root[data-segment-direction='forward']::view-transition-new(.card-move) {
 			animation-name: card-enter-right;
 		}
-		:root[data-seg-dir='back']::view-transition-old(.card-move) {
+		:root[data-segment-direction='back']::view-transition-old(.card-move) {
 			animation-name: card-exit-right;
 		}
-		:root[data-seg-dir='back']::view-transition-new(.card-move) {
+		:root[data-segment-direction='back']::view-transition-new(.card-move) {
 			animation-name: card-enter-left;
 		}
 	}
@@ -633,9 +662,11 @@ const matrix = [
 	if (root) {
 		const params = new URLSearchParams(location.search)
 		const SEG_DEFAULT = root.getAttribute('data-active-segment') || 'sell'
-		const segDefaults = { translate: 'freelance', sell: 'team', need: 'business' }
-		const segLabel = { translate: 'I translate', sell: 'I sell translations', need: 'I need translation' }
-		const segSub = {
+		const segmentDefaults = { translate: 'freelance', sell: 'team', need: 'business' }
+		// Default "most popular" card per segment. Overridable via ?popular=<productId>.
+		const popularDefaults = { translate: 'freelance', sell: 'team', need: 'business' }
+		const segmentLabel = { translate: 'I translate', sell: 'I sell translations', need: 'I need translation' }
+		const segmentSubtitles = {
 			translate: 'For individual translators. 14 day risk-free trial.',
 			sell: 'Built for language service providers and translation teams who deliver for clients.',
 			need: 'For businesses and enterprises managing translation at scale, securely.',
@@ -643,11 +674,19 @@ const matrix = [
 		const canVT = typeof document.startViewTransition === 'function' && !matchMedia('(prefers-reduced-motion: reduce)').matches
 		const radios = Array.from(root.querySelectorAll('input[name="segment"]'))
 
+		// Shared billing/currency state (declared up here so the segment logic can
+		// reposition the billing pills when priced cards become visible again).
+		// `billing` is the contract length; `cadence` is how an annual contract is
+		// paid (yearly up-front vs monthly instalments), set via the "yearly" dropdown.
+		let currency = 'GBP'
+		let billing = 'annual'
+		let cadence = 'yearly'
+
 		const activeSeg = () => root.getAttribute('data-active-segment') || SEG_DEFAULT
 
 		// Slide the gradient pill to sit behind the active segment label. Measured
 		// from the live label so it tracks gaps, padding and responsive sizing.
-		const pill = root.querySelector('[data-seg-indicator]')
+		const pill = root.querySelector('[data-segment-indicator]')
 		function positionIndicator() {
 			if (!pill) return
 			const fs = pill.parentElement
@@ -660,11 +699,18 @@ const matrix = [
 
 		function applyPopular() {
 			const seg = activeSeg()
-			const visible = Array.from(root.querySelectorAll('[data-card][data-segments~="' + seg + '"]')).map((c) => c.dataset.product)
-			let pop = params.get('popular')
-			if (!pop || !visible.includes(pop)) pop = segDefaults[seg]
-			root.querySelectorAll('[data-card]').forEach((c) => {
-				c.toggleAttribute('data-popular', c.dataset.product === pop)
+			const visible = Array.from(root.querySelectorAll('[data-product][data-segments~="' + seg + '"]')).map((c) => c.dataset.product)
+			// ?popular= is a positional comma list mapped to segmentOrder [translate, sell, need].
+			// A trailing segment with no value inherits the last value given (so two values
+			// still cover all three), but an explicit value always supersedes that carry-over.
+			// A value not visible in its segment falls back to the segment default.
+			const list = (params.get('popular') || '').split(',').map((s) => s.trim())
+			const idx = segmentOrder.indexOf(seg)
+			const want = idx < list.length ? list[idx] : list[list.length - 1]
+			const pop = want && visible.includes(want) ? want : popularDefaults[seg]
+			root.querySelectorAll('[data-product]').forEach((wrap) => {
+				const card = wrap.querySelector('[data-card]')
+				if (card) card.toggleAttribute('data-popular', wrap.dataset.product === pop)
 			})
 		}
 
@@ -672,16 +718,16 @@ const matrix = [
 			root.setAttribute('data-active-segment', seg)
 			const r = radios.find((r) => r.value === seg)
 			if (r) r.checked = true
-			root.querySelectorAll('[data-segment-sub]').forEach((sub) => {
-				sub.textContent = segSub[seg]
+			root.querySelectorAll('[data-segment-subtitle]').forEach((sub) => {
+				sub.textContent = segmentSubtitles[seg]
 			})
-			const cmp = root.querySelector('[data-compare-sub]')
-			if (cmp) cmp.textContent = 'See exactly what’s included across the “' + segLabel[seg] + '” plans.'
+			const cmp = root.querySelector('[data-comparison-subtitle]')
+			if (cmp) cmp.textContent = 'See exactly what’s included across the “' + segmentLabel[seg] + '” plans.'
 			applyPopular()
 			positionIndicator()
 		}
 
-		const segOrder = ['translate', 'sell', 'need']
+		const segmentOrder = ['translate', 'sell', 'need']
 
 		// A card that's in both segments morphs between its slots; one that only
 		// exists on one side slides in/out.
@@ -695,16 +741,16 @@ const matrix = [
 
 		function setSeg(seg) {
 			const cur = activeSeg()
-			if (seg === cur || !segDefaults[seg]) return
+			if (seg === cur || !segmentDefaults[seg]) return
 			if (!canVT) {
 				applySeg(seg)
 				return
 			}
 			const el = document.documentElement
-			el.dataset.segDir = segOrder.indexOf(seg) > segOrder.indexOf(cur) ? 'forward' : 'back'
+			el.dataset.segmentDirection = segmentOrder.indexOf(seg) > segmentOrder.indexOf(cur) ? 'forward' : 'back'
 			tagCards(cur, seg)
 			const t = document.startViewTransition(() => applySeg(seg))
-			t.finished.finally(() => delete el.dataset.segDir)
+			t.finished.finally(() => delete el.dataset.segmentDirection)
 		}
 
 		radios.forEach((radio) => {
@@ -722,7 +768,7 @@ const matrix = [
 		// Suppress the pill's transition so it doesn't grow/slide in on first paint.
 		if (pill) pill.style.transition = 'none'
 		const initSeg = params.get('segment')
-		applySeg(initSeg && segDefaults[initSeg] ? initSeg : activeSeg())
+		applySeg(initSeg && segmentDefaults[initSeg] ? initSeg : activeSeg())
 		requestAnimationFrame(() => {
 			positionIndicator()
 			if (pill) pill.style.transition = ''
@@ -732,47 +778,104 @@ const matrix = [
 
 		// ── Billing + currency (priced plans only) ──────────────────────────────
 		const rates = { GBP: { sym: '£', rate: 1 }, USD: { sym: '$', rate: 1.27 }, EUR: { sym: '€', rate: 1.17 } }
-		let currency = 'GBP'
-		let billing = 'annual'
 		const money = (gbp) => {
 			const c = rates[currency]
 			if (currency === 'GBP') return c.sym + (Number.isInteger(gbp) ? gbp : gbp.toFixed(2))
 			return c.sym + Math.round(gbp * c.rate).toLocaleString('en-US')
 		}
+		// The effective per-month GBP price for an element, across the three states:
+		// rolling monthly, annual billed yearly, annual billed monthly.
+		function perMonthGbp(el) {
+			if (billing !== 'annual') return parseFloat(el.dataset.monthlyGbp)
+			return parseFloat(cadence === 'monthly' ? el.dataset.annualMonthlyGbp : el.dataset.annualGbp)
+		}
 		function refreshPrices() {
 			root.querySelectorAll('[data-price]').forEach((el) => {
-				const gbp = parseFloat(billing === 'annual' ? el.dataset.annualGbp : el.dataset.monthlyGbp)
+				const gbp = perMonthGbp(el)
 				if (!isNaN(gbp)) el.textContent = money(gbp)
 			})
+			// Strikethrough reference: the "was" price on annual-yearly, or the rolling
+			// monthly rate on annual-monthly (to show the instalment plan still beats it).
 			root.querySelectorAll('[data-was]').forEach((el) => {
-				const gbp = parseFloat(el.dataset.wasGbp || '')
-				const show = billing === 'annual' && !isNaN(gbp)
-				el.hidden = !show
-				if (show) el.textContent = money(gbp)
+				let gbp = NaN
+				if (billing === 'annual') gbp = parseFloat(cadence === 'monthly' ? el.dataset.wasMonthly : el.dataset.wasYearly)
+				el.hidden = isNaN(gbp)
+				if (!isNaN(gbp)) el.textContent = money(gbp)
 			})
-			root.querySelectorAll('[data-bill-note]').forEach((el) => {
-				el.textContent = billing === 'annual' ? el.dataset.noteAnnual : el.dataset.noteMonthly
+			root.querySelectorAll('[data-billing-note]').forEach((note) => {
+				const annual = billing === 'annual'
+				note.querySelector('[data-note-rolling]')?.toggleAttribute('hidden', annual)
+				const ann = note.querySelector('[data-note-annual]')
+				if (ann) ann.toggleAttribute('hidden', !annual)
+				if (annual && ann) {
+					const priceEl = note.closest('[data-product]')?.querySelector('[data-price]')
+					const perMonth = priceEl ? perMonthGbp(priceEl) : NaN
+					ann.querySelector('[data-year-total]').textContent = cadence === 'monthly' || isNaN(perMonth) ? '' : money(Math.round(perMonth * 12)) + ' '
+					ann.querySelector('[data-cadence-label]').textContent = cadence === 'monthly' ? 'monthly' : 'yearly'
+				}
 			})
+		}
+		// Billing toggle: lives on each priced card but drives one shared state, so
+		// changing it on any card updates every card's prices and toggle styling.
+		// The active option switches instantly (no slide) — sliding looked jarring
+		// here since the surrounding price/note elements just snap.
+		function syncBilling() {
+			root.querySelectorAll('[data-billing]').forEach((b) => {
+				const on = b.dataset.billing === billing
+				b.classList.toggle('bg-background', on)
+				b.classList.toggle('shadow', on)
+			})
+			root.querySelectorAll('[data-annual-pill]').forEach((el) => el.toggleAttribute('hidden', billing !== 'annual'))
 		}
 		root.querySelectorAll('[data-billing]').forEach((btn) => {
 			btn.addEventListener('click', () => {
 				billing = btn.dataset.billing
-				root.querySelectorAll('[data-billing]').forEach((b) => {
-					const on = b === btn
-					b.classList.toggle('btn-primary', on)
-					b.classList.toggle('btn-outline', !on)
-				})
+				syncBilling()
 				refreshPrices()
 			})
 		})
-		root.querySelectorAll('input[name="currency"]').forEach((r) => {
-			r.addEventListener('change', () => {
-				if (r.checked) {
-					currency = r.value
-					refreshPrices()
-				}
+
+		// Currency dropdown: per-card popover, shared state. Selecting one syncs the
+		// chosen currency across every card's radios + label and closes the popover.
+		function syncCurrency() {
+			root.querySelectorAll('[data-currency-option]').forEach((i) => {
+				i.checked = i.value === currency
+			})
+			root.querySelectorAll('[data-currency-label]').forEach((el) => {
+				el.textContent = currency
+			})
+		}
+		root.querySelectorAll('[data-currency-option]').forEach((input) => {
+			input.addEventListener('change', () => {
+				if (!input.checked) return
+				currency = input.value
+				syncCurrency()
+				refreshPrices()
+				input.closest('[popover]')?.hidePopover()
 			})
 		})
+
+		// Payment cadence (annual contract): "Billed yearly" vs "Billed monthly".
+		// Triggered from the "yearly" word in each priced card's bill note; shared
+		// state, closes its popover on select.
+		function syncCadence() {
+			root.querySelectorAll('[data-cadence-option]').forEach((i) => {
+				i.checked = i.value === cadence
+			})
+		}
+		root.querySelectorAll('[data-cadence-option]').forEach((input) => {
+			input.addEventListener('change', () => {
+				if (!input.checked) return
+				cadence = input.value
+				syncCadence()
+				refreshPrices()
+				input.closest('[popover]')?.hidePopover()
+			})
+		})
+
+		syncBilling()
+		syncCurrency()
+		syncCadence()
 		refreshPrices()
 	}
 </script>
