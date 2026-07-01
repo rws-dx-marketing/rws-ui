@@ -666,11 +666,13 @@ const matrix = [
 			const segment = activeSegment()
 			const visible = Array.from(root.querySelectorAll('[data-product][data-segments~="' + segment + '"]')).map((c) => c.dataset.product)
 			// ?popular= drives the "Most popular" badge; ?recommended= drives the
-			// highlighted card treatment. They default to the same product (today's
-			// behaviour) but can diverge — e.g. a campaign landing page wants a
-			// different card highlighted than the one badged as most popular.
+			// highlighted card treatment. Without ?recommended= in the URL, the highlight
+			// just follows wherever ?popular= resolved to (so a popular-only override
+			// moves both). Once ?recommended= is present, it's resolved independently —
+			// e.g. a campaign landing page wants a different card highlighted than the
+			// one badged as most popular.
 			const pop = resolveTarget('popular', visible, segment)
-			const recommended = resolveTarget('recommended', visible, segment)
+			const recommended = params.has('recommended') ? resolveTarget('recommended', visible, segment) : pop
 			root.querySelectorAll('[data-product]').forEach((wrap) => {
 				const card = wrap.querySelector('[data-card]')
 				if (!card) return
