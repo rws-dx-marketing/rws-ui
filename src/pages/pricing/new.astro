@@ -258,7 +258,7 @@ const matrix = [
 							const [brand, productName] = splitName(p.name)
 							return (
 								<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=translate]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} style={`view-transition-name:card-${id}`}>
-									<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground/10 bg-background p-6 text-foreground data-popular:border-accent data-popular:glow-animate">
+									<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground/10 bg-background p-6 text-foreground data-highlighted:border-accent data-highlighted:glow-animate">
 										<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 rounded-full items-center gap-1 bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
 										  <svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></svg>
 											Most popular
@@ -380,7 +380,7 @@ const matrix = [
 
 										<div class="mt-5 flex flex-col gap-2.5">
 											{p.ctas.map((c) => (
-												<a href="#" class={`btn w-full text-sm ${c.primary ? 'btn-tertiary group-data-popular/card:bg-linear-to-br from-secondary to-tertiary bg-origin-border' : 'btn-outline'}`}>
+												<a href="#" class={`btn w-full text-sm ${c.primary ? 'btn-tertiary group-data-highlighted/card:bg-linear-to-br from-secondary to-tertiary bg-origin-border' : 'btn-outline'}`}>
 													{c.label}
 												</a>
 											))}
@@ -647,21 +647,35 @@ const matrix = [
 			pill.style.transform = 'translate(' + label.offsetLeft + 'px, ' + label.offsetTop + 'px)'
 		}
 
+		// Resolves which product a positional query-list param targets for the active
+		// segment. ?<param>= is a comma list mapped to segmentOrder [translate, sell, need].
+		// A trailing segment with no value inherits the last value given (so two values
+		// still cover all three), but an explicit value always supersedes that carry-over.
+		// A value not visible in its segment (or the param being absent) falls back to
+		// the segment default, read from the active segment radio's data-popular (CMS-set).
+		// An explicit "none" opts the segment out entirely — no fallback.
+		function resolveTarget(param, visible, segment) {
+			const list = (params.get(param) || '').split(',').map((s) => s.trim())
+			const idx = segmentOrder.indexOf(segment)
+			const want = idx < list.length ? list[idx] : list[list.length - 1]
+			if (want === 'none') return null
+			return want && visible.includes(want) ? want : segmentInput(segment)?.dataset.popular
+		}
+
 		function applyPopular() {
 			const segment = activeSegment()
 			const visible = Array.from(root.querySelectorAll('[data-product][data-segments~="' + segment + '"]')).map((c) => c.dataset.product)
-			// ?popular= is a positional comma list mapped to segmentOrder [translate, sell, need].
-			// A trailing segment with no value inherits the last value given (so two values
-			// still cover all three), but an explicit value always supersedes that carry-over.
-			// A value not visible in its segment falls back to the segment default.
-			const list = (params.get('popular') || '').split(',').map((s) => s.trim())
-			const idx = segmentOrder.indexOf(segment)
-			const want = idx < list.length ? list[idx] : list[list.length - 1]
-			// Default falls back to the active segment radio's data-popular (CMS-set).
-			const pop = want && visible.includes(want) ? want : segmentInput(segment)?.dataset.popular
+			// ?popular= drives the "Most popular" badge; ?recommended= drives the
+			// highlighted card treatment. They default to the same product (today's
+			// behaviour) but can diverge — e.g. a campaign landing page wants a
+			// different card highlighted than the one badged as most popular.
+			const pop = resolveTarget('popular', visible, segment)
+			const recommended = resolveTarget('recommended', visible, segment)
 			root.querySelectorAll('[data-product]').forEach((wrap) => {
 				const card = wrap.querySelector('[data-card]')
-				if (card) card.toggleAttribute('data-popular', wrap.dataset.product === pop)
+				if (!card) return
+				card.toggleAttribute('data-popular', wrap.dataset.product === pop)
+				card.toggleAttribute('data-highlighted', wrap.dataset.product === recommended)
 			})
 		}
 
