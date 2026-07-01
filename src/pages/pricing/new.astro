@@ -728,6 +728,9 @@ const matrix = [
 
 		// ── Billing + currency (priced plans only) ──────────────────────────────
 		const rates = { GBP: { sym: '£', rate: 1 }, USD: { sym: '$', rate: 1.27 }, EUR: { sym: '€', rate: 1.17 } }
+		// Defaults to GBP; overridable via ?currency=USD|EUR|GBP.
+		const initCurrency = (params.get('currency') || '').toUpperCase()
+		if (initCurrency in rates) currency = initCurrency
 		const money = (gbp) => {
 			const c = rates[currency]
 			if (currency === 'GBP') return c.sym + (Number.isInteger(gbp) ? gbp : gbp.toFixed(2))
@@ -801,6 +804,8 @@ const matrix = [
 				currency = input.value
 				syncCurrency()
 				refreshPrices()
+				params.set('currency', currency)
+				history.replaceState(null, '', '?' + params.toString() + location.hash)
 				input.closest('[popover]')?.hidePopover()
 			})
 		})
