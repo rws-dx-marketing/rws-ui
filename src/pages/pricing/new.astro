@@ -126,8 +126,8 @@ const matrix = [
 		title: 'Capacity',
 		rows: [
 			{ label: 'Languages', vals: { go: 'Unlimited', freelance: 'Unlimited', pro: 'Unlimited', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
-			{ label: 'Cloud throughput (words / yr)', vals: { go: '1M', freelance: '1M', pro: '5M', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
-			{ label: 'Desktop throughput', vals: { go: false, freelance: 'Unlimited', pro: 'Unlimited', team: false, business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Cloud throughput (words / yr)', id: 'cloud-throughput', tooltip: 'Cloud translation throughput is the total number of target words that can be processed through Trados cloud per year.', vals: { go: '1M', freelance: '1M', pro: '5M', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Desktop throughput', id: 'desktop-throughput', tooltip: 'Desktop translation throughput is the total number of target words that can be processed through the Trados desktop application per year.', vals: { go: false, freelance: 'Unlimited', pro: 'Unlimited', team: false, business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
 			{ label: 'Users included', vals: { go: '1', freelance: '1', pro: '1', team: 'Up to 10', business: 'Custom', enterprise: 'Unlimited', edge: 'Custom' } },
 		],
 	},
@@ -137,7 +137,15 @@ const matrix = [
 			{ label: 'Online (browser) editor', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
 			{ label: 'Desktop editor (Trados Studio)', vals: { go: false, freelance: true, pro: true, team: 'Add-on', business: true, enterprise: true, edge: true } },
 			{ label: 'Translation memory & engines', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
-			{ label: 'Terminology management', vals: { go: 'Browser', freelance: 'MultiTerm', pro: 'MultiTerm', team: 'Browser', business: true, enterprise: true, edge: true } },
+			{
+				label: 'Terminology management',
+				id: 'terminology-management',
+				valueTooltip: {
+					match: 'MultiTerm',
+					text: '<a href="https://www.trados.com/product/multiterm/" target="_blank">MultiTerm</a> provides a central location to store and manage multilingual terminology, helping you to deliver consistent, high-quality content from source through to translation. MultiTerm is included with all Trados Freelance subscription packages, and is available to download and install from your <a href="http://account.rws.com/" target="_blank">Trados subscription account</a>. In addition, terminology management is available in the browser giving you the flexibility to choose how you want to work.',
+				},
+				vals: { go: 'Browser', freelance: 'MultiTerm', pro: 'MultiTerm', team: 'Browser', business: true, enterprise: true, edge: true },
+			},
 			{ label: 'Quality assurance checks', vals: { go: false, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
 			{ label: 'Customize with AppStore apps', vals: { go: '10+', freelance: '150+', pro: '150+', team: '50+', business: '150+', enterprise: '150+', edge: '150+' } },
 		],
@@ -157,7 +165,16 @@ const matrix = [
 			{ label: 'Cloud projects', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
 			{ label: 'Real-time collaboration', vals: { go: false, freelance: false, pro: false, team: true, business: true, enterprise: true, edge: true } },
 			{ label: 'Workflow automation', vals: { go: false, freelance: false, pro: 'Basic', team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
-			{ label: 'Vendor & supply-chain management', vals: { go: false, freelance: false, pro: false, team: false, business: true, enterprise: true, edge: true } },
+			{
+				label: 'Vendor & supply-chain management',
+				id: 'vendor-supply-chain',
+				valueTooltip: {
+					match: true,
+					products: ['business'],
+					text: 'Placeholder tooltip copy describing vendor and supply-chain management for Trados Business.',
+				},
+				vals: { go: false, freelance: false, pro: false, team: false, business: true, enterprise: true, edge: true },
+			},
 			{ label: 'Roles & permissions', vals: { go: false, freelance: false, pro: false, team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
 		],
 	},
@@ -493,17 +510,43 @@ const matrix = [
 									<div>
 									{sec.rows.map((r) => (
 										<div data-comparison class="grid border-b border-foreground/10 group-last/sec:last:border-b-0 group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))]">
-											<div class="flex items-center px-4 py-4 text-sm font-medium">{r.label}</div>
+											<div class="flex items-center px-4 py-4 text-sm font-medium">
+												{r.tooltip ? (
+													<>
+														<span class="relative block w-fit">
+															{r.label}
+															<button type="button" popovertarget={`tooltip-${r.id}`} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${r.label}`}>
+																<svg class="size-4 -mb-0.25" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+															</button>
+														</span>
+														<div id={`tooltip-${r.id}`} popover="auto" role="tooltip" class="tooltip">
+															<p set:html={r.tooltip} />
+														</div>
+													</>
+												) : (
+													r.label
+												)}
+											</div>
 											{order.map((id) => {
 												const v = r.vals[id]
 												return (
 													<div data-segment data-segments={segmentTokens[id]} class="flex items-center justify-center border-l border-foreground/5 px-3 py-4 text-center">
 														{v === true && (
-															<span class="flex size-5 items-center justify-center rounded-full bg-accent/12 text-accent">
+															<span class="relative flex size-5 items-center justify-center rounded-full bg-accent/12 text-accent">
 																<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
 																		<rect width="256" height="256" fill="none" />
 																	<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
 																</svg>
+																{r.valueTooltip && v === r.valueTooltip.match && (!r.valueTooltip.products || r.valueTooltip.products.includes(id)) && (
+																	<>
+																		<button type="button" popovertarget={`tooltip-${r.id}-${id}`} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${r.label}`}>
+																			<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+																		</button>
+																		<div id={`tooltip-${r.id}-${id}`} popover="auto" role="tooltip" class="tooltip">
+																			<p set:html={r.valueTooltip.text} />
+																		</div>
+																	</>
+																)}
 															</span>
 														)}
 														{(v === false || v == null) && (
@@ -513,7 +556,21 @@ const matrix = [
 														)}
 														{typeof v === 'string' && (
 															<span class="flex items-center gap-3">
-																<span class="text-sm font-medium">{v}</span>
+																{r.valueTooltip && v === r.valueTooltip.match ? (
+																	<>
+																		<span class="relative w-fit">
+																			<span class="text-sm font-medium">{v}</span>
+																			<button type="button" popovertarget={`tooltip-${r.id}-${id}`} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${v}`}>
+																				<svg class="size-4 -mb-0.25" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path> </svg>
+																			</button>
+																		</span>
+																		<div id={`tooltip-${r.id}-${id}`} popover="auto" role="tooltip" class="tooltip">
+																			<p set:html={r.valueTooltip.text} />
+																		</div>
+																	</>
+																) : (
+																	<span class="text-sm font-medium">{v}</span>
+																)}
 																{r.lw && v === 'Add-on' && (
 																	<span class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/8 px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-primary uppercase">
 																	<svg class="size-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z"/></svg>
