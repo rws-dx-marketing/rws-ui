@@ -11,9 +11,11 @@ import carousel from './carousel'
 import primaryNav from './primary-nav'
 import headerScroll from './header-scroll'
 import postNav from './post-nav'
+import invokerCommandsPolyfill from './invoker-commands-polyfill'
 
 if (typeof window !== 'undefined') {
 	Observer.start()
+	invokerCommandsPolyfill()
 
 	const initCountUp = () => {
 		countUp()
