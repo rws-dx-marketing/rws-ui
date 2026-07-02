@@ -12,6 +12,7 @@ import primaryNav from './primary-nav'
 import headerScroll from './header-scroll'
 import postNav from './post-nav'
 import invokerCommandsPolyfill from './invoker-commands-polyfill'
+import pricingContent from './pricing-content'
 
 if (typeof window !== 'undefined') {
 	Observer.start()
@@ -38,5 +39,6 @@ if (typeof window !== 'undefined') {
 		accordion()
 		carousel()
 		postNav()
+		pricingContent()
 	})
 }
