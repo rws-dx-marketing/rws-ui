@@ -3,17 +3,17 @@
 export interface Props {
 	// When set, the page is locked to a single audience segment: the segment
 	// picker is hidden and only that segment's products/columns are rendered.
-	lockSegment?: 'translate' | 'sell' | 'need'
+	lockSegment?: 'freelancers' | 'teams' | 'businesses'
 }
 const { lockSegment } = Astro.props
 
 // ── Audience segments (the radio group) ───────────────────────────────────
 const segments = [
-	{ key: 'translate', label: 'I translate', sub: 'Freelancers', icon: 'user', popular: 'freelance', subtitle: 'For individual translators. 14 day risk-free trial.' },
-	{ key: 'sell', label: 'I sell translations', sub: 'LSPs & teams', icon: 'users', popular: 'team', subtitle: 'Built for language service providers and translation teams who deliver for clients.' },
-	{ key: 'need', label: 'I need translation', sub: 'Businesses', icon: 'building', popular: 'business', subtitle: 'For businesses and enterprises managing translation at scale, securely.' },
+	{ key: 'freelancers', label: 'I translate', sub: 'Freelancers', icon: 'user', popular: 'freelance', subtitle: 'For individual translators. 14 day risk-free trial.' },
+	{ key: 'teams', label: 'I sell translations', sub: 'LSPs & teams', icon: 'users', popular: 'team', subtitle: 'Built for language service providers and translation teams who deliver for clients.' },
+	{ key: 'businesses', label: 'I need translation', sub: 'Businesses', icon: 'building', popular: 'business', subtitle: 'For businesses and enterprises managing translation at scale, securely.' },
 ]
-const DEFAULT_SEGMENT = lockSegment ?? 'sell'
+const DEFAULT_SEGMENT = lockSegment ?? 'teams'
 const defaultSegment = segments.find((s) => s.key === DEFAULT_SEGMENT)
 
 // ── Products ───────────────────────────────────────────────────────────────
@@ -26,11 +26,11 @@ const products = {
 	go: {
 		name: 'Trados Studio Go',
 		tag: 'Browser CAT tool',
-		segments: ['translate'],
+		segments: ['freelancers'],
 		priceType: 'billing',
 		price: { monthlyGbp: 27, annualGbp: 20, annualMonthlyGbp: 22.5, wasGbp: 24 },
-		desc: { translate: 'Quick to set up and reach from anywhere. The browser CAT tool with everything you need to stay productive on the move.' },
-		features: { translate: ['Browser-based — nothing to install', '1M cloud words per year', 'Translation memory & terminology', 'AI Smart Help & guided tours', '10+ AppStore apps'] },
+		desc: { freelancers: 'Quick to set up and reach from anywhere. The browser CAT tool with everything you need to stay productive on the move.' },
+		features: { freelancers: ['Browser-based — nothing to install', '1M cloud words per year', 'Translation memory & terminology', 'AI Smart Help & guided tours', '10+ AppStore apps'] },
 		ctas: [
 			{ label: 'Start free trial', primary: true },
 			{ label: 'Buy now', primary: false },
@@ -40,11 +40,11 @@ const products = {
 	freelance: {
 		name: 'Trados Studio Freelance',
 		tag: 'Desktop + cloud',
-		segments: ['translate'],
+		segments: ['freelancers'],
 		priceType: 'billing',
 		price: { monthlyGbp: 38, annualGbp: 28.33, annualMonthlyGbp: 31.5 },
-		desc: { translate: 'Desktop and cloud in one. A complete professional environment with advanced features, flexibility and full control.' },
-		features: { translate: ['Desktop + browser working', 'Unlimited desktop throughput', 'MultiTerm terminology management', 'AI Assistant in the desktop app', '150+ AppStore apps'] },
+		desc: { freelancers: 'Desktop and cloud in one. A complete professional environment with advanced features, flexibility and full control.' },
+		features: { freelancers: ['Desktop + browser working', 'Unlimited desktop throughput', 'MultiTerm terminology management', 'AI Assistant in the desktop app', '150+ AppStore apps'] },
 		ctas: [
 			{ label: 'Start free trial', primary: true },
 			{ label: 'Buy now', primary: false },
@@ -54,10 +54,10 @@ const products = {
 	pro: {
 		name: 'Trados Studio Pro',
 		tag: 'Power-user desktop CAT',
-		segments: ['sell'],
+		segments: ['teams'],
 		priceType: 'none',
-		desc: { sell: 'The power-user desktop CAT tool — maximum productivity, deep customization and 150+ apps for high-volume professionals.' },
-		features: { sell: ['Everything in Freelance', 'Multi-user file handling', 'Advanced project automation', 'Full AppStore + API access', 'Server & GroupShare projects'] },
+		desc: { teams: 'The power-user desktop CAT tool — maximum productivity, deep customization and 150+ apps for high-volume professionals.' },
+		features: { teams: ['Everything in Freelance', 'Multi-user file handling', 'Advanced project automation', 'Full AppStore + API access', 'Server & GroupShare projects'] },
 		ctas: [
 			{ label: 'Start free trial', primary: true },
 			{ label: 'Buy now', primary: false },
@@ -67,15 +67,15 @@ const products = {
 	team: {
 		name: 'Trados Team',
 		tag: 'Cloud collaboration',
-		segments: ['sell', 'need'],
+		segments: ['teams', 'businesses'],
 		priceType: 'none',
 		desc: {
-			sell: 'Built for growing LSPs. Run client projects together in the cloud, protect quality with AI review, and keep small teams delivering on deadline.',
-			need: 'Built for in-house teams. Give everyone one place to translate company content together — shared memories and AI review, with no TMS to administer.',
+			teams: 'Built for growing LSPs. Run client projects together in the cloud, protect quality with AI review, and keep small teams delivering on deadline.',
+			businesses: 'Built for in-house teams. Give everyone one place to translate company content together — shared memories and AI review, with no TMS to administer.',
 		},
 		features: {
-			sell: ['Shared client projects in the cloud', 'AI-powered review to protect margins', 'Assign roles across your team', 'Reusable TMs & termbases per client', 'Collaborate live on every delivery'],
-			need: ['One workspace for all company content', 'AI-powered review for brand consistency', 'Simple roles for staff & reviewers', 'Central TM & terminology for your brand', 'Collaborate with zero IT overhead'],
+			teams: ['Shared client projects in the cloud', 'AI-powered review to protect margins', 'Assign roles across your team', 'Reusable TMs & termbases per client', 'Collaborate live on every delivery'],
+			businesses: ['One workspace for all company content', 'AI-powered review for brand consistency', 'Simple roles for staff & reviewers', 'Central TM & terminology for your brand', 'Collaborate with zero IT overhead'],
 		},
 		ctas: [
 			{ label: 'Start free trial', primary: true },
@@ -86,15 +86,15 @@ const products = {
 	business: {
 		name: 'Trados Business',
 		tag: 'Out-of-the-box TMS',
-		segments: ['sell', 'need'],
+		segments: ['teams', 'businesses'],
 		priceType: 'none',
 		desc: {
-			sell: 'For language-service providers scaling up. An out-of-the-box TMS with vendor and freelancer management, automated client workflows and the reporting clients expect.',
-			need: 'For businesses bringing translation in-house. Automated workflows, dashboards and connectors plug Trados into the content your organization already produces.',
+			teams: 'For language-service providers scaling up. An out-of-the-box TMS with vendor and freelancer management, automated client workflows and the reporting clients expect.',
+			businesses: 'For businesses bringing translation in-house. Automated workflows, dashboards and connectors plug Trados into the content your organization already produces.',
 		},
 		features: {
-			sell: ['Out-of-the-box TMS for LSPs', 'Manage vendors & freelance supply chain', 'Automate repeatable client workflows', 'Margin, cost & delivery dashboards', 'Connect to client content sources'],
-			need: ['Out-of-the-box TMS for your business', 'Automate internal translation requests', 'Dashboards for cost & turnaround', 'Connectors to your CMS & repositories', 'Manage internal & external linguists'],
+			teams: ['Out-of-the-box TMS for LSPs', 'Manage vendors & freelance supply chain', 'Automate repeatable client workflows', 'Margin, cost & delivery dashboards', 'Connect to client content sources'],
+			businesses: ['Out-of-the-box TMS for your business', 'Automate internal translation requests', 'Dashboards for cost & turnaround', 'Connectors to your CMS & repositories', 'Manage internal & external linguists'],
 		},
 		ctas: [{ label: 'Speak to sales', primary: true }],
 		lw: { name: 'Language Weaver Pro', line: 'Enterprise-grade secure MT built into your workflows.' },
@@ -102,20 +102,20 @@ const products = {
 	enterprise: {
 		name: 'Trados Enterprise',
 		tag: 'Fully customizable TMS',
-		segments: ['need'],
+		segments: ['businesses'],
 		priceType: 'none',
-		desc: { need: 'A fully customizable TMS with SSO, advanced workflows and enterprise security for global content operations.' },
-		features: { need: ['Everything in Business', 'SSO & advanced security', 'Custom workflows & CPQ', 'Dedicated success team', 'Unlimited scale'] },
+		desc: { businesses: 'A fully customizable TMS with SSO, advanced workflows and enterprise security for global content operations.' },
+		features: { businesses: ['Everything in Business', 'SSO & advanced security', 'Custom workflows & CPQ', 'Dedicated success team', 'Unlimited scale'] },
 		ctas: [{ label: 'Speak to sales', primary: true }],
 		lw: { name: 'Language Weaver Pro', line: 'Secure, adaptive MT at enterprise scale — fully governed and customizable.' },
 	},
 	edge: {
 		name: 'Trados Edge / GroupShare',
 		tag: 'On-prem & private cloud',
-		segments: ['need'],
+		segments: ['businesses'],
 		priceType: 'none',
-		desc: { need: 'On-premises and private-cloud deployment for total data sovereignty and control.' },
-		features: { need: ['On-premises deployment', 'Full data sovereignty', 'Private-cloud option', 'Server-based collaboration', 'Air-gapped capable'] },
+		desc: { businesses: 'On-premises and private-cloud deployment for total data sovereignty and control.' },
+		features: { businesses: ['On-premises deployment', 'Full data sovereignty', 'Private-cloud option', 'Server-based collaboration', 'Air-gapped capable'] },
 		ctas: [{ label: 'Speak to sales', primary: true }],
 		lw: { name: 'Language Weaver Edge', line: 'On-premises machine translation for fully air-gapped, sovereign environments.' },
 	},
@@ -292,7 +292,7 @@ const matrix = [
 						const p = products[id]
 						const [brand, productName] = splitName(p.name)
 						return (
-							<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=translate]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} style={`view-transition-name:card-${id}`}>
+							<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=freelancers]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} style={`view-transition-name:card-${id}`}>
 								<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground/10 bg-background p-6 text-foreground data-highlighted:border-accent data-highlighted:glow-animate">
 									<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 rounded-full items-center gap-1 bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
 									  <svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></svg>
@@ -484,7 +484,7 @@ const matrix = [
 				<div class="min-w-[56rem] rounded-lg overflow-clip border border-foreground/10" data-accordion data-accordion-multi>
 					<!-- Column header -->
 					<div class="sticky top-(--content-top) transition-[top] duration-300 z-20">
-  						<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b border-foreground/10 bg-background/50 backdrop-blur stuck:rounded-t-none group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))]">
+  						<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b border-foreground/10 bg-background/50 backdrop-blur stuck:rounded-t-none group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))]">
   							<div></div>
   							{
   								order.map((id) => {
@@ -527,7 +527,7 @@ const matrix = [
 								</summary>
 								<div>
 								{sec.rows.map((r) => (
-									<div data-comparison class="grid border-b border-foreground/10 group-last/sec:last:border-b-0 group-data-[active-segment=translate]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=sell]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-data-[active-segment=need]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))]">
+									<div data-comparison class="grid border-b border-foreground/10 group-last/sec:last:border-b-0 group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))]">
 										<div class="flex items-center px-4 py-4 text-sm font-medium">
 											{r.tooltip ? (
 												<>
@@ -618,9 +618,9 @@ const matrix = [
 	/* Segment-driven show/hide. Each `[data-segment]` element carries `data-segments`
 	   tokens; anything that doesn't match the active segment is removed. On a
 	   segment-locked page every rendered node already matches, so this is a no-op. */
-	[data-pricing][data-active-segment='translate'] [data-segment]:not([data-segments~='translate']),
-	[data-pricing][data-active-segment='sell'] [data-segment]:not([data-segments~='sell']),
-	[data-pricing][data-active-segment='need'] [data-segment]:not([data-segments~='need']) {
+	[data-pricing][data-active-segment='freelancers'] [data-segment]:not([data-segments~='freelancers']),
+	[data-pricing][data-active-segment='teams'] [data-segment]:not([data-segments~='teams']),
+	[data-pricing][data-active-segment='businesses'] [data-segment]:not([data-segments~='businesses']) {
 		display: none !important;
 	}
 </style>
@@ -689,7 +689,7 @@ const matrix = [
 	const root = document.querySelector('[data-pricing]')
 	if (root) {
 		const params = new URLSearchParams(location.search)
-		const SEGMENT_DEFAULT = root.getAttribute('data-active-segment') || 'sell'
+		const SEGMENT_DEFAULT = root.getAttribute('data-active-segment') || 'teams'
 		const canVT = typeof document.startViewTransition === 'function' && !matchMedia('(prefers-reduced-motion: reduce)').matches
 		const radios = Array.from(root.querySelectorAll('input[name="segment"]'))
 		// Segment metadata (label, subtitle, popular default) lives on each radio's
@@ -703,7 +703,7 @@ const matrix = [
 		// Canonical segment order for resolving positional query params (?popular=,
 		// ?recommended=). Read from data-segment-order rather than the rendered
 		// radios, since a segment-locked page has no radios but still needs to know
-		// its segment's position in the list (e.g. translate is always index 0).
+		// its segment's position in the list (e.g. freelancers is always index 0).
 		const paramSegmentOrder = (root.dataset.segmentOrder || '').split(' ').filter(Boolean)
 
 		// Shared billing/currency state (declared up here so the segment logic can
@@ -731,7 +731,7 @@ const matrix = [
 		}
 
 		// Resolves which product a positional query-list param targets for the active
-		// segment. ?<param>= is a comma list mapped to paramSegmentOrder [translate, sell, need].
+		// segment. ?<param>= is a comma list mapped to paramSegmentOrder [freelancers, teams, businesses].
 		// A trailing segment with no value inherits the last value given (so two values
 		// still cover all three, and a single value works standalone on a locked page),
 		// but an explicit value always supersedes that carry-over.
