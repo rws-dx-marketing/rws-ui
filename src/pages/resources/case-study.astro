@@ -8,14 +8,7 @@ const cards = [1, 2, 3]
 ---
 
 <Layout title="Case study – RWS UI">
-	<ResourceHero
-		layout="wide-text"
-		title="Streamlining Global IP Renewals for Alibaba"
-		logo={{ src: '/logos/alibaba.svg', alt: 'Alibaba' }}
-		description="Alibaba Group manages a vast global patent portfolio across multiple jurisdictions and legal entities. As overseas patent annuity volumes continued to grow, efficiency, responsiveness, and flexibility became critical. By partnering with RWS for IP renewals, Alibaba transformed its global annuity management process. The result was faster communication, reduced risk, and scalable support aligned to Alibaba’s growth strategy."
-		cta={{ href: '#form', text: 'Find out more' }}
-		image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }}
-	/>
+	<ResourceHero layout="wide-text" title="Streamlining Global IP Renewals for Alibaba" logo={{ src: '/logos/alibaba.svg', alt: 'Alibaba' }} description="Alibaba Group manages a vast global patent portfolio across multiple jurisdictions and legal entities. As overseas patent annuity volumes continued to grow, efficiency, responsiveness, and flexibility became critical. By partnering with RWS for IP renewals, Alibaba transformed its global annuity management process. The result was faster communication, reduced risk, and scalable support aligned to Alibaba’s growth strategy." cta={{ href: '#form', text: 'Find out more' }} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
 
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto mb-8 max-w-screen-xl px-8 lg:px-12 xl:mb-12">
@@ -71,7 +64,7 @@ const cards = [1, 2, 3]
 			<aside class="hidden lg:col-span-4 lg:block">
 				<div class="sticky top-20 grid gap-8 xl:gap-12">
 					<div class="relative rounded-lg bg-background p-10 text-foreground" data-card>
-						<!-- <h4 class="mb-6 text-lg font-bold">Key details</h4> -->
+						{/* <h4 class="mb-6 text-lg font-bold">Key details</h4> */}
 
 						<ul class="grid gap-4">
 							<li>
@@ -193,11 +186,13 @@ const cards = [1, 2, 3]
 						</div>
 					</div>
 
-					<!-- <div class="grid grid-cols-3 gap-8">
+					{
+						/* <div class="grid grid-cols-3 gap-8">
 						<img src="/public/shapes/marker.svg" alt="Marker" class="size-full object-cover" />
 						<img src="/public/shapes/bubble.svg" alt="Bubble" class="size-full object-cover" />
 						<img src="/public/shapes/marker.svg" alt="Marker" class="size-full object-cover" />
-					</div> -->
+					</div> */
+					}
 				</div>
 
 				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
@@ -209,7 +204,7 @@ const cards = [1, 2, 3]
 					</div>
 				</div>
 
-				<!-- Testimonial: single quote -->
+				{/* Testimonial: single quote */}
 				<div class="overflow-hidden rounded-lg bg-background text-foreground" data-theme="tertiary">
 					<div data-carousel class="relative py-12">
 						<div data-carousel="viewport" class="transition-[height]">
@@ -217,21 +212,21 @@ const cards = [1, 2, 3]
 								<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 									<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
 										<div class="svg-current mx-auto mb-5 size-12 text-accent">
-											<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> -->
+											{/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> */}
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
-											  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
-													<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"/>
-													<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"/>
+												<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
+													<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"></path>
+													<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"></path>
 												</g>
 												<defs>
-												  <clipPath id="a">
-														<path fill="#fff" d="M0 0h393v285H0z"/>
+													<clipPath id="a">
+														<path fill="#fff" d="M0 0h393v285H0z"></path>
 													</clipPath>
 												</defs>
 											</svg>
 										</div>
 										<blockquote class="space-y-[0.5em] text-center text-2xl font-medium text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
-										<p>Nunc sit amet est semper ligula lacinia faucibus scelerisque sed elit. Quisque sagittis, urna sed elementum tempus, dolor dolor mollis nulla, at gravida orci sapien quis felis.</p>
+											<p>Nunc sit amet est semper ligula lacinia faucibus scelerisque sed elit. Quisque sagittis, urna sed elementum tempus, dolor dolor mollis nulla, at gravida orci sapien quis felis.</p>
 										</blockquote>
 										<figcaption class="mt-6 flex items-center justify-center">
 											<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
@@ -242,9 +237,9 @@ const cards = [1, 2, 3]
 													<a href="#" class="inline-flex items-center">
 														Read case study
 														<svg class="mt-0.25 ml-1 size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-															<rect width="256" height="256" fill="none" />
-															<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17" />
-															<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17" />
+															<rect width="256" height="256" fill="none"></rect>
+															<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17"></line>
+															<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="17"></polyline>
 														</svg>
 													</a>
 												</div>
@@ -270,14 +265,14 @@ const cards = [1, 2, 3]
 						</div>
 						<div hidden data-carousel="dots" class="mt-12 flex justify-center gap-2"></div>
 						<script type="text/template" data-carousel="dot-template">
-							<button data-carousel="dot" class="size-3 bg-foreground transition-opacity rounded-full opacity-50 data-selected:opacity-100">
-								<!-- Button content -->
+							;<button data-carousel="dot" class="size-3 rounded-full bg-foreground opacity-50 transition-opacity data-selected:opacity-100">
+								{/* Button content */}
 							</button>
 						</script>
 					</div>
 				</div>
 
-				<!-- Testimonial: multiple quotes -->
+				{/* Testimonial: multiple quotes */}
 				<div class="overflow-hidden rounded-lg bg-background text-foreground" data-theme="primary">
 					<div data-carousel class="relative py-12">
 						<div data-carousel="viewport" class="transition-[height]">
@@ -285,15 +280,15 @@ const cards = [1, 2, 3]
 								<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 									<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
 										<div class="svg-current mx-auto mb-5 size-12 text-accent">
-											<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> -->
+											{/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> */}
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
-											  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
-													<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"/>
-													<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"/>
+												<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
+													<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"></path>
+													<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"></path>
 												</g>
 												<defs>
-												  <clipPath id="a">
-														<path fill="#fff" d="M0 0h393v285H0z"/>
+													<clipPath id="a">
+														<path fill="#fff" d="M0 0h393v285H0z"></path>
 													</clipPath>
 												</defs>
 											</svg>
@@ -313,15 +308,15 @@ const cards = [1, 2, 3]
 								<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 									<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
 										<div class="svg-current mx-auto mb-5 size-12 text-accent">
-											<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> -->
+											{/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> */}
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
-											  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
-													<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"/>
-													<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"/>
+												<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
+													<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"></path>
+													<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"></path>
 												</g>
 												<defs>
-												  <clipPath id="a">
-														<path fill="#fff" d="M0 0h393v285H0z"/>
+													<clipPath id="a">
+														<path fill="#fff" d="M0 0h393v285H0z"></path>
 													</clipPath>
 												</defs>
 											</svg>
@@ -334,15 +329,15 @@ const cards = [1, 2, 3]
 								<div data-carousel="slide" class="min-w-0 shrink-0 basis-full">
 									<figure class="mx-auto max-w-3xl px-8 text-center lg:px-12">
 										<div class="svg-current mx-auto mb-5 size-12 text-accent">
-											<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> -->
+											{/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg> */}
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
-											  <g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
-													<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"/>
-													<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"/>
+												<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
+													<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"></path>
+													<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"></path>
 												</g>
 												<defs>
-												  <clipPath id="a">
-														<path fill="#fff" d="M0 0h393v285H0z"/>
+													<clipPath id="a">
+														<path fill="#fff" d="M0 0h393v285H0z"></path>
 													</clipPath>
 												</defs>
 											</svg>
@@ -366,13 +361,13 @@ const cards = [1, 2, 3]
 						</div>
 						<div data-carousel="dots" class="mt-12 flex items-center justify-center gap-3"></div>
 						<script type="text/template" data-carousel="dot-template">
-							<button data-carousel="dot" class="relative size-3 text-accent transition-transform [[data-selected]~&]:translate-x-1 has-[~[data-selected]]:-translate-x-1">
+							;<button data-carousel="dot" class="relative size-3 text-accent transition-transform has-[~[data-selected]]:-translate-x-1 [[data-selected]~&]:translate-x-1">
 								<span class="absolute inset-0 rounded-full bg-current opacity-50 transition-all in-data-selected:scale-0 in-data-selected:opacity-0"></span>
 								<span data-carousel="dot-icon" class="absolute top-1/2 left-1/2 size-6 -translate-x-1/2 -translate-y-1/2 scale-50 opacity-0 transition-all in-data-selected:scale-100 in-data-selected:opacity-100 [&>svg]:size-full"></span>
 							</button>
 						</script>
 						<div hidden>
-							{dotIcons.map((icon) => <div data-carousel="dot-icon-source" set:html={icon}></div>)}
+							{dotIcons.map((icon) => <div data-carousel="dot-icon-source" set:html={icon} />)}
 						</div>
 					</div>
 				</div>
@@ -399,20 +394,20 @@ const cards = [1, 2, 3]
 		</div>
 	</section>
 
-	<!-- Related content -->
+	{/* Related content */}
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
-			<!-- Subheading -->
+			{/* Subheading */}
 			<div hidden class="mb-3 font-bold text-foreground/80 xl:text-lg">
 				<p>This is the subheading</p>
 			</div>
 
-			<!-- Heading -->
+			{/* Heading */}
 			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
 				<p>Related <em>case studies</em></p>
 			</h2>
 
-			<!-- Copy -->
+			{/* Copy */}
 			<div class="prose font-medium text-foreground/80 md:prose-lg">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere.</p>
 			</div>
@@ -461,10 +456,10 @@ const cards = [1, 2, 3]
 				}
 			</div>
 		</div>
-  </section>
+	</section>
 
-  <!-- Call to action + form -->
-  <section id="form" class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+	{/* Call to action + form */}
+	<section id="form" class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-7">
 				<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
@@ -502,9 +497,9 @@ const cards = [1, 2, 3]
 
 				<hr hidden class="mt-12 mb-8 border-foreground/10" />
 
-				<!-- Stats -->
+				{/* Stats */}
 				<div hidden class="mt-8">
-					<!-- border-t border-foreground/10 pt-8 -->
+					{/* border-t border-foreground/10 pt-8 */}
 					<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
@@ -629,5 +624,5 @@ const cards = [1, 2, 3]
 				</div>
 			</div>
 		</div>
-		</section>
+	</section>
 </Layout>
