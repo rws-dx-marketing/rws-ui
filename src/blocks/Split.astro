@@ -281,7 +281,17 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 		<div class="h-full lg:col-span-6">
 			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<img src="/images/placeholder-1.png" alt="Placeholder" class="aspect-video h-full w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
+				<picture>
+				  <!-- Modern formats -->
+					<!-- <source media="(min-width: 1024px)" type="image/avif" srcset="/images/placeholder-2.avif 1x, /images/placeholder-2-large.avif 2x" /> -->
+					<!-- <source media="(min-width: 1024px)" type="image/webp" srcset="/images/placeholder-2.webp 1x, /images/placeholder-2-large.webp 2x" /> -->
+
+					<!-- Desktop -->
+					<source media="(min-width: 1024px)" srcset="/images/placeholder-2.png 1x, /images/placeholder-2-large.jpg 2x" />
+
+					<!-- Mobile -->
+					<img src="/images/placeholder-1.png" srcset="/images/placeholder-1.png 1x, /images/placeholder-1-large.jpg 2x" alt="Placeholder" width="1180" height="480" class="aspect-square- lg:aspect-9/16- object-cover h-full w-full rounded-lg select-none" loading="lazy" decoding="async" draggable="false" />
+				</picture>
 			</div>
 		</div>
 	</div>
