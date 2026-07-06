@@ -6,7 +6,7 @@ import Layout from '../../layouts/Layout.astro'
 	<!-- Hero -->
 	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Consectetur adipiscing elit</p>
 			</div>
 
@@ -14,7 +14,7 @@ import Layout from '../../layouts/Layout.astro'
 				<p>Leaderboard</p>
 			</h1>
 
-			<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+			<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground-muted md:prose-2xl">
 				<p>What's the overall state of multilingual AI across all models, languages and tasks? Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
 			</div>
 
@@ -32,9 +32,9 @@ import Layout from '../../layouts/Layout.astro'
 			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground/10 bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
 				<div class="flex flex-col items-center justify-between gap-4 p-4 md:flex-row">
 					<div class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground/5 p-1.25">
-						<button class="btn btn-ghost rounded-sm text-foreground/80 data-[active]:bg-background data-[active]:text-foreground" data-active>Grammar</button>
-						<button class="btn btn-ghost rounded-sm text-foreground/80">Translation</button>
-						<button class="btn btn-ghost rounded-sm text-foreground/80">Tokenizer</button>
+						<button class="btn btn-ghost rounded-sm text-foreground-muted data-[active]:bg-background data-[active]:text-foreground" data-active>Grammar</button>
+						<button class="btn btn-ghost rounded-sm text-foreground-muted">Translation</button>
+						<button class="btn btn-ghost rounded-sm text-foreground-muted">Tokenizer</button>
 					</div>
 
 					<div class="flex gap-4">
@@ -102,8 +102,8 @@ import Layout from '../../layouts/Layout.astro'
 
 			<!-- Charts -->
 			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
-				<h3 class="mb-4 text-xl font-bold text-foreground/80">Heatmap – grammar MCC by model × language</h3>
-				<ul class="font-medium text-foreground/80">
+				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – grammar MCC by model × language</h3>
+				<ul class="font-medium text-foreground-muted">
 					<li>Models (rows) × 30 languages (columns)</li>
 					<li>Color gradient: red (low) → green (high)</li>
 					<li>Tooltip on hover, language sort (alpha/by score), model variants toggle</li>
@@ -111,8 +111,8 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
-				<h3 class="mb-4 text-xl font-bold text-foreground/80">Bar chart – grammar MCC by model</h3>
-				<ul class="font-medium text-foreground/80">
+				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Bar chart – grammar MCC by model</h3>
+				<ul class="font-medium text-foreground-muted">
 					<li>Aggregate score per model, brand color-coded</li>
 				</ul>
 			</div>

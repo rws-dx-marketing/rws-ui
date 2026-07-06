@@ -13,6 +13,7 @@
 	--color-foreground-strong: var(--foreground-strong);
 
 	--color-accent: var(--accent);
+	--color-accent-muted: var(--accent-muted);
 	--color-accent-soft: var(--accent-soft);
 	--color-accent-softer: var(--accent-softer);
 	--color-accent-softest: var(--accent-softest);
@@ -39,6 +40,7 @@
 		--foreground-strong: color-mix(in oklch, var(--foreground-seed) 12%, black);
 
 		--accent: var(--accent-seed);
+		--accent-muted: color-mix(in oklch, var(--accent-seed) 80%, var(--background-seed));
 		--accent-soft: color-mix(in oklch, var(--accent-seed) 24%, var(--background-seed));
 		--accent-softer: color-mix(in oklch, var(--accent-seed) 12%, var(--background-seed));
 		--accent-softest: color-mix(in oklch, var(--accent-seed) 6%, var(--background-seed));
@@ -47,7 +49,11 @@
 
 		--input: var(--background-soft);
 
-		@apply relative isolate bg-background text-foreground;
+		@apply relative bg-background text-foreground;
+	}
+
+	[data-theme] {
+		@apply isolate;
 	}
 }
 

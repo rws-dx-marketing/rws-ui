@@ -15,7 +15,7 @@ import { themes } from '../../data/themes'
 				<p>Tabs</p>
 			</h2>
 
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
+			<div class="prose font-medium text-foreground-muted md:prose-lg">
 				<p>A pill tab switcher extracted from the pricing segment picker. Wraps any block as a "slide" — switching tabs swipes the outgoing slide fully off-screen and the incoming one in from the opposite direction, with a view-transition on the sliding indicator too.</p>
 			</div>
 		</div>
@@ -25,19 +25,25 @@ import { themes } from '../../data/themes'
 		themes
 			.filter((theme) => theme !== 'dots')
 			.map((theme) => (
-			<Tabs
-				name={`tabs-${theme}`}
-				theme={theme}
-				tabs={[
-					{ key: 'split', label: 'Who we are' },
-					{ key: 'accordions', label: 'What we do' },
-					{ key: 'features', label: 'Why we do it' },
-				]}
-			>
-				<Fragment slot="split"><Split variant="lead-image" theme={theme} /></Fragment>
-				<Fragment slot="accordions"><Accordions variant="centered" theme={theme} /></Fragment>
-				<Fragment slot="features"><Features theme={theme} /></Fragment>
-			</Tabs>
-		))
+				<Tabs
+					name={`tabs-${theme}`}
+					theme={theme}
+					tabs={[
+						{ key: 'split', label: 'Who we are' },
+						{ key: 'accordions', label: 'What we do' },
+						{ key: 'features', label: 'Why we do it' },
+					]}
+				>
+					<Fragment slot="split">
+						<Split variant="lead-image" theme={theme} />
+					</Fragment>
+					<Fragment slot="accordions">
+						<Accordions variant="centered" theme={theme} />
+					</Fragment>
+					<Fragment slot="features">
+						<Features theme={theme} />
+					</Fragment>
+				</Tabs>
+			))
 	}
 </Layout>

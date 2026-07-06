@@ -35,7 +35,7 @@ const languages = [
 	<!-- Hero -->
 	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-20 text-foreground md:pt-24 lg:pt-32" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>By language experts</p>
 			</div>
 
@@ -43,11 +43,11 @@ const languages = [
 				<p>Does your AI actually <em>speak the language</em>?</p>
 			</h1>
 
-			<div hidden class="mx-auto mb-8 max-w-[56ch] text-xl font-medium text-pretty text-foreground/80 xl:text-2xl">
+			<div hidden class="mx-auto mb-8 max-w-[56ch] text-xl font-medium text-pretty text-foreground-muted xl:text-2xl">
 				<p>The first independent multilingual benchmark that tests grammar, meaning preservation, and tokenizer efficiency across 30 languages.</p>
 			</div>
 
-			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] font-medium text-foreground-muted md:prose-2xl">
 				<p>The first independent multilingual benchmark that tests grammar, meaning preservation, and tokenizer efficiency across 30 languages.</p>
 			</div>
 
@@ -84,7 +84,7 @@ const languages = [
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-6">
-				<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 					<p>Consectetur adipiscing elit</p>
 				</div>
 
@@ -92,7 +92,7 @@ const languages = [
 					<p>Lorem ipsum dolor sit amet</p>
 				</h2>
 
-				<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<div class="prose font-medium text-foreground-muted md:prose-lg">
 					<p>Which model is best for my market? Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit suspendisse luctus tortor.</p>
 					<p>How does this specific model perform across languages and tasks? Ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				</div>
@@ -120,7 +120,7 @@ const languages = [
 	<!-- Preview -->
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Consectetur adipiscing elit</p>
 			</div>
 
@@ -128,7 +128,7 @@ const languages = [
 				<p>There is no single best AI for every language</p>
 			</h2>
 
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
+			<div class="prose font-medium text-foreground-muted md:prose-lg">
 				<p>The top model changes depending on what you need it to speak. Here is who leads where, and by how much. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 			</div>
 
@@ -143,14 +143,14 @@ const languages = [
 									<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
 									<span class="font-bold">{lang.model}</span>
 								</span>
-								<span class="text-foreground/80 tabular-nums">{lang.score}</span>
+								<span class="text-foreground-muted tabular-nums">{lang.score}</span>
 							</div>
 						))
 					}
 				</div>
 
 				<div class="mt-10 flex flex-col gap-x-6 gap-y-4 sm:flex-row sm:items-center">
-					<div class="flex-1 font-medium text-pretty text-foreground/80">
+					<div class="flex-1 font-medium text-pretty text-foreground-muted">
 						<p>Translation score, best model per language. Updated continuously.</p>
 					</div>
 

@@ -67,7 +67,7 @@
 		}
 
 		label {
-			@apply mb-2 inline-block text-sm/none font-semibold text-foreground/80;
+			@apply mb-2 inline-block text-sm/none font-semibold text-foreground-muted;
 		}
 
 		.input {
@@ -86,7 +86,7 @@
 		}
 
 		.hs-richtext {
-			@apply text-xs/relaxed font-medium text-foreground/80;
+			@apply text-xs/relaxed font-medium text-foreground-muted;
 
 			a {
 				@apply underline decoration-foreground/10 underline-offset-[0.3334em];
@@ -106,7 +106,7 @@
 		}
 
 		input[type='submit'] {
-			@apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-primary px-4 pt-[0.46875rem] pb-[0.53125rem] text-center text-base font-semibold text-white shadow-xs transition-colors select-none  focus-visible:ring-4 focus-visible:outline-none;
+			@apply inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-primary px-4 pt-[0.46875rem] pb-[0.53125rem] text-center text-base font-semibold text-white shadow-xs transition-colors select-none focus-visible:ring-4 focus-visible:outline-none;
 			/* hover:bg-primary-dark focus-visible:bg-primary-dark focus-visible:ring-primary-lighter */
 		}
 
@@ -127,7 +127,7 @@
 		}
 
 		.hsfc-FieldLabel {
-			@apply mb-2! inline-flex! font-sans! text-sm/none! font-semibold! text-foreground/80!;
+			@apply mb-2! inline-flex! font-sans! text-sm/none! font-semibold! text-foreground-muted!;
 		}
 
 		.hsfc-FieldLabel__RequiredIndicator {
@@ -200,7 +200,7 @@
 		}
 
 		.hsfc-RichText {
-			@apply font-sans! text-xs/relaxed! font-medium! text-foreground/80!;
+			@apply font-sans! text-xs/relaxed! font-medium! text-foreground-muted!;
 
 			a {
 				@apply underline decoration-foreground/10 underline-offset-[0.3334em];
@@ -208,7 +208,7 @@
 		}
 
 		.hsfc-ProgressBar__Text {
-			@apply mb-2! ml-0! font-sans! text-sm! font-semibold! text-foreground/80!;
+			@apply mb-2! ml-0! font-sans! text-sm! font-semibold! text-foreground-muted!;
 		}
 
 		.hsfc-ProgressBar__Progress {
@@ -224,7 +224,7 @@
 		}
 
 		.hsfc-Button {
-			@apply inline-flex! items-center! justify-center! rounded-full! border! border-transparent! bg-primary! px-4! pt-[0.46875rem]! pb-[0.53125rem]! text-center! font-sans! text-base! font-semibold! text-white! shadow-xs! transition-colors! select-none! not-disabled:hover:transform-none! focus-visible:ring-4!  focus-visible:outline-none! disabled:brightness-100!;
+			@apply inline-flex! items-center! justify-center! rounded-full! border! border-transparent! bg-primary! px-4! pt-[0.46875rem]! pb-[0.53125rem]! text-center! font-sans! text-base! font-semibold! text-white! shadow-xs! transition-colors! select-none! not-disabled:hover:transform-none! focus-visible:ring-4! focus-visible:outline-none! disabled:brightness-100!;
 			/* hover:bg-primary-dark! focus-visible:bg-primary-dark! focus-visible:ring-primary-lighter! disabled:bg-primary-light! */
 		}
 
