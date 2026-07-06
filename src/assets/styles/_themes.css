@@ -91,18 +91,21 @@
 		--background-seed: var(--color-primary);
 		--foreground-seed: var(--color-on-primary);
 		--accent-seed: var(--color-on-primary);
+		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-tertiary) 100%);
 	}
 
 	[data-theme='secondary'] {
 		--background-seed: var(--color-secondary);
 		--foreground-seed: var(--color-on-secondary);
 		--accent-seed: var(--color-on-secondary);
+		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 47.7%, var(--color-primary) 52.3%, var(--color-tertiary) 100%);
 	}
 
 	[data-theme='tertiary'] {
 		--background-seed: var(--color-tertiary);
 		--foreground-seed: var(--color-on-tertiary);
 		--accent-seed: var(--color-on-tertiary);
+		--gradient: linear-gradient(94.96deg, var(--color-primary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 100%);
 	}
 }
 
