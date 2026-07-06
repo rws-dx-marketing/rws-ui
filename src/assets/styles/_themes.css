@@ -37,9 +37,9 @@
 		--foreground: var(--foreground-seed);
 		--foreground-muted: color-mix(in oklab, var(--foreground-seed) 80%, var(--background-seed));
 		--foreground-subtle: color-mix(in oklab, var(--foreground-seed) 60%, var(--background-seed));
-		--foreground-soft: color-mix(in oklab, var(--foreground-seed) 12%, var(--background-seed));
-		--foreground-softer: color-mix(in oklab, var(--foreground-seed) 6%, var(--background-seed));
-		--foreground-softest: color-mix(in oklab, var(--foreground-seed) 3%, var(--background-seed));
+		--foreground-soft: color-mix(in oklab, var(--foreground-seed) calc(12% * var(--tint-boost, 1)), var(--background-seed));
+		--foreground-softer: color-mix(in oklab, var(--foreground-seed) calc(6% * var(--tint-boost, 1)), var(--background-seed));
+		--foreground-softest: color-mix(in oklab, var(--foreground-seed) calc(3% * var(--tint-boost, 1)), var(--background-seed));
 		--foreground-strong: color-mix(in oklab, var(--foreground-seed) 12%, black);
 
 		--accent: var(--accent-seed);
@@ -92,6 +92,11 @@
 		--foreground-seed: var(--color-on-primary);
 		--accent-seed: var(--color-on-primary);
 		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-tertiary) 100%);
+
+		/* background-seed to foreground-seed only spans about half the lightness
+		   range it does on the default theme, so the shared foreground-soft/er/est
+		   mix percentages need doubling to read at the same strength. */
+		--tint-boost: 3;
 	}
 
 	[data-theme='secondary'] {
@@ -99,6 +104,7 @@
 		--foreground-seed: var(--color-on-secondary);
 		--accent-seed: var(--color-on-secondary);
 		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 47.7%, var(--color-primary) 52.3%, var(--color-tertiary) 100%);
+		--tint-boost: 3;
 	}
 
 	[data-theme='tertiary'] {
@@ -106,6 +112,7 @@
 		--foreground-seed: var(--color-on-tertiary);
 		--accent-seed: var(--color-on-tertiary);
 		--gradient: linear-gradient(94.96deg, var(--color-primary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 100%);
+		--tint-boost: 3;
 	}
 }
 
