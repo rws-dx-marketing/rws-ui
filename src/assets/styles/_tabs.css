@@ -1,0 +1,99 @@
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+}
+
+/* The sticky header would otherwise be painted into the root snapshot at its
+   non-stuck (document-top) position, so it vanishes mid-transition and snaps
+   back afterwards. Giving it its own name lifts it into an independent snapshot
+   captured at its real viewport position; a high z-index keeps it above the
+   sliding panels, and no animation since it never actually moves. */
+#site-header {
+	view-transition-name: site-header;
+}
+::view-transition-group(site-header) {
+	z-index: 100;
+}
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+	animation: none;
+}
+
+::view-transition-group(.tabs-switcher),
+::view-transition-group(.tabs-pill),
+::view-transition-group(.tabs-option) {
+	z-index: 1;
+}
+
+::view-transition-group(.tabs-panel) {
+	z-index: 0;
+}
+
+::view-transition-old(.tabs-pill),
+::view-transition-new(.tabs-pill) {
+	height: 100%;
+}
+
+::view-transition-old(.tabs-panel),
+::view-transition-new(.tabs-panel) {
+	mix-blend-mode: normal;
+}
+
+/* The wrapper's snapshot is a flat themed rectangle — everything visible inside
+   it (switcher, pill, options, panels) has its own view-transition-name and is
+   hoisted out, leaving only the --background fill. So instead of cross-fading
+   two auto-height snapshots (which leaves a partial-opacity band of page-white
+   while the group box resizes), stretch a single opaque fill to the whole
+   animating box and skip the fade entirely. Both images are the same colour,
+   so there is nothing to fade between anyway. */
+::view-transition-old(.tabs-group),
+::view-transition-new(.tabs-group) {
+	height: 100%;
+	mix-blend-mode: normal;
+	animation: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	::view-transition-group(.tabs-switcher),
+	::view-transition-group(.tabs-pill),
+	::view-transition-group(.tabs-option),
+	::view-transition-group(.tabs-panel),
+	::view-transition-group(.tabs-group) {
+		animation-duration: 0.45s;
+		animation-timing-function: cubic-bezier(0.5, 0.05, 0.2, 1);
+	}
+
+	:root[data-tabs-direction='forward']::view-transition-old(.tabs-panel) {
+		animation-name: tabs-exit-left;
+	}
+	:root[data-tabs-direction='forward']::view-transition-new(.tabs-panel) {
+		animation-name: tabs-enter-right;
+	}
+	:root[data-tabs-direction='back']::view-transition-old(.tabs-panel) {
+		animation-name: tabs-exit-right;
+	}
+	:root[data-tabs-direction='back']::view-transition-new(.tabs-panel) {
+		animation-name: tabs-enter-left;
+	}
+}
+
+@keyframes tabs-exit-left {
+	to {
+		transform: translateX(-100vw);
+	}
+}
+@keyframes tabs-enter-right {
+	from {
+		transform: translateX(100vw);
+	}
+}
+@keyframes tabs-exit-right {
+	to {
+		transform: translateX(100vw);
+	}
+}
+@keyframes tabs-enter-left {
+	from {
+		transform: translateX(-100vw);
+	}
+}

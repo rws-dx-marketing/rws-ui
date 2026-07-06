@@ -11,9 +11,13 @@ import carousel from './carousel'
 import primaryNav from './primary-nav'
 import headerScroll from './header-scroll'
 import postNav from './post-nav'
+import invokerCommandsPolyfill from './invoker-commands-polyfill'
+import pricingContent from './pricing-content'
+import tabs from './tabs'
 
 if (typeof window !== 'undefined') {
 	Observer.start()
+	invokerCommandsPolyfill()
 
 	const initCountUp = () => {
 		countUp()
@@ -36,5 +40,7 @@ if (typeof window !== 'undefined') {
 		accordion()
 		carousel()
 		postNav()
+		pricingContent()
+		tabs()
 	})
 }

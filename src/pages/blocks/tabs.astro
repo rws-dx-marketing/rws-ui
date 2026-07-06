@@ -1,0 +1,43 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import Tabs from '../../blocks/Tabs.astro'
+import Split from '../../blocks/Split.astro'
+import Accordions from '../../blocks/Accordions.astro'
+import Features from '../../blocks/Features.astro'
+import { themes } from '../../data/themes'
+---
+
+<Layout title="Tabs – RWS UI">
+	<section class="border-b border-foreground/5 bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>Tabs</p>
+			</h2>
+
+			<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<p>A pill tab switcher extracted from the pricing segment picker. Wraps any block as a "slide" — switching tabs swipes the outgoing slide fully off-screen and the incoming one in from the opposite direction, with a view-transition on the sliding indicator too.</p>
+			</div>
+		</div>
+	</section>
+
+	{
+		themes
+			.filter((theme) => theme !== 'dots')
+			.map((theme) => (
+			<Tabs
+				name={`tabs-${theme}`}
+				theme={theme}
+				tabs={[
+					{ key: 'split', label: 'Who we are' },
+					{ key: 'accordions', label: 'What we do' },
+					{ key: 'features', label: 'Why we do it' },
+				]}
+			>
+				<Fragment slot="split"><Split variant="lead-image" theme={theme} /></Fragment>
+				<Fragment slot="accordions"><Accordions variant="centered" theme={theme} /></Fragment>
+				<Fragment slot="features"><Features theme={theme} /></Fragment>
+			</Tabs>
+		))
+	}
+</Layout>

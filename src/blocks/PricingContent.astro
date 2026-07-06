@@ -1,0 +1,651 @@
+---
+// @ts-nocheck
+export interface Props {
+	// When set, the page is locked to a single audience segment: the segment
+	// picker is hidden and only that segment's products/columns are rendered.
+	lockSegment?: 'freelancers' | 'teams' | 'businesses'
+}
+const { lockSegment } = Astro.props
+
+// ── Audience segments (the radio group) ───────────────────────────────────
+const segments = [
+	{ key: 'freelancers', label: 'I translate', sub: 'Freelancers', icon: 'user', popular: 'freelance', subtitle: 'For individual translators. 14 day risk-free trial.' },
+	{ key: 'teams', label: 'I sell translations', sub: 'LSPs & teams', icon: 'users', popular: 'team', subtitle: 'Built for language service providers and translation teams who deliver for clients.' },
+	{ key: 'businesses', label: 'I need translation', sub: 'Businesses', icon: 'building', popular: 'business', subtitle: 'For businesses and enterprises managing translation at scale, securely.' },
+]
+const DEFAULT_SEGMENT = lockSegment ?? 'teams'
+const defaultSegment = segments.find((s) => s.key === DEFAULT_SEGMENT)
+
+// ── Products ───────────────────────────────────────────────────────────────
+// `order` fixes the DOM order so each segment's products stay contiguous and in
+// the right sequence once the others are hidden. Locked pages only render the
+// products that belong to that segment.
+const fullOrder = ['go', 'freelance', 'pro', 'team', 'business', 'enterprise', 'edge']
+
+const products = {
+	go: {
+		name: 'Trados Studio Go',
+		tag: 'Browser CAT tool',
+		segments: ['freelancers'],
+		priceType: 'billing',
+		price: { monthlyGbp: 27, annualGbp: 20, annualMonthlyGbp: 22.5, wasGbp: 24 },
+		desc: { freelancers: 'Quick to set up and reach from anywhere. The browser CAT tool with everything you need to stay productive on the move.' },
+		features: { freelancers: ['Browser-based — nothing to install', '1M cloud words per year', 'Translation memory & terminology', 'AI Smart Help & guided tours', '10+ AppStore apps'] },
+		ctas: [
+			{ label: 'Start free trial', primary: true },
+			{ label: 'Buy now', primary: false },
+		],
+		lw: { name: 'Language Weaver Pro', line: 'Add secure, generative machine translation — 6M characters included to start.' },
+	},
+	freelance: {
+		name: 'Trados Studio Freelance',
+		tag: 'Desktop + cloud',
+		segments: ['freelancers'],
+		priceType: 'billing',
+		price: { monthlyGbp: 38, annualGbp: 28.33, annualMonthlyGbp: 31.5 },
+		desc: { freelancers: 'Desktop and cloud in one. A complete professional environment with advanced features, flexibility and full control.' },
+		features: { freelancers: ['Desktop + browser working', 'Unlimited desktop throughput', 'MultiTerm terminology management', 'AI Assistant in the desktop app', '150+ AppStore apps'] },
+		ctas: [
+			{ label: 'Start free trial', primary: true },
+			{ label: 'Buy now', primary: false },
+		],
+		lw: { name: 'Language Weaver Pro', line: 'Add secure, generative machine translation — 6M characters included to start.' },
+	},
+	pro: {
+		name: 'Trados Studio Pro',
+		tag: 'Power-user desktop CAT',
+		segments: ['teams'],
+		priceType: 'none',
+		desc: { teams: 'The power-user desktop CAT tool — maximum productivity, deep customization and 150+ apps for high-volume professionals.' },
+		features: { teams: ['Everything in Freelance', 'Multi-user file handling', 'Advanced project automation', 'Full AppStore + API access', 'Server & GroupShare projects'] },
+		ctas: [
+			{ label: 'Start free trial', primary: true },
+			{ label: 'Buy now', primary: false },
+		],
+		lw: { name: 'Language Weaver Pro', line: 'Add secure generative MT to supercharge high-volume desktop productivity.' },
+	},
+	team: {
+		name: 'Trados Team',
+		tag: 'Cloud collaboration',
+		segments: ['teams', 'businesses'],
+		priceType: 'none',
+		desc: {
+			teams: 'Built for growing LSPs. Run client projects together in the cloud, protect quality with AI review, and keep small teams delivering on deadline.',
+			businesses: 'Built for in-house teams. Give everyone one place to translate company content together — shared memories and AI review, with no TMS to administer.',
+		},
+		features: {
+			teams: ['Shared client projects in the cloud', 'AI-powered review to protect margins', 'Assign roles across your team', 'Reusable TMs & termbases per client', 'Collaborate live on every delivery'],
+			businesses: ['One workspace for all company content', 'AI-powered review for brand consistency', 'Simple roles for staff & reviewers', 'Central TM & terminology for your brand', 'Collaborate with zero IT overhead'],
+		},
+		ctas: [
+			{ label: 'Start free trial', primary: true },
+			{ label: 'Buy now', primary: false },
+		],
+		lw: { name: 'Language Weaver Pro', line: 'Secure generative MT across every project your team runs.' },
+	},
+	business: {
+		name: 'Trados Business',
+		tag: 'Out-of-the-box TMS',
+		segments: ['teams', 'businesses'],
+		priceType: 'none',
+		desc: {
+			teams: 'For language-service providers scaling up. An out-of-the-box TMS with vendor and freelancer management, automated client workflows and the reporting clients expect.',
+			businesses: 'For businesses bringing translation in-house. Automated workflows, dashboards and connectors plug Trados into the content your organization already produces.',
+		},
+		features: {
+			teams: ['Out-of-the-box TMS for LSPs', 'Manage vendors & freelance supply chain', 'Automate repeatable client workflows', 'Margin, cost & delivery dashboards', 'Connect to client content sources'],
+			businesses: ['Out-of-the-box TMS for your business', 'Automate internal translation requests', 'Dashboards for cost & turnaround', 'Connectors to your CMS & repositories', 'Manage internal & external linguists'],
+		},
+		ctas: [{ label: 'Speak to sales', primary: true }],
+		lw: { name: 'Language Weaver Pro', line: 'Enterprise-grade secure MT built into your workflows.' },
+	},
+	enterprise: {
+		name: 'Trados Enterprise',
+		tag: 'Fully customizable TMS',
+		segments: ['businesses'],
+		priceType: 'none',
+		desc: { businesses: 'A fully customizable TMS with SSO, advanced workflows and enterprise security for global content operations.' },
+		features: { businesses: ['Everything in Business', 'SSO & advanced security', 'Custom workflows & CPQ', 'Dedicated success team', 'Unlimited scale'] },
+		ctas: [{ label: 'Speak to sales', primary: true }],
+		lw: { name: 'Language Weaver Pro', line: 'Secure, adaptive MT at enterprise scale — fully governed and customizable.' },
+	},
+	edge: {
+		name: 'Trados Edge / GroupShare',
+		tag: 'On-prem & private cloud',
+		segments: ['businesses'],
+		priceType: 'none',
+		desc: { businesses: 'On-premises and private-cloud deployment for total data sovereignty and control.' },
+		features: { businesses: ['On-premises deployment', 'Full data sovereignty', 'Private-cloud option', 'Server-based collaboration', 'Air-gapped capable'] },
+		ctas: [{ label: 'Speak to sales', primary: true }],
+		lw: { name: 'Language Weaver Edge', line: 'On-premises machine translation for fully air-gapped, sovereign environments.' },
+	},
+}
+
+const order = lockSegment ? fullOrder.filter((id) => products[id].segments.includes(lockSegment)) : fullOrder
+
+// Tokens used by the segment show/hide CSS (a product can live in several segments).
+const segmentTokens = Object.fromEntries(order.map((id) => [id, products[id].segments.join(' ')]))
+
+const splitName = (name) => (name.startsWith('Trados ') ? ['Trados', name.slice(7)] : ['', name])
+
+// ── Comparison matrix ──────────────────────────────────────────────────────
+const matrix = [
+	{
+		title: 'Capacity',
+		rows: [
+			{ label: 'Languages', vals: { go: 'Unlimited', freelance: 'Unlimited', pro: 'Unlimited', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Cloud throughput (words / yr)', id: 'cloud-throughput', tooltip: 'Cloud translation throughput is the total number of target words that can be processed through Trados cloud per year.', vals: { go: '1M', freelance: '1M', pro: '5M', team: 'Unlimited', business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Desktop throughput', id: 'desktop-throughput', tooltip: 'Desktop translation throughput is the total number of target words that can be processed through the Trados desktop application per year.', vals: { go: false, freelance: 'Unlimited', pro: 'Unlimited', team: false, business: 'Unlimited', enterprise: 'Unlimited', edge: 'Unlimited' } },
+			{ label: 'Users included', vals: { go: '1', freelance: '1', pro: '1', team: 'Up to 10', business: 'Custom', enterprise: 'Unlimited', edge: 'Custom' } },
+		],
+	},
+	{
+		title: 'Translation features',
+		rows: [
+			{ label: 'Online (browser) editor', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Desktop editor (Trados Studio)', vals: { go: false, freelance: true, pro: true, team: 'Add-on', business: true, enterprise: true, edge: true } },
+			{ label: 'Translation memory & engines', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{
+				label: 'Terminology management',
+				id: 'terminology-management',
+				valueTooltip: {
+					match: 'MultiTerm',
+					text: '<a href="https://www.trados.com/product/multiterm/" target="_blank">MultiTerm</a> provides a central location to store and manage multilingual terminology, helping you to deliver consistent, high-quality content from source through to translation. MultiTerm is included with all Trados Freelance subscription packages, and is available to download and install from your <a href="http://account.rws.com/" target="_blank">Trados subscription account</a>. In addition, terminology management is available in the browser giving you the flexibility to choose how you want to work.',
+				},
+				vals: { go: 'Browser', freelance: 'MultiTerm', pro: 'MultiTerm', team: 'Browser', business: true, enterprise: true, edge: true },
+			},
+			{ label: 'Quality assurance checks', vals: { go: false, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Customize with AppStore apps', vals: { go: '10+', freelance: '150+', pro: '150+', team: '50+', business: '150+', enterprise: '150+', edge: '150+' } },
+		],
+	},
+	{
+		title: 'Linguistic AI',
+		rows: [
+			{ label: 'Smart Help (AI assistant)', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'AI Assistant in desktop', vals: { go: false, freelance: true, pro: true, team: false, business: true, enterprise: true, edge: true } },
+			{ label: 'Language Weaver generative MT', lw: true, vals: { go: 'Add-on', freelance: 'Add-on', pro: 'Add-on', team: 'Add-on', business: 'Included', enterprise: 'Included', edge: 'Edge' } },
+			{ label: '3rd-party MT & LLM providers', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+		],
+	},
+	{
+		title: 'Collaboration & workflow',
+		rows: [
+			{ label: 'Cloud projects', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Real-time collaboration', vals: { go: false, freelance: false, pro: false, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Workflow automation', vals: { go: false, freelance: false, pro: 'Basic', team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
+			{
+				label: 'Vendor & supply-chain management',
+				id: 'vendor-supply-chain',
+				valueTooltip: {
+					match: true,
+					products: ['business'],
+					text: 'Placeholder tooltip copy describing vendor and supply-chain management for Trados Business.',
+				},
+				vals: { go: false, freelance: false, pro: false, team: false, business: true, enterprise: true, edge: true },
+			},
+			{ label: 'Roles & permissions', vals: { go: false, freelance: false, pro: false, team: 'Basic', business: true, enterprise: 'Advanced', edge: true } },
+		],
+	},
+	{
+		title: 'Integrations & security',
+		rows: [
+			{ label: 'API access', vals: { go: false, freelance: false, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Built-in cloud connectors', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'CMS & content connectors', vals: { go: false, freelance: false, pro: false, team: false, business: true, enterprise: true, edge: true } },
+			{ label: 'SSO & advanced security', vals: { go: false, freelance: false, pro: false, team: false, business: false, enterprise: true, edge: true } },
+			{ label: 'On-premise / private cloud', vals: { go: false, freelance: false, pro: false, team: false, business: false, enterprise: 'Option', edge: true } },
+		],
+	},
+	{
+		title: 'Support & onboarding',
+		rows: [
+			{ label: 'Community & Knowledge Base', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Standard support', vals: { go: 'Add-on', freelance: 'Add-on', pro: true, team: true, business: true, enterprise: true, edge: true } },
+			{ label: 'Dedicated success manager', vals: { go: false, freelance: false, pro: false, team: false, business: 'Option', enterprise: true, edge: true } },
+			{ label: 'Guided onboarding & tours', vals: { go: true, freelance: true, pro: true, team: true, business: true, enterprise: true, edge: true } },
+		],
+	},
+]
+---
+
+<div class="group" data-pricing data-active-segment={DEFAULT_SEGMENT} data-segment-order={segments.map((s) => s.key).join(' ')} data-locked-popular={lockSegment ? defaultSegment.popular : undefined} data-locked-label={lockSegment ? defaultSegment.label : undefined} data-locked-subtitle={lockSegment ? defaultSegment.subtitle : undefined}>
+	<section class={`bg-background pt-16 md:pt-20 lg:pt-24 text-foreground ${lockSegment ? 'pb-16 md:pb-20 lg:pb-24' : 'pb-0'}`} data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent/15 bg-accent/10 px-4 py-1 text-center text-sm" role="alert">
+				<span class="py-1 text-sm font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
+			</span>
+
+			<h1 class="mx-auto mb-5 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+				<p>Trados <em>Pricing.</em></p>
+			</h1>
+
+			{
+				lockSegment && (
+					<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+						<p data-segment-subtitle>{defaultSegment.subtitle}</p>
+					</div>
+				)
+			}
+		</div>
+	</section>
+
+	{
+		/* Segment control (radio group) — omitted on segment-locked pages, whose
+	     subtitle moved up into the hero above since there's no picker to sit under. */
+	}
+	{
+		!lockSegment && (
+			<section class="bg-background pt-2 pb-8 text-foreground md:pt-4 md:pb-12 lg:pt-6 lg:pb-16" data-theme="default">
+				<div class="mx-auto max-w-screen-xl px-8 text-center">
+					<div class="mb-5 flex justify-center">
+						<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-xl flex-col rounded-[2rem] border border-foreground/10 bg-background p-1.5 sm:flex-row sm:rounded-full" data-card>
+							<span data-segment-indicator aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary shadow-xl transition-[transform,width,height] duration-300 ease-out motion-reduce:transition-none" style="view-transition-name:segment-pill" />
+							{segments.map((s) => (
+								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground/80 transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:segment-option-${s.key};view-transition-class:segment-option`}>
+									<input type="radio" name="segment" value={s.key} data-popular={s.popular} data-label={s.label} data-subtitle={s.subtitle} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
+									<span class="text-sm leading-tight font-semibold sm:text-base">{s.label}</span>
+
+									<span class="mt-0.5 flex items-center gap-1.5">
+										{s.icon === 'user' && (
+											<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+												<circle cx="12" cy="7" r="4" />
+											</svg>
+										)}
+										{s.icon === 'users' && (
+											<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+												<path d="M16 3.128a4 4 0 0 1 0 7.744" />
+												<path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+												<circle cx="9" cy="7" r="4" />
+											</svg>
+										)}
+										{s.icon === 'building' && (
+											<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M10 12h4" />
+												<path d="M10 8h4" />
+												<path d="M14 21v-3a2 2 0 0 0-4 0v3" />
+												<path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" />
+												<path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" />
+											</svg>
+										)}
+
+										<span class="text-xs opacity-80">{s.sub}</span>
+									</span>
+								</label>
+							))}
+						</fieldset>
+					</div>
+
+					<div class="text-foreground/80">
+						<p data-segment-subtitle>{defaultSegment.subtitle}</p>
+					</div>
+				</div>
+			</section>
+		)
+	}
+
+	{/* Cards */}
+	<section class="bg-background pt-8 pb-8 text-foreground md:pt-12 md:pb-12 lg:pt-16 lg:pb-16" data-theme="dots">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="flex flex-wrap justify-center gap-x-6 gap-y-10">
+				{
+					order.map((id) => {
+						const p = products[id]
+						const [brand, productName] = splitName(p.name)
+						return (
+							<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=freelancers]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} style={`view-transition-name:card-${id}`}>
+								<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground/10 bg-background p-6 text-foreground data-highlighted:glow-animate data-highlighted:border-accent">
+									<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
+										<svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+											<>
+												<rect width="256" height="256" fill="none" />
+												<path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z" />
+											</>
+										</svg>
+										Most popular
+									</span>
+
+									{p.priceType === 'billing' && (
+										<div class="absolute top-4 right-4">
+											<button class="btn btn-outline btn-icon-both btn-xs w-full rounded-full bg-background px-2 font-bold tracking-wider text-foreground/40" id={`currency-button-${id}`} popovertarget={`currency-popover-${id}`} popovertargetaction="toggle" type="button" style={`anchor-name: --currency-anchor-${id};`}>
+												<span class="flex-1 text-left" data-currency-label>
+													GBP
+												</span>
+												<svg class="ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+													<rect width="256" height="256" fill="none" />
+													<polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+												</svg>
+											</button>
+
+											<div data-card id={`currency-popover-${id}`} popover="auto" role="menu" aria-labelledby={`currency-button-${id}`} class="dropdown z-10 mt-1 w-fit rounded border border-foreground/10 shadow-lg" style={`position-anchor: --currency-anchor-${id}; position-area: bottom span-left;`}>
+												<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-xs font-bold tracking-wider select-none">
+													{[
+														['GBP', '£'],
+														['USD', '$'],
+														['EUR', '€'],
+													].map(([code, sym]) => (
+														<li>
+															<label class="inline-flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-accent/5 has-checked:bg-accent/10">
+																<input hidden data-currency-option type="radio" value={code} name={`currency-${id}`} class="input input-radio" checked={code === 'GBP'} />
+																{sym} {code}
+															</label>
+														</li>
+													))}
+												</ul>
+											</div>
+										</div>
+									)}
+
+									<span class="-mt-0.5 text-xs font-bold tracking-wider text-primary uppercase">{p.tag}</span>
+
+									<h3 class="mt-2 text-2xl font-bold tracking-tight">
+										<span>{brand}</span> <span class="text-secondary">{productName}</span>
+									</h3>
+
+									<hr class="my-4 border-foreground/10" />
+
+									{p.priceType === 'billing' && (
+										<>
+											<div class="mb-3 flex items-center gap-2">
+												<div class="grid w-fit grid-cols-2 rounded-full border border-foreground/10 bg-foreground/5 p-0.5">
+													<button type="button" data-billing="monthly" class="btn btn-xs transition-all">
+														Monthly
+													</button>
+													<button type="button" data-billing="annual" class="btn btn-xs transition-all">
+														Annual
+													</button>
+												</div>
+
+												<span class="text-[0.625rem]/none font-bold tracking-wider text-foreground/40 uppercase">Contract duration</span>
+											</div>
+
+											<div data-annual-pill hidden class="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-emerald-500/12 px-3 py-1 text-xs font-semibold text-emerald-600">
+												<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+													<rect width="256" height="256" fill="none" />
+													<rect x="32" y="80" width="192" height="48" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+													<path d="M208,128v72a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+													<line x1="128" y1="80" x2="128" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+													<path d="M176.79,31.21c9.34,9.34,9.89,25.06,0,33.82C159.88,80,128,80,128,80s0-31.88,15-48.79C151.73,21.32,167.45,21.87,176.79,31.21Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+													<path d="M79.21,31.21c-9.34,9.34-9.89,25.06,0,33.82C96.12,80,128,80,128,80s0-31.88-15-48.79C104.27,21.32,88.55,21.87,79.21,31.21Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+												</svg>
+												2 months free with code PLFY26*
+											</div>
+
+											<div class="mb-4">
+												<div class="flex items-baseline gap-2">
+													<span data-was data-was-yearly={p.price.wasGbp ?? ''} data-was-monthly={p.price.monthlyGbp} hidden class="text-lg font-medium text-foreground/40 line-through">
+														£{p.price.wasGbp ?? ''}
+													</span>
+
+													<span class="text-4xl font-bold tracking-tight" data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
+														£{p.price.annualGbp}
+													</span>
+												</div>
+
+												<p class="mt-1 text-sm font-medium text-foreground/60">
+													<span data-billing-note>
+														<span data-note-rolling hidden>
+															per user / month · billed monthly
+														</span>
+														<span data-note-annual>
+															per user / month · <span data-year-total>£240 </span>billed&nbsp;
+															<button type="button" data-cadence-trigger id={`cadence-button-${id}`} popovertarget={`cadence-popover-${id}`} popovertargetaction="toggle" style={`anchor-name: --cadence-anchor-${id};`} class="cursor-pointer font-semibold text-primary underline decoration-dotted underline-offset-2">
+																<span data-cadence-label>yearly</span>
+															</button>
+														</span>
+													</span>
+												</p>
+
+												<div data-card id={`cadence-popover-${id}`} popover="auto" role="menu" aria-labelledby={`cadence-button-${id}`} class="dropdown z-10 mt-1 w-max rounded border border-foreground/10 shadow-lg" style={`position-anchor: --cadence-anchor-${id}; position-area: bottom span-left;`}>
+													<ul class="grid gap-px p-2 text-sm font-medium select-none">
+														{[
+															['yearly', 'Billed yearly (annual contract)'],
+															['monthly', 'Billed monthly (annual contract)'],
+														].map(([val, label]) => (
+															<li>
+																<label class="inline-flex w-full cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 whitespace-nowrap transition-colors hover:bg-accent/5 has-checked:bg-accent/10">
+																	<input hidden data-cadence-option type="radio" value={val} name={`cadence-${id}`} class="input input-radio" checked={val === 'yearly'} />
+																	{label}
+																</label>
+															</li>
+														))}
+													</ul>
+												</div>
+											</div>
+										</>
+									)}
+
+									{p.segments.map((segment) => (
+										<p data-segment data-segments={segment} class="text-sm/relaxed font-medium text-pretty text-foreground/80">
+											{p.desc[segment]}
+										</p>
+									))}
+
+									<hr class="my-4 border-foreground/10" />
+
+									{p.segments.map((segment) => (
+										<ul data-segment data-segments={segment} role="list" class="flex flex-1 flex-col gap-3 text-left">
+											{p.features[segment].map((f) => (
+												<li class="flex items-start gap-2.5">
+													<span class="mt-0.25 flex size-4.5 shrink-0 items-center justify-center rounded-full bg-accent/12 text-accent">
+														<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+															<rect width="256" height="256" fill="none" />
+															<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+														</svg>
+													</span>
+													<span class="text-sm/snug text-foreground/90">{f}</span>
+												</li>
+											))}
+										</ul>
+									))}
+
+									<div class="mt-5 flex flex-col gap-2.5">
+										{p.ctas.map((c) => (
+											<a href="#" class={`btn w-full text-sm ${c.primary ? 'btn-tertiary from-secondary to-tertiary bg-origin-border group-data-highlighted/card:bg-linear-to-br' : 'btn-outline'}`}>
+												{c.label}
+											</a>
+										))}
+									</div>
+								</div>
+
+								<div class="relative">
+									<div class="grid h-10 place-items-center">
+										<span class="h-full w-0.5 bg-linear-to-br from-primary/15 to-secondary/15 [grid-area:1/1]" />
+
+										<span class="flex size-6 items-center justify-center rounded-full border-2 border-primary bg-card text-base font-bold text-primary shadow [grid-area:1/1]">
+											<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+												<rect width="256" height="256" fill="none" />
+												<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+												<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+											</svg>
+										</span>
+									</div>
+
+									<div class="rounded-lg bg-background" data-card>
+										<div class="rounded-lg border border-primary/15 bg-linear-to-br from-primary/7.5 to-secondary/7.5 p-4 text-left">
+											<div class="flex items-center gap-2">
+												<span class="flex size-5 items-center justify-center rounded-sm bg-linear-to-br from-primary to-secondary text-white">
+													<svg class="size-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+														<rect width="256" height="256" fill="none" />
+														<path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z" />
+													</svg>
+												</span>
+												<span class="text-sm font-semibold text-tertiary">+ {p.lw.name}</span>
+												<span class="mt-1 ml-auto text-xs text-[0.625rem] font-bold tracking-wide text-accent/66 uppercase">Add-on</span>
+											</div>
+											<p class="mt-1.5 text-xs/snug text-pretty text-foreground/80">{p.lw.line}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						)
+					})
+				}
+			</div>
+
+			<p class="mx-auto mt-8 max-w-4xl text-center text-xs/relaxed font-medium text-pretty text-foreground/50">*New Trados subscriptions only. Get instant access to Studio 2024, plus Studio 2026 at launch. Applies to first-year annual plans. Prices exclude VAT.</p>
+		</div>
+	</section>
+
+	{/* Comparison table */}
+	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center *:mx-auto lg:px-12">
+			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<p>Compare plans</p>
+			</div>
+
+			<h2 class="mb-6 max-w-[24ch] text-3xl font-bold tracking-tight text-pretty xl:text-4xl">
+				<p>Compare every feature</p>
+			</h2>
+
+			<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<p data-comparison-subtitle>See exactly what's included across the "{defaultSegment.label}" plans.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="bg-background pb-16 text-foreground md:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="overflow-x-auto lg:overflow-visible">
+				<div class="min-w-[56rem] overflow-clip rounded-lg border border-foreground/10" data-accordion data-accordion-multi>
+					{/* Column header */}
+					<div class="sticky top-(--content-top) z-20 transition-[top] duration-300">
+						<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b border-foreground/10 bg-background/50 backdrop-blur group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] stuck:rounded-t-none">
+							<div></div>
+							{
+								order.map((id) => {
+									const p = products[id]
+									const [brand, productName] = splitName(p.name)
+									return (
+										<div data-segment data-segments={segmentTokens[id]} class="flex flex-col items-center px-3 py-5 text-center">
+											<span class="text-base leading-tight font-semibold">
+												<span>{brand} </span>
+												<span class="text-secondary">{productName}</span>
+											</span>
+											<span class="mt-1 text-xs text-foreground/60">
+												{p.priceType === 'billing' && (
+													<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
+														£{p.price.annualGbp}
+													</span>
+												)}
+												{/* {p.priceType === 'none' && ' '} */}
+											</span>
+											<a href="#" class="btn btn-tertiary btn-xs mt-3 whitespace-nowrap">
+												{p.ctas[0].label}
+											</a>
+										</div>
+									)
+								})
+							}
+						</div>
+					</div>
+
+					{/* Sections */}
+					{
+						matrix.map((sec) => (
+							<details class="group/sec" open>
+								<summary class="flex cursor-pointer list-none items-center justify-between border-b border-foreground/10 bg-foreground/5 px-4 py-3 group-[&:last-child:not([open])]/sec:border-b-0">
+									<h4 class="text-base font-semibold transition-colors">{sec.title}</h4>
+									<svg class="size-5 shrink-0 text-foreground/50 transition-[color,rotate] group-data-[open]/sec:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<rect width="256" height="256" fill="none" />
+										<polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									</svg>
+								</summary>
+								<div>
+									{sec.rows.map((r) => (
+										<div data-comparison class="grid border-b border-foreground/10 group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-last/sec:last:border-b-0">
+											<div class="flex items-center px-4 py-4 text-sm font-medium">
+												{r.tooltip ? (
+													<>
+														<span class="relative block w-fit">
+															{r.label}
+															<button type="button" popovertarget={`tooltip-${r.id}`} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${r.label}`}>
+																<svg class="-mb-0.5 size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+																	<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />{' '}
+																</svg>
+															</button>
+														</span>
+														<div id={`tooltip-${r.id}`} popover="auto" role="tooltip" class="tooltip">
+															<p set:html={r.tooltip} />
+														</div>
+													</>
+												) : (
+													r.label
+												)}
+											</div>
+											{order.map((id) => {
+												const v = r.vals[id]
+												return (
+													<div data-segment data-segments={segmentTokens[id]} class="flex items-center justify-center border-l border-foreground/5 px-3 py-4 text-center">
+														{v === true && (
+															<span class="relative flex size-5 items-center justify-center rounded-full bg-accent/12 text-accent">
+																<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
+																	<rect width="256" height="256" fill="none" />
+																	<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+																</svg>
+																{r.valueTooltip && v === r.valueTooltip.match && (!r.valueTooltip.products || r.valueTooltip.products.includes(id)) && (
+																	<>
+																		<button type="button" popovertarget={`tooltip-${r.id}-${id}`} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${r.label}`}>
+																			<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+																				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />{' '}
+																			</svg>
+																		</button>
+																		<div id={`tooltip-${r.id}-${id}`} popover="auto" role="tooltip" class="tooltip">
+																			<p set:html={r.valueTooltip.text} />
+																		</div>
+																	</>
+																)}
+															</span>
+														)}
+														{(v === false || v == null) && (
+															<span class="text-foreground/30" aria-label="Not included">
+																–
+															</span>
+														)}
+														{typeof v === 'string' && (
+															<span class="flex items-center gap-3">
+																{r.valueTooltip && v === r.valueTooltip.match ? (
+																	<>
+																		<span class="relative w-fit">
+																			<span class="text-sm font-medium">{v}</span>
+																			<button type="button" popovertarget={`tooltip-${r.id}-${id}`} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${v}`}>
+																				<svg class="-mb-0.5 size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+																					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />{' '}
+																				</svg>
+																			</button>
+																		</span>
+																		<div id={`tooltip-${r.id}-${id}`} popover="auto" role="tooltip" class="tooltip">
+																			<p set:html={r.valueTooltip.text} />
+																		</div>
+																	</>
+																) : (
+																	<span class="text-sm font-medium">{v}</span>
+																)}
+																{r.lw && v === 'Add-on' && (
+																	<span class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/8 px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-primary uppercase">
+																		<svg class="size-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+																			<rect width="256" height="256" fill="none" />
+																			<path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z" />
+																		</svg>
+																		LW Pro
+																	</span>
+																)}
+															</span>
+														)}
+													</div>
+												)
+											})}
+										</div>
+									))}
+								</div>
+							</details>
+						))
+					}
+				</div>
+			</div>
+
+			<p class="mx-auto mt-8 max-w-3xl text-center text-xs/relaxed text-pretty text-foreground/50">Trados Go and Trados Freelance prices reflect per-user list pricing (excluding VAT). Studio Pro, Team, Business, Enterprise and Edge / GroupShare are tailored to your needs — speak to sales for a quote. Prices are set in GBP; other currencies are indicative conversions.</p>
+		</div>
+	</section>
+</div>

@@ -7,891 +7,1160 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	false && (
-<section hidden class="bg-background pt-16 pb-16 text-foreground md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme="default">
-	<div class="mx-auto grid w-full max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-		<!-- Left column -->
-		<div class="lg:col-span-7">
-			<!-- Subheading + heading + copy -->
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
-				<p>This is the subheading</p>
-			</div>
-
-			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty md:text-5xl xl:text-6xl">
-				<p>Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur sed do</p>
-			</h2>
-
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin donec ut cursus.</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque <a href="#">venenatis felis posuere</a>. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
-			</div>
-
-			<!-- List -->
-			<div class="mt-8">
-				<ul role="list" class="grid gap-4 font-medium text-foreground/80 md:text-lg">
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
-						<p>Lorem ipsum dolor sit amet checkmark</p>
-					</li>
-
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 300ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"></path></svg>
-						<p>Consectetur adipiscing elitera plus</p>
-					</li>
-
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 400ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,109.66-32,32a8,8,0,0,1-11.32-11.32L148.69,136H88a8,8,0,0,1,0-16h60.69l-18.35-18.34a8,8,0,0,1,11.32-11.32l32,32A8,8,0,0,1,173.66,133.66Z"></path></svg>
-						<p>Suspendisse luctus tortor placerat arrow</p>
-					</li>
-
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 500ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" opacity="0.2"></circle><circle cx="128" cy="180" r="12"></circle><path d="M128,144v-8c17.67,0,32-12.54,32-28s-14.33-28-32-28S96,92.54,96,108v4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle></svg>
-						<p>Erat consequat pellentesque question mark</p>
-					</li>
-
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 600ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>
-						<p>Venenatis felis posuere nullam messages</p>
-					</li>
-				</ul>
-			</div>
-
-			<!-- Buttons -->
-			<div class="mt-8 flex flex-wrap items-center gap-4">
-				<a href="#" class="btn btn-primary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Integer auctor
-				</a>
-
-				<a href="#" class="btn btn-secondary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Nulla vel leo
-				</a>
-			</div>
-
-			<!-- Divider -->
-			<hr class="mt-12 mb-8 border-foreground/10" />
-
-			<!-- Features -->
-			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2">
-				<div>
-					<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 200ms">
-						<svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+		<section hidden class="bg-background pt-16 pb-16 text-foreground md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme="default">
+			<div class="mx-auto grid w-full max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+				{/* Left column */}
+				<div class="lg:col-span-7">
+					{/* Subheading + heading + copy */}
+					<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+						<p>This is the subheading</p>
 					</div>
 
-					<h3 class="mb-2 text-xl font-bold">Lectus orci</h3>
+					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty md:text-5xl xl:text-6xl">
+						<p>
+							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur sed do
+						</p>
+					</h2>
 
-					<div class="prose font-medium text-foreground/80">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-					</div>
-				</div>
-
-				<div>
-					<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 300ms">
-						<svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path></svg>
-					</div>
-
-					<h3 class="mb-2 text-xl font-bold">Maximus vel</h3>
-
-					<div class="prose font-medium text-foreground/80">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-					</div>
-				</div>
-
-				<div>
-					<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 400ms">
-						<svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path><path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path></svg>
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin donec ut cursus.</p>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque <a href="#">venenatis felis posuere</a>. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.
+						</p>
 					</div>
 
-					<h3 class="mb-2 text-xl font-bold">Vel congue</h3>
+					{/* List */}
+					<div class="mt-8">
+						<ul role="list" class="grid gap-4 font-medium text-foreground/80 md:text-lg">
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<>
+										<rect width="256" height="256" fill="none" />
+										<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z" />
+									</>
+								</svg>
+								<p>Lorem ipsum dolor sit amet checkmark</p>
+							</li>
 
-					<div class="prose font-medium text-foreground/80">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 300ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<>
+										<rect width="256" height="256" fill="none" />
+										<path d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z" />
+									</>
+								</svg>
+								<p>Consectetur adipiscing elitera plus</p>
+							</li>
+
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 400ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<>
+										<rect width="256" height="256" fill="none" />
+										<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,109.66-32,32a8,8,0,0,1-11.32-11.32L148.69,136H88a8,8,0,0,1,0-16h60.69l-18.35-18.34a8,8,0,0,1,11.32-11.32l32,32A8,8,0,0,1,173.66,133.66Z" />
+									</>
+								</svg>
+								<p>Suspendisse luctus tortor placerat arrow</p>
+							</li>
+
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 500ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<>
+										<rect width="256" height="256" fill="none" />
+										<circle cx="128" cy="128" r="96" opacity="0.2" />
+										<circle cx="128" cy="180" r="12" />
+										<path d="M128,144v-8c17.67,0,32-12.54,32-28s-14.33-28-32-28S96,92.54,96,108v4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+										<circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+									</>
+								</svg>
+								<p>Erat consequat pellentesque question mark</p>
+							</li>
+
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								<svg class="intersect-once size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 600ms" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<>
+										<rect width="256" height="256" fill="none" />
+										<path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+										<path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+									</>
+								</svg>
+								<p>Venenatis felis posuere nullam messages</p>
+							</li>
+						</ul>
 					</div>
-				</div>
 
-				<div>
-					<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 500ms">
-						<svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path></svg>
+					{/* Buttons */}
+					<div class="mt-8 flex flex-wrap items-center gap-4">
+						<a href="#" class="btn btn-primary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Integer auctor
+						</a>
+
+						<a href="#" class="btn btn-secondary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Nulla vel leo
+						</a>
 					</div>
 
-					<h3 class="mb-2 text-xl font-bold">Sodales ex</h3>
+					{/* Divider */}
+					<hr class="mt-12 mb-8 border-foreground/10" />
 
-					<div class="prose font-medium text-foreground/80">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-					</div>
-				</div>
-			</div>
+					{/* Features */}
+					<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2">
+						<div>
+							<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 200ms">
+								<svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+								</svg>
+							</div>
 
-			<!-- Divider -->
-			<hr class="mt-12 mb-8 border-foreground/10" />
+							<h3 class="mb-2 text-xl font-bold">Lectus orci</h3>
 
-			<!-- Stats -->
-			<div class="mt-12">
-				<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
-					<li class="flex items-center">
-						<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
-
-						<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
-							<div>Our Active</div>
-							<div>Users</div>
+							<div class="prose font-medium text-foreground/80">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							</div>
 						</div>
-					</li>
 
-					<li class="flex items-center">
-						<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">3k</span>
+						<div>
+							<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 300ms">
+								<svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+								</svg>
+							</div>
 
-						<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
-							<div>Professional</div>
-							<div>Creators</div>
+							<h3 class="mb-2 text-xl font-bold">Maximus vel</h3>
+
+							<div class="prose font-medium text-foreground/80">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							</div>
 						</div>
-					</li>
 
-					<li class="flex items-center">
-						<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">560k</span>
+						<div>
+							<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 400ms">
+								<svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<>
+										<path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
+										<path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
+									</>
+								</svg>
+							</div>
 
-						<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
-							<div>Weekly</div>
-							<div>Downloads</div>
+							<h3 class="mb-2 text-xl font-bold">Vel congue</h3>
+
+							<div class="prose font-medium text-foreground/80">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							</div>
 						</div>
-					</li>
-				</ul>
-			</div>
 
-			<!-- Divider -->
-			<hr class="mt-12 mb-8 border-foreground/10" />
+						<div>
+							<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 500ms">
+								<svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+									<>
+										<path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+										<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+									</>
+								</svg>
+							</div>
 
-			<!-- Logos -->
-			<div class="mt-8">
-				<div class="mb-6 font-semibold text-foreground/80">
-					<p>Partners and backers:</p>
+							<h3 class="mb-2 text-xl font-bold">Sodales ex</h3>
+
+							<div class="prose font-medium text-foreground/80">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							</div>
+						</div>
+					</div>
+
+					{/* Divider */}
+					<hr class="mt-12 mb-8 border-foreground/10" />
+
+					{/* Stats */}
+					<div class="mt-12">
+						<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
+							<li class="flex items-center">
+								<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">
+									42k
+								</span>
+
+								<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
+									<div>Our Active</div>
+									<div>Users</div>
+								</div>
+							</li>
+
+							<li class="flex items-center">
+								<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">
+									3k
+								</span>
+
+								<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
+									<div>Professional</div>
+									<div>Creators</div>
+								</div>
+							</li>
+
+							<li class="flex items-center">
+								<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">
+									560k
+								</span>
+
+								<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
+									<div>Weekly</div>
+									<div>Downloads</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					{/* Divider */}
+					<hr class="mt-12 mb-8 border-foreground/10" />
+
+					{/* Logos */}
+					<div class="mt-8">
+						<div class="mb-6 font-semibold text-foreground/80">
+							<p>Partners and backers:</p>
+						</div>
+
+						<div class="flex-wrap- md:flex-nowrap- flex items-center justify-start gap-x-6 sm:gap-x-8">
+							<a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 200ms">
+								<span class="relative block">
+									<img src="/logos/canva.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/canva.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">Canva</span>
+							</a>
+
+							<a href="https://www.uber.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 300ms">
+								<span class="relative block">
+									<img src="/logos/uber.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/uber.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">Uber</span>
+							</a>
+
+							<a href="https://www.dhl.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 400ms">
+								<span class="relative block">
+									<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">DHL</span>
+							</a>
+
+							<a href="https://www.hp.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 500ms">
+								<span class="relative block">
+									<img src="/logos/hp.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/hp.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">HP</span>
+							</a>
+
+							<a href="https://deliveroo.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 600ms">
+								<span class="relative block">
+									<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">Deliveroo</span>
+							</a>
+						</div>
+					</div>
 				</div>
 
-				<div class="flex-wrap- md:flex-nowrap- flex items-center justify-start gap-x-6 sm:gap-x-8">
-					<a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 200ms">
-						<span class="relative block">
-							<img src="/logos/canva.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/canva.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">Canva</span>
-					</a>
+				{/* Right column */}
+				<div class="space-y-12 lg:col-span-5">
+					{/* Single image */}
+					<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-left-sm">
+						<img src="/images/placeholder-1.png" alt="Primary illustrative image" class="aspect-video w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
+					</div>
 
-					<a href="https://www.uber.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 300ms">
-						<span class="relative block">
-							<img src="/logos/uber.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/uber.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">Uber</span>
-					</a>
+					{/* Double image */}
+					<div class="grid grid-cols-2 gap-6">
+						<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-down-sm">
+							<img class="aspect-3/4 w-full rounded-lg object-cover lg:-translate-y-5" src="/images/placeholder-2.png" alt="Placeholder" draggable="false" />
+						</div>
+						<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-up-sm">
+							<img class="mt-8 aspect-3/4 w-full rounded-lg object-cover lg:mt-0 lg:translate-y-5" src="/images/placeholder-3.png" alt="Placeholder" draggable="false" />
+						</div>
+					</div>
 
-					<a href="https://www.dhl.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 400ms">
-						<span class="relative block">
-							<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">DHL</span>
-					</a>
+					{/* Video */}
+					<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-left-sm">
+						<video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" class="aspect-video h-full w-full rounded-lg object-cover" controls poster="/images/placeholder-1.png" />
+					</div>
 
-					<a href="https://www.hp.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 500ms">
-						<span class="relative block">
-							<img src="/logos/hp.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/hp.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">HP</span>
-					</a>
-
-					<a href="https://deliveroo.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 600ms">
-						<span class="relative block">
-							<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">Deliveroo</span>
-					</a>
+					{/* Form */}
+					<div class="rounded-lg border border-foreground/10 bg-background p-8 text-foreground" data-theme="pale">
+						<Form variant="split" />
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- Right column -->
-		<div class="space-y-12 lg:col-span-5">
-			<!-- Single image -->
-			<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<img src="/images/placeholder-1.png" alt="Primary illustrative image" class="aspect-video w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
-			</div>
-
-			<!-- Double image -->
-			<div class="grid grid-cols-2 gap-6">
-				<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-down-sm">
-					<img class="aspect-3/4 w-full rounded-lg object-cover lg:-translate-y-5" src="/images/placeholder-2.png" alt="Placeholder" draggable="false" />
-				</div>
-				<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-up-sm">
-					<img class="mt-8 aspect-3/4 w-full rounded-lg object-cover lg:mt-0 lg:translate-y-5" src="/images/placeholder-3.png" alt="Placeholder" draggable="false" />
-				</div>
-			</div>
-
-			<!-- Video -->
-			<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" class="aspect-video h-full w-full rounded-lg object-cover" controls poster="/images/placeholder-1.png"></video>
-			</div>
-
-			<!-- Form -->
-			<div class="rounded-lg border border-foreground/10 bg-background p-8 text-foreground" data-theme="pale">
-				<Form variant="split" />
-			</div>
-		</div>
-	</div>
-</section>
+		</section>
 	)
 }
 
 {
 	variant === 'lead-image' && (
-<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-		<div class="lg:col-span-6">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
-				<p>This is the subheading</p>
-			</div>
+		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+				<div class="lg:col-span-6">
+					<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+						<p>This is the subheading</p>
+					</div>
 
-			<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
-				<p>This is the <em>accuracy</em>, domain</p>
-			</h2>
+					<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+						<p>
+							This is the <em>accuracy</em>, domain
+						</p>
+					</h2>
 
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est posuere ut pellentesque habitant.</p>
-				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p>
-				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat.</p>
-			</div>
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est posuere ut pellentesque habitant.</p>
+						<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p>
+						<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat.</p>
+					</div>
 
-			<div class="mt-8 flex flex-wrap items-center gap-4">
-				<a href="#" class="btn btn-primary btn-icon-right btn-lg">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out more
-				</a>
-				<a href="#" class="btn btn-secondary btn-icon-right">
-					<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="136" y1="120" x2="216" y2="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="216 104 215.99 40.01 152 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><path d="M184,140v68a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8h68" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg> -->
-					<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 256 256"><path d="M228,104a12,12,0,0,1-24,0V69l-59.51,59.51a12,12,0,0,1-17-17L187,52H152a12,12,0,0,1,0-24h64a12,12,0,0,1,12,12Zm-44,24a12,12,0,0,0-12,12v64H52V84h64a12,12,0,0,0,0-24H48A20,20,0,0,0,28,80V208a20,20,0,0,0,20,20H176a20,20,0,0,0,20-20V140A12,12,0,0,0,184,128Z"></path></svg>
-					External link
-				</a>
-			</div>
-		</div>
+					<div class="mt-8 flex flex-wrap items-center gap-4">
+						<a href="#" class="btn btn-primary btn-icon-right btn-lg">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out more
+						</a>
+						<a href="#" class="btn btn-secondary btn-icon-right">
+							{/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="136" y1="120" x2="216" y2="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="216 104 215.99 40.01 152 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><path d="M184,140v68a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8h68" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg> */}
+							<svg xmlns="http://www.w3.org/2000/svg" fill="black" viewBox="0 0 256 256">
+								<path d="M228,104a12,12,0,0,1-24,0V69l-59.51,59.51a12,12,0,0,1-17-17L187,52H152a12,12,0,0,1,0-24h64a12,12,0,0,1,12,12Zm-44,24a12,12,0,0,0-12,12v64H52V84h64a12,12,0,0,0,0-24H48A20,20,0,0,0,28,80V208a20,20,0,0,0,20,20H176a20,20,0,0,0,20-20V140A12,12,0,0,0,184,128Z" />
+							</svg>
+							External link
+						</a>
+					</div>
+				</div>
 
-		<div class="h-full lg:col-span-6">
-			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<img src="/images/placeholder-1.png" alt="Placeholder" class="aspect-video h-full w-full rounded-lg object-cover lg:aspect-square" draggable="false" />
+				<div class="h-full lg:col-span-6">
+					<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
+						<picture>
+							{/* Modern formats */}
+							{/* <source media="(min-width: 1024px)" type="image/avif" srcset="/images/placeholder-2.avif 1x, /images/placeholder-2-large.avif 2x" /> */}
+							{/* <source media="(min-width: 1024px)" type="image/webp" srcset="/images/placeholder-2.webp 1x, /images/placeholder-2-large.webp 2x" /> */}
+
+							{/* Desktop */}
+							<source media="(min-width: 1024px)" srcset="/images/placeholder-2.png 1x, /images/placeholder-2-large.jpg 2x" />
+
+							{/* Mobile */}
+							<img src="/images/placeholder-1.png" srcset="/images/placeholder-1.png 1x, /images/placeholder-1-large.jpg 2x" alt="Placeholder" width="1180" height="480" class="aspect-square- lg:aspect-9/16- h-full w-full rounded-lg object-cover select-none" loading="lazy" decoding="async" draggable="false" />
+						</picture>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-</section>
+		</section>
 	)
 }
 
 {
 	variant === 'double-image-list' && (
-<section class="grid min-h-[min(50vh,48rem)] place-items-center bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-		<div class="lg:col-span-6">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
-				<p>This is the subheading</p>
+		<section class="grid min-h-[min(50vh,48rem)] place-items-center bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+				<div class="lg:col-span-6">
+					<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+						<p>This is the subheading</p>
+					</div>
+
+					<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+						<p>This is the heading</p>
+					</h2>
+
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est.</p>
+						{/* <p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p> */}
+					</div>
+
+					<div class="mt-8">
+						<ul role="list" class="grid gap-4">
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								{/* <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
+								<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms">
+									<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z" />
+										</>
+									</svg>
+								</div>
+
+								{/* Icon via mask */}
+								{/* <div class="intersect-once size-5 shrink-0 bg-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms; mask-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22%3E%3Cpath fill=%22white%22 d=%22M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z%22/%3E%3C/svg%3E');"></div> */}
+
+								<div class="prose font-medium text-foreground/80 md:prose-lg">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+								</div>
+							</li>
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								{/* <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
+								<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 300ms">
+									<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z" />
+										</>
+									</svg>
+								</div>
+
+								<div class="prose font-medium text-foreground/80 md:prose-lg">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+								</div>
+							</li>
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								{/* <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
+								<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 400ms">
+									<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,109.66-32,32a8,8,0,0,1-11.32-11.32L148.69,136H88a8,8,0,0,1,0-16h60.69l-18.35-18.34a8,8,0,0,1,11.32-11.32l32,32A8,8,0,0,1,173.66,133.66Z" />
+										</>
+									</svg>
+								</div>
+
+								<div class="prose font-medium text-foreground/80 md:prose-lg">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+								</div>
+							</li>
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								{/* <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
+								{/* <svg class="size-5 shrink-0 text-accent" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,168a12,12,0,1,1,12-12A12,12,0,0,1,128,192Zm8-48.72V144a8,8,0,0,1-16,0v-8a8,8,0,0,1,8-8c13.23,0,24-9,24-20s-10.77-20-24-20-24,9-24,20v4a8,8,0,0,1-16,0v-4c0-19.85,17.94-36,40-36s40,16.15,40,36C168,125.38,154.24,139.93,136,143.28Z"></path></svg> */}
+								<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 500ms">
+									<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<circle cx="128" cy="128" r="96" opacity="0.2" />
+											<circle cx="128" cy="180" r="12" />
+											<path d="M128,144v-8c17.67,0,32-12.54,32-28s-14.33-28-32-28S96,92.54,96,108v4" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+											<circle cx="128" cy="128" r="96" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+										</>
+									</svg>
+								</div>
+
+								<div class="prose font-medium text-foreground/80 md:prose-lg">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+								</div>
+							</li>
+							<li class="flex items-center gap-x-3">
+								{/* Icon */}
+								{/* <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> */}
+								{/* <svg class="size-5 shrink-0 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="224 208 32 208 32 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><polyline points="200 72 128 144 96 112 32 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><polyline points="200 112 200 72 160 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg> */}
+								{/* <svg class="size-5 shrink-0 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg> */}
+								<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 600ms">
+									<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+											<path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+										</>
+									</svg>
+								</div>
+
+								<div class="prose font-medium text-foreground/80 md:prose-lg">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+								</div>
+							</li>
+						</ul>
+					</div>
+
+					<div class="mt-8 flex flex-wrap items-center gap-4">
+						<a href="#" class="btn btn-primary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out more
+						</a>
+						<a href="#" class="btn btn-secondary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out even more
+						</a>
+					</div>
+				</div>
+
+				<div class="grid grid-cols-2 gap-6 lg:order-first lg:col-span-6">
+					<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-down-sm">
+						<img class="aspect-3/4 w-full rounded-lg object-cover lg:-translate-y-5" src="/images/placeholder-2.png" alt="Placeholder" draggable="false" />
+					</div>
+
+					<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-up-sm">
+						<img class="mt-8 aspect-3/4 w-full rounded-lg object-cover lg:mt-0 lg:translate-y-5" src="/images/placeholder-3.png" alt="Placeholder" draggable="false" />
+					</div>
+				</div>
 			</div>
-
-			<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
-				<p>This is the heading</p>
-			</h2>
-
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est.</p>
-				<!-- <p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p> -->
-			</div>
-
-			<div class="mt-8">
-				<ul role="list" class="grid gap-4">
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<!-- <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
-						<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms">
-							<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
-						</div>
-
-						<!-- Icon via mask -->
-						<!-- <div class="intersect-once size-5 shrink-0 bg-accent intersect:motion-preset-slide-right" style="--motion-delay: 200ms; mask-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 256 256%22%3E%3Cpath fill=%22white%22 d=%22M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z%22/%3E%3C/svg%3E');"></div> -->
-
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						</div>
-					</li>
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<!-- <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
-						<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 300ms">
-							<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.13,104.13,0,0,0,128,24Zm40,112H136v32a8,8,0,0,1-16,0V136H88a8,8,0,0,1,0-16h32V88a8,8,0,0,1,16,0v32h32a8,8,0,0,1,0,16Z"></path></svg>
-						</div>
-
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-						</div>
-					</li>
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<!-- <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
-						<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 400ms">
-							<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,109.66-32,32a8,8,0,0,1-11.32-11.32L148.69,136H88a8,8,0,0,1,0-16h60.69l-18.35-18.34a8,8,0,0,1,11.32-11.32l32,32A8,8,0,0,1,173.66,133.66Z"></path></svg>
-						</div>
-
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						</div>
-					</li>
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<!-- <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
-						<!-- <svg class="size-5 shrink-0 text-accent" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,168a12,12,0,1,1,12-12A12,12,0,0,1,128,192Zm8-48.72V144a8,8,0,0,1-16,0v-8a8,8,0,0,1,8-8c13.23,0,24-9,24-20s-10.77-20-24-20-24,9-24,20v4a8,8,0,0,1-16,0v-4c0-19.85,17.94-36,40-36s40,16.15,40,36C168,125.38,154.24,139.93,136,143.28Z"></path></svg> -->
-						<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 500ms">
-							<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" opacity="0.2"></circle><circle cx="128" cy="180" r="12"></circle><path d="M128,144v-8c17.67,0,32-12.54,32-28s-14.33-28-32-28S96,92.54,96,108v4" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><circle cx="128" cy="128" r="96" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle></svg>
-						</div>
-
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-						</div>
-					</li>
-					<li class="flex items-center gap-x-3">
-						<!-- Icon -->
-						<!-- <svg class="size-5 shrink-0 text-accent" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
-						<!-- <svg class="size-5 shrink-0 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="224 208 32 208 32 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><polyline points="200 72 128 144 96 112 32 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><polyline points="200 112 200 72 160 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg> -->
-						<!-- <svg class="size-5 shrink-0 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg> -->
-						<div class="intersect-once svg-current size-5 shrink-0 text-accent intersect:motion-preset-slide-right" style="--motion-delay: 600ms">
-							<svg fill="black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path><path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path></svg>
-						</div>
-
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-						</div>
-					</li>
-				</ul>
-			</div>
-
-			<div class="mt-8 flex flex-wrap items-center gap-4">
-				<a href="#" class="btn btn-primary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out more
-				</a>
-				<a href="#" class="btn btn-secondary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out even more
-				</a>
-			</div>
-		</div>
-
-		<div class="grid grid-cols-2 gap-6 lg:order-first lg:col-span-6">
-			<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-down-sm">
-				<img class="aspect-3/4 w-full rounded-lg object-cover lg:-translate-y-5" src="/images/placeholder-2.png" alt="Placeholder" draggable="false" />
-			</div>
-
-			<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-up-sm">
-				<img class="mt-8 aspect-3/4 w-full rounded-lg object-cover lg:mt-0 lg:translate-y-5" src="/images/placeholder-3.png" alt="Placeholder" draggable="false" />
-			</div>
-		</div>
-	</div>
-</section>
+		</section>
 	)
 }
 
 {
 	variant === 'features-row' && (
-<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto grid max-w-screen-xl items-start gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-		<!-- Content -->
-		<div class="lg:col-span-7">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
-				<p>This is the subheading</p>
-			</div>
+		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+			<div class="mx-auto grid max-w-screen-xl items-start gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+				{/* Content */}
+				<div class="lg:col-span-7">
+					<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+						<p>This is the subheading</p>
+					</div>
 
-			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
-				<p>This is the heading and happens <em>to be longer</em> than the others</p>
-			</h2>
+					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+						<p>
+							This is the heading and happens <em>to be longer</em> than the others
+						</p>
+					</h2>
 
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin lorem, pharet.</p>
-				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex.</p>
-			</div>
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin lorem, pharet.</p>
+						<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex.</p>
+					</div>
 
-			<!-- Features (rows) -->
-			<div class="mt-12 grid max-w-[80ch] gap-8">
-				<div class="flex gap-4">
-					<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
-						<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 200ms">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M34.1,61.38A8,8,0,0,1,40,48H216a8,8,0,0,1,5.92,13.38L152,136v58.65a8,8,0,0,1-3.56,6.66l-32,21.33A8,8,0,0,1,104,216V136Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
+					{/* Features (rows) */}
+					<div class="mt-12 grid max-w-[80ch] gap-8">
+						<div class="flex gap-4">
+							<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
+								<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 200ms">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M34.1,61.38A8,8,0,0,1,40,48H216a8,8,0,0,1,5.92,13.38L152,136v58.65a8,8,0,0,1-3.56,6.66l-32,21.33A8,8,0,0,1,104,216V136Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+								</div>
+							</div>
+
+							<div>
+								<div class="mb-2 text-xl font-bold">
+									<h3>Advanced filtering</h3>
+								</div>
+
+								<div class="prose font-medium text-foreground/80">
+									<p>Easy-to-use advanced filtering options (by category, price, brand, etc.) to help customers find products quickly.</p>
+								</div>
+
+								<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+									Learn more
+								</a>
+							</div>
+						</div>
+
+						<div class="flex gap-4">
+							<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
+								<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 300ms">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M159.73,92A48,48,0,0,0,80,128a143.41,143.41,0,0,1-18,69.73" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M176,132a239.17,239.17,0,0,1-17.91,87.21" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M108.68,212q-2.22,4.56-4.68,9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M128,128a192.72,192.72,0,0,1-5.07,44" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M100,36.15A96.07,96.07,0,0,1,224,128a288.93,288.93,0,0,1-7.14,64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M23.28,168A95.66,95.66,0,0,0,32,128,95.71,95.71,0,0,1,60,60.23" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+								</div>
+							</div>
+
+							<div>
+								<div class="mb-2 text-xl font-bold">
+									<h3>Secure payment</h3>
+								</div>
+
+								<div class="prose font-medium text-foreground/80">
+									<p>Integration with trusted payment gateways (such as PayPal, Stripe, etc.) to ensure safe and secure transactions for customers.</p>
+								</div>
+
+								<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+									Learn more
+								</a>
+							</div>
+						</div>
+
+						<div class="flex gap-4">
+							<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
+								<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 400ms">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M184,80h38.58A8,8,0,0,1,230,85l14,35" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<line x1="24" y1="128" x2="184" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<circle cx="192" cy="192" r="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<circle cx="80" cy="192" r="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<line x1="168" y1="192" x2="104" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M184,120h60v64a8,8,0,0,1-8,8H216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M56,192H32a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8H184V169.37" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+								</div>
+							</div>
+
+							<div>
+								<div class="mb-2 text-xl font-bold">
+									<h3>Shipping options</h3>
+								</div>
+
+								<div class="prose font-medium text-foreground/80">
+									<p>Multiple shipping methods with real-time shipping cost calculation and tracking information provided to customers.</p>
+								</div>
+
+								<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+									Learn more
+								</a>
+							</div>
+						</div>
+
+						<div class="flex gap-4">
+							<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
+								<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 500ms">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<circle cx="128" cy="144" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M72,216a65,65,0,0,1,112,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M164,72.55a32,32,0,1,1,39.63,45.28c14.33,3.1,27.89,14.84,36.4,26.17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<path d="M16,144c8.51-11.33,22.06-23.07,36.4-26.17A32,32,0,1,1,92,72.55" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+								</div>
+							</div>
+
+							<div>
+								<div class="mb-2 text-xl font-bold">
+									<h3>Customer support</h3>
+								</div>
+
+								<div class="prose font-medium text-foreground/80">
+									<p>Round-the-clock customer support with multiple contact channels including live chat, email, and phone.</p>
+								</div>
+
+								<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+									Learn more
+								</a>
+							</div>
+						</div>
+
+						<div class="flex gap-4">
+							<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
+								<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 600ms">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<polyline points="224 208 32 208 32 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<polyline points="200 72 128 144 96 112 32 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<polyline points="200 112 200 72 160 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+								</div>
+							</div>
+
+							<div>
+								<div class="mb-2 text-xl font-bold">
+									<h3>Analytics dashboard</h3>
+								</div>
+
+								<div class="prose font-medium text-foreground/80">
+									<p>Real-time insights into sales, traffic, and customer behaviour so teams can act on what's happening today rather than what happened last quarter.</p>
+								</div>
+
+								<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</>
+									</svg>
+									Learn more
+								</a>
+							</div>
 						</div>
 					</div>
 
-					<div>
-						<div class="mb-2 text-xl font-bold">
-							<h3>Advanced filtering</h3>
-						</div>
-
-						<div class="prose font-medium text-foreground/80">
-							<p>Easy-to-use advanced filtering options (by category, price, brand, etc.) to help customers find products quickly.</p>
-						</div>
-
-						<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-							Learn more
+					<div class="mt-12 flex flex-wrap items-center gap-4">
+						<a href="#" class="btn btn-primary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out more
+						</a>
+						<a href="#" class="btn btn-secondary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out even more
 						</a>
 					</div>
 				</div>
 
-				<div class="flex gap-4">
-					<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
-						<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 300ms">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M159.73,92A48,48,0,0,0,80,128a143.41,143.41,0,0,1-18,69.73" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M176,132a239.17,239.17,0,0,1-17.91,87.21" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M108.68,212q-2.22,4.56-4.68,9" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M128,128a192.72,192.72,0,0,1-5.07,44" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M100,36.15A96.07,96.07,0,0,1,224,128a288.93,288.93,0,0,1-7.14,64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M23.28,168A95.66,95.66,0,0,0,32,128,95.71,95.71,0,0,1,60,60.23" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
-						</div>
-					</div>
-
-					<div>
-						<div class="mb-2 text-xl font-bold">
-							<h3>Secure payment</h3>
-						</div>
-
-						<div class="prose font-medium text-foreground/80">
-							<p>Integration with trusted payment gateways (such as PayPal, Stripe, etc.) to ensure safe and secure transactions for customers.</p>
-						</div>
-
-						<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-							Learn more
-						</a>
-					</div>
-				</div>
-
-				<div class="flex gap-4">
-					<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
-						<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 400ms">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M184,80h38.58A8,8,0,0,1,230,85l14,35" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="24" y1="128" x2="184" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><circle cx="192" cy="192" r="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><circle cx="80" cy="192" r="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="168" y1="192" x2="104" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M184,120h60v64a8,8,0,0,1-8,8H216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M56,192H32a8,8,0,0,1-8-8V72a8,8,0,0,1,8-8H184V169.37" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
-						</div>
-					</div>
-
-					<div>
-						<div class="mb-2 text-xl font-bold">
-							<h3>Shipping options</h3>
-						</div>
-
-						<div class="prose font-medium text-foreground/80">
-							<p>Multiple shipping methods with real-time shipping cost calculation and tracking information provided to customers.</p>
-						</div>
-
-						<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-							Learn more
-						</a>
-					</div>
-				</div>
-
-				<div class="flex gap-4">
-					<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
-						<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 500ms">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><circle cx="128" cy="144" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M72,216a65,65,0,0,1,112,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M164,72.55a32,32,0,1,1,39.63,45.28c14.33,3.1,27.89,14.84,36.4,26.17" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><path d="M16,144c8.51-11.33,22.06-23.07,36.4-26.17A32,32,0,1,1,92,72.55" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
-						</div>
-					</div>
-
-					<div>
-						<div class="mb-2 text-xl font-bold">
-							<h3>Customer support</h3>
-						</div>
-
-						<div class="prose font-medium text-foreground/80">
-							<p>Round-the-clock customer support with multiple contact channels including live chat, email, and phone.</p>
-						</div>
-
-						<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-							Learn more
-						</a>
-					</div>
-				</div>
-
-				<div class="flex gap-4">
-					<div class="flex size-12 shrink-0 items-center justify-center rounded-md border border-foreground/10">
-						<div class="intersect-once svg-current size-6 text-foreground/80 intersect:motion-preset-expand" style="--motion-delay: 600ms">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><polyline points="224 208 32 208 32 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><polyline points="200 72 128 144 96 112 32 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><polyline points="200 112 200 72 160 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
-						</div>
-					</div>
-
-					<div>
-						<div class="mb-2 text-xl font-bold">
-							<h3>Analytics dashboard</h3>
-						</div>
-
-						<div class="prose font-medium text-foreground/80">
-							<p>Real-time insights into sales, traffic, and customer behaviour so teams can act on what's happening today rather than what happened last quarter.</p>
-						</div>
-
-						<a href="#" class="btn btn-link btn-icon-right mt-2 text-accent">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-							Learn more
-						</a>
+				{/* Media (sticky) */}
+				<div class="lg:sticky lg:top-[calc(var(--content-top)+4rem)] lg:col-span-5 lg:transition-[top] lg:duration-300">
+					<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-left-sm">
+						<img src="/images/placeholder-1.png" alt="Image on mobile" class="aspect-video w-full rounded-lg object-cover lg:hidden" draggable="false" />
+						<img src="/images/placeholder-2.png" alt="Image on desktop" class="hidden aspect-square w-full rounded-lg object-cover lg:block" draggable="false" />
 					</div>
 				</div>
 			</div>
-
-			<div class="mt-12 flex flex-wrap items-center gap-4">
-				<a href="#" class="btn btn-primary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out more
-				</a>
-				<a href="#" class="btn btn-secondary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out even more
-				</a>
-			</div>
-		</div>
-
-		<!-- Media (sticky) -->
-		<div class="lg:sticky lg:top-[calc(var(--content-top)+4rem)] lg:col-span-5 lg:transition-[top] lg:duration-300">
-			<div class="intersect-once motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<img src="/images/placeholder-1.png" alt="Image on mobile" class="aspect-video w-full rounded-lg object-cover lg:hidden" draggable="false" />
-				<img src="/images/placeholder-2.png" alt="Image on desktop" class="hidden aspect-square w-full rounded-lg object-cover lg:block" draggable="false" />
-			</div>
-		</div>
-	</div>
-</section>
+		</section>
 	)
 }
 
 {
 	variant === 'features-grid' && (
-<section class="grid min-h-[min(100vh,64rem)] place-items-center bg-background pt-16 pb-16 text-foreground md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme={theme}>
-	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-		<!-- Content -->
-		<div class="lg:col-span-7">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
-				<p>This is the subheading</p>
-			</div>
+		<section class="grid min-h-[min(100vh,64rem)] place-items-center bg-background pt-16 pb-16 text-foreground md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme={theme}>
+			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+				{/* Content */}
+				<div class="lg:col-span-7">
+					<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+						<p>This is the subheading</p>
+					</div>
 
-			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
-				<p>This is the heading and happens <em>to be longer</em> than the others</p>
-			</h2>
+					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+						<p>
+							This is the heading and happens <em>to be longer</em> than the others
+						</p>
+					</h2>
 
-			<div class="mb-8- prose font-medium text-foreground/80 md:prose-lg">
-				<p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin lorem, pharetra mattis est.</p>
-				<!-- <p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p> -->
-			</div>
+					<div class="mb-8- prose font-medium text-foreground/80 md:prose-lg">
+						<p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin lorem, pharetra mattis est.</p>
+						{/* <p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p> */}
+					</div>
 
-			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2">
-				<div>
-					<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 200ms">
-						<div class="svg-current size-5 text-accent lg:size-6">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M216,40H136V24a8,8,0,0,0-16,0V40H40A16,16,0,0,0,24,56V176a16,16,0,0,0,16,16H79.36L57.75,219a8,8,0,0,0,12.5,10l29.59-37h56.32l29.59,37a8,8,0,1,0,12.5-10l-21.61-27H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,144a8,8,0,0,1-16,0V120a8,8,0,0,1,16,0Zm32,0a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm32,0a8,8,0,0,1-16,0V88a8,8,0,0,1,16,0Z"/></svg>
+					<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2">
+						<div>
+							<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 200ms">
+								<div class="svg-current size-5 text-accent lg:size-6">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M216,40H136V24a8,8,0,0,0-16,0V40H40A16,16,0,0,0,24,56V176a16,16,0,0,0,16,16H79.36L57.75,219a8,8,0,0,0,12.5,10l29.59-37h56.32l29.59,37a8,8,0,1,0,12.5-10l-21.61-27H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM104,144a8,8,0,0,1-16,0V120a8,8,0,0,1,16,0Zm32,0a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Zm32,0a8,8,0,0,1-16,0V88a8,8,0,0,1,16,0Z" />
+										</>
+									</svg>
+								</div>
+							</div>
+
+							<div class="mb-2 text-xl font-bold">
+								<h3>Marketing</h3>
+							</div>
+
+							<div class="prose font-medium text-foreground/80">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							</div>
 						</div>
-					</div>
 
-					<div class="mb-2 text-xl font-bold">
-						<h3>Marketing</h3>
-					</div>
+						<div>
+							<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 300ms">
+								<div class="svg-current size-5 text-accent lg:size-6">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M52.69,99.31a16,16,0,0,1,0-22.63l64-64a16,16,0,0,1,22.63,22.63l-64,64a16,16,0,0,1-22.63,0Zm190.63,17.37a16,16,0,0,0-22.63,0l-64,64a16,16,0,0,0,0,22.63h0a16,16,0,0,0,22.63,0l64-64A16,16,0,0,0,243.32,116.68Zm-35.11-15.8L155.12,47.79a4,4,0,0,0-5.66,0L87.8,109.45a4,4,0,0,0,0,5.66L103,130.34,28.69,204.69a16,16,0,0,0,22.62,22.62L125.66,153l15.23,15.23a4,4,0,0,0,5.66,0l61.66-61.66A4,4,0,0,0,208.21,100.88Z" />
+										</>
+									</svg>
+								</div>
+							</div>
 
-					<div class="prose font-medium text-foreground/80">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							<div class="mb-2 text-xl font-bold">
+								<h3>Legal</h3>
+							</div>
+
+							<div class="prose font-medium text-foreground/80">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							</div>
+						</div>
+
+						<div>
+							<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 400ms">
+								<div class="svg-current size-5 text-accent lg:size-6">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M152,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h32A8,8,0,0,1,152,112Zm80-40V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56H80V48a24,24,0,0,1,24-24h48a24,24,0,0,1,24,24v8h40A16,16,0,0,1,232,72ZM96,56h64V48a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8Zm120,57.61V72H40v41.61A184,184,0,0,0,128,136,184,184,0,0,0,216,113.61Z" />
+										</>
+									</svg>
+								</div>
+							</div>
+
+							<div class="mb-2 text-xl font-bold">
+								<h3>Business automation</h3>
+							</div>
+
+							<div class="prose font-medium text-foreground/80">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							</div>
+						</div>
+
+						<div>
+							<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 500ms">
+								<div class="svg-current size-5 text-accent lg:size-6">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<>
+											<rect width="256" height="256" fill="none" />
+											<path d="M244.24,60a8,8,0,0,0-7.75-.4c-42.93,21-73.59,11.16-106,.78C96.4,49.53,61.2,38.28,12.49,62.06A8,8,0,0,0,8,69.24V189.17a8,8,0,0,0,11.51,7.19c42.93-21,73.59-11.16,106.05-.78,19.24,6.15,38.84,12.42,61,12.42,17.09,0,35.73-3.72,56.91-14.06a8,8,0,0,0,4.49-7.18V66.83A8,8,0,0,0,244.24,60ZM48,152a8,8,0,0,1-16,0V88a8,8,0,0,1,16,0Zm80,8a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm96,8a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z" />
+										</>
+									</svg>
+								</div>
+							</div>
+
+							<div class="mb-2 text-xl font-bold">
+								<h3>Finance</h3>
+							</div>
+
+							<div class="prose font-medium text-foreground/80">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<div>
-					<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 300ms">
-						<div class="svg-current size-5 text-accent lg:size-6">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d=  "M52.69,99.31a16,16,0,0,1,0-22.63l64-64a16,16,0,0,1,22.63,22.63l-64,64a16,16,0,0,1-22.63,0Zm190.63,17.37a16,16,0,0,0-22.63,0l-64,64a16,16,0,0,0,0,22.63h0a16,16,0,0,0,22.63,0l64-64A16,16,0,0,0,243.32,116.68Zm-35.11-15.8L155.12,47.79a4,4,0,0,0-5.66,0L87.8,109.45a4,4,0,0,0,0,5.66L103,130.34,28.69,204.69a16,16,0,0,0,22.62,22.62L125.66,153l15.23,15.23a4,4,0,0,0,5.66,0l61.66-61.66A4,4,0,0,0,208.21,100.88Z"/></svg>
-						</div>
-					</div>
-
-					<div class="mb-2 text-xl font-bold">
-						<h3>Legal</h3>
-					</div>
-
-					<div class="prose font-medium text-foreground/80">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-					</div>
-				</div>
-
-				<div>
-					<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 400ms">
-						<div class="svg-current size-5 text-accent lg:size-6">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M152,112a8,8,0,0,1-8,8H112a8,8,0,0,1,0-16h32A8,8,0,0,1,152,112Zm80-40V200a16,16,0,0,1-16,16H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56H80V48a24,24,0,0,1,24-24h48a24,24,0,0,1,24,24v8h40A16,16,0,0,1,232,72ZM96,56h64V48a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8Zm120,57.61V72H40v41.61A184,184,0,0,0,128,136,184,184,0,0,0,216,113.61Z"/></svg>
-						</div>
-					</div>
-
-					<div class="mb-2 text-xl font-bold">
-						<h3>Business automation</h3>
-					</div>
-
-					<div class="prose font-medium text-foreground/80">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
-					</div>
-				</div>
-
-				<div>
-					<div class="intersect-once mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12 intersect:motion-preset-expand" style="--motion-delay: 500ms">
-						<div class="svg-current size-5 text-accent lg:size-6">
-						  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d=  "M244.24,60a8,8,0,0,0-7.75-.4c-42.93,21-73.59,11.16-106,.78C96.4,49.53,61.2,38.28,12.49,62.06A8,8,0,0,0,8,69.24V189.17a8,8,0,0,0,11.51,7.19c42.93-21,73.59-11.16,106.05-.78,19.24,6.15,38.84,12.42,61,12.42,17.09,0,35.73-3.72,56.91-14.06a8,8,0,0,0,4.49-7.18V66.83A8,8,0,0,0,244.24,60ZM48,152a8,8,0,0,1-16,0V88a8,8,0,0,1,16,0Zm80,8a32,32,0,1,1,32-32A32,32,0,0,1,128,160Zm96,8a8,8,0,0,1-16,0V104a8,8,0,0,1,16,0Z"/></svg>
-						</div>
-					</div>
-
-					<div class="mb-2 text-xl font-bold">
-						<h3>Finance</h3>
-					</div>
-
-					<div class="prose font-medium text-foreground/80">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna.</p>
+				{/* Media */}
+				<div class="h-full lg:col-span-5">
+					<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
+						<img src="/images/placeholder-1.png" alt="Image on mobile" class="aspect-video w-full rounded-lg object-cover lg:hidden" draggable="false" />
+						<img src="/images/placeholder-2.png" alt="Image on desktop" class="hidden aspect-square h-full w-full rounded-lg object-cover lg:block" draggable="false" />
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<!-- Media -->
-		<div class="h-full lg:col-span-5">
-			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<img src="/images/placeholder-1.png" alt="Image on mobile" class="aspect-video w-full rounded-lg object-cover lg:hidden" draggable="false" />
-				<img src="/images/placeholder-2.png" alt="Image on desktop" class="hidden aspect-square h-full w-full rounded-lg object-cover lg:block" draggable="false" />
-			</div>
-		</div>
-	</div>
-</section>
+		</section>
 	)
 }
 
 {
 	variant === 'logos-animation' && (
-<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-		<div class="lg:col-span-6">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
-				<p>This is the subheading</p>
-			</div>
+		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+				<div class="lg:col-span-6">
+					<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+						<p>This is the subheading</p>
+					</div>
 
-			<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
-				<p>This is the heading</p>
-			</h2>
+					<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+						<p>This is the heading</p>
+					</h2>
 
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet purus. Vivamus faucibus neque risus, et dapibus tortor<!-- dignissim in. Donec facilisis justo id leo porttitor consequat -->.</p>
-			</div>
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet purus. Vivamus faucibus neque risus, et dapibus tortor{/* dignissim in. Donec facilisis justo id leo porttitor consequat */}.</p>
+					</div>
 
-			<div class="mt-8 flex flex-wrap items-center gap-4">
-				<a href="#" class="btn btn-primary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out more
-				</a>
-				<a href="#" class="btn btn-ghost btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out even more
-				</a>
-			</div>
+					<div class="mt-8 flex flex-wrap items-center gap-4">
+						<a href="#" class="btn btn-primary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out more
+						</a>
+						<a href="#" class="btn btn-ghost btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out even more
+						</a>
+					</div>
 
-			<hr class="mt-12 mb-8 border-foreground/10" />
+					<hr class="mt-12 mb-8 border-foreground/10" />
 
-			<!-- Logos -->
-			<div class="mt-8">
-				<!-- border-t border-foreground/10 pt-8 -->
-				<div class="mb-6 font-semibold text-foreground/80">
-					<p>Partners and backers:</p>
+					{/* Logos */}
+					<div class="mt-8">
+						{/* border-t border-foreground/10 pt-8 */}
+						<div class="mb-6 font-semibold text-foreground/80">
+							<p>Partners and backers:</p>
+						</div>
+
+						<div class="flex-wrap- md:flex-nowrap- flex items-center justify-start gap-x-6 sm:gap-x-8">
+							<a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 300ms">
+								<span class="relative block">
+									<img src="/logos/canva.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/canva.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">Canva</span>
+							</a>
+
+							<a href="https://www.uber.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 400ms">
+								<span class="relative block">
+									<img src="/logos/uber.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/uber.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">Uber</span>
+							</a>
+
+							<a href="https://www.dhl.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 500ms">
+								<span class="relative block">
+									<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">DHL</span>
+							</a>
+
+							<a href="https://www.hp.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 600ms">
+								<span class="relative block">
+									<img src="/logos/hp.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/hp.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">HP</span>
+							</a>
+
+							<a href="https://deliveroo.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 700ms">
+								<span class="relative block">
+									<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
+									<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
+								</span>
+								<span class="sr-only">Deliveroo</span>
+							</a>
+						</div>
+					</div>
 				</div>
 
-				<div class="flex-wrap- md:flex-nowrap- flex items-center justify-start gap-x-6 sm:gap-x-8">
-					<a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 300ms">
-						<span class="relative block">
-							<img src="/logos/canva.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/canva.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">Canva</span>
-					</a>
-
-					<a href="https://www.uber.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 400ms">
-						<span class="relative block">
-							<img src="/logos/uber.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/uber.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">Uber</span>
-					</a>
-
-					<a href="https://www.dhl.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 500ms">
-						<span class="relative block">
-							<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">DHL</span>
-					</a>
-
-					<a href="https://www.hp.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 600ms">
-						<span class="relative block">
-							<img src="/logos/hp.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/hp.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">HP</span>
-					</a>
-
-					<a href="https://deliveroo.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 700ms">
-						<span class="relative block">
-							<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 transition-opacity group-hover:opacity-0 group-hover:delay-400" draggable="false" />
-							<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-						</span>
-						<span class="sr-only">Deliveroo</span>
-					</a>
+				<div class="h-full lg:col-span-6">
+					<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
+						<div data-lottie="map" class="h-full" />
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="h-full lg:col-span-6">
-			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<div data-lottie="map" class="h-full"></div>
-			</div>
-		</div>
-	</div>
-
-	<script>
-		import lottie from 'lottie-web'
-		import animationData from '../data/animations/map.json'
-
-		document.querySelectorAll('[data-lottie="map"]').forEach((el) => {
-			lottie.loadAnimation({
-				container: el,
-				renderer: 'svg',
-				loop: true,
-				autoplay: true,
-				animationData,
-			})
-		})
-	</script>
-</section>
+		</section>
 	)
 }
 
 {
 	variant === 'video-text' && (
-<section class="grid min-h-[min(50vh,48rem)] place-items-center bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-		<div class="lg:col-span-6">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
-				<p>This is the subheading</p>
-			</div>
+		<section class="grid min-h-[min(50vh,48rem)] place-items-center bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+				<div class="lg:col-span-6">
+					<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+						<p>This is the subheading</p>
+					</div>
 
-			<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
-				<p>This is the heading</p>
-			</h2>
+					<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+						<p>This is the heading</p>
+					</h2>
 
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<!-- <p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est.</p> -->
-				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p>
-			</div>
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						{/* <p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est.</p> */}
+						<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo facilisis.</p>
+					</div>
 
-			<div hidden class="mt-8 flex flex-wrap items-center gap-4">
-				<a href="#" class="btn btn-primary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out more
-				</a>
-				<a href="#" class="btn btn-secondary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out even more
-				</a>
-			</div>
-		</div>
+					<div hidden class="mt-8 flex flex-wrap items-center gap-4">
+						<a href="#" class="btn btn-primary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out more
+						</a>
+						<a href="#" class="btn btn-secondary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out even more
+						</a>
+					</div>
+				</div>
 
-		<div class="lg:order-first lg:col-span-6">
-			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-right-sm">
-				<video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" class="aspect-video h-full w-full rounded-lg object-cover" controls poster="/images/placeholder-1.png"></video>
+				<div class="lg:order-first lg:col-span-6">
+					<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-right-sm">
+						<video src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" class="aspect-video h-full w-full rounded-lg object-cover" controls poster="/images/placeholder-1.png" />
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-</section>
+		</section>
 	)
 }
 
 {
 	variant === 'stats-form' && (
-<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-		<div class="lg:col-span-7">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
-				<p>This is the subheading</p>
-			</div>
+		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+				<div class="lg:col-span-7">
+					<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+						<p>This is the subheading</p>
+					</div>
 
-			<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
-				<p>This is the heading</p>
-			</h2>
+					<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+						<p>This is the heading</p>
+					</h2>
 
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
-				<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+					<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
 
-				<ul>
-					<li>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-					</li>
-					<li>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-					</li>
-					<li>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-					</li>
-				</ul>
+						<ul>
+							<li>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+							</li>
+							<li>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+							</li>
+							<li>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+							</li>
+						</ul>
 
-				<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
-			</div>
+						<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
+					</div>
 
-			<div class="mt-8 flex flex-wrap items-center gap-4">
-				<a href="#" class="btn btn-secondary btn-icon-right">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-					Find out more
-				</a>
-			</div>
+					<div class="mt-8 flex flex-wrap items-center gap-4">
+						<a href="#" class="btn btn-secondary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<>
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</>
+							</svg>
+							Find out more
+						</a>
+					</div>
 
-			<hr class="mt-12 mb-8 border-foreground/10" />
+					<hr class="mt-12 mb-8 border-foreground/10" />
 
-			<!-- Stats -->
-			<div class="mt-8">
-				<!-- border-t border-foreground/10 pt-8 -->
-				<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
-					<li class="flex items-center">
-						<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
+					{/* Stats */}
+					<div class="mt-8">
+						{/* border-t border-foreground/10 pt-8 */}
+						<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
+							<li class="flex items-center">
+								<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">
+									42k
+								</span>
 
-						<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
-							<div>Our Active</div>
-							<div>Users</div>
-						</div>
-					</li>
+								<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
+									<div>Our Active</div>
+									<div>Users</div>
+								</div>
+							</li>
 
-					<li class="flex items-center">
-						<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">3k</span>
+							<li class="flex items-center">
+								<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">
+									3k
+								</span>
 
-						<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
-							<div>Professional</div>
-							<div>Creators</div>
-						</div>
-					</li>
+								<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
+									<div>Professional</div>
+									<div>Creators</div>
+								</div>
+							</li>
 
-					<li class="flex items-center">
-						<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">560k</span>
+							<li class="flex items-center">
+								<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">
+									560k
+								</span>
 
-						<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
-							<div>Weekly</div>
-							<div>Downloads</div>
-						</div>
-					</li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="h-full lg:col-span-5">
-			<div class="rounded-lg border border-foreground/10 bg-background p-8 text-foreground" data-card>
-				<h3 class="mb-4 text-2xl font-semibold">
-					<p>Get in touch</p>
-				</h3>
-
-				<div class="prose mb-6 font-medium text-foreground/80">
-					<p>We're here to help you with any questions you have. Please fill out the form below and we'll get back to you as soon as possible.</p>
+								<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
+									<div>Weekly</div>
+									<div>Downloads</div>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 
-				<Form variant="split" />
+				<div class="h-full lg:col-span-5">
+					<div class="rounded-lg border border-foreground/10 bg-background p-8 text-foreground" data-card>
+						<h3 class="mb-4 text-2xl font-semibold">
+							<p>Get in touch</p>
+						</h3>
+
+						<div class="prose mb-6 font-medium text-foreground/80">
+							<p>We're here to help you with any questions you have. Please fill out the form below and we'll get back to you as soon as possible.</p>
+						</div>
+
+						<Form variant="split" />
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
-</section>
+		</section>
 	)
 }
+
+<script>
+	import lottie from 'lottie-web'
+	import animationData from '../data/animations/map.json'
+
+	document.querySelectorAll('[data-lottie="map"]').forEach((el) => {
+		lottie.loadAnimation({
+			container: el,
+			renderer: 'svg',
+			loop: true,
+			autoplay: true,
+			animationData,
+		})
+	})
+</script>

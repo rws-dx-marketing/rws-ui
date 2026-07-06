@@ -1,0 +1,59 @@
+/* Hides anything outside the active segment; a no-op on segment-locked pages since every rendered node already matches. */
+[data-pricing][data-active-segment='freelancers'] [data-segment]:not([data-segments~='freelancers']),
+[data-pricing][data-active-segment='teams'] [data-segment]:not([data-segments~='teams']),
+[data-pricing][data-active-segment='businesses'] [data-segment]:not([data-segments~='businesses']) {
+	display: none !important;
+}
+
+/* Must be global — view-transition pseudo-elements target the document root, not the component.
+   `view-transition-class` is set per-card in script: card-morph (exists in both segments, so it
+   repositions smoothly) vs card-move (exists in one, so it slides via data-segment-direction). */
+@media (prefers-reduced-motion: no-preference) {
+	::view-transition-group(.card-morph),
+	::view-transition-group(.card-move),
+	::view-transition-old(.card-move),
+	::view-transition-new(.card-move),
+	::view-transition-group(segment-pill),
+	::view-transition-group(.segment-option) {
+		animation-duration: 0.45s;
+		animation-timing-function: cubic-bezier(0.5, 0.05, 0.2, 1);
+	}
+
+	:root[data-segment-direction='forward']::view-transition-old(.card-move) {
+		animation-name: card-exit-left;
+	}
+	:root[data-segment-direction='forward']::view-transition-new(.card-move) {
+		animation-name: card-enter-right;
+	}
+	:root[data-segment-direction='back']::view-transition-old(.card-move) {
+		animation-name: card-exit-right;
+	}
+	:root[data-segment-direction='back']::view-transition-new(.card-move) {
+		animation-name: card-enter-left;
+	}
+}
+
+@keyframes card-exit-left {
+	to {
+		transform: translateX(-160%);
+		opacity: 0;
+	}
+}
+@keyframes card-enter-right {
+	from {
+		transform: translateX(160%);
+		opacity: 0;
+	}
+}
+@keyframes card-exit-right {
+	to {
+		transform: translateX(160%);
+		opacity: 0;
+	}
+}
+@keyframes card-enter-left {
+	from {
+		transform: translateX(-160%);
+		opacity: 0;
+	}
+}
