@@ -10,7 +10,7 @@
 		input[type='url'],
 		select,
 		textarea {
-			@apply block w-full rounded-sm border border-foreground/10 bg-input p-2.5 text-sm font-medium text-foreground focus:border-accent focus:ring-accent;
+			@apply block w-full rounded-sm border border-foreground-softer bg-input p-2.5 text-sm font-medium text-foreground focus:border-accent focus:ring-accent;
 		}
 
 		select:not([size]):not([multiple]) {
@@ -22,7 +22,7 @@
 
 		input[type='checkbox'],
 		input[type='radio'] {
-			@apply mr-2 size-4 border border-foreground/10 bg-input text-accent/80 focus:ring-accent/30;
+			@apply mr-2 size-4 border border-foreground-softer bg-input text-accent/80 focus:ring-accent/30;
 		}
 
 		input[type='checkbox'] {
@@ -49,7 +49,7 @@
 			@apply block w-full text-sm;
 
 			&::file-selector-button {
-				@apply mr-3 ml-0 rounded-sm border border-foreground/10 bg-input px-3 py-2 text-foreground hover:bg-foreground/20 focus-visible:bg-foreground/20 focus-visible:ring-foreground/30;
+				@apply mr-3 ml-0 rounded-sm border border-foreground-softer bg-input px-3 py-2 text-foreground hover:bg-foreground/20 focus-visible:bg-foreground/20 focus-visible:ring-foreground/30;
 			}
 		}
 
@@ -135,7 +135,7 @@
 		}
 
 		.hsfc-TextInput {
-			@apply block rounded-sm! border! border-foreground/10! bg-input! p-2.5! font-sans! text-sm! font-medium! text-foreground! transition-none! hover:shadow-none! focus:border-accent! focus:shadow-none! focus:ring-accent!;
+			@apply block rounded-sm! border! border-foreground-softer! bg-input! p-2.5! font-sans! text-sm! font-medium! text-foreground! transition-none! hover:shadow-none! focus:border-accent! focus:shadow-none! focus:ring-accent!;
 		}
 
 		.hsfc-DropdownInput > input {
@@ -150,7 +150,7 @@
 		}
 
 		.hsfc-DropdownOptions {
-			@apply rounded-sm! border! border-foreground/10! bg-background! font-sans! text-sm! font-medium! text-foreground!;
+			@apply rounded-sm! border! border-foreground-softer! bg-background! font-sans! text-sm! font-medium! text-foreground!;
 		}
 
 		.hsfc-DropdownOptions__Search {
@@ -184,7 +184,7 @@
 		}
 
 		.hsfc-RadioInput {
-			@apply size-4! border-foreground/10! bg-input! text-accent/80! shadow-none! transition-none! focus:ring-accent/30! focus:outline-none!;
+			@apply size-4! border-foreground-softer! bg-input! text-accent/80! shadow-none! transition-none! focus:ring-accent/30! focus:outline-none!;
 
 			&::after {
 				@apply top-1/2! left-1/2! rounded-full! bg-white! mask-none!;
@@ -192,7 +192,7 @@
 		}
 
 		.hsfc-TextareaInput {
-			@apply block rounded-sm! border! border-foreground/10! bg-input! p-2.5! font-sans! text-sm! font-medium! text-foreground! transition-none! hover:shadow-none! focus:border-accent! focus:shadow-none! focus:ring-accent!;
+			@apply block rounded-sm! border! border-foreground-softer! bg-input! p-2.5! font-sans! text-sm! font-medium! text-foreground! transition-none! hover:shadow-none! focus:border-accent! focus:shadow-none! focus:ring-accent!;
 		}
 
 		.hsfc-ErrorAlert {
@@ -212,7 +212,7 @@
 		}
 
 		.hsfc-ProgressBar__Progress {
-			@apply bg-foreground/10!;
+			@apply bg-foreground-soft!;
 		}
 
 		.hsfc-ProgressBar__Progress > div {
@@ -240,6 +240,6 @@
 	}
 
 	[data-theme='primary'] .hubspot-form input[type='submit'] {
-		@apply bg-foreground text-background hover:bg-foreground/80 focus-visible:bg-foreground/80 focus-visible:ring-accent/30;
+		@apply bg-foreground text-background hover:bg-foreground-muted focus-visible:bg-foreground-muted focus-visible:ring-accent/30;
 	}
 }

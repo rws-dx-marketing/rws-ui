@@ -69,7 +69,7 @@
 	}
 
 	.btn-outline {
-		@apply border border-foreground/15 bg-transparent text-foreground hover:bg-foreground-softest focus-visible:bg-foreground-softest focus-visible:ring-foreground-soft;
+		@apply border border-foreground-soft bg-transparent text-foreground hover:bg-foreground-softest focus-visible:bg-foreground-softest focus-visible:ring-foreground-soft;
 	}
 
 	.btn-ghost {

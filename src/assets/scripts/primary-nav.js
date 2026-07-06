@@ -362,7 +362,7 @@ export default function primaryNav() {
 	function appendMessage(text, role) {
 		if (!(searchMessages instanceof HTMLElement)) return null
 		const el = document.createElement('div')
-		el.className = role === 'user' ? 'self-end max-w-[80%] rounded-2xl rounded-br-sm bg-foreground/5 px-4 py-3 text-sm font-medium text-foreground' : 'self-start max-w-[80%] rounded-2xl rounded-bl-sm bg-accent/10 px-4 py-3 text-sm font-medium text-foreground'
+		el.className = role === 'user' ? 'self-end max-w-[80%] rounded-2xl rounded-br-sm bg-foreground-softest px-4 py-3 text-sm font-medium text-foreground' : 'self-start max-w-[80%] rounded-2xl rounded-bl-sm bg-accent-softer px-4 py-3 text-sm font-medium text-foreground'
 		el.textContent = text
 		searchMessages.appendChild(el)
 		syncHeight()
@@ -391,11 +391,11 @@ export default function primaryNav() {
 	function appendLoading() {
 		if (!(searchMessages instanceof HTMLElement)) return null
 		const el = document.createElement('div')
-		el.className = 'self-start flex gap-1 rounded-2xl rounded-bl-sm bg-accent/10 px-4 py-3'
+		el.className = 'self-start flex gap-1 rounded-2xl rounded-bl-sm bg-accent-softer px-4 py-3'
 		el.innerHTML = `
-			<span class="size-1 rounded-full bg-foreground/40 animate-bounce" style="animation-delay:0ms"></span>
-			<span class="size-1 rounded-full bg-foreground/40 animate-bounce" style="animation-delay:150ms"></span>
-			<span class="size-1 rounded-full bg-foreground/40 animate-bounce" style="animation-delay:300ms"></span>
+			<span class="size-1 rounded-full bg-foreground-subtle animate-bounce" style="animation-delay:0ms"></span>
+			<span class="size-1 rounded-full bg-foreground-subtle animate-bounce" style="animation-delay:150ms"></span>
+			<span class="size-1 rounded-full bg-foreground-subtle animate-bounce" style="animation-delay:300ms"></span>
 		`
 		searchMessages.appendChild(el)
 		syncHeight()

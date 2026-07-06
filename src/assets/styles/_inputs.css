@@ -1,10 +1,10 @@
 @layer components {
 	.input {
-		@apply border border-foreground/10 bg-input text-foreground;
+		@apply border border-foreground-softer bg-input text-foreground;
 	}
 
 	.input-search {
-		@apply block w-full rounded-full pr-8 font-medium placeholder:text-foreground/50 focus:border-accent focus:ring-accent;
+		@apply block w-full rounded-full pr-8 font-medium placeholder:text-foreground-subtle focus:border-accent focus:ring-accent;
 	}
 
 	.input-text,
@@ -49,7 +49,7 @@
 		@apply block w-full text-sm focus:border-accent focus:ring-accent;
 
 		&::file-selector-button {
-			@apply mr-3 ml-0 rounded-sm border border-foreground/10 bg-input px-3 py-2 text-foreground hover:bg-foreground/20 focus-visible:bg-foreground/20 focus-visible:ring-foreground/30;
+			@apply mr-3 ml-0 rounded-sm border border-foreground-softer bg-input px-3 py-2 text-foreground hover:bg-foreground/20 focus-visible:bg-foreground/20 focus-visible:ring-foreground/30;
 		}
 	}
 }

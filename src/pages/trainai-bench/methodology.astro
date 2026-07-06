@@ -48,15 +48,15 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<div class="lg:col-span-8">
-				<div class="rounded-lg border border-foreground/10 bg-background px-5.5 pt-5 pb-0 text-foreground" data-card>
-					<div class="divide-y divide-foreground/10" data-accordion data-accordion-persist>
+				<div class="rounded-lg border border-foreground-softer bg-background px-5.5 pt-5 pb-0 text-foreground" data-card>
+					<div class="divide-y divide-foreground-softer" data-accordion data-accordion-persist>
 						<details class="group" open>
 							<summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-left font-semibold group-first:pt-0 in-data-[accordion-locked]:cursor-default md:text-lg">
 								<span class="text-pretty transition-colors group-hover:text-accent in-data-open:text-accent">Grammar check</span>
 								<svg class="size-5 shrink-0 transition-[color,rotate] group-hover:text-accent group-data-[open]:rotate-180 in-data-open:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</summary>
 							<div>
-								<div class="border-t border-foreground/10 py-5">
+								<div class="border-t border-foreground-softer py-5">
 									<div class="prose font-medium text-foreground-muted md:prose-lg">
 										<p>100 sentences/lang, 50/50 split, MCC metric, 3 linguists/sentence</p>
 										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex.</p>
@@ -72,7 +72,7 @@ import Layout from '../../layouts/Layout.astro'
 								<svg class="size-5 shrink-0 transition-[color,rotate] group-hover:text-accent group-data-[open]:rotate-180 in-data-open:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</summary>
 							<div>
-								<div class="border-t border-foreground/10 py-5">
+								<div class="border-t border-foreground-softer py-5">
 									<div class="prose font-medium text-foreground-muted md:prose-lg">
 										<p>100 sentences/lang, 8 error categories, 3-provider LLM judges</p>
 										<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet purus. Vivamus faucibus neque risus, et dapibus tortor.</p>
@@ -88,7 +88,7 @@ import Layout from '../../layouts/Layout.astro'
 								<svg class="size-5 shrink-0 transition-[color,rotate] group-hover:text-accent group-data-[open]:rotate-180 in-data-open:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</summary>
 							<div>
-								<div class="border-t border-foreground/10 py-5">
+								<div class="border-t border-foreground-softer py-5">
 									<div class="prose font-medium text-foreground-muted md:prose-lg">
 										<p>Chars/token, TTFT latency, direct cost impact</p>
 										<p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae. Proin vel ante a orci tempus eleifend ut et magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -141,7 +141,7 @@ import Layout from '../../layouts/Layout.astro'
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mx-auto max-w-3xl">
 				<h1 class="text-3xl font-bold tracking-tight">Methodology</h1>
-				<p class="mt-3 text-base font-medium text-foreground/70">How we evaluate and score AI translation quality.</p>
+				<p class="mt-3 text-base font-medium text-foreground-muted">How we evaluate and score AI translation quality.</p>
 
 				<div class="prose prose-base mt-10 font-medium text-foreground-muted">
 					<h2>Overview</h2>

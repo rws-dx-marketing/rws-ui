@@ -38,7 +38,7 @@ function isActive(href: string) {
 		</script>
 	</head>
 	<body>
-		<header id="site-header" class="sticky top-(--header-top) z-50 border-b border-foreground/5 bg-background py-2.5 text-foreground transition-[top] duration-300" data-theme="default" style="anchor-name: --site-header-anchor;">
+		<header id="site-header" class="sticky top-(--header-top) z-50 border-b border-foreground-softest bg-background py-2.5 text-foreground transition-[top] duration-300" data-theme="default" style="anchor-name: --site-header-anchor;">
 			<div class="mx-auto flex max-w-screen-2xl items-center gap-x-6 px-2.5 lg:px-4.5">
 				<button id="mobile-menu-toggle" type="button" class="btn btn-ghost btn-sm size-8.75 lg:hidden" aria-expanded="false" aria-controls="mobile-menu-panel" aria-label="Toggle main menu">
 					<span class="sr-only">Open main menu</span>
@@ -65,7 +65,7 @@ function isActive(href: string) {
 						{
 							navItems.map((item) => (
 								<li>
-									<a href={item.href} class:list={['block text-sm font-extrabold transition-colors', isActive(item.href) ? 'text-foreground' : 'hover:text-foreground/50']} aria-current={isActive(item.href) ? 'page' : undefined}>
+									<a href={item.href} class:list={['block text-sm font-extrabold transition-colors', isActive(item.href) ? 'text-foreground' : 'hover:text-foreground-subtle']} aria-current={isActive(item.href) ? 'page' : undefined}>
 										{item.label}
 									</a>
 								</li>
@@ -82,26 +82,26 @@ function isActive(href: string) {
 
 					<div class="hidden items-center gap-x-4.5 lg:flex">
 						<div>
-							<button id="desktop-my-rws-menu-button" type="button" class="flex items-center gap-1 text-sm font-semibold transition-colors hover:text-foreground/50 aria-expanded:text-foreground/50" popovertarget="desktop-my-rws-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-my-rws-menu" style="anchor-name: --desktop-my-rws-anchor;">
+							<button id="desktop-my-rws-menu-button" type="button" class="flex items-center gap-1 text-sm font-semibold transition-colors hover:text-foreground-subtle aria-expanded:text-foreground-subtle" popovertarget="desktop-my-rws-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-my-rws-menu" style="anchor-name: --desktop-my-rws-anchor;">
 								<span>My RWS</span>
-								<svg class="mt-0.25 size-3 text-foreground/45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="30"></polyline></svg>
+								<svg class="mt-0.25 size-3 text-foreground-subtle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="30"></polyline></svg>
 							</button>
 
-							<div id="desktop-my-rws-menu" popover="auto" role="menu" aria-labelledby="desktop-my-rws-menu-button" class="dropdown z-20 mt-2 w-60 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="position-anchor: --desktop-my-rws-anchor; top: anchor(--site-header-anchor bottom); right: anchor(right); left: auto; position-area: unset; position-try: none;">
-								<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
-									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+							<div id="desktop-my-rws-menu" popover="auto" role="menu" aria-labelledby="desktop-my-rws-menu-button" class="dropdown bg-tertiary-softest z-20 mt-2 w-60 overflow-clip rounded-lg p-3 shadow-lg" style="position-anchor: --desktop-my-rws-anchor; top: anchor(--site-header-anchor bottom); right: anchor(right); left: auto; position-area: unset; position-try: none;">
+								<div class="border-tertiary-subtle rounded border bg-background p-3 text-foreground">
+									<a href="#" role="menuitem" class="hover:bg-tertiary-soft flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors">
 										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 										<span>My Account</span>
 									</a>
-									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+									<a href="#" role="menuitem" class="hover:bg-tertiary-soft flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors">
 										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 										<span>Technical support</span>
 									</a>
-									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+									<a href="#" role="menuitem" class="hover:bg-tertiary-soft flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors">
 										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 										<span>Training &amp; certification</span>
 									</a>
-									<a href="#" role="menuitem" class="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">
+									<a href="#" role="menuitem" class="hover:bg-tertiary-soft flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors">
 										<span class="inline-flex size-4 shrink-0 items-center justify-center" aria-hidden="true"><svg class="size-4 text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 										<span>Professional services</span>
 									</a>
@@ -110,23 +110,23 @@ function isActive(href: string) {
 						</div>
 
 						<div>
-							<button id="desktop-language-menu-button" type="button" class="flex items-center gap-1 text-sm font-semibold transition-colors hover:text-foreground/50 aria-expanded:text-foreground/50" popovertarget="desktop-language-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-language-menu" style="anchor-name: --desktop-language-anchor;">
+							<button id="desktop-language-menu-button" type="button" class="flex items-center gap-1 text-sm font-semibold transition-colors hover:text-foreground-subtle aria-expanded:text-foreground-subtle" popovertarget="desktop-language-menu" popovertargetaction="toggle" aria-haspopup="menu" aria-controls="desktop-language-menu" style="anchor-name: --desktop-language-anchor;">
 								<span class="sr-only">Language</span>
 								<span>EN</span>
-								<svg class="mt-0.25 size-3 text-foreground/45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="30"></polyline></svg>
+								<svg class="mt-0.25 size-3 text-foreground-subtle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="30"></polyline></svg>
 							</button>
 
-							<div id="desktop-language-menu" popover="auto" role="menu" aria-labelledby="desktop-language-menu-button" class="dropdown z-20 mt-2 w-32 overflow-clip rounded-lg bg-tertiary-lightest p-3 shadow-lg" style="position-anchor: --desktop-language-anchor; top: anchor(--site-header-anchor bottom); right: anchor(right); left: auto; position-area: unset; position-try: none;">
-								<div class="rounded border border-tertiary-lighter/50 bg-background p-3 text-foreground">
-									<a href="#" role="menuitem" aria-label="English" lang="en-gb" class="block rounded-md bg-tertiary-lighter/10 px-2 py-1.5 text-sm font-semibold transition-colors hover:bg-tertiary-lighter/15">English</a>
-									<a href="#" role="menuitem" aria-label="Deutsch" lang="de-de" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">Deutsch</a>
-									<a href="#" role="menuitem" aria-label="Français" lang="fr-fr" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">Français</a>
-									<a href="#" role="menuitem" aria-label="Español" lang="es-ES" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">Español</a>
-									<a href="#" role="menuitem" aria-label="Italiano" lang="it-it" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">Italiano</a>
-									<a href="#" role="menuitem" aria-label="简体中文" lang="zh-CN" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">简体中文</a>
-									<a href="#" role="menuitem" aria-label="繁體中文" lang="zh-TW" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">繁體中文</a>
-									<a href="#" role="menuitem" aria-label="日本語" lang="ja-JP" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">日本語</a>
-									<a href="#" role="menuitem" aria-label="한국어" lang="ko-KR" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-tertiary-lighter/15">한국어</a>
+							<div id="desktop-language-menu" popover="auto" role="menu" aria-labelledby="desktop-language-menu-button" class="dropdown bg-tertiary-softest z-20 mt-2 w-32 overflow-clip rounded-lg p-3 shadow-lg" style="position-anchor: --desktop-language-anchor; top: anchor(--site-header-anchor bottom); right: anchor(right); left: auto; position-area: unset; position-try: none;">
+								<div class="border-tertiary-subtle rounded border bg-background p-3 text-foreground">
+									<a href="#" role="menuitem" aria-label="English" lang="en-gb" class="bg-tertiary-softer hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-semibold transition-colors">English</a>
+									<a href="#" role="menuitem" aria-label="Deutsch" lang="de-de" class="hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-medium transition-colors">Deutsch</a>
+									<a href="#" role="menuitem" aria-label="Français" lang="fr-fr" class="hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-medium transition-colors">Français</a>
+									<a href="#" role="menuitem" aria-label="Español" lang="es-ES" class="hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-medium transition-colors">Español</a>
+									<a href="#" role="menuitem" aria-label="Italiano" lang="it-it" class="hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-medium transition-colors">Italiano</a>
+									<a href="#" role="menuitem" aria-label="简体中文" lang="zh-CN" class="hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-medium transition-colors">简体中文</a>
+									<a href="#" role="menuitem" aria-label="繁體中文" lang="zh-TW" class="hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-medium transition-colors">繁體中文</a>
+									<a href="#" role="menuitem" aria-label="日本語" lang="ja-JP" class="hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-medium transition-colors">日本語</a>
+									<a href="#" role="menuitem" aria-label="한국어" lang="ko-KR" class="hover:bg-tertiary-soft block rounded-md px-2 py-1.5 text-sm font-medium transition-colors">한국어</a>
 								</div>
 							</div>
 						</div>
@@ -227,7 +227,7 @@ function isActive(href: string) {
 						<div id="search-messages" class="flex flex-col gap-3"></div>
 					</div>
 
-					<hr id="search-divider" hidden class="mx-6 border-foreground/15" />
+					<hr id="search-divider" hidden class="mx-6 border-foreground-soft" />
 
 					<form id="search-form">
 						<div class="relative">

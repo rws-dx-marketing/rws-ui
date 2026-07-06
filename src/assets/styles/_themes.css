@@ -7,6 +7,7 @@
 
 	--color-foreground: var(--foreground);
 	--color-foreground-muted: var(--foreground-muted);
+	--color-foreground-subtle: var(--foreground-subtle);
 	--color-foreground-soft: var(--foreground-soft);
 	--color-foreground-softer: var(--foreground-softer);
 	--color-foreground-softest: var(--foreground-softest);
@@ -14,6 +15,7 @@
 
 	--color-accent: var(--accent);
 	--color-accent-muted: var(--accent-muted);
+	--color-accent-subtle: var(--accent-subtle);
 	--color-accent-soft: var(--accent-soft);
 	--color-accent-softer: var(--accent-softer);
 	--color-accent-softest: var(--accent-softest);
@@ -27,24 +29,26 @@
 	[data-theme],
 	[data-card] {
 		--background: var(--background-seed);
-		--background-soft: color-mix(in oklch, var(--background-seed) 96%, var(--foreground-seed));
-		--background-softer: color-mix(in oklch, var(--background-seed) 92%, var(--foreground-seed));
-		--background-softest: color-mix(in oklch, var(--background-seed) 88%, var(--foreground-seed));
-		--background-strong: color-mix(in oklch, var(--background-seed) 12%, white);
+		--background-soft: color-mix(in oklab, var(--background-seed) 96%, var(--foreground-seed));
+		--background-softer: color-mix(in oklab, var(--background-seed) 92%, var(--foreground-seed));
+		--background-softest: color-mix(in oklab, var(--background-seed) 88%, var(--foreground-seed));
+		--background-strong: color-mix(in oklab, var(--background-seed) 12%, white);
 
 		--foreground: var(--foreground-seed);
-		--foreground-muted: color-mix(in oklch, var(--foreground-seed) 80%, var(--background-seed));
-		--foreground-soft: color-mix(in oklch, var(--foreground-seed) 12%, var(--background-seed));
-		--foreground-softer: color-mix(in oklch, var(--foreground-seed) 6%, var(--background-seed));
-		--foreground-softest: color-mix(in oklch, var(--foreground-seed) 3%, var(--background-seed));
-		--foreground-strong: color-mix(in oklch, var(--foreground-seed) 12%, black);
+		--foreground-muted: color-mix(in oklab, var(--foreground-seed) 80%, var(--background-seed));
+		--foreground-subtle: color-mix(in oklab, var(--foreground-seed) 60%, var(--background-seed));
+		--foreground-soft: color-mix(in oklab, var(--foreground-seed) 12%, var(--background-seed));
+		--foreground-softer: color-mix(in oklab, var(--foreground-seed) 6%, var(--background-seed));
+		--foreground-softest: color-mix(in oklab, var(--foreground-seed) 3%, var(--background-seed));
+		--foreground-strong: color-mix(in oklab, var(--foreground-seed) 12%, black);
 
 		--accent: var(--accent-seed);
-		--accent-muted: color-mix(in oklch, var(--accent-seed) 80%, var(--background-seed));
-		--accent-soft: color-mix(in oklch, var(--accent-seed) 24%, var(--background-seed));
-		--accent-softer: color-mix(in oklch, var(--accent-seed) 12%, var(--background-seed));
-		--accent-softest: color-mix(in oklch, var(--accent-seed) 6%, var(--background-seed));
-		--accent-strong: color-mix(in oklch, var(--accent-seed) 82%, var(--foreground-seed));
+		--accent-muted: color-mix(in oklab, var(--accent-seed) 80%, var(--background-seed));
+		--accent-subtle: color-mix(in oklab, var(--accent-seed) 50%, var(--background-seed));
+		--accent-soft: color-mix(in oklab, var(--accent-seed) 24%, var(--background-seed));
+		--accent-softer: color-mix(in oklab, var(--accent-seed) 12%, var(--background-seed));
+		--accent-softest: color-mix(in oklab, var(--accent-seed) 6%, var(--background-seed));
+		--accent-strong: color-mix(in oklab, var(--accent-seed) 82%, var(--foreground-seed));
 		--on-accent: var(--background-seed);
 
 		--input: var(--background-soft);
@@ -60,21 +64,21 @@
 @layer base {
 	[data-theme='default'] {
 		--background-seed: var(--color-white);
-		--foreground-seed: color-mix(in oklch, var(--color-neutral), black 64%);
+		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
 		--accent-seed: var(--color-primary);
 	}
 
 	[data-theme='pale'] {
-		--background-seed: color-mix(in oklch, var(--color-neutral), white 96%);
-		--foreground-seed: color-mix(in oklch, var(--color-neutral), black 64%);
+		--background-seed: color-mix(in oklab, var(--color-neutral), white 96%);
+		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
 		--accent-seed: var(--color-primary);
 		--input: var(--background-strong);
 	}
 
 	[data-theme='dots'],
 	[data-theme='dots-enhanced'] {
-		--background-seed: color-mix(in oklch, var(--accent-seed) 4%, white);
-		--foreground-seed: color-mix(in oklch, var(--color-neutral), black 64%);
+		--background-seed: color-mix(in oklab, var(--accent-seed) 4%, white);
+		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
 		--accent-seed: var(--color-primary);
 	}
 
@@ -108,7 +112,7 @@
 	}
 
 	[data-theme='default'] [data-card] {
-		--background-seed: color-mix(in oklch, var(--color-neutral), white 96%);
+		--background-seed: color-mix(in oklab, var(--color-neutral), white 96%);
 		--input: var(--background-strong);
 	}
 
@@ -122,27 +126,27 @@
 	}
 
 	[data-theme='primary'] [data-card] {
-		--background-seed: color-mix(in oklch, var(--color-primary), black 8%);
+		--background-seed: color-mix(in oklab, var(--color-primary), black 8%);
 	}
 
 	[data-theme='secondary'] [data-card] {
-		--background-seed: color-mix(in oklch, var(--color-secondary), black 8%);
+		--background-seed: color-mix(in oklab, var(--color-secondary), black 8%);
 	}
 
 	[data-theme='tertiary'] [data-card] {
-		--background-seed: color-mix(in oklch, var(--color-tertiary), black 8%);
+		--background-seed: color-mix(in oklab, var(--color-tertiary), black 8%);
 	}
 
 	[data-theme='primary'] .btn-primary {
-		@apply bg-foreground text-background hover:bg-primary-softest focus-visible:bg-primary-softest focus-visible:ring-primary-soft;
+		@apply bg-foreground text-background hover:bg-primary-soft focus-visible:bg-primary-softest focus-visible:ring-primary-soft;
 	}
 
 	[data-theme='secondary'] .btn-secondary {
-		@apply bg-foreground text-background hover:bg-secondary-softest focus-visible:bg-secondary-softest focus-visible:ring-secondary-soft;
+		@apply bg-foreground text-background hover:bg-secondary-soft focus-visible:bg-secondary-softest focus-visible:ring-secondary-soft;
 	}
 
 	[data-theme='tertiary'] .btn-tertiary {
-		@apply bg-foreground text-background hover:bg-tertiary-softest focus-visible:bg-tertiary-softest focus-visible:ring-tertiary-soft;
+		@apply bg-foreground text-background hover:bg-tertiary-soft focus-visible:bg-tertiary-softest focus-visible:ring-tertiary-soft;
 	}
 }
 

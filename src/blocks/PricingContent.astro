@@ -238,7 +238,7 @@ const matrix = [
 			<section class="bg-background pt-2 pb-8 text-foreground md:pt-4 md:pb-12 lg:pt-6 lg:pb-16" data-theme="default">
 				<div class="mx-auto max-w-screen-xl px-8 text-center">
 					<div class="mb-5 flex justify-center">
-						<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-xl flex-col rounded-[2rem] border border-foreground/10 bg-background p-1.5 sm:flex-row sm:rounded-full" data-card>
+						<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-xl flex-col rounded-[2rem] border border-foreground-softer bg-background p-1.5 sm:flex-row sm:rounded-full" data-card>
 							<span data-segment-indicator aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary shadow-xl transition-[transform,width,height] duration-300 ease-out motion-reduce:transition-none" style="view-transition-name:segment-pill" />
 							{segments.map((s) => (
 								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground-muted transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:segment-option-${s.key};view-transition-class:segment-option`}>
@@ -295,7 +295,7 @@ const matrix = [
 						const [brand, productName] = splitName(p.name)
 						return (
 							<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=freelancers]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} style={`view-transition-name:card-${id}`}>
-								<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground/10 bg-background p-6 text-foreground data-highlighted:glow-animate data-highlighted:border-accent">
+								<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground-softer bg-background p-6 text-foreground data-highlighted:glow-animate data-highlighted:border-accent">
 									<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
 										<svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 											<>
@@ -308,7 +308,7 @@ const matrix = [
 
 									{p.priceType === 'billing' && (
 										<div class="absolute top-4 right-4">
-											<button class="btn btn-outline btn-icon-both btn-xs w-full rounded-full bg-background px-2 font-bold tracking-wider text-foreground/40" id={`currency-button-${id}`} popovertarget={`currency-popover-${id}`} popovertargetaction="toggle" type="button" style={`anchor-name: --currency-anchor-${id};`}>
+											<button class="btn btn-outline btn-icon-both btn-xs w-full rounded-full bg-background px-2 font-bold tracking-wider text-foreground-subtle" id={`currency-button-${id}`} popovertarget={`currency-popover-${id}`} popovertargetaction="toggle" type="button" style={`anchor-name: --currency-anchor-${id};`}>
 												<span class="flex-1 text-left" data-currency-label>
 													GBP
 												</span>
@@ -318,7 +318,7 @@ const matrix = [
 												</svg>
 											</button>
 
-											<div data-card id={`currency-popover-${id}`} popover="auto" role="menu" aria-labelledby={`currency-button-${id}`} class="dropdown z-10 mt-1 w-fit rounded border border-foreground/10 shadow-lg" style={`position-anchor: --currency-anchor-${id}; position-area: bottom span-left;`}>
+											<div data-card id={`currency-popover-${id}`} popover="auto" role="menu" aria-labelledby={`currency-button-${id}`} class="dropdown z-10 mt-1 w-fit rounded border border-foreground-softer shadow-lg" style={`position-anchor: --currency-anchor-${id}; position-area: bottom span-left;`}>
 												<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-xs font-bold tracking-wider select-none">
 													{[
 														['GBP', '£'],
@@ -343,12 +343,12 @@ const matrix = [
 										<span>{brand}</span> <span class="text-secondary">{productName}</span>
 									</h3>
 
-									<hr class="my-4 border-foreground/10" />
+									<hr class="my-4 border-foreground-softer" />
 
 									{p.priceType === 'billing' && (
 										<>
 											<div class="mb-3 flex items-center gap-2">
-												<div class="grid w-fit grid-cols-2 rounded-full border border-foreground/10 bg-foreground/5 p-0.5">
+												<div class="grid w-fit grid-cols-2 rounded-full border border-foreground-softer bg-foreground-softest p-0.5">
 													<button type="button" data-billing="monthly" class="btn btn-xs transition-all">
 														Monthly
 													</button>
@@ -357,7 +357,7 @@ const matrix = [
 													</button>
 												</div>
 
-												<span class="text-[0.625rem]/none font-bold tracking-wider text-foreground/40 uppercase">Contract duration</span>
+												<span class="text-[0.625rem]/none font-bold tracking-wider text-foreground-subtle uppercase">Contract duration</span>
 											</div>
 
 											<div data-annual-pill hidden class="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-emerald-500/12 px-3 py-1 text-xs font-semibold text-emerald-600">
@@ -374,7 +374,7 @@ const matrix = [
 
 											<div class="mb-4">
 												<div class="flex items-baseline gap-2">
-													<span data-was data-was-yearly={p.price.wasGbp ?? ''} data-was-monthly={p.price.monthlyGbp} hidden class="text-lg font-medium text-foreground/40 line-through">
+													<span data-was data-was-yearly={p.price.wasGbp ?? ''} data-was-monthly={p.price.monthlyGbp} hidden class="text-lg font-medium text-foreground-subtle line-through">
 														£{p.price.wasGbp ?? ''}
 													</span>
 
@@ -383,7 +383,7 @@ const matrix = [
 													</span>
 												</div>
 
-												<p class="mt-1 text-sm font-medium text-foreground/60">
+												<p class="mt-1 text-sm font-medium text-foreground-subtle">
 													<span data-billing-note>
 														<span data-note-rolling hidden>
 															per user / month · billed monthly
@@ -397,7 +397,7 @@ const matrix = [
 													</span>
 												</p>
 
-												<div data-card id={`cadence-popover-${id}`} popover="auto" role="menu" aria-labelledby={`cadence-button-${id}`} class="dropdown z-10 mt-1 w-max rounded border border-foreground/10 shadow-lg" style={`position-anchor: --cadence-anchor-${id}; position-area: bottom span-left;`}>
+												<div data-card id={`cadence-popover-${id}`} popover="auto" role="menu" aria-labelledby={`cadence-button-${id}`} class="dropdown z-10 mt-1 w-max rounded border border-foreground-softer shadow-lg" style={`position-anchor: --cadence-anchor-${id}; position-area: bottom span-left;`}>
 													<ul class="grid gap-px p-2 text-sm font-medium select-none">
 														{[
 															['yearly', 'Billed yearly (annual contract)'],
@@ -422,7 +422,7 @@ const matrix = [
 										</p>
 									))}
 
-									<hr class="my-4 border-foreground/10" />
+									<hr class="my-4 border-foreground-softer" />
 
 									{p.segments.map((segment) => (
 										<ul data-segment data-segments={segment} role="list" class="flex flex-1 flex-col gap-3 text-left">
@@ -434,7 +434,7 @@ const matrix = [
 															<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
 														</svg>
 													</span>
-													<span class="text-sm/snug text-foreground/90">{f}</span>
+													<span class="text-sm/snug text-foreground-muted">{f}</span>
 												</li>
 											))}
 										</ul>
@@ -451,7 +451,7 @@ const matrix = [
 
 								<div class="relative">
 									<div class="grid h-10 place-items-center">
-										<span class="h-full w-0.5 bg-linear-to-br from-primary/15 to-secondary/15 [grid-area:1/1]" />
+										<span class="h-full w-0.5 bg-linear-to-br from-primary-soft to-secondary-soft [grid-area:1/1]" />
 
 										<span class="flex size-6 items-center justify-center rounded-full border-2 border-primary bg-background text-base font-bold text-primary shadow [grid-area:1/1]">
 											<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -463,7 +463,7 @@ const matrix = [
 									</div>
 
 									<div class="rounded-lg bg-background" data-card>
-										<div class="rounded-lg border border-primary/15 bg-linear-to-br from-primary/7.5 to-secondary/7.5 p-4 text-left">
+										<div class="rounded-lg border border-primary-soft bg-linear-to-br from-primary-softest to-secondary-softest p-4 text-left">
 											<div class="flex items-center gap-2">
 												<span class="flex size-5 items-center justify-center rounded-sm bg-linear-to-br from-primary to-secondary text-white">
 													<svg class="size-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -484,7 +484,7 @@ const matrix = [
 				}
 			</div>
 
-			<p class="mx-auto mt-8 max-w-4xl text-center text-xs/relaxed font-medium text-pretty text-foreground/50">*New Trados subscriptions only. Get instant access to Studio 2024, plus Studio 2026 at launch. Applies to first-year annual plans. Prices exclude VAT.</p>
+			<p class="mx-auto mt-8 max-w-4xl text-center text-xs/relaxed font-medium text-pretty text-foreground-subtle">*New Trados subscriptions only. Get instant access to Studio 2024, plus Studio 2026 at launch. Applies to first-year annual plans. Prices exclude VAT.</p>
 		</div>
 	</section>
 
@@ -508,10 +508,10 @@ const matrix = [
 	<section class="bg-background pb-16 text-foreground md:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="overflow-x-auto lg:overflow-visible">
-				<div class="min-w-[56rem] overflow-clip rounded-lg border border-foreground/10" data-accordion data-accordion-multi>
+				<div class="min-w-[56rem] overflow-clip rounded-lg border border-foreground-softer" data-accordion data-accordion-multi>
 					{/* Column header */}
 					<div class="sticky top-(--content-top) z-20 transition-[top] duration-300">
-						<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b border-foreground/10 bg-background/50 backdrop-blur group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] stuck:rounded-t-none">
+						<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b border-foreground-softer bg-background/50 backdrop-blur group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] stuck:rounded-t-none">
 							<div></div>
 							{
 								order.map((id) => {
@@ -523,7 +523,7 @@ const matrix = [
 												<span>{brand} </span>
 												<span class="text-secondary">{productName}</span>
 											</span>
-											<span class="mt-1 text-xs text-foreground/60">
+											<span class="mt-1 text-xs text-foreground-subtle">
 												{p.priceType === 'billing' && (
 													<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
 														£{p.price.annualGbp}
@@ -545,16 +545,16 @@ const matrix = [
 					{
 						matrix.map((sec) => (
 							<details class="group/sec" open>
-								<summary class="flex cursor-pointer list-none items-center justify-between border-b border-foreground/10 bg-foreground/5 px-4 py-3 group-[&:last-child:not([open])]/sec:border-b-0">
+								<summary class="flex cursor-pointer list-none items-center justify-between border-b border-foreground-softer bg-foreground-softest px-4 py-3 group-[&:last-child:not([open])]/sec:border-b-0">
 									<h4 class="text-base font-semibold transition-colors">{sec.title}</h4>
-									<svg class="size-5 shrink-0 text-foreground/50 transition-[color,rotate] group-data-[open]/sec:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<svg class="size-5 shrink-0 text-foreground-subtle transition-[color,rotate] group-data-[open]/sec:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 										<rect width="256" height="256" fill="none" />
 										<polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
 									</svg>
 								</summary>
 								<div>
 									{sec.rows.map((r) => (
-										<div data-comparison class="grid border-b border-foreground/10 group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-last/sec:last:border-b-0">
+										<div data-comparison class="grid border-b border-foreground-softer group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-last/sec:last:border-b-0">
 											<div class="flex items-center px-4 py-4 text-sm font-medium">
 												{r.tooltip ? (
 													<>
@@ -577,7 +577,7 @@ const matrix = [
 											{order.map((id) => {
 												const v = r.vals[id]
 												return (
-													<div data-segment data-segments={segmentTokens[id]} class="flex items-center justify-center border-l border-foreground/5 px-3 py-4 text-center">
+													<div data-segment data-segments={segmentTokens[id]} class="flex items-center justify-center border-l border-foreground-softest px-3 py-4 text-center">
 														{v === true && (
 															<span class="relative flex size-5 items-center justify-center rounded-full bg-accent-softer text-accent">
 																<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
@@ -599,7 +599,7 @@ const matrix = [
 															</span>
 														)}
 														{(v === false || v == null) && (
-															<span class="text-foreground/30" aria-label="Not included">
+															<span class="text-foreground-subtle" aria-label="Not included">
 																–
 															</span>
 														)}
@@ -623,7 +623,7 @@ const matrix = [
 																	<span class="text-sm font-medium">{v}</span>
 																)}
 																{r.lw && v === 'Add-on' && (
-																	<span class="inline-flex items-center gap-1 rounded-full border border-primary/20 bg-primary/8 px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-primary uppercase">
+																	<span class="inline-flex items-center gap-1 rounded-full border border-primary-soft bg-primary-softest px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-primary uppercase">
 																		<svg class="size-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 																			<rect width="256" height="256" fill="none" />
 																			<path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z" />
@@ -645,7 +645,7 @@ const matrix = [
 				</div>
 			</div>
 
-			<p class="mx-auto mt-8 max-w-3xl text-center text-xs/relaxed text-pretty text-foreground/50">Trados Go and Trados Freelance prices reflect per-user list pricing (excluding VAT). Studio Pro, Team, Business, Enterprise and Edge / GroupShare are tailored to your needs — speak to sales for a quote. Prices are set in GBP; other currencies are indicative conversions.</p>
+			<p class="mx-auto mt-8 max-w-3xl text-center text-xs/relaxed text-pretty text-foreground-subtle">Trados Go and Trados Freelance prices reflect per-user list pricing (excluding VAT). Studio Pro, Team, Business, Enterprise and Edge / GroupShare are tailored to your needs — speak to sales for a quote. Prices are set in GBP; other currencies are indicative conversions.</p>
 		</div>
 	</section>
 </div>

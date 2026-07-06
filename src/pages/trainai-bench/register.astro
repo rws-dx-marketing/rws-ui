@@ -30,7 +30,7 @@ import Form from '../../components/Form.astro'
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mx-auto max-w-lg">
 				<h1 class="text-3xl font-bold tracking-tight">Get access</h1>
-				<p class="mt-3 text-base font-medium text-foreground/70">Register to explore the full TrainAI Bench dataset, including detailed per-language and per-domain breakdowns.</p>
+				<p class="mt-3 text-base font-medium text-foreground-muted">Register to explore the full TrainAI Bench dataset, including detailed per-language and per-domain breakdowns.</p>
 
 				<form class="mt-10 grid gap-5">
 					<div class="grid gap-5 sm:grid-cols-2">
@@ -68,13 +68,13 @@ import Form from '../../components/Form.astro'
 					</div>
 
 					<div>
-						<label for="use-case" class="mb-1.5 block text-sm font-semibold">How will you use the data? <span class="font-normal text-foreground/50">(optional)</span></label>
+						<label for="use-case" class="mb-1.5 block text-sm font-semibold">How will you use the data? <span class="font-normal text-foreground-subtle">(optional)</span></label>
 						<textarea id="use-case" name="use_case" rows="3" class="input w-full resize-none" placeholder="e.g. evaluating models for our multilingual product..."></textarea>
 					</div>
 
 					<div class="flex items-start gap-3">
 						<input id="agree" type="checkbox" name="agree" class="mt-0.5 size-4 shrink-0 accent-accent" required />
-						<label for="agree" class="text-sm font-medium text-foreground/70">I agree to the <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">terms of use</a> and <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">privacy policy</a>.</label>
+						<label for="agree" class="text-sm font-medium text-foreground-muted">I agree to the <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">terms of use</a> and <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">privacy policy</a>.</label>
 					</div>
 
 					<button type="submit" class="btn btn-tertiary btn-lg w-full">Request access</button>
@@ -120,11 +120,11 @@ import Form from '../../components/Form.astro'
 					</a>
 				</div>
 
-				<hr class="mt-12 mb-8 border-foreground/10" />
+				<hr class="mt-12 mb-8 border-foreground-softer" />
 
 				<!-- Stats -->
 				<div class="mt-8">
-					<!-- border-t border-foreground/10 pt-8 -->
+					<!-- border-t border-foreground-softer pt-8 -->
 					<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
@@ -157,7 +157,7 @@ import Form from '../../components/Form.astro'
 			</div>
 
 			<div class="h-full lg:col-span-5">
-				<div class="rounded-lg border border-foreground/10 bg-background p-8 text-foreground" data-theme="default">
+				<div class="rounded-lg border border-foreground-softer bg-background p-8 text-foreground" data-theme="default">
 					<h3 class="mb-4 text-2xl font-semibold">
 						<p>Get access today</p>
 					</h3>

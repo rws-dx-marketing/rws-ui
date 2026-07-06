@@ -6,6 +6,7 @@ const semanticPrimary = [
 	{ name: 'primary-softest', className: 'bg-primary-softest' },
 	{ name: 'primary-softer', className: 'bg-primary-softer' },
 	{ name: 'primary-soft', className: 'bg-primary-soft' },
+	{ name: 'primary-subtle', className: 'bg-primary-subtle' },
 	{ name: 'primary-muted', className: 'bg-primary-muted' },
 	{ name: 'primary', className: 'bg-primary' },
 	{ name: 'primary-strong', className: 'bg-primary-strong' },
@@ -15,6 +16,7 @@ const semanticSecondary = [
 	{ name: 'secondary-softest', className: 'bg-secondary-softest' },
 	{ name: 'secondary-softer', className: 'bg-secondary-softer' },
 	{ name: 'secondary-soft', className: 'bg-secondary-soft' },
+	{ name: 'secondary-subtle', className: 'bg-secondary-subtle' },
 	{ name: 'secondary-muted', className: 'bg-secondary-muted' },
 	{ name: 'secondary', className: 'bg-secondary' },
 	{ name: 'secondary-strong', className: 'bg-secondary-strong' },
@@ -24,6 +26,7 @@ const semanticTertiary = [
 	{ name: 'tertiary-softest', className: 'bg-tertiary-softest' },
 	{ name: 'tertiary-softer', className: 'bg-tertiary-softer' },
 	{ name: 'tertiary-soft', className: 'bg-tertiary-soft' },
+	{ name: 'tertiary-subtle', className: 'bg-tertiary-subtle' },
 	{ name: 'tertiary-muted', className: 'bg-tertiary-muted' },
 	{ name: 'tertiary', className: 'bg-tertiary' },
 	{ name: 'tertiary-strong', className: 'bg-tertiary-strong' },
@@ -33,6 +36,7 @@ const semanticNeutral = [
 	{ name: 'foreground-softest', className: 'bg-foreground-softest' },
 	{ name: 'foreground-softer', className: 'bg-foreground-softer' },
 	{ name: 'foreground-soft', className: 'bg-foreground-soft' },
+	{ name: 'foreground-subtle', className: 'bg-foreground-subtle' },
 	{ name: 'foreground-muted', className: 'bg-foreground-muted' },
 	{ name: 'foreground', className: 'bg-foreground' },
 	{ name: 'foreground-strong', className: 'bg-foreground-strong' },
@@ -58,7 +62,7 @@ const themeVariants = themes.map((theme) => ({
 			<h2 class="text-2xl font-semibold">Colours</h2>
 			<h3 class="text-xl font-semibold">Primary / Hidcote Blue</h3>
 			<!-- <p class="mt-2 text-body-subtle">Named tokens mapped to the primary palette.</p> -->
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticPrimary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
@@ -75,7 +79,7 @@ const themeVariants = themes.map((theme) => ({
 
 		<section class="mb-12 space-y-6">
 			<h3 class="text-xl font-semibold">Secondary / Hillier Pink</h3>
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticSecondary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
@@ -92,7 +96,7 @@ const themeVariants = themes.map((theme) => ({
 
 		<section class="mb-12 space-y-6">
 			<h3 class="text-xl font-semibold">Tertiary / Galaxy Purple</h3>
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticTertiary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
@@ -109,7 +113,7 @@ const themeVariants = themes.map((theme) => ({
 
 		<section class="mb-12 space-y-6">
 			<h3 class="text-xl font-semibold">Neutral</h3>
-			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
+			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticNeutral.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
@@ -279,9 +283,9 @@ const themeVariants = themes.map((theme) => ({
 
 			<div class="mt-6 flex items-center gap-4">
 				<div class="btn-group" role="group">
-					<button class="btn btn-primary border-foreground/15">Button 1</button>
-					<button class="btn btn-primary border-foreground/15">Button 2</button>
-					<button class="btn btn-primary border-foreground/15">Button 3</button>
+					<button class="btn btn-primary border-foreground-soft">Button 1</button>
+					<button class="btn btn-primary border-foreground-soft">Button 2</button>
+					<button class="btn btn-primary border-foreground-soft">Button 3</button>
 				</div>
 			</div>
 

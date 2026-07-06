@@ -29,9 +29,9 @@ import Layout from '../../layouts/Layout.astro'
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Filters -->
-			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground/10 bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
+			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground-softer bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
 				<div class="flex flex-col items-center justify-between gap-4 p-4 md:flex-row">
-					<div class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground/5 p-1.25">
+					<div class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground-softest p-1.25">
 						<button class="btn btn-ghost rounded-sm text-foreground-muted data-[active]:bg-background data-[active]:text-foreground" data-active>Grammar</button>
 						<button class="btn btn-ghost rounded-sm text-foreground-muted">Translation</button>
 						<button class="btn btn-ghost rounded-sm text-foreground-muted">Tokenizer</button>
@@ -42,16 +42,16 @@ import Layout from '../../layouts/Layout.astro'
 						<div>
 							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="language-filter-button" popovertarget="language-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --language-filter-anchor;">
 								<span class="flex-1 text-left">Languages</span>
-								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
-							<div data-card id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground/10 shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
+							<div data-card id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground-softer shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
 								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="language-filter-button">
 									{
 										['Albanian', 'Arabic', 'Assamese', 'Basque', 'Czech', 'English', 'Fijian', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi', 'Hungarian', 'Icelandic', 'Japanese', 'Khmer', 'Kinyarwanda', 'Korean', 'Kyrgyz', 'Nepali', 'Polish', 'Russian', 'Simplified Chinese', 'Spanish', 'Swahili', 'Tagalog', 'Tamil', 'Thai', 'Turkish', 'Vietnamese', 'Welsh', 'Zulu'].map((lang) => (
 											<li>
-												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground-softest has-checked:bg-accent-softer">
 													<input data-filter-input type="checkbox" value={lang.toLowerCase().replace(/\s+/g, '-')} name="language" class="input input-checkbox" />
 													{lang}
 												</label>
@@ -59,7 +59,7 @@ import Layout from '../../layouts/Layout.astro'
 										))
 									}
 								</ul>
-								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent" disabled>Clear selected</button></div>
+								<div data-filter-clear hidden class="mx-2 border-t border-foreground-softer pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" disabled>Clear selected</button></div>
 							</div>
 						</div>
 
@@ -67,16 +67,16 @@ import Layout from '../../layouts/Layout.astro'
 						<div>
 							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="model-filter-button" popovertarget="model-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --model-filter-anchor;">
 								<span class="flex-1 text-left">Models</span>
-								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
-							<div data-card id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground/10 shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-left;">
+							<div data-card id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground-softer shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-left;">
 								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="model-filter-button">
 									{
 										['claude-opus-4.6', 'claude-sonnet-4.6', 'jamba-2', 'claude-haiku-4.6', 'deepseek-v3.2', 'grok-4.20', 'llama-4-scout', 'deepseek-r2', 'gpt-5-mini', 'gemini-3-flash-preview', 'yi-2-large', 'qwen-3-72b', 'gemini-3-pro-preview', 'mistral-medium-3', 'command-r-plus', 'gpt-5.4', 'gpt-5', 'llama-4-maverick', 'gpt-5-nano', 'phi-5', 'mistral-large-3', 'qwen-3-235b', 'gemini-3-pro', 'command-r', 'kimi-k2.6'].map((model) => (
 											<li>
-												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground-softest has-checked:bg-accent-softer">
 													<input data-filter-input type="checkbox" value={model} name="model" class="input input-checkbox" />
 													{model}
 												</label>
@@ -84,7 +84,7 @@ import Layout from '../../layouts/Layout.astro'
 										))
 									}
 								</ul>
-								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent" disabled>Clear selected</button></div>
+								<div data-filter-clear hidden class="mx-2 border-t border-foreground-softer pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" disabled>Clear selected</button></div>
 							</div>
 						</div>
 
@@ -92,7 +92,7 @@ import Layout from '../../layouts/Layout.astro'
 						<div>
 							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" type="button">
 								<span class="flex-1 text-left">Filters</span>
-								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 							</button>
 						</div>
@@ -101,7 +101,7 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<!-- Charts -->
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Latency bar chart</h3>
 				<ul>
 					<li>Avg seconds to respond (bar) + median (dot overlay) per model, brand color-coded, model variants toggle</li>
@@ -109,7 +109,7 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<div class="grid gap-8 md:grid-cols-2">
-				<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8 md:aspect-square">
+				<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8 md:aspect-square">
 					<h3 class="mb-4 text-xl font-bold text-foreground-muted">Cost vs. performance scatter</h3>
 					<ul class="font-medium text-foreground-muted">
 						<li>Score (%) vs. cost per 1M output tokens (USD)</li>
@@ -119,7 +119,7 @@ import Layout from '../../layouts/Layout.astro'
 					</ul>
 				</div>
 
-				<div class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8 md:aspect-square">
+				<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8 md:aspect-square">
 					<h3 class="mb-4 text-xl font-bold text-foreground-muted">Score vs. latency scatter</h3>
 					<ul class="font-medium text-foreground-muted">
 						<li>Score (%) vs. avg latency (seconds)</li>
@@ -133,20 +133,20 @@ import Layout from '../../layouts/Layout.astro'
 	<section hidden class="bg-background py-16 text-foreground" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<h1 class="text-3xl font-bold tracking-tight">Economics</h1>
-			<p class="mt-3 max-w-2xl text-base font-medium text-foreground/70">Cost per word and cost-quality trade-offs across benchmarked models.</p>
+			<p class="mt-3 max-w-2xl text-base font-medium text-foreground-muted">Cost per word and cost-quality trade-offs across benchmarked models.</p>
 
-			<div class="mt-10 overflow-x-auto rounded-lg border border-foreground/10">
+			<div class="mt-10 overflow-x-auto rounded-lg border border-foreground-softer">
 				<table class="w-full text-sm">
-					<thead class="border-b border-foreground/10 bg-foreground/3">
+					<thead class="border-b border-foreground-softer bg-foreground/3">
 						<tr>
-							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground/50 uppercase">Model</th>
-							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">Cost / 1k tokens</th>
-							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">Cost / word</th>
-							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">COMET</th>
-							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground/50 uppercase">Quality / cost</th>
+							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground-subtle uppercase">Model</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">Cost / 1k tokens</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">Cost / word</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">COMET</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">Quality / cost</th>
 						</tr>
 					</thead>
-					<tbody class="divide-y divide-foreground/5">
+					<tbody class="divide-y divide-foreground-softest">
 						{
 							[
 								{ model: 'Language Weaver', cost1k: '$0.006', costWord: '$0.0001', comet: '86.8', ratio: 'Excellent' },
@@ -158,12 +158,12 @@ import Layout from '../../layouts/Layout.astro'
 								{ model: 'Claude 3.5 Sonnet', cost1k: '$0.015', costWord: '$0.0004', comet: '88.9', ratio: 'Moderate' },
 								{ model: 'GPT-4o', cost1k: '$0.015', costWord: '$0.0004', comet: '89.4', ratio: 'Moderate' },
 							].map((row) => (
-								<tr class="transition-colors hover:bg-foreground/2">
+								<tr class="transition-colors hover:bg-foreground-softest">
 									<td class="px-4 py-3.5 font-medium">{row.model}</td>
-									<td class="px-4 py-3.5 text-right text-foreground/75 tabular-nums">{row.cost1k}</td>
-									<td class="px-4 py-3.5 text-right text-foreground/75 tabular-nums">{row.costWord}</td>
+									<td class="px-4 py-3.5 text-right text-foreground-muted tabular-nums">{row.cost1k}</td>
+									<td class="px-4 py-3.5 text-right text-foreground-muted tabular-nums">{row.costWord}</td>
 									<td class="px-4 py-3.5 text-right font-semibold tabular-nums">{row.comet}</td>
-									<td class="px-4 py-3.5 text-right font-semibold text-foreground/75">{row.ratio}</td>
+									<td class="px-4 py-3.5 text-right font-semibold text-foreground-muted">{row.ratio}</td>
 								</tr>
 							))
 						}

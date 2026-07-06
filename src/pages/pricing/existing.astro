@@ -20,35 +20,35 @@ import Layout from '../../layouts/Trados.astro'
 				<ul class="ml-auto flex items-center gap-4 rounded-full">
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-usd" type="radio" value="usd" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" checked />
+							<input id="currency-usd" type="radio" value="usd" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" checked />
 							<label for="currency-usd" class="pl-2 font-semibold">USD</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
+							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
 							<label for="currency-gbp" class="pl-2 font-semibold">GBP</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
+							<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
 							<label for="currency-eur" class="pl-2 font-semibold">EUR</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
+							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
 							<label for="currency-jpy" class="pl-2 font-semibold">JPY</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
+							<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
 							<label for="currency-cad" class="pl-2 font-semibold">CAD</label>
 						</div>
 					</li>
@@ -67,12 +67,12 @@ import Layout from '../../layouts/Trados.astro'
 
 			<div class="grid gap-8 md:grid-cols-2 md:gap-10">
 				<!-- Pricing Card -->
-				<div class="bg-card text-card-foreground flex flex-col overflow-hidden rounded-lg border border-foreground/10 p-6 text-center xl:p-10">
+				<div class="flex flex-col overflow-hidden rounded-lg border border-foreground-softer p-6 text-center xl:p-10" data-card>
 					<!-- <div class="absolute inset-x-0 top-0 h-4 bg-linear-to-r from-tertiary via-primary to-secondary"></div> -->
 
 					<h3 class="mt-4- mb-6 text-2xl font-semibold">Upgrade your Studio Freelance license</h3>
 
-					<!-- <span class="mb-6 inline-flex items-center justify-center gap-4 text-5xl font-bold">$34<span class="text-lg text-foreground/33">per month</span></span> -->
+					<!-- <span class="mb-6 inline-flex items-center justify-center gap-4 text-5xl font-bold">$34<span class="text-lg text-foreground-subtle">per month</span></span> -->
 
 					<div class="prose font-medium text-foreground-muted md:prose-lg">
 						<p>If you have a Studio Freelance 2021 or 2022 perpetual license, you can upgrade to Studio Freelance 2024.</p>
@@ -90,12 +90,12 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 
 				<!-- Pricing Card -->
-				<div class="bg-card text-card-foreground flex flex-col overflow-hidden rounded-lg border border-foreground/10 p-6 text-center xl:p-10">
+				<div class="text-foreground flex flex-col overflow-hidden rounded-lg border border-foreground-softer p-6 text-center xl:p-10" data-card>
 					<!-- <div class="absolute inset-x-0 top-0 h-4 bg-linear-to-r from-tertiary via-primary to-secondary"></div> -->
 
 					<h3 class="mt-4- mb-6 text-2xl font-semibold">Upgrade your Studio Freelance Plus license</h3>
 
-					<!-- <span class="mb-6 inline-flex items-center justify-center gap-4 text-5xl font-bold">$47<span class="text-lg text-foreground/33">per month</span></span> -->
+					<!-- <span class="mb-6 inline-flex items-center justify-center gap-4 text-5xl font-bold">$47<span class="text-lg text-foreground-subtle">per month</span></span> -->
 
 					<div class="prose font-medium text-foreground-muted md:prose-lg">
 						<p>If you have a Studio Freelance Plus 2021 or 2022 perpetual license, you can upgrade to Studio Freelance Plus 2024 or Studio Freelance 2024.</p>
@@ -114,7 +114,7 @@ import Layout from '../../layouts/Trados.astro'
 			</div>
 
 			<div class="mt-12 text-center">
-				<p class="text-sm text-foreground/50">NOTE: The upgrade path from Studio 2019 and below is no longer available. Sign-up to one of our <a href="/pricing/">subscription plans</a> to download the latest version of Studio.</p>
+				<p class="text-sm text-foreground-subtle">NOTE: The upgrade path from Studio 2019 and below is no longer available. Sign-up to one of our <a href="/pricing/">subscription plans</a> to download the latest version of Studio.</p>
 			</div>
 		</div>
 	</section>
@@ -128,7 +128,7 @@ import Layout from '../../layouts/Trados.astro'
 			</div>
 			<div class="space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0 lg:grid-cols-3">
 				<div>
-					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent-softer lg:size-12">
 						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
 						<!-- <svg class="size-5 text-accent lg:size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 							<path fill-rule="evenodd" d="M7 6a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-2v-4a3 3 0 0 0-3-3H7V6Z" clip-rule="evenodd"></path>
@@ -143,7 +143,7 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 
 				<div>
-					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent-softer lg:size-12">
 						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path></svg> -->
 						<!-- <svg class="size-5 text-accent lg:size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 							<path fill-rule="evenodd" d="M12 2a7 7 0 0 0-7 7 3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V9a5 5 0 1 1 10 0v7.083A2.919 2.919 0 0 1 14.083 19H14a2 2 0 0 0-2-2h-1a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a2 2 0 0 0 1.732-1h.351a4.917 4.917 0 0 0 4.83-4H19a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3 7 7 0 0 0-7-7Zm1.45 3.275a4 4 0 0 0-4.352.976 1 1 0 0 0 1.452 1.376 2.001 2.001 0 0 1 2.836-.067 1 1 0 1 0 1.386-1.442 4 4 0 0 0-1.321-.843Z" clip-rule="evenodd"></path>
@@ -156,7 +156,7 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 
 				<div>
-					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent-softer lg:size-12">
 						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd"></path><path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path></svg> -->
 						<!-- <svg class="size-5 text-accent lg:size-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
 							<path fill-rule="evenodd" d="M13 11.15V4a1 1 0 1 0-2 0v7.15L8.78 8.374a1 1 0 1 0-1.56 1.25l4 5a1 1 0 0 0 1.56 0l4-5a1 1 0 1 0-1.56-1.25L13 11.15Z" clip-rule="evenodd"></path>
@@ -176,22 +176,22 @@ import Layout from '../../layouts/Trados.astro'
 	<section class="bg-background pt-16 pb-16 text-foreground md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme="dots">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Pricing Cards -->
-			<div id="pricingTabs" class="bg-card text-card-foreground divide-y divide-foreground/10 rounded-lg border border-foreground/10 lg:grid lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+			<div id="pricingTabs" class="text-foreground divide-y divide-foreground-softer rounded-lg border border-foreground-softer lg:grid lg:grid-cols-3 lg:divide-x lg:divide-y-0" data-card>
 				<div class="col-span-2 p-6 lg:p-8">
 					<h3 class="mb-8 text-3xl font-bold">Add-ons and extras</h3>
 
 					<ul class="grid grid-cols-[repeat(2,minmax(max-content,1fr))] text-center font-semibold text-foreground-muted md:grid-cols-[repeat(4,minmax(max-content,1fr))] md:rounded-lg" id="pricing-tabs" data-tabs-toggle="#pricing-tabs-content" data-tabs-active-classes="text-gray-900 bg-gray-100 dark:bg-gray-600 dark:text-white" data-tabs-inactive-classes="bg-white hover:text-gray-700 hover:bg-gray-50 dark:hover:text-white dark:bg-gray-700 dark:hover:bg-gray-600" role="tablist">
 						<li class="w-full" role="presentation">
-							<button id="language-weaver-tab" type="button" role="tab" aria-controls="language-weaver-content" aria-selected="true" data-tabs-target="#language-weaver-content" data-plan-target="#language-weaver-plan" class="inline-block w-full rounded-tl border border-r-0 border-b-0 border-foreground/10 p-4 md:rounded-l md:border-b">Language Weaver</button>
+							<button id="language-weaver-tab" type="button" role="tab" aria-controls="language-weaver-content" aria-selected="true" data-tabs-target="#language-weaver-content" data-plan-target="#language-weaver-plan" class="inline-block w-full rounded-tl border border-r-0 border-b-0 border-foreground-softer p-4 md:rounded-l md:border-b">Language Weaver</button>
 						</li>
 						<li class="w-full" role="presentation">
-							<button id="cohere-tab" type="button" role="tab" aria-controls="cohere-content" aria-selected="false" data-tabs-target="#cohere-content" data-plan-target="#cohere-plan" class="inline-block w-full rounded-tr border border-b-0 border-foreground/10 p-4 md:rounded-tr-none md:border-r-0 md:border-b">Cohere</button>
+							<button id="cohere-tab" type="button" role="tab" aria-controls="cohere-content" aria-selected="false" data-tabs-target="#cohere-content" data-plan-target="#cohere-plan" class="inline-block w-full rounded-tr border border-b-0 border-foreground-softer p-4 md:rounded-tr-none md:border-r-0 md:border-b">Cohere</button>
 						</li>
 						<li class="w-full" role="presentation">
-							<button id="standard-tab" type="button" role="tab" aria-controls="standard-content" aria-selected="false" data-tabs-target="#standard-content" data-plan-target="#standard-plan" class="inline-block w-full rounded-bl border border-r-0 border-foreground/10 p-4 md:rounded-bl-none">MultiTerm</button>
+							<button id="standard-tab" type="button" role="tab" aria-controls="standard-content" aria-selected="false" data-tabs-target="#standard-content" data-plan-target="#standard-plan" class="inline-block w-full rounded-bl border border-r-0 border-foreground-softer p-4 md:rounded-bl-none">MultiTerm</button>
 						</li>
 						<li class="w-full" role="presentation">
-							<button id="enterprise-tab" type="button" role="tab" aria-controls="enterprise-content" aria-selected="false" data-tabs-target="#enterprise-content" data-plan-target="#enterprise-plan" class="inline-block w-full rounded-br border border-foreground/10 p-4 md:rounded-r">Passolo</button>
+							<button id="enterprise-tab" type="button" role="tab" aria-controls="enterprise-content" aria-selected="false" data-tabs-target="#enterprise-content" data-plan-target="#enterprise-plan" class="inline-block w-full rounded-br border border-foreground-softer p-4 md:rounded-r">Passolo</button>
 						</li>
 					</ul>
 
@@ -230,14 +230,14 @@ import Layout from '../../layouts/Trados.astro'
 					</div>
 				</div>
 
-				<div class="relative flex bg-foreground/2 p-6 lg:p-8">
+				<div class="relative flex bg-foreground-softest p-6 lg:p-8">
 					<div id="language-weaver-plan" class="hidden w-full self-center">
 						<div class="mb-4 text-2xl font-semibold">Language Weaver MT subscription for translators</div>
 						<div class="font-medium">Starts at</div>
 						<div class="mb-4 inline-flex items-center text-5xl font-bold">
 							<span class="text-[90%]">$</span>
 							<span class="ml-1">9</span>
-							<span class="ml-3 text-lg text-foreground/40">per month, billed annually</span>
+							<span class="ml-3 text-lg text-foreground-subtle">per month, billed annually</span>
 						</div>
 
 						<div class="mt-4 mb-6 flex justify-between" data-qty-group>
@@ -245,7 +245,7 @@ import Layout from '../../layouts/Trados.astro'
 								<label for="language-weaver-quantity">Quantity:</label>
 								<div class="flex items-center gap-2">
 									<button type="button" data-qty-dec aria-label="Decrease quantity">−</button>
-									<input id="language-weaver-quantity" data-qty-input type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground/10 bg-transparent text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="999" value="1" />
+									<input id="language-weaver-quantity" data-qty-input type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground-softer bg-transparent text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="999" value="1" />
 									<button type="button" data-qty-inc aria-label="Increase quantity">+</button>
 								</div>
 							</div>
@@ -260,7 +260,7 @@ import Layout from '../../layouts/Trados.astro'
 					</div>
 
 					<div id="standard-plan" class="hidden w-full self-center">
-						<select id="small" class="absolute top-2.25 right-2 max-w-[10.5ch] rounded-full border border-foreground/10 px-3 py-1.5 text-xs font-semibold focus:ring-accent">
+						<select id="small" class="absolute top-2.25 right-2 max-w-[10.5ch] rounded-full border border-foreground-softer px-3 py-1.5 text-xs font-semibold focus:ring-accent">
 							<option>Choose a currency</option>
 							<option value="USD" selected>$&nbsp; USD</option>
 							<option value="GBP">£&nbsp; GBP</option>
@@ -271,14 +271,14 @@ import Layout from '../../layouts/Trados.astro'
 
 						<div class="mb-4 text-2xl font-semibold">MultiTerm 2024 Desktop</div>
 						<div class="font-medium">Starts at</div>
-						<div class="mb-6 inline-flex items-center justify-center gap-2 text-5xl font-bold">$495 <span hidden class="text-base text-foreground/33">per month, billed annually</span></div>
+						<div class="mb-6 inline-flex items-center justify-center gap-2 text-5xl font-bold">$495 <span hidden class="text-base text-foreground-subtle">per month, billed annually</span></div>
 
 						<!-- <div class="mt-4 mb-6 flex justify-between">
 							<div class="flex items-center gap-4">
 								<label for="quantity">Quantity:</label>
 								<div class="flex items-center gap-2">
 									<button type="button" id="qty-decrease" aria-label="Decrease quantity">−</button>
-									<input id="quantity" type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground/10 bg-transparent text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="999" value="1" />
+									<input id="quantity" type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground-softer bg-transparent text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="999" value="1" />
 									<button type="button" id="qty-increase" aria-label="Increase quantity">+</button>
 								</div>
 							</div>
@@ -313,7 +313,7 @@ import Layout from '../../layouts/Trados.astro'
 					<div class="rounded-t-lg bg-background p-8 text-foreground lg:p-12" data-theme="tertiary">
 						<h3 class="text-2xl font-bold">MultiTerm 2024 Desktop</h3>
 
-						<button type="button" class="absolute top-4 right-4 inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-foreground/50 transition-colors hover:bg-foreground/5 hover:text-foreground" data-dialog-close>
+						<button type="button" class="absolute top-4 right-4 inline-flex items-center rounded-full bg-transparent p-1.5 text-sm text-foreground-subtle transition-colors hover:bg-foreground-softest hover:text-foreground" data-dialog-close>
 							<svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 							<span class="sr-only">Close modal</span>
 						</button>
@@ -324,13 +324,13 @@ import Layout from '../../layouts/Trados.astro'
 							<p>Collaborate using our central terminology tool for consistent, high-quality content across departments and with translators.</p>
 
 							<div class="mt-8">
-								<div class="rounded border border-foreground/10 p-4" data-qty-group>
+								<div class="rounded border border-foreground-softer p-4" data-qty-group>
 									<div class="flex items-center justify-between">
 										<div class="flex items-center gap-4">
 											<label for="modal-quantity">Quantity</label>
 											<div class="flex items-center gap-2">
 												<button type="button" data-qty-dec aria-label="Decrease quantity">−</button>
-												<input id="modal-quantity" data-qty-input type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground/10 text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="100" value="1" />
+												<input id="modal-quantity" data-qty-input type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground-softer text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="100" value="1" />
 												<button type="button" data-qty-inc aria-label="Increase quantity">+</button>
 											</div>
 										</div>

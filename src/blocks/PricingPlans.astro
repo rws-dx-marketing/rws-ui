@@ -22,35 +22,35 @@
 			<ul class="ml-auto flex items-center gap-4">
 				<li>
 					<div class="inline-flex items-center">
-						<input id="currency-usd" type="radio" value="usd" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" checked />
+						<input id="currency-usd" type="radio" value="usd" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" checked />
 						<label for="currency-usd" class="pl-2 font-semibold">USD</label>
 					</div>
 				</li>
 
 				<li>
 					<div class="inline-flex items-center">
-						<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
+						<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
 						<label for="currency-gbp" class="pl-2 font-semibold">GBP</label>
 					</div>
 				</li>
 
 				<li>
 					<div class="inline-flex items-center">
-						<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
+						<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
 						<label for="currency-eur" class="pl-2 font-semibold">EUR</label>
 					</div>
 				</li>
 
 				<li>
 					<div class="inline-flex items-center">
-						<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
+						<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
 						<label for="currency-jpy" class="pl-2 font-semibold">JPY</label>
 					</div>
 				</li>
 
 				<li>
 					<div class="inline-flex items-center">
-						<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
+						<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-2 focus:ring-accent/50 focus:outline-none" />
 						<label for="currency-cad" class="pl-2 font-semibold">CAD</label>
 					</div>
 				</li>
@@ -60,7 +60,7 @@
 		<!-- Pricing cards -->
 		<div class="grid items-center gap-6 md:grid-cols-2 xl:gap-10">
 			<!-- Pricing Card -->
-			<div class="flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 p-6 text-center xl:p-10">
+			<div class="flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground-softer p-6 text-center xl:p-10">
 				<!-- <div class="absolute inset-x-0 top-0 h-4 bg-linear-to-r from-tertiary via-primary to-secondary"></div> -->
 
 				<div>
@@ -70,7 +70,7 @@
 						<span class="text-[90%]">$</span>
 						<span class="ml-1 line-through">34</span>
 						<span class="ml-1.5 text-accent">27</span>
-						<span class="ml-3 text-lg text-foreground/33">per month</span>
+						<span class="ml-3 text-lg text-foreground-subtle">per month</span>
 					</span>
 
 					<div class="prose font-medium text-foreground-muted md:prose-lg">
@@ -146,7 +146,7 @@
 			</div>
 
 			<!-- Pricing Card -->
-			<div class="bg-card glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 p-8 text-center md:order-none xl:p-10">
+			<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 p-8 text-center md:order-none xl:p-10" data-card>
 				<!-- <span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80">Most popular</span> -->
 
 				<div>
@@ -157,14 +157,14 @@
 					<span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 						<span class="text-[90%]">$</span>
 						<span class="ml-1">47</span>
-						<span class="ml-3 text-lg text-foreground/33">per month</span>
+						<span class="ml-3 text-lg text-foreground-subtle">per month</span>
 					</span>
 
 					<!-- <span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 	<span class="text-[90%]">$</span>
 	<span class="ml-1 line-through">47</span>
 	<span class="ml-1.5 text-accent">37</span>
-	<span class="ml-3 text-lg text-foreground/33">per month</span>
+	<span class="ml-3 text-lg text-foreground-subtle">per month</span>
 </span> -->
 
 					<div class="prose font-medium text-foreground-muted md:prose-lg">
@@ -178,7 +178,7 @@
 
 				<div>
 					<ul role="list" class="space-y-4 text-left">
-						<li class="text-foreground/66">
+						<li class="text-foreground-subtle">
 							<span class="font-medium">The same features as Trados Go plus:</span>
 						</li>
 						<li class="flex items-center space-x-3">

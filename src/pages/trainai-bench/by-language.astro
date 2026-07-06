@@ -29,23 +29,23 @@ import Layout from '../../layouts/Layout.astro'
 	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Filters -->
-			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground/10 bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
+			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground-softer bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
 				<div class="flex flex-col items-center justify-between gap-4 p-4 md:flex-row">
 					<div class="flex gap-8">
 						<!-- Language -->
 						<div>
 							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="language-filter-button" popovertarget="language-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --language-filter-anchor;">
 								<span class="flex-1 text-left">Thai</span>
-								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
-							<div data-card id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground/10 shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-right;">
+							<div data-card id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground-softer shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-right;">
 								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="language-filter-button">
 									{
 										['Albanian', 'Arabic', 'Assamese', 'Basque', 'Czech', 'English', 'Fijian', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi', 'Hungarian', 'Icelandic', 'Japanese', 'Khmer', 'Kinyarwanda', 'Korean', 'Kyrgyz', 'Nepali', 'Polish', 'Russian', 'Simplified Chinese', 'Spanish', 'Swahili', 'Tagalog', 'Tamil', 'Thai', 'Turkish', 'Vietnamese', 'Welsh', 'Zulu'].map((lang) => (
 											<li>
-												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground-softest has-checked:bg-accent-softer">
 													<input data-filter-input type="radio" value={lang.toLowerCase().replace(/\s+/g, '-')} name="language" class="input input-radio" />
 													{lang}
 												</label>
@@ -68,7 +68,7 @@ import Layout from '../../layouts/Layout.astro'
 						</div>
 					</div>
 
-					<div hidden class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground/5 p-1.25">
+					<div hidden class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground-softest p-1.25">
 						<button class="btn btn-ghost rounded-sm text-foreground-muted data-[active]:bg-background data-[active]:text-foreground" data-active>Grammar</button>
 						<button class="btn btn-ghost rounded-sm text-foreground-muted">Translation</button>
 						<button class="btn btn-ghost rounded-sm text-foreground-muted">Tokenizer</button>
@@ -79,16 +79,16 @@ import Layout from '../../layouts/Layout.astro'
 						<div>
 							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="model-filter-button" popovertarget="model-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --model-filter-anchor;">
 								<span class="flex-1 text-left">Models</span>
-								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
-							<div data-card id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground/10 shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-left;">
+							<div data-card id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground-softer shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-left;">
 								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="model-filter-button">
 									{
 										['claude-opus-4.6', 'claude-sonnet-4.6', 'jamba-2', 'claude-haiku-4.6', 'deepseek-v3.2', 'grok-4.20', 'llama-4-scout', 'deepseek-r2', 'gpt-5-mini', 'gemini-3-flash-preview', 'yi-2-large', 'qwen-3-72b', 'gemini-3-pro-preview', 'mistral-medium-3', 'command-r-plus', 'gpt-5.4', 'gpt-5', 'llama-4-maverick', 'gpt-5-nano', 'phi-5', 'mistral-large-3', 'qwen-3-235b', 'gemini-3-pro', 'command-r', 'kimi-k2.6'].map((model) => (
 											<li>
-												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/5 has-checked:bg-accent/10">
+												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground-softest has-checked:bg-accent-softer">
 													<input data-filter-input type="checkbox" value={model} name="model" class="input input-checkbox" />
 													{model}
 												</label>
@@ -96,7 +96,7 @@ import Layout from '../../layouts/Layout.astro'
 										))
 									}
 								</ul>
-								<div data-filter-clear hidden class="mx-2 border-t border-foreground/10 pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent" disabled>Clear selected</button></div>
+								<div data-filter-clear hidden class="mx-2 border-t border-foreground-softer pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" disabled>Clear selected</button></div>
 							</div>
 						</div>
 
@@ -104,7 +104,7 @@ import Layout from '../../layouts/Layout.astro'
 						<div>
 							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" type="button">
 								<span class="flex-1 text-left">Filters</span>
-								<span class="ml-1 rounded-full bg-accent/10 px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
+								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 							</button>
 						</div>
@@ -120,7 +120,7 @@ import Layout from '../../layouts/Layout.astro'
 							<h2 class="font-semibold">Gemini 3 Pro Preview</h2>
 							<p class="text-sm font-medium text-foreground-muted">Google</p>
 						</div>
-						<span class="shrink-0 rounded-full bg-accent/10 px-2.5 py-1 text-xs font-semibold text-foreground-muted">Best grammar</span>
+						<span class="shrink-0 rounded-full bg-accent-softer px-2.5 py-1 text-xs font-semibold text-foreground-muted">Best grammar</span>
 					</div>
 					<div class="mt-4 flex items-end justify-between">
 						<div>
@@ -137,7 +137,7 @@ import Layout from '../../layouts/Layout.astro'
 							<h2 class="font-semibold">GPT 5.4</h2>
 							<p class="text-sm font-medium text-foreground-muted">OpenAI</p>
 						</div>
-						<span class="shrink-0 rounded-full bg-accent/10 px-2.5 py-1 text-xs font-semibold text-foreground-muted">Best translation</span>
+						<span class="shrink-0 rounded-full bg-accent-softer px-2.5 py-1 text-xs font-semibold text-foreground-muted">Best translation</span>
 					</div>
 					<div class="mt-4 flex items-end justify-between">
 						<div>
@@ -154,7 +154,7 @@ import Layout from '../../layouts/Layout.astro'
 							<h2 class="font-semibold">Gemini 3 Flash</h2>
 							<p class="text-sm font-medium text-foreground-muted">Google</p>
 						</div>
-						<span class="shrink-0 rounded-full bg-accent/10 px-2.5 py-1 text-xs font-semibold text-foreground-muted">Best tokenizer</span>
+						<span class="shrink-0 rounded-full bg-accent-softer px-2.5 py-1 text-xs font-semibold text-foreground-muted">Best tokenizer</span>
 					</div>
 					<div class="mt-4 flex items-end justify-between">
 						<div>
@@ -167,26 +167,26 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<!-- Charts -->
-			<div class="relative z-[1] mt-8 overflow-hidden rounded-lg border border-foreground/5 bg-foreground/2.5 text-foreground">
-				<div class="flex flex-col gap-4 border-b border-foreground/10 px-6 py-4">
+			<div class="relative z-[1] mt-8 overflow-hidden rounded-lg border border-foreground-softest bg-foreground/2.5 text-foreground">
+				<div class="flex flex-col gap-4 border-b border-foreground-softer px-6 py-4">
 					<div>
 						<h3 class="m-0 text-xl font-bold text-foreground-muted">Bar chart — all models ranked by grammar MCC for Thai</h3>
 					</div>
 
 					<div class="flex items-center justify-between gap-4">
 						<div class="flex min-w-0 items-center gap-[18px]">
-							<div class="inline-flex gap-0.5 rounded bg-foreground/5 p-1.25">
+							<div class="inline-flex gap-0.5 rounded bg-foreground-softest p-1.25">
 								<button type="button" class="btn btn-ghost rounded-sm bg-background text-foreground">Grammar</button>
 								<button type="button" class="btn btn-ghost rounded-sm text-foreground-muted">Translation</button>
 								<button type="button" class="btn btn-ghost rounded-sm text-foreground-muted">Tokenizer</button>
 							</div>
 							<div hidden class="min-w-0">
 								<h3 class="m-0 text-xl font-bold text-foreground-muted">Bar chart — all models ranked by grammar MCC for Thai</h3>
-								<p class="mt-0.5 mb-0 text-xs text-foreground/40">Horizontal bars · brand color-coded · sorted by score</p>
+								<p class="mt-0.5 mb-0 text-xs text-foreground-subtle">Horizontal bars · brand color-coded · sorted by score</p>
 							</div>
 						</div>
 						<div class="flex flex-none flex-col items-end gap-2">
-							<span class="inline-flex items-center rounded-full border border-accent/20 bg-accent/10 px-2.5 py-1 text-xs font-bold text-accent tabular-nums">11 of 34 models</span>
+							<span class="inline-flex items-center rounded-full border border-accent/20 bg-accent-softer px-2.5 py-1 text-xs font-bold text-accent tabular-nums">11 of 34 models</span>
 						</div>
 					</div>
 				</div>
@@ -208,7 +208,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 43.6436%; background: rgb(17, 17, 17);"></div>
-									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 83.6436%;">0.44</span>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 83.6436%;">0.44</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -218,7 +218,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 22.7836%; background: rgb(66, 133, 244);"></div>
-									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 62.7836%;">0.23</span>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 62.7836%;">0.23</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -228,7 +228,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 5.48357%; background: rgb(66, 133, 244);"></div>
-									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 45.4836%;">0.05</span>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 45.4836%;">0.05</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -238,7 +238,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 4.82805%; background: rgb(255, 112, 0);"></div>
-									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 44.828%;">0.05</span>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 44.828%;">0.05</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -248,7 +248,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 4.45435%; background: rgb(66, 133, 244);"></div>
-									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 44.4544%;">0.04</span>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 44.4544%;">0.04</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -258,7 +258,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 2.54906%; background: rgb(217, 119, 87);"></div>
-									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 42.5491%;">0.03</span>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 42.5491%;">0.03</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -268,7 +268,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 2.37624%; background: rgb(66, 133, 244);"></div>
-									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 42.3762%;">0.02</span>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 42.3762%;">0.02</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -278,7 +278,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 1.2%; background: rgb(255, 112, 0);"></div>
-									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 40%;">0.00</span>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 40%;">0.00</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -288,7 +288,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 35.9709%; width: 4.02911%; background: rgb(16, 163, 127);"></div>
-									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 35.9709%;">-0.04</span>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 35.9709%;">-0.04</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -298,7 +298,7 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 35.4117%; width: 4.58831%; background: rgb(57, 89, 76);"></div>
-									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 35.4117%;">-0.05</span>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 35.4117%;">-0.05</span>
 								</div>
 							</div>
 							<div class="group relative mb-1.5 flex items-center gap-3.5">
@@ -308,41 +308,41 @@ import Layout from '../../layouts/Layout.astro'
 								</div>
 								<div class="relative mr-10 h-6 flex-1 cursor-default">
 									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 6.94303%; width: 33.057%; background: rgb(14, 165, 233);"></div>
-									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/70" style="left: 6.94303%;">-0.33</span>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground-muted" style="left: 6.94303%;">-0.33</span>
 								</div>
 							</div>
 						</div>
 						<div class="relative mt-0.5 h-4" style="margin-left: calc(184px); margin-right: 40px;">
-							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 0%;">-0.40</span>
-							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 20%;">-0.20</span>
-							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 40%;">0.00</span>
-							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 60%;">0.20</span>
-							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 80%;">0.40</span>
-							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground/40" style="left: 100%;">0.60</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 0%;">-0.40</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 20%;">-0.20</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 40%;">0.00</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 60%;">0.20</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 80%;">0.40</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 100%;">0.60</span>
 						</div>
-						<p class="mt-1.5 text-center text-[11px] text-foreground/40">MCC</p>
+						<p class="mt-1.5 text-center text-[11px] text-foreground-subtle">MCC</p>
 					</div>
 				</div>
-				<div class="border-t border-foreground/10 px-6 py-3">
+				<div class="border-t border-foreground-softer px-6 py-3">
 					<a class="text-[13px] font-semibold text-accent no-underline hover:underline" href="#methodology">How we measure this — methodology &amp; metric definitions →</a>
 				</div>
 			</div>
 
-			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Bar chart – all models ranked by grammar MCC</h3>
 				<ul class="font-medium text-foreground-muted">
 					<li>Horizontal bars, brand color-coded, sorted by score</li>
 				</ul>
 			</div>
 
-			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Bar chart – all models ranked by translation MCC</h3>
 				<ul class="font-medium text-foreground-muted">
 					<li>Horizontal bars, brand color-coded, sorted by score</li>
 				</ul>
 			</div>
 
-			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground/5 bg-foreground/2.5 p-8">
+			<div hidden class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Bar chart – all models ranked by characters per token</h3>
 				<ul class="font-medium text-foreground-muted">
 					<li>Horizontal bars, brand color-coded, sorted by score</li>
