@@ -92,10 +92,6 @@
 		--foreground-seed: var(--color-on-primary);
 		--accent-seed: var(--color-on-primary);
 		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-tertiary) 100%);
-
-		/* background-seed to foreground-seed only spans about half the lightness
-		   range it does on the default theme, so the shared foreground-soft/er/est
-		   mix percentages need doubling to read at the same strength. */
 		--tint-boost: 3;
 	}
 
@@ -140,11 +136,11 @@
 	}
 
 	[data-theme='secondary'] [data-card] {
-		--background-seed: color-mix(in oklab, var(--color-secondary), black 8%);
+		--background-seed: color-mix(in oklab, var(--color-secondary), white 8%);
 	}
 
 	[data-theme='tertiary'] [data-card] {
-		--background-seed: color-mix(in oklab, var(--color-tertiary), black 8%);
+		--background-seed: color-mix(in oklab, var(--color-tertiary), black 12%);
 	}
 
 	[data-theme='primary'] .btn-primary {

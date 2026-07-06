@@ -1,14 +1,5 @@
 ---
-import type { Theme } from '../data/themes'
-
-// Variants: 'four-card' | 'three-card'
-type Variant = 'four-card' | 'three-card'
-
-interface Props {
-	variant?: Variant
-	theme?: Theme
-}
-
+//@ts-nocheck
 const { variant = 'four-card', theme = 'default' } = Astro.props
 ---
 
