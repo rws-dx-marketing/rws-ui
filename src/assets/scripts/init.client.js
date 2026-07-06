@@ -13,6 +13,7 @@ import headerScroll from './header-scroll'
 import postNav from './post-nav'
 import invokerCommandsPolyfill from './invoker-commands-polyfill'
 import pricingContent from './pricing-content'
+import tabs from './tabs'
 
 if (typeof window !== 'undefined') {
 	Observer.start()
@@ -40,5 +41,6 @@ if (typeof window !== 'undefined') {
 		carousel()
 		postNav()
 		pricingContent()
+		tabs()
 	})
 }
