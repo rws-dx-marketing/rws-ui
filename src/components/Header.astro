@@ -7,7 +7,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 	showGrowler && (
 		<>
 			{/* Growler */}
-			<section id="growler" class="flex min-h-12 w-full items-center justify-between border-b border-foreground-softest bg-background py-2 text-foreground" role="alert" data-theme="secondary">
+			<section id="growler" class="flex min-h-12 w-full items-center justify-between border-b border-foreground-softest py-2" role="alert" data-theme="secondary">
 				<div class="mx-auto max-w-7xl px-3 sm:px-4">
 					<div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
 						<div class="text-center text-sm font-medium text-pretty">
@@ -29,7 +29,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 			</section>
 
 			{/* Growler with close */}
-			<section hidden id="growler" tabindex="-1" class="fixed z-999 flex w-full justify-between border border-b border-foreground-softer bg-background py-3 text-foreground" role="alert" data-theme="primary">
+			<section hidden id="growler" tabindex="-1" class="fixed z-999 flex w-full justify-between border border-b border-foreground-softer py-3" role="alert" data-theme="primary">
 				<div class="max-w-screen-xl- mx-auto pr-12 pl-3 sm:pl-4 lg:px-16">
 					<p class="text-sm font-medium lg:text-center">
 						{/* Text */}
@@ -1164,7 +1164,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 </header>
 
 <dialog id="language-change-dialog" class="m-0 hidden h-screen max-h-none w-screen max-w-none scale-95 transform-gpu items-center justify-center bg-transparent p-6 opacity-0 transition transition-discrete outline-none backdrop:bg-transparent backdrop:transition backdrop:transition-discrete open:flex open:scale-100 open:opacity-100 open:backdrop:bg-black/50 starting:open:scale-95 starting:open:opacity-0 starting:open:backdrop:bg-transparent">
-	<div class="relative w-full max-w-md rounded-lg bg-background p-6 text-foreground shadow-xl" data-theme="default">
+	<div class="relative w-full max-w-md rounded-lg p-6 shadow-xl" data-theme="default">
 		<button type="button" commandfor="language-change-dialog" command="close" class="btn btn-ghost absolute top-3 right-3 p-2" aria-label="Close modal">
 			<svg class="size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 		</button>

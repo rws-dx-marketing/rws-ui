@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro'
 
 <Layout title="By language – TrainAI Bench">
 	<!-- Hero -->
-	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-16 md:pt-20 lg:pt-24" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Consectetur adipiscing elit</p>
@@ -26,7 +26,7 @@ import Layout from '../../layouts/Layout.astro'
 	</section>
 
 	<!-- Filters + charts -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Filters -->
 			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground-softer bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
@@ -114,7 +114,7 @@ import Layout from '../../layouts/Layout.astro'
 
 			<!-- Stats -->
 			<div class="mt-8 grid gap-8 sm:data-[count='3']:grid-cols-3 sm:data-[count='4']:grid-cols-2 sm:data-[count='5']:grid-cols-2 lg:data-[count='4']:grid-cols-4 lg:data-[count='5']:grid-cols-5" data-count="3">
-				<div class="group flex flex-col rounded-lg bg-background p-5 text-foreground" data-card>
+				<div class="group flex flex-col rounded-lg p-5" data-card>
 					<div class="flex items-start justify-between gap-3">
 						<div>
 							<h2 class="font-semibold">Gemini 3 Pro Preview</h2>
@@ -131,7 +131,7 @@ import Layout from '../../layouts/Layout.astro'
 					</div>
 				</div>
 
-				<div class="group flex flex-col rounded-lg bg-background p-5 text-foreground" data-card>
+				<div class="group flex flex-col rounded-lg p-5" data-card>
 					<div class="flex items-start justify-between gap-3">
 						<div>
 							<h2 class="font-semibold">GPT 5.4</h2>
@@ -148,7 +148,7 @@ import Layout from '../../layouts/Layout.astro'
 					</div>
 				</div>
 
-				<div class="group flex flex-col rounded-lg bg-background p-5 text-foreground" data-card>
+				<div class="group flex flex-col rounded-lg p-5" data-card>
 					<div class="flex items-start justify-between gap-3">
 						<div>
 							<h2 class="font-semibold">Gemini 3 Flash</h2>
@@ -186,7 +186,7 @@ import Layout from '../../layouts/Layout.astro'
 							</div>
 						</div>
 						<div class="flex flex-none flex-col items-end gap-2">
-							<span class="inline-flex items-center rounded-full border border-accent/20 bg-accent-softer px-2.5 py-1 text-xs font-bold text-accent tabular-nums">11 of 34 models</span>
+							<span class="inline-flex items-center rounded-full border border-accent-soft bg-accent-softer px-2.5 py-1 text-xs font-bold text-accent tabular-nums">11 of 34 models</span>
 						</div>
 					</div>
 				</div>

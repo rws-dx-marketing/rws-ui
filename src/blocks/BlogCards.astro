@@ -2,7 +2,7 @@
 const cards = [1, 2]
 ---
 
-<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
 	<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
 		<!-- Subheading -->
 		<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
@@ -25,7 +25,7 @@ const cards = [1, 2]
 				cards.map((card) => (
 					<>
 						{/* Variant 1: full-card clickable + author info */}
-						<article class="group relative overflow-clip rounded-lg border border-foreground-softer bg-background text-left text-foreground" data-card>
+						<article class="group relative overflow-clip rounded-lg border border-foreground-softer text-left" data-card>
 							<div class="flex h-full flex-col">
 								<div class="p-4">
 									<div class="mb-5 block overflow-hidden rounded">
@@ -61,7 +61,7 @@ const cards = [1, 2]
 						</article>
 
 						{/* Variant 2: image link + button */}
-						<article class="rounded-lg border border-foreground-softer bg-background text-left text-foreground" data-card>
+						<article class="rounded-lg border border-foreground-softer text-left" data-card>
 							<div class="flex h-full flex-col">
 								<div class="p-4">
 									<a href="/resources/blog-1-legacy/" class="mb-5 block overflow-hidden rounded">
@@ -90,7 +90,7 @@ const cards = [1, 2]
 						</article>
 
 						{/* Variant 3: image link + split buttons */}
-						<article class="rounded-lg border border-foreground-softer bg-background text-left text-foreground" data-card>
+						<article class="rounded-lg border border-foreground-softer text-left" data-card>
 							<div class="flex h-full flex-col">
 								<div class="p-4">
 									<a href="/resources/blog-2/" class="mb-5 block overflow-hidden rounded">

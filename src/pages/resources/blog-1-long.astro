@@ -19,11 +19,11 @@ const cards = [1, 2, 3]
 		share
 	/>
 
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
 			<aside class="hidden lg:col-span-4 lg:block">
 				<div class="sticky top-20 grid gap-8 xl:gap-12">
-					<div class="relative rounded-lg bg-background p-10 text-foreground" data-card hidden>
+					<div class="relative rounded-lg p-10" data-card hidden>
 						<h4 class="mb-6 text-lg font-bold">Contents</h4>
 
 						<nav class="relative flex flex-col gap-3 pl-6" data-scrollspy-nav>
@@ -45,7 +45,7 @@ const cards = [1, 2, 3]
 			</aside>
 
 			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12 [&_h2[id]]:scroll-mt-20">
-				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card data-scrollspy-content>
+				<div class="rounded-lg p-6 lg:p-10" data-card data-scrollspy-content>
 					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
 						<p class="lead">Localization technology in 2026 is no longer a scattered set of tools. It is an integrated ecosystem that connects workflows, AI, quality controls and governance so global teams can move quickly without sacrificing consistency.</p>
 
@@ -152,7 +152,7 @@ const cards = [1, 2, 3]
 					</div>
 				</div>
 
-				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-card>
+				<div class="rounded-lg p-6 lg:p-10" data-card>
 					<div class="flex flex-wrap gap-x-6 gap-y-2">
 						<div class="flex flex-wrap gap-x-4 gap-y-1.5">
 							<h3 class="font-bold">Tags:</h3>
@@ -163,7 +163,7 @@ const cards = [1, 2, 3]
 					</div>
 				</div>
 
-				<div class="rounded-lg bg-background p-6 text-foreground lg:p-10" data-theme="tertiary">
+				<div class="rounded-lg p-6 lg:p-10" data-theme="tertiary">
 					<div class="flex items-center gap-6">
 						<img class="aspect-square w-20 shrink-0 rounded-full object-cover sm:w-24 lg:w-32" src="https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433" alt="Jonny Stringer" />
 						<div>
@@ -188,7 +188,7 @@ const cards = [1, 2, 3]
 	</section>
 
 	<!-- Related articles -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div hidden class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>This is the subheading</p>
@@ -206,7 +206,7 @@ const cards = [1, 2, 3]
 				{
 					cards.map((card) => (
 						<>
-							<article class="group relative rounded-lg border border-foreground-softer bg-background text-left text-foreground" data-card>
+							<article class="group relative rounded-lg border border-foreground-softer text-left" data-card>
 								<div class="flex h-full flex-col">
 									<div class="p-4">
 										<div class="mb-5 block overflow-hidden rounded">
@@ -248,7 +248,7 @@ const cards = [1, 2, 3]
 	</section>
 
 	<!-- Call to action + form -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-7">
 				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
@@ -286,7 +286,7 @@ const cards = [1, 2, 3]
 			</div>
 
 			<div class="h-full lg:col-span-5">
-				<div class="rounded-lg border border-foreground-softer bg-background p-8 text-foreground" data-card>
+				<div class="rounded-lg border border-foreground-softer p-8" data-card>
 					<h3 class="mb-4 text-2xl font-semibold">
 						<p>Book a meeting</p>
 					</h3>

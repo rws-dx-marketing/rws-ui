@@ -125,7 +125,7 @@
 	}
 
 	[data-theme='default'] [data-card] {
-		--background-seed: color-mix(in oklab, var(--color-neutral), white 96%);
+		--background-seed: var(--color-tertiary-softest);
 		--input: var(--background-strong);
 	}
 

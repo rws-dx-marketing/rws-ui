@@ -26,7 +26,7 @@
 	}
 
 	.input-checkbox {
-		@apply size-4 rounded-xs text-accent/80 focus:ring-accent/30;
+		@apply size-4 rounded-xs text-accent-muted focus:ring-accent-soft;
 
 		&:checked {
 			@apply border-accent;
@@ -34,7 +34,7 @@
 	}
 
 	.input-radio {
-		@apply size-4 rounded-full text-accent/80 focus:ring-accent/30;
+		@apply size-4 rounded-full text-accent-muted focus:ring-accent-soft;
 
 		&::before {
 			@apply hidden;
@@ -49,7 +49,7 @@
 		@apply block w-full text-sm focus:border-accent focus:ring-accent;
 
 		&::file-selector-button {
-			@apply mr-3 ml-0 rounded-sm border border-foreground-softer bg-input px-3 py-2 text-foreground hover:bg-foreground/20 focus-visible:bg-foreground/20 focus-visible:ring-foreground/30;
+			@apply mr-3 ml-0 rounded-sm border border-foreground-softer bg-input px-3 py-2 text-foreground hover:bg-foreground-softest focus-visible:bg-foreground-softest focus-visible:ring-foreground-soft;
 		}
 	}
 }

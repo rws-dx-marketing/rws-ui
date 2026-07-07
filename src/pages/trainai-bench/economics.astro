@@ -4,7 +4,7 @@ import Layout from '../../layouts/Layout.astro'
 
 <Layout title="Economics – TrainAI Bench">
 	<!-- Hero -->
-	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-16 text-foreground md:pt-20 lg:pt-24" data-theme="default">
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-16 md:pt-20 lg:pt-24" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Consectetur adipiscing elit</p>
@@ -26,7 +26,7 @@ import Layout from '../../layouts/Layout.astro'
 	</section>
 
 	<!-- Filters + charts -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Filters -->
 			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground-softer bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
@@ -130,14 +130,14 @@ import Layout from '../../layouts/Layout.astro'
 		</div>
 	</section>
 
-	<section hidden class="bg-background py-16 text-foreground" data-theme="default">
+	<section hidden class="py-16" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<h1 class="text-3xl font-bold tracking-tight">Economics</h1>
 			<p class="mt-3 max-w-2xl text-base font-medium text-foreground-muted">Cost per word and cost-quality trade-offs across benchmarked models.</p>
 
 			<div class="mt-10 overflow-x-auto rounded-lg border border-foreground-softer">
 				<table class="w-full text-sm">
-					<thead class="border-b border-foreground-softer bg-foreground/3">
+					<thead class="border-b border-foreground-softer bg-foreground-softest">
 						<tr>
 							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground-subtle uppercase">Model</th>
 							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">Cost / 1k tokens</th>

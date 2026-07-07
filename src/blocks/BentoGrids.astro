@@ -5,7 +5,7 @@ const { variant = 'four-card', theme = 'default' } = Astro.props
 
 {
 	variant === 'four-card' && (
-		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 				<div class="grid gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest sm:grid-cols-2 lg:grid-cols-4">
 					{/* CARD 1: Large left card (half width, full height) */}
@@ -108,7 +108,7 @@ const { variant = 'four-card', theme = 'default' } = Astro.props
 
 {
 	variant === 'three-card' && (
-		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 				<div class="grid gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest sm:grid-cols-2 lg:grid-cols-4">
 					{/* CARD 1: Large left card (half width, full height) */}

@@ -209,7 +209,7 @@ const matrix = [
 ---
 
 <div class="group" data-pricing data-active-segment={DEFAULT_SEGMENT} data-segment-order={segments.map((s) => s.key).join(' ')} data-locked-popular={lockSegment ? defaultSegment.popular : undefined} data-locked-label={lockSegment ? defaultSegment.label : undefined} data-locked-subtitle={lockSegment ? defaultSegment.subtitle : undefined}>
-	<section class={`bg-background pt-16 md:pt-20 lg:pt-24 text-foreground ${lockSegment ? 'pb-16 md:pb-20 lg:pb-24' : 'pb-0'}`} data-theme="default">
+	<section class={`pt-16 md:pt-20 lg:pt-24 ${lockSegment ? 'pb-16 md:pb-20 lg:pb-24' : 'pb-0'}`} data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 			<span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent-soft bg-accent-softer px-4 py-1 text-center text-sm" role="alert">
 				<span class="py-1 text-sm font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
@@ -235,10 +235,10 @@ const matrix = [
 	}
 	{
 		!lockSegment && (
-			<section class="bg-background pt-2 pb-8 text-foreground md:pt-4 md:pb-12 lg:pt-6 lg:pb-16" data-theme="default">
+			<section class="pt-2 pb-8 md:pt-4 md:pb-12 lg:pt-6 lg:pb-16" data-theme="default">
 				<div class="mx-auto max-w-screen-xl px-8 text-center">
 					<div class="mb-5 flex justify-center">
-						<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-xl flex-col rounded-[2rem] border border-foreground-softer bg-background p-1.5 sm:flex-row sm:rounded-full" data-card>
+						<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full max-w-xl flex-col rounded-[2rem] border border-foreground-softer p-1.5 sm:flex-row sm:rounded-full" data-card>
 							<span data-segment-indicator aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary shadow-xl transition-[transform,width,height] duration-300 ease-out motion-reduce:transition-none" style="view-transition-name:segment-pill" />
 							{segments.map((s) => (
 								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground-muted transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:segment-option-${s.key};view-transition-class:segment-option`}>
@@ -286,7 +286,7 @@ const matrix = [
 	}
 
 	{/* Cards */}
-	<section class="bg-background pt-8 pb-8 text-foreground md:pt-12 md:pb-12 lg:pt-16 lg:pb-16" data-theme="dots">
+	<section class="pt-8 pb-8 md:pt-12 md:pb-12 lg:pt-16 lg:pb-16" data-theme="dots">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="flex flex-wrap justify-center gap-x-6 gap-y-10">
 				{
@@ -295,7 +295,7 @@ const matrix = [
 						const [brand, productName] = splitName(p.name)
 						return (
 							<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=freelancers]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} style={`view-transition-name:card-${id}`}>
-								<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground-softer bg-background p-6 text-foreground data-highlighted:glow-animate data-highlighted:border-accent">
+								<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border border-foreground-softer p-6 data-highlighted:glow-animate data-highlighted:border-accent">
 									<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
 										<svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 											<>
@@ -462,7 +462,7 @@ const matrix = [
 										</span>
 									</div>
 
-									<div class="rounded-lg bg-background" data-card>
+									<div class="rounded-lg" data-card>
 										<div class="rounded-lg border border-primary-soft bg-linear-to-br from-primary-softest to-secondary-softest p-4 text-left">
 											<div class="flex items-center gap-2">
 												<span class="flex size-5 items-center justify-center rounded-sm bg-linear-to-br from-primary to-secondary text-white">
@@ -489,7 +489,7 @@ const matrix = [
 	</section>
 
 	{/* Comparison table */}
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center *:mx-auto lg:px-12">
 			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Compare plans</p>
@@ -505,7 +505,7 @@ const matrix = [
 		</div>
 	</section>
 
-	<section class="bg-background pb-16 text-foreground md:pb-20" data-theme="default">
+	<section class="pb-16 md:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="overflow-x-auto lg:overflow-visible">
 				<div class="min-w-[56rem] overflow-clip rounded-lg border border-foreground-softer" data-accordion data-accordion-multi>

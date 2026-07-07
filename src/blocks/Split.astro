@@ -7,7 +7,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	false && (
-		<section hidden class="bg-background pt-16 pb-16 text-foreground md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme="default">
+		<section hidden class="pt-16 pb-16 md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme="default">
 			<div class="mx-auto grid w-full max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				{/* Left column */}
 				<div class="lg:col-span-7">
@@ -303,7 +303,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 
 					{/* Form */}
-					<div class="rounded-lg border border-foreground-softer bg-background p-8 text-foreground" data-theme="pale">
+					<div class="rounded-lg border border-foreground-softer p-8" data-theme="pale">
 						<Form variant="split" />
 					</div>
 				</div>
@@ -314,7 +314,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	variant === 'lead-image' && (
-		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-6">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
@@ -376,7 +376,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	variant === 'double-image-list' && (
-		<section class="grid min-h-[min(50vh,48rem)] place-items-center bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<section class="grid min-h-[min(50vh,48rem)] place-items-center pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-6">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
@@ -527,7 +527,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	variant === 'features-row' && (
-		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 			<div class="mx-auto grid max-w-screen-xl items-start gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				{/* Content */}
 				<div class="lg:col-span-7">
@@ -773,7 +773,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	variant === 'features-grid' && (
-		<section class="grid min-h-[min(100vh,64rem)] place-items-center bg-background pt-16 pb-16 text-foreground md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme={theme}>
+		<section class="grid min-h-[min(100vh,64rem)] place-items-center pt-16 pb-16 md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme={theme}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				{/* Content */}
 				<div class="lg:col-span-7">
@@ -893,7 +893,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	variant === 'logos-animation' && (
-		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-6">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
@@ -996,7 +996,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	variant === 'video-text' && (
-		<section class="grid min-h-[min(50vh,48rem)] place-items-center bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<section class="grid min-h-[min(50vh,48rem)] place-items-center pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-6">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
@@ -1048,7 +1048,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 
 {
 	variant === 'stats-form' && (
-		<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-7">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
@@ -1133,7 +1133,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 				</div>
 
 				<div class="h-full lg:col-span-5">
-					<div class="rounded-lg border border-foreground-softer bg-background p-8 text-foreground" data-card>
+					<div class="rounded-lg border border-foreground-softer p-8" data-card>
 						<h3 class="mb-4 text-2xl font-semibold">
 							<p>Get in touch</p>
 						</h3>

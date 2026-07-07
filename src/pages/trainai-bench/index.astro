@@ -33,7 +33,7 @@ const languages = [
 
 <Layout title="TrainAI Bench">
 	<!-- Hero -->
-	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-20 text-foreground md:pt-24 lg:pt-32" data-theme="default">
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-20 md:pt-24 lg:pt-32" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>By language experts</p>
@@ -59,12 +59,12 @@ const languages = [
 	</section>
 
 	<!-- Stats -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class:list={['grid gap-8', gridCols]}>
 				{
 					stats.map((stat, index) => (
-						<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
+						<div class="@container grid place-content-center rounded-lg p-6 text-center" data-card>
 							<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style={`--motion-delay: ${200 + index * 100}ms`} data-count-up>
 								{stat.value}
 							</p>
@@ -81,7 +81,7 @@ const languages = [
 	</section>
 
 	<!-- Split -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-6">
 				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
@@ -118,7 +118,7 @@ const languages = [
 	</section>
 
 	<!-- Preview -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Consectetur adipiscing elit</p>
@@ -137,7 +137,7 @@ const languages = [
 				<div class="grid gap-x-8 gap-y-4 md:grid-cols-2">
 					{
 						languages.map((lang) => (
-							<div class="flex items-center gap-6 rounded border border-foreground-softer bg-background px-5 py-4 font-semibold text-foreground" data-card>
+							<div class="flex items-center gap-6 rounded border border-foreground-softer px-5 py-4 font-semibold" data-card>
 								<span class="flex-1">{lang.name}</span>
 								<span class="flex items-center gap-2">
 									<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
