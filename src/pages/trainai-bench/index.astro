@@ -19,15 +19,20 @@ const gridColsByCount = {
 
 const gridCols = gridColsByCount[stats.length] ?? gridColsByCount[3]
 
-const languages = [
-	{ name: 'German', color: 'green', model: 'GPT-5.4', score: '86%' },
-	{ name: 'Japanese', color: 'purple', model: 'Claude Opus 4.8', score: '81%' },
-	{ name: 'Thai', color: 'blue', model: 'Gemini 3 Flash', score: '74%' },
-	{ name: 'Arabic', color: 'orangered', model: 'Qwen 3.7', score: '78%' },
-	{ name: 'Swahili', color: 'green', model: 'GPT-5.4', score: '62%' },
-	{ name: 'Basque', color: 'hotpink', model: 'Mistral Large 3', score: '58%' },
-	{ name: 'Korean', color: 'purple', model: 'Claude Opus 4.8', score: '79%' },
-	{ name: 'Hindi', color: 'blue', model: 'Gemini 3 Pro', score: '83%' },
+const languagesGrammar = [
+	{ name: 'Portuguese (Brazil)', color: 'blue', model: 'Tood 2.0 Lite', score: '0.41' },
+	{ name: 'German', color: 'green', model: 'Gemini 3 Flash', score: '0.38' },
+	{ name: 'French', color: 'orangered', model: 'MiniMax M1', score: '0.35' },
+	{ name: 'Arabic', color: 'purple', model: 'Claude Opus 4.6', score: '0.32' },
+	{ name: 'Korean', color: 'purple', model: 'Claude Fable 5', score: '0.29' },
+]
+
+const languagesTranslation = [
+	{ name: 'Spanish', color: 'green', model: 'Gemini 3.5 Flash', score: '94%' },
+	{ name: 'Icelandic', color: 'green', model: 'Gemini 3.5 Flash', score: '94%' },
+	{ name: 'Polish', color: 'blue', model: 'Tood 2.0 Lite', score: '93%' },
+	{ name: 'Simplified Chinese', color: 'purple', model: 'Claude Fable 5', score: '92%' },
+	{ name: 'Japanese', color: 'purple', model: 'Claude Fable 5', score: '89%' },
 ]
 ---
 
@@ -134,24 +139,51 @@ const languages = [
 
 			<!-- Scores -->
 			<div class="mt-12 lg:mt-16">
-				<div class="grid gap-x-8 gap-y-4 md:grid-cols-2">
-					{
-						languages.map((lang) => (
-							<div class="flex items-center gap-6 rounded border border-foreground/10 bg-background px-5 py-4 font-semibold text-foreground" data-card>
-								<span class="flex-1">{lang.name}</span>
-								<span class="flex items-center gap-2">
-									<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
-									<span class="font-bold">{lang.model}</span>
-								</span>
-								<span class="text-foreground/80 tabular-nums">{lang.score}</span>
-							</div>
-						))
-					}
+				<div class="grid items-start gap-8 md:grid-cols-2">
+					<div class="grid gap-4">
+						<div class="flex items-center justify-between gap-6 px-5" data-card>
+							<span class="flex-1 text-lg font-bold">Grammar</span>
+							<span class="font-semibold text-foreground/50">MCC</span>
+						</div>
+
+						{
+							languagesGrammar.map((lang) => (
+								<div class="flex items-center gap-6 rounded border border-foreground/10 bg-background px-5 py-4 font-semibold text-foreground" data-card>
+									<span class="flex-1">{lang.name}</span>
+									<span class="flex items-center gap-2">
+										<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
+										<span class="font-bold">{lang.model}</span>
+									</span>
+									<span class="text-foreground/80 tabular-nums">{lang.score}</span>
+								</div>
+							))
+						}
+					</div>
+
+					<div class="grid gap-4">
+						<div class="flex items-center justify-between gap-6 px-5" data-card>
+							<span class="flex-1 text-lg font-bold">Translation</span>
+							<span class="font-semibold text-foreground/50">Score %</span>
+						</div>
+
+						{
+							languagesTranslation.map((lang) => (
+								<div class="flex items-center gap-6 rounded border border-foreground/10 bg-background px-5 py-4 font-semibold text-foreground" data-card>
+									<span class="flex-1">{lang.name}</span>
+									<span class="flex items-center gap-2">
+										<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
+										<span class="font-bold">{lang.model}</span>
+									</span>
+									<span class="text-foreground/80 tabular-nums">{lang.score}</span>
+								</div>
+							))
+						}
+					</div>
 				</div>
 
 				<div class="mt-10 flex flex-col gap-x-6 gap-y-4 sm:flex-row sm:items-center">
 					<div class="flex-1 font-medium text-pretty text-foreground/80">
-						<p>Translation score, best model per language. Updated continuously.</p>
+						<p>Best model per language &bull; grammar in MCC, translation in score %</p>
 					</div>
 
 					<div>
