@@ -7,7 +7,7 @@
 	--color-primary-soft: oklch(from var(--color-primary) 0.917 calc(c * 0.296) h);
 	--color-primary-softer: oklch(from var(--color-primary) 0.958 calc(c * 0.145) h);
 	--color-primary-softest: oklch(from var(--color-primary) 0.9853 calc(c * 0.0516) h);
-	--color-primary-strong: color-mix(in oklch, var(--color-primary) 82%, black);
+	--color-primary-strong: color-mix(in oklch, var(--color-primary) 80%, black);
 	--color-on-primary: var(--color-white);
 
 	--color-secondary: oklch(0.589 0.235 12.88);
@@ -16,7 +16,7 @@
 	--color-secondary-soft: oklch(from var(--color-secondary) 0.917 calc(c * 0.296) h);
 	--color-secondary-softer: oklch(from var(--color-secondary) 0.958 calc(c * 0.145) h);
 	--color-secondary-softest: oklch(from var(--color-secondary) 0.9853 calc(c * 0.0516) h);
-	--color-secondary-strong: color-mix(in oklch, var(--color-secondary) 82%, black);
+	--color-secondary-strong: color-mix(in oklch, var(--color-secondary) 80%, black);
 	--color-on-secondary: var(--color-white);
 
 	--color-tertiary: oklch(0.302 0.159 300.75);
@@ -25,7 +25,7 @@
 	--color-tertiary-soft: oklch(from var(--color-tertiary) 0.917 calc(c * 0.296) h);
 	--color-tertiary-softer: oklch(from var(--color-tertiary) 0.958 calc(c * 0.145) h);
 	--color-tertiary-softest: oklch(from var(--color-tertiary) 0.9853 calc(c * 0.0516) h);
-	--color-tertiary-strong: color-mix(in oklch, var(--color-tertiary) 82%, black);
+	--color-tertiary-strong: color-mix(in oklch, var(--color-tertiary) 80%, black);
 	--color-on-tertiary: var(--color-white);
 }
 
