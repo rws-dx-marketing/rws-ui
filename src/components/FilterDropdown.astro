@@ -11,7 +11,7 @@ const anchorName = `--${filterId}-anchor`
 		<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 	</button>
 
-	<div data-card id={popoverId} popover="auto" role="menu" aria-labelledby={buttonId} class="dropdown z-10 mt-1 w-65 rounded border border-foreground-softer shadow-lg" style={`position-anchor: ${anchorName}; position-area: bottom span-right;`}>
+	<div id={popoverId} popover="auto" role="menu" aria-labelledby={buttonId} class="dropdown z-10 mt-1 w-65 rounded border border-foreground-softer shadow-lg" style={`position-anchor: ${anchorName}; position-area: bottom span-right;`}>
 		<ul class="grid max-h-62 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby={buttonId}>
 			<slot />
 		</ul>

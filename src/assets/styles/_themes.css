@@ -29,9 +29,9 @@
 	[data-theme],
 	[data-card] {
 		--background: var(--background-seed);
-		--background-soft: color-mix(in oklab, var(--background-seed) 96%, var(--foreground-seed));
-		--background-softer: color-mix(in oklab, var(--background-seed) 92%, var(--foreground-seed));
-		--background-softest: color-mix(in oklab, var(--background-seed) 88%, var(--foreground-seed));
+		--background-soft: color-mix(in oklab, var(--background-seed) 90%, var(--foreground-seed));
+		--background-softer: color-mix(in oklab, var(--background-seed) 96%, var(--foreground-seed));
+		--background-softest: color-mix(in oklab, var(--background-seed) 99%, var(--foreground-seed));
 		--background-strong: color-mix(in oklab, var(--background-seed) 12%, white);
 
 		--foreground: var(--foreground-seed);
@@ -51,13 +51,9 @@
 		--accent-strong: color-mix(in oklab, var(--accent-seed) 82%, var(--foreground-seed));
 		--on-accent: var(--background-seed);
 
-		--input: var(--background-soft);
+		--input: var(--background-softest);
 
 		@apply relative bg-background text-foreground;
-	}
-
-	[data-theme] {
-		@apply isolate;
 	}
 }
 
@@ -87,6 +83,10 @@
 		background-image: url("data:image/svg+xml,<svg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='23.5' cy='23.5' r='1.5' fill='black' fill-opacity='0.2'/></svg>");
 	}
 
+	[data-theme='dots-enhanced'] {
+		@apply isolate;
+	}
+
 	[data-theme='primary'] {
 		--background-seed: var(--color-primary);
 		--foreground-seed: var(--color-on-primary);
@@ -108,6 +108,13 @@
 		--foreground-seed: var(--color-on-tertiary);
 		--accent-seed: var(--color-on-tertiary);
 		--gradient: linear-gradient(94.96deg, var(--color-primary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 100%);
+		--tint-boost: 3;
+	}
+
+	[data-theme='inverse'] {
+		--background-seed: color-mix(in oklab, var(--color-neutral), black 80%);
+		--foreground-seed: var(--color-white);
+		--accent-seed: var(--color-primary);
 		--tint-boost: 3;
 	}
 }

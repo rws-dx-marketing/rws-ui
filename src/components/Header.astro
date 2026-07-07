@@ -185,7 +185,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 										</ul>
 									</div>
 									<hr class="my-4 border-tertiary-soft" />
-									<a href="/what-we-do/localization-services" role="menuitem" class="bg-tertiary-softest hover:bg-tertiary-soft flex w-fit items-center gap-2 rounded-md px-2 py-1 text-sm font-semibold transition-colors">
+									<a href="/what-we-do/localization-services" role="menuitem" class="flex w-fit items-center gap-2 rounded-md bg-tertiary-softest px-2 py-1 text-sm font-semibold transition-colors hover:bg-tertiary-soft">
 										<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#8353fd" d="M7.127 12.483h2.165a5.4 5.4 0 0 1-3.122.983A5.46 5.46 0 0 1 .9 9.416v-.002a5.5 5.5 0 0 1-.182-1.411 5.463 5.463 0 0 1 7.798-4.944q.073.034.14.07c.006 0 .012.006.017.009l.105.057q.059.028.117.065c.062.035.127.076.189.114q.114.068.219.146H7.135a.796.796 0 0 0-.792.794v7.378c0 .436.357.793.792.793z"></path><path fill="#3e016f" d="m13.882 8-3.744 3.751q-.386.41-.849.731H7.124a.796.796 0 0 1-.792-.793V4.31c0-.436.357-.793.792-.793h2.168c.081.054.162.116.24.178q.07.055.139.114a5 5 0 0 1 .465.439L13.879 8z"></path><path fill="#ffc700" d="M15.282 4.313v7.379a.796.796 0 0 1-.792.793h-5.2q.463-.323.848-.731l3.744-3.752-3.744-3.751q-.054-.058-.113-.117a6 6 0 0 0-.352-.322l-.137-.114a5 5 0 0 0-.241-.178h5.195c.435 0 .792.357.792.793"></path></svg>
 										</span>
@@ -565,7 +565,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 		</div>
 	</div>
 
-	<div id="mobile-menu-panel" class="fixed inset-x-auto top-(--mobile-menu-top) bottom-0 left-0 z-999 w-(--mobile-menu-width) -translate-x-full overflow-clip bg-black/95 px-5 text-white lg:hidden" aria-hidden="true">
+	<div id="mobile-menu-panel" class="fixed inset-x-auto top-(--mobile-menu-top) bottom-0 left-0 z-999 w-(--mobile-menu-width) -translate-x-full overflow-clip px-5 lg:hidden" data-theme="inverse" aria-hidden="true">
 		<div class="relative h-full">
 			<section data-mobile-menu-view="root" class="absolute inset-0 flex translate-x-0 scrollbar-none flex-col overflow-y-auto py-16 transition-transform">
 				<nav aria-label="Mobile main navigation">
@@ -581,7 +581,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 							</button>
 							<section data-mobile-menu-view="what-we-do" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
 								<div class="mb-8 flex items-center gap-3">
-									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-foreground-softer">
 										<span class="sr-only">Back</span>
 										<svg class="size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 									</button>
@@ -592,11 +592,11 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 								<div class="grid gap-y-6">
 									<section class="space-y-3">
 										<div class="px-3">
-											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-white/66 uppercase">Generate</a>
+											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-foreground-subtle uppercase">Generate</a>
 										</div>
 
-										<div class="rounded border border-white/10 bg-white/5 p-4">
-											<a href="#" class="flex w-fit items-center gap-2 rounded bg-white/10 px-2 py-1.5 text-sm font-semibold">
+										<div class="rounded border border-foreground-softer bg-foreground-softest p-4">
+											<a href="#" class="flex w-fit items-center gap-2 rounded bg-foreground-softer px-2 py-1.5 text-sm font-semibold">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#e60054" d="M10.474 5.742v.536c-.248 0-.496.065-.72.194L7.36 7.854a1.45 1.45 0 0 0-.72 1.256v1.38h-.763a4.72 4.72 0 0 1-3.49-1.388 4.755 4.755 0 0 1-.002-6.712 4.736 4.736 0 0 1 7.817 1.763l.043.13q.002.005.003.015a4 4 0 0 1 .109.393q.055.24.082.484.011.075.018.153.015.205.016.414"></path><path fill="#3e016f" d="M10.473 6.278v4.212H6.64V9.11c0-.518.274-.997.72-1.255l2.393-1.383c.224-.13.472-.194.72-.194"></path><path fill="#8353fd" d="M14.31 9.11v2.765c0 .517-.277.994-.724 1.252l-2.39 1.385a1.44 1.44 0 0 1-1.443 0L7.36 13.127a1.45 1.45 0 0 1-.721-1.252V10.49h3.833V6.278c.251 0 .502.065.724.194l2.39 1.383c.446.258.723.737.723 1.255"></path></svg>
 												</span>
@@ -604,33 +604,33 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 											</a>
 
 											<div class="mt-2">
-												<ul class="gap-y-1 text-xs font-semibold text-white/80">
+												<ul class="gap-y-1 text-xs font-semibold text-foreground-muted">
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>Contenta</span>
 														</a>
 													</li>
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>Fonto</span>
 														</a>
 													</li>
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>Tridion</span>
 														</a>
 													</li>
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>Proplyn</span>
 														</a>
 													</li>
 												</ul>
 											</div>
 
-											<hr class="mx-1 my-4 border-white/10" />
+											<hr class="mx-1 my-4 border-foreground-softer" />
 
-											<a href="#" class="flex w-fit items-center gap-2 rounded bg-white/10 px-2 py-1.5 text-sm font-semibold">
+											<a href="#" class="flex w-fit items-center gap-2 rounded bg-foreground-softer px-2 py-1.5 text-sm font-semibold">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#8353fd" d="M7.127 12.483h2.165a5.4 5.4 0 0 1-3.122.983A5.46 5.46 0 0 1 .9 9.416v-.002a5.5 5.5 0 0 1-.182-1.411 5.463 5.463 0 0 1 7.798-4.944q.073.034.14.07c.006 0 .012.006.017.009l.105.057q.059.028.117.065c.062.035.127.076.189.114q.114.068.219.146H7.135a.796.796 0 0 0-.792.794v7.378c0 .436.357.793.792.793z"></path><path fill="#3e016f" d="m13.882 8-3.744 3.751q-.386.41-.849.731H7.124a.796.796 0 0 1-.792-.793V4.31c0-.436.357-.793.792-.793h2.168c.081.054.162.116.24.178q.07.055.139.114a5 5 0 0 1 .465.439L13.879 8z"></path><path fill="#ffc700" d="M15.282 4.313v7.379a.796.796 0 0 1-.792.793h-5.2q.463-.323.848-.731l3.744-3.752-3.744-3.751q-.054-.058-.113-.117a6 6 0 0 0-.352-.322l-.137-.114a5 5 0 0 0-.241-.178h5.195c.435 0 .792.357.792.793"></path></svg>
 												</span>
@@ -638,23 +638,23 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 											</a>
 
 											<div class="mt-2">
-												<ul class="gap-y-1 text-xs font-semibold text-white/80">
+												<ul class="gap-y-1 text-xs font-semibold text-foreground-muted">
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>TrainAI</span>
 														</a>
 													</li>
 													<li>
-														<a href="/trainai-bench" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="/trainai-bench" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>TrainAI Bench</span>
 														</a>
 													</li>
 												</ul>
 											</div>
 
-											<hr class="mx-1 my-4 border-white/10" />
+											<hr class="mx-1 my-4 border-foreground-softer" />
 
-											<a href="#" class="flex w-fit items-center gap-2 rounded bg-white/10 px-2 py-1.5 text-sm font-semibold">
+											<a href="#" class="flex w-fit items-center gap-2 rounded bg-foreground-softer px-2 py-1.5 text-sm font-semibold">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#e60054" d="M10.474 5.742v.536c-.248 0-.496.065-.72.194L7.36 7.854a1.45 1.45 0 0 0-.72 1.256v1.38h-.763a4.72 4.72 0 0 1-3.49-1.388 4.755 4.755 0 0 1-.002-6.712 4.736 4.736 0 0 1 7.817 1.763l.043.13q.002.005.003.015a4 4 0 0 1 .109.393q.055.24.082.484.011.075.018.153.015.205.016.414"></path><path fill="#3e016f" d="M10.473 6.278v4.212H6.64V9.11c0-.518.274-.997.72-1.255l2.393-1.383c.224-.13.472-.194.72-.194"></path><path fill="#8353fd" d="M14.31 9.11v2.765c0 .517-.277.994-.724 1.252l-2.39 1.385a1.44 1.44 0 0 1-1.443 0L7.36 13.127a1.45 1.45 0 0 1-.721-1.252V10.49h3.833V6.278c.251 0 .502.065.724.194l2.39 1.383c.446.258.723.737.723 1.255"></path></svg>
 												</span>
@@ -662,9 +662,9 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 											</a>
 
 											<div hidden class="mt-2">
-												<ul class="gap-y-1 text-xs font-semibold text-white/80">
+												<ul class="gap-y-1 text-xs font-semibold text-foreground-muted">
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>TrainAI</span>
 														</a>
 													</li>
@@ -675,45 +675,45 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 
 									<section class="space-y-3">
 										<div class="px-3">
-											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-white/66 uppercase">Transform</a>
+											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-foreground-subtle uppercase">Transform</a>
 										</div>
-										<div class="rounded border border-white/10 bg-white/5 p-4">
-											<a href="#" class="flex w-fit items-center gap-2 rounded bg-white/10 px-2 py-1.5 text-sm font-semibold">
+										<div class="rounded border border-foreground-softer bg-foreground-softest p-4">
+											<a href="#" class="flex w-fit items-center gap-2 rounded bg-foreground-softer px-2 py-1.5 text-sm font-semibold">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#e60054" d="M10.474 5.742v.536c-.248 0-.496.065-.72.194L7.36 7.854a1.45 1.45 0 0 0-.72 1.256v1.38h-.763a4.72 4.72 0 0 1-3.49-1.388 4.755 4.755 0 0 1-.002-6.712 4.736 4.736 0 0 1 7.817 1.763l.043.13q.002.005.003.015a4 4 0 0 1 .109.393q.055.24.082.484.011.075.018.153.015.205.016.414"></path><path fill="#3e016f" d="M10.473 6.278v4.212H6.64V9.11c0-.518.274-.997.72-1.255l2.393-1.383c.224-.13.472-.194.72-.194"></path><path fill="#8353fd" d="M14.31 9.11v2.765c0 .517-.277.994-.724 1.252l-2.39 1.385a1.44 1.44 0 0 1-1.443 0L7.36 13.127a1.45 1.45 0 0 1-.721-1.252V10.49h3.833V6.278c.251 0 .502.065.724.194l2.39 1.383c.446.258.723.737.723 1.255"></path></svg>
 												</span>
 												<span>Localization technology</span>
 											</a>
 											<div class="mt-2">
-												<ul class="gap-y-1 text-xs font-semibold text-white/80">
+												<ul class="gap-y-1 text-xs font-semibold text-foreground-muted">
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>Trados</span>
 														</a>
 													</li>
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>Language Weaver</span>
 														</a>
 													</li>
 												</ul>
 											</div>
-											<hr class="mx-1 my-4 border-white/10" />
-											<a href="/what-we-do/localization-services" class="flex w-fit items-center gap-2 rounded bg-white/10 px-2 py-1.5 text-sm font-semibold">
+											<hr class="mx-1 my-4 border-foreground-softer" />
+											<a href="/what-we-do/localization-services" class="flex w-fit items-center gap-2 rounded bg-foreground-softer px-2 py-1.5 text-sm font-semibold">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#8353fd" d="M7.127 12.483h2.165a5.4 5.4 0 0 1-3.122.983A5.46 5.46 0 0 1 .9 9.416v-.002a5.5 5.5 0 0 1-.182-1.411 5.463 5.463 0 0 1 7.798-4.944q.073.034.14.07c.006 0 .012.006.017.009l.105.057q.059.028.117.065c.062.035.127.076.189.114q.114.068.219.146H7.135a.796.796 0 0 0-.792.794v7.378c0 .436.357.793.792.793z"></path><path fill="#3e016f" d="m13.882 8-3.744 3.751q-.386.41-.849.731H7.124a.796.796 0 0 1-.792-.793V4.31c0-.436.357-.793.792-.793h2.168c.081.054.162.116.24.178q.07.055.139.114a5 5 0 0 1 .465.439L13.879 8z"></path><path fill="#ffc700" d="M15.282 4.313v7.379a.796.796 0 0 1-.792.793h-5.2q.463-.323.848-.731l3.744-3.752-3.744-3.751q-.054-.058-.113-.117a6 6 0 0 0-.352-.322l-.137-.114a5 5 0 0 0-.241-.178h5.195c.435 0 .792.357.792.793"></path></svg>
 												</span>
 												<span>Localization services</span>
 											</a>
 											<div class="mt-2">
-												<ul class="gap-y-1 text-xs font-semibold text-white/80">
+												<ul class="gap-y-1 text-xs font-semibold text-foreground-muted">
 													<li>
-														<a href="/what-we-do/localization-services/translation-services" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="/what-we-do/localization-services/translation-services" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>Translation services</span>
 														</a>
 													</li>
 													<li>
-														<a href="/what-we-do/localization-services/creative-digital-content" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="/what-we-do/localization-services/creative-digital-content" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>Creative &amp; digital</span>
 														</a>
 													</li>
@@ -723,40 +723,40 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 									</section>
 									<section class="space-y-3">
 										<div class="px-3">
-											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-white/66 uppercase">Protect</a>
+											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-foreground-subtle uppercase">Protect</a>
 										</div>
-										<div class="rounded border border-white/10 bg-white/5 p-4">
-											<a href="#" class="flex w-fit items-center gap-2 rounded bg-white/10 px-2 py-1.5 text-sm font-semibold">
+										<div class="rounded border border-foreground-softer bg-foreground-softest p-4">
+											<a href="#" class="flex w-fit items-center gap-2 rounded bg-foreground-softer px-2 py-1.5 text-sm font-semibold">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#e60054" d="M10.474 5.742v.536c-.248 0-.496.065-.72.194L7.36 7.854a1.45 1.45 0 0 0-.72 1.256v1.38h-.763a4.72 4.72 0 0 1-3.49-1.388 4.755 4.755 0 0 1-.002-6.712 4.736 4.736 0 0 1 7.817 1.763l.043.13q.002.005.003.015a4 4 0 0 1 .109.393q.055.24.082.484.011.075.018.153.015.205.016.414"></path><path fill="#3e016f" d="M10.473 6.278v4.212H6.64V9.11c0-.518.274-.997.72-1.255l2.393-1.383c.224-.13.472-.194.72-.194"></path><path fill="#8353fd" d="M14.31 9.11v2.765c0 .517-.277.994-.724 1.252l-2.39 1.385a1.44 1.44 0 0 1-1.443 0L7.36 13.127a1.45 1.45 0 0 1-.721-1.252V10.49h3.833V6.278c.251 0 .502.065.724.194l2.39 1.383c.446.258.723.737.723 1.255"></path></svg>
 												</span>
 												<span>IP management software</span>
 											</a>
 											<div class="mt-2">
-												<ul class="gap-y-1 text-xs font-semibold text-white/80">
+												<ul class="gap-y-1 text-xs font-semibold text-foreground-muted">
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>inovia</span>
 														</a>
 													</li>
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>AOP Connect</span>
 														</a>
 													</li>
 												</ul>
 											</div>
-											<hr class="mx-1 my-4 border-white/10" />
-											<a href="#" class="flex w-fit items-center gap-2 rounded bg-white/10 px-2 py-1.5 text-sm font-semibold">
+											<hr class="mx-1 my-4 border-foreground-softer" />
+											<a href="#" class="flex w-fit items-center gap-2 rounded bg-foreground-softer px-2 py-1.5 text-sm font-semibold">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full">
 													<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="#8353fd" d="M7.127 12.483h2.165a5.4 5.4 0 0 1-3.122.983A5.46 5.46 0 0 1 .9 9.416v-.002a5.5 5.5 0 0 1-.182-1.411 5.463 5.463 0 0 1 7.798-4.944q.073.034.14.07c.006 0 .012.006.017.009l.105.057q.059.028.117.065c.062.035.127.076.189.114q.114.068.219.146H7.135a.796.796 0 0 0-.792.794v7.378c0 .436.357.793.792.793z"></path><path fill="#3e016f" d="m13.882 8-3.744 3.751q-.386.41-.849.731H7.124a.796.796 0 0 1-.792-.793V4.31c0-.436.357-.793.792-.793h2.168c.081.054.162.116.24.178q.07.055.139.114a5 5 0 0 1 .465.439L13.879 8z"></path><path fill="#ffc700" d="M15.282 4.313v7.379a.796.796 0 0 1-.792.793h-5.2q.463-.323.848-.731l3.744-3.752-3.744-3.751q-.054-.058-.113-.117a6 6 0 0 0-.352-.322l-.137-.114a5 5 0 0 0-.241-.178h5.195c.435 0 .792.357.792.793"></path></svg>
 												</span>
 												<span>IP services</span>
 											</a>
 											<div class="mt-2">
-												<ul class="gap-y-1 text-xs font-semibold text-white/80">
+												<ul class="gap-y-1 text-xs font-semibold text-foreground-muted">
 													<li>
-														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+														<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 															<span>WIP</span>
 														</a>
 													</li>
@@ -775,7 +775,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 							</button>
 							<section data-mobile-menu-view="who-we-work-with" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
 								<div class="mb-8 flex items-center gap-3">
-									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-foreground-softer">
 										<span class="sr-only">Back</span>
 										<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 									</button>
@@ -786,38 +786,38 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 								<div class="grid gap-y-6">
 									<section>
 										<div class="mb-3 px-3">
-											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-white/66 uppercase">Use cases</a>
+											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-foreground-subtle uppercase">Use cases</a>
 										</div>
-										<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
+										<div class="rounded border border-foreground-softer bg-foreground-softest p-3">
 											<ul class="space-y-1">
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>AI training data</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Secure MT</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Localization</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Structured authoring</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Patent filing</span>
 													</a>
 												</li>
 											</ul>
-											<hr class="mx-1 my-2 border-white/10" />
-											<a href="#" role="menuitem" class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white">
+											<hr class="mx-1 my-2 border-foreground-softer" />
+											<a href="#" role="menuitem" class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-foreground-muted transition-colors hover:bg-foreground-softer hover:text-white">
 												<span>All use cases</span>
 												<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 											</a>
@@ -825,43 +825,43 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 									</section>
 									<section>
 										<div class="mb-3 px-3">
-											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-white/66 uppercase">Industries</a>
+											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-foreground-subtle uppercase">Industries</a>
 										</div>
-										<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
+										<div class="rounded border border-foreground-softer bg-foreground-softest p-3 text-white">
 											<ul class="space-y-1">
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Aero &amp; defense</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Automotive</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Energy</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Finance</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Government</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span>Legal</span>
 													</a>
 												</li>
 											</ul>
-											<hr class="mx-1 my-2 border-white/10" />
-											<a href="#" role="menuitem" class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white">
+											<hr class="mx-1 my-2 border-foreground-softer" />
+											<a href="#" role="menuitem" class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-foreground-muted transition-colors hover:bg-foreground-softer hover:text-white">
 												<span>All industries</span>
 												<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 											</a>
@@ -869,43 +869,43 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 									</section>
 									<section>
 										<div class="mb-3 px-3">
-											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-white/66 uppercase">Roles</a>
+											<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-foreground-subtle uppercase">Roles</a>
 										</div>
-										<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
+										<div class="rounded border border-foreground-softer bg-foreground-softest p-3 text-white">
 											<ul class="space-y-1">
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 														<span>AI training data</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 														<span>Secure MT</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 														<span>Localization</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 														<span>Structured authoring</span>
 													</a>
 												</li>
 												<li>
-													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+													<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 														<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span>
 														<span>Patent filing</span>
 													</a>
 												</li>
 											</ul>
-											<hr class="mx-1 my-2 border-white/10" />
-											<a href="#" role="menuitem" class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white">
+											<hr class="mx-1 my-2 border-foreground-softer" />
+											<a href="#" role="menuitem" class="flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-foreground-muted transition-colors hover:bg-foreground-softer hover:text-white">
 												<span>All roles</span>
 												<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 											</a>
@@ -922,26 +922,26 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 							</button>
 							<section data-mobile-menu-view="ecosystem" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
 								<div class="mb-8 flex items-center gap-3">
-									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-foreground-softer">
 										<span class="sr-only">Back</span>
 										<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 									</button>
 									<h2 class="text-2xl/none font-semibold">Ecosystem</h2>
 								</div>
-								<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
-									<a href="/partners" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+								<div class="rounded border border-foreground-softer bg-foreground-softest p-3 text-white">
+									<a href="/partners" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 										<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 										</span>
 										<span>Partners</span>
 									</a>
-									<a href="/connectors" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+									<a href="/connectors" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 										<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 										</span>
 										<span>Connectors</span>
 									</a>
-									<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+									<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 										<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 										</span>
@@ -958,7 +958,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 							</button>
 							<section data-mobile-menu-view="resources" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
 								<div class="mb-8 flex items-center gap-3">
-									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-foreground-softer">
 										<span class="sr-only">Back</span>
 										<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 									</button>
@@ -966,41 +966,41 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 								</div>
 								<div class="grid gap-4">
 									<section class="grid gap-4">
-										<a href="/resources" class="block rounded border border-white/10 bg-white/5 p-4 transition-colors hover:bg-white/10">
+										<a href="/resources" class="block rounded border border-foreground-softer bg-foreground-softest p-4 transition-colors hover:bg-foreground-softer">
 											<div class="flex items-start gap-2">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full">
 													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 												</span>
 												<div>
 													<h3 class="text-sm font-semibold">Resources</h3>
-													<p class="mt-1 text-sm font-medium text-white/75">Insights, customer success stories, blogs and podcasts.</p>
+													<p class="mt-1 text-sm font-medium text-foreground-muted">Insights, customer success stories, blogs and podcasts.</p>
 												</div>
 											</div>
 										</a>
-										<a href="#" class="block rounded border border-white/10 bg-white/5 p-4 transition-colors hover:bg-white/10">
+										<a href="#" class="block rounded border border-foreground-softer bg-foreground-softest p-4 transition-colors hover:bg-foreground-softer">
 											<div class="flex items-start gap-2">
 												<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full">
 													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 												</span>
 												<div>
 													<h3 class="text-sm font-semibold">Media centre</h3>
-													<p class="mt-1 text-sm font-medium text-white/75">News, press releases and other media information.</p>
+													<p class="mt-1 text-sm font-medium text-foreground-muted">News, press releases and other media information.</p>
 												</div>
 											</div>
 										</a>
-										<a href="#" class="block rounded border border-white/10 bg-white/5 p-4 transition-colors hover:bg-white/10">
+										<a href="#" class="block rounded border border-foreground-softer bg-foreground-softest p-4 transition-colors hover:bg-foreground-softer">
 											<div class="flex items-start gap-2">
 												<span class="inline-flex h-5 shrink-0 items-center justify-center text-accent">
 													<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 												</span>
 												<div>
 													<h3 class="text-sm font-semibold">Technical resources</h3>
-													<p class="mt-1 text-sm font-medium text-white/75">Documentation, community, and knowledgebase</p>
+													<p class="mt-1 text-sm font-medium text-foreground-muted">Documentation, community, and knowledgebase</p>
 												</div>
 											</div>
 										</a>
 										<div hidden>
-											<p class="mb-3 text-2xs/none font-bold tracking-widest text-white/66 uppercase">You might like</p>
+											<p class="mb-3 text-2xs/none font-bold tracking-widest text-foreground-subtle uppercase">You might like</p>
 											<a href="#" class="group relative block overflow-clip rounded">
 												<img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="" class="aspect-video size-full object-cover transition-transform group-hover:scale-105" loading="lazy" />
 												<div class="absolute inset-0 bg-linear-to-t from-black/75 via-black/35 to-transparent"></div>
@@ -1008,40 +1008,40 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 											</a>
 										</div>
 									</section>
-									<section class="rounded border border-white/10 bg-white/5 p-4">
+									<section class="rounded border border-foreground-softer bg-foreground-softest p-4">
 										<h3 class="mb-3 text-sm font-semibold">Events</h3>
-										<div class="divide-y divide-white/10">
+										<div class="divide-y divide-foreground-softer">
 											<a href="#" class="flex gap-3 py-4 first:pt-0 last:pb-0">
-												<div class="inline-flex size-12 shrink-0 flex-col items-center justify-center rounded bg-white/12 text-white">
+												<div class="inline-flex size-12 shrink-0 flex-col items-center justify-center rounded bg-foreground-softer text-white">
 													<span class="text-xl/none font-bold tabular-nums">29</span>
 													<span class="text-2xs/none font-bold tracking-widest uppercase">Nov</span>
 												</div>
 												<div>
 													<h4 class="text-sm font-medium">Regulatory Compliance for Financial Institutions Conference</h4>
-													<p class="mt-1 text-xs font-medium text-white/66">Stuttgart, Germany</p>
+													<p class="mt-1 text-xs font-medium text-foreground-subtle">Stuttgart, Germany</p>
 												</div>
 											</a>
 											<a href="#" class="flex gap-3 py-4 first:pt-0 last:pb-0">
-												<div class="inline-flex size-12 shrink-0 flex-col items-center justify-center rounded bg-white/12 text-white">
+												<div class="inline-flex size-12 shrink-0 flex-col items-center justify-center rounded bg-foreground-softer text-white">
 													<span class="text-xl/none font-bold tabular-nums">29</span>
 													<span class="text-2xs/none font-bold tracking-widest uppercase">Nov</span>
 												</div>
 												<div>
 													<h4 class="text-sm font-medium">Localization at Enterprise Scale Summit</h4>
-													<p class="mt-1 text-xs font-medium text-white/66">Stuttgart, Germany</p>
+													<p class="mt-1 text-xs font-medium text-foreground-subtle">Stuttgart, Germany</p>
 												</div>
 											</a>
 											<a href="#" class="flex gap-3 py-4 first:pt-0 last:pb-0">
-												<div class="inline-flex size-12 shrink-0 flex-col items-center justify-center rounded bg-white/12 text-white">
+												<div class="inline-flex size-12 shrink-0 flex-col items-center justify-center rounded bg-foreground-softer text-white">
 													<span class="text-xl/none font-bold tabular-nums">29</span>
 													<span class="text-2xs/none font-bold tracking-widest uppercase">Nov</span>
 												</div>
 												<div>
 													<h4 class="text-sm font-medium">AI in Translation Webinar</h4>
-													<p class="mt-1 text-xs font-medium text-white/66">Stuttgart, Germany</p>
+													<p class="mt-1 text-xs font-medium text-foreground-subtle">Stuttgart, Germany</p>
 												</div>
 											</a>
-											<a href="#" role="menuitem" class="mt-2 flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-white/75 transition-colors hover:bg-white/10 hover:text-white">
+											<a href="#" role="menuitem" class="mt-2 flex items-center justify-between rounded-md px-2 py-1.5 text-sm font-medium text-foreground-muted transition-colors hover:bg-foreground-softer hover:text-white">
 												<span>All events</span>
 												<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 											</a>
@@ -1053,7 +1053,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 										<div class="absolute inset-x-6 top-1/2 -translate-y-1/2 text-white">
 											<h3 class="text-lg/none font-bold">Technical resources</h3>
 											<p class="mt-3 text-sm">Documentation, community, and knowledgebase</p>
-											<a href="#" class="mt-6 inline-flex rounded border border-current px-3 py-1.5 text-sm text-current backdrop-blur-sm hover:bg-white/15">Explore</a>
+											<a href="#" class="mt-6 inline-flex rounded border border-current px-3 py-1.5 text-sm text-current backdrop-blur-sm hover:bg-foreground-soft">Explore</a>
 										</div>
 									</section>
 								</div>
@@ -1067,32 +1067,32 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 							</button>
 							<section data-mobile-menu-view="company" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
 								<div class="mb-8 flex items-center gap-3">
-									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+									<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-foreground-softer">
 										<span class="sr-only">Back</span>
 										<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 									</button>
 									<h2 class="text-2xl/none font-semibold">Company</h2>
 								</div>
-								<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
-									<a href="/about" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+								<div class="rounded border border-foreground-softer bg-foreground-softest p-3 text-white">
+									<a href="/about" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 										<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 										</span>
 										<span>About</span>
 									</a>
-									<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+									<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 										<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 										</span>
 										<span>Investors</span>
 									</a>
-									<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+									<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 										<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 										</span>
 										<span>Careers</span>
 									</a>
-									<a href="/reference" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">
+									<a href="/reference" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">
 										<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 										</span>
@@ -1110,11 +1110,11 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 
 				<div class="mt-auto space-y-4 pt-12">
 					<div class="flex items-center gap-6">
-						<button type="button" data-mobile-menu-target="my-rws" class="flex items-center gap-1.5 text-base font-semibold text-white/80 transition-colors hover:text-white">
+						<button type="button" data-mobile-menu-target="my-rws" class="flex items-center gap-1.5 text-base font-semibold text-foreground-muted transition-colors hover:text-white">
 							My RWS
 							<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 						</button>
-						<button type="button" data-mobile-menu-target="language" class="flex items-center gap-1.5 text-base font-semibold text-white/80 transition-colors hover:text-white">
+						<button type="button" data-mobile-menu-target="language" class="flex items-center gap-1.5 text-base font-semibold text-foreground-muted transition-colors hover:text-white">
 							EN
 							<svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="96 48 176 128 96 208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 						</button>
@@ -1125,38 +1125,38 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 
 			<section data-mobile-menu-view="my-rws" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
 				<div class="mb-8 flex items-center gap-3">
-					<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+					<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-foreground-softer">
 						<span class="sr-only">Back</span>
 						<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 					</button>
 					<h2 class="text-2xl/none font-semibold">My RWS</h2>
 				</div>
-				<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
-					<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"><span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>My Account</span></a>
-					<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"><span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Technical support</span></a>
-					<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"><span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Training &amp; certification</span></a>
-					<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"><span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Professional services</span></a>
+				<div class="rounded border border-foreground-softer bg-foreground-softest p-3 text-white">
+					<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer"><span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>My Account</span></a>
+					<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer"><span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Technical support</span></a>
+					<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer"><span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Training &amp; certification</span></a>
+					<a href="#" role="menuitem" class="flex items-start gap-2 rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer"><span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg></span><span>Professional services</span></a>
 				</div>
 			</section>
 
 			<section data-mobile-menu-view="language" class="pointer-events-none absolute inset-0 translate-x-[calc(100%+2rem)] scrollbar-none overflow-y-auto py-16 transition-transform">
 				<div class="mb-8 flex items-center gap-3">
-					<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-white/15">
+					<button type="button" data-mobile-menu-back class="inline-flex size-8 items-center justify-center rounded-full border border-foreground-softer">
 						<span class="sr-only">Back</span>
 						<svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="160 208 80 128 160 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="22"></polyline></svg>
 					</button>
 					<h2 class="text-2xl/none font-semibold">Language</h2>
 				</div>
-				<div class="rounded border border-white/10 bg-white/5 p-3 text-white">
-					<a href="#" role="menuitem" aria-label="English" lang="en-gb" class="block rounded-md bg-white/10 px-2 py-1.5 text-sm font-semibold transition-colors hover:bg-white/15">English</a>
-					<a href="#" role="menuitem" aria-label="Deutsch" lang="de-de" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">Deutsch</a>
-					<a href="#" role="menuitem" aria-label="Français" lang="fr-fr" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">Français</a>
-					<button type="button" commandfor="language-change-dialog" command="show-modal" role="menuitem" aria-label="Español" lang="es-ES" class="block w-full rounded-md px-2 py-1.5 text-left text-sm font-medium transition-colors hover:bg-white/10">Español</button>
-					<a href="#" role="menuitem" aria-label="Italiano" lang="it-it" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">Italiano</a>
-					<a href="#" role="menuitem" aria-label="简体中文" lang="zh-CN" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">简体中文</a>
-					<a href="#" role="menuitem" aria-label="繁體中文" lang="zh-TW" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">繁體中文</a>
-					<a href="#" role="menuitem" aria-label="日本語" lang="ja-JP" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">日本語</a>
-					<a href="#" role="menuitem" aria-label="한국어" lang="ko-KR" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10">한국어</a>
+				<div class="rounded border border-foreground-softer bg-foreground-softest p-3 text-white">
+					<a href="#" role="menuitem" aria-label="English" lang="en-gb" class="block rounded-md bg-foreground-softer px-2 py-1.5 text-sm font-semibold transition-colors hover:bg-foreground-soft">English</a>
+					<a href="#" role="menuitem" aria-label="Deutsch" lang="de-de" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">Deutsch</a>
+					<a href="#" role="menuitem" aria-label="Français" lang="fr-fr" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">Français</a>
+					<button type="button" commandfor="language-change-dialog" command="show-modal" role="menuitem" aria-label="Español" lang="es-ES" class="block w-full rounded-md px-2 py-1.5 text-left text-sm font-medium transition-colors hover:bg-foreground-softer">Español</button>
+					<a href="#" role="menuitem" aria-label="Italiano" lang="it-it" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">Italiano</a>
+					<a href="#" role="menuitem" aria-label="简体中文" lang="zh-CN" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">简体中文</a>
+					<a href="#" role="menuitem" aria-label="繁體中文" lang="zh-TW" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">繁體中文</a>
+					<a href="#" role="menuitem" aria-label="日本語" lang="ja-JP" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">日本語</a>
+					<a href="#" role="menuitem" aria-label="한국어" lang="ko-KR" class="block rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-foreground-softer">한국어</a>
 				</div>
 			</section>
 		</div>

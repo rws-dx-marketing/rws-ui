@@ -40,7 +40,7 @@ import Layout from '../../layouts/Layout.astro'
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
-							<div data-card id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground-softer shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-right;">
+							<div id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground-softer shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-right;">
 								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="model-filter-button">
 									{
 										['claude-opus-4.6', 'claude-sonnet-4.6', 'jamba-2', 'claude-haiku-4.6', 'deepseek-v3.2', 'grok-4.20', 'llama-4-scout', 'deepseek-r2', 'gpt-5-mini', 'gemini-3-flash-preview', 'yi-2-large', 'qwen-3-72b', 'gemini-3-pro-preview', 'mistral-medium-3', 'command-r-plus', 'gpt-5.4', 'gpt-5', 'llama-4-maverick', 'gpt-5-nano', 'phi-5', 'mistral-large-3', 'qwen-3-235b', 'gemini-3-pro', 'command-r', 'kimi-k2.6'].map((model) => (
@@ -65,7 +65,7 @@ import Layout from '../../layouts/Layout.astro'
 						</div>
 					</div>
 
-					<div hidden class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground-softest p-1.25">
+					<div hidden class="-my-1.25 -ml-1.25 flex gap-0.5 rounded bg-foreground-softer p-1.25">
 						<button class="btn btn-ghost rounded-sm text-foreground-muted data-[active]:bg-background data-[active]:text-foreground" data-active>Grammar</button>
 						<button class="btn btn-ghost rounded-sm text-foreground-muted">Translation</button>
 						<button class="btn btn-ghost rounded-sm text-foreground-muted">Tokenizer</button>
@@ -80,7 +80,7 @@ import Layout from '../../layouts/Layout.astro'
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
-							<div data-card id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground-softer shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
+							<div id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground-softer shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
 								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="language-filter-button">
 									{
 										['Albanian', 'Arabic', 'Assamese', 'Basque', 'Czech', 'English', 'Fijian', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi', 'Hungarian', 'Icelandic', 'Japanese', 'Khmer', 'Kinyarwanda', 'Korean', 'Kyrgyz', 'Nepali', 'Polish', 'Russian', 'Simplified Chinese', 'Spanish', 'Swahili', 'Tagalog', 'Tamil', 'Thai', 'Turkish', 'Vietnamese', 'Welsh', 'Zulu'].map((lang) => (
@@ -158,21 +158,21 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<!-- Charts -->
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8">
+			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – grammar MCC across languages</h3>
 				<ul class="font-medium text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>
 				</ul>
 			</div>
 
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8">
+			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – translation MCC across languages</h3>
 				<ul class="font-medium text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>
 				</ul>
 			</div>
 
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softest bg-foreground/2.5 p-8">
+			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – characters per token across languages</h3>
 				<ul class="font-medium text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>
