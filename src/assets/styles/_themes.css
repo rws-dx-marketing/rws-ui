@@ -1,5 +1,170 @@
 @theme inline {
 	--color-background: var(--background);
+	--color-background-soft: var(--background-soft);
+	--color-background-softer: var(--background-softer);
+	--color-background-softest: var(--background-softest);
+	--color-background-strong: var(--background-strong);
+
+	--color-foreground: var(--foreground);
+	--color-foreground-muted: var(--foreground-muted);
+	--color-foreground-subtle: var(--foreground-subtle);
+	--color-foreground-soft: var(--foreground-soft);
+	--color-foreground-softer: var(--foreground-softer);
+	--color-foreground-softest: var(--foreground-softest);
+	--color-foreground-strong: var(--foreground-strong);
+
+	--color-accent: var(--accent);
+	--color-accent-muted: var(--accent-muted);
+	--color-accent-subtle: var(--accent-subtle);
+	--color-accent-soft: var(--accent-soft);
+	--color-accent-softer: var(--accent-softer);
+	--color-accent-softest: var(--accent-softest);
+	--color-accent-strong: var(--accent-strong);
+	--color-on-accent: var(--on-accent);
+
+	--color-input: var(--input);
+}
+
+@layer base {
+	[data-theme],
+	[data-card] {
+		--background: var(--background-seed);
+		--background-soft: color-mix(in oklab, var(--background-seed) 90%, var(--foreground-seed));
+		--background-softer: color-mix(in oklab, var(--background-seed) 96%, var(--foreground-seed));
+		--background-softest: color-mix(in oklab, var(--background-seed) 99%, var(--foreground-seed));
+		--background-strong: color-mix(in oklab, var(--background-seed) 12%, white);
+
+		--foreground: var(--foreground-seed);
+		--foreground-muted: color-mix(in oklab, var(--foreground-seed) 80%, var(--background-seed));
+		--foreground-subtle: color-mix(in oklab, var(--foreground-seed) 60%, var(--background-seed));
+		--foreground-soft: color-mix(in oklab, var(--foreground-seed) calc(12% * var(--tint-boost, 1)), var(--background-seed));
+		--foreground-softer: color-mix(in oklab, var(--foreground-seed) calc(6% * var(--tint-boost, 1)), var(--background-seed));
+		--foreground-softest: color-mix(in oklab, var(--foreground-seed) calc(3% * var(--tint-boost, 1)), var(--background-seed));
+		--foreground-strong: color-mix(in oklab, var(--foreground-seed) 12%, black);
+
+		--accent: var(--accent-seed);
+		--accent-muted: color-mix(in oklab, var(--accent-seed) 80%, var(--background-seed));
+		--accent-subtle: color-mix(in oklab, var(--accent-seed) 50%, var(--background-seed));
+		--accent-soft: color-mix(in oklab, var(--accent-seed) 24%, var(--background-seed));
+		--accent-softer: color-mix(in oklab, var(--accent-seed) 12%, var(--background-seed));
+		--accent-softest: color-mix(in oklab, var(--accent-seed) 6%, var(--background-seed));
+		--accent-strong: color-mix(in oklab, var(--accent-seed) 82%, var(--foreground-seed));
+		--on-accent: var(--background-seed);
+
+		--input: var(--background-softest);
+
+		@apply relative bg-background text-foreground;
+	}
+}
+
+@layer base {
+	[data-theme='default'] {
+		--background-seed: var(--color-white);
+		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
+		--accent-seed: var(--color-primary);
+	}
+
+	[data-theme='pale'] {
+		--background-seed: color-mix(in oklab, var(--color-neutral), white 96%);
+		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
+		--accent-seed: var(--color-primary);
+		--input: var(--background-strong);
+	}
+
+	[data-theme='dots'],
+	[data-theme='dots-enhanced'] {
+		--background-seed: color-mix(in oklab, var(--accent-seed) 4%, white);
+		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
+		--accent-seed: var(--color-primary);
+	}
+
+	[data-theme='dots'] {
+		@apply bg-size-[2.25rem] bg-top bg-repeat;
+		background-image: url("data:image/svg+xml,<svg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='23.5' cy='23.5' r='1.5' fill='black' fill-opacity='0.2'/></svg>");
+	}
+
+	[data-theme='dots-enhanced'] {
+		@apply isolate;
+	}
+
+	[data-theme='primary'] {
+		--background-seed: var(--color-primary);
+		--foreground-seed: var(--color-on-primary);
+		--accent-seed: var(--color-on-primary);
+		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-tertiary) 100%);
+		--tint-boost: 3;
+	}
+
+	[data-theme='secondary'] {
+		--background-seed: var(--color-secondary);
+		--foreground-seed: var(--color-on-secondary);
+		--accent-seed: var(--color-on-secondary);
+		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 47.7%, var(--color-primary) 52.3%, var(--color-tertiary) 100%);
+		--tint-boost: 3;
+	}
+
+	[data-theme='tertiary'] {
+		--background-seed: var(--color-tertiary);
+		--foreground-seed: var(--color-on-tertiary);
+		--accent-seed: var(--color-on-tertiary);
+		--gradient: linear-gradient(94.96deg, var(--color-primary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 100%);
+		--tint-boost: 3;
+	}
+
+	[data-theme='inverse'] {
+		--background-seed: color-mix(in oklab, var(--color-neutral), black 80%);
+		--foreground-seed: var(--color-white);
+		--accent-seed: var(--color-primary);
+		--tint-boost: 3;
+	}
+}
+
+@layer components {
+	[data-card] {
+		@apply bg-background text-foreground;
+	}
+
+	[data-theme='default'] [data-card] {
+		--background-seed: var(--color-tertiary-softest);
+		--input: var(--background-strong);
+	}
+
+	[data-theme='pale'] [data-card] {
+		--background-seed: var(--color-white);
+	}
+
+	[data-theme='dots'] [data-card],
+	[data-theme='dots-enhanced'] [data-card] {
+		--background-seed: var(--color-white);
+	}
+
+	[data-theme='primary'] [data-card] {
+		--background-seed: color-mix(in oklab, var(--color-primary), black 8%);
+	}
+
+	[data-theme='secondary'] [data-card] {
+		--background-seed: color-mix(in oklab, var(--color-secondary), white 8%);
+	}
+
+	[data-theme='tertiary'] [data-card] {
+		--background-seed: color-mix(in oklab, var(--color-tertiary), black 12%);
+	}
+
+	[data-theme='primary'] .btn-primary {
+		@apply bg-foreground text-background hover:bg-primary-soft focus-visible:bg-primary-softest focus-visible:ring-primary-soft;
+	}
+
+	[data-theme='secondary'] .btn-secondary {
+		@apply bg-foreground text-background hover:bg-secondary-soft focus-visible:bg-secondary-softest focus-visible:ring-secondary-soft;
+	}
+
+	[data-theme='tertiary'] .btn-tertiary {
+		@apply bg-foreground text-background hover:bg-tertiary-soft focus-visible:bg-tertiary-softest focus-visible:ring-tertiary-soft;
+	}
+}
+
+/*@theme inline {
+	--color-background: var(--background);
 	--color-foreground: var(--foreground);
 	--color-accent: var(--accent);
 	--color-accent-foreground: var(--accent-foreground);
@@ -10,12 +175,12 @@
 
 :root {
 	--theme-default-background: var(--color-white);
-	--theme-default-foreground: var(--color-gray-900);
+	--theme-default-foreground: var(--color-neutral-900);
 	--theme-default-accent: var(--color-primary);
 	--theme-default-accent-foreground: var(--color-white);
 	--theme-default-card: var(--color-white);
-	--theme-default-card-foreground: var(--color-gray-900);
-	--theme-default-input: color-mix(in oklch, var(--color-gray-900) 1%, transparent);
+	--theme-default-card-foreground: var(--color-neutral-900);
+	--theme-default-input: color-mix(in oklch, var(--color-neutral-900) 1%, transparent);
 	--theme-default-gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 24.3%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 75.7%, var(--color-tertiary) 100%);
 }
 
@@ -36,23 +201,23 @@
 }
 
 [data-theme='pale'] {
-	--background: var(--color-gray-50);
-	--foreground: var(--color-gray-900);
+	--background: var(--color-neutral-50);
+	--foreground: var(--color-neutral-900);
 	--accent: var(--color-primary);
 	--accent-foreground: var(--color-white);
 	--card: var(--color-white);
-	--card-foreground: var(--color-gray-900);
+	--card-foreground: var(--color-neutral-900);
 	--input: var(--color-white);
 }
 
 [data-theme='dots'],
 [data-theme='dots-enhanced'] {
 	--background: var(--color-tertiary-lightest);
-	--foreground: var(--color-gray-900);
+	--foreground: var(--color-neutral-900);
 	--accent: var(--color-primary);
 	--accent-foreground: var(--color-white);
 	--card: var(--color-white);
-	--card-foreground: var(--color-gray-900);
+	--card-foreground: var(--color-neutral-900);
 	--input: var(--color-white);
 }
 
@@ -86,7 +251,7 @@
 	--accent: var(--color-primary-lighter);
 	--accent-foreground: var(--color-primary);
 	--card: var(--color-white);
-	--card-foreground: var(--color-gray-900);
+	--card-foreground: var(--color-neutral-900);
 	--input: color-mix(in oklch, var(--foreground) 3%, transparent);
 	--gradient: linear-gradient(94.96deg, var(--color-tertiary-lighter) 0%, var(--color-secondary-light) 47.7%, var(--color-secondary-light) 52.3%, var(--color-tertiary-lighter) 100%);
 
@@ -105,7 +270,7 @@
 	--accent: var(--color-secondary-lighter);
 	--accent-foreground: var(--color-secondary);
 	--card: var(--color-white);
-	--card-foreground: var(--color-gray-900);
+	--card-foreground: var(--color-neutral-900);
 	--input: color-mix(in oklch, var(--foreground) 3%, transparent);
 	--gradient: linear-gradient(94.96deg, var(--color-tertiary-lighter) 0%, var(--color-primary-light) 47.7%, var(--color-primary-light) 52.3%, var(--color-tertiary-lighter) 100%);
 
@@ -124,7 +289,7 @@
 	--accent: var(--color-tertiary-lighter);
 	--accent-foreground: var(--color-tertiary);
 	--card: var(--color-white);
-	--card-foreground: var(--color-gray-900);
+	--card-foreground: var(--color-neutral-900);
 	--input: color-mix(in oklch, var(--foreground) 3%, transparent);
 	--gradient: linear-gradient(94.96deg, var(--color-primary-light) 0%, var(--color-secondary-light) 47.7%, var(--color-secondary-light) 52.3%, var(--color-primary-light) 100%);
 
@@ -151,39 +316,39 @@ section:has(.dots-svg) {
 }
 
 .dark {
-	--background: var(--color-gray-900);
-	--foreground: var(--color-gray-50);
+	--background: var(--color-neutral-900);
+	--foreground: var(--color-neutral-50);
 	--accent: var(--color-primary-light);
 	--accent-foreground: var(--color-white);
-	--card: var(--color-gray-900);
-	--card-foreground: var(--color-gray-50);
+	--card: var(--color-neutral-900);
+	--card-foreground: var(--color-neutral-50);
 
 	[data-theme='default'] {
-		--background: var(--color-gray-900);
-		--foreground: var(--color-gray-50);
+		--background: var(--color-neutral-900);
+		--foreground: var(--color-neutral-50);
 		--accent: var(--color-primary-light);
 		--accent-foreground: var(--color-white);
-		--card: var(--color-gray-900);
-		--card-foreground: var(--color-gray-50);
+		--card: var(--color-neutral-900);
+		--card-foreground: var(--color-neutral-50);
 	}
 
 	[data-theme='pale'] {
-		--background: var(--color-gray-800);
-		--foreground: var(--color-gray-50);
+		--background: var(--color-neutral-800);
+		--foreground: var(--color-neutral-50);
 		--accent: var(--color-primary-light);
 		--accent-foreground: var(--color-white);
-		--card: var(--color-gray-800);
-		--card-foreground: var(--color-gray-50);
+		--card: var(--color-neutral-800);
+		--card-foreground: var(--color-neutral-50);
 	}
 
 	[data-theme='dots'],
 	[data-theme='dots-enhanced'] {
 		--background: color-mix(in oklch, var(--color-tertiary-darker) 25%, transparent);
-		--foreground: var(--color-gray-50);
+		--foreground: var(--color-neutral-50);
 		--accent: var(--color-primary-light);
 		--accent-foreground: var(--color-white);
-		--card: var(--color-gray-900);
-		--card-foreground: var(--color-gray-50);
+		--card: var(--color-neutral-900);
+		--card-foreground: var(--color-neutral-50);
 	}
 
 	[data-theme='dots-enhanced'] {
@@ -220,4 +385,4 @@ section:has(.dots-svg) {
 		--card: var(--color-tertiary);
 		--card-foreground: var(--color-white);
 	}
-}
+}*/

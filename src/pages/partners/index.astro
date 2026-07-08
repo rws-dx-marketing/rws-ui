@@ -135,9 +135,9 @@ const cards = [
 ---
 
 <Layout title="Partners – RWS UI">
-	<section class="bg-background pt-20 pb-0 text-foreground md:pt-24 lg:pt-32" data-theme="default">
+	<section class="pt-20 pb-0 md:pt-24 lg:pt-32" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-			<div hidden class="mb-3 font-bold text-foreground/80 xl:text-lg">
+			<div hidden class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Make AI work in the real world</p>
 			</div>
 
@@ -145,14 +145,14 @@ const cards = [
 				<p>Partners</p>
 			</h1>
 
-			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] font-medium text-pretty text-foreground/80 xl:prose-2xl">
+			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
 				<p>We partner and integrate with the most innovative technology companies and consultants to bring our customers a diverse ecosystem of layered interoperability between our partners’ solutions and our own.</p>
 			</div>
 
 			<form class="relative z-10 mt-20 -mb-6.25">
 				<div class="mx-auto flex max-w-2xl gap-3" style="anchor-name: --filters-bar">
 					<div class="grow">
-						<label for="search" class="sr-only mb-2.5 block text-sm font-medium">Search</label>
+						<label for="search" class="sr-only mb-2.5 block text-sm">Search</label>
 
 						<div class="relative">
 							<div class="rounded-full bg-background">
@@ -185,13 +185,13 @@ const cards = [
 				</div>
 
 				<div id="filter-popover" popover="auto" class="dropdown top-[calc(anchor(bottom)+0.75rem)]! z-10 w-[calc(100%+2rem)] max-w-3xl bg-transparent" style="position-anchor: --filters-bar; position-area: bottom center; position-try: none;">
-					<div class="grid gap-3 rounded-lg border border-foreground/10 bg-background p-4 text-left text-foreground shadow-lg sm:grid-cols-2 md:grid-cols-3" data-filters data-theme="default">
+					<div class="grid gap-3 rounded-lg border border-foreground-softer p-4 text-left shadow-lg sm:grid-cols-2 md:grid-cols-3" data-filters data-theme="default">
 						{
 							data.map((filter) => (
 								<FilterDropdown filterId={filter.id} label={filter.label}>
 									{(filter.optionGroups ?? [{ options: filter.options ?? [] }]).map((group, groupIndex) => (
 										<>
-											{group.label ? <li class="px-2 pb-1 text-2xs font-bold tracking-widest text-foreground/66 uppercase not-first:pt-3 first:pt-1.5">{group.label}</li> : null}
+											{group.label ? <li class="px-2 pb-1 text-2xs font-bold tracking-widest text-foreground-subtle uppercase not-first:pt-3 first:pt-1.5">{group.label}</li> : null}
 											{group.options.map((option) => (
 												<FilterOption id={`${filter.id}-${groupIndex}-${option.value}`} type={filter.inputType} name={filter.id} value={option.value} label={option.label} />
 											))}
@@ -206,14 +206,14 @@ const cards = [
 		</div>
 	</section>
 
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="flex justify-between">
-				<div class="pl-1.5 text-sm font-medium text-foreground/66" data-card-results-count>{cards.length} results</div>
+				<div class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{cards.length} results</div>
 
 				<div class="flex items-center gap-4">
 					<div class="flex items-center gap-2">
-						<span class="shrink-0 text-sm font-medium text-foreground/66">Sort by</span>
+						<span class="shrink-0 text-sm text-foreground-subtle">Sort by</span>
 						<select name="sort-by" class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-4 text-sm focus:ring-0">
 							<option value="most-recent">Most recent</option>
 							<option value="oldest-first">Oldest first</option>
@@ -223,7 +223,7 @@ const cards = [
 					</div>
 
 					<div class="flex items-center gap-2">
-						<label for="items-per-page" class="shrink-0 text-sm font-medium text-foreground/66">Show</label>
+						<label for="items-per-page" class="shrink-0 text-sm text-foreground-subtle">Show</label>
 						<select id="items-per-page" name="items-per-page" data-card-page-size class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-5 text-sm focus:ring-0">
 							<option value="3" selected>3</option>
 							<option value="6">6</option>
@@ -238,7 +238,7 @@ const cards = [
 					<span data-filters-chip-label>Selected filter</span>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 				</button>
-				<button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground/66 transition-colors hover:text-accent" data-filters-clear-all>Clear all</button>
+				<button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" data-filters-clear-all>Clear all</button>
 			</div>
 
 			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3">
@@ -246,15 +246,15 @@ const cards = [
 					cards.map((card) => (
 						<>
 							{/* Variant 1: full-card clickable + author info */}
-							<article class="group relative rounded-lg border border-foreground/10 bg-background text-left text-foreground" data-card data-card-filters={JSON.stringify(card.filters)} data-card-search={`${card.name} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()}>
+							<article class="group relative rounded-lg border border-foreground-softer text-left" data-card data-card-filters={JSON.stringify(card.filters)} data-card-search={`${card.name} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()}>
 								<div class="flex h-full flex-col">
 									<div class="p-6">
-										<div class="mb-5 flex aspect-video items-center justify-center rounded border border-foreground/10 px-8 py-4">
+										<div class="mb-5 flex aspect-video items-center justify-center rounded border border-foreground-softer px-8 py-4">
 											<img src={card.logo} alt={card.name} class="size-full object-scale-down transition-transform group-hover:-translate-y-2" draggable="false" />
 											{/* <img src="https://placehold.co/100" alt="Placeholder" class="block h-auto max-h-full w-auto max-w-full object-contain p-4" draggable="false" /> */}
 										</div>
 
-										{/* <span class="mb-3 inline-block rounded-full border border-foreground/10 bg-foreground/5 px-2 py-0.5 text-xs font-semibold text-foreground/80"> Article </span> */}
+										{/* <span class="mb-3 inline-block rounded-full border border-foreground-softer bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span> */}
 
 										<h2 class="mb-2 text-2xl font-bold">
 											<p>
@@ -265,7 +265,7 @@ const cards = [
 											</p>
 										</h2>
 
-										<div class="prose line-clamp-3 font-medium text-pretty text-foreground/80">
+										<div class="prose line-clamp-3 text-pretty text-foreground-muted">
 											<Fragment set:html={card.description} />
 										</div>
 									</div>
@@ -283,7 +283,7 @@ const cards = [
 											<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
 											<div>
 												<div class="font-semibold">Jese Leos</div>
-												<div class="text-sm font-medium text-foreground/80">Aug 15, 2021 • 16 min read</div>
+												<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>
 											</div>
 										</div>
 									</div> */}
@@ -300,7 +300,7 @@ const cards = [
 
 			<div class="mt-12 pt-12 pb-24 text-center" data-card-empty-state hidden>
 				<p class="text-2xl font-bold">No partners found</p>
-				<p class="mt-2 text-xl font-medium text-foreground/80">Try removing a filter or search for a different term.</p>
+				<p class="mt-2 text-xl text-foreground-muted">Try removing a filter or search for a different term.</p>
 			</div>
 		</div>
 	</section>

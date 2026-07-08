@@ -19,23 +19,15 @@ export default function dotsGrid() {
 			}
 
 			state.svg.setAttribute('aria-hidden', 'true')
-			state.svg.classList.add('dots-svg')
+			state.svg.classList.add('dots')
 			section.prepend(state.svg)
 
-			const readNumber = (value, fallback) => {
-				const parsed = Number.parseFloat(value)
-				return Number.isFinite(parsed) ? parsed : fallback
-			}
-
-			const getConfig = () => {
-				const styles = getComputedStyle(section)
-				return {
-					spacing: readNumber(styles.getPropertyValue('--dots-spacing').trim(), 36),
-					radius: readNumber(styles.getPropertyValue('--dots-radius').trim(), 1.5),
-					influence: readNumber(styles.getPropertyValue('--dots-influence').trim(), 120),
-					maxPush: readNumber(styles.getPropertyValue('--dots-max-push').trim(), 14),
-					ease: readNumber(styles.getPropertyValue('--dots-ease').trim(), 0.14),
-				}
+			const config = {
+				spacing: 36,
+				radius: 1.125,
+				influence: 360,
+				maxPush: 36,
+				ease: 0.16,
 			}
 
 			const createDots = () => {
@@ -45,7 +37,6 @@ export default function dotsGrid() {
 				state.height = Math.max(1, rect.height)
 				state.svg.setAttribute('viewBox', `0 0 ${state.width} ${state.height}`)
 
-				const config = getConfig()
 				// Match static background math:
 				// - bg-top => y anchored to top
 				// - background-position-x center => x anchored to center
@@ -61,7 +52,7 @@ export default function dotsGrid() {
 				for (let y = offsetY; y <= state.height + config.spacing; y += config.spacing) {
 					for (let x = offsetX; x <= state.width + config.spacing; x += config.spacing) {
 						const circle = document.createElementNS(SVG_NS, 'circle')
-						circle.classList.add('dots-dot')
+						circle.classList.add('dot')
 						circle.setAttribute('r', String(config.radius))
 						circle.setAttribute('cx', String(x))
 						circle.setAttribute('cy', String(y))
@@ -82,7 +73,6 @@ export default function dotsGrid() {
 			}
 
 			const animate = () => {
-				const config = getConfig()
 				let hasMotion = false
 
 				for (const dot of state.dots) {

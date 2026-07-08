@@ -31,7 +31,7 @@
 }
 
 [data-carousel] > ::scroll-marker {
-	@apply block size-3 rounded-full bg-foreground/15 transition-colors;
+	@apply block size-3 rounded-full bg-foreground-soft transition-colors;
 	content: '';
 }
 

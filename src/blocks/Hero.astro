@@ -4,14 +4,14 @@ const { theme = 'default' } = Astro.props
 ---
 
 <!-- Wrapper -->
-<section class="grid min-h-[min(calc(100svh-var(--chrome-height)-12rem),48rem)] place-items-center bg-background pt-20 pb-20 text-foreground md:pt-24 md:pb-24 lg:pt-32 lg:pb-32" data-theme={theme}>
+<section class="grid min-h-[min(calc(100svh-var(--chrome-height)-12rem),48rem)] place-items-center pt-20 pb-20 md:pt-24 md:pb-24 lg:pt-32 lg:pb-32" data-theme={theme}>
 	<!-- bg-contain bg-top-left bg-no-repeat lg:bg-(image:--bg-image) dark:lg:bg-(image:--bg-image-dark) style="--bg-image: url('/images/motif.svg'); --bg-image-dark: url('/images/motif-dark.svg')" -->
 	<!-- Container -->
 	<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 		<!-- Announcement -->
-		<a href="#" class="mb-8 inline-flex items-center justify-between rounded-full bg-foreground/5 p-1 pr-4 text-center text-sm transition-colors hover:bg-foreground/10" role="alert">
+		<a href="#" class="mb-8 inline-flex items-center justify-between rounded-full bg-foreground-softest p-1 pr-4 text-center text-sm transition-colors hover:bg-foreground-soft" role="alert">
 			<!-- Label -->
-			<span class="mr-3 shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-foreground">New</span>
+			<span class="mr-3 shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-on-accent">New</span>
 
 			<!-- Message -->
 			<span class="text-sm font-semibold">Something is happening. Check it out now</span>
@@ -23,7 +23,7 @@ const { theme = 'default' } = Astro.props
 		</a>
 
 		<!-- Subheading -->
-		<div hidden class="mb-3 font-bold text-foreground/80 xl:text-lg">
+		<div hidden class="mb-3 font-bold text-foreground-muted xl:text-lg">
 			<p>Make AI work in the real world</p>
 		</div>
 
@@ -33,7 +33,7 @@ const { theme = 'default' } = Astro.props
 		</h1>
 
 		<!-- Copy -->
-		<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground/80 not-last:mb-8 md:prose-2xl">
+		<div class="mx-auto prose prose-xl max-w-[56ch] text-foreground-muted not-last:mb-8 md:prose-2xl">
 			<p>Designed for real markets, real people, real impact.</p>
 		</div>
 

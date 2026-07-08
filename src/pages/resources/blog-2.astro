@@ -18,36 +18,36 @@ import ResourceHero from '../../blocks/ResourceHero.astro'
 	/>
 
 	<aside class="group/post-nav fixed top-1/2 left-2 z-20 hidden w-8 -translate-y-1/2 overflow-hidden transition-[width] duration-200 hover:w-[min(10rem,20vw)] motion-reduce:transition-none lg:flex motion-reduce:[&_a]:transition-none motion-reduce:[&_span]:transition-none" hidden>
-		<nav aria-label="Section navigation" class="relative flex w-full flex-col gap-3 rounded-lg border border-foreground/5 bg-background/66 py-4 pr-3 pl-3.75 text-foreground backdrop-blur-lg" data-theme="default" data-scrollspy-nav data-scrollspy-anchor-target="section" data-scrollspy-rail-offset="24" data-scrollspy-progress-dots data-scrollspy-directional-delay>
-			<span aria-hidden="true" class="pointer-events-none absolute top-6 bottom-6 left-3.25 w-1 bg-foreground/10"></span>
+		<nav aria-label="Section navigation" class="/66 relative flex w-full flex-col gap-3 rounded-lg border border-foreground-softest py-4 pr-3 pl-3.75 backdrop-blur-lg" data-theme="default" data-scrollspy-nav data-scrollspy-anchor-target="section" data-scrollspy-rail-offset="24" data-scrollspy-progress-dots data-scrollspy-directional-delay>
+			<span aria-hidden="true" class="pointer-events-none absolute top-6 bottom-6 left-3.25 w-1 bg-foreground-soft"></span>
 			<span aria-hidden="true" class="pointer-events-none absolute top-6 left-3.25 h-(--post-nav-active-height) w-1 bg-accent transition-[height] duration-500" data-scrollspy-rail></span>
 			<a href="#" class="group/post-nav-link relative hidden h-4 data-[nav-active=true]:[&_.post-nav-dot]:scale-115 data-[nav-active=true]:[&_.post-nav-dot]:border-accent data-[nav-active=true]:[&_.post-nav-dot]:bg-accent data-[nav-delay=true]:[&_.post-nav-dot]:delay-200 data-[nav-past=true]:[&_.post-nav-dot]:border-accent data-[nav-past=true]:[&_.post-nav-dot]:bg-accent" data-scrollspy-link-template aria-hidden="true">
-				<span aria-hidden="true" class="post-nav-dot pointer-events-none absolute top-1/2 left-0 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground/10 bg-white transition-[transform,background-color,border-color] duration-500"></span>
+				<span aria-hidden="true" class="post-nav-dot pointer-events-none absolute top-1/2 left-0 z-10 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-foreground-softer bg-white transition-[transform,background-color,border-color] duration-500"></span>
 				<span class="pointer-events-none absolute top-1/2 right-0 left-4 -translate-x-1 -translate-y-1/2 truncate text-sm/none font-semibold text-foreground opacity-0 transition duration-200 group-hover/post-nav:translate-x-0 group-hover/post-nav:opacity-100 group-data-[nav-active=true]/post-nav-link:group-hover/post-nav:opacity-100" data-scrollspy-link-label> Template nav link </span>
 			</a>
 		</nav>
 	</aside>
 
 	<main data-scrollspy-content>
-		<section class="h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
+		<section class="h-svh pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
 			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 				<h2 class="text-3xl font-bold">Section 1</h2>
 			</div>
 		</section>
 
-		<section class="h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="secondary">
+		<section class="h-svh pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="secondary">
 			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 				<h2 class="text-3xl font-bold">Section 2 that happens to be longer than the other sections</h2>
 			</div>
 		</section>
 
-		<section class="h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<section class="h-svh pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 				<h2 class="text-3xl font-bold">Section 3</h2>
 			</div>
 		</section>
 
-		<section class="lg:pb-20p h-svh bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20" data-theme="primary">
+		<section class="lg:pb-20p h-svh pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20" data-theme="primary">
 			<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 				<h2 class="text-3xl font-bold">Section 4</h2>
 			</div>

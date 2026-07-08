@@ -4,7 +4,7 @@ import Layout from '../../layouts/Trados.astro'
 
 <Layout title="Pricing – RWS UI">
 	<!-- Introduction -->
-	<section class="bg-background py-16 text-foreground" data-theme="default">
+	<section class="py-16" data-theme="default">
 		<!-- Container -->
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Intro -->
@@ -13,7 +13,7 @@ import Layout from '../../layouts/Trados.astro'
 				<h2 class="mb-4 text-3xl font-bold tracking-tight xl:text-4xl">Pricing</h2>
 
 				<!-- Copy -->
-				<p class="text-lg/relaxed font-medium text-pretty text-foreground/80 xl:text-xl/relaxed">Used by more freelance translators than any other solution on the market, with Trados you can confidently plug into the localization supply chain and work on whatever comes your way.</p>
+				<p class="text-lg/relaxed text-pretty text-foreground-muted xl:text-xl/relaxed">Used by more freelance translators than any other solution on the market, with Trados you can confidently plug into the localization supply chain and work on whatever comes your way.</p>
 
 				<!-- Buttons -->
 				<!-- <div class="mt-8 flex items-center justify-center gap-4">
@@ -25,7 +25,7 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- Pricing plans -->
-	<section class="bg-background pt-0 pb-12 text-foreground md:pb-16 lg:pb-20" data-theme="default">
+	<section class="pt-0 pb-12 md:pb-16 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Pricing options and currency -->
 			<div class="mb-12 flex flex-wrap items-baseline gap-10">
@@ -49,7 +49,7 @@ import Layout from '../../layouts/Trados.astro'
 				<!-- <div>
 					<label class="inline-flex cursor-pointer items-center">
 						<input type="checkbox" value="" class="peer sr-only" />
-						<div class="peer relative h-5 w-9 rounded-full bg-foreground/10 transition-colors peer-checked:bg-accent peer-focus:ring-0 peer-focus:outline-none after:absolute after:start-0.5 after:top-0.5 after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-buffer rtl:peer-checked:after:-translate-x-full"></div>
+						<div class="peer relative h-5 w-9 rounded-full bg-foreground-soft transition-colors peer-checked:bg-accent peer-focus:ring-0 peer-focus:outline-none after:absolute after:start-0.5 after:top-0.5 after:h-4 after:w-4 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-buffer rtl:peer-checked:after:-translate-x-full"></div>
 						<span class="ms-3 font-semibold select-none">Pay annually to <span class="font-semibold text-accent">save 20%</span></span>
 					</label>
 				</div> -->
@@ -57,7 +57,7 @@ import Layout from '../../layouts/Trados.astro'
 				<div>
 					<label class="inline-flex cursor-pointer items-center">
 						<input type="checkbox" value="" class="peer sr-only" data-billing-toggle />
-						<div class="peer relative h-5.5 w-10 rounded-full bg-foreground/10 transition-colors peer-checked:bg-accent peer-focus:ring-0 peer-focus:outline-none after:absolute after:start-0.5 after:top-0.5 after:size-4.5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-buffer rtl:peer-checked:after:-translate-x-full"></div>
+						<div class="peer relative h-5.5 w-10 rounded-full bg-foreground-soft transition-colors peer-checked:bg-accent peer-focus:ring-0 peer-focus:outline-none after:absolute after:start-0.5 after:top-0.5 after:size-4.5 after:rounded-full after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-buffer rtl:peer-checked:after:-translate-x-full"></div>
 						<span class="ms-3 text-lg font-semibold select-none">Pay annually to <span class="font-semibold text-accent">save 25%</span></span>
 					</label>
 				</div>
@@ -65,35 +65,35 @@ import Layout from '../../layouts/Trados.astro'
 				<ul class="ml-auto flex items-center gap-4">
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-usd" type="radio" value="usd" name="currency" class="focus:ring-2- focus:ring-accent/50- size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" checked />
+							<input id="currency-usd" type="radio" value="usd" name="currency" class="focus:ring-2- focus:ring-accent/50- size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" checked />
 							<label for="currency-usd" class="pl-2 font-semibold">USD</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
+							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
 							<label for="currency-gbp" class="pl-2 font-semibold">GBP</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
+							<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
 							<label for="currency-eur" class="pl-2 font-semibold">EUR</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
+							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
 							<label for="currency-jpy" class="pl-2 font-semibold">JPY</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center">
-							<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
+							<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
 							<label for="currency-cad" class="pl-2 font-semibold">CAD</label>
 						</div>
 					</li>
@@ -103,7 +103,7 @@ import Layout from '../../layouts/Trados.astro'
 			<!-- Pricing cards -->
 			<div class="grid items-center gap-6 md:grid-cols-2 xl:gap-10">
 				<!-- Pricing Card -->
-				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 p-6 text-center xl:p-10">
+				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground-softer p-6 text-center xl:p-10">
 					<!-- <div class="absolute inset-x-0 top-0 h-4 bg-linear-to-r from-tertiary via-primary to-secondary"></div> -->
 
 					<div>
@@ -112,15 +112,15 @@ import Layout from '../../layouts/Trados.astro'
 						<span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 							<span class="text-[90%]">$</span>
 							<span class="ml-1" data-price data-price-monthly="40" data-price-yearly="30">40</span>
-							<span class="ml-3 text-lg text-foreground/50" data-billing-period>per month</span>
+							<span class="ml-3 text-lg text-foreground-subtle" data-billing-period>per month</span>
 						</span>
 
 						<div class="mb-5" data-billing-annual-note>
-							<span class="text-lg font-bold text-foreground/80">Billed yearly, <span class="text-accent">save $120</span></span>
-							<!-- <span class="font-semibold text-foreground/80">Monthly payment — annual contract</span> -->
+							<span class="text-lg font-bold text-foreground-muted">Billed yearly, <span class="text-accent">save $120</span></span>
+							<!-- <span class="font-semibold text-foreground-muted">Monthly payment — annual contract</span> -->
 						</div>
 
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<div class="prose text-foreground-muted md:prose-lg">
 							<p>Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
 						</div>
 					</div>
@@ -143,7 +143,7 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="240 216 184 104 128 216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="144" y1="184" x2="224" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="96" y1="32" x2="96" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="56" x2="160" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M128,56a96,96,0,0,1-96,96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M72.7,96A96,96,0,0,0,160,152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
 
-								<span class="font-medium">Unlimited languages</span>
+								<span>Unlimited languages</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"></path></svg> -->
@@ -154,70 +154,70 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M100,208H72A56,56,0,1,1,85.92,97.74" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="124 160 156 128 188 160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="156" y1="208" x2="156" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M80,128a80,80,0,1,1,156,25.05" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
 
-								<span class="font-medium">Cloud projects only</span>
+								<span>Cloud projects only</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polygon points="160 16 148 96 208 120 96 240 108 160 48 136 160 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polygon></svg>
 
-								<span class="font-medium">Throughput of 1 million target words per year</span>
+								<span>Throughput of 1 million target words per year</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg> -->
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="28" y="84" width="160" height="128" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><path d="M68,84V52a8,8,0,0,1,8-8H220a8,8,0,0,1,8,8V164a8,8,0,0,1-8,8H188" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="28" y1="124" x2="188" y2="124" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 
-								<span class="font-medium">Online editor</span>
+								<span>Online editor</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path></svg> -->
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="168" y1="92" x2="232" y2="92" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="168" y1="132" x2="232" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="172" x2="232" y2="172" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="212" x2="232" y2="212" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="128 72 128 56 32 56 32 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="64" y1="132" x2="96" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="56" x2="80" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 
-								<span class="font-medium">Translation engines</span>
+								<span>Translation engines</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z" clip-rule="evenodd"></path></svg> -->
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M32,56H224a0,0,0,0,1,0,0V192a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V56A0,0,0,0,1,32,56Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="32" y1="104" x2="224" y2="104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="152" x2="224" y2="152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="88" y1="104" x2="88" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 
-								<span class="font-medium">Terminology management</span>
+								<span>Terminology management</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path></svg> -->
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M216,112V56a8,8,0,0,0-8-8H48a8,8,0,0,0-8,8v56c0,96,88,120,88,120S216,208,216,112Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="88 136 112 160 168 104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 
-								<span class="font-medium">Quality assurance</span>
+								<span>Quality assurance</span>
 							</li>
 						</ul>
 					</div>
 
-					<!-- <span class="absolute right-6 bottom-6 text-xs font-semibold text-foreground/50 xl:right-10 xl:bottom-10">*Conditions apply</span> -->
+					<!-- <span class="absolute right-6 bottom-6 text-xs font-semibold text-foreground-subtle xl:right-10 xl:bottom-10">*Conditions apply</span> -->
 				</div>
 
 				<!-- Pricing Card -->
-				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 bg-card p-8 text-center md:order-none xl:p-10">
-					<!-- <span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent/80">Most popular</span> -->
+				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent-soft p-8 text-center md:order-none xl:p-10" data-card>
+					<!-- <span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-xs font-bold text-accent-muted">Most popular</span> -->
 
 					<div>
-						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none">Most popular</span>
+						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent-muted select-none">Most popular</span>
 
 						<h3 class="mt-4- mb-6 text-2xl font-semibold xl:text-3xl">Trados Studio Freelance</h3>
 
 						<span class="mb-6 inline-flex items-center justify-center text-5xl font-bold">
 							<span class="text-[90%]">$</span>
 							<span class="ml-1" data-price data-price-monthly="54" data-price-yearly="40">54</span>
-							<span class="ml-3 text-lg text-foreground/50" data-billing-period>per month</span>
+							<span class="ml-3 text-lg text-foreground-subtle" data-billing-period>per month</span>
 						</span>
 
 						<div class="mb-5" data-billing-annual-note>
-							<span class="text-lg font-bold text-foreground/80">Billed yearly, <span class="text-accent">save $168</span></span>
-							<!-- <span class="font-semibold text-foreground/80">Monthly payment — annual contract</span> -->
+							<span class="text-lg font-bold text-foreground-muted">Billed yearly, <span class="text-accent">save $168</span></span>
+							<!-- <span class="font-semibold text-foreground-muted">Monthly payment — annual contract</span> -->
 						</div>
 
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<div class="prose text-foreground-muted md:prose-lg">
 							<p>A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience with advanced features, flexibility, and control.</p>
 						</div>
 					</div>
@@ -228,14 +228,14 @@ import Layout from '../../layouts/Trados.astro'
 
 					<div>
 						<ul role="list" class="space-y-4 text-left">
-							<!-- <li class="text-foreground/66">
-								<span class="font-medium">The same features as Trados Go plus:</span>
+							<!-- <li class="text-foreground-subtle">
+								<span>The same features as Trados Go plus:</span>
 							</li> -->
 
 							<li class="flex items-center space-x-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="88" y1="128" x2="168" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="88" x2="128" y2="168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 
-								<span class="font-medium">The same features as Trados Go plus:</span>
+								<span>The same features as Trados Go plus:</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zm-.464 5.535a1 1 0 10-1.415-1.414 3 3 0 01-4.242 0 1 1 0 00-1.415 1.414 5 5 0 007.072 0z" clip-rule="evenodd"></path></svg> -->
@@ -254,7 +254,7 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="32" y="48" width="192" height="140" rx="16" transform="translate(256 236) rotate(180)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><line x1="160" y1="224" x2="96" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="148" x2="224" y2="148" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="192" x2="128" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 
-								<span class="font-medium">Desktop editor</span>
+								<span>Desktop editor</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> -->
@@ -269,7 +269,7 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><ellipse cx="128" cy="80" rx="88" ry="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></ellipse><path d="M40,80v48c0,26.51,39.4,48,88,48s88-21.49,88-48V80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M40,128v48c0,26.51,39.4,48,88,48s88-21.49,88-48V128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
 
-								<span class="font-medium">Local, server and cloud projects</span>
+								<span>Local, server and cloud projects</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg> -->
@@ -282,7 +282,7 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polygon points="160 16 148 96 208 120 96 240 108 160 48 136 160 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polygon></svg>
 
-								<span class="font-medium">Unlimited desktop throughput</span>
+								<span>Unlimited desktop throughput</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path></svg> -->
@@ -299,7 +299,7 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="120" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M63.8,199.37a72,72,0,0,1,128.4,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M222.67,112A95.92,95.92,0,1,1,144,33.33" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="184 56 200 72 232 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 
-								<span class="font-medium">Reviewer mode</span>
+								<span>Reviewer mode</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z" clip-rule="evenodd"></path></svg> -->
@@ -314,7 +314,7 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="32.7 76.92 128 129.08 223.3 76.92" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="128" y1="129.09" x2="128" y2="231.97" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M219.84,182.84l-88,48.18a8,8,0,0,1-7.68,0l-88-48.18a8,8,0,0,1-4.16-7V80.18a8,8,0,0,1,4.16-7l88-48.18a8,8,0,0,1,7.68,0l88,48.18a8,8,0,0,1,4.16,7v95.64A8,8,0,0,1,219.84,182.84Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="81.56 48.31 176 100 176 152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 
-								<span class="font-medium">Open project packages</span>
+								<span>Open project packages</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path></svg> -->
@@ -331,7 +331,7 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M124,100a24,24,0,1,1,24-24A24,24,0,0,1,124,100Z"></path><path d="M144,160a24,24,0,1,1,24-24A24,24,0,0,1,144,160Z"></path><path d="M120,216H72a8,8,0,0,1-8-8V171.81L36.42,159.18a8,8,0,0,1-3.77-10.3L56,104a80,80,0,1,1,128,64l8,64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="214.38 88 184 88 144 136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="124" y1="76" x2="124" y2="24.89" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
 
-								<span class="font-medium">3rd party large language models</span>
+								<span>3rd party large language models</span>
 							</li>
 							<li class="flex items-center space-x-3">
 								<!-- <svg class="h-5 w-5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path></svg> -->
@@ -346,7 +346,7 @@ import Layout from '../../layouts/Trados.astro'
 
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
 
-								<span class="font-medium">AI assistant</span>
+								<span>AI assistant</span>
 							</li>
 						</ul>
 					</div>
@@ -356,33 +356,33 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- Pricing table -->
-	<section class="bg-background pt-6 pb-12 text-foreground md:pt-8 md:pb-16 lg:pt-12 lg:pb-20" data-theme="default">
+	<section class="pt-6 pb-12 md:pt-8 md:pb-16 lg:pt-12 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mx-auto mb-8 max-w-screen-sm text-center lg:mb-16">
 				<h2 class="mb-4 text-4xl font-bold tracking-tight">Choose the right option</h2>
-				<p class="font-medium text-pretty text-foreground/80 sm:text-xl">Compare the features and capabilities to decide which is the right solution for you.</p>
+				<p class="text-pretty text-foreground-muted sm:text-xl">Compare the features and capabilities to decide which is the right solution for you.</p>
 			</div>
 
-			<div hidden class="grid grid-cols-1 gap-x-16 rounded-t-lg bg-foreground/2 p-8 md:grid-cols-3">
+			<div hidden class="grid grid-cols-1 gap-x-16 rounded-t-lg bg-foreground-softest p-8 md:grid-cols-3">
 				<div class="hidden md:block"></div>
 
-				<div class="">
+				<div>
 					<h3 class="text-lg font-bold">Community edition</h3>
 					<span class="mb-4 block text-4xl font-extrabold text-gray-900">Free</span>
-					<p class="mb-4 text-sm text-gray-500">Get started with an open source library of web components and interactive elements based on Tailwind CSS.</p><a href="https://flowbite.com/docs/getting-started/introduction/" class="block w-full rounded-lg border border-gray-200 bg-white px-6 py-2 text-center font-medium text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 focus:outline-none">Get started</a>
+					<p class="mb-4 text-sm text-gray-500">Get started with an open source library of web components and interactive elements based on Tailwind CSS.</p><a href="https://flowbite.com/docs/getting-started/introduction/" class="block w-full rounded-lg border border-gray-200 bg-white px-6 py-2 text-center text-gray-900 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:text-blue-700 focus:ring-2 focus:ring-blue-700 focus:outline-none">Get started</a>
 				</div>
 
-				<div class="">
+				<div>
 					<h3 class="text-lg font-bold text-gray-900">Developer edition</h3>
 					<span class="mb-4 text-4xl font-extrabold text-gray-900"><span>$299 <span class="text-sm font-medium">excl. taxes</span></span> </span>
 					<p class="my-4 text-sm text-gray-500">Recommended for professional developers and companies building enterprise-level websites and applications.</p>
-					<button class="mb-3 w-full items-center justify-center rounded-lg bg-blue-700 px-6 py-2 text-center text-base font-medium text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none md:mr-5 md:mb-0">Buy now</button><a class="mt-3 block text-sm font-medium text-blue-600 hover:text-blue-800" href="/pro/#faq"><span class="mr-1">View team pricing</span><svg class="ml-1 inline h-3.5 w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"></path></svg></a>
+					<button class="mb-3 w-full items-center justify-center rounded-lg bg-blue-700 px-6 py-2 text-center text-base text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none md:mr-5 md:mb-0">Buy now</button><a class="mt-3 block text-sm text-blue-600 hover:text-blue-800" href="/pro/#faq"><span class="mr-1">View team pricing</span><svg class="ml-1 inline h-3.5 w-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"></path></svg></a>
 				</div>
 			</div>
 
 			<div class="overflow-x-auto">
 				<div class="min-w-max overflow-hidden">
-					<div class="grid grid-cols-3 gap-x-16 rounded-t-lg bg-foreground/2 px-4 py-6">
+					<div class="grid grid-cols-3 gap-x-16 rounded-t-lg bg-foreground-softest px-4 py-6">
 						<div></div>
 						<div class="text-center">
 							<h3 class="text-lg font-bold">Trados Go</h3>
@@ -392,24 +392,24 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4">
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground-softer bg-foreground-softest p-4">
 						<h4 class="text-lg font-semibold">Capacity</h4>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
-						<div class="font-medium text-foreground/80">Languages</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5">
+						<div class="text-foreground-muted">Languages</div>
 
-						<div class="text-center font-medium text-foreground/80">Unlimited</div>
+						<div class="text-center text-foreground-muted">Unlimited</div>
 
-						<div class="text-center font-medium text-foreground/80">Unlimited</div>
+						<div class="text-center text-foreground-muted">Unlimited</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
-						<div class="font-medium text-foreground/80">Projects</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5">
+						<div class="text-foreground-muted">Projects</div>
 
-						<div class="text-center font-medium text-foreground/80">Cloud</div>
+						<div class="text-center text-foreground-muted">Cloud</div>
 
-						<div class="flex items-center justify-center text-center font-medium text-foreground/80">
+						<div class="flex items-center justify-center text-center text-foreground-muted">
 							Local, cloud and server
 
 							<!-- Tooltip trigger -->
@@ -420,15 +420,15 @@ import Layout from '../../layouts/Trados.astro'
 							</button>
 
 							<!-- Tooltip content -->
-							<div id="tooltip-local-projects" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm font-medium text-pretty text-background opacity-0">
+							<div id="tooltip-local-projects" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm text-pretty text-background opacity-0">
 								Work with cloud projects directly in the browser, or use the desktop application to handle local file-based projects, cloud projects, and server projects received from Trados GroupShare.
 								<div class="tooltip-arrow" data-popper-arrow></div>
 							</div>
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5">
-						<div class="flex items-center font-medium text-foreground/80">
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5">
+						<div class="flex items-center text-foreground-muted">
 							Cloud throughput
 
 							<!-- Tooltip trigger -->
@@ -439,35 +439,35 @@ import Layout from '../../layouts/Trados.astro'
 							</button>
 
 							<!-- Tooltip content -->
-							<div id="tooltip-cloud-throughput" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm font-medium text-pretty text-background opacity-0">
+							<div id="tooltip-cloud-throughput" role="tooltip" class="tooltip invisible absolute z-10 block max-w-3xs rounded-base bg-foreground px-3 py-2 text-center text-sm text-pretty text-background opacity-0">
 								Cloud translation throughput is the total number of target words that can be processed through Trados cloud per year.
 								<div class="tooltip-arrow" data-popper-arrow></div>
 							</div>
 						</div>
 
-						<div class="text-center font-medium text-foreground/80">1 million target words per year</div>
+						<div class="text-center text-foreground-muted">1 million target words per year</div>
 
-						<div class="text-center font-medium text-foreground/80">1 million target words per year</div>
+						<div class="text-center text-foreground-muted">1 million target words per year</div>
 					</div>
-					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5">
-						<div class="font-medium text-foreground/80">
+					<div class="grid grid-cols-3 gap-x-16 border-foreground-softer px-4 py-5">
+						<div class="text-foreground-muted">
 							Desktop throughput
-							<!-- <span class="ml-2 rounded-full bg-accent/10 px-1.5 pt-0.25 pb-0.5 text-xs font-semibold text-accent">New</span> -->
+							<!-- <span class="ml-2 rounded-full bg-accent-softer px-1.5 pt-0.25 pb-0.5 text-xs font-semibold text-accent">New</span> -->
 						</div>
 
 						<div class="text-red-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 						</div>
 
-						<div class="text-center font-medium text-foreground/80">Unlimited</div>
+						<div class="text-center text-foreground-muted">Unlimited</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground-softer bg-foreground-softest p-4 font-semibold">
 						<h4 class="text-lg font-semibold">Translation features</h4>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Online editor</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Online editor</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -478,8 +478,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Desktop editor</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Desktop editor</div>
 
 						<div class="text-red-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -490,8 +490,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Translation engines</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Translation engines</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -502,8 +502,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Terminology management</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Terminology management</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -514,8 +514,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Project templates</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Project templates</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -526,8 +526,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Quality assurance</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Quality assurance</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -538,16 +538,16 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Customise with apps</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Customise with apps</div>
 
-						<div class="text-center font-medium text-foreground/80">10+</div>
+						<div class="text-center text-foreground-muted">10+</div>
 
-						<div class="text-center font-medium text-foreground/80">150+</div>
+						<div class="text-center text-foreground-muted">150+</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Reviewer mode</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Reviewer mode</div>
 
 						<div class="text-red-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -558,8 +558,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Open project packages</div>
+					<div class="grid grid-cols-3 gap-x-16 border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Open project packages</div>
 
 						<div class="text-red-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -570,12 +570,12 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground-softer bg-foreground-softest p-4 font-semibold">
 						<h4 class="text-lg font-semibold">Linguistic AI</h4>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Smart Help</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Smart Help</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -586,8 +586,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Language Weaver</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Language Weaver</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -598,8 +598,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">3rd party machine translation</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">3rd party machine translation</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -610,8 +610,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">3rd party large language models</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">3rd party large language models</div>
 
 						<div class="text-red-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -622,8 +622,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">AI assistant</div>
+					<div class="grid grid-cols-3 gap-x-16 border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">AI assistant</div>
 
 						<div class="text-red-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
@@ -634,12 +634,12 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground-softer bg-foreground-softest p-4 font-semibold">
 						<h4 class="text-lg font-semibold">Integrations</h4>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">API access</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">API access</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -650,8 +650,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Built-in connectors</div>
+					<div class="grid grid-cols-3 gap-x-16 px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Built-in connectors</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -662,12 +662,12 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground/10 bg-foreground/5 p-4 font-semibold">
+					<div class="grid grid-cols-3 gap-x-16 border-y border-foreground-softer bg-foreground-softest p-4 font-semibold">
 						<h4 class="text-lg font-semibold">Customer success</h4>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Automatic browser updates</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Automatic browser updates</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -678,8 +678,8 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Basic support</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Basic support</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -690,16 +690,16 @@ import Layout from '../../layouts/Trados.astro'
 						</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Advanced support</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Advanced support</div>
 
-						<div class="text-center font-medium text-foreground/80">Add-on</div>
+						<div class="text-center text-foreground-muted">Add-on</div>
 
-						<div class="text-center font-medium text-foreground/80">Add-on</div>
+						<div class="text-center text-foreground-muted">Add-on</div>
 					</div>
 
-					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground/10 px-4 py-5 text-foreground/80">
-						<div class="font-medium text-foreground/80">Onboarding</div>
+					<div class="grid grid-cols-3 gap-x-16 border-b border-foreground-softer px-4 py-5 text-foreground-muted">
+						<div class="text-foreground-muted">Onboarding</div>
 
 						<div class="text-green-500">
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="mx-auto size-5"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -712,7 +712,7 @@ import Layout from '../../layouts/Trados.astro'
 				</div>
 			</div>
 
-			<div class="grid grid-cols-1 gap-x-16 rounded-b-lg bg-foreground/5 p-8 md:grid-cols-3">
+			<div class="grid grid-cols-1 gap-x-16 rounded-b-lg bg-foreground-softest p-8 md:grid-cols-3">
 				<div class="hidden md:block"></div>
 
 				<div class="mb-8 text-center md:mb-0">
@@ -723,14 +723,14 @@ import Layout from '../../layouts/Trados.astro'
 						<!-- <span class="ml-1 line-through">34</span>
 						<span class="ml-1.5 text-accent">27</span> -->
 						<span class="ml-1" data-price data-price-monthly="40" data-price-yearly="30">40</span>
-						<span class="ml-3 text-lg text-foreground/40">per month</span>
+						<span class="ml-3 text-lg text-foreground-subtle">per month</span>
 					</span>
 
 					<div class="mb-4" data-billing-annual-note>
-						<span class="font-bold text-foreground/80">Billed yearly, <span class="text-accent">save $120</span></span>
+						<span class="font-bold text-foreground-muted">Billed yearly, <span class="text-accent">save $120</span></span>
 					</div>
 
-					<p class="mb-4 text-sm font-medium text-foreground/80">Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
+					<p class="mb-4 text-sm text-foreground-muted">Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
 
 					<!-- <a href="#" class="btn btn-tertiary w-full">Get 20% off your first year</a> -->
 					<a href="#" class="btn btn-tertiary w-full">Start your free trial</a>
@@ -742,14 +742,14 @@ import Layout from '../../layouts/Trados.astro'
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
 						<span class="text-[90%]">$</span>
 						<span class="ml-1" data-price data-price-monthly="54" data-price-yearly="40">54</span>
-						<span class="ml-3 text-lg text-foreground/40">per month</span>
+						<span class="ml-3 text-lg text-foreground-subtle">per month</span>
 					</span>
 
 					<div class="mb-4" data-billing-annual-note>
-						<span class="font-bold text-foreground/80">Billed yearly, <span class="text-accent">save $168</span></span>
+						<span class="font-bold text-foreground-muted">Billed yearly, <span class="text-accent">save $168</span></span>
 					</div>
 
-					<p class="mb-4 text-sm font-medium text-foreground/80">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
+					<p class="mb-4 text-sm text-foreground-muted">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
 
 					<a href="#" class="btn btn-tertiary w-full">Start your free trial</a>
 				</div>
@@ -758,13 +758,13 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- Social proof -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="tertiary">
 		<div class="mx-auto max-w-screen-xl items-center px-8 lg:grid lg:grid-cols-4 lg:gap-16 lg:px-12 xl:gap-24">
 			<div class="col-span-2 mb-8">
-				<p class="mb-3 text-lg font-bold text-foreground/80">Trusted worldwide</p>
+				<p class="mb-3 text-lg font-bold text-foreground-muted">Trusted worldwide</p>
 				<h2 class="mb-4 text-3xl font-bold tracking-tight xl:text-4xl">Trusted by over 600 million users and 10,000 teams</h2>
-				<p class="mb-8 font-medium text-pretty text-foreground/80 md:text-lg xl:text-xl">Our rigorous security and compliance standards are at the heart of all we do. We work tirelessly to protect you and your customers.</p>
-				<div class="space-y-4 border-t border-foreground/10 pt-8">
+				<p class="mb-8 text-pretty text-foreground-muted md:text-lg xl:text-xl">Our rigorous security and compliance standards are at the heart of all we do. We work tirelessly to protect you and your customers.</p>
+				<div class="space-y-4 border-t border-foreground-softer pt-8">
 					<div>
 						<a href="#" class="btn btn-link btn-icon-right">
 							Explore our legality guide
@@ -782,59 +782,59 @@ import Layout from '../../layouts/Trados.astro'
 
 			<div class="col-span-2 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
 				<div>
-					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent-softer lg:size-12">
 						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"></path></svg> -->
 						<svg class="size-5 text-accent lg:size-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M208,40H48A16,16,0,0,0,32,56v48a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V56A16,16,0,0,0,208,40ZM180,92a12,12,0,1,1,12-12A12,12,0,0,1,180,92Z"></path><path d="M208,136H48a16,16,0,0,0-16,16v48a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V152A16,16,0,0,0,208,136Zm-28,52a12,12,0,1,1,12-12A12,12,0,0,1,180,188Z"></path></svg>
 					</div>
 					<h3 class="mb-2 text-2xl font-bold">99.99% uptime</h3>
-					<p class="font-medium text-pretty text-foreground/80">For Trados Studio, with zero maintenance downtime</p>
+					<p class="text-pretty text-foreground-muted">For Trados Studio, with zero maintenance downtime</p>
 				</div>
 
 				<div>
-					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent-softer lg:size-12">
 						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg> -->
 						<svg class="size-5 text-accent lg:size-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M164.47,195.63a8,8,0,0,1-6.7,12.37H10.23a8,8,0,0,1-6.7-12.37,95.83,95.83,0,0,1,47.22-37.71,60,60,0,1,1,66.5,0A95.83,95.83,0,0,1,164.47,195.63Zm87.91-.15a95.87,95.87,0,0,0-47.13-37.56A60,60,0,0,0,144.7,54.59a4,4,0,0,0-1.33,6A75.83,75.83,0,0,1,147,150.53a4,4,0,0,0,1.07,5.53,112.32,112.32,0,0,1,29.85,30.83,23.92,23.92,0,0,1,3.65,16.47,4,4,0,0,0,3.95,4.64h60.3a8,8,0,0,0,7.73-5.93A8.22,8.22,0,0,0,252.38,195.48Z"></path></svg>
 					</div>
 					<h3 class="mb-2 text-2xl font-bold">600M+ users</h3>
-					<p class="font-medium text-pretty text-foreground/80">Trusted by over 600 milion users around the world</p>
+					<p class="text-pretty text-foreground-muted">Trusted by over 600 milion users around the world</p>
 				</div>
 
 				<div>
-					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent-softer lg:size-12">
 						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"></path></svg> -->
 						<svg class="size-5 text-accent lg:size-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm88,104a87.62,87.62,0,0,1-6.4,32.94l-44.7-27.49a15.92,15.92,0,0,0-6.24-2.23l-22.82-3.08a16.11,16.11,0,0,0-16,7.86h-8.72l-3.8-7.86a15.91,15.91,0,0,0-11-8.67l-8-1.73L96.14,104h16.71a16.06,16.06,0,0,0,7.73-2l12.25-6.76a16.62,16.62,0,0,0,3-2.14l26.91-24.34A15.93,15.93,0,0,0,166,49.1l-.36-.65A88.11,88.11,0,0,1,216,128ZM40,128a87.53,87.53,0,0,1,8.54-37.8l11.34,30.27a16,16,0,0,0,11.62,10l21.43,4.61L96.74,143a16.09,16.09,0,0,0,14.4,9h1.48l-7.23,16.23a16,16,0,0,0,2.86,17.37l.14.14L128,205.94l-1.94,10A88.11,88.11,0,0,1,40,128Z"></path></svg>
 					</div>
 					<h3 class="mb-2 text-2xl font-bold">100+ countries</h3>
-					<p class="font-medium text-pretty text-foreground/80">Have used Trados to translate projects</p>
+					<p class="text-pretty text-foreground-muted">Have used Trados to translate projects</p>
 				</div>
 
 				<div>
-					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent/10 lg:size-12">
+					<div class="mb-4 flex size-10 items-center justify-center rounded-full bg-accent-softer lg:size-12">
 						<!-- <svg class="size-5 text-accent lg:size-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg> -->
 						<svg class="size-5 text-accent lg:size-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M230.14,58.87A8,8,0,0,0,224,56H62.68L56.6,22.57A8,8,0,0,0,48.73,16H24a8,8,0,0,0,0,16h18L67.56,172.29a24,24,0,0,0,5.33,11.27,28,28,0,1,0,44.4,8.44h45.42A27.75,27.75,0,0,0,160,204a28,28,0,1,0,28-28H91.17a8,8,0,0,1-7.87-6.57L80.13,152h116a24,24,0,0,0,23.61-19.71l12.16-66.86A8,8,0,0,0,230.14,58.87ZM104,204a12,12,0,1,1-12-12A12,12,0,0,1,104,204Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,200,204Z"></path></svg>
 					</div>
 					<h3 class="mb-2 text-2xl font-bold">5+ million</h3>
-					<p class="font-medium text-pretty text-foreground/80">Transactions per day</p>
+					<p class="text-pretty text-foreground-muted">Transactions per day</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- Testimonials -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mx-auto max-w-screen-sm text-center">
 				<h2 class="mb-4 text-3xl font-bold tracking-tight xl:text-4xl">What our customers say</h2>
-				<p class="mb-8 font-medium text-pretty text-foreground/80 sm:text-xl/relaxed lg:mb-16">Hear from our customers about their experience with Trados. Find out why they chose Trados and how it has helped them.</p>
+				<p class="mb-8 text-pretty text-foreground-muted sm:text-xl/relaxed lg:mb-16">Hear from our customers about their experience with Trados. Find out why they chose Trados and how it has helped them.</p>
 			</div>
 
 			<div class="grid gap-8 lg:grid-cols-3">
 				<div class="space-y-6">
-					<figure class="glow rounded bg-card p-6 before:opacity-0 before:transition-opacity hover:before:opacity-33">
+					<figure class="glow rounded p-6 before:opacity-0 before:transition-opacity hover:before:opacity-33" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">I have everything I need</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>Investing in Trados Studio and learning about its features has been one of the wisest business decisions in my career. I reap the benefits in every single job I do. With Studio, I have everything I need: terminology consistency, reference to past jobs, faster typing and QA checking as I go.</p>
 							</div>
 						</blockquote>
@@ -842,17 +842,17 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Emma%20Goldsmith%20-%20470x100_tcm234-229512.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Emma Goldsmith</div>
-								<div class="text-sm font-medium text-foreground/50">ES-EN freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Emma Goldsmith</div>
+								<div class="text-sm text-foreground-subtle">ES-EN freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
 
-					<figure class="rounded bg-card p-6">
+					<figure class="rounded p-6" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">Huge difference in productivity</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>Now that I have started working with Trados Studio, I have seen a huge difference in my productivity! Spending some time to properly prepare a project, building relevant termbases, leveraging translation memories and aligning legacy documents to build new ones, have made me much faster and more efficient.</p>
 							</div>
 						</blockquote>
@@ -860,17 +860,17 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Alexandros%20Tsouris%20-%20470x100_tcm234-229515.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Alexandros Tsouris</div>
-								<div class="text-sm font-medium text-foreground/50">EN-EL, EL-EN freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Alexandros Tsouris</div>
+								<div class="text-sm text-foreground-subtle">EN-EL, EL-EN freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
 
-					<figure class="rounded bg-card p-6">
+					<figure class="rounded p-6" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">Helps people of all levels</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>The resources that are provided with new Trados Studio versions are always extremely helpful. Overall, Trados Studio is a great product that comes with a comprehensive package of information, helping people of all levels of experience and skills to use the software.</p>
 							</div>
 						</blockquote>
@@ -878,19 +878,19 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Patrizia%20Pasquazi%20-%20470x100_tcm234-229514.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Patrizia Pasquazi</div>
-								<div class="text-sm font-medium text-foreground/50">DE-EN, EN-DE freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Patrizia Pasquazi</div>
+								<div class="text-sm text-foreground-subtle">DE-EN, EN-DE freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
 				</div>
 
 				<div class="space-y-6">
-					<figure class="rounded bg-card p-6">
+					<figure class="rounded p-6" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">A solid business decision</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>I think the simplest reason to choose Studio is that it’s a solid business decision. As a freelancer, if you want to play in the big leagues, you need big league tools. [...] Studio will open opportunities for you that you wouldn’t have access to otherwise.</p>
 							</div>
 						</blockquote>
@@ -898,17 +898,17 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Nora%20Diaz%20-%20470x100_tcm234-229513.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Nora Diaz</div>
-								<div class="text-sm font-medium text-foreground/50">EN-ES freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Nora Diaz</div>
+								<div class="text-sm text-foreground-subtle">EN-ES freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
 
-					<figure class="rounded bg-card p-6">
+					<figure class="rounded p-6" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">I have everything I need</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>Investing in Trados Studio and learning about its features has been one of the wisest business decisions in my career. I reap the benefits in every single job I do. With Studio, I have everything I need: terminology consistency, reference to past jobs, faster typing and QA checking as I go.</p>
 							</div>
 						</blockquote>
@@ -916,17 +916,17 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Emma%20Goldsmith%20-%20470x100_tcm234-229512.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Emma Goldsmith</div>
-								<div class="text-sm font-medium text-foreground/50">ES-EN freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Emma Goldsmith</div>
+								<div class="text-sm text-foreground-subtle">ES-EN freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
 
-					<figure class="rounded bg-card p-6">
+					<figure class="rounded p-6" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">Huge difference in productivity</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>Now that I have started working with Trados Studio, I have seen a huge difference in my productivity! Spending some time to properly prepare a project, building relevant termbases, leveraging translation memories and aligning legacy documents to build new ones, have made me much faster and more efficient.</p>
 								<p>This is one of the most important tools I use on a daily basis as a freelance translator.</p>
 							</div>
@@ -935,19 +935,19 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Alexandros%20Tsouris%20-%20470x100_tcm234-229515.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Alexandros Tsouris</div>
-								<div class="text-sm font-medium text-foreground/50">EN-EL, EL-EN freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Alexandros Tsouris</div>
+								<div class="text-sm text-foreground-subtle">EN-EL, EL-EN freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
 				</div>
 
 				<div class="space-y-6">
-					<figure class="rounded bg-card p-6">
+					<figure class="rounded p-6" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">Helps people of all levels</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>The resources that are provided with new Trados Studio versions are always extremely helpful. Overall, Trados Studio is a great product that comes with a comprehensive package of information, helping people of all levels of experience and skills to use the software.</p>
 							</div>
 						</blockquote>
@@ -955,17 +955,17 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Patrizia%20Pasquazi%20-%20470x100_tcm234-229514.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Patrizia Pasquazi</div>
-								<div class="text-sm font-medium text-foreground/50">DE-EN, EN-DE freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Patrizia Pasquazi</div>
+								<div class="text-sm text-foreground-subtle">DE-EN, EN-DE freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
 
-					<figure class="rounded bg-card p-6">
+					<figure class="rounded p-6" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">A solid business decision</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>I think the simplest reason to choose Studio is that it’s a solid business decision. As a freelancer, if you want to play in the big leagues, you need big league tools. [...] Studio will open opportunities for you that you wouldn’t have access to otherwise.</p>
 								<p>This is one of the most important tools I use on a daily basis as a freelance translator.</p>
 							</div>
@@ -974,17 +974,17 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Nora%20Diaz%20-%20470x100_tcm234-229513.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Nora Diaz</div>
-								<div class="text-sm font-medium text-foreground/50">EN-ES freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Nora Diaz</div>
+								<div class="text-sm text-foreground-subtle">EN-ES freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
 
-					<figure class="rounded bg-card p-6">
+					<figure class="rounded p-6" data-card>
 						<blockquote>
 							<h3 class="mb-4 text-lg font-bold text-pretty">I have everything I need</h3>
 
-							<div class="prose mb-4 font-medium text-foreground/80">
+							<div class="prose mb-4 text-foreground-muted">
 								<p>Investing in Trados Studio and learning about its features has been one of the wisest business decisions in my career. I reap the benefits in every single job I do. With Studio, I have everything I need: terminology consistency, reference to past jobs, faster typing and QA checking as I go.</p>
 							</div>
 						</blockquote>
@@ -992,8 +992,8 @@ import Layout from '../../layouts/Trados.astro'
 						<figcaption class="flex items-center space-x-3">
 							<img class="aspect-82/100 h-9 rounded-full object-cover" src="https://www.trados.com/media/dynamic/images/Emma%20Goldsmith%20-%20470x100_tcm234-229512.webp?original=.png&v=20260126090102" alt="profile picture" draggable="false" />
 							<div class="space-y-0.5">
-								<div class="font-semibold text-foreground/80">Emma Goldsmith</div>
-								<div class="text-sm font-medium text-foreground/50">ES-EN freelance translator</div>
+								<div class="font-semibold text-foreground-muted">Emma Goldsmith</div>
+								<div class="text-sm text-foreground-subtle">ES-EN freelance translator</div>
 							</div>
 						</figcaption>
 					</figure>
@@ -1003,27 +1003,27 @@ import Layout from '../../layouts/Trados.astro'
 	</section>
 
 	<!-- FAQ -->
-	<section hidden class="bg-background py-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+	<section hidden class="py-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<h2 class="mb-8 text-3xl font-bold tracking-tight xl:text-4xl">Frequently asked questions</h2>
 
-			<div class="grid gap-10 border-t border-foreground/10 pt-8 text-left md:grid-cols-2 xl:gap-12">
+			<div class="grid gap-10 border-t border-foreground-softer pt-8 text-left md:grid-cols-2 xl:gap-12">
 				<div class="grid gap-10">
 					<div>
 						<h3 class="mb-4 text-lg font-bold">This will be the first question</h3>
-						<div class="prose font-medium text-foreground/80">
+						<div class="prose text-foreground-muted">
 							<p>Displayed here will be the answer to the first question and can be as long as needed. It can contain multiple paragraphs and links. Make sure to keep the answer concise and to the point though.</p>
 						</div>
 					</div>
 					<div>
 						<h3 class="mb-4 text-lg font-bold">This will be the second question</h3>
-						<div class="prose font-medium text-foreground/80">
+						<div class="prose text-foreground-muted">
 							<p>Displayed here will be the answer to the second question and can be as long as needed. It can contain multiple paragraphs and links. Make sure to keep the answer concise and to the point though.</p>
 						</div>
 					</div>
 					<div>
 						<h3 class="mb-4 text-lg font-bold">This will be the third question</h3>
-						<div class="prose font-medium text-foreground/80">
+						<div class="prose text-foreground-muted">
 							<p>Displayed here will be the answer to the third question and can be as long as needed. It can contain multiple paragraphs and links. Make sure to keep the answer concise and to the point though.</p>
 						</div>
 					</div>
@@ -1032,19 +1032,19 @@ import Layout from '../../layouts/Trados.astro'
 				<div class="grid gap-10">
 					<div>
 						<h3 class="mb-4 text-lg font-bold">This will be the fourth question</h3>
-						<div class="prose font-medium text-foreground/80">
+						<div class="prose text-foreground-muted">
 							<p>Displayed here will be the answer to the fourth question and can be as long as needed. It can contain multiple paragraphs and links. Make sure to keep the answer concise and to the point though.</p>
 						</div>
 					</div>
 					<div>
 						<h3 class="mb-4 text-lg font-bold">This will be the fifth question</h3>
-						<div class="prose font-medium text-foreground/80">
+						<div class="prose text-foreground-muted">
 							<p>Displayed here will be the answer to the fifth question and can be as long as needed. It can contain multiple paragraphs and links. Make sure to keep the answer concise and to the point though.</p>
 						</div>
 					</div>
 					<div>
 						<h3 class="mb-4 text-lg font-bold">This will be the sixth question</h3>
-						<div class="prose font-medium text-foreground/80">
+						<div class="prose text-foreground-muted">
 							<p>Displayed here will be the answer to the sixth question and can be as long as needed. It can contain multiple paragraphs and links. Make sure to keep the answer concise and to the point though.</p>
 						</div>
 					</div>

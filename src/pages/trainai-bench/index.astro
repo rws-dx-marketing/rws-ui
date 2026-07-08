@@ -38,9 +38,9 @@ const languagesTranslation = [
 
 <Layout title="TrainAI Bench">
 	<!-- Hero -->
-	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-20 text-foreground md:pt-24 lg:pt-32" data-theme="default">
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-20 md:pt-24 lg:pt-32" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>By language experts</p>
 			</div>
 
@@ -48,11 +48,11 @@ const languagesTranslation = [
 				<p>Does your AI actually <em>speak the language</em>?</p>
 			</h1>
 
-			<div hidden class="mx-auto mb-8 max-w-[56ch] text-xl font-medium text-pretty text-foreground/80 xl:text-2xl">
+			<div hidden class="mx-auto mb-8 max-w-[56ch] text-xl text-pretty text-foreground-muted xl:text-2xl">
 				<p>The first independent multilingual benchmark that tests grammar, meaning preservation, and tokenizer efficiency across 30 languages.</p>
 			</div>
 
-			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] text-foreground-muted md:prose-2xl">
 				<p>The first independent multilingual benchmark that tests grammar, meaning preservation, and tokenizer efficiency across 30 languages.</p>
 			</div>
 
@@ -64,19 +64,19 @@ const languagesTranslation = [
 	</section>
 
 	<!-- Stats -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class:list={['grid gap-8', gridCols]}>
 				{
 					stats.map((stat, index) => (
-						<div class="@container grid place-content-center rounded-lg bg-background p-6 text-center text-foreground" data-card>
+						<div class="@container grid place-content-center rounded-lg p-6 text-center" data-card>
 							<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style={`--motion-delay: ${200 + index * 100}ms`} data-count-up>
 								{stat.value}
 							</p>
 
 							<div class="intersect-once intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + index * 100}ms`}>
 								<p class="text-lg/tight font-bold">{stat.label}</p>
-								{stat.note && <p class="font-medium">{stat.note}</p>}
+								{stat.note && <p>{stat.note}</p>}
 							</div>
 						</div>
 					))
@@ -86,10 +86,10 @@ const languagesTranslation = [
 	</section>
 
 	<!-- Split -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-6">
-				<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 					<p>Consectetur adipiscing elit</p>
 				</div>
 
@@ -97,7 +97,7 @@ const languagesTranslation = [
 					<p>Lorem ipsum dolor sit amet</p>
 				</h2>
 
-				<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<div class="prose text-foreground-muted md:prose-lg">
 					<p>Which model is best for my market? Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit suspendisse luctus tortor.</p>
 					<p>How does this specific model perform across languages and tasks? Ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				</div>
@@ -123,9 +123,9 @@ const languagesTranslation = [
 	</section>
 
 	<!-- Preview -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Consectetur adipiscing elit</p>
 			</div>
 
@@ -133,7 +133,7 @@ const languagesTranslation = [
 				<p>There is no single best AI for every language</p>
 			</h2>
 
-			<div class="prose font-medium text-foreground/80 md:prose-lg">
+			<div class="prose text-foreground-muted md:prose-lg">
 				<p>The top model changes depending on what you need it to speak. Here is who leads where, and by how much. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 			</div>
 
@@ -141,40 +141,40 @@ const languagesTranslation = [
 			<div class="mt-12 lg:mt-16">
 				<div class="grid items-start gap-8 md:grid-cols-2">
 					<div class="grid gap-4">
-						<div class="flex items-center justify-between gap-6 px-5" data-card>
+						<div class="flex items-center justify-between gap-6 px-5">
 							<span class="flex-1 text-lg font-bold">Grammar</span>
-							<span class="font-semibold text-foreground/50">MCC</span>
+							<span class="font-semibold text-foreground-subtle">MCC</span>
 						</div>
 
 						{
 							languagesGrammar.map((lang) => (
-								<div class="flex items-center gap-6 rounded border border-foreground/10 bg-background px-5 py-4 font-semibold text-foreground" data-card>
+								<div class="flex items-center gap-6 rounded border border-foreground-softer px-5 py-4 font-semibold" data-card>
 									<span class="flex-1">{lang.name}</span>
 									<span class="flex items-center gap-2">
 										<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
 										<span class="font-bold">{lang.model}</span>
 									</span>
-									<span class="text-foreground/80 tabular-nums">{lang.score}</span>
+									<span class="text-foreground-muted tabular-nums">{lang.score}</span>
 								</div>
 							))
 						}
 					</div>
 
 					<div class="grid gap-4">
-						<div class="flex items-center justify-between gap-6 px-5" data-card>
+						<div class="flex items-center justify-between gap-6 px-5">
 							<span class="flex-1 text-lg font-bold">Translation</span>
-							<span class="font-semibold text-foreground/50">Score %</span>
+							<span class="font-semibold text-foreground-subtle">Score %</span>
 						</div>
 
 						{
 							languagesTranslation.map((lang) => (
-								<div class="flex items-center gap-6 rounded border border-foreground/10 bg-background px-5 py-4 font-semibold text-foreground" data-card>
+								<div class="flex items-center gap-6 rounded border border-foreground-softer px-5 py-4 font-semibold" data-card>
 									<span class="flex-1">{lang.name}</span>
 									<span class="flex items-center gap-2">
 										<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
 										<span class="font-bold">{lang.model}</span>
 									</span>
-									<span class="text-foreground/80 tabular-nums">{lang.score}</span>
+									<span class="text-foreground-muted tabular-nums">{lang.score}</span>
 								</div>
 							))
 						}
@@ -182,7 +182,7 @@ const languagesTranslation = [
 				</div>
 
 				<div class="mt-10 flex flex-col gap-x-6 gap-y-4 sm:flex-row sm:items-center">
-					<div class="flex-1 font-medium text-pretty text-foreground/80">
+					<div class="flex-1 text-pretty text-foreground-muted">
 						<p>Best model per language &bull; grammar in MCC, translation in score %</p>
 					</div>
 
@@ -194,7 +194,7 @@ const languagesTranslation = [
 					</div>
 				</div>
 
-				<div hidden class="grid aspect-2/1 place-items-center rounded-lg border border-foreground/5 bg-foreground/2.5">
+				<div hidden class="grid aspect-2/1 place-items-center rounded-lg border border-foreground-softer bg-background-softest">
 					<a href="/trainai-bench/register" class="btn btn-primary btn-icon-right btn-lg">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 						Register to explore full data

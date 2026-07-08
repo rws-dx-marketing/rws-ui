@@ -7,9 +7,9 @@ import Stats from '../blocks/Stats.astro'
 
 <Layout title="About – RWS UI">
 	<!-- Hero -->
-	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- bg-background pt-20 text-foreground md:pt-24 lg:pt-32" data-theme="default">
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-20 md:pt-24 lg:pt-32" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>By language experts</p>
 			</div>
 
@@ -17,7 +17,7 @@ import Stats from '../blocks/Stats.astro'
 				<p>Does your AI actually <em>speak the language</em>?</p>
 			</h1>
 
-			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] text-foreground-muted md:prose-2xl">
 				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos reprehenderit libero ut eligendi? Laudantium quod quas asperiores magni dolore.</p>
 			</div>
 
@@ -33,5 +33,5 @@ import Stats from '../blocks/Stats.astro'
 
 	<SplitSteps />
 
-	<section class="h-[100svh] bg-background" data-theme="tertiary"></section>
+	<section class="h-[100svh]" data-theme="tertiary"></section>
 </Layout>

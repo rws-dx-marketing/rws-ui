@@ -5,9 +5,9 @@ import Form from '../../components/Form.astro'
 
 <Layout title="Register – TrainAI Bench">
 	<!-- Hero -->
-	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- bg-background pt-16 pb-12 text-foreground md:pt-20 md:pb-16 lg:pt-24 lg:pb-20" data-theme="default">
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pt-16 pb-12 md:pt-20 md:pb-16 lg:pt-24 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-			<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 				<p>Consectetur adipiscing elit</p>
 			</div>
 
@@ -15,7 +15,7 @@ import Form from '../../components/Form.astro'
 				<p>Register</p>
 			</h1>
 
-			<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground/80 md:prose-2xl">
+			<div class="mx-auto prose prose-xl max-w-[56ch] text-foreground-muted md:prose-2xl">
 				<p>Where can I get more in-depth information? Lorem ipsum dolor sit, amet consectetur adipisicing elit vitae quo animi suspendisse luctus tortor.</p>
 			</div>
 
@@ -26,11 +26,11 @@ import Form from '../../components/Form.astro'
 		</div>
 	</section>
 
-	<section hidden class="bg-background py-20 text-foreground" data-theme="default">
+	<section hidden class="py-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="mx-auto max-w-lg">
 				<h1 class="text-3xl font-bold tracking-tight">Get access</h1>
-				<p class="mt-3 text-base font-medium text-foreground/70">Register to explore the full TrainAI Bench dataset, including detailed per-language and per-domain breakdowns.</p>
+				<p class="mt-3 text-base text-foreground-muted">Register to explore the full TrainAI Bench dataset, including detailed per-language and per-domain breakdowns.</p>
 
 				<form class="mt-10 grid gap-5">
 					<div class="grid gap-5 sm:grid-cols-2">
@@ -68,13 +68,13 @@ import Form from '../../components/Form.astro'
 					</div>
 
 					<div>
-						<label for="use-case" class="mb-1.5 block text-sm font-semibold">How will you use the data? <span class="font-normal text-foreground/50">(optional)</span></label>
+						<label for="use-case" class="mb-1.5 block text-sm font-semibold">How will you use the data? <span class="font-normal text-foreground-subtle">(optional)</span></label>
 						<textarea id="use-case" name="use_case" rows="3" class="input w-full resize-none" placeholder="e.g. evaluating models for our multilingual product..."></textarea>
 					</div>
 
 					<div class="flex items-start gap-3">
 						<input id="agree" type="checkbox" name="agree" class="mt-0.5 size-4 shrink-0 accent-accent" required />
-						<label for="agree" class="text-sm font-medium text-foreground/70">I agree to the <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">terms of use</a> and <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">privacy policy</a>.</label>
+						<label for="agree" class="text-sm text-foreground-muted">I agree to the <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">terms of use</a> and <a href="#" class="text-accent underline underline-offset-2 hover:no-underline">privacy policy</a>.</label>
 					</div>
 
 					<button type="submit" class="btn btn-tertiary btn-lg w-full">Request access</button>
@@ -84,10 +84,10 @@ import Form from '../../components/Form.astro'
 	</section>
 
 	<!-- Text + stats / Form -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-7">
-				<div class="mb-3 font-bold text-foreground/80 xl:text-lg">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 					<p>This is the subheading</p>
 				</div>
 
@@ -95,7 +95,7 @@ import Form from '../../components/Form.astro'
 					<p>This is the heading</p>
 				</h2>
 
-				<div class="prose font-medium text-foreground/80 md:prose-lg">
+				<div class="prose text-foreground-muted md:prose-lg">
 					<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
 
 					<ul>
@@ -120,16 +120,16 @@ import Form from '../../components/Form.astro'
 					</a>
 				</div>
 
-				<hr class="mt-12 mb-8 border-foreground/10" />
+				<hr class="mt-12 mb-8 border-foreground-softer" />
 
 				<!-- Stats -->
 				<div class="mt-8">
-					<!-- border-t border-foreground/10 pt-8 -->
+					<!-- border-t border-foreground-softer pt-8 -->
 					<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
 
-							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
 								<div>Our Active</div>
 								<div>Users</div>
 							</div>
@@ -138,7 +138,7 @@ import Form from '../../components/Form.astro'
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">3k</span>
 
-							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
 								<div>Professional</div>
 								<div>Creators</div>
 							</div>
@@ -147,7 +147,7 @@ import Form from '../../components/Form.astro'
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">560k</span>
 
-							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground/80 intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
 								<div>Weekly</div>
 								<div>Downloads</div>
 							</div>
@@ -157,12 +157,12 @@ import Form from '../../components/Form.astro'
 			</div>
 
 			<div class="h-full lg:col-span-5">
-				<div class="rounded-lg border border-foreground/10 bg-background p-8 text-foreground" data-theme="default">
+				<div class="rounded-lg border border-foreground-softer p-8" data-theme="default">
 					<h3 class="mb-4 text-2xl font-semibold">
 						<p>Get access today</p>
 					</h3>
 
-					<div class="prose mb-6 font-medium text-foreground/80">
+					<div class="prose mb-6 text-foreground-muted">
 						<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit obcaecati numquam recusandae architecto delectus.</p>
 					</div>
 

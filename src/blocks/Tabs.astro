@@ -4,22 +4,15 @@ const { tabs, defaultTab, name = 'tabs', label = 'Select a view', theme = 'defau
 const active = defaultTab ?? tabs[0]?.key
 ---
 
-<div
-	class="group/tabs bg-background text-foreground"
-	data-theme={theme}
-	data-tabs
-	data-active-tab={active}
-	data-tab-order={tabs.map((t) => t.key).join(' ')}
-	style={`view-transition-name:tabs-group-${name};view-transition-class:tabs-group`}
->
+<div class="group/tabs" data-theme={theme} data-tabs data-active-tab={active} data-tab-order={tabs.map((t) => t.key).join(' ')} style={`view-transition-name:tabs-group-${name};view-transition-class:tabs-group`}>
 	<section class="relative z-1 pt-12 pb-0 md:pt-16 lg:pt-20" style={`view-transition-name:tabs-switcher-${name};view-transition-class:tabs-switcher`}>
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 			<div class="flex justify-center">
-				<fieldset role="radiogroup" aria-label={label} class="relative inline-flex w-full flex-col rounded-[1.5rem] border border-foreground/10 bg-background p-1.5 sm:w-fit sm:min-w-lg sm:flex-row sm:rounded-full" data-card>
+				<fieldset role="radiogroup" aria-label={label} class="relative inline-flex w-full flex-col rounded-[1.5rem] border border-foreground-softer p-1.5 sm:w-fit sm:min-w-lg sm:flex-row sm:rounded-full" data-card>
 					<span data-tab-indicator aria-hidden="true" class="pointer-events-none absolute inset-y-1.5 left-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary shadow-xl transition-[transform,width,height] duration-300 ease-out motion-reduce:transition-none" style={`view-transition-name:tabs-pill-${name};view-transition-class:tabs-pill`}></span>
 					{
 						tabs.map((t) => (
-							<label class="relative z-1 flex flex-1 cursor-pointer items-center justify-center rounded-full px-4 py-2.5 text-center text-sm font-semibold whitespace-nowrap text-foreground/80 transition-colors select-none has-[:checked]:text-white sm:text-base" style={`view-transition-name:tabs-option-${name}-${t.key};view-transition-class:tabs-option`}>
+							<label class="relative z-1 flex flex-1 cursor-pointer items-center justify-center rounded-full px-4 py-2.5 text-center text-sm font-semibold whitespace-nowrap text-foreground-muted transition-colors select-none has-[:checked]:text-white sm:text-base" style={`view-transition-name:tabs-option-${name}-${t.key};view-transition-class:tabs-option`}>
 								<input type="radio" name={name} value={t.key} class="sr-only" checked={t.key === active} />
 								<span>{t.label}</span>
 							</label>

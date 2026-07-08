@@ -1,0 +1,168 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import Form from '../../components/Form.astro'
+import { themes } from '../../data/themes'
+---
+
+<Layout title="Tester – RWS UI">
+	<section class="border-b border-foreground-softest pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<!-- <div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+   			<p>This is the subheading</p>
+   		</div> -->
+
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>Tester</p>
+			</h2>
+
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
+			</div>
+
+			<div hidden class="mt-8 flex flex-wrap items-center gap-4">
+				<a href="/reference" class="btn btn-outline btn-icon-left">
+					<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg> -->
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="216" y1="128" x2="40" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="88 80 40 128 88 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					Reference
+				</a>
+			</div>
+		</div>
+	</section>
+
+	{
+		themes.map((theme) => (
+			<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+				<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+					<div class="lg:col-span-7">
+						<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+							<p>This is the subheading</p>
+						</div>
+
+						<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+							<p>
+								This is the <em>heading</em>
+							</p>
+						</h2>
+
+						<div class="prose text-foreground-muted md:prose-lg">
+							<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+
+							<ul>
+								<li>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+								</li>
+								<li>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+								</li>
+								<li>
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+								</li>
+							</ul>
+
+							<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
+						</div>
+
+						<hr class="mt-8 mb-8 border-foreground-softer" />
+
+						<div class="mt-8 flex flex-wrap items-center gap-4">
+							<a href="#" class="btn btn-primary btn-icon-right">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</svg>
+								Primary
+							</a>
+							<a href="#" class="btn btn-secondary">
+								Secondary
+							</a>
+							<a href="#" class="btn btn-tertiary">
+								Tertiary
+							</a>
+							<a href="#" class="btn btn-outline">
+								Outline
+							</a>
+							<a href="#" class="btn btn-ghost">
+								Ghost
+							</a>
+							<a href="#" class="btn btn-link">
+								Link
+							</a>
+						</div>
+					</div>
+
+					<div class="h-full lg:col-span-5">
+						<div class="rounded-lg border border-foreground-softer p-8" data-card>
+							<h3 class="mb-4 text-2xl font-semibold">
+								<p>Get in touch</p>
+							</h3>
+
+							<div class="prose mb-6 text-foreground-muted">
+								<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+
+								<ul>
+									<li>
+										<p>Lorem ipsum dolor sit amet.</p>
+									</li>
+									<li>
+										<p>Lorem ipsum dolor sit amet elit.</p>
+									</li>
+								</ul>
+							</div>
+
+							<div class="hubspot-form">
+								<fieldset class="form-columns-2">
+									<div class="hs_name hs-name hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-name-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="name-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Name</span> <span class="hs-form-required">*</span>
+											</label>
+											<input id="name-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="name" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="name" value="" />
+										</div>
+									</div>
+									<div class="hs_email hs-email hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-email-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="email-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Email</span> <span class="hs-form-required">*</span>
+											</label>
+											<input id="email-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="email" required="" placeholder="" type="email" class="hs-input hs-field-ready" inputmode="email" autocomplete="email" value="" />
+										</div>
+									</div>
+								</fieldset>
+							</div>
+
+							<hr class="mt-6 mb-8 border-foreground-softest" />
+
+							<div class="mt-8 flex flex-wrap items-center gap-4">
+								<a href="#" class="btn btn-primary btn-icon-right">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<rect width="256" height="256" fill="none" />
+										<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									</svg>
+									Primary
+								</a>
+								<a href="#" class="btn btn-secondary">
+									Secondary
+								</a>
+								<a href="#" class="btn btn-tertiary">
+									Tertiary
+								</a>
+								<a href="#" class="btn btn-outline">
+									Outline
+								</a>
+								<a href="#" class="btn btn-ghost">
+									Ghost
+								</a>
+								<a href="#" class="btn btn-link">
+									Link
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		))
+	}
+</Layout>

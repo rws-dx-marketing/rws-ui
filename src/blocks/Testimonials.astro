@@ -42,7 +42,7 @@ const {
 } = Astro.props
 ---
 
-<section class="overflow-hidden bg-background pt-12 pb-15 text-foreground md:pt-16 md:pb-19 lg:pt-20 lg:pb-23" data-theme={theme}>
+<section class="overflow-hidden pt-12 pb-15 md:pt-16 md:pb-19 lg:pt-20 lg:pb-23" data-theme={theme}>
 	<div data-carousel class="relative">
 		<div data-carousel="viewport" class="transition-[height]-">
 			<div data-carousel="container" class="flex touch-pan-y touch-pinch-zoom items-center">
@@ -64,18 +64,18 @@ const {
 									</svg>
 								</div>
 
-								<blockquote class="space-y-[0.5em] text-center text-2xl font-medium text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
+								<blockquote class="space-y-[0.5em] text-center text-2xl text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
 									<p>{t.quote}</p>
 								</blockquote>
 
 								{t.author && (
 									<figcaption class="mt-6 flex items-center justify-center">
 										{t.avatar && <img class="size-6 rounded-full" src={t.avatar} alt="" />}
-										<div class="flex items-center divide-x divide-foreground/66">
+										<div class="flex items-center divide-x divide-foreground-subtle">
 											<div class="px-3 font-semibold">{t.author}</div>
-											{t.role && <div class="px-3 font-medium text-foreground/80">{t.role}</div>}
+											{t.role && <div class="px-3 text-foreground-muted">{t.role}</div>}
 											{t.link && (
-												<div class="px-3 font-medium text-foreground/80 transition-colors hover:text-accent">
+												<div class="px-3 text-foreground-muted transition-colors hover:text-accent">
 													<a href={t.link} class="inline-flex items-center">
 														Read case study
 														<svg class="mt-0.25 ml-1 size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">

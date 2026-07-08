@@ -4,7 +4,7 @@ import Layout from '../../layouts/Trados.astro'
 
 <Layout title="Pricing alt – RWS UI">
 	<!-- Introduction -->
-	<section class="bg-background py-16 text-foreground" data-theme="default">
+	<section class="py-16" data-theme="default">
 		<!-- Container -->
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Intro -->
@@ -13,18 +13,18 @@ import Layout from '../../layouts/Trados.astro'
 				<h2 class="mb-4 text-3xl font-bold tracking-tight xl:text-4xl">Pricing</h2>
 
 				<!-- Copy -->
-				<p class="text-lg/relaxed font-medium text-pretty text-foreground/80 xl:text-xl/relaxed">Used by more freelance translators than any other solution on the market, with Trados you can confidently plug into the localization supply chain and work on whatever comes your way.</p>
+				<p class="text-lg/relaxed text-pretty text-foreground-muted xl:text-xl/relaxed">Used by more freelance translators than any other solution on the market, with Trados you can confidently plug into the localization supply chain and work on whatever comes your way.</p>
 			</div>
 		</div>
 	</section>
 
 	<!-- Pricing plans -->
-	<section class="bg-background pt-20 pb-12 text-foreground md:pb-16 lg:pb-20" data-theme="dots">
+	<section class="pt-20 pb-12 md:pb-16 lg:pb-20" data-theme="dots">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Plan controls -->
 			<div class="mb-12 flex flex-col flex-wrap items-center gap-10 lg:flex-row">
 				<!-- Billing options -->
-				<div class="btn-group rounded-full bg-card" role="group">
+				<div class="btn-group rounded-full" role="group" data-card>
 					<button type="button" class="btn btn-outline btn-sm flex flex-col sm:btn-md" data-billing-option="monthly">
 						<span>Monthly contract</span>
 						<span class="-mt-0.5 block text-[0.75em] opacity-80">paid monthly</span>
@@ -50,35 +50,35 @@ import Layout from '../../layouts/Trados.astro'
 				<ul class="flex items-center gap-4 uppercase lg:ml-auto">
 					<li>
 						<div class="inline-flex items-center gap-2">
-							<input id="currency-usd" type="radio" value="usd" name="currency" class="focus:ring-2- focus:ring-accent/50- size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" checked />
+							<input id="currency-usd" type="radio" value="usd" name="currency" class="focus:ring-2- focus:ring-accent/50- size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" checked />
 							<label for="currency-usd" class="text-sm font-semibold sm:text-base">USD</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center gap-2">
-							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
+							<input id="currency-gbp" type="radio" value="gbp" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
 							<label for="currency-gbp" class="text-sm font-semibold sm:text-base">GBP</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center gap-2">
-							<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
+							<input id="currency-eur" type="radio" value="eur" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
 							<label for="currency-eur" class="text-sm font-semibold sm:text-base">EUR</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center gap-2">
-							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
+							<input id="currency-jpy" type="radio" value="jpy" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
 							<label for="currency-jpy" class="text-sm font-semibold sm:text-base">JPY</label>
 						</div>
 					</li>
 
 					<li>
 						<div class="inline-flex items-center gap-2">
-							<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground/15 checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
+							<input id="currency-cad" type="radio" value="cad" name="currency" class="size-4 appearance-none rounded-full border border-foreground-soft checked:border-accent checked:before:bg-accent focus:ring-0 focus:outline-none" />
 							<label for="currency-cad" class="text-sm font-semibold sm:text-base">CAD</label>
 						</div>
 					</li>
@@ -88,12 +88,12 @@ import Layout from '../../layouts/Trados.astro'
 			<!-- Cards -->
 			<div class="grid items-center gap-6 md:grid-cols-2 xl:gap-10">
 				<!-- Card -->
-				<div class="relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground/10 bg-background/90 p-8 text-center text-foreground xl:p-10" data-card>
+				<div class="/90 relative flex flex-col gap-8 overflow-hidden rounded-lg border border-foreground-softer p-8 text-center xl:p-10" data-card>
 					<!-- Offer label -->
 					<!-- <span class="absolute top-2.5 right-2.25 rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2 pt-1 pb-1.25 text-sm font-bold select-none" data-offer-only>Save 25%</span> -->
 
 					<div>
-						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-br from-secondary to-secondary-dark px-3 pt-1 pb-1.25 text-sm font-bold text-white select-none" data-offer-only data-ribbon data-ribbon-monthly="Save 25% (1)" data-ribbon-annual="Save 25% (2)" data-ribbon-annual-saver="Save 25% (3)">Save 25%</span>
+						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-br from-secondary to-secondary-strong px-3 pt-1 pb-1.25 text-sm font-bold text-white select-none" data-offer-only data-ribbon data-ribbon-monthly="Save 25% (1)" data-ribbon-annual="Save 25% (2)" data-ribbon-annual-saver="Save 25% (3)">Save 25%</span>
 
 						<!-- Name -->
 						<h3 class="mb-6 text-2xl font-semibold xl:text-3xl">Trados Go</h3>
@@ -104,25 +104,25 @@ import Layout from '../../layouts/Trados.astro'
 							<span class="ml-1" data-price data-base-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">40</span>
 							<span class="ml-1 line-through" data-price data-offer-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
 							<span class="ml-1.5 text-accent" data-price data-offer-price data-price-monthly="30" data-price-annual="25" data-price-annual-saver="22">25</span>
-							<span class="ml-3 flex flex-col items-start text-lg text-foreground/50">
+							<span class="ml-3 flex flex-col items-start text-lg text-foreground-subtle">
 								per month
-								<span class="block text-left text-xs font-semibold text-foreground/50" data-offer-ends-label="Offer ends on" data-offer-ends-monthly="" data-offer-ends-annual="30/12/2026 (2)" data-offer-ends-annual-saver="30/12/2026 (3)">Offer ends on 30/12/2026*</span>
+								<span class="block text-left text-xs font-semibold text-foreground-subtle" data-offer-ends-label="Offer ends on" data-offer-ends-monthly="" data-offer-ends-annual="30/12/2026 (2)" data-offer-ends-annual-saver="30/12/2026 (3)">Offer ends on 30/12/2026*</span>
 							</span>
 						</span>
 
 						<!-- Notes -->
 						<div class="mb-5">
-							<span class="text-lg font-bold text-foreground/80">
+							<span class="text-lg font-bold text-foreground-muted">
 								<span data-note="monthly">Monthly contract — monthly payment</span>
 								<span data-note="annual">Annual contract — monthly payment</span>
 								<span data-note="annual-saver" class="block -translate-y-2.5 text-sm text-accent">$360 billed annually</span>
 								<span data-note="annual-saver">Annual contract — annual payment</span>
-								<span data-note="annual-saver" class="block text-base font-semibold text-foreground/80">Includes freelance support agreement</span>
+								<span data-note="annual-saver" class="block text-base font-semibold text-foreground-muted">Includes freelance support agreement</span>
 							</span>
 						</div>
 
 						<!-- Description -->
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<div class="prose text-foreground-muted md:prose-lg">
 							<p>Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
 						</div>
 					</div>
@@ -143,51 +143,51 @@ import Layout from '../../layouts/Trados.astro'
 								</div>
 
 								<!-- Label -->
-								<span class="font-medium">Unlimited languages</span>
+								<span>Unlimited languages</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M100,208H72A56,56,0,1,1,85.92,97.74" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="124 160 156 128 188 160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="156" y1="208" x2="156" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M80,128a80,80,0,1,1,156,25.05" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
-								<span class="font-medium">Cloud projects only</span>
+								<span>Cloud projects only</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polygon points="160 16 148 96 208 120 96 240 108 160 48 136 160 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polygon></svg>
-								<span class="font-medium">Throughput of 1 million target words per year</span>
+								<span>Throughput of 1 million target words per year</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="28" y="84" width="160" height="128" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><path d="M68,84V52a8,8,0,0,1,8-8H220a8,8,0,0,1,8,8V164a8,8,0,0,1-8,8H188" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="28" y1="124" x2="188" y2="124" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-								<span class="font-medium">Online editor</span>
+								<span>Online editor</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="168" y1="92" x2="232" y2="92" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="168" y1="132" x2="232" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="172" x2="232" y2="172" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="212" x2="232" y2="212" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="128 72 128 56 32 56 32 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="64" y1="132" x2="96" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="80" y1="56" x2="80" y2="132" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-								<span class="font-medium">Translation engines</span>
+								<span>Translation engines</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M32,56H224a0,0,0,0,1,0,0V192a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V56A0,0,0,0,1,32,56Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><line x1="32" y1="104" x2="224" y2="104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="152" x2="224" y2="152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="88" y1="104" x2="88" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-								<span class="font-medium">Terminology management</span>
+								<span>Terminology management</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M216,112V56a8,8,0,0,0-8-8H48a8,8,0,0,0-8,8v56c0,96,88,120,88,120S216,208,216,112Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="88 136 112 160 168 104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-								<span class="font-medium">Quality assurance that happens to be much longer than the rest</span>
+								<span>Quality assurance that happens to be much longer than the rest</span>
 							</li>
 						</ul>
 					</div>
 
-					<span class="block text-right text-xs font-semibold text-foreground/50" data-conditions data-conditions-monthly="*Conditions apply (1)" data-conditions-annual="*Conditions apply (2)" data-conditions-annual-saver="*Conditions apply (3)">*Conditions apply</span>
+					<span class="block text-right text-xs font-semibold text-foreground-subtle" data-conditions data-conditions-monthly="*Conditions apply (1)" data-conditions-annual="*Conditions apply (2)" data-conditions-annual-saver="*Conditions apply (3)">*Conditions apply</span>
 				</div>
 
 				<!-- Card -->
-				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent/33 bg-background p-8 text-center text-foreground md:order-0 xl:p-10" data-card>
+				<div class="glow-animate relative order-first flex flex-col gap-8 rounded-lg border border-accent-soft p-8 text-center md:order-0 xl:p-10" data-card>
 					<!-- <span class="absolute top-1.5 right-1.25 rounded-full bg-linear-to-r from-tertiary via-primary to-secondary px-3 pt-1 pb-1.25 text-sm font-bold text-white select-none" data-offer-only>Save 25%</span> -->
 
 					<div>
-						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-br from-secondary to-secondary-dark px-3 pt-1 pb-1.25 text-sm font-bold text-white select-none" data-offer-only data-ribbon data-ribbon-monthly="Save 25% (1)" data-ribbon-annual="Save 25% (2)" data-ribbon-annual-saver="Save 25% (3)">Save 25%</span>
-						<!-- <span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent/80 select-none">Most popular</span> -->
+						<span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-br from-secondary to-secondary-strong px-3 pt-1 pb-1.25 text-sm font-bold text-white select-none" data-offer-only data-ribbon data-ribbon-monthly="Save 25% (1)" data-ribbon-annual="Save 25% (2)" data-ribbon-annual-saver="Save 25% (3)">Save 25%</span>
+						<!-- <span class="relative -top-3 mb-3 inline-flex self-center rounded-full bg-linear-to-r from-tertiary/5 via-primary/5 to-secondary/5 px-2.5 pt-1 pb-1.25 text-xs font-bold text-accent-muted select-none">Most popular</span> -->
 
 						<h3 class="mb-6 text-2xl font-semibold xl:mt-2 xl:mb-8 xl:text-3xl">Trados Studio Freelance</h3>
 
@@ -196,23 +196,23 @@ import Layout from '../../layouts/Trados.astro'
 							<span class="ml-1" data-price data-base-price data-price-monthly="54" data-price-annual="54" data-price-annual-saver="54">54</span>
 							<span class="ml-1 line-through" data-price data-offer-price data-price-monthly="54" data-price-annual="54" data-price-annual-saver="54">54</span>
 							<span class="ml-1.5 text-accent" data-price data-offer-price data-price-monthly="47" data-price-annual="47" data-price-annual-saver="40">47</span>
-							<span class="ml-3 flex flex-col items-start text-lg text-foreground/50">
+							<span class="ml-3 flex flex-col items-start text-lg text-foreground-subtle">
 								per month
-								<span class="block text-left text-xs font-semibold text-foreground/50" data-offer-ends-label="Offer ends on" data-offer-ends-monthly="" data-offer-ends-annual="30/12/2026 (2)" data-offer-ends-annual-saver="30/12/2026 (3)">Offer ends on 30/12/2026*</span>
+								<span class="block text-left text-xs font-semibold text-foreground-subtle" data-offer-ends-label="Offer ends on" data-offer-ends-monthly="" data-offer-ends-annual="30/12/2026 (2)" data-offer-ends-annual-saver="30/12/2026 (3)">Offer ends on 30/12/2026*</span>
 							</span>
 						</span>
 
 						<div class="mb-5 xl:mb-8">
-							<span class="text-lg font-bold text-foreground/80">
+							<span class="text-lg font-bold text-foreground-muted">
 								<span data-note="monthly">Monthly contract — monthly payment</span>
 								<span data-note="annual">Annual contract — monthly payment</span>
 								<span data-note="annual-saver" class="block -translate-y-2.5 text-sm text-accent">$480 billed annually</span>
 								<span data-note="annual-saver">Annual contract — annual payment</span>
-								<span data-note="annual-saver" class="block text-base font-semibold text-foreground/80">Includes freelance support agreement</span>
+								<span data-note="annual-saver" class="block text-base font-semibold text-foreground-muted">Includes freelance support agreement</span>
 							</span>
 						</div>
 
-						<div class="prose font-medium text-foreground/80 md:prose-lg">
+						<div class="prose text-foreground-muted md:prose-lg">
 							<p>A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience with advanced features, flexibility, and control.</p>
 						</div>
 					</div>
@@ -223,55 +223,55 @@ import Layout from '../../layouts/Trados.astro'
 
 					<div>
 						<ul role="list" class="grid gap-4 text-left">
-							<li class="text-foreground/66">
-								<span class="font-medium">The same features as Trados Go plus:</span>
+							<li class="text-foreground-subtle">
+								<span>The same features as Trados Go plus:</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><rect x="32" y="48" width="192" height="140" rx="16" transform="translate(256 236) rotate(180)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><line x1="160" y1="224" x2="96" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="32" y1="148" x2="224" y2="148" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="128" y1="192" x2="128" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-								<span class="font-medium">Desktop editor</span>
+								<span>Desktop editor</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><ellipse cx="128" cy="80" rx="88" ry="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></ellipse><path d="M40,80v48c0,26.51,39.4,48,88,48s88-21.49,88-48V80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M40,128v48c0,26.51,39.4,48,88,48s88-21.49,88-48V128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
-								<span class="font-medium">Local, server and cloud projects</span>
+								<span>Local, server and cloud projects</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polygon points="160 16 148 96 208 120 96 240 108 160 48 136 160 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polygon></svg>
-								<span class="font-medium">Unlimited desktop throughput</span>
+								<span>Unlimited desktop throughput</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="120" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M63.8,199.37a72,72,0,0,1,128.4,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M222.67,112A95.92,95.92,0,1,1,144,33.33" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="184 56 200 72 232 40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-								<span class="font-medium">Reviewer mode</span>
+								<span>Reviewer mode</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="32.7 76.92 128 129.08 223.3 76.92" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="128" y1="129.09" x2="128" y2="231.97" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><path d="M219.84,182.84l-88,48.18a8,8,0,0,1-7.68,0l-88-48.18a8,8,0,0,1-4.16-7V80.18a8,8,0,0,1,4.16-7l88-48.18a8,8,0,0,1,7.68,0l88,48.18a8,8,0,0,1,4.16,7v95.64A8,8,0,0,1,219.84,182.84Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="81.56 48.31 176 100 176 152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
-								<span class="font-medium">Open project packages</span>
+								<span>Open project packages</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M124,100a24,24,0,1,1,24-24A24,24,0,0,1,124,100Z"></path><path d="M144,160a24,24,0,1,1,24-24A24,24,0,0,1,144,160Z"></path><path d="M120,216H72a8,8,0,0,1-8-8V171.81L36.42,159.18a8,8,0,0,1-3.77-10.3L56,104a80,80,0,1,1,128,64l8,64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><polyline points="214.38 88 184 88 144 136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline><line x1="124" y1="76" x2="124" y2="24.89" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-								<span class="font-medium">3rd party large language models</span>
+								<span>3rd party large language models</span>
 							</li>
 
 							<li class="flex items-center gap-3">
 								<svg class="size-4.5 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M71.58,144,32,176V48a8,8,0,0,1,8-8H168a8,8,0,0,1,8,8v88a8,8,0,0,1-8,8Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path><path d="M80,144v40a8,8,0,0,0,8,8h96.42L224,224V96a8,8,0,0,0-8-8H176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
-								<span class="font-medium">AI assistant</span>
+								<span>AI assistant</span>
 							</li>
 						</ul>
 					</div>
 
-					<span class="block text-right text-xs font-semibold text-foreground/50" data-conditions data-conditions-monthly="*Conditions apply (1)" data-conditions-annual="*Conditions apply (2)" data-conditions-annual-saver="*Conditions apply (3)">*Conditions apply</span>
+					<span class="block text-right text-xs font-semibold text-foreground-subtle" data-conditions data-conditions-monthly="*Conditions apply (1)" data-conditions-annual="*Conditions apply (2)" data-conditions-annual-saver="*Conditions apply (3)">*Conditions apply</span>
 				</div>
 			</div>
 		</div>
 	</section>
 
 	<!-- Plan comparison -->
-	<section class="bg-background pt-12 pb-12 text-foreground md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<!-- Container -->
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Intro -->
@@ -280,13 +280,13 @@ import Layout from '../../layouts/Trados.astro'
 				<h2 class="mb-4 text-4xl font-bold tracking-tight">Choose the right option</h2>
 
 				<!-- Copy -->
-				<p class="font-medium text-pretty text-foreground/80 sm:text-xl">Compare the features and capabilities to decide which is the right solution for you.</p>
+				<p class="text-pretty text-foreground-muted sm:text-xl">Compare the features and capabilities to decide which is the right solution for you.</p>
 			</div>
 
 			<!-- Table -->
 			<div class="relative overflow-x-auto lg:overflow-visible" role="region" aria-label="Comparison table">
 				<div class="sticky top-0 z-20 hidden lg:block">
-					<div class="grid min-w-max grid-cols-3 rounded-t-lg border-b border-foreground/10 bg-foreground/2 text-center backdrop-blur stuck:rounded-t-none">
+					<div class="grid min-w-max grid-cols-3 rounded-t-lg border-b border-foreground-softer bg-foreground-softest/50 text-center backdrop-blur stuck:rounded-t-none">
 						<div class="px-4 py-6"></div>
 
 						<div class="px-4 py-6">
@@ -299,9 +299,9 @@ import Layout from '../../layouts/Trados.astro'
 					</div>
 				</div>
 
-				<table class="w-full min-w-max text-left text-foreground/80">
+				<table class="w-full min-w-max text-left text-foreground-muted">
 					<thead class="text-center lg:hidden">
-						<tr class="rounded-t-lg bg-foreground/2">
+						<tr class="rounded-t-lg bg-foreground-softest">
 							<th scope="col" class="w-1/3 px-4 py-6"></th>
 
 							<th scope="col" class="w-1/3 px-4 py-6">
@@ -316,7 +316,7 @@ import Layout from '../../layouts/Trados.astro'
 
 					<tbody>
 						<!-- Heading -->
-						<tr class="border-y border-foreground/10 bg-foreground/5">
+						<tr class="border-y border-foreground-softer bg-foreground-softest">
 							<td class="w-1/3 p-4">
 								<h4 class="text-lg font-semibold text-foreground">Capacity</h4>
 							</td>
@@ -325,15 +325,15 @@ import Layout from '../../layouts/Trados.astro'
 						</tr>
 
 						<!-- Feature -->
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Languages</td>
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">Languages</td>
 							<td class="px-4 py-5 text-center">Unlimited</td>
 							<td class="px-4 py-5 text-center">Unlimited</td>
 						</tr>
 
 						<!-- Feature -->
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Projects</td>
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">Projects</td>
 							<td class="px-4 py-5 text-center">Cloud</td>
 							<td class="px-4 py-5 text-center">
 								<!-- Tooltip -->
@@ -349,8 +349,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Cloud throughput
 									<button type="button" popovertarget="tooltip-cloud-throughput" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about cloud throughput">
@@ -365,8 +365,8 @@ import Layout from '../../layouts/Trados.astro'
 							<td class="px-4 py-5 text-center">1 million target words per year</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Desktop throughput
 									<button type="button" popovertarget="tooltip-desktop-throughput" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about desktop throughput">
@@ -380,17 +380,17 @@ import Layout from '../../layouts/Trados.astro'
 							<td class="px-4 py-5 text-center" aria-label="No">
 								<svg class="mx-auto size-5 text-red-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 							</td>
-							<td class="px-4 py-5 text-center font-medium">Unlimited</td>
+							<td class="px-4 py-5 text-center">Unlimited</td>
 						</tr>
 
-						<tr class="border-y border-foreground/10 bg-foreground/5">
+						<tr class="border-y border-foreground-softer bg-foreground-softest">
 							<td colspan="3" class="p-4">
 								<h4 class="text-lg font-semibold text-foreground">Translation features</h4>
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Online editor
 									<button type="button" popovertarget="tooltip-online-editor" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about the online editor">
@@ -409,8 +409,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Desktop editor
 									<button type="button" popovertarget="tooltip-desktop-editor" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about the desktop editor">
@@ -430,8 +430,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Translation engines
 									<button type="button" popovertarget="tooltip-translation-engines" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about translation engines">
@@ -450,8 +450,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Terminology management</td>
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">Terminology management</td>
 							<td class="px-4 py-5 text-center" aria-label="Yes">
 								<svg class="mx-auto size-5 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
 							</td>
@@ -468,8 +468,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Project templates</td>
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">Project templates</td>
 							<td class="px-4 py-5 text-center" aria-label="Yes">
 								<svg class="mx-auto size-5 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
 							</td>
@@ -478,8 +478,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Quality assurance
 									<button type="button" popovertarget="tooltip-quality-assurance" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about quality assurance">
@@ -498,8 +498,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Customise with apps
 									<button type="button" popovertarget="tooltip-customise-apps" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about customising with apps">
@@ -514,8 +514,8 @@ import Layout from '../../layouts/Trados.astro'
 							<td class="px-4 py-5 text-center">150+</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Reviewer mode
 									<button type="button" popovertarget="tooltip-reviewer-mode" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about reviewer mode">
@@ -534,8 +534,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Open project packages
 									<button type="button" popovertarget="tooltip-open-packages" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about opening project packages">
@@ -554,12 +554,12 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-y border-foreground/10 bg-foreground/5">
+						<tr class="border-y border-foreground-softer bg-foreground-softest">
 							<td colspan="3" class="p-4"><h4 class="text-lg font-semibold text-foreground">Linguistic AI</h4></td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Smart Help
 									<button type="button" popovertarget="tooltip-smart-help" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Smart Help">
@@ -578,8 +578,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Language Weaver
 									<button type="button" popovertarget="tooltip-language-weaver" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Language Weaver">
@@ -599,8 +599,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									3rd party machine translation
 									<button type="button" popovertarget="tooltip-3rd-party-mt" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about 3rd party machine translation">
@@ -619,8 +619,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									3rd party large language models
 									<button type="button" popovertarget="tooltip-3rd-party-llm" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about 3rd party large language models">
@@ -639,8 +639,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									AI Assistant
 									<button type="button" popovertarget="tooltip-ai-assistant" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about AI Assistant">
@@ -659,14 +659,14 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-y border-foreground/10 bg-foreground/5">
+						<tr class="border-y border-foreground-softer bg-foreground-softest">
 							<td colspan="3" class="p-4">
 								<h4 class="text-lg font-semibold text-foreground">Integrations</h4>
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									API access
 									<button type="button" popovertarget="tooltip-api-access" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about API access">
@@ -685,8 +685,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Built-in connectors
 									<button type="button" popovertarget="tooltip-built-in-connectors" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Built-in connectors">
@@ -705,14 +705,14 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-y border-foreground/10 bg-foreground/5">
+						<tr class="border-y border-foreground-softer bg-foreground-softest">
 							<td colspan="3" class="p-4">
 								<h4 class="text-lg font-semibold text-foreground">Customer success</h4>
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Automatic browser updates
 									<button type="button" popovertarget="tooltip-automatic-browser-updates" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Automatic browser updates">
@@ -739,8 +739,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Basic support
 									<button type="button" popovertarget="tooltip-basic-support" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about Basic support">
@@ -759,8 +759,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">
 								<span class="relative block w-fit">
 									Advanced support
 									<button type="button" popovertarget="tooltip-advanced-support" popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2" aria-label="More information about advanced support">
@@ -797,8 +797,8 @@ import Layout from '../../layouts/Trados.astro'
 							</td>
 						</tr>
 
-						<tr class="border-b border-foreground/10">
-							<td class="px-4 py-5 font-medium">Onboarding</td>
+						<tr class="border-b border-foreground-softer">
+							<td class="px-4 py-5">Onboarding</td>
 							<td class="px-4 py-5 text-center" aria-label="Yes">
 								<span class="relative inline-block">
 									<svg class="mx-auto size-5 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
@@ -828,10 +828,10 @@ import Layout from '../../layouts/Trados.astro'
 				</table>
 			</div>
 
-			<div class="grid grid-cols-1 gap-x-16 rounded-b-lg bg-foreground/5 p-8 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid grid-cols-1 gap-x-16 rounded-b-lg bg-foreground-softest p-8 md:grid-cols-2 lg:grid-cols-3">
 				<div class="hidden lg:block"></div>
 
-				<div class="mb-8 border-b border-foreground/10 pb-8 text-center md:mb-0 md:border-b-0 md:pb-0">
+				<div class="mb-8 border-b border-foreground-softer pb-8 text-center md:mb-0 md:border-b-0 md:pb-0">
 					<h3 class="mb-4 text-lg font-bold lg:hidden">Trados Go</h3>
 
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
@@ -839,20 +839,20 @@ import Layout from '../../layouts/Trados.astro'
 						<span class="ml-1" data-price data-base-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">40</span>
 						<span class="ml-1 line-through" data-price data-offer-price data-price-monthly="40" data-price-annual="34" data-price-annual-saver="30">34</span>
 						<span class="ml-1.5 text-accent" data-price data-offer-price data-price-monthly="30" data-price-annual="25" data-price-annual-saver="22">25</span>
-						<span class="ml-3 text-lg text-foreground/40">per month</span>
+						<span class="ml-3 text-lg text-foreground-subtle">per month</span>
 					</span>
 
 					<div class="mb-4">
-						<span class="font-bold text-foreground/80">
+						<span class="font-bold text-foreground-muted">
 							<span data-note="monthly">Monthly contract — monthly payment</span>
 							<span data-note="annual">Annual contract — monthly payment</span>
 							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$360 billed annually</span>
 							<span data-note="annual-saver">Annual contract — annual payment</span>
-							<span data-note="annual-saver" class="block text-sm font-semibold text-foreground/80">Includes freelance support agreement</span>
+							<span data-note="annual-saver" class="block text-sm font-semibold text-foreground-muted">Includes freelance support agreement</span>
 						</span>
 					</div>
 
-					<p class="mb-4 text-sm font-medium text-foreground/80">Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
+					<p class="mb-4 text-sm text-foreground-muted">Get translating fast with our browser-based CAT tool - quick to set up, easy to access, and packed with the features you need to stay productive from anywhere.</p>
 
 					<a href="/product/go/subscribe/annual/" class="btn btn-tertiary w-full" data-url-monthly="/product/go/subscribe/monthly/" data-url-annual="/product/go/subscribe/annual/" data-url-annual-saver="/product/go/subscribe/annual-saver/"> Start your free trial </a>
 				</div>
@@ -865,20 +865,20 @@ import Layout from '../../layouts/Trados.astro'
 						<span class="ml-1" data-price data-base-price data-price-monthly="54" data-price-annual="54" data-price-annual-saver="54">54</span>
 						<span class="ml-1 line-through" data-price data-offer-price data-price-monthly="54" data-price-annual="54" data-price-annual-saver="54">54</span>
 						<span class="ml-1.5 text-accent" data-price data-offer-price data-price-monthly="47" data-price-annual="47" data-price-annual-saver="40">47</span>
-						<span class="ml-3 text-lg text-foreground/40">per month</span>
+						<span class="ml-3 text-lg text-foreground-subtle">per month</span>
 					</span>
 
 					<div class="mb-4">
-						<span class="font-bold text-foreground/80">
+						<span class="font-bold text-foreground-muted">
 							<span data-note="monthly">Monthly contract — monthly payment</span>
 							<span data-note="annual">Annual contract — monthly payment</span>
 							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$480 billed annually</span>
 							<span data-note="annual-saver">Annual contract — annual payment</span>
-							<span data-note="annual-saver" class="block text-sm font-semibold text-foreground/80">Includes freelance support agreement</span>
+							<span data-note="annual-saver" class="block text-sm font-semibold text-foreground-muted">Includes freelance support agreement</span>
 						</span>
 					</div>
 
-					<p class="mb-4 text-sm font-medium text-foreground/80">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
+					<p class="mb-4 text-sm text-foreground-muted">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
 
 					<a href="/product/studio/subscribe/freelance-annual/" class="btn btn-tertiary w-full" data-url-monthly="/product/studio/subscribe/freelance-monthly/" data-url-annual="/product/studio/subscribe/freelance-annual/" data-url-annual-saver="/product/studio/subscribe/freelance-annual-saver/"> Start your free trial </a>
 				</div>

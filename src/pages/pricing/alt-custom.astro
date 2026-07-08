@@ -677,20 +677,20 @@ import Layout from '../../layouts/Trados.astro'
 					<span class="mb-4 inline-flex items-center justify-center text-4xl font-bold">
 						<span class="text-[90%]">$</span>
 						<span class="ml-1" data-price data-price-monthly="54" data-price-annual="47" data-price-annual-saver="40">47</span>
-						<span class="ml-3 text-lg text-foreground/40">per month</span>
+						<span class="ml-3 text-lg text-foreground-subtle">per month</span>
 					</span>
 
 					<div class="mb-4">
-						<span class="font-bold text-foreground/80" data-billing-note>
+						<span class="font-bold text-foreground-muted" data-billing-note>
 							<span data-note="monthly">Monthly contract — monthly payment</span>
 							<span data-note="annual">Annual contract — monthly payment</span>
 							<span data-note="annual-saver" class="block -translate-y-2 text-sm text-accent">$480 billed annually</span>
 							<span data-note="annual-saver">Annual contract — annual payment</span>
-							<span class="block text-sm font-semibold text-foreground/80" data-note="annual-saver"> Includes freelance support agreement </span>
+							<span class="block text-sm font-semibold text-foreground-muted" data-note="annual-saver"> Includes freelance support agreement </span>
 						</span>
 					</div>
 
-					<p class="mb-4 text-sm font-medium text-foreground/80">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
+					<p class="mb-4 text-sm text-foreground-muted">A powerful CAT tool combining desktop power and browser convenience - designed for a more comprehensive translation experience.</p>
 
 					<a href="#" class="btn btn-tertiary w-full">Start your free trial</a>
 				</div>
@@ -769,7 +769,7 @@ import Layout from '../../layouts/Trados.astro'
 
 	.pricing-intro {
 		--background: var(--color-white);
-		--foreground: var(--color-gray-900);
+		--foreground: var(--color-neutral-900);
 
 		background-color: var(--background);
 		color: var(--foreground);
@@ -814,7 +814,7 @@ import Layout from '../../layouts/Trados.astro'
 		line-height: 1.625;
 		font-weight: 500;
 		text-wrap: pretty;
-		color: color-mix(in oklch, var(--foreground) 80%, transparent); /* text-foreground/80 */
+		color: color-mix(in oklch, var(--foreground) 80%, transparent); /* text-foreground-muted */
 	}
 
 	@media (min-width: 1280px) {
@@ -829,9 +829,8 @@ import Layout from '../../layouts/Trados.astro'
 		--background: color-mix(in oklch, oklch(0.958 0.023 299.44) 33%, transparent);
 		--foreground: oklch(0.216 0.006 56.043);
 		--accent: var(--color-primary);
-		--accent-foreground: var(--color-white);
 		--card: var(--color-white);
-		--card-foreground: var(--color-gray-900);
+		--card-foreground: var(--color-neutral-900);
 
 		background-color: var(--background);
 		color: var(--foreground);
@@ -1279,7 +1278,7 @@ import Layout from '../../layouts/Trados.astro'
 
 	.pricing-compare {
 		--background: var(--color-white);
-		--foreground: var(--color-gray-900);
+		--foreground: var(--color-neutral-900);
 		--icon-yes: oklch(0.577 0.169 149.214);
 		--icon-no: oklch(0.577 0.245 27.325);
 
@@ -1338,7 +1337,7 @@ import Layout from '../../layouts/Trados.astro'
 		line-height: 1.625;
 		font-weight: 500;
 		text-wrap: pretty;
-		color: color-mix(in oklch, var(--foreground) 80%, transparent); /* text-foreground/80 */
+		color: color-mix(in oklch, var(--foreground) 80%, transparent); /* text-foreground-muted */
 	}
 
 	@media (min-width: 640px) {
