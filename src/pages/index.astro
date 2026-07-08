@@ -5,6 +5,7 @@ import Hero from '../blocks/Hero.astro'
 import Logos from '../blocks/Logos.astro'
 import Split from '../blocks/Split.astro'
 import BentoGrids from '../blocks/BentoGrids.astro'
+import Cards from '../blocks/Cards.astro'
 ---
 
 <Layout>
@@ -12,7 +13,45 @@ import BentoGrids from '../blocks/BentoGrids.astro'
 
 	<Logos />
 
-	<Split theme="pale" variant="lead-image" />
+	{/* <Split theme="pale" variant="lead-image" />  */}
+
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
+		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<div class="lg:col-span-6">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>We’re different</p>
+				</div>
+
+				<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<p>AI is powerful.<br />We make it perform.</p>
+				</h2>
+
+				<div class="prose text-foreground-muted md:prose-lg">
+					<p>Cultural intelligence, domain expertise and AI-native technology come together to ensure your systems don’t just speak – they understand.</p>
+					<p>Models, content and data align with the cultural and contextual realities of your markets, enabling solutions that strengthen your intelligence layer and scale cleanly across borders.</p>
+				</div>
+
+				<div class="mt-8 flex flex-wrap items-center gap-4">
+					<a href="#" class="btn btn-primary btn-icon-right">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none"></rect>
+							<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
+							<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline>
+						</svg>
+						Find out more
+					</a>
+				</div>
+			</div>
+
+			<div class="h-full lg:col-span-6">
+				<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
+					<div data-lottie="map" class="h-full"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<Cards showIntro={false} theme="default" />
 
 	<BentoGrids />
 

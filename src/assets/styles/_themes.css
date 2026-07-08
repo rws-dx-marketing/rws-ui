@@ -23,6 +23,8 @@
 	--color-on-accent: var(--on-accent);
 
 	--color-input: var(--input);
+
+	--color-section: var(--section);
 }
 
 @layer base {
@@ -54,6 +56,10 @@
 		--input: var(--background-softest);
 
 		@apply relative bg-background text-foreground;
+	}
+
+	[data-theme] {
+		--section: var(--background);
 	}
 }
 
