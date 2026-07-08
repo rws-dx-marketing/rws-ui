@@ -362,7 +362,7 @@ export default function primaryNav() {
 	function appendMessage(text, role) {
 		if (!(searchMessages instanceof HTMLElement)) return null
 		const el = document.createElement('div')
-		el.className = role === 'user' ? 'self-end max-w-[80%] rounded-2xl rounded-br-sm bg-foreground-softest px-4 py-3 text-sm font-medium text-foreground' : 'self-start max-w-[80%] rounded-2xl rounded-bl-sm bg-accent-softer px-4 py-3 text-sm font-medium text-foreground'
+		el.className = role === 'user' ? 'self-end max-w-[80%] rounded-2xl rounded-br-sm bg-foreground-softest px-4 py-3 text-sm text-foreground' : 'self-start max-w-[80%] rounded-2xl rounded-bl-sm bg-accent-softer px-4 py-3 text-sm text-foreground'
 		el.textContent = text
 		searchMessages.appendChild(el)
 		syncHeight()
@@ -380,7 +380,7 @@ export default function primaryNav() {
 				</div>
 				<div class="min-w-0 p-5">
 					<p class="truncate text-sm font-semibold">${title}</p>
-					<p class="mt-0.5 line-clamp-2 font-medium text-xs text-white/80">${excerpt}</p>
+					<p class="mt-0.5 line-clamp-2 text-xs text-white/80">${excerpt}</p>
 				</div>
 			`
 		searchMessages.appendChild(el)

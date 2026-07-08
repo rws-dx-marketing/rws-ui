@@ -73,7 +73,7 @@ const isLinkActive = (href) => normalizePath(href) === currentPath
 								const isActive = isLinkActive(link.href)
 								return (
 									<li>
-										<a href={link.href} role="menuitem" aria-current={isActive ? 'page' : undefined} class:list={['block px-5 py-2 text-sm text-white transition-colors', isActive ? 'font-semibold' : 'font-medium hover:text-primary-softer']}>
+										<a href={link.href} role="menuitem" aria-current={isActive ? 'page' : undefined} class:list={['block px-5 py-2 text-sm text-white transition-colors', isActive ? 'font-semibold' : 'hover:text-primary-softer']}>
 											{link.label}
 										</a>
 									</li>
@@ -87,7 +87,7 @@ const isLinkActive = (href) => normalizePath(href) === currentPath
 
 		<div class="hidden lg:flex lg:h-11 lg:items-stretch lg:justify-between lg:gap-3">
 			<nav aria-label="Breadcrumb" class="min-w-0 self-center">
-				<ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium">
+				<ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
 					{
 						breadcrumbs.map((item, index) => (
 							<>

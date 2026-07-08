@@ -43,11 +43,11 @@ const languages = [
 				<p>Does your AI actually <em>speak the language</em>?</p>
 			</h1>
 
-			<div hidden class="mx-auto mb-8 max-w-[56ch] text-xl font-medium text-pretty text-foreground-muted xl:text-2xl">
+			<div hidden class="mx-auto mb-8 max-w-[56ch] text-xl text-pretty text-foreground-muted xl:text-2xl">
 				<p>The first independent multilingual benchmark that tests grammar, meaning preservation, and tokenizer efficiency across 30 languages.</p>
 			</div>
 
-			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] font-medium text-foreground-muted md:prose-2xl">
+			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] text-foreground-muted md:prose-2xl">
 				<p>The first independent multilingual benchmark that tests grammar, meaning preservation, and tokenizer efficiency across 30 languages.</p>
 			</div>
 
@@ -71,7 +71,7 @@ const languages = [
 
 							<div class="intersect-once intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + index * 100}ms`}>
 								<p class="text-lg/tight font-bold">{stat.label}</p>
-								{stat.note && <p class="font-medium">{stat.note}</p>}
+								{stat.note && <p>{stat.note}</p>}
 							</div>
 						</div>
 					))
@@ -92,7 +92,7 @@ const languages = [
 					<p>Lorem ipsum dolor sit amet</p>
 				</h2>
 
-				<div class="prose font-medium text-foreground-muted md:prose-lg">
+				<div class="prose text-foreground-muted md:prose-lg">
 					<p>Which model is best for my market? Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit suspendisse luctus tortor.</p>
 					<p>How does this specific model perform across languages and tasks? Ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				</div>
@@ -128,7 +128,7 @@ const languages = [
 				<p>There is no single best AI for every language</p>
 			</h2>
 
-			<div class="prose font-medium text-foreground-muted md:prose-lg">
+			<div class="prose text-foreground-muted md:prose-lg">
 				<p>The top model changes depending on what you need it to speak. Here is who leads where, and by how much. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 			</div>
 
@@ -150,7 +150,7 @@ const languages = [
 				</div>
 
 				<div class="mt-10 flex flex-col gap-x-6 gap-y-4 sm:flex-row sm:items-center">
-					<div class="flex-1 font-medium text-pretty text-foreground-muted">
+					<div class="flex-1 text-pretty text-foreground-muted">
 						<p>Translation score, best model per language. Updated continuously.</p>
 					</div>
 

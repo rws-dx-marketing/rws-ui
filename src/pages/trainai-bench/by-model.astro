@@ -14,7 +14,7 @@ import Layout from '../../layouts/Layout.astro'
 				<p>By model</p>
 			</h1>
 
-			<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground-muted md:prose-2xl">
+			<div class="mx-auto prose prose-xl max-w-[56ch] text-foreground-muted md:prose-2xl">
 				<p>How does this specific model perform across languages and tasks? Lorem ipsum dolor sit, amet consectetur adipisicing elit vitae quo animi.</p>
 			</div>
 
@@ -34,14 +34,14 @@ import Layout from '../../layouts/Layout.astro'
 					<div class="flex gap-8">
 						<!-- Model -->
 						<div>
-							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="model-filter-button" popovertarget="model-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --model-filter-anchor;">
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background" id="model-filter-button" popovertarget="model-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --model-filter-anchor;">
 								<span class="flex-1 text-left">claude-opus-4.6</span>
 								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
 							<div id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground-softer shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-right;">
-								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="model-filter-button">
+								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm select-none" aria-labelledby="model-filter-button">
 									{
 										['claude-opus-4.6', 'claude-sonnet-4.6', 'jamba-2', 'claude-haiku-4.6', 'deepseek-v3.2', 'grok-4.20', 'llama-4-scout', 'deepseek-r2', 'gpt-5-mini', 'gemini-3-flash-preview', 'yi-2-large', 'qwen-3-72b', 'gemini-3-pro-preview', 'mistral-medium-3', 'command-r-plus', 'gpt-5.4', 'gpt-5', 'llama-4-maverick', 'gpt-5-nano', 'phi-5', 'mistral-large-3', 'qwen-3-235b', 'gemini-3-pro', 'command-r', 'kimi-k2.6'].map((model) => (
 											<li>
@@ -57,7 +57,7 @@ import Layout from '../../layouts/Layout.astro'
 						</div>
 
 						<div class="flex items-center gap-8">
-							<div class="flex gap-3 font-medium">
+							<div class="flex gap-3">
 								<span>Frontier</span>
 								<span>&bull;</span>
 								<span>Variants: default, thinking, adaptive</span>
@@ -74,14 +74,14 @@ import Layout from '../../layouts/Layout.astro'
 					<div class="flex gap-4">
 						<!-- Languages -->
 						<div>
-							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" id="language-filter-button" popovertarget="language-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --language-filter-anchor;">
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background" id="language-filter-button" popovertarget="language-filter-popover" popovertargetaction="toggle" type="button" style="anchor-name: --language-filter-anchor;">
 								<span class="flex-1 text-left">Languages</span>
 								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
 							<div id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground-softer shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
-								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-medium select-none" aria-labelledby="language-filter-button">
+								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm select-none" aria-labelledby="language-filter-button">
 									{
 										['Albanian', 'Arabic', 'Assamese', 'Basque', 'Czech', 'English', 'Fijian', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi', 'Hungarian', 'Icelandic', 'Japanese', 'Khmer', 'Kinyarwanda', 'Korean', 'Kyrgyz', 'Nepali', 'Polish', 'Russian', 'Simplified Chinese', 'Spanish', 'Swahili', 'Tagalog', 'Tamil', 'Thai', 'Turkish', 'Vietnamese', 'Welsh', 'Zulu'].map((lang) => (
 											<li>
@@ -99,7 +99,7 @@ import Layout from '../../layouts/Layout.astro'
 
 						<!-- Filters -->
 						<div>
-							<button class="btn btn-outline btn-icon-both w-full rounded bg-background font-medium" type="button">
+							<button class="btn btn-outline btn-icon-both w-full rounded bg-background" type="button">
 								<span class="flex-1 text-left">Filters</span>
 								<span class="ml-1 rounded-full bg-accent-softer px-2 py-1 text-xs leading-none font-bold text-accent tabular-nums" data-filter-count hidden>0</span>
 								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
@@ -160,21 +160,21 @@ import Layout from '../../layouts/Layout.astro'
 			<!-- Charts -->
 			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – grammar MCC across languages</h3>
-				<ul class="font-medium text-foreground-muted">
+				<ul class="text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>
 				</ul>
 			</div>
 
 			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – translation MCC across languages</h3>
-				<ul class="font-medium text-foreground-muted">
+				<ul class="text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>
 				</ul>
 			</div>
 
 			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – characters per token across languages</h3>
-				<ul class="font-medium text-foreground-muted">
+				<ul class="text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>
 				</ul>
 			</div>

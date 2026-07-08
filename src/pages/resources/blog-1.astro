@@ -29,7 +29,7 @@ const cards = [1, 2, 3]
 						<nav class="relative flex flex-col gap-3 pl-6" data-scrollspy-nav>
 							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-full w-1 bg-foreground-softer"></span>
 							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-(--post-nav-active-height) w-1 bg-accent transition-[height] duration-1000" data-scrollspy-rail></span>
-							<a href="#" class="hidden font-medium text-pretty text-foreground-subtle transition-colors hover:text-foreground data-[nav-active=true]:text-foreground" data-scrollspy-link-template aria-hidden="true">Template nav link</a>
+							<a href="#" class="hidden text-pretty text-foreground-subtle transition-colors hover:text-foreground data-[nav-active=true]:text-foreground" data-scrollspy-link-template aria-hidden="true">Template nav link</a>
 
 							<div class="relative" data-scrollspy-end>
 								<div class="absolute -left-5.5 -translate-x-1/2 rounded-full bg-background outline-2 outline-background">
@@ -52,7 +52,7 @@ const cards = [1, 2, 3]
 							<div>
 								<h4 class="text-lg font-semibold">Lorem ipsum dolor</h4>
 
-								<div class="prose text-sm/normal font-medium text-foreground-muted not-first:mt-2">
+								<div class="prose text-sm/normal text-foreground-muted not-first:mt-2">
 									<p>Tenetur et nesciunt neque, asperiores dolorem repudian, tempora provident fugit?</p>
 								</div>
 
@@ -65,7 +65,7 @@ const cards = [1, 2, 3]
 
 			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12 [&_h2[id]]:scroll-mt-20">
 				<div class="rounded-lg p-6 lg:p-10" data-card data-scrollspy-content>
-					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
+					<div class="prose max-w-none text-pretty lg:text-lg">
 						<p class="lead">“Hallucination” has become a catch-all explanation for almost any surprising model output. Wrong answer? Hallucination. Confident nonsense? Hallucination. Unexpected creativity? Same label.</p>
 						<p>However, the term itself is contentious. In research and practitioner circles, "hallucination" is often used as shorthand for a range of behaviors – factual fabrication, unsupported inference or overconfident generalization – that have very different underlying causes. Some teams prefer terms like "confabulation" or "fabrication" to avoid anthropomorphic framing altogether.</p>
 						<p>Regardless of terminology, one thing is clear: many outputs labeled as AI hallucinations are not spontaneous acts of model misbehavior. They are predictable responses to how tasks were defined, how data examples were labeled and what context the system was given or not given.</p>
@@ -79,7 +79,7 @@ const cards = [1, 2, 3]
 				</div>
 
 				<div class="rounded-lg p-6 lg:p-10" data-card data-scrollspy-content>
-					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
+					<div class="prose max-w-none text-pretty lg:text-lg">
 						<h2>Pattern 1: AI hallucinations caused by weak or inconsistent data labeling</h2>
 						<p>In supervised systems, data labels define the ground truth. When that ground truth is inconsistent, the model doesn’t fail or refuse to answer; it averages competing signals.</p>
 						<p>It’s important to be precise here. Many hallucinations originate upstream during pre-training, where limited coverage, distributional gaps or model capacity constraints leave parts of the data representation space under-specified. Supervised fine-tuning can reduce some of that uncertainty by updating model weights, but it rarely eliminates it entirely. Instead, it both reshapes representations and influences how the model responds when uncertainty remains.</p>
@@ -103,7 +103,7 @@ const cards = [1, 2, 3]
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M116,72v88a48.05,48.05,0,0,1-48,48,8,8,0,0,1,0-16,32,32,0,0,0,32-32v-8H40a16,16,0,0,1-16-16V72A16,16,0,0,1,40,56h60A16,16,0,0,1,116,72ZM216,56H156a16,16,0,0,0-16,16v64a16,16,0,0,0,16,16h60v8a32,32,0,0,1-32,32,8,8,0,0,0,0,16,48.05,48.05,0,0,0,48-48V72A16,16,0,0,0,216,56Z"></path></svg>
 					</div>
 
-					<blockquote class="space-y-[0.5em] text-center text-2xl font-medium text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
+					<blockquote class="space-y-[0.5em] text-center text-2xl text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
 						<p>Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application.</p>
 						<p>Flowbite is just awesome. It contains tons of predesigned components and pages starting from login screen to complex dashboard. Perfect choice for your next SaaS application.</p>
 					</blockquote>
@@ -112,14 +112,14 @@ const cards = [1, 2, 3]
 						<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="profile picture" />
 
 						<div class="flex items-center divide-x divide-foreground-subtle">
-							<div class="pr-3 font-medium">Michael Gough</div>
-							<div class="pl-3 font-medium text-foreground-muted">CEO at Google</div>
+							<div class="pr-3">Michael Gough</div>
+							<div class="pl-3 text-foreground-muted">CEO at Google</div>
 						</div>
 					</figcaption>
 				</figure>
 
 				<div class="rounded-lg p-6 lg:p-10" data-card data-scrollspy-content>
-					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
+					<div class="prose max-w-none text-pretty lg:text-lg">
 						<h2>Pattern 2: AI hallucinations triggered by missing context or incomplete instructions</h2>
 						<p>Models can’t rely on context that was never made explicit.</p>
 						<p>In many AI training setups, tasks assume background knowledge or constraints that aren’t actually encoded in the training data. When task instruction clarity is weak, the model is forced to infer decision logic rather than apply it.</p>
@@ -139,7 +139,7 @@ const cards = [1, 2, 3]
 						<div class="sm:col-span-7">
 							<h3 class="text-2xl font-bold text-balance">First time here? Discover what RWS can do!</h3>
 
-							<div class="prose max-w-none font-medium text-pretty not-first:mt-4 lg:text-lg">
+							<div class="prose max-w-none text-pretty not-first:mt-4 lg:text-lg">
 								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae, necessitatibus impedit id qui suscipit, quas unde dolorum eveniet odio ullam tenetur ipsa expedita vero maiores excepturi rerum ipsam repudiandae doloremque.</p>
 							</div>
 
@@ -155,7 +155,7 @@ const cards = [1, 2, 3]
 				</div>
 
 				<div class="rounded-lg p-6 lg:p-10" data-card data-scrollspy-content>
-					<div class="prose max-w-none font-medium text-pretty lg:text-lg">
+					<div class="prose max-w-none text-pretty lg:text-lg">
 						<h2>From “hallucinations” to accountability: redesigning the upstream</h2>
 						<p>Many recurring AI hallucinations are traceable to upstream design decisions.</p>
 						<blockquote>
@@ -186,7 +186,7 @@ const cards = [1, 2, 3]
 						</div>
 					</div>
 
-					<div class="prose mt-6 max-w-none font-medium text-pretty lg:text-lg">
+					<div class="prose mt-6 max-w-none text-pretty lg:text-lg">
 						<p>Stacy is Head of Quality for RWS’s TrainAI data services practice, which delivers complex, cutting-edge AI training data solutions to global clients across a wide range of industries. She works closely with the TrainAI team and clients to ensure their AI projects deliver high-quality data, actionable insights, and exceed expectations.</p>
 						<p>Stacy has over 15 years of experience working in AI data services, primarily in project, program, and quality management roles, spanning generative AI, search relevance, data collection, and translation. She holds a master’s degree from Southern Seminary and a bachelor’s degree in Education from Indiana University, along with several industry certifications.</p>
 					</div>
@@ -214,7 +214,7 @@ const cards = [1, 2, 3]
 			</h2>
 
 			<!-- Copy -->
-			<div class="prose font-medium text-foreground-muted md:prose-lg">
+			<div class="prose text-foreground-muted md:prose-lg">
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere.</p>
 			</div>
 
@@ -241,7 +241,7 @@ const cards = [1, 2, 3]
 											</p>
 										</h2>
 
-										<div class="prose line-clamp-3 font-medium text-pretty text-foreground-muted">
+										<div class="prose line-clamp-3 text-pretty text-foreground-muted">
 											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
 										</div>
 									</div>
@@ -251,7 +251,7 @@ const cards = [1, 2, 3]
 											<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
 											<div>
 												<div class="font-semibold">Jese Leos</div>
-												<div class="text-sm font-medium text-foreground-muted">Aug 15, 2021 • 16 min read</div>
+												<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>
 											</div>
 										</div>
 									</div>
@@ -276,7 +276,7 @@ const cards = [1, 2, 3]
 					<p>This is the heading</p>
 				</h2>
 
-				<div class="prose font-medium text-foreground-muted md:prose-lg">
+				<div class="prose text-foreground-muted md:prose-lg">
 					<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
 
 					<ul>
@@ -310,7 +310,7 @@ const cards = [1, 2, 3]
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
 
-							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
 								<div>Our Active</div>
 								<div>Users</div>
 							</div>
@@ -319,7 +319,7 @@ const cards = [1, 2, 3]
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">3k</span>
 
-							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
 								<div>Professional</div>
 								<div>Creators</div>
 							</div>
@@ -328,7 +328,7 @@ const cards = [1, 2, 3]
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">560k</span>
 
-							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug font-medium text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
 								<div>Weekly</div>
 								<div>Downloads</div>
 							</div>
@@ -343,7 +343,7 @@ const cards = [1, 2, 3]
 						<p>Book a meeting</p>
 					</h3>
 
-					<div class="prose mb-6 font-medium text-foreground-muted">
+					<div class="prose mb-6 text-foreground-muted">
 						<p>We're here to help you with any questions you have. Please fill out the form below and we'll get back to you as soon as possible.</p>
 					</div>
 
@@ -353,7 +353,7 @@ const cards = [1, 2, 3]
 								<fieldset class="form-columns-2">
 									<div class="hs_name hs-name hs-fieldtype-text field hs-form-field">
 										<div class="input">
-											<label id="label-name-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="name-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+											<label id="label-name-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="name-80943ed9-df96-4201-84bd-0aa63e3f08e1">
 												<span>Name</span>
 												<span class="hs-form-required">*</span>
 											</label>
@@ -364,7 +364,7 @@ const cards = [1, 2, 3]
 
 									<div class="hs_email hs-email hs-fieldtype-text field hs-form-field">
 										<div class="input">
-											<label id="label-email-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="email-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+											<label id="label-email-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="email-80943ed9-df96-4201-84bd-0aa63e3f08e1">
 												<span>Email</span>
 												<span class="hs-form-required">*</span>
 											</label>
@@ -377,7 +377,7 @@ const cards = [1, 2, 3]
 								<fieldset class="form-columns-1">
 									<div class="hs_phone hs-phone hs-fieldtype-phonenumber field hs-form-field">
 										<div class="input">
-											<label id="label-phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+											<label id="label-phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1">
 												<span>Phone number</span>
 											</label>
 
@@ -389,7 +389,7 @@ const cards = [1, 2, 3]
 								<fieldset class="form-columns-2">
 									<div class="hs_company hs-company hs-fieldtype-text field hs-form-field">
 										<div class="input">
-											<label id="label-company-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="company-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+											<label id="label-company-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="company-80943ed9-df96-4201-84bd-0aa63e3f08e1">
 												<span>Company</span>
 												<span class="hs-form-required">*</span>
 											</label>
@@ -400,7 +400,7 @@ const cards = [1, 2, 3]
 
 									<div class="hs_jobtitle hs-jobtitle hs-fieldtype-text field hs-form-field">
 										<div class="input">
-											<label id="label-jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" class="" for="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+											<label id="label-jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1">
 												<span>Job title</span>
 												<span class="hs-form-required">*</span>
 											</label>

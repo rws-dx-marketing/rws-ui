@@ -1,5 +1,5 @@
 .tooltip[popover] {
-	@apply relative inset-auto m-4 max-w-72 overflow-visible rounded bg-foreground-muted px-3 py-2.5 text-center text-sm font-medium text-pretty text-background;
+	@apply relative inset-auto m-4 max-w-72 overflow-visible rounded bg-foreground-muted px-3 py-2.5 text-center text-sm text-pretty text-background;
 	position-area: top;
 
 	&::after {

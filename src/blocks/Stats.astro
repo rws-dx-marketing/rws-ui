@@ -32,7 +32,7 @@ const { theme = 'default' } = Astro.props
 
 						<div class="intersect-once text-foreground-muted intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + index * 100}ms`}>
 							<p class="text-lg/tight font-bold">{stat.label}</p>
-							{stat.note && <p class="font-medium">{stat.note}</p>}
+							{stat.note && <p>{stat.note}</p>}
 						</div>
 					</div>
 				))

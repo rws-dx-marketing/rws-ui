@@ -4,16 +4,16 @@
 	}
 
 	.input-search {
-		@apply block w-full rounded-full pr-8 font-medium placeholder:text-foreground-subtle focus:border-accent focus:ring-accent;
+		@apply block w-full rounded-full pr-8 placeholder:text-foreground-subtle focus:border-accent focus:ring-accent;
 	}
 
 	.input-text,
 	.input-textarea {
-		@apply block w-full rounded-sm font-medium focus:border-accent focus:ring-accent;
+		@apply block w-full rounded-sm focus:border-accent focus:ring-accent;
 	}
 
 	.input-select:not([size]):not([multiple]) {
-		@apply block w-full rounded-sm bg-no-repeat pr-9 font-medium focus:border-accent focus:ring-accent;
+		@apply block w-full rounded-sm bg-no-repeat pr-9 focus:border-accent focus:ring-accent;
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Cpolyline points='80 176 128 224 176 176' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cpolyline points='80 80 128 32 176 80' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E");
 		background-size: 1em;
 		background-position: right 0.75em center;

@@ -145,14 +145,14 @@ const cards = [
 				<p>Connectors</p>
 			</h1>
 
-			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] font-medium text-pretty text-foreground-muted xl:prose-2xl">
+			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
 				<p>We connect and integrate with the most innovative technology companies and consultants to bring our customers a diverse ecosystem of layered interoperability between our partners’ solutions and our own.</p>
 			</div>
 
 			<form class="relative z-10 mt-20 -mb-6.25">
 				<div class="mx-auto flex max-w-2xl gap-3" style="anchor-name: --filters-bar">
 					<div class="grow">
-						<label for="search" class="sr-only mb-2.5 block text-sm font-medium">Search</label>
+						<label for="search" class="sr-only mb-2.5 block text-sm">Search</label>
 
 						<div class="relative">
 							<div class="rounded-full bg-background">
@@ -209,11 +209,11 @@ const cards = [
 	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="flex justify-between">
-				<div class="pl-1.5 text-sm font-medium text-foreground-subtle" data-card-results-count>{cards.length} results</div>
+				<div class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{cards.length} results</div>
 
 				<div class="flex items-center gap-4">
 					<div class="flex items-center gap-2">
-						<span class="shrink-0 text-sm font-medium text-foreground-subtle">Sort by</span>
+						<span class="shrink-0 text-sm text-foreground-subtle">Sort by</span>
 						<select name="sort-by" class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-4 text-sm focus:ring-0">
 							<option value="most-recent">Most recent</option>
 							<option value="oldest-first">Oldest first</option>
@@ -223,7 +223,7 @@ const cards = [
 					</div>
 
 					<div class="flex items-center gap-2">
-						<label for="items-per-page" class="shrink-0 text-sm font-medium text-foreground-subtle">Show</label>
+						<label for="items-per-page" class="shrink-0 text-sm text-foreground-subtle">Show</label>
 						<select id="items-per-page" name="items-per-page" data-card-page-size class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-5 text-sm focus:ring-0">
 							<option value="3" selected>3</option>
 							<option value="6">6</option>
@@ -265,7 +265,7 @@ const cards = [
 											</p>
 										</h2>
 
-										<div class="prose line-clamp-3 font-medium text-pretty text-foreground-muted">
+										<div class="prose line-clamp-3 text-pretty text-foreground-muted">
 											<Fragment set:html={card.description} />
 										</div>
 									</div>
@@ -283,7 +283,7 @@ const cards = [
 											<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
 											<div>
 												<div class="font-semibold">Jese Leos</div>
-												<div class="text-sm font-medium text-foreground-muted">Aug 15, 2021 • 16 min read</div>
+												<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>
 											</div>
 										</div>
 									</div> */}
@@ -300,7 +300,7 @@ const cards = [
 
 			<div class="mt-12 pt-12 pb-24 text-center" data-card-empty-state hidden>
 				<p class="text-2xl font-bold">No connectors found</p>
-				<p class="mt-2 text-xl font-medium text-foreground-muted">Try removing a filter or search for a different term.</p>
+				<p class="mt-2 text-xl text-foreground-muted">Try removing a filter or search for a different term.</p>
 			</div>
 		</div>
 	</section>

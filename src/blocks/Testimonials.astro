@@ -64,7 +64,7 @@ const {
 									</svg>
 								</div>
 
-								<blockquote class="space-y-[0.5em] text-center text-2xl font-medium text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
+								<blockquote class="space-y-[0.5em] text-center text-2xl text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
 									<p>{t.quote}</p>
 								</blockquote>
 
@@ -73,9 +73,9 @@ const {
 										{t.avatar && <img class="size-6 rounded-full" src={t.avatar} alt="" />}
 										<div class="flex items-center divide-x divide-foreground-subtle">
 											<div class="px-3 font-semibold">{t.author}</div>
-											{t.role && <div class="px-3 font-medium text-foreground-muted">{t.role}</div>}
+											{t.role && <div class="px-3 text-foreground-muted">{t.role}</div>}
 											{t.link && (
-												<div class="px-3 font-medium text-foreground-muted transition-colors hover:text-accent">
+												<div class="px-3 text-foreground-muted transition-colors hover:text-accent">
 													<a href={t.link} class="inline-flex items-center">
 														Read case study
 														<svg class="mt-0.25 ml-1 size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">

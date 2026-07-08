@@ -78,7 +78,7 @@ const showMeta = date || readTime
 
 			{
 				description && (
-					<div class="prose font-medium text-foreground-muted md:prose-lg">
+					<div class="prose text-foreground-muted md:prose-lg">
 						<p>{description}</p>
 					</div>
 				)
@@ -113,7 +113,7 @@ const showMeta = date || readTime
 									<a href={author.href ?? '#'} rel="author" class="text-lg font-bold transition-colors hover:text-accent">
 										{author.name}
 									</a>
-									{author.role && <p class="text-sm font-medium text-foreground-muted">{author.role}</p>}
+									{author.role && <p class="text-sm text-foreground-muted">{author.role}</p>}
 								</div>
 							</div>
 						) : (

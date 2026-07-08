@@ -221,7 +221,7 @@ const matrix = [
 
 			{
 				lockSegment && (
-					<div class="mx-auto prose prose-xl max-w-[56ch] font-medium text-foreground-muted md:prose-2xl">
+					<div class="mx-auto prose prose-xl max-w-[56ch] text-foreground-muted md:prose-2xl">
 						<p data-segment-subtitle>{defaultSegment.subtitle}</p>
 					</div>
 				)
@@ -374,7 +374,7 @@ const matrix = [
 
 											<div class="mb-4">
 												<div class="flex items-baseline gap-2">
-													<span data-was data-was-yearly={p.price.wasGbp ?? ''} data-was-monthly={p.price.monthlyGbp} hidden class="text-lg font-medium text-foreground-subtle line-through">
+													<span data-was data-was-yearly={p.price.wasGbp ?? ''} data-was-monthly={p.price.monthlyGbp} hidden class="text-lg text-foreground-subtle line-through">
 														£{p.price.wasGbp ?? ''}
 													</span>
 
@@ -383,7 +383,7 @@ const matrix = [
 													</span>
 												</div>
 
-												<p class="mt-1 text-sm font-medium text-foreground-subtle">
+												<p class="mt-1 text-sm text-foreground-subtle">
 													<span data-billing-note>
 														<span data-note-rolling hidden>
 															per user / month · billed monthly
@@ -398,7 +398,7 @@ const matrix = [
 												</p>
 
 												<div data-card id={`cadence-popover-${id}`} popover="auto" role="menu" aria-labelledby={`cadence-button-${id}`} class="dropdown z-10 mt-1 w-max rounded border border-foreground-softer shadow-lg" style={`position-anchor: --cadence-anchor-${id}; position-area: bottom span-left;`}>
-													<ul class="grid gap-px p-2 text-sm font-medium select-none">
+													<ul class="grid gap-px p-2 text-sm select-none">
 														{[
 															['yearly', 'Billed yearly (annual contract)'],
 															['monthly', 'Billed monthly (annual contract)'],
@@ -417,7 +417,7 @@ const matrix = [
 									)}
 
 									{p.segments.map((segment) => (
-										<p data-segment data-segments={segment} class="text-sm/relaxed font-medium text-pretty text-foreground-muted">
+										<p data-segment data-segments={segment} class="text-sm/relaxed text-pretty text-foreground-muted">
 											{p.desc[segment]}
 										</p>
 									))}
@@ -484,7 +484,7 @@ const matrix = [
 				}
 			</div>
 
-			<p class="mx-auto mt-8 max-w-4xl text-center text-xs/relaxed font-medium text-pretty text-foreground-subtle">*New Trados subscriptions only. Get instant access to Studio 2024, plus Studio 2026 at launch. Applies to first-year annual plans. Prices exclude VAT.</p>
+			<p class="mx-auto mt-8 max-w-4xl text-center text-xs/relaxed text-pretty text-foreground-subtle">*New Trados subscriptions only. Get instant access to Studio 2024, plus Studio 2026 at launch. Applies to first-year annual plans. Prices exclude VAT.</p>
 		</div>
 	</section>
 
@@ -499,7 +499,7 @@ const matrix = [
 				<p>Compare every feature</p>
 			</h2>
 
-			<div class="prose font-medium text-foreground-muted md:prose-lg">
+			<div class="prose text-foreground-muted md:prose-lg">
 				<p data-comparison-subtitle>See exactly what's included across the "{defaultSegment.label}" plans.</p>
 			</div>
 		</div>
@@ -555,7 +555,7 @@ const matrix = [
 								<div>
 									{sec.rows.map((r) => (
 										<div data-comparison class="grid border-b border-foreground-softer group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-last/sec:last:border-b-0">
-											<div class="flex items-center px-4 py-4 text-sm font-medium">
+											<div class="flex items-center px-4 py-4 text-sm">
 												{r.tooltip ? (
 													<>
 														<span class="relative block w-fit">
@@ -608,7 +608,7 @@ const matrix = [
 																{r.valueTooltip && v === r.valueTooltip.match ? (
 																	<>
 																		<span class="relative w-fit">
-																			<span class="text-sm font-medium">{v}</span>
+																			<span class="text-sm">{v}</span>
 																			<button type="button" popovertarget={`tooltip-${r.id}-${id}`} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${v}`}>
 																				<svg class="-mb-0.5 size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
 																					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />{' '}
@@ -620,7 +620,7 @@ const matrix = [
 																		</div>
 																	</>
 																) : (
-																	<span class="text-sm font-medium">{v}</span>
+																	<span class="text-sm">{v}</span>
 																)}
 																{r.lw && v === 'Add-on' && (
 																	<span class="inline-flex items-center gap-1 rounded-full border border-primary-soft bg-primary-softest px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-primary uppercase">
