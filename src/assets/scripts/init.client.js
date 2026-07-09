@@ -1,4 +1,3 @@
-// import { initFlowbite } from 'flowbite'
 import { Observer } from 'tailwindcss-intersect'
 
 import cardFilters from './card-filters'
@@ -30,7 +29,6 @@ if (typeof window !== 'undefined') {
 	}
 
 	window.addEventListener('load', () => {
-		// initFlowbite()
 		primaryNav()
 		headerScroll()
 		dots()

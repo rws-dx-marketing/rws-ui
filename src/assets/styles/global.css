@@ -5,10 +5,6 @@
 @plugin 'tailwindcss-motion';
 @plugin '@tailwindcss/typography';
 
-/*@import 'flowbite/src/themes/default';
-@plugin 'flowbite/plugin';
-@source '../../../node_modules/flowbite';*/
-
 @import './_animation.css';
 @import './_buttons.css';
 @import './_colors.css';

@@ -1,7 +1,5 @@
 import EmblaCarousel from 'embla-carousel'
 import { Observer } from 'tailwindcss-intersect'
-// import { WheelGesturesPlugin } from 'embla-carousel-wheel-gestures'
-// import AutoHeightPlugin from 'embla-carousel-auto-height'
 
 function initCarousel(wrapperNode) {
 	const viewportNode = wrapperNode.querySelector('[data-carousel="viewport"]')
@@ -9,18 +7,11 @@ function initCarousel(wrapperNode) {
 	const nextButtonNode = wrapperNode.querySelector('[data-carousel="next"]')
 	const dotsNode = wrapperNode.querySelector('[data-carousel="dots"]')
 
-	const emblaApi = EmblaCarousel(
-		viewportNode,
-		{
-			loop: false,
-			skipSnaps: true,
-			draggable: wrapperNode.querySelectorAll('[data-carousel="slide"]').length <= 1 ? false : true,
-		},
-		[
-			// WheelGesturesPlugin(),
-			// AutoHeightPlugin(),
-		],
-	)
+	const emblaApi = EmblaCarousel(viewportNode, {
+		loop: false,
+		skipSnaps: true,
+		draggable: wrapperNode.querySelectorAll('[data-carousel="slide"]').length <= 1 ? false : true,
+	})
 
 	emblaApi.on('scroll', (emblaApi, event) => {
 		const { isDragging } = event.detail
