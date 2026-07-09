@@ -67,7 +67,7 @@ const themeVariants = themes.map((theme) => ({
 					semanticPrimary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
 							<div class={`aspect-video w-full rounded ${item.className}`} />
-							<div class="mt-3 space-y-1 text-sm text-body">
+							<div class="text-body mt-3 space-y-1 text-sm">
 								<span class="block text-center font-semibold">{item.name.replace('primary-', '')}</span>
 								{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
 							</div>
@@ -84,7 +84,7 @@ const themeVariants = themes.map((theme) => ({
 					semanticSecondary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
 							<div class={`aspect-video w-full rounded ${item.className}`} />
-							<div class="mt-3 space-y-1 text-sm text-body">
+							<div class="text-body mt-3 space-y-1 text-sm">
 								<span class="block text-center font-semibold">{item.name.replace('secondary-', '')}</span>
 								{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
 							</div>
@@ -101,7 +101,7 @@ const themeVariants = themes.map((theme) => ({
 					semanticTertiary.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
 							<div class={`aspect-video w-full rounded ${item.className}`} />
-							<div class="mt-3 space-y-1 text-sm text-body">
+							<div class="text-body mt-3 space-y-1 text-sm">
 								<span class="block text-center font-semibold">{item.name.replace('tertiary-', '')}</span>
 								{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
 							</div>
@@ -118,7 +118,7 @@ const themeVariants = themes.map((theme) => ({
 					semanticNeutral.map((item) => (
 						<div class="rounded-xl border border-gray-200 bg-white p-4 shadow-xs dark:border-gray-700 dark:bg-gray-900">
 							<div class={`aspect-video w-full rounded ${item.className}`} />
-							<div class="mt-3 space-y-1 text-sm text-body">
+							<div class="text-body mt-3 space-y-1 text-sm">
 								<span class="block text-center font-semibold">{item.name.replace('foreground-', '')}</span>
 								{/* <code class="text-xs text-body-subtle">{item.className}</code> */}
 							</div>
@@ -323,6 +323,121 @@ const themeVariants = themes.map((theme) => ({
 					</div>
 				))
 			}
+		</section>
+
+		<header class="mt-24 mb-10 space-y-2">
+			<h2 class="text-2xl font-semibold">Forms</h2>
+		</header>
+
+		<section class="mb-12 space-y-6">
+			<h3 class="text-xl font-semibold">Text inputs</h3>
+			<div class="mt-6 max-w-sm space-y-4">
+				<div>
+					<label for="guide-name" class="mb-2 inline-block text-sm/none font-semibold text-foreground-muted">Full name</label>
+					<input id="guide-name" type="text" class="input input-text" placeholder="Jane Doe" />
+				</div>
+				<div>
+					<label for="guide-email" class="mb-2 inline-block text-sm/none font-semibold text-foreground-muted">Email address</label>
+					<input id="guide-email" type="email" class="input input-text" placeholder="jane@example.com" />
+				</div>
+			</div>
+		</section>
+
+		<section class="mb-12 space-y-6">
+			<h3 class="text-xl font-semibold">Select</h3>
+			<div class="mt-6 max-w-sm">
+				<select class="input input-select">
+					<option value="" disabled selected>Please select</option>
+					<option>United Kingdom</option>
+					<option>United States</option>
+					<option>Germany</option>
+				</select>
+			</div>
+		</section>
+
+		<section class="mb-12 space-y-6">
+			<h3 class="text-xl font-semibold">Textarea</h3>
+			<div class="mt-6 max-w-sm">
+				<textarea rows="4" class="input input-textarea" placeholder="Type your message…"></textarea>
+			</div>
+		</section>
+
+		<section class="mb-12 space-y-6">
+			<h3 class="text-xl font-semibold">Checkbox</h3>
+			<div class="mt-6 space-y-2">
+				<label class="flex items-center gap-2 text-sm">
+					<input type="checkbox" name="guide-checkbox" checked class="input input-checkbox" />
+					<span>Option one</span>
+				</label>
+				<label class="flex items-center gap-2 text-sm">
+					<input type="checkbox" name="guide-checkbox" class="input input-checkbox" />
+					<span>Option two</span>
+				</label>
+				<label class="flex items-center gap-2 text-sm">
+					<input type="checkbox" name="guide-checkbox" class="input input-checkbox" />
+					<span>Option three</span>
+				</label>
+			</div>
+		</section>
+
+		<section class="mb-12 space-y-6">
+			<h3 class="text-xl font-semibold">Radio</h3>
+			<div class="mt-6 space-y-2">
+				<label class="flex items-center gap-2 text-sm">
+					<input type="radio" name="guide-radio" checked class="input input-radio" />
+					<span>Option one</span>
+				</label>
+				<label class="flex items-center gap-2 text-sm">
+					<input type="radio" name="guide-radio" class="input input-radio" />
+					<span>Option two</span>
+				</label>
+				<label class="flex items-center gap-2 text-sm">
+					<input type="radio" name="guide-radio" class="input input-radio" />
+					<span>Option three</span>
+				</label>
+			</div>
+		</section>
+
+		<section class="mb-12 space-y-6">
+			<h3 class="text-xl font-semibold">File</h3>
+			<div class="mt-6 max-w-sm">
+				<input type="file" class="input-file" />
+			</div>
+		</section>
+
+		<section class="mb-12 space-y-6">
+			<h3 class="text-xl font-semibold">Sizes</h3>
+			<div class="mt-6 grid max-w-3xl gap-6 sm:grid-cols-3">
+				<div class="space-y-4">
+					<input type="text" class="input input-text input-sm" placeholder="Small (sm)" />
+					<input type="text" class="input input-text input-md" placeholder="Medium (md)" />
+					<input type="text" class="input input-text input-lg" placeholder="Large (lg)" />
+				</div>
+
+				<div class="space-y-4">
+					<select class="input input-select input-sm">
+						<option value="" disabled selected>Small (sm)</option>
+						<option>Option one</option>
+						<option>Option two</option>
+					</select>
+					<select class="input input-select input-md">
+						<option value="" disabled selected>Medium (md)</option>
+						<option>Option one</option>
+						<option>Option two</option>
+					</select>
+					<select class="input input-select input-lg">
+						<option value="" disabled selected>Large (lg)</option>
+						<option>Option one</option>
+						<option>Option two</option>
+					</select>
+				</div>
+
+				<div class="space-y-4">
+					<textarea rows="2" class="input input-textarea input-sm" placeholder="Small (sm)"></textarea>
+					<textarea rows="2" class="input input-textarea input-md" placeholder="Medium (md)"></textarea>
+					<textarea rows="2" class="input input-textarea input-lg" placeholder="Large (lg)"></textarea>
+				</div>
+			</div>
 		</section>
 
 		<header class="mt-24 mb-10 space-y-2">

@@ -1,22 +1,22 @@
 <section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 		<!-- Pricing Cards -->
-		<div id="pricingTabs" class="divide-y divide-foreground-softer rounded-lg border border-foreground-softer lg:grid lg:grid-cols-3 lg:divide-x lg:divide-y-0" data-card>
+		<div id="pricingTabs" class="divide-y rounded-lg border lg:grid lg:grid-cols-3 lg:divide-x lg:divide-y-0" data-card>
 			<div class="col-span-2 p-6 lg:p-8">
 				<h3 class="mb-8 text-3xl font-bold">Add-ons and extras</h3>
 
 				<ul class="grid grid-cols-2 text-center font-semibold text-foreground-muted md:grid-cols-4 md:rounded-lg" id="pricing-tabs" data-tabs-toggle="#pricing-tabs-content" data-tabs-active-classes="text-gray-900 bg-gray-100 dark:bg-gray-600 dark:text-white" data-tabs-inactive-classes="bg-white hover:text-gray-700 hover:bg-gray-50 dark:hover:text-white dark:bg-gray-700 dark:hover:bg-gray-600" role="tablist">
 					<li class="w-full" role="presentation">
-						<button id="language-weaver-tab" type="button" role="tab" aria-controls="language-weaver-content" aria-selected="true" data-tabs-target="#language-weaver-content" data-plan-target="#language-weaver-plan" class="inline-block w-full rounded-tl border border-r-0 border-b-0 border-foreground-softer p-4 md:rounded-l md:border-b">Language Weaver</button>
+						<button id="language-weaver-tab" type="button" role="tab" aria-controls="language-weaver-content" aria-selected="true" data-tabs-target="#language-weaver-content" data-plan-target="#language-weaver-plan" class="inline-block w-full rounded-tl border border-r-0 border-b-0 p-4 md:rounded-l md:border-b">Language Weaver</button>
 					</li>
 					<li class="w-full" role="presentation">
-						<button id="cohere-tab" type="button" role="tab" aria-controls="cohere-content" aria-selected="false" data-tabs-target="#cohere-content" data-plan-target="#cohere-plan" class="inline-block w-full rounded-tr border border-b-0 border-foreground-softer p-4 md:rounded-tr-none md:border-r-0 md:border-b">Cohere</button>
+						<button id="cohere-tab" type="button" role="tab" aria-controls="cohere-content" aria-selected="false" data-tabs-target="#cohere-content" data-plan-target="#cohere-plan" class="inline-block w-full rounded-tr border border-b-0 p-4 md:rounded-tr-none md:border-r-0 md:border-b">Cohere</button>
 					</li>
 					<li class="w-full" role="presentation">
-						<button id="standard-tab" type="button" role="tab" aria-controls="standard-content" aria-selected="false" data-tabs-target="#standard-content" data-plan-target="#standard-plan" class="inline-block w-full rounded-bl border border-r-0 border-foreground-softer p-4 md:rounded-bl-none">MultiTerm</button>
+						<button id="standard-tab" type="button" role="tab" aria-controls="standard-content" aria-selected="false" data-tabs-target="#standard-content" data-plan-target="#standard-plan" class="inline-block w-full rounded-bl border border-r-0 p-4 md:rounded-bl-none">MultiTerm</button>
 					</li>
 					<li class="w-full" role="presentation">
-						<button id="enterprise-tab" type="button" role="tab" aria-controls="enterprise-content" aria-selected="false" data-tabs-target="#enterprise-content" data-plan-target="#enterprise-plan" class="inline-block w-full rounded-br border border-foreground-softer p-4 md:rounded-r">Passolo</button>
+						<button id="enterprise-tab" type="button" role="tab" aria-controls="enterprise-content" aria-selected="false" data-tabs-target="#enterprise-content" data-plan-target="#enterprise-plan" class="inline-block w-full rounded-br border p-4 md:rounded-r">Passolo</button>
 					</li>
 				</ul>
 
@@ -70,7 +70,7 @@
 							<label for="language-weaver-quantity">Quantity:</label>
 							<div class="flex items-center gap-2">
 								<button type="button" data-qty-dec aria-label="Decrease quantity">−</button>
-								<input id="language-weaver-quantity" data-qty-input type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground-softer bg-transparent text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="999" value="1" />
+								<input id="language-weaver-quantity" data-qty-input type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm bg-transparent text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="999" value="1" />
 								<button type="button" data-qty-inc aria-label="Increase quantity">+</button>
 							</div>
 						</div>
@@ -94,7 +94,7 @@
 							<label for="quantity">Quantity:</label>
 							<div class="flex items-center gap-2">
 								<button type="button" id="qty-decrease" aria-label="Decrease quantity">−</button>
-								<input id="quantity" type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground-softer bg-transparent text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="999" value="1" />
+								<input id="quantity" type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm bg-transparent text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="999" value="1" />
 								<button type="button" id="qty-increase" aria-label="Increase quantity">+</button>
 							</div>
 						</div>
@@ -140,13 +140,13 @@
 						<p>Collaborate using our central terminology tool for consistent, high-quality content across departments and with translators.</p>
 
 						<div class="mt-8">
-							<div class="rounded border border-foreground-softer p-4" data-qty-group>
+							<div class="rounded border p-4" data-qty-group>
 								<div class="flex items-center justify-between">
 									<div class="flex items-center gap-4">
 										<label for="modal-quantity">Quantity</label>
 										<div class="flex items-center gap-2">
 											<button type="button" data-qty-dec aria-label="Decrease quantity">−</button>
-											<input id="modal-quantity" data-qty-input type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm border-foreground-softer text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="100" value="1" />
+											<input id="modal-quantity" data-qty-input type="number" class="field-sizing-content min-w-12 [appearance:textfield] rounded-sm text-center tabular-nums [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" min="1" max="100" value="1" />
 											<button type="button" data-qty-inc aria-label="Increase quantity">+</button>
 										</div>
 									</div>

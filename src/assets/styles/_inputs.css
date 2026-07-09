@@ -1,19 +1,19 @@
 @layer components {
 	.input {
-		@apply border border-foreground-softer bg-input text-foreground;
+		@apply border bg-input px-2.5 pt-[0.46875rem] pb-[0.53125rem] text-base text-foreground focus-visible:border-accent focus-visible:outline focus-visible:outline-accent;
 	}
 
 	.input-search {
-		@apply block w-full rounded-full pr-8 placeholder:text-foreground-subtle focus:border-accent focus:ring-accent;
+		@apply block w-full rounded-full pr-8 placeholder:text-foreground-subtle;
 	}
 
 	.input-text,
 	.input-textarea {
-		@apply block w-full rounded-sm focus:border-accent focus:ring-accent;
+		@apply block w-full rounded-sm;
 	}
 
 	.input-select:not([size]):not([multiple]) {
-		@apply block w-full rounded-sm bg-no-repeat pr-9 focus:border-accent focus:ring-accent;
+		@apply block w-full appearance-none rounded-sm bg-no-repeat pr-9;
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Cpolyline points='80 176 128 224 176 176' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cpolyline points='80 80 128 32 176 80' fill='none' stroke='currentColor' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E");
 		background-size: 1em;
 		background-position: right 0.75em center;
@@ -25,47 +25,48 @@
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Cpolyline points='80 176 128 224 176 176' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cpolyline points='80 80 128 32 176 80' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E");
 	}
 
+	.input-checkbox,
+	.input-radio {
+		@apply size-4 shrink-0 appearance-none bg-center bg-no-repeat p-0 focus-visible:outline focus-visible:outline-offset-0 focus-visible:outline-accent;
+	}
+
 	.input-checkbox {
-		@apply size-4 rounded-xs text-accent-muted focus:ring-accent-soft;
+		@apply rounded-xs;
 
 		&:checked {
-			@apply border-accent;
+			@apply border-accent bg-accent;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Cpolyline points='40 144 96 200 224 72' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='40'/%3E%3C/svg%3E");
+			background-size: 0.625rem;
 		}
 	}
 
 	.input-radio {
-		@apply size-4 rounded-full text-accent-muted focus:ring-accent-soft;
-
-		&::before {
-			@apply hidden;
-		}
+		@apply rounded-full;
 
 		&:checked {
-			@apply border-accent;
+			@apply border-accent bg-accent;
+			background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='8' fill='white'/%3E%3C/svg%3E");
+			background-size: 0.4375rem;
 		}
 	}
 
 	.input-file {
-		@apply block w-full text-sm focus:border-accent focus:ring-accent;
+		@apply block w-full text-sm;
 
 		&::file-selector-button {
-			@apply mr-3 ml-0 rounded-sm border border-foreground-softer bg-input px-3 py-2 text-foreground hover:bg-foreground-softest focus-visible:bg-foreground-softest focus-visible:ring-foreground-soft;
+			@apply mr-3 ml-0 rounded-sm border bg-input px-3 py-2 text-foreground hover:bg-foreground-softest focus-visible:bg-foreground-softest focus-visible:ring-foreground-soft;
 		}
 	}
 }
 
 @utility input-sm {
-	@apply px-3.5 pt-[0.34375rem] pb-[0.40625rem] text-sm;
+	@apply px-2 pt-[0.34375rem] pb-[0.40625rem] text-sm;
 }
 
 @utility input-md {
-	@apply px-4 pt-[0.46875rem] pb-[0.53125rem] text-base;
+	@apply px-2.5 pt-[0.46875rem] pb-[0.53125rem] text-base;
 }
 
 @utility input-lg {
-	@apply px-5 pt-2.25 pb-2.75 text-lg;
-}
-
-@utility input-xl {
-	@apply px-6 pt-3 pb-3.5 text-xl;
+	@apply px-3 pt-2.25 pb-2.75 text-lg;
 }

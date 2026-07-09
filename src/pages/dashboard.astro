@@ -12,46 +12,46 @@ import Layout from '../layouts/Layout.astro'
 	<section class="py-16" data-theme="default">
 		<div class="mx-auto max-w-7xl px-8 lg:px-12">
 			<div class="grid items-start lg:grid-cols-3">
-				<div class="w-full max-w-sm rounded-base border border-default bg-neutral-primary-soft p-4 shadow-xs md:p-6">
+				<div class="rounded-base border-default bg-neutral-primary-soft w-full max-w-sm border p-4 shadow-xs md:p-6">
 					<div class="flex items-start justify-between">
 						<div>
-							<h5 class="text-2xl font-semibold text-heading">32.4k</h5>
+							<h5 class="text-heading text-2xl font-semibold">32.4k</h5>
 							<p class="text-body">Users this week</p>
 						</div>
-						<div class="flex items-center px-2.5 py-0.5 text-center text-fg-success">
+						<div class="text-fg-success flex items-center px-2.5 py-0.5 text-center">
 							<svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"></path></svg>
 							12%
 						</div>
 					</div>
 					<div id="area-chart"></div>
-					<div class="grid grid-cols-1 items-center justify-between border-t border-light">
+					<div class="border-light grid grid-cols-1 items-center justify-between border-t">
 						<div class="flex items-center justify-between pt-4 md:pt-6">
 							<!-- Button -->
-							<button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom" class="inline-flex items-center text-center text-sm text-body hover:text-heading" type="button">
+							<button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom" class="text-body hover:text-heading inline-flex items-center text-center text-sm" type="button">
 								<span data-area-chart-range-label>Last 7 days</span>
 								<svg class="ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
 							</button>
 							<!-- Dropdown menu -->
-							<div id="lastDaysdropdown" class="z-10 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
-								<ul class="p-2 text-sm text-body" aria-labelledby="dropdownDefaultButton">
+							<div id="lastDaysdropdown" class="rounded-base border-default-medium bg-neutral-primary-medium z-10 hidden w-44 border shadow-lg">
+								<ul class="text-body p-2 text-sm" aria-labelledby="dropdownDefaultButton">
 									<li>
-										<a href="#" data-area-range="yesterday" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Yesterday</a>
+										<a href="#" data-area-range="yesterday" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Yesterday</a>
 									</li>
 									<li>
-										<a href="#" data-area-range="today" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Today</a>
+										<a href="#" data-area-range="today" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Today</a>
 									</li>
 									<li>
-										<a href="#" data-area-range="7d" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 7 days</a>
+										<a href="#" data-area-range="7d" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 7 days</a>
 									</li>
 									<li>
-										<a href="#" data-area-range="30d" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 30 days</a>
+										<a href="#" data-area-range="30d" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 30 days</a>
 									</li>
 									<li>
-										<a href="#" data-area-range="90d" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 90 days</a>
+										<a href="#" data-area-range="90d" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 90 days</a>
 									</li>
 								</ul>
 							</div>
-							<a href="#" class="box-border inline-flex items-center rounded-base border border-transparent bg-transparent px-3 py-2 text-sm leading-5 text-fg-brand hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary focus:outline-none">
+							<a href="#" class="rounded-base text-fg-brand hover:bg-neutral-secondary-medium focus:ring-neutral-tertiary box-border inline-flex items-center border border-transparent bg-transparent px-3 py-2 text-sm leading-5 focus:ring-4 focus:outline-none">
 								Users Report
 								<svg class="ms-1.5 -me-0.5 h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"></path></svg>
 							</a>
@@ -59,19 +59,19 @@ import Layout from '../layouts/Layout.astro'
 					</div>
 				</div>
 
-				<div class="w-full max-w-sm rounded-base border border-default bg-neutral-primary-soft p-4 shadow-xs md:p-6">
-					<div class="mb-4 flex justify-between border-b border-light pb-4">
+				<div class="rounded-base border-default bg-neutral-primary-soft w-full max-w-sm border p-4 shadow-xs md:p-6">
+					<div class="border-light mb-4 flex justify-between border-b pb-4">
 						<div class="flex items-center">
-							<div class="me-3 flex h-12 w-12 items-center justify-center rounded-full border border-default-medium bg-neutral-primary-medium">
-								<svg class="h-7 w-7 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"></path></svg>
+							<div class="border-default-medium bg-neutral-primary-medium me-3 flex h-12 w-12 items-center justify-center rounded-full border">
+								<svg class="text-body h-7 w-7" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"></path></svg>
 							</div>
 							<div>
-								<h5 class="text-2xl font-semibold text-heading">3.4k</h5>
-								<p class="text-sm text-body">Leads generated per week</p>
+								<h5 class="text-heading text-2xl font-semibold">3.4k</h5>
+								<p class="text-body text-sm">Leads generated per week</p>
 							</div>
 						</div>
 						<div>
-							<span class="inline-flex items-center rounded border border-success-subtle bg-success-soft px-1.5 py-0.5 text-xs text-fg-success-strong">
+							<span class="border-success-subtle bg-success-soft text-fg-success-strong inline-flex items-center rounded border px-1.5 py-0.5 text-xs">
 								<svg class="me-1 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"></path></svg>
 								42.5%
 							</span>
@@ -80,43 +80,43 @@ import Layout from '../layouts/Layout.astro'
 
 					<div class="grid grid-cols-2">
 						<dl class="flex items-center">
-							<dt class="me-1 text-sm font-normal text-body">Money spent:</dt>
-							<dd class="text-sm font-semibold text-heading">$3,232</dd>
+							<dt class="text-body me-1 text-sm font-normal">Money spent:</dt>
+							<dd class="text-heading text-sm font-semibold">$3,232</dd>
 						</dl>
 						<dl class="flex items-center justify-end">
-							<dt class="me-1 text-sm font-normal text-body">Conversion:</dt>
-							<dd class="text-sm font-semibold text-heading">1.2%</dd>
+							<dt class="text-body me-1 text-sm font-normal">Conversion:</dt>
+							<dd class="text-heading text-sm font-semibold">1.2%</dd>
 						</dl>
 					</div>
 					<div id="column-chart"></div>
-					<div class="grid grid-cols-1 items-center justify-between border-t border-light">
+					<div class="border-light grid grid-cols-1 items-center justify-between border-t">
 						<div class="flex items-center justify-between pt-4 md:pt-6">
 							<!-- Button -->
-							<button id="dropdownLastDaysButton" data-dropdown-toggle="LastDaysdropdown" data-dropdown-placement="bottom" class="inline-flex items-center text-center text-sm text-body hover:text-heading" type="button">
+							<button id="dropdownLastDaysButton" data-dropdown-toggle="LastDaysdropdown" data-dropdown-placement="bottom" class="text-body hover:text-heading inline-flex items-center text-center text-sm" type="button">
 								Last 7 days
 								<svg class="ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
 							</button>
 							<!-- Dropdown menu -->
-							<div id="LastDaysdropdown" class="z-10 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
-								<ul class="p-2 text-sm text-body" aria-labelledby="dropdownLastDaysButton">
+							<div id="LastDaysdropdown" class="rounded-base border-default-medium bg-neutral-primary-medium z-10 hidden w-44 border shadow-lg">
+								<ul class="text-body p-2 text-sm" aria-labelledby="dropdownLastDaysButton">
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Yesterday</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Yesterday</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Today</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Today</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 7 days</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 7 days</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 30 days</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 30 days</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 90 days</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 90 days</a>
 									</li>
 								</ul>
 							</div>
-							<a href="#" class="box-border inline-flex items-center rounded-base border border-transparent bg-transparent px-3 py-2 text-sm leading-5 text-fg-brand hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary focus:outline-none">
+							<a href="#" class="rounded-base text-fg-brand hover:bg-neutral-secondary-medium focus:ring-neutral-tertiary box-border inline-flex items-center border border-transparent bg-transparent px-3 py-2 text-sm leading-5 focus:ring-4 focus:outline-none">
 								Leads Report
 								<svg class="ms-1.5 -me-0.5 h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"></path></svg>
 							</a>
@@ -124,19 +124,19 @@ import Layout from '../layouts/Layout.astro'
 					</div>
 				</div>
 
-				<div class="w-full max-w-sm rounded-base border border-default bg-neutral-primary-soft p-4 shadow-xs md:p-6">
+				<div class="rounded-base border-default bg-neutral-primary-soft w-full max-w-sm border p-4 shadow-xs md:p-6">
 					<div class="flex w-full items-start justify-between">
 						<div class="flex-col items-center">
 							<div class="mb-1 flex items-center">
-								<h5 class="me-1 text-xl font-semibold text-heading">Website traffic</h5>
-								<svg data-popover-target="traffic-info" data-popover-placement="bottom" class="ms-1 h-4 w-4 cursor-pointer text-body hover:text-heading" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
-								<div data-popover id="traffic-info" role="tooltip" class="invisible absolute z-10 inline-block w-72 rounded-base border border-default bg-neutral-primary-soft p-3 text-sm text-body opacity-0 shadow-xs transition-opacity duration-300">
+								<h5 class="text-heading me-1 text-xl font-semibold">Website traffic</h5>
+								<svg data-popover-target="traffic-info" data-popover-placement="bottom" class="text-body hover:text-heading ms-1 h-4 w-4 cursor-pointer" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.529 9.988a2.502 2.502 0 1 1 5 .191A2.441 2.441 0 0 1 12 12.582V14m-.01 3.008H12M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"></path></svg>
+								<div data-popover id="traffic-info" role="tooltip" class="rounded-base border-default bg-neutral-primary-soft text-body invisible absolute z-10 inline-block w-72 border p-3 text-sm opacity-0 shadow-xs transition-opacity duration-300">
 									<div>
-										<h3 class="mb-2 font-semibold text-heading">Activity growth - Incremental</h3>
+										<h3 class="text-heading mb-2 font-semibold">Activity growth - Incremental</h3>
 										<p class="mb-4">Report helps navigate cumulative growth of community activities. Ideally, the chart should have a growing trend, as stagnating chart signifies a significant decrease of community activity.</p>
-										<h3 class="mb-2 font-semibold text-heading">Calculation</h3>
+										<h3 class="text-heading mb-2 font-semibold">Calculation</h3>
 										<p class="mb-4">For each date bucket, the all-time volume of activities is calculated. This means that activities in period n contain all activities up to period n, plus the activities generated by your community in period.</p>
-										<a href="#" class="flex items-center text-fg-brand hover:underline">
+										<a href="#" class="text-fg-brand flex items-center hover:underline">
 											Read more
 											<svg class="ms-1 h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"></path></svg>
 										</a>
@@ -144,55 +144,55 @@ import Layout from '../layouts/Layout.astro'
 									<div data-popper-arrow></div>
 								</div>
 							</div>
-							<button id="dateRangeButton" data-dropdown-toggle="dateRangeDropdown" data-dropdown-ignore-click-outside-class="datepicker" type="button" class="inline-flex items-center text-fg-brand hover:underline">
+							<button id="dateRangeButton" data-dropdown-toggle="dateRangeDropdown" data-dropdown-ignore-click-outside-class="datepicker" type="button" class="text-fg-brand inline-flex items-center hover:underline">
 								31 Nov - 31 Dev
 								<svg class="ms-1.5 h-4.5 w-4.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
 							</button>
-							<div id="dateRangeDropdown" class="z-10 hidden w-80 rounded-base border border-default bg-neutral-primary-soft shadow-xs lg:w-md">
+							<div id="dateRangeDropdown" class="rounded-base border-default bg-neutral-primary-soft z-10 hidden w-80 border shadow-xs lg:w-md">
 								<div id="date-range-picker" date-rangepicker class="flex items-center p-2">
 									<div class="relative">
 										<div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-											<svg class="h-4 w-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"></path></svg>
+											<svg class="text-body h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"></path></svg>
 										</div>
-										<input id="datepicker-range-start" name="start" type="text" class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 ps-9 pe-3 text-sm text-heading shadow-xs placeholder:text-body focus:border-brand focus:ring-brand" placeholder="Start date" />
+										<input id="datepicker-range-start" name="start" type="text" class="rounded-base border-default-medium bg-neutral-secondary-medium text-heading placeholder:text-body focus:border-brand focus:ring-brand block w-full border px-3 py-2.5 ps-9 pe-3 text-sm shadow-xs" placeholder="Start date" />
 									</div>
-									<span class="mx-4 text-body">to</span>
+									<span class="text-body mx-4">to</span>
 									<div class="relative">
 										<div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-											<svg class="h-4 w-4 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"></path></svg>
+											<svg class="text-body h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 10h16m-8-3V4M7 7V4m10 3V4M5 20h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Zm3-7h.01v.01H8V13Zm4 0h.01v.01H12V13Zm4 0h.01v.01H16V13Zm-8 4h.01v.01H8V17Zm4 0h.01v.01H12V17Zm4 0h.01v.01H16V17Z"></path></svg>
 										</div>
-										<input id="datepicker-range-end" name="end" type="text" class="block w-full rounded-base border border-default-medium bg-neutral-secondary-medium px-3 py-2.5 ps-9 pe-3 text-sm text-heading shadow-xs placeholder:text-body focus:border-brand focus:ring-brand" placeholder="End date" />
+										<input id="datepicker-range-end" name="end" type="text" class="rounded-base border-default-medium bg-neutral-secondary-medium text-heading placeholder:text-body focus:border-brand focus:ring-brand block w-full border px-3 py-2.5 ps-9 pe-3 text-sm shadow-xs" placeholder="End date" />
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="flex items-center justify-end">
-							<button id="widgetDropdownButton" data-dropdown-toggle="widgetDropdown" data-dropdown-placement="bottom" type="button" class="inline-flex h-9 w-9 items-center justify-center rounded-base bg-neutral-primary-soft text-sm leading-5 text-body shadow-xs hover:bg-neutral-tertiary hover:text-heading focus:ring-4 focus:ring-neutral-tertiary focus:outline-none">
+							<button id="widgetDropdownButton" data-dropdown-toggle="widgetDropdown" data-dropdown-placement="bottom" type="button" class="rounded-base bg-neutral-primary-soft text-body hover:bg-neutral-tertiary hover:text-heading focus:ring-neutral-tertiary inline-flex h-9 w-9 items-center justify-center text-sm leading-5 shadow-xs focus:ring-4 focus:outline-none">
 								<svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01"></path></svg>
 								<span class="sr-only">Open dropdown</span>
 							</button>
-							<div id="widgetDropdown" class="z-10 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
-								<ul class="p-2 text-sm text-body" aria-labelledby="widgetDropdownButton">
+							<div id="widgetDropdown" class="rounded-base border-default-medium bg-neutral-primary-medium z-10 hidden w-44 border shadow-lg">
+								<ul class="text-body p-2 text-sm" aria-labelledby="widgetDropdownButton">
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">
 											<svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 5V4a1 1 0 0 0-1-1H8.914a1 1 0 0 0-.707.293L4.293 7.207A1 1 0 0 0 4 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5M9 3v4a1 1 0 0 1-1 1H4m11.383.772 2.745 2.746m1.215-3.906a2.089 2.089 0 0 1 0 2.953l-6.65 6.646L9 17.95l.739-3.692 6.646-6.646a2.087 2.087 0 0 1 2.958 0Z"></path></svg>
 											Edit widget
 										</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">
 											<svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V4M7 14H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2m-1-5-4 5-4-5m9 8h.01"></path></svg>
 											Download data
 										</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">
 											<svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 8v8m0-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 8a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8-8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 0a4 4 0 0 1-4 4h-1a3 3 0 0 0-3 3"></path></svg>
 											Add to repository
 										</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">
 											<svg class="me-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"></path></svg>
 											Delete widget
 										</a>
@@ -205,34 +205,34 @@ import Layout from '../layouts/Layout.astro'
 					<!-- Line Chart -->
 					<div class="py-6" id="pie-chart"></div>
 
-					<div class="grid grid-cols-1 items-center justify-between border-t border-light">
+					<div class="border-light grid grid-cols-1 items-center justify-between border-t">
 						<div class="flex items-center justify-between pt-4 md:pt-6">
 							<!-- Button -->
-							<button id="dropdownLastDays4Button" data-dropdown-toggle="LastDays4dropdown" data-dropdown-placement="bottom" class="inline-flex items-center text-center text-sm text-body hover:text-heading" type="button">
+							<button id="dropdownLastDays4Button" data-dropdown-toggle="LastDays4dropdown" data-dropdown-placement="bottom" class="text-body hover:text-heading inline-flex items-center text-center text-sm" type="button">
 								Last 7 days
 								<svg class="ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"></path></svg>
 							</button>
 							<!-- Dropdown menu -->
-							<div id="LastDays4dropdown" class="z-10 hidden w-44 rounded-base border border-default-medium bg-neutral-primary-medium shadow-lg">
-								<ul class="p-2 text-sm text-body" aria-labelledby="dropdownLastDays4Button">
+							<div id="LastDays4dropdown" class="rounded-base border-default-medium bg-neutral-primary-medium z-10 hidden w-44 border shadow-lg">
+								<ul class="text-body p-2 text-sm" aria-labelledby="dropdownLastDays4Button">
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Yesterday</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Yesterday</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Today</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Today</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 7 days</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 7 days</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 30 days</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 30 days</a>
 									</li>
 									<li>
-										<a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-neutral-tertiary-medium hover:text-heading">Last 90 days</a>
+										<a href="#" class="hover:bg-neutral-tertiary-medium hover:text-heading inline-flex w-full items-center rounded p-2">Last 90 days</a>
 									</li>
 								</ul>
 							</div>
-							<a href="#" class="box-border inline-flex items-center rounded-base border border-transparent bg-transparent px-3 py-2 text-sm leading-5 text-fg-brand hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary focus:outline-none">
+							<a href="#" class="rounded-base text-fg-brand hover:bg-neutral-secondary-medium focus:ring-neutral-tertiary box-border inline-flex items-center border border-transparent bg-transparent px-3 py-2 text-sm leading-5 focus:ring-4 focus:outline-none">
 								Traffic Report
 								<svg class="ms-1.5 -me-0.5 h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"></path></svg>
 							</a>

@@ -29,7 +29,7 @@ import Layout from '../../layouts/Layout.astro'
 	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Filters -->
-			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border border-foreground-softer bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
+			<div class="top-[calc(var(--content-top)+1rem)] z-999 rounded-lg border bg-background/75 backdrop-blur-sm transition-[top] duration-300 lg:sticky">
 				<div class="flex flex-col items-center justify-between gap-4 p-4 md:flex-row">
 					<div class="flex gap-8">
 						<!-- Model -->
@@ -40,12 +40,12 @@ import Layout from '../../layouts/Layout.astro'
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
-							<div id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border border-foreground-softer shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-right;">
+							<div id="model-filter-popover" popover="auto" role="menu" aria-labelledby="model-filter-button" class="dropdown z-10 mt-1 w-60 rounded border shadow-lg" style="position-anchor: --model-filter-anchor; position-area: bottom span-right;">
 								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm select-none" aria-labelledby="model-filter-button">
 									{
 										['claude-opus-4.6', 'claude-sonnet-4.6', 'jamba-2', 'claude-haiku-4.6', 'deepseek-v3.2', 'grok-4.20', 'llama-4-scout', 'deepseek-r2', 'gpt-5-mini', 'gemini-3-flash-preview', 'yi-2-large', 'qwen-3-72b', 'gemini-3-pro-preview', 'mistral-medium-3', 'command-r-plus', 'gpt-5.4', 'gpt-5', 'llama-4-maverick', 'gpt-5-nano', 'phi-5', 'mistral-large-3', 'qwen-3-235b', 'gemini-3-pro', 'command-r', 'kimi-k2.6'].map((model) => (
 											<li>
-												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground-softest has-checked:bg-accent-softer">
+												<label class="inline-flex w-full items-center gap-2 rounded px-2 py-1.5 transition-colors hover:bg-accent-softer has-checked:bg-accent-softest hover:has-checked:bg-accent-softer">
 													<input data-filter-input type="radio" value={model} name="model" class="input input-radio" />
 													{model}
 												</label>
@@ -80,12 +80,12 @@ import Layout from '../../layouts/Layout.astro'
 								<svg class="ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 							</button>
 
-							<div id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border border-foreground-softer shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
+							<div id="language-filter-popover" popover="auto" role="menu" aria-labelledby="language-filter-button" class="dropdown z-10 mt-1 w-56 rounded border shadow-lg" style="position-anchor: --language-filter-anchor; position-area: bottom span-left;">
 								<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm select-none" aria-labelledby="language-filter-button">
 									{
 										['Albanian', 'Arabic', 'Assamese', 'Basque', 'Czech', 'English', 'Fijian', 'Finnish', 'French', 'German', 'Greek', 'Hebrew', 'Hindi', 'Hungarian', 'Icelandic', 'Japanese', 'Khmer', 'Kinyarwanda', 'Korean', 'Kyrgyz', 'Nepali', 'Polish', 'Russian', 'Simplified Chinese', 'Spanish', 'Swahili', 'Tagalog', 'Tamil', 'Thai', 'Turkish', 'Vietnamese', 'Welsh', 'Zulu'].map((lang) => (
 											<li>
-												<label class="inline-flex w-full items-center gap-2 rounded-md px-2 py-1.5 transition-colors hover:bg-foreground-softest has-checked:bg-accent-softer">
+												<label class="inline-flex w-full items-center gap-2 rounded px-2 py-1.5 transition-colors hover:bg-accent-softer has-checked:bg-accent-softest hover:has-checked:bg-accent-softer">
 													<input data-filter-input type="checkbox" value={lang.toLowerCase().replace(/\s+/g, '-')} name="language" class="input input-checkbox" />
 													{lang}
 												</label>
@@ -93,7 +93,7 @@ import Layout from '../../layouts/Layout.astro'
 										))
 									}
 								</ul>
-								<div data-filter-clear hidden class="mx-2 border-t border-foreground-softer pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" disabled>Clear selected</button></div>
+								<div data-filter-clear hidden class="mx-2 border-t pt-1 pb-2"><button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" disabled>Clear selected</button></div>
 							</div>
 						</div>
 
@@ -158,21 +158,21 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<!-- Charts -->
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
+			<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – grammar MCC across languages</h3>
 				<ul class="text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>
 				</ul>
 			</div>
 
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
+			<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – translation MCC across languages</h3>
 				<ul class="text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>
 				</ul>
 			</div>
 
-			<div class="mt-8 aspect-2/1 rounded-lg border border-foreground-softer bg-background-softest p-8">
+			<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8">
 				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – characters per token across languages</h3>
 				<ul class="text-foreground-muted">
 					<li>Single-model row from the full heatmap, all languages shown, color coded, sorted by language</li>

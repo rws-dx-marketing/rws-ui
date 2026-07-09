@@ -223,14 +223,14 @@ const cards = [1, 2, 3]
 					cards.map((card) => (
 						<>
 							{/* Variant 1: full-card clickable + author info */}
-							<article class="group relative rounded-lg border border-foreground-softer text-left" data-card>
+							<article class="group relative rounded-lg border text-left" data-card>
 								<div class="flex h-full flex-col">
 									<div class="p-4">
 										<div class="mb-5 block overflow-hidden rounded">
 											<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
 										</div>
 
-										<span class="mb-3 inline-block rounded-full border border-foreground-softer bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
+										<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
 
 										<h2 class="mb-2 text-2xl font-bold">
 											<p>
@@ -301,11 +301,11 @@ const cards = [1, 2, 3]
 					</a>
 				</div>
 
-				<hr hidden class="mt-12 mb-8 border-foreground-softer" />
+				<hr hidden class="mt-12 mb-8" />
 
 				<!-- Stats -->
 				<div hidden class="mt-8">
-					<!-- border-t border-foreground-softer pt-8 -->
+					<!-- border-t pt-8 -->
 					<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
 						<li class="flex items-center">
 							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
@@ -338,7 +338,7 @@ const cards = [1, 2, 3]
 			</div>
 
 			<div class="h-full lg:col-span-5">
-				<div class="rounded-lg border border-foreground-softer p-8" data-card>
+				<div class="rounded-lg border p-8" data-card>
 					<h3 class="mb-4 text-2xl font-semibold">
 						<p>Book a meeting</p>
 					</h3>

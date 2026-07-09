@@ -156,7 +156,7 @@ const cards = [
 
 						<div class="relative">
 							<div class="rounded-full bg-background">
-								<input type="search" id="search" name="q" data-filters-search class="input input-search input-lg pr-11" placeholder="Search" />
+								<input type="search" id="search" name="q" data-filters-search class="input input-search input-lg pr-11 pl-5" placeholder="Search" />
 							</div>
 
 							<div class="pointer-events-none absolute top-1/2 right-4 flex -translate-y-1/2 items-center">
@@ -185,13 +185,13 @@ const cards = [
 				</div>
 
 				<div id="filter-popover" popover="auto" class="dropdown top-[calc(anchor(bottom)+0.75rem)]! z-10 w-[calc(100%+2rem)] max-w-3xl bg-transparent" style="position-anchor: --filters-bar; position-area: bottom center; position-try: none;">
-					<div class="grid gap-3 rounded-lg border border-foreground-softer p-4 text-left shadow-lg sm:grid-cols-2 md:grid-cols-3" data-filters data-theme="default">
+					<div class="grid gap-3 rounded-lg border p-4 text-left shadow-lg sm:grid-cols-2 md:grid-cols-3" data-filters data-theme="default">
 						{
 							data.map((filter) => (
 								<FilterDropdown filterId={filter.id} label={filter.label}>
 									{(filter.optionGroups ?? [{ options: filter.options ?? [] }]).map((group, groupIndex) => (
 										<>
-											{group.label ? <li class="px-2 pb-1 text-2xs font-bold tracking-widest text-foreground-subtle uppercase not-first:pt-3 first:pt-1.5">{group.label}</li> : null}
+											{group.label ? <li class="text-2xs px-2 pb-1 font-bold tracking-widest text-foreground-subtle uppercase not-first:pt-3 first:pt-1.5">{group.label}</li> : null}
 											{group.options.map((option) => (
 												<FilterOption id={`${filter.id}-${groupIndex}-${option.value}`} type={filter.inputType} name={filter.id} value={option.value} label={option.label} />
 											))}
@@ -246,15 +246,15 @@ const cards = [
 					cards.map((card) => (
 						<>
 							{/* Variant 1: full-card clickable + author info */}
-							<article class="group relative rounded-lg border border-foreground-softer text-left" data-card data-card-filters={JSON.stringify(card.filters)} data-card-search={`${card.name} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()}>
+							<article class="group relative rounded-lg border text-left" data-card data-card-filters={JSON.stringify(card.filters)} data-card-search={`${card.name} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()}>
 								<div class="flex h-full flex-col">
 									<div class="p-6">
-										<div class="mb-5 flex aspect-video items-center justify-center rounded border border-foreground-softer px-8 py-4">
+										<div class="mb-5 flex aspect-video items-center justify-center rounded border px-8 py-4">
 											<img src={card.logo} alt={card.name} class="size-full object-scale-down transition-transform group-hover:-translate-y-2" draggable="false" />
 											{/* <img src="https://placehold.co/100" alt="Placeholder" class="block h-auto max-h-full w-auto max-w-full object-contain p-4" draggable="false" /> */}
 										</div>
 
-										{/* <span class="mb-3 inline-block rounded-full border border-foreground-softer bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span> */}
+										{/* <span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span> */}
 
 										<h2 class="mb-2 text-2xl font-bold">
 											<p>

@@ -1,0 +1,157 @@
+---
+const { variant = 1 } = Astro.props
+---
+
+{
+	/* Variant 1: image + heading + copy + buttons + footer links */
+	variant === 1 && (
+		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
+			<div class="group relative flex flex-1 flex-col">
+				<a href="#" class="block shrink-0 overflow-hidden">
+					<img class="aspect-video w-full object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
+				</a>
+
+				<div class="flex flex-1 flex-col p-6">
+					<h3 class="mb-2 text-2xl font-bold">
+						<p>
+							<a href="#">This is the first variant</a>
+						</p>
+					</h3>
+
+					<div class="prose text-pretty text-foreground-muted">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor.</p>
+					</div>
+
+					<div class="mt-6 flex flex-wrap gap-3">
+						<a href="#" class="btn btn-primary btn-sm">
+							Learn more
+						</a>
+						<a href="#" class="btn btn-ghost btn-sm">
+							Contact us
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="border-t px-4 py-5">
+				<ul class="flex flex-col gap-1">
+					<li>
+						<a href="#" class="flex w-fit items-center gap-2 rounded px-2 py-1 text-sm font-semibold transition-colors hover:bg-foreground-softest">
+							<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</svg>
+							</span>
+							<span>Documentation</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="#" class="flex w-fit items-center gap-2 rounded px-2 py-1 text-sm font-semibold transition-colors hover:bg-foreground-softest">
+							<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<path d="M168,128c0,64-40,96-40,96s-40-32-40-96,40-96,40-96S168,64,168,128Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<line x1="37.46" y1="96" x2="218.54" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<line x1="37.46" y1="160" x2="218.54" y2="160" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</svg>
+							</span>
+							<span>Release notes</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</article>
+	)
+}
+
+{
+	/* Variant 2: no image + heading + copy + footer links */
+	variant === 2 && (
+		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
+			<div class="group relative isolate flex flex-1 flex-col p-6">
+				<div class="flex flex-1 flex-col">
+					<h3 class="mb-2 text-2xl font-bold">
+						<p>
+							<a href="#">
+								This is the second variant
+								<span class="absolute inset-0" aria-hidden="true" />
+							</a>
+						</p>
+					</h3>
+
+					<div class="prose text-pretty text-foreground-muted">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque maxim venenatis felis posuere. Nullam lectus orci.</p>
+					</div>
+				</div>
+
+				<div class="absolute inset-0 -z-1 bg-linear-to-r from-accent-softer to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+			</div>
+
+			<div class="border-t px-4 py-5">
+				<ul class="flex flex-col gap-1">
+					<li>
+						<a href="#" class="flex w-fit items-center gap-2 rounded bg-section px-2 py-1 text-sm font-semibold transition-colors hover:bg-accent-softer">
+							<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+									<path fill="#8353fd" d="M7.127 12.483h2.165a5.4 5.4 0 0 1-3.122.983A5.46 5.46 0 0 1 .9 9.416v-.002a5.5 5.5 0 0 1-.182-1.411 5.463 5.463 0 0 1 7.798-4.944q.073.034.14.07c.006 0 .012.006.017.009l.105.057q.059.028.117.065c.062.035.127.076.189.114q.114.068.219.146H7.135a.796.796 0 0 0-.792.794v7.378c0 .436.357.793.792.793z" />
+									<path fill="#3e016f" d="m13.882 8-3.744 3.751q-.386.41-.849.731H7.124a.796.796 0 0 1-.792-.793V4.31c0-.436.357-.793.792-.793h2.168c.081.054.162.116.24.178q.07.055.139.114a5 5 0 0 1 .465.439L13.879 8z" />
+									<path fill="#ffc700" d="M15.282 4.313v7.379a.796.796 0 0 1-.792.793h-5.2q.463-.323.848-.731l3.744-3.752-3.744-3.751q-.054-.058-.113-.117a6 6 0 0 0-.352-.322l-.137-.114a5 5 0 0 0-.241-.178h5.195c.435 0 .792.357.792.793" />
+								</svg>
+							</span>
+							<span>AI data services</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="#" class="flex w-fit items-center gap-2 rounded bg-section px-2 py-1 text-sm font-semibold transition-colors hover:bg-accent-softer">
+							<span class="inline-flex h-5 w-4 shrink-0 items-center justify-center text-accent [&>svg]:size-full" aria-hidden="true">
+								<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+									<path fill="#e60054" d="M10.474 5.742v.536c-.248 0-.496.065-.72.194L7.36 7.854a1.45 1.45 0 0 0-.72 1.256v1.38h-.763a4.72 4.72 0 0 1-3.49-1.388 4.755 4.755 0 0 1-.002-6.712 4.736 4.736 0 0 1 7.817 1.763l.043.13q.002.005.003.015a4 4 0 0 1 .109.393q.055.24.082.484.011.075.018.153.015.205.016.414" />
+									<path fill="#3e016f" d="M10.473 6.278v4.212H6.64V9.11c0-.518.274-.997.72-1.255l2.393-1.383c.224-.13.472-.194.72-.194" />
+									<path fill="#8353fd" d="M14.31 9.11v2.765c0 .517-.277.994-.724 1.252l-2.39 1.385a1.44 1.44 0 0 1-1.443 0L7.36 13.127a1.45 1.45 0 0 1-.721-1.252V10.49h3.833V6.278c.251 0 .502.065.724.194l2.39 1.383c.446.258.723.737.723 1.255" />
+								</svg>
+							</span>
+							<span>Technology services</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</article>
+	)
+}
+
+{
+	/* Variant 3: image + whole-card clickable, footer excluded */
+	variant === 3 && (
+		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
+			<div class="group relative isolate flex flex-1 flex-col">
+				<div class="shrink-0 overflow-hidden">
+					<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png" alt="office laptops" />
+				</div>
+
+				<div class="flex flex-1 flex-col p-6">
+					<h3 class="mb-2 text-2xl font-bold">
+						<p>
+							<a href="#">
+								This is the third variant that spans multiple lines
+								<span class="absolute inset-0" aria-hidden="true" />
+							</a>
+						</p>
+					</h3>
+
+					<div class="prose text-pretty text-foreground-muted">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere.</p>
+					</div>
+				</div>
+
+				<div class="absolute inset-0 -z-1 bg-linear-to-r from-accent-softer to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+			</div>
+		</article>
+	)
+}

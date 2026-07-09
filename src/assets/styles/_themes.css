@@ -28,6 +28,18 @@
 }
 
 @layer base {
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-top-color: var(--border, currentColor);
+		border-bottom-color: var(--border, currentColor);
+		border-left-color: var(--border, currentColor);
+		border-right-color: var(--border, currentColor);
+		border-color: var(--border, currentColor);
+	}
+
 	[data-theme],
 	[data-card] {
 		--background: var(--background-seed);
@@ -60,6 +72,7 @@
 
 	[data-theme] {
 		--section: var(--background);
+		--border: var(--foreground-softer);
 	}
 }
 
@@ -98,7 +111,7 @@
 		--foreground-seed: var(--color-on-primary);
 		--accent-seed: var(--color-on-primary);
 		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-tertiary) 100%);
-		--tint-boost: 3;
+		--tint-boost: 2;
 	}
 
 	[data-theme='secondary'] {
@@ -114,7 +127,7 @@
 		--foreground-seed: var(--color-on-tertiary);
 		--accent-seed: var(--color-on-tertiary);
 		--gradient: linear-gradient(94.96deg, var(--color-primary) 0%, var(--color-secondary) 47.7%, var(--color-secondary) 52.3%, var(--color-primary) 100%);
-		--tint-boost: 3;
+		--tint-boost: 2;
 	}
 
 	[data-theme='inverse'] {
@@ -126,6 +139,17 @@
 }
 
 @layer components {
+	/* Default divider color for bare divide-x/divide-y. Lives in the components
+	   layer so it outranks component borders like .btn's transparent edge, but
+	   still loses to explicit divide-* color utilities (which sit in utilities). */
+	.divide-x > :not(:last-child) {
+		border-inline-end-color: var(--border, currentColor);
+	}
+
+	.divide-y > :not(:last-child) {
+		border-bottom-color: var(--border, currentColor);
+	}
+
 	[data-card] {
 		@apply bg-background text-foreground;
 	}
@@ -133,10 +157,12 @@
 	[data-theme='default'] [data-card] {
 		--background-seed: var(--color-tertiary-softest);
 		--input: var(--background-strong);
+		--border: var(--accent-softer);
 	}
 
 	[data-theme='pale'] [data-card] {
 		--background-seed: var(--color-white);
+		--border: var(--foreground-softer);
 	}
 
 	[data-theme='dots'] [data-card],
