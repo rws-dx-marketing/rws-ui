@@ -1,0 +1,58 @@
+---
+//@ts-nocheck
+// Media card: a category badge overlaid on the media, title beneath, whole card
+// clickable. Media is an inline SVG `graphic` (see BentoGraphic) or an `img`.
+// Deliberately body-less — this is the news/insight/showcase card used by
+// MediaGrid, distinct from the copy-heavy Cards/BlogCards.
+//
+// Pass `cta` ({ title, body, href }) instead of media props to render the solid
+// accent call-to-action variant. `stacked` puts the arrow below the text (for a
+// narrow CTA) rather than beside it. The consuming group sets sizing via `class`.
+import BentoGraphic from './BentoGraphic.astro'
+
+const { badge, title, img, graphic, href = '#', cta, stacked = false, class: className } = Astro.props
+---
+
+{
+	cta ? (
+		<article class:list={['group relative isolate flex gap-6 overflow-hidden rounded-lg bg-accent-strong p-6 text-on-accent lg:p-8', stacked ? 'flex-col' : 'items-center', className]}>
+			<div class={stacked ? '' : 'min-w-0 flex-1'}>
+				<h3 class="text-2xl font-semibold text-balance">
+					<a href={cta.href ?? '#'}>
+						{cta.title}
+						<span class="absolute inset-0 rounded-lg" />
+					</a>
+				</h3>
+				{cta.body && <p class="mt-2 text-on-accent/80">{cta.body}</p>}
+			</div>
+
+			<span class:list={['inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-on-accent/15 transition-transform group-hover:translate-x-1 [&>svg]:size-5', stacked && 'mt-auto']} aria-hidden="true">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+					<line x1="40" y1="128" x2="216" y2="128" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+					<polyline points="144 56 216 128 144 200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+				</svg>
+			</span>
+		</article>
+	) : (
+		<article class:list={['group relative isolate flex flex-col overflow-hidden rounded-lg border border-accent-soft bg-background', className]}>
+			{/* Media grows to fill whatever height the card is stretched to, so cards
+			    in a shorter column enlarge to match the tallest column. */}
+			<div class="relative isolate min-h-56 flex-1 overflow-hidden [&_svg]:size-full">
+				{graphic ? <BentoGraphic name={graphic} size="medium" /> : <img src={img} alt="" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" />}
+
+				{badge && <span class="absolute top-4 left-4 z-10 inline-flex items-center rounded-full border border-accent-soft bg-background/50 px-3 py-1 text-sm font-semibold text-foreground backdrop-blur">{badge}</span>}
+			</div>
+
+			<div class="p-6 lg:p-8">
+				<h3 class="text-2xl font-semibold text-balance">
+					<a href={href}>
+						{title}
+						<span class="absolute inset-0 rounded-lg" />
+					</a>
+				</h3>
+			</div>
+
+			<div class="absolute inset-0 -z-1 bg-linear-to-r from-accent-softer to-background opacity-0 transition-opacity group-hover:opacity-100" />
+		</article>
+	)
+}

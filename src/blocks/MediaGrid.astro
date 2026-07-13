@@ -1,0 +1,100 @@
+---
+//@ts-nocheck
+// MediaGrid: a fluid alternative to BentoGrid. Cards are placed into
+// author-defined groups laid out with flex — no per-card positioning maths.
+// Same primitive, two orientations:
+//
+//   columns — groups sit side by side as equal-width columns. Every column
+//             stretches to the tallest (align-items: stretch), and the cards
+//             within grow (flex-1) to fill that height — so a column with fewer
+//             cards ends up with larger cards, matching the target masonry.
+//   rows    — groups stack vertically; each is a full-width band whose cards
+//             flex to equal widths and matched heights.
+//
+// Cards sit inside a soft outline frame, matching BentoGrid.
+//
+// Props:
+//   orientation — 'columns' (default) | 'rows'
+//   groups      — array of arrays of card objects
+//                 { badge, title, img | graphic, href }. Falls back to demo.
+//   cta         — optional { title, body, href }; appended to the last group as
+//                 a solid accent call-to-action card. Omit for pure card grids.
+//   theme       — visual variant passed to data-theme.
+//   showIntro   — whether to show the intro subheading, heading, and copy.
+
+import MediaCard from '../components/MediaCard.astro'
+
+const { orientation = 'columns', groups, cta, theme = 'default', showIntro = true } = Astro.props
+
+// Placeholder content used when no groups are passed (demo / reference page).
+const demo = [
+	[
+		{ badge: 'News', title: 'RWS acquires Obviously Group Limited', img: 'https://placehold.co/1200x800' },
+		{ badge: 'News', title: 'RWS launches Language Weaver Pro — the world’s most advanced AI translation solution', img: 'https://placehold.co/1200x800' }, // graphic: 'chart'
+	],
+	[
+		{ badge: 'News', title: 'Ravi Chandran Krishnadas joins RWS as Senior Vice President & Country Lead, India', img: 'https://placehold.co/1200x800' },
+		{ badge: 'Investors', title: 'Language Weaver Pro wins AI Breakthrough Award', img: 'https://placehold.co/1200x800' },
+	],
+]
+
+const demoCta = { title: 'Discover more', body: 'Find the latest blogs, customer stories and more at the RWS insights center.', href: '#' }
+
+const data = groups ?? demo
+// Use the passed cta, or the demo cta only when running on demo content.
+const ctaCard = cta ?? (groups ? undefined : demoCta)
+const ctaIndex = data.length - 1
+const isColumns = orientation === 'columns'
+
+// Columns: outer is a row of columns that stretch to equal height; mobile
+// collapses to a single stack. Rows: outer stacks the bands vertically.
+const outer = isColumns ? 'flex flex-col lg:flex-row' : 'flex flex-col'
+// A column is a vertical stack (equal width via flex-1); a band is horizontal.
+const group = isColumns ? 'flex min-w-0 flex-1 flex-col gap-6' : 'flex flex-col gap-6 sm:flex-row'
+// Cards grow to fill — the stretched column height in columns, the band width
+// in rows. The CTA stays its natural height at the foot of a column; in a band
+// it takes a fixed, narrow width so the media cards keep the remaining room.
+const cardFill = 'flex-1'
+const ctaFill = isColumns ? '' : 'w-full shrink-0 sm:w-64'
+---
+
+<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+		{
+			showIntro && (
+				<>
+					{/* Subheading */}
+					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+						<p>This is the subheading</p>
+					</div>
+
+					{/* Heading */}
+					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+						<p>
+							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
+						</p>
+					</h2>
+
+					{/* Copy */}
+					<div class="prose text-foreground-muted md:prose-lg">
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
+					</div>
+				</>
+			)
+		}
+
+		{/* Soft outline frame wrapping the cards, mirroring BentoGrid. gap-6 spaces both the groups and the cards within them. */}
+		<div class:list={[outer, 'gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest not-first:mt-12 lg:not-first:mt-16']}>
+			{
+				data.map((cards, gi) => (
+					<div class:list={group}>
+						{cards.map((card) => (
+							<MediaCard {...card} class={cardFill} />
+						))}
+						{ctaCard && gi === ctaIndex && <MediaCard cta={ctaCard} stacked={!isColumns} class={ctaFill} />}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>

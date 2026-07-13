@@ -1,10 +1,10 @@
 ---
 // @ts-nocheck
 import Layout from '../../layouts/Layout.astro'
-import BentoGrids from '../../blocks/BentoGrids.astro'
+import BentoGrid from '../../blocks/BentoGrid.astro'
 import { themes } from '../../data/themes'
 
-const variants = ['four-card', 'three-card']
+const counts = [2, 3, 4, 5]
 ---
 
 <Layout title="Bento – RWS UI">
@@ -33,17 +33,19 @@ const variants = ['four-card', 'three-card']
 	</section>
 
 	{
-		variants.map((variant) =>
-			themes.map((theme, i) =>
-				i === 0 ? (
+		counts.map((count, ci) =>
+			themes.map((theme, ti) => {
+				// Alternate the hero media (graphic vs image) across every example.
+				const heroGraphic = (ci * themes.length + ti) % 2 === 0
+				return ti === 0 ? (
 					<>
-						<div id={variant} />
-						<BentoGrids variant={variant} theme={theme} />
+						<div id={`${count}-card`} />
+						<BentoGrid count={count} theme={theme} heroGraphic={heroGraphic} />
 					</>
 				) : (
-					<BentoGrids variant={variant} theme={theme} />
-				),
-			),
+					<BentoGrid count={count} theme={theme} heroGraphic={heroGraphic} />
+				)
+			}),
 		)
 	}
 </Layout>

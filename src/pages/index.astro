@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro'
 import Hero from '../blocks/Hero.astro'
 import Logos from '../blocks/Logos.astro'
 import Split from '../blocks/Split.astro'
-import BentoGrids from '../blocks/BentoGrids.astro'
+import BentoGrid from '../blocks/BentoGrid.astro'
 import Cards from '../blocks/Cards.astro'
 ---
 
@@ -53,7 +53,9 @@ import Cards from '../blocks/Cards.astro'
 
 	<Cards showIntro={false} variants={[2, 2, 2]} theme="default" />
 
-	<BentoGrids />
+	<div class="-mt-12 md:-mt-16 lg:-mt-20">
+		<BentoGrid />
+	</div>
 
 	<Split theme="tertiary" variant="lead-image" />
 
