@@ -24,4 +24,17 @@
 	[class*='intersect:'][no-intersect] {
 		@apply opacity-0;
 	}
+
+	[data-svg-anim]:not([data-svg-playing]),
+	[data-svg-anim]:not([data-svg-playing]) * {
+		animation-play-state: paused !important;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		[data-svg-anim],
+		[data-svg-anim] * {
+			animation-play-state: paused !important;
+			animation-delay: -10s !important;
+		}
+	}
 }
