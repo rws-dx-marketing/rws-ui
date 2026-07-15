@@ -79,7 +79,7 @@ const { variant = 1 } = Astro.props
 					<h3 class="mb-2 text-2xl font-bold">
 						<p>
 							<a href="#">
-								This is the second variant
+								This is the second variant that spans multiple lines
 								<span class="absolute inset-0" aria-hidden="true" />
 							</a>
 						</p>
@@ -139,14 +139,21 @@ const { variant = 1 } = Astro.props
 					<h3 class="mb-2 text-2xl font-bold">
 						<p>
 							<a href="#">
-								This is the third variant that spans multiple lines
+								This is the third variant
 								<span class="absolute inset-0" aria-hidden="true" />
 							</a>
 						</p>
 					</h3>
 
 					<div class="prose text-pretty text-foreground-muted">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere.</p>
+						<p>Suspendisse luctus tortor placerat erat consequat, pellentesque maxim venenatis.</p>
+						<!-- felis posuere. Nullam lectus orci -->
+
+						<ul>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Consectetur adipiscing elitera</li>
+							<li>Suspendisse luctus tortor, placerat erat consequat</li>
+						</ul>
 					</div>
 				</div>
 
