@@ -170,4 +170,247 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 		</div>
 	</section>
+
+	{
+		/* ──────────────────────────────────────────────────────────────────────
+	   Hand-off CSS for the .NET / Razor site. Ship this <style> block verbatim
+	   alongside the hard-coded accordion markup. It (1) resets the old global
+	   <details>/<summary> styling within [data-accordion] and (2) paints the new
+	   design — no Tailwind needed. Smooth open/close uses accordion.js; without
+	   it the accordions still work via native <details> toggling.
+
+	   Required markup shape:
+	     <div data-card>                       (optional card frame)
+	       <div data-accordion>
+	         <details>                          (add `open` for the default-open row)
+	           <summary><span>Title</span><svg …chevron…/></summary>
+	           <div><div><p>…body…</p></div></div>
+	         </details>
+	         …
+	────────────────────────────────────────────────────────────────────── */
+	}
+	<style is:inline>
+		[data-theme] {
+			background-color: var(--background);
+			color: var(--foreground);
+		}
+
+		[data-accordion],
+		[data-card]:has(> [data-accordion]) {
+			--color-primary: oklch(0.591 0.238 290.15);
+			--color-neutral: oklch(0.553 0.013 58.071);
+			--acc-surface: #fff;
+			--acc-fg: color-mix(in oklab, var(--color-neutral), black 64%);
+			--acc-fg-muted: color-mix(in oklab, var(--acc-fg) 80%, var(--acc-surface));
+			--acc-line: color-mix(in oklab, var(--acc-fg) 6%, var(--acc-surface));
+			--acc-accent: var(--color-primary);
+		}
+
+		[data-accordion] {
+			color: var(--acc-fg);
+		}
+		[data-accordion] *,
+		[data-accordion] *::before,
+		[data-accordion] *::after {
+			box-sizing: border-box;
+		}
+
+		/* Optional card frame — only cards that wrap an accordion. */
+		[data-card]:has(> [data-accordion]) {
+			padding: 1.25rem 1.375rem 0;
+			background: var(--acc-surface);
+			border: 1px solid var(--acc-line);
+			border-radius: 1rem;
+		}
+
+		/* Row dividers. */
+		[data-accordion] > details:not(:last-child) {
+			border-bottom: 1px solid var(--acc-line);
+		}
+
+		/* Header — reset (old block) + new design in one rule. */
+		[data-accordion] summary {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 1.25rem;
+			margin: 0;
+			padding: 1.25rem 0;
+			border: 0;
+			background: none;
+			box-shadow: none;
+			list-style: none;
+			cursor: pointer;
+			text-align: left;
+			font: inherit;
+			font-weight: 600;
+			color: inherit;
+		}
+		[data-accordion] > details[open] summary {
+			margin-bottom: 0;
+		}
+		[data-accordion] > details:first-child summary {
+			padding-top: 0;
+		}
+		/* Strip default + old-block markers/icons. */
+		[data-accordion] summary::-webkit-details-marker {
+			display: none;
+		}
+		[data-accordion] summary::marker {
+			content: '';
+		}
+		[data-accordion] summary::before,
+		[data-accordion] summary::after {
+			content: none;
+		}
+		[data-accordion] details[data-accordion-locked] summary {
+			cursor: default;
+		}
+
+		/* Title. */
+		[data-accordion] summary > span {
+			text-wrap: pretty;
+			transition: color 0.4s ease;
+		}
+		/* Chevron. */
+		[data-accordion] summary > svg {
+			flex: none;
+			width: 1.25rem;
+			height: 1.25rem;
+			transition:
+				color 0.4s ease,
+				rotate 0.4s ease;
+		}
+
+		/* Hover + open states — matches native [open] and JS [data-open]. */
+		[data-accordion] summary:hover {
+			background: none;
+		}
+		[data-accordion] summary:hover > span,
+		[data-accordion] summary:hover > svg,
+		[data-accordion] details:is([open], [data-open]) summary > span,
+		[data-accordion] details:is([open], [data-open]) summary > svg {
+			color: var(--acc-accent);
+		}
+		[data-accordion] details:is([open], [data-open]) summary > svg {
+			rotate: 180deg;
+		}
+
+		/* Body. */
+		[data-accordion] details > div > div {
+			padding: 1.25rem 0;
+			border-top: 1px solid var(--acc-line);
+		}
+		[data-accordion] details p {
+			margin: 0 0 1.25em;
+			color: var(--acc-fg-muted);
+			line-height: 1.75;
+		}
+		[data-accordion] details p:last-child {
+			margin-bottom: 0;
+		}
+
+		@media (min-width: 768px) {
+			[data-accordion] summary {
+				font-size: 1.125rem;
+			}
+			[data-accordion] details p {
+				font-size: 1.125rem;
+				line-height: 1.7778;
+			}
+		}
+	</style>
+
+	{
+		/* Hand-off JS — interim embed for the hard-coded accordions. is:inline so it
+	   ships verbatim (Astro won't bundle/hoist it). The data-accordion-ready guard
+	   makes it a no-op once the real accordion.js runs; remove when that lands. */
+	}
+	<script is:inline>
+		;(function () {
+			const DURATION = 300
+			const EASING = 'ease-in-out'
+
+			async function slide(el, from, to) {
+				const anim = el.animate(
+					[
+						{ height: from, overflow: 'hidden' },
+						{ height: to, overflow: 'hidden' },
+					],
+					{ duration: DURATION, easing: EASING, fill: 'forwards' },
+				)
+				await anim.finished
+				anim.commitStyles()
+				anim.cancel()
+			}
+
+			async function closeItem(item) {
+				const body = item.querySelector(':scope > div')
+				item.removeAttribute('data-open')
+				if (!body) {
+					item.open = false
+					return
+				}
+				await slide(body, body.scrollHeight + 'px', '0px')
+				item.open = false
+				body.style.height = ''
+			}
+
+			async function openItem(item) {
+				item.setAttribute('data-open', '')
+				item.open = true
+				const body = item.querySelector(':scope > div')
+				if (!body) return
+				await slide(body, '0px', body.scrollHeight + 'px')
+				body.style.height = ''
+			}
+
+			function updateLockedState(items, persist) {
+				const openItems = items.filter((i) => i.open)
+				items.forEach((item) => {
+					if (persist && openItems.length <= 1 && item.open) {
+						item.setAttribute('data-accordion-locked', '')
+					} else {
+						item.removeAttribute('data-accordion-locked')
+					}
+				})
+			}
+
+			function init() {
+				document.querySelectorAll('[data-accordion]').forEach((accordion) => {
+					if (accordion.hasAttribute('data-accordion-ready')) return
+					accordion.setAttribute('data-accordion-ready', '')
+
+					const items = Array.from(accordion.querySelectorAll('details'))
+					const multi = accordion.hasAttribute('data-accordion-multi')
+					const persist = accordion.hasAttribute('data-accordion-persist')
+
+					items.forEach((item) => {
+						if (item.open) item.setAttribute('data-open', '')
+					})
+					updateLockedState(items, persist)
+
+					items.forEach((item) => {
+						item.querySelector('summary')?.addEventListener('click', async (e) => {
+							e.preventDefault()
+							if (item.open) {
+								if (persist && items.filter((i) => i.open).length <= 1) return
+								await closeItem(item)
+							} else {
+								const toClose = multi ? [] : items.filter((other) => other !== item && other.open)
+								await Promise.all([...toClose.map(closeItem), openItem(item)])
+							}
+							updateLockedState(items, persist)
+						})
+					})
+				})
+			}
+
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', init)
+			} else {
+				init()
+			}
+		})()
+	</script>
 </Layout>

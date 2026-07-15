@@ -53,6 +53,9 @@ function updateLockedState(items, persist) {
 export default function accordion() {
 	accordionPanelSwap()
 	document.querySelectorAll('[data-accordion]').forEach((accordion) => {
+		if (accordion.hasAttribute('data-accordion-ready')) return
+		accordion.setAttribute('data-accordion-ready', '')
+
 		const items = Array.from(accordion.querySelectorAll('details'))
 		const multi = accordion.hasAttribute('data-accordion-multi')
 		const persist = accordion.hasAttribute('data-accordion-persist')
