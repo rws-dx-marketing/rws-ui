@@ -1,0 +1,348 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import ResourceHero from '../../blocks/ResourceHero.astro'
+import Speakers from '../../components/Speakers.astro'
+
+const cards = [1, 2, 3]
+
+const details = [
+	{ label: 'Format', value: 'On-demand webinar' },
+	{ label: 'Duration', value: '45 minutes' },
+	{ label: 'Language', value: 'English' },
+	// { label: 'Cost', value: 'Free' },
+]
+
+const speakers = [
+	{
+		name: 'Dipo Ajose-Coker',
+		role: 'Solutions Architect & Strategist, RWS Group',
+		company: 'RWS',
+		avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png',
+	},
+	{
+		name: 'Torsten Machert',
+		role: 'Senior Consultant, Congree',
+		company: 'Congree',
+		avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png',
+	},
+]
+---
+
+<Layout title="Webinar – RWS UI">
+	<ResourceHero layout="wide-text" title="Making AI work for you—from planning to compliance, terminology and language coherence" description="GenAI isn't new — but most organisations are still figuring out where it actually pays off. The answer isn't in standalone experiments or one-off use cases. It's in embedding GenAI directly into the workflows your teams already run every day, so that every piece of content benefits from improved productivity and consistent quality. That's where ROI lives." cta={{ href: '#video', text: 'Watch on demand' }} share={true} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
+
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+			<aside class="hidden lg:col-span-4 lg:block">
+				<div class="grid gap-8 transition-[top] duration-300 lg:sticky lg:top-[calc(var(--content-top)+4rem)] xl:gap-12">
+					{/* Webinar details */}
+					<div class="relative rounded-lg p-10" data-card>
+						<ul class="grid gap-4">
+							{
+								details.map((detail) => (
+									<li>
+										<p class="font-bold">{detail.label}</p>
+										<p>{detail.value}</p>
+									</li>
+								))
+							}
+						</ul>
+
+						<!-- <a href="#form" class="btn btn-primary btn-icon-right mt-8 w-full">
+							Watch on demand
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" fill="currentColor"></path></svg>
+						</a> -->
+					</div>
+
+					{/* Host contact */}
+					<div class="rounded-lg p-6" data-card>
+						<div class="flex items-start gap-6">
+							<div class="w-1/3 max-w-24 shrink-0">
+								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+							</div>
+							<div>
+								<h4 class="mb-2 text-lg/tight font-semibold">Questions about the webinar?</h4>
+
+								<div class="prose mb-4 text-sm/normal text-foreground-muted">
+									<p>Our team is happy to help with access, content and follow-up queries.</p>
+								</div>
+
+								<a href="#form" class="btn btn-secondary btn-sm">Get in touch</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+
+			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12">
+				<div class="rounded-lg p-6 lg:p-10" data-card>
+					<div class="prose max-w-none text-pretty lg:text-lg">
+						<h2>About this webinar</h2>
+						<p>In this on-demand webinar, Dipo Ajose-Coker, Solutions Architect &amp; Strategist at RWS Group, and Torsten Machert, Senior Consultant at Congree, demonstrated how GenAI can accelerate two of the most resource-intensive parts of the content lifecycle:</p>
+						<ul>
+							<li><strong>Bringing content in sync with different requirements</strong> — adapting source material for different audiences, channels, regions, and regulatory contexts without starting from scratch each time.</li>
+							<li><strong>Reviewing content for corporate language and terminology compliance</strong> — automating the checks that ensure every output reflects your brand voice, approved terminology, and style standards before it ever reaches a reviewer.</li>
+						</ul>
+						<p>Watch the full recording to see how RWS and Congree turn GenAI from a one-off experiment into a repeatable, measurable part of content operations.</p>
+					</div>
+				</div>
+
+				<div id="video" class="scroll-mt-16 overflow-hidden rounded-lg">
+					<div class="aspect-video size-full">
+						<!-- <iframe class="size-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Webinar recording" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+						<video src="https://dn720307.ca.archive.org/0/items/big-buck-bunny-2008-4-k-60-fps-blender-animated-short-x-265/Big%20Buck%20Bunny%20%282008%29%204K%2060FPS%20Blender%20Animated%20Short%20-%20x265.mp4" class="size-full object-cover" controls poster="/images/placeholder-1.png"></video>
+					</div>
+				</div>
+
+				{/* Speakers */}
+				<Speakers title="Speakers" subtitle="Meet the specialists presenting in this session." speakers={speakers} />
+
+				{/* Highlight quote */}
+				<div class="overflow-hidden rounded-lg" data-theme="tertiary">
+					<figure class="mx-auto max-w-3xl px-8 py-12 text-center lg:px-12">
+						<div class="svg-current mx-auto mb-5 size-12 text-accent">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
+								<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
+									<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"></path>
+									<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"></path>
+								</g>
+								<defs>
+									<clipPath id="a">
+										<path fill="#fff" d="M0 0h393v285H0z"></path>
+									</clipPath>
+								</defs>
+							</svg>
+						</div>
+						<blockquote class="space-y-[0.5em] text-center text-2xl text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
+							<p>AI is only as useful as the content foundation that you connect it to.</p>
+						</blockquote>
+						<figcaption class="mt-6 flex items-center justify-center">
+							<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
+							<div class="flex items-center divide-x divide-foreground-subtle">
+								<div class="px-3 font-semibold">Dipo Ajose-Coker</div>
+								<div class="px-3 text-foreground-muted">Solutions Architect &amp; Strategist, RWS</div>
+							</div>
+						</figcaption>
+					</figure>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	{/* Related webinars */}
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>Related <em>webinars</em></p>
+			</h2>
+
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p>More on-demand sessions from the RWS team.</p>
+			</div>
+
+			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
+				{
+					cards.map((card) => (
+						<article class="group relative rounded-lg border text-left" data-card>
+							<div class="flex h-full flex-col">
+								<div class="p-4">
+									<div class="mb-5 block overflow-hidden rounded">
+										<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="Webinar" />
+									</div>
+
+									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">Webinar</span>
+
+									<h2 class="mb-2 text-2xl font-bold">
+										<p>
+											<a href="/resources/webinar/">
+												This is a webinar title
+												<span class="absolute inset-0" />
+											</a>
+										</p>
+									</h2>
+
+									<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
+										<span>On-demand · 45 min</span>
+									</div>
+
+									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
+									</div>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Call to action + form -->
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<div class="lg:col-span-7">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>This is the subheading</p>
+				</div>
+
+				<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<p>This is the heading</p>
+				</h2>
+
+				<div class="prose text-foreground-muted md:prose-lg">
+					<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+
+					<ul>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+					</ul>
+
+					<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
+				</div>
+
+				<div class="mt-8 flex flex-wrap items-center gap-4">
+					<a href="#" class="btn btn-secondary btn-icon-right">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						Find out more
+					</a>
+				</div>
+
+				<hr hidden class="mt-12 mb-8" />
+
+				<!-- Stats -->
+				<div hidden class="mt-8">
+					<!-- border-t pt-8 -->
+					<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
+								<div>Our Active</div>
+								<div>Users</div>
+							</div>
+						</li>
+
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">3k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
+								<div>Professional</div>
+								<div>Creators</div>
+							</div>
+						</li>
+
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">560k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
+								<div>Weekly</div>
+								<div>Downloads</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="h-full lg:col-span-5">
+				<div class="rounded-lg border p-8" data-card>
+					<h3 class="mb-4 text-2xl font-semibold">
+						<p>Book a meeting</p>
+					</h3>
+
+					<div class="prose mb-6 text-foreground-muted">
+						<p>We're here to help you with any questions you have. Please fill out the form below and we'll get back to you as soon as possible.</p>
+					</div>
+
+					<div class="hubspot-form">
+						<div id="hs_2f5091f7-ff77-4faa-99bd-8af0a538b2d2" class="hs-form-html" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-activity-type="Contact Form" data-activity-subject="Contact Form: Contact" data-activity-campaign-id="" data-activity-interest-profile="" data-thank-you-message="Thank you for your interest. One of our specialists will be in touch with you soon." data-thank-you-page-url="" data-external-page-url="" data-post-back-on-submit="False" data-resource-url="" data-resource-file-name="" data-on-form-submitted="" data-submit-text="" data-conversion-level="primary" data-form-type="HubSpot" data-region="na1" data-calendly-enabled="False" data-calendly-config-id="" data-calendly-widget="" data-calendly-text="" data-hs-forms-root="true">
+							<form id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" action="https://forms.hsforms.com/submissions/v3/public/submit/formsnext/multipart/147991/80943ed9-df96-4201-84bd-0aa63e3f08e1" class="hs-form-private hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1_50a5e501-d8e3-426f-9d47-f5ae39a33270 hs-form stacked" target="target_iframe_80943ed9-df96-4201-84bd-0aa63e3f08e1" data-instance-id="50a5e501-d8e3-426f-9d47-f5ae39a33270" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-test-id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1">
+								<fieldset class="form-columns-2">
+									<div class="hs_name hs-name hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-name-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="name-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Name</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="name-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="name" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="name" value="" />
+										</div>
+									</div>
+
+									<div class="hs_email hs-email hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-email-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="email-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Email</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="email-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="email" required="" placeholder="" type="email" class="hs-input hs-field-ready" inputmode="email" autocomplete="email" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="hs_phone hs-phone hs-fieldtype-phonenumber field hs-form-field">
+										<div class="input">
+											<label id="label-phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Phone number</span>
+											</label>
+
+											<input id="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="phone" placeholder="" type="tel" class="hs-input hs-field-ready" inputmode="tel" autocomplete="tel" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-2">
+									<div class="hs_company hs-company hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-company-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="company-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Company</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="company-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="company" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization" value="" />
+										</div>
+									</div>
+
+									<div class="hs_jobtitle hs-jobtitle hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Job title</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="jobtitle" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization-title" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="legal-consent-container">
+										<div class="hs-richtext">
+											<p>By entering your personal data you are affirmatively consenting to our use of your personal data and our <a href="https://www.rws.com/legal/privacy/" target="_blank" rel="noopener">privacy policy</a>.</p>
+										</div>
+									</div>
+								</fieldset>
+
+								<div class="hs_submit hs-submit">
+									<div class="hs-field-desc" style="display: none;"></div>
+									<div class="actions">
+										<input type="submit" class="hs-button primary large" value="Send" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
