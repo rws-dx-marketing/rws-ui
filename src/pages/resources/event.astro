@@ -1,0 +1,458 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import ResourceHero from '../../blocks/ResourceHero.astro'
+import Speakers from '../../components/Speakers.astro'
+
+const cards = [1, 2, 3]
+
+const details = [
+	{ label: 'Date', value: '14–16 September 2026' },
+	{ label: 'Time', value: '9:00 am – 6:30 pm EDT' },
+	{ label: 'Venue', value: 'The Royal Sonesta Boston, 40 Edwin Land Boulevard, Cambridge, MA 02142' },
+	// { label: 'Format', value: 'In-person' },
+	{ label: 'RWS at', value: 'Booth 3' },
+	{ label: 'Our role', value: 'Solutions sponsor' },
+]
+
+const agenda = [
+	{
+		time: '14 Sep · 8:30 – 9:30 am',
+		title: 'Registration & networking breakfast',
+		description: 'Collect your badge, grab a coffee and connect with fellow attendees before the opening sessions.',
+	},
+	{
+		time: '14 Sep · 9:30 – 10:15 am',
+		title: 'Opening keynote: The state of IP litigation',
+		description: 'A forward look at the trends shaping patent disputes across pharma, biotech and technology.',
+		speaker: 'Dr. Elena Marsh',
+	},
+	{
+		time: '14 Sep · 10:30 – 11:30 am',
+		title: 'Panel: High-stakes disputes in pharma & biotech',
+		description: 'Leading litigators share strategies for managing complex, multi-party proceedings.',
+		speaker: 'James Okoro, Priya Nair',
+	},
+	{
+		time: '15 Sep · 10:00 – 11:00 am',
+		title: 'Track: Trade secrets & emerging technology',
+		description: 'Protecting confidential information and IP assets as technology moves faster than the law.',
+		speaker: 'Thomas Reeve',
+	},
+	{
+		time: '15 Sep · 4:40 – 6:15 pm',
+		title: 'Second-Wave Entrants: Litigation Strategy After the First Generic or Biosimilar Launch',
+		description: 'Join RWS for a session on how second-wave entrants can shape litigation strategy following the first generic or biosimilar launch. Further information to follow shortly.',
+		speaker: 'Christian Hartmann',
+		highlight: true,
+	},
+	{
+		time: '16 Sep · 9:30 – 10:30 am',
+		title: 'Fireside chat: The in-house perspective',
+		description: 'IP leaders discuss building resilient portfolios and working effectively with outside counsel.',
+		speaker: 'Priya Nair',
+	},
+	{
+		time: '16 Sep · 11:00 – 12:00 pm',
+		title: 'Closing roundtable & networking',
+		description: 'Key takeaways from the summit and an open discussion before the event wraps.',
+	},
+]
+
+const speakers = [
+	{
+		name: 'Christian Hartmann',
+		role: 'Senior Director of IP Solutions',
+		company: 'RWS',
+		avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png',
+		bio: 'Christian partners with in-house IP counsel and law firms across the Western U.S. and Canada on patent search and analytics, foreign filing, IP translations, and portfolio support — including the prior-art and invalidity work that underpins contentious proceedings.',
+	},
+]
+
+const speakersThree = [
+	{ name: 'Dr. Elena Marsh', role: 'Head of IP Strategy', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+	{ name: 'James Okoro', role: 'Senior Litigation Counsel', company: 'Meridian Legal', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+	{ name: 'Priya Nair', role: 'Director of Renewals', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+]
+
+const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { name: 'Thomas Reeve', role: 'Partner, Patent Disputes', company: 'Reeve & Associates', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/neil-sims.png' }, { name: 'Sofia Almeida', role: 'Trade Secrets Counsel', company: 'Northlight IP', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/helene-engels.png' }]
+---
+
+<Layout title="Event – RWS UI">
+	<ResourceHero layout="wide-text" date="14–16 September 2026" location="Boston" title="IP North American Litigation Summit" description="We are excited to be a Solutions sponsor at the IP North American Litigation Summit, taking place in Boston on 14 September. The event brings together more than 500 in-house counsel, patent litigators and IP strategists to tackle complex challenges across pharma and biotech, technology and trade secrets. Find us at booth 3 to talk through your IP needs and see our latest innovations, tools and services designed to optimize every stage of the IP lifecycle." cta={{ href: '#', text: 'Register', external: true }} share={true} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
+
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+			<aside class="hidden lg:col-span-4 lg:block">
+				<div class="lg:sticky lg:top-[calc(var(--content-top)+4rem)] transition-[top] duration-300 grid gap-8 xl:gap-12">
+					{/* Event details */}
+					<div class="relative rounded-lg p-10" data-card>
+						<!-- <h4 class="mb-6 text-lg font-bold">Event details</h4> -->
+
+						<ul class="grid gap-4">
+							{
+								details.map((detail) => (
+									<li>
+										<p class="font-bold">{detail.label}</p>
+										<p>{detail.value}</p>
+									</li>
+								))
+							}
+						</ul>
+
+						<!-- <a href="#" class="btn btn-primary btn-icon-right mt-8 w-full">
+							Register
+							<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
+								<path d="M228,104a12,12,0,0,1-24,0V69l-59.51,59.51a12,12,0,0,1-17-17L187,52H152a12,12,0,0,1,0-24h64a12,12,0,0,1,12,12Zm-44,24a12,12,0,0,0-12,12v64H52V84h64a12,12,0,0,0,0-24H48A20,20,0,0,0,28,80V208a20,20,0,0,0,20,20H176a20,20,0,0,0,20-20V140A12,12,0,0,0,184,128Z"></path>
+							</svg>
+						</a> -->
+					</div>
+
+					{/* Host contact */}
+					<div class="rounded-lg p-6" data-card>
+						<div class="flex items-start gap-6">
+							<div class="w-1/3 max-w-24 shrink-0">
+								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+							</div>
+							<div>
+								<h4 class="mb-2 text-lg/tight font-semibold">Questions about the event?</h4>
+
+								<div class="prose mb-4 text-sm/normal text-foreground-muted">
+									<p>Our events team is happy to help with registration, travel and agenda queries.</p>
+								</div>
+
+								<a href="#form" class="btn btn-secondary btn-sm">Get in touch</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div>
+						<button class="btn btn-outline btn-icon-right w-full">
+							Add to calendar
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="80" y1="40" x2="80" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="176" y1="40" x2="176" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><rect x="40" y="88" width="176" height="128" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+						</button>
+					</div> -->
+				</div>
+			</aside>
+
+			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12">
+				<div class="rounded-lg p-6 lg:p-10" data-card>
+					<div class="prose max-w-none text-pretty lg:text-lg">
+						<h2>About the event</h2>
+						<p>The IP North American Litigation Summit brings together more than 500 in-house counsel, patent litigators and IP strategists to tackle complex challenges across pharma and biotech, technology and trade secrets.</p>
+						<p>RWS is proud to be a Solutions sponsor. Find us at booth 3 to talk through your IP needs and see our latest innovations, tools and services designed to optimize every stage of the IP lifecycle.</p>
+						<h2>Why attend</h2>
+						<ul>
+							<li>Tackle the toughest questions in pharma, biotech, technology and trade secrets</li>
+							<li>Meet the RWS specialists at booth 3</li>
+							<li>See our latest innovations and services across the IP lifecycle</li>
+							<li>Network with peers managing high-stakes litigation and portfolios, lorem ipsum dolor sit amet consectetur adipisicing elit est, atque tempore voluptatibus</li>
+						</ul>
+					</div>
+				</div>
+
+				<div>
+					<img src="https://placehold.co/1024x768" alt="Placeholder" class="aspect-video size-full rounded object-cover" />
+				</div>
+
+				{/* Agenda timeline */}
+				<div class="rounded-lg p-6 lg:p-10" data-card>
+					<div class="mb-8">
+						<h2 class="text-3xl font-bold tracking-tight">RWS on the agenda</h2>
+						<p class="mt-2 text-foreground-muted">Where to catch our team during the summit.</p>
+					</div>
+
+					<ol class="relative ml-2 grid gap-8 border-l border-accent-softer pl-8">
+						{
+							agenda.map((item, i) => (
+								<li class="intersect-once relative intersect:motion-preset-slide-right-sm" style={`--motion-delay: ${200 + i * 75}ms`}>
+									{/* Dot */}
+									<span class={`absolute -left-[calc(2rem+1px)] -translate-x-1/2 rounded-full ring-4 ring-background ${item.highlight ? 'top-0.5 size-4 bg-accent' : 'top-1 size-3 bg-accent-soft'}`} />
+
+									<p class="mb-1 text-sm font-bold tracking-wide- text-accent tabular-nums-">{item.time}</p>
+
+									<div class={item.highlight ? 'mt-3 rounded-lg border border-accent-soft bg-accent-softest p-5' : ''}>
+										<!-- {item.highlight && <span class="mb-2 inline-block rounded-full bg-accent px-2 py-0.5 text-xs font-semibold text-on-accent">RWS session</span>} -->
+
+										<h3 class="text-lg font-bold text-pretty">{item.title}</h3>
+										<p class="mt-1 text-foreground-muted">{item.description}</p>
+
+										{item.speaker && (
+											<div class="mt-2 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
+												<div class="svg-current size-3 shrink-0">
+													<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+														<rect width="256" height="256" fill="none" />
+														<circle cx="128" cy="96" r="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+														<path d="M31,216a112,112,0,0,1,194,0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16" />
+													</svg> -->
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" fill="none"></path><circle cx="12" cy="7" r="4" fill="none"></circle></svg>
+												</div>
+												<span>{item.speaker}</span>
+											</div>
+										)}
+									</div>
+								</li>
+							))
+						}
+					</ol>
+				</div>
+
+				{/* Speakers — this event has a single speaker */}
+				<Speakers title="Speaker" subtitle="Meet the RWS specialist presenting at the summit." speakers={speakers} />
+
+				{/* Demo variants: how the Speakers grid adapts to more people */}
+				<Speakers title="Speakers" subtitle="Layout variant — small group on a single row." speakers={speakersThree} />
+
+				<Speakers title="Speakers" subtitle="Layout variant — larger group wraps across rows." speakers={speakersFive} />
+
+				{/* Highlight quote */}
+				<div class="overflow-hidden rounded-lg" data-theme="tertiary">
+					<figure class="mx-auto max-w-3xl px-8 py-12 text-center lg:px-12">
+						<div class="svg-current mx-auto mb-5 size-12 text-accent">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 393 285">
+								<g fill="currentColor" fill-opacity=".5" clip-path="url(#a)">
+									<path d="M392.995 118.048C392.995 52.851 339.942 0 274.497 0S156 52.85 156 118.048c0 65.196 53.052 118.047 118.497 118.047v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.918z"></path>
+									<path d="M236.995 118.506C236.995 53.31 183.942.459 118.497.459S0 53.309 0 118.506s53.052 118.048 118.497 118.048v48.823l81.26-80.952c22.926-21.525 37.235-52.057 37.235-85.919z"></path>
+								</g>
+								<defs>
+									<clipPath id="a">
+										<path fill="#fff" d="M0 0h393v285H0z"></path>
+									</clipPath>
+								</defs>
+							</svg>
+						</div>
+						<blockquote class="space-y-[0.5em] text-center text-2xl text-pretty *:first:before:content-['“'] *:last:after:content-['”']">
+							<p>Come and find us at booth 3 to talk through your IP needs and see the latest tools and services designed to optimize every stage of the IP lifecycle.</p>
+						</blockquote>
+						<figcaption class="mt-6 flex items-center justify-center">
+							<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
+							<div class="flex items-center divide-x divide-foreground-subtle">
+								<div class="px-3 font-semibold">Christian Hartmann</div>
+								<div class="px-3 text-foreground-muted">Senior Director of IP Solutions, RWS</div>
+							</div>
+						</figcaption>
+					</figure>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	{/* Related events */}
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>Related <em>events</em></p>
+			</h2>
+
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p>Meet the RWS team at these upcoming events across the region.</p>
+			</div>
+
+			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
+				{
+					cards.map((card) => (
+						<article class="group relative rounded-lg border text-left" data-card>
+							<div class="flex h-full flex-col">
+								<div class="p-4">
+									<div class="mb-5 block overflow-hidden rounded">
+										<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="Event venue" />
+									</div>
+
+									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">Event</span>
+
+									<h2 class="mb-2 text-2xl font-bold">
+										<p>
+											<a href="/resources/event/">
+												This is an event title
+												<span class="absolute inset-0" />
+											</a>
+										</p>
+									</h2>
+
+									<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
+										<!-- <div class="size-4 shrink-0">
+										  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="176" y1="24" x2="176" y2="52" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="80" y1="24" x2="80" y2="52" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
+										</div> -->
+										<span>22 April 2027 · London, UK</span>
+									</div>
+
+									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
+									</div>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Call to action + form -->
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<div class="lg:col-span-7">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>This is the subheading</p>
+				</div>
+
+				<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<p>This is the heading</p>
+				</h2>
+
+				<div class="prose text-foreground-muted md:prose-lg">
+					<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+
+					<ul>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+					</ul>
+
+					<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
+				</div>
+
+				<div class="mt-8 flex flex-wrap items-center gap-4">
+					<a href="#" class="btn btn-secondary btn-icon-right">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						Find out more
+					</a>
+				</div>
+
+				<hr hidden class="mt-12 mb-8" />
+
+				<!-- Stats -->
+				<div hidden class="mt-8">
+					<!-- border-t pt-8 -->
+					<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
+								<div>Our Active</div>
+								<div>Users</div>
+							</div>
+						</li>
+
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">3k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
+								<div>Professional</div>
+								<div>Creators</div>
+							</div>
+						</li>
+
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">560k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
+								<div>Weekly</div>
+								<div>Downloads</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="h-full lg:col-span-5">
+				<div class="rounded-lg border p-8" data-card>
+					<h3 class="mb-4 text-2xl font-semibold">
+						<p>Book a meeting</p>
+					</h3>
+
+					<div class="prose mb-6 text-foreground-muted">
+						<p>We're here to help you with any questions you have. Please fill out the form below and we'll get back to you as soon as possible.</p>
+					</div>
+
+					<div class="hubspot-form">
+						<div id="hs_2f5091f7-ff77-4faa-99bd-8af0a538b2d2" class="hs-form-html" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-activity-type="Contact Form" data-activity-subject="Contact Form: Contact" data-activity-campaign-id="" data-activity-interest-profile="" data-thank-you-message="Thank you for your interest. One of our specialists will be in touch with you soon." data-thank-you-page-url="" data-external-page-url="" data-post-back-on-submit="False" data-resource-url="" data-resource-file-name="" data-on-form-submitted="" data-submit-text="" data-conversion-level="primary" data-form-type="HubSpot" data-region="na1" data-calendly-enabled="False" data-calendly-config-id="" data-calendly-widget="" data-calendly-text="" data-hs-forms-root="true">
+							<form id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" action="https://forms.hsforms.com/submissions/v3/public/submit/formsnext/multipart/147991/80943ed9-df96-4201-84bd-0aa63e3f08e1" class="hs-form-private hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1_50a5e501-d8e3-426f-9d47-f5ae39a33270 hs-form stacked" target="target_iframe_80943ed9-df96-4201-84bd-0aa63e3f08e1" data-instance-id="50a5e501-d8e3-426f-9d47-f5ae39a33270" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-test-id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1">
+								<fieldset class="form-columns-2">
+									<div class="hs_name hs-name hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-name-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="name-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Name</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="name-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="name" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="name" value="" />
+										</div>
+									</div>
+
+									<div class="hs_email hs-email hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-email-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="email-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Email</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="email-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="email" required="" placeholder="" type="email" class="hs-input hs-field-ready" inputmode="email" autocomplete="email" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="hs_phone hs-phone hs-fieldtype-phonenumber field hs-form-field">
+										<div class="input">
+											<label id="label-phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Phone number</span>
+											</label>
+
+											<input id="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="phone" placeholder="" type="tel" class="hs-input hs-field-ready" inputmode="tel" autocomplete="tel" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-2">
+									<div class="hs_company hs-company hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-company-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="company-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Company</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="company-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="company" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization" value="" />
+										</div>
+									</div>
+
+									<div class="hs_jobtitle hs-jobtitle hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Job title</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="jobtitle" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization-title" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="legal-consent-container">
+										<div class="hs-richtext">
+											<p>By entering your personal data you are affirmatively consenting to our use of your personal data and our <a href="https://www.rws.com/legal/privacy/" target="_blank" rel="noopener">privacy policy</a>.</p>
+										</div>
+									</div>
+								</fieldset>
+
+								<div class="hs_submit hs-submit">
+									<div class="hs-field-desc" style="display: none;"></div>
+									<div class="actions">
+										<input type="submit" class="hs-button primary large" value="Send" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

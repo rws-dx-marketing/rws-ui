@@ -53,7 +53,11 @@
 			@apply relative mt-[0.5em] mb-[0.5em] pl-[0.75em];
 
 			&::before {
-				@apply absolute top-[0.4375em] left-[-1em] block size-[1em] bg-accent mask-contain mask-center mask-no-repeat content-[''];
+				/* Centre the 1em icon in the first line's line box (1lh), plus a small
+				   optical nudge. Deriving from 1lh keeps it aligned across font sizes
+				   (text-lg / prose-lg) where line-height differs. At base this resolves
+				   to the original 0.4375em. */
+				@apply absolute top-[calc((1lh_-_1em)/2_+_0.0625em)] left-[-1em] block size-[1em] bg-accent mask-contain mask-center mask-no-repeat content-[''];
 				mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'><path fill='white' d='M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z' /></svg>");
 			}
 		}

@@ -9,6 +9,7 @@ interface Author {
 interface Cta {
 	href: string
 	text: string
+	external?: boolean
 }
 
 interface Image {
@@ -26,6 +27,7 @@ interface Props {
 	title: string
 	image: Image
 	date?: string
+	location?: string
 	readTime?: string
 	logo?: Logo
 	description?: string
@@ -35,12 +37,12 @@ interface Props {
 	layout?: 'split' | 'wide-text'
 }
 
-const { title, image, date, readTime, logo, description, author, share = false, cta, layout = 'split' } = Astro.props
+const { title, image, date, location, readTime, logo, description, author, share = false, cta, layout = 'split' } = Astro.props
 
 const textCols = layout === 'wide-text' ? 'lg:col-span-7' : 'lg:col-span-6'
 const imageCols = layout === 'wide-text' ? 'lg:col-span-5' : 'lg:col-span-6'
 const titleMargin = description || cta ? 'mb-6' : ''
-const showMeta = date || readTime
+const showMeta = date || location || readTime
 ---
 
 <section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
@@ -50,6 +52,18 @@ const showMeta = date || readTime
 				showMeta && (
 					<div class="mb-3 flex items-center gap-6 font-bold text-foreground-subtle">
 						{date && <p>{date}</p>}
+
+						{location && (
+							<div class="flex items-center gap-1">
+								<div class="svg-current size-4 shrink-0">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<rect width="256" height="256" fill="none" />
+										<path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,120a32,32,0,1,1,32-32A32,32,0,0,1,128,136Z" />
+									</svg>
+								</div>
+								<p>{location}</p>
+							</div>
+						)}
 
 						{readTime && (
 							<div class="flex items-center gap-1">
@@ -85,25 +99,8 @@ const showMeta = date || readTime
 			}
 
 			{
-				cta && (
-					<div class="mt-8 flex flex-wrap items-center gap-4">
-						<a href={cta.href} class="btn btn-secondary btn-icon-right btn-md">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-								<>
-									<rect width="256" height="256" fill="none" />
-									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-									<polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-								</>
-							</svg>
-							{cta.text}
-						</a>
-					</div>
-				)
-			}
-
-			{
-				(author || share) && (
-					<div class="mt-8 flex items-end justify-between">
+				(author || share || cta) && (
+					<div class="mt-8 flex items-end justify-between gap-4">
 						{author ? (
 							<div class="flex items-center">
 								<a href={author.href ?? '#'} rel="author" class="mr-4">
@@ -115,6 +112,25 @@ const showMeta = date || readTime
 									</a>
 									{author.role && <p class="text-sm text-foreground-muted">{author.role}</p>}
 								</div>
+							</div>
+						) : cta ? (
+							<div class="flex flex-wrap items-center gap-4">
+								<a href={cta.href} class="btn btn-secondary btn-icon-right btn-md" {...(cta.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+									{cta.external ? (
+										<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
+											<path d="M228,104a12,12,0,0,1-24,0V69l-59.51,59.51a12,12,0,0,1-17-17L187,52H152a12,12,0,0,1,0-24h64a12,12,0,0,1,12,12Zm-44,24a12,12,0,0,0-12,12v64H52V84h64a12,12,0,0,0,0-24H48A20,20,0,0,0,28,80V208a20,20,0,0,0,20,20H176a20,20,0,0,0,20-20V140A12,12,0,0,0,184,128Z" />
+										</svg>
+									) : (
+										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+											<>
+												<rect width="256" height="256" fill="none" />
+												<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+												<polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											</>
+										</svg>
+									)}
+									{cta.text}
+								</a>
 							</div>
 						) : (
 							<div />

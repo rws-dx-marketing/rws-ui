@@ -59,7 +59,7 @@
 	::view-transition-group(.tabs-option),
 	::view-transition-group(.tabs-panel),
 	::view-transition-group(.tabs-group) {
-		animation-duration: 0.45s;
+		animation-duration: calc(var(--default-transition-duration) * 1.5);
 		animation-timing-function: cubic-bezier(0.5, 0.05, 0.2, 1);
 	}
 
