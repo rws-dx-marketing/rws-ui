@@ -191,7 +191,7 @@ const cards = [
 								<FilterDropdown filterId={filter.id} label={filter.label}>
 									{(filter.optionGroups ?? [{ options: filter.options ?? [] }]).map((group, groupIndex) => (
 										<>
-											{group.label ? <li class="text-2xs px-2 pb-1 font-bold tracking-widest text-foreground-subtle uppercase not-first:pt-3 first:pt-1.5">{group.label}</li> : null}
+											{group.label ? <li class="px-2 pb-1 text-2xs font-bold tracking-widest text-foreground-subtle uppercase not-first:pt-3 first:pt-1.5">{group.label}</li> : null}
 											{group.options.map((option) => (
 												<FilterOption id={`${filter.id}-${groupIndex}-${option.value}`} type={filter.inputType} name={filter.id} value={option.value} label={option.label} />
 											))}
