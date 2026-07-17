@@ -1,4 +1,4 @@
-headingSize = {
+export const headingSize = {
 	xxs: 'text-2xl xl:text-3xl',
 	xs: 'text-3xl xl:text-4xl',
 	sm: 'text-4xl xl:text-5xl',

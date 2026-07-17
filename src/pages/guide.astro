@@ -1,6 +1,36 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import { themes } from '../data/themes'
+import { headingSize } from '../utils/heading-size'
+
+const textScale = [
+	{ name: 'text-2xs', rem: '0.625rem', px: 10 },
+	{ name: 'text-xs', rem: '0.75rem', px: 12 },
+	{ name: 'text-sm', rem: '0.875rem', px: 14 },
+	{ name: 'text-base', rem: '1rem', px: 16 },
+	{ name: 'text-lg', rem: '1.125rem', px: 18 },
+	{ name: 'text-xl', rem: '1.25rem', px: 20 },
+	{ name: 'text-2xl', rem: '1.5rem', px: 24 },
+	{ name: 'text-3xl', rem: '1.875rem', px: 30 },
+	{ name: 'text-4xl', rem: '2.25rem', px: 36 },
+	{ name: 'text-5xl', rem: '3rem', px: 48 },
+	{ name: 'text-6xl', rem: '3.75rem', px: 60 },
+	{ name: 'text-7xl', rem: '4.5rem', px: 72 },
+	{ name: 'text-8xl', rem: '6rem', px: 96 },
+	{ name: 'text-9xl', rem: '8rem', px: 128 },
+]
+
+const fontWeights = [
+	{ name: 'font-thin', weight: 100 },
+	{ name: 'font-extralight', weight: 200 },
+	{ name: 'font-light', weight: 300 },
+	{ name: 'font-normal', weight: 400 },
+	{ name: 'font-medium', weight: 500, note: 'Body default' },
+	{ name: 'font-semibold', weight: 600, note: 'Emphasis' },
+	{ name: 'font-bold', weight: 700, note: 'Headings' },
+	{ name: 'font-extrabold', weight: 800 },
+	// { name: 'font-black', weight: 900 },
+]
 
 const semanticPrimary = [
 	{ name: 'primary-softest', hex: '#faf9ff', className: 'bg-primary-softest' },
@@ -326,6 +356,85 @@ const themeVariants = themes.map((theme) => ({
 		</section>
 
 		<header class="mt-24 mb-10 space-y-2">
+			<h2 class="text-2xl font-semibold">Typography</h2>
+		</header>
+
+		<div class="grid gap-x-12 gap-y-12 lg:grid-cols-2">
+			<section class="space-y-6">
+				<h3 class="text-xl font-semibold">Type scale</h3>
+				<div class="mt-6 divide-y divide-gray-200 dark:divide-gray-700">
+					{
+						textScale.map((t) => (
+							<div class="flex items-center gap-6 py-4">
+								<div class="w-44 shrink-0 space-y-0.5">
+									<code class="block text-sm font-semibold">{t.name}</code>
+									<span class="text-body-subtle block text-xs">
+										{t.rem} · {t.px}px
+									</span>
+								</div>
+								<p class={`${t.name} -mt-[0.1lh] mb-[0.1lh]`}>Ag</p>
+							</div>
+						))
+					}
+				</div>
+			</section>
+
+			<section class="space-y-6">
+				<h3 class="text-xl font-semibold">Font weights</h3>
+				<!-- <p class="text-body-subtle text-sm">
+					Body text defaults to <code class="font-semibold text-foreground">font-medium</code>. Use <code class="font-semibold text-foreground">font-semibold</code> and
+					<code class="font-semibold text-foreground">font-bold</code> for emphasis and headings.
+				</p> -->
+				<div class="mt-6 space-y-3">
+					{
+						fontWeights.map((w) =>
+							w.note ? (
+								<div class="flex items-baseline gap-6">
+									<div class="w-44 shrink-0 space-y-0.5">
+										<code class="block text-sm font-semibold">{w.name}</code>
+										<span class="text-body-subtle block text-xs">
+											{w.weight} · {w.note}
+										</span>
+									</div>
+									<p class={`${w.name} min-w-0 truncate text-xl leading-tight`}>The quick brown fox</p>
+								</div>
+							) : (
+								<div class="flex items-baseline gap-6">
+									<div class="w-44 shrink-0 space-y-0.5">
+										<code class="block text-sm">{w.name}</code>
+										<span class="text-body-subtle block text-xs">{w.weight}</span>
+									</div>
+									<p class={`${w.name} min-w-0 truncate text-xl leading-tight`}>The quick brown fox</p>
+								</div>
+							),
+						)
+					}
+				</div>
+			</section>
+		</div>
+
+		<section class="mt-12 mb-12 space-y-6">
+			<h3 class="text-xl font-semibold">Heading sizes</h3>
+			<!-- <p class="text-body-subtle text-sm">
+				Responsive presets from <code class="font-semibold text-foreground">src/utils/heading-size.js</code>. Use these for page and section headings rather than raw
+				<code class="font-semibold text-foreground">text-*</code> sizes — they scale across breakpoints automatically.
+			</p> -->
+			<div class="mt-6 divide-y divide-gray-200 dark:divide-gray-700">
+				{
+					Object.entries(headingSize).map(([key, cls]) => (
+						<div class="space-y-2 py-5">
+							<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+								<code class="text-sm font-semibold">{key}</code>
+								<code class="text-body-subtle text-xs">{cls}</code>
+							</div>
+							<p class={`${cls} leading-tight font-bold`}>The quick brown fox</p>
+						</div>
+					))
+				}
+			</div>
+		</section>
+
+		<header class="mt-24 mb-10 space-y-2">
 			<h2 class="text-2xl font-semibold">Forms</h2>
 		</header>
 
@@ -459,19 +568,6 @@ const themeVariants = themes.map((theme) => ({
 					<div class="glow-animate aspect-5/1 rounded-lg" data-card></div>
 				</div>
 			</div>
-		</section>
-
-		<section>
-			<h3 class="mb-6 text-xl font-semibold">Typography</h3>
-			<p class="font-thin">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			<p class="font-extralight">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			<p class="font-light">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			<p class="font-normal">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			<p class="font-semibold">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			<p class="font-bold">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			<p class="font-extrabold">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-			<p class="font-black">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 		</section>
 
 		<section class="mt-12 mb-12 space-y-6">
