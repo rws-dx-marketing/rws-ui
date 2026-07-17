@@ -40,7 +40,7 @@ const { badge, title, img, graphic, href = '#', cta, stacked = false, class: cla
 			<div class="relative isolate min-h-56 flex-1 overflow-hidden [&_svg]:size-full">
 				{graphic ? <BentoGraphic name={graphic} size="medium" /> : <img src={img} alt="" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" />}
 
-				{badge && <span class="absolute top-4 left-4 z-10 inline-flex items-center rounded-full border border-accent-soft bg-background/50 px-3 py-1 text-sm font-semibold text-foreground backdrop-blur">{badge}</span>}
+				{badge && <span class="absolute top-4 left-4 z-10 inline-flex items-center rounded-full bg-background/80 px-3 py-1 text-sm font-semibold text-foreground backdrop-blur">{badge}</span>}
 			</div>
 
 			<div class="p-6 lg:p-8">

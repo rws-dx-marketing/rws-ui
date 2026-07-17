@@ -1,0 +1,408 @@
+[
+	{
+		"id": "event-type",
+		"label": "Type",
+		"inputType": "checkbox",
+		"options": [
+			{
+				"value": "in-person-event",
+				"label": "In-person event"
+			},
+			{
+				"value": "virtual-event",
+				"label": "Virtual event"
+			},
+			{
+				"value": "webinar",
+				"label": "Webinar"
+			},
+			{
+				"value": "conference",
+				"label": "Conference"
+			},
+			{
+				"value": "trade-show",
+				"label": "Trade show"
+			}
+		]
+	},
+	{
+		"id": "product",
+		"label": "Product",
+		"inputType": "checkbox",
+		"options": [
+			{
+				"value": "trados",
+				"label": "Trados"
+			},
+			{
+				"value": "language-weaver",
+				"label": "Language Weaver"
+			},
+			{
+				"value": "tridion",
+				"label": "Tridion"
+			},
+			{
+				"value": "fonto",
+				"label": "Fonto"
+			},
+			{
+				"value": "contenta",
+				"label": "Contenta"
+			},
+			{
+				"value": "propylon",
+				"label": "Propylon"
+			},
+			{
+				"value": "inovia",
+				"label": "Inovia"
+			},
+			{
+				"value": "aop-connect",
+				"label": "AOP Connect"
+			},
+			{
+				"value": "trainai",
+				"label": "TrainAI"
+			}
+		]
+	},
+	{
+		"id": "solution",
+		"label": "Solution",
+		"inputType": "checkbox",
+		"options": [
+			{
+				"value": "intelligent-knowledge-platforms",
+				"label": "Intelligent Knowledge Platforms"
+			},
+			{
+				"value": "language-platforms",
+				"label": "Language Platforms"
+			},
+			{
+				"value": "ip-platforms",
+				"label": "IP Platforms"
+			},
+			{
+				"value": "ai-data-services",
+				"label": "AI Data Services"
+			},
+			{
+				"value": "language-expert-services",
+				"label": "Language Expert Services"
+			},
+			{
+				"value": "ip-services",
+				"label": "IP Services"
+			}
+		]
+	},
+	{
+		"id": "industry",
+		"label": "Industry",
+		"inputType": "checkbox",
+		"options": [
+			{
+				"value": "life-sciences",
+				"label": "Life Sciences"
+			},
+			{
+				"value": "healthcare",
+				"label": "Healthcare"
+			},
+			{
+				"value": "legal-financial-services",
+				"label": "Legal & Financial Services"
+			},
+			{
+				"value": "government-public-sector",
+				"label": "Government & Public Sector"
+			},
+			{
+				"value": "defence-intelligence",
+				"label": "Defence & Intelligence"
+			},
+			{
+				"value": "technology-software",
+				"label": "Technology & Software"
+			},
+			{
+				"value": "manufacturing-industrial",
+				"label": "Manufacturing & Industrial"
+			},
+			{
+				"value": "automotive",
+				"label": "Automotive"
+			},
+			{
+				"value": "aerospace-aviation",
+				"label": "Aerospace & Aviation"
+			},
+			{
+				"value": "professional-services",
+				"label": "Professional Services"
+			},
+			{
+				"value": "retail-e-commerce",
+				"label": "Retail & E-commerce"
+			},
+			{
+				"value": "media-entertainment",
+				"label": "Media & Entertainment"
+			},
+			{
+				"value": "publishing",
+				"label": "Publishing"
+			},
+			{
+				"value": "gaming",
+				"label": "Gaming"
+			},
+			{
+				"value": "travel-hospitality",
+				"label": "Travel & Hospitality"
+			},
+			{
+				"value": "e-learning-training",
+				"label": "E-learning & Training"
+			},
+			{
+				"value": "telecommunications-it-infrastructure",
+				"label": "Telecommunications & IT Infrastructure"
+			},
+			{
+				"value": "ip-patent",
+				"label": "IP & Patent"
+			},
+			{
+				"value": "energy-utilities",
+				"label": "Energy & Utilities"
+			},
+			{
+				"value": "non-profit-ngo",
+				"label": "Non-Profit & NGO"
+			},
+			{
+				"value": "other",
+				"label": "Other"
+			}
+		]
+	},
+	{
+		"id": "region",
+		"label": "Region",
+		"inputType": "checkbox",
+		"optionGroups": [
+			{
+				"label": "Americas",
+				"options": [
+					{
+						"value": "argentina",
+						"label": "Argentina"
+					},
+					{
+						"value": "brazil",
+						"label": "Brazil"
+					},
+					{
+						"value": "canada",
+						"label": "Canada"
+					},
+					{
+						"value": "chile",
+						"label": "Chile"
+					},
+					{
+						"value": "colombia",
+						"label": "Colombia"
+					},
+					{
+						"value": "mexico",
+						"label": "Mexico"
+					},
+					{
+						"value": "panama",
+						"label": "Panama"
+					},
+					{
+						"value": "peru",
+						"label": "Peru"
+					},
+					{
+						"value": "united-states",
+						"label": "United States"
+					}
+				]
+			},
+			{
+				"label": "EMEA",
+				"options": [
+					{
+						"value": "austria",
+						"label": "Austria"
+					},
+					{
+						"value": "belgium",
+						"label": "Belgium"
+					},
+					{
+						"value": "czech-republic",
+						"label": "Czech Republic"
+					},
+					{
+						"value": "denmark",
+						"label": "Denmark"
+					},
+					{
+						"value": "finland",
+						"label": "Finland"
+					},
+					{
+						"value": "france",
+						"label": "France"
+					},
+					{
+						"value": "germany",
+						"label": "Germany"
+					},
+					{
+						"value": "hungary",
+						"label": "Hungary"
+					},
+					{
+						"value": "ireland",
+						"label": "Ireland"
+					},
+					{
+						"value": "israel",
+						"label": "Israel"
+					},
+					{
+						"value": "italy",
+						"label": "Italy"
+					},
+					{
+						"value": "netherlands",
+						"label": "Netherlands"
+					},
+					{
+						"value": "nigeria",
+						"label": "Nigeria"
+					},
+					{
+						"value": "norway",
+						"label": "Norway"
+					},
+					{
+						"value": "poland",
+						"label": "Poland"
+					},
+					{
+						"value": "portugal",
+						"label": "Portugal"
+					},
+					{
+						"value": "romania",
+						"label": "Romania"
+					},
+					{
+						"value": "saudi-arabia",
+						"label": "Saudi Arabia"
+					},
+					{
+						"value": "south-africa",
+						"label": "South Africa"
+					},
+					{
+						"value": "spain",
+						"label": "Spain"
+					},
+					{
+						"value": "sweden",
+						"label": "Sweden"
+					},
+					{
+						"value": "switzerland",
+						"label": "Switzerland"
+					},
+					{
+						"value": "turkey",
+						"label": "Turkey"
+					},
+					{
+						"value": "uae",
+						"label": "UAE"
+					},
+					{
+						"value": "ukraine",
+						"label": "Ukraine"
+					},
+					{
+						"value": "united-kingdom",
+						"label": "United Kingdom"
+					}
+				]
+			},
+			{
+				"label": "APAC",
+				"options": [
+					{
+						"value": "australia",
+						"label": "Australia"
+					},
+					{
+						"value": "china",
+						"label": "China"
+					},
+					{
+						"value": "india",
+						"label": "India"
+					},
+					{
+						"value": "indonesia",
+						"label": "Indonesia"
+					},
+					{
+						"value": "japan",
+						"label": "Japan"
+					},
+					{
+						"value": "malaysia",
+						"label": "Malaysia"
+					},
+					{
+						"value": "new-zealand",
+						"label": "New Zealand"
+					},
+					{
+						"value": "philippines",
+						"label": "Philippines"
+					},
+					{
+						"value": "singapore",
+						"label": "Singapore"
+					},
+					{
+						"value": "south-korea",
+						"label": "South Korea"
+					},
+					{
+						"value": "taiwan",
+						"label": "Taiwan"
+					},
+					{
+						"value": "thailand",
+						"label": "Thailand"
+					},
+					{
+						"value": "vietnam",
+						"label": "Vietnam"
+					}
+				]
+			}
+		]
+	}
+]
