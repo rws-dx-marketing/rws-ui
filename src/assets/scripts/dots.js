@@ -1,4 +1,4 @@
-export default function dotsGrid() {
+export default function dots() {
 	if (typeof window === 'undefined') return
 
 	const sections = document.querySelectorAll('[data-theme="dots-enhanced"]')

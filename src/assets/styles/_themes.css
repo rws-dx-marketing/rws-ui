@@ -74,9 +74,7 @@
 		--section: var(--background);
 		--border: var(--foreground-softer);
 	}
-}
 
-@layer base {
 	[data-theme='default'] {
 		--background-seed: var(--color-white);
 		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
@@ -139,9 +137,6 @@
 }
 
 @layer components {
-	/* Default divider color for bare divide-x/divide-y. Lives in the components
-	   layer so it outranks component borders like .btn's transparent edge, but
-	   still loses to explicit divide-* color utilities (which sit in utilities). */
 	.divide-x > :not(:last-child) {
 		border-inline-end-color: var(--border, currentColor);
 	}
