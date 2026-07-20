@@ -6,12 +6,9 @@ export default function pricingContent() {
 	const SEGMENT_DEFAULT = root.getAttribute('data-active-segment') || 'teams'
 	const canVT = typeof document.startViewTransition === 'function' && !matchMedia('(prefers-reduced-motion: reduce)').matches
 	const radios = Array.from(root.querySelectorAll('input[name="segment"]'))
-	// Segment-locked pages have no radios, so metadata falls back to data-locked-* on the root.
-	const segmentInput = (segment) => radios.find((r) => r.value === segment)
 	const segmentOrder = radios.map((r) => r.value)
 	const isSegment = (segment) => segmentOrder.includes(segment)
-	const segMeta = (segment, key) => segmentInput(segment)?.dataset[key] ?? root.dataset['locked' + key[0].toUpperCase() + key.slice(1)] ?? ''
-	// Same reasoning as above: locked pages need a segment's position without any radios to read it from.
+	// Locked pages have no radios, so map ?popular=/?recommended= positions off the root's declared order.
 	const paramSegmentOrder = (root.dataset.segmentOrder || '').split(' ').filter(Boolean)
 
 	// billing = contract length; cadence = yearly-upfront vs monthly instalments on an annual contract.
@@ -33,24 +30,29 @@ export default function pricingContent() {
 		pill.style.transform = 'translate(' + label.offsetLeft + 'px, ' + label.offsetTop + 'px)'
 	}
 
+	// The default popular card for a segment is owned by the card itself (data-popular-in),
+	// not the tab control. ?popular=/?recommended= can still override it.
+	const defaultPopular = (segment) => root.querySelector('[data-product][data-popular-in~="' + segment + '"]')?.dataset.product ?? null
+
 	// ?popular=/?recommended= are comma lists mapped to paramSegmentOrder positions; a trailing
 	// segment with no value inherits the last one given. "none" opts out entirely; any other
-	// missing or not-currently-visible value falls back to the segment's default popular product.
-	function resolveTarget(param, visible, segment) {
+	// missing or not-currently-visible value falls back to the card's declared default.
+	function resolveTarget(param, visible, segment, fallback) {
 		const list = (params.get(param) || '').split(',').map((s) => s.trim())
 		const idx = paramSegmentOrder.indexOf(segment)
 		const want = idx >= 0 && idx < list.length ? list[idx] : list[list.length - 1]
 		if (want === 'none') return null
-		return want && visible.includes(want) ? want : segMeta(segment, 'popular')
+		return want && visible.includes(want) ? want : fallback
 	}
 
 	function applyPopular() {
 		const segment = activeSegment()
 		const visible = Array.from(root.querySelectorAll('[data-product][data-segments~="' + segment + '"]')).map((c) => c.dataset.product)
+		const fallback = defaultPopular(segment)
 		// ?popular= drives the badge; ?recommended= drives the highlight, defaulting to mirror
 		// ?popular= until it's explicitly set (so a campaign page can highlight a different card).
-		const pop = resolveTarget('popular', visible, segment)
-		const recommended = params.has('recommended') ? resolveTarget('recommended', visible, segment) : pop
+		const pop = params.has('popular') ? resolveTarget('popular', visible, segment, fallback) : fallback
+		const recommended = params.has('recommended') ? resolveTarget('recommended', visible, segment, fallback) : pop
 		root.querySelectorAll('[data-product]').forEach((wrap) => {
 			const card = wrap.querySelector('[data-card]')
 			if (!card) return
@@ -63,12 +65,6 @@ export default function pricingContent() {
 		root.setAttribute('data-active-segment', segment)
 		const r = radios.find((r) => r.value === segment)
 		if (r) r.checked = true
-		const subtitle = segMeta(segment, 'subtitle')
-		root.querySelectorAll('[data-segment-subtitle]').forEach((sub) => {
-			sub.textContent = subtitle
-		})
-		const cmp = root.querySelector('[data-comparison-subtitle]')
-		if (cmp) cmp.textContent = 'See exactly what’s included across the “' + segMeta(segment, 'label') + '” plans.'
 		applyPopular()
 		positionIndicator()
 	}

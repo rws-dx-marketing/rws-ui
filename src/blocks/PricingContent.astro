@@ -9,12 +9,11 @@ const { lockSegment } = Astro.props
 
 // ── Audience segments (the radio group) ───────────────────────────────────
 const segments = [
-	{ key: 'freelancers', label: 'I translate', sub: 'Freelancers', icon: 'user', popular: 'freelance', subtitle: 'For individual translators. 14 day risk-free trial.' },
-	{ key: 'teams', label: 'I sell translations', sub: 'LSPs & teams', icon: 'users', popular: 'team', subtitle: 'Built for language service providers and translation teams who deliver for clients.' },
-	{ key: 'businesses', label: 'I need translation', sub: 'Businesses', icon: 'building', popular: 'business', subtitle: 'For businesses and enterprises managing translation at scale, securely.' },
+	{ key: 'freelancers', label: 'I translate', sub: 'Freelancers', icon: 'user', subtitle: 'For individual translators. 14 day risk-free trial.' },
+	{ key: 'teams', label: 'I sell translations', sub: 'LSPs & teams', icon: 'users', subtitle: 'Built for language service providers and translation teams who deliver for clients.' },
+	{ key: 'businesses', label: 'I need translation', sub: 'Businesses', icon: 'building', subtitle: 'For businesses and enterprises managing translation at scale, securely.' },
 ]
 const DEFAULT_SEGMENT = lockSegment ?? 'teams'
-const defaultSegment = segments.find((s) => s.key === DEFAULT_SEGMENT)
 
 // ── Products ───────────────────────────────────────────────────────────────
 // `order` fixes the DOM order so each segment's products stay contiguous and in
@@ -41,6 +40,7 @@ const products = {
 		name: 'Trados Studio Freelance',
 		tag: 'Desktop + cloud',
 		segments: ['freelancers'],
+		popularIn: ['freelancers'],
 		priceType: 'billing',
 		price: { monthlyGbp: 38, annualGbp: 28.33, annualMonthlyGbp: 31.5 },
 		desc: { freelancers: 'Desktop and cloud in one. A complete professional environment with advanced features, flexibility and full control.' },
@@ -68,6 +68,7 @@ const products = {
 		name: 'Trados Team',
 		tag: 'Cloud collaboration',
 		segments: ['teams', 'businesses'],
+		popularIn: ['teams'],
 		priceType: 'none',
 		desc: {
 			teams: 'Built for growing LSPs. Run client projects together in the cloud, protect quality with AI review, and keep small teams delivering on deadline.',
@@ -87,6 +88,7 @@ const products = {
 		name: 'Trados Business',
 		tag: 'Out-of-the-box TMS',
 		segments: ['teams', 'businesses'],
+		popularIn: ['businesses'],
 		priceType: 'none',
 		desc: {
 			teams: 'For language-service providers scaling up. An out-of-the-box TMS with vendor and freelancer management, automated client workflows and the reporting clients expect.',
@@ -125,6 +127,10 @@ const order = lockSegment ? fullOrder.filter((id) => products[id].segments.inclu
 
 // Tokens used by the segment show/hide CSS (a product can live in several segments).
 const segmentTokens = Object.fromEntries(order.map((id) => [id, products[id].segments.join(' ')]))
+
+// A card owns which segment(s) it's the popular one in (empty for most). The tab
+// control no longer needs to know — the script reads this off the card itself.
+const popularTokens = Object.fromEntries(order.map((id) => [id, (products[id].popularIn || []).join(' ')]))
 
 const splitName = (name) => (name.startsWith('Trados ') ? ['Trados', name.slice(7)] : ['', name])
 
@@ -221,14 +227,18 @@ const matrix = [
 		{
 			lockSegment && (
 				<div class="mx-auto prose prose-xl max-w-[56ch] text-foreground-muted md:prose-2xl">
-					<p data-segment-subtitle>{defaultSegment.subtitle}</p>
+					{segments.map((s) => (
+						<p data-segment data-segments={s.key}>
+							{s.subtitle}
+						</p>
+					))}
 				</div>
 			)
 		}
 	</div>
 </section>
 
-<div class="group" data-pricing data-active-segment={DEFAULT_SEGMENT} data-segment-order={segments.map((s) => s.key).join(' ')} data-locked-popular={lockSegment ? defaultSegment.popular : undefined} data-locked-label={lockSegment ? defaultSegment.label : undefined} data-locked-subtitle={lockSegment ? defaultSegment.subtitle : undefined}>
+<div class="group" data-pricing data-active-segment={DEFAULT_SEGMENT} data-segment-order={segments.map((s) => s.key).join(' ')}>
 	{
 		/* Segment control (radio group) — omitted on segment-locked pages, whose
 	     subtitle moved up into the hero above since there's no picker to sit under. */
@@ -242,7 +252,7 @@ const matrix = [
 							<span data-segment-indicator aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary shadow-xl transition-[transform,width,height] duration-300 ease-out motion-reduce:transition-none" style="view-transition-name:segment-pill" />
 							{segments.map((s) => (
 								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-3 py-2 text-center text-foreground-muted transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:segment-option-${s.key};view-transition-class:segment-option`}>
-									<input type="radio" name="segment" value={s.key} data-popular={s.popular} data-label={s.label} data-subtitle={s.subtitle} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
+									<input type="radio" name="segment" value={s.key} class="sr-only" checked={s.key === DEFAULT_SEGMENT} />
 									<span class="text-sm leading-tight font-semibold sm:text-base">{s.label}</span>
 
 									<span class="mt-0.5 flex items-center gap-1.5">
@@ -278,7 +288,11 @@ const matrix = [
 					</div>
 
 					<div class="text-foreground-muted">
-						<p data-segment-subtitle>{defaultSegment.subtitle}</p>
+						{segments.map((s) => (
+							<p data-segment data-segments={s.key}>
+								{s.subtitle}
+							</p>
+						))}
 					</div>
 				</div>
 			</section>
@@ -294,7 +308,7 @@ const matrix = [
 						const p = products[id]
 						const [brand, productName] = splitName(p.name)
 						return (
-							<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=freelancers]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} style={`view-transition-name:card-${id}`}>
+							<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=freelancers]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} data-popular-in={popularTokens[id] || undefined} style={`view-transition-name:card-${id}`}>
 								<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border p-6 data-highlighted:glow-animate data-highlighted:border-accent">
 									<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
 										<svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -500,7 +514,11 @@ const matrix = [
 			</h2>
 
 			<div class="prose text-foreground-muted md:prose-lg">
-				<p data-comparison-subtitle>See exactly what's included across the "{defaultSegment.label}" plans.</p>
+				{segments.map((s) => (
+					<p data-segment data-segments={s.key}>
+						See exactly what's included across the “{s.label}” plans.
+					</p>
+				))}
 			</div>
 		</div>
 	</section>
