@@ -208,27 +208,27 @@ const matrix = [
 ]
 ---
 
+<section class={`pt-16 md:pt-20 lg:pt-24 ${lockSegment ? 'pb-16 md:pb-20 lg:pb-24' : 'pb-0'}`} data-theme="default">
+	<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+		<span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent-soft bg-accent-softer px-4 py-1 text-center text-sm" role="alert">
+			<span class="py-1 text-sm font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
+		</span>
+
+		<h1 class="mx-auto mb-5 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+			<p>Trados <em>Pricing.</em></p>
+		</h1>
+
+		{
+			lockSegment && (
+				<div class="mx-auto prose prose-xl max-w-[56ch] text-foreground-muted md:prose-2xl">
+					<p data-segment-subtitle>{defaultSegment.subtitle}</p>
+				</div>
+			)
+		}
+	</div>
+</section>
+
 <div class="group" data-pricing data-active-segment={DEFAULT_SEGMENT} data-segment-order={segments.map((s) => s.key).join(' ')} data-locked-popular={lockSegment ? defaultSegment.popular : undefined} data-locked-label={lockSegment ? defaultSegment.label : undefined} data-locked-subtitle={lockSegment ? defaultSegment.subtitle : undefined}>
-	<section class={`pt-16 md:pt-20 lg:pt-24 ${lockSegment ? 'pb-16 md:pb-20 lg:pb-24' : 'pb-0'}`} data-theme="default">
-		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-			<span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent-soft bg-accent-softer px-4 py-1 text-center text-sm" role="alert">
-				<span class="py-1 text-sm font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
-			</span>
-
-			<h1 class="mx-auto mb-5 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
-				<p>Trados <em>Pricing.</em></p>
-			</h1>
-
-			{
-				lockSegment && (
-					<div class="mx-auto prose prose-xl max-w-[56ch] text-foreground-muted md:prose-2xl">
-						<p data-segment-subtitle>{defaultSegment.subtitle}</p>
-					</div>
-				)
-			}
-		</div>
-	</section>
-
 	{
 		/* Segment control (radio group) — omitted on segment-locked pages, whose
 	     subtitle moved up into the hero above since there's no picker to sit under. */
