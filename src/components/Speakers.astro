@@ -1,10 +1,12 @@
 ---
+//@ts-nocheck
 interface Speaker {
 	name: string
 	role: string
 	company: string
 	avatar: string
 	bio?: string
+	href?: string
 }
 
 interface Props {
@@ -45,13 +47,27 @@ const featured = count === 1
 
 	<div class={`grid gap-6 ${gridClass}`}>
 		{
-			speakers.map((speaker, i) =>
-				featured ? (
+			speakers.map((speaker, i) => {
+				// A speaker with an href becomes a fully-clickable card: the name is a
+				// stretched link (span covers the whole card) and the avatar zooms on hover.
+				const linked = Boolean(speaker.href)
+				return featured ? (
 					// Single speaker — wide card with bio
-					<div class="intersect-once sm:items-center- flex flex-col gap-6 rounded-lg border p-6 sm:flex-row lg:p-8 intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + i * 100}ms`}>
-						<img src={speaker.avatar} alt={speaker.name} class="size-20 shrink-0 rounded-full object-cover" />
+					<div class={`intersect-once flex flex-col gap-6 rounded-lg border p-6 sm:flex-row lg:p-8 intersect:motion-preset-slide-up-sm ${linked ? 'group relative' : ''}`} style={`--motion-delay: ${200 + i * 100}ms`}>
+						<div class="size-20 shrink-0 overflow-hidden rounded-full">
+							<img src={speaker.avatar} alt={speaker.name} class={`size-20 rounded-full object-cover ${linked ? 'transition-transform duration-300 group-hover:scale-110' : ''}`} />
+						</div>
 						<div class="min-w-0">
-							<p class="text-xl font-bold text-pretty">{speaker.name}</p>
+							<p class="text-xl font-bold text-pretty">
+								{linked ? (
+									<a href={speaker.href}>
+										{speaker.name}
+										<span class="absolute inset-0" />
+									</a>
+								) : (
+									speaker.name
+								)}
+							</p>
 							<p class="text-foreground-muted">{speaker.role}</p>
 							{/* <p class="font-semibold text-accent">{speaker.company}</p> */}
 							{speaker.bio && <p class="mt-3 text-sm/normal text-foreground-muted">{speaker.bio}</p>}
@@ -59,15 +75,26 @@ const featured = count === 1
 					</div>
 				) : (
 					// Group — compact centred card
-					<div class="intersect-once flex flex-col items-center rounded-lg border p-6 text-center intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + i * 100}ms`}>
-						<img src={speaker.avatar} alt={speaker.name} class="mb-4 size-20 rounded-full object-cover" />
-						<p class="text-lg font-bold text-pretty">{speaker.name}</p>
+					<div class={`intersect-once flex flex-col items-center rounded-lg border p-6 text-center intersect:motion-preset-slide-up-sm ${linked ? 'group relative' : ''}`} style={`--motion-delay: ${200 + i * 100}ms`}>
+						<div class="mb-4 overflow-hidden rounded-full">
+							<img src={speaker.avatar} alt={speaker.name} class={`size-20 rounded-full object-cover ${linked ? 'transition-transform duration-300 group-hover:scale-110' : ''}`} />
+						</div>
+						<p class="text-lg font-bold text-pretty">
+							{linked ? (
+								<a href={speaker.href}>
+									{speaker.name}
+									<span class="absolute inset-0" />
+								</a>
+							) : (
+								speaker.name
+							)}
+						</p>
 						<p class="text-sm text-pretty text-foreground-muted">{speaker.role}</p>
 						{/* <p class="text-sm font-semibold text-accent">{speaker.company}</p> */}
 						{speaker.bio && <p class="mt-3 text-sm/normal text-foreground-muted">{speaker.bio}</p>}
 					</div>
-				),
-			)
+				)
+			})
 		}
 	</div>
 </div>

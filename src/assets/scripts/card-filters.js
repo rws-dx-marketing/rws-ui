@@ -82,6 +82,60 @@ export default function cardFilters() {
 	let currentPageSize = getPageSize(pageSizeSelect)
 	let visibleLimit = currentPageSize ?? Number.POSITIVE_INFINITY
 
+	// Segment toggle (e.g. upcoming / recorded). It's a single-select control that
+	// behaves like a filter: we inject its value as a required `status` filter so
+	// only cards tagged with the active segment show. Deliberately not synced to the
+	// URL — switching segment just updates the pills and cards in place.
+	// The active value is tracked here (not read from :checked) so keyboard selection
+	// doesn't race the view transition — same reasoning as pricing-content.js.
+	const segmentInputs = Array.from(document.querySelectorAll('[data-segment-input]'))
+	const segmentIndicator = document.querySelector('[data-segment-indicator]')
+	const defaultSegment = segmentInputs.find((input) => input.defaultChecked)?.value ?? segmentInputs[0]?.value ?? null
+	const segmentOrder = segmentInputs.map((input) => input.value)
+	const canVT = typeof document.startViewTransition === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	let activeSegment = defaultSegment
+
+	const getActiveSegment = () => activeSegment
+
+	// Slide the pill to the active label. Measured in JS (not pure CSS) so it stays
+	// aligned regardless of the two labels' differing widths.
+	const positionIndicator = () => {
+		if (!segmentIndicator) return
+		const label = segmentInputs.find((input) => input.value === activeSegment)?.closest('label')
+		if (!label) return
+		segmentIndicator.style.width = `${label.offsetWidth}px`
+		segmentIndicator.style.height = `${label.offsetHeight}px`
+		segmentIndicator.style.transform = `translate(${label.offsetLeft}px, ${label.offsetTop}px)`
+	}
+
+	// Commit a segment change and, unless reduced-motion, run it inside a view
+	// transition so the outgoing cards slide off and the incoming ones slide in.
+	// Reuses the .card-move keyframes + [data-segment-direction] rules from
+	// _pricing-content.css (global) — every events card is a card-move since none
+	// exists in both segments.
+	const setSegment = (value) => {
+		if (value === activeSegment || !segmentOrder.includes(value)) return
+		const input = segmentInputs.find((item) => item.value === value)
+		if (!input) return
+
+		const commit = () => {
+			input.checked = true
+			activeSegment = value
+			positionIndicator()
+			applyFilters({ resetVisibleLimit: true })
+		}
+
+		if (!canVT) {
+			commit()
+			return
+		}
+
+		const root = document.documentElement
+		root.dataset.segmentDirection = segmentOrder.indexOf(value) > segmentOrder.indexOf(activeSegment) ? 'forward' : 'back'
+		const transition = document.startViewTransition(commit)
+		transition.finished.finally(() => delete root.dataset.segmentDirection)
+	}
+
 	const applyFilters = ({ resetVisibleLimit = false } = {}) => {
 		currentPageSize = getPageSize(pageSizeSelect)
 		if (resetVisibleLimit) {
@@ -89,6 +143,9 @@ export default function cardFilters() {
 		}
 
 		const selectedValuesByFilter = getSelectedValuesByFilter(filtersRoot)
+		if (activeSegment) {
+			selectedValuesByFilter.set('status', [activeSegment])
+		}
 		const searchQuery = searchInput instanceof HTMLInputElement ? searchInput.value.trim().toLowerCase() : ''
 		const matchingCards = []
 
@@ -117,6 +174,19 @@ export default function cardFilters() {
 		input.addEventListener('change', () => applyFilters({ resetVisibleLimit: true }))
 	})
 
+	segmentInputs.forEach((input) => {
+		// Intercept the click so the native check doesn't change the DOM before the
+		// view transition captures the outgoing state.
+		input.addEventListener('click', (event) => {
+			if (input.value === activeSegment) return
+			event.preventDefault()
+			setSegment(input.value)
+		})
+		input.addEventListener('keyup', () => {
+			if (input.value !== activeSegment) setSegment(input.value)
+		})
+	})
+
 	if (searchInput instanceof HTMLInputElement) {
 		let debounceId = null
 		searchInput.addEventListener('input', () => {
@@ -141,8 +211,21 @@ export default function cardFilters() {
 	}
 
 	window.addEventListener('popstate', () => {
-		window.setTimeout(() => applyFilters({ resetVisibleLimit: true }), 0)
+		window.setTimeout(() => {
+			positionIndicator()
+			applyFilters({ resetVisibleLimit: true })
+		}, 0)
 	})
 
 	applyFilters({ resetVisibleLimit: true })
+
+	// Position the pill without animating it in from 0×0 on first paint.
+	if (segmentIndicator) {
+		segmentIndicator.style.transition = 'none'
+		positionIndicator()
+		requestAnimationFrame(() => {
+			segmentIndicator.style.transition = ''
+		})
+		window.addEventListener('resize', positionIndicator)
+	}
 }

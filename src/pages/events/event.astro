@@ -66,20 +66,21 @@ const speakers = [
 		company: 'RWS',
 		avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png',
 		bio: 'Christian partners with in-house IP counsel and law firms across the Western U.S. and Canada on patent search and analytics, foreign filing, IP translations, and portfolio support — including the prior-art and invalidity work that underpins contentious proceedings.',
+		href: '#',
 	},
 ]
 
 const speakersThree = [
-	{ name: 'Dr. Elena Marsh', role: 'Head of IP Strategy', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+	{ name: 'Dr. Elena Marsh', role: 'Head of IP Strategy', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', href: '#' },
 	{ name: 'James Okoro', role: 'Senior Litigation Counsel', company: 'Meridian Legal', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
-	{ name: 'Priya Nair', role: 'Director of Renewals', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+	{ name: 'Priya Nair', role: 'Director of Renewals', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', href: '#' },
 ]
 
-const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { name: 'Thomas Reeve', role: 'Partner, Patent Disputes', company: 'Reeve & Associates', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/neil-sims.png' }, { name: 'Sofia Almeida', role: 'Trade Secrets Counsel', company: 'Northlight IP', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/helene-engels.png' }]
+const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { name: 'Thomas Reeve', role: 'Partner, Patent Disputes', company: 'Reeve & Associates', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/neil-sims.png' }, { name: 'Sofia Almeida', role: 'Trade Secrets Counsel', company: 'Northlight IP', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/helene-engels.png', href: '#' }]
 ---
 
 <Layout title="Event – RWS UI">
-	<ResourceHero layout="wide-text" date="14–16 September 2026" location="Boston" title="IP North American Litigation Summit" description="We are excited to be a Solutions sponsor at the IP North American Litigation Summit, taking place in Boston on 14 September. The event brings together more than 500 in-house counsel, patent litigators and IP strategists to tackle complex challenges across pharma and biotech, technology and trade secrets. Find us at booth 3 to talk through your IP needs and see our latest innovations, tools and services designed to optimize every stage of the IP lifecycle." cta={{ href: '#', text: 'Register', external: true }} share={true} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
+	<ResourceHero layout="wide-text" date="14–16 September 2026" location="Boston" title="IP North American Litigation Summit" description="We are excited to be a Solutions sponsor at the IP North American Litigation Summit, taking place in Boston on 14 September. The event brings together more than 500 in-house counsel, patent litigators and IP strategists to tackle complex challenges across pharma and biotech, technology and trade secrets. Find us at booth 3 to talk through your IP needs and see our latest innovations, tools and services designed to optimize every stage of the IP lifecycle." cta={{ href: '#form', text: 'Register', external: false }} share={true} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
 
 	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
@@ -115,13 +116,16 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
 							</div>
 							<div>
-								<h4 class="mb-2 text-lg/tight font-semibold">Questions about the event?</h4>
+								<h4 class="mb-2 text-lg/tight font-semibold">Lorem ipsum dolor</h4>
 
 								<div class="prose mb-4 text-sm/normal text-foreground-muted">
-									<p>Our events team is happy to help with registration, travel and agenda queries.</p>
+									<p>Tenetur et nesciunt neque, asperiores dolorem repudian, tempora provident fugit?</p>
 								</div>
 
-								<a href="#form" class="btn btn-secondary btn-sm">Get in touch</a>
+								<a href="#form" class="btn btn-secondary btn-icon-right btn-sm">
+									Register
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -292,7 +296,7 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 	</section>
 
 	<!-- Call to action + form -->
-	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+	<section id="form" class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-7">
 				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">

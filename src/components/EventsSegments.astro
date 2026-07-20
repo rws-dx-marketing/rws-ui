@@ -1,0 +1,35 @@
+---
+// @ts-nocheck
+// In-place segment toggle for the events feed. It looks like the pricing/Tabs
+// pill switcher, but it is really a single-select filter: the radios drive the
+// `status` dimension in card-filters.js, swapping which cards are visible without
+// leaving the page. See docs/tabs-vs-pricing-segments.md — this is the
+// filtered-dataset model, not the Tabs-slot model (no separate URLs, no panels).
+//
+// The sliding indicator is positioned in JS (card-filters.js → positionIndicator):
+// it measures the active label and moves/sizes the pill to match, so it stays
+// aligned regardless of the two labels' differing widths.
+const {
+	segments = [
+		{ value: 'upcoming', label: 'Upcoming' },
+		{ value: 'recorded', label: 'Recorded' },
+	],
+	name = 'status',
+	defaultValue = 'upcoming',
+	label = 'Filter events by status',
+} = Astro.props
+---
+
+<div class="flex justify-center">
+	<fieldset role="radiogroup" aria-label={label} data-card-segment data-card class="group relative inline-flex w-full max-w-md rounded-full border p-1.5 sm:w-fit">
+		<span data-segment-indicator aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary shadow-xl transition-[transform,width,height] duration-300 ease-out motion-reduce:transition-none"></span>
+		{
+			segments.map((segment) => (
+				<label class="relative z-1 flex flex-1 cursor-pointer items-center justify-center rounded-full px-5 py-2.5 text-center text-sm font-semibold whitespace-nowrap text-foreground-muted transition-colors select-none has-[:checked]:text-white sm:text-base">
+					<input type="radio" name={name} value={segment.value} data-segment-input class="sr-only" checked={segment.value === defaultValue} />
+					<span>{segment.label}</span>
+				</label>
+			))
+		}
+	</fieldset>
+</div>

@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro'
 import FilterDropdown from '../../components/FilterDropdown.astro'
 import FilterOption from '../../components/FilterOption.astro'
+import EventsSegments from '../../components/EventsSegments.astro'
 import data from '../../data/events/filters.json'
 
 const cards = [
@@ -149,7 +150,108 @@ const cards = [
 			'region': ['singapore'],
 		},
 	},
+	// Recorded webinars — same feed, tagged as `recorded` so the segment toggle
+	// (see EventsSegments / card-filters.js) swaps them in place of the upcoming set.
+	{
+		image: '/images/placeholder-1.png',
+		type: 'Recorded webinar',
+		href: '/events/webinar/',
+		recorded: 'May 2026',
+		duration: '45 min',
+		name: 'Making AI work for you—from planning to compliance',
+		description: '<p>See how RWS and Congree embed GenAI directly into everyday content workflows, from planning through to terminology and compliance checks.</p>',
+		filters: {
+			'event-type': ['webinar', 'virtual-event'],
+			'product': ['language-weaver'],
+			'solution': ['language-platforms'],
+			'industry': ['technology-software'],
+			'region': ['united-kingdom'],
+		},
+	},
+	{
+		image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
+		type: 'Recorded webinar',
+		href: '/events/webinar/',
+		recorded: 'April 2026',
+		duration: '38 min',
+		name: 'Reducing hallucinations in enterprise GenAI',
+		description: '<p>A practical look at grounding large language models in trusted content so your AI answers accurately and stays on-brand.</p>',
+		filters: {
+			'event-type': ['webinar'],
+			'product': ['language-weaver'],
+			'solution': ['ai-data-services'],
+			'industry': ['technology-software'],
+			'region': ['united-states'],
+		},
+	},
+	{
+		image: '/images/placeholder-1.png',
+		type: 'Recorded webinar',
+		href: '/events/webinar/',
+		recorded: 'March 2026',
+		duration: '52 min',
+		name: 'Scaling regulated content in Life Sciences',
+		description: '<p>How life sciences teams keep regulated content compliant, accurate and on time across every market they operate in.</p>',
+		filters: {
+			'event-type': ['webinar', 'virtual-event'],
+			'product': ['tridion'],
+			'solution': ['ip-services'],
+			'industry': ['life-sciences'],
+			'region': ['germany'],
+		},
+	},
+
+	// {
+	// 	image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
+	// 	type: 'Recorded webinar',
+	// 	href: '/events/webinar/',
+	// 	recorded: 'February 2026',
+	// 	duration: '41 min',
+	// 	name: 'Building a multilingual AI knowledge base',
+	// 	description: '<p>Structuring, translating and maintaining knowledge so your AI answers correctly in every language your customers use.</p>',
+	// 	filters: {
+	// 		'event-type': ['webinar'],
+	// 		'product': ['fonto'],
+	// 		'solution': ['ai-data-services'],
+	// 		'industry': ['telecommunications-it-infrastructure'],
+	// 		'region': ['united-states'],
+	// 	},
+	// },
+	// {
+	// 	image: '/images/placeholder-1.png',
+	// 	type: 'Recorded webinar',
+	// 	href: '/events/webinar/',
+	// 	recorded: 'January 2026',
+	// 	duration: '47 min',
+	// 	name: 'Post-editing at scale: measuring MT quality',
+	// 	description: '<p>Metrics and workflows for managing machine translation post-editing across high-volume, multilingual programmes.</p>',
+	// 	filters: {
+	// 		'event-type': ['webinar'],
+	// 		'product': ['language-weaver'],
+	// 		'solution': ['language-platforms'],
+	// 		'industry': ['professional-services'],
+	// 		'region': ['france'],
+	// 	},
+	// },
+	// {
+	// 	image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
+	// 	type: 'Recorded webinar',
+	// 	href: '/events/webinar/',
+	// 	recorded: 'December 2025',
+	// 	duration: '35 min',
+	// 	name: 'Terminology management for consistent AI output',
+	// 	description: '<p>Why approved terminology is the foundation of trustworthy AI content — and how to operationalise it across teams.</p>',
+	// 	filters: {
+	// 		'event-type': ['webinar'],
+	// 		'product': ['trados'],
+	// 		'solution': ['language-expert-services'],
+	// 		'industry': ['manufacturing-industrial'],
+	// 		'region': ['united-kingdom'],
+	// 	},
+	// },
 ]
+
+const upcomingCount = cards.filter((card) => card.type !== 'Recorded webinar').length
 ---
 
 <Layout title="Events – RWS UI">
@@ -167,7 +269,12 @@ const cards = [
 				<p>Meet us in person or join online. Explore our upcoming events and webinars to see the latest in AI-powered language, content and IP solutions — and connect with the experts behind them.</p>
 			</div>
 
-			<form class="relative z-10 mt-20 -mb-6.25">
+			{/* In-place segment toggle. Presented as the pill switcher but drives the `status` filter in card-filters.js — swaps the feed without leaving the page. */}
+			<div class="mt-10">
+				<EventsSegments />
+			</div>
+
+			<form class="relative z-10 mt-10 -mb-6.25">
 				<div class="mx-auto flex max-w-2xl gap-3" style="anchor-name: --filters-bar">
 					<div class="grow">
 						<label for="search" class="sr-only mb-2.5 block text-sm">Search</label>
@@ -227,7 +334,7 @@ const cards = [
 	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<div class="flex justify-between">
-				<div class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{cards.length} results</div>
+				<div class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{upcomingCount} results</div>
 
 				<div class="flex items-center gap-4">
 					<div class="flex items-center gap-2">
@@ -261,36 +368,51 @@ const cards = [
 
 			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3">
 				{
-					cards.map((card) => (
-						<article class="group relative rounded-lg border text-left" data-card data-card-filters={JSON.stringify(card.filters)} data-card-search={`${card.name} ${card.type} ${card.location} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()}>
-							<div class="flex h-full flex-col">
-								<div class="p-4">
-									<div class="mb-5 block overflow-hidden rounded">
-										<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={card.image} alt={card.name} />
-									</div>
+					cards.map((card, index) => {
+						const isRecorded = card.type === 'Recorded webinar'
+						const status = isRecorded ? 'recorded' : 'upcoming'
+						const meta = isRecorded ? `Recorded ${card.recorded} · On demand` : `${card.date} · ${card.location}`
+						return (
+							<article class="group relative rounded-lg border text-left" data-card data-card-filters={JSON.stringify({ ...card.filters, status: [status] })} data-card-search={`${card.name} ${card.type} ${isRecorded ? 'recorded on demand' : card.location} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()} style={`view-transition-name:events-card-${index};view-transition-class:card-move`}>
+								<div class="flex h-full flex-col">
+									<div class="p-4">
+										<div class="mb-5 block overflow-hidden rounded">
+											<div class="relative">
+												<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={card.image} alt={card.name} />
+												<!-- {isRecorded && (
+													<span class="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-semibold text-white">
+														<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+															<path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27Z" fill="currentColor" />
+														</svg>
+														{card.duration}
+													</span>
+												)} -->
+											</div>
+										</div>
 
-									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{card.type}</span>
+										<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{card.type}</span>
 
-									<h2 class="mb-2 text-2xl font-bold">
-										<p>
-											<a href={card.href}>
-												{card.name}
-												<span class="absolute inset-0" />
-											</a>
-										</p>
-									</h2>
+										<h2 class="mb-2 text-2xl font-bold">
+											<p>
+												<a href={card.href}>
+													{card.name}
+													<span class="absolute inset-0" />
+												</a>
+											</p>
+										</h2>
 
-									<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
-										<span>{card.date} · {card.location}</span>
-									</div>
+										<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
+											<span>{meta}</span>
+										</div>
 
-									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-										<Fragment set:html={card.description} />
+										<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+											<Fragment set:html={card.description} />
+										</div>
 									</div>
 								</div>
-							</div>
-						</article>
-					))
+							</article>
+						)
+					})
 				}
 			</div>
 
