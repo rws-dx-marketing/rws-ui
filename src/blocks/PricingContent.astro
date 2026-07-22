@@ -3,134 +3,43 @@
 export interface Props {
 	// When set, the page is locked to a single audience segment: the segment
 	// picker is hidden and only that segment's products/columns are rendered.
-	lockSegment?: 'freelancers' | 'teams' | 'businesses'
+	// Accepts the segment's key or its sub-text (e.g. "LSPs & teams") — either is
+	// resolved to the derived key, so pages needn't know the slug format.
+	lockSegment?: string
 }
 const { lockSegment } = Astro.props
 
-// ── Audience segments (the radio group) ───────────────────────────────────
-const segments = [
-	{ key: 'freelancers', label: 'I translate', sub: 'Freelancers', icon: 'user', subtitle: 'For individual translators. 14 day risk-free trial.' },
-	{ key: 'teams', label: 'I sell translations', sub: 'LSPs & teams', icon: 'users', subtitle: 'Built for language service providers and translation teams who deliver for clients.' },
-	{ key: 'businesses', label: 'I need translation', sub: 'Businesses', icon: 'building', subtitle: 'For businesses and enterprises managing translation at scale, securely.' },
-]
-const DEFAULT_SEGMENT = lockSegment ?? 'teams'
+// ── Data ───────────────────────────────────────────────────────────────────
+// `segments` (the radio group) and `products` are derived from the CMS payload
+// in src/data/pricing.js. The backend emits pricing segment-first, with shared
+// products duplicated per segment; that module folds it back into this
+// product-keyed model so shared cards render once and morph between segments.
+import { segments, products, slugify } from '../data/pricing.js'
 
-// ── Products ───────────────────────────────────────────────────────────────
+// Resolve the locked segment to a real key: match by key first, else slugify
+// whatever was passed (so "LSPs & teams" and "lsps-and-teams" both work).
+const lockKey = lockSegment ? (segments.find((s) => s.key === lockSegment)?.key ?? slugify(lockSegment)) : undefined
+const DEFAULT_SEGMENT = lockKey ?? segments[Math.floor(segments.length / 2)]?.key
+
 // `order` fixes the DOM order so each segment's products stay contiguous and in
 // the right sequence once the others are hidden. Locked pages only render the
 // products that belong to that segment.
 const fullOrder = ['go', 'freelance', 'pro', 'team', 'business', 'enterprise', 'edge']
 
-const products = {
-	go: {
-		name: 'Trados Studio Go',
-		tag: 'Browser CAT tool',
-		segments: ['freelancers'],
-		priceType: 'billing',
-		price: { monthlyGbp: 27, annualGbp: 20, annualMonthlyGbp: 22.5, wasGbp: 24 },
-		desc: { freelancers: 'Quick to set up and reach from anywhere. The browser CAT tool with everything you need to stay productive on the move.' },
-		features: { freelancers: ['Browser-based — nothing to install', '1M cloud words per year', 'Translation memory & terminology', 'AI Smart Help & guided tours', '10+ AppStore apps'] },
-		ctas: [
-			{ label: 'Start free trial', primary: true },
-			{ label: 'Buy now', primary: false },
-		],
-		lw: { name: 'Language Weaver Pro', line: 'Add secure, generative machine translation — 6M characters included to start.' },
-	},
-	freelance: {
-		name: 'Trados Studio Freelance',
-		tag: 'Desktop + cloud',
-		segments: ['freelancers'],
-		popularIn: ['freelancers'],
-		priceType: 'billing',
-		price: { monthlyGbp: 38, annualGbp: 28.33, annualMonthlyGbp: 31.5 },
-		desc: { freelancers: 'Desktop and cloud in one. A complete professional environment with advanced features, flexibility and full control.' },
-		features: { freelancers: ['Desktop + browser working', 'Unlimited desktop throughput', 'MultiTerm terminology management', 'AI Assistant in the desktop app', '150+ AppStore apps'] },
-		ctas: [
-			{ label: 'Start free trial', primary: true },
-			{ label: 'Buy now', primary: false },
-		],
-		lw: { name: 'Language Weaver Pro', line: 'Add secure, generative machine translation — 6M characters included to start.' },
-	},
-	pro: {
-		name: 'Trados Studio Pro',
-		tag: 'Power-user desktop CAT',
-		segments: ['teams'],
-		priceType: 'none',
-		desc: { teams: 'The power-user desktop CAT tool — maximum productivity, deep customization and 150+ apps for high-volume professionals.' },
-		features: { teams: ['Everything in Freelance', 'Multi-user file handling', 'Advanced project automation', 'Full AppStore + API access', 'Server & GroupShare projects'] },
-		ctas: [
-			{ label: 'Start free trial', primary: true },
-			{ label: 'Buy now', primary: false },
-		],
-		lw: { name: 'Language Weaver Pro', line: 'Add secure generative MT to supercharge high-volume desktop productivity.' },
-	},
-	team: {
-		name: 'Trados Team',
-		tag: 'Cloud collaboration',
-		segments: ['teams', 'businesses'],
-		popularIn: ['teams'],
-		priceType: 'none',
-		desc: {
-			teams: 'Built for growing LSPs. Run client projects together in the cloud, protect quality with AI review, and keep small teams delivering on deadline.',
-			businesses: 'Built for in-house teams. Give everyone one place to translate company content together — shared memories and AI review, with no TMS to administer.',
-		},
-		features: {
-			teams: ['Shared client projects in the cloud', 'AI-powered review to protect margins', 'Assign roles across your team', 'Reusable TMs & termbases per client', 'Collaborate live on every delivery'],
-			businesses: ['One workspace for all company content', 'AI-powered review for brand consistency', 'Simple roles for staff & reviewers', 'Central TM & terminology for your brand', 'Collaborate with zero IT overhead'],
-		},
-		ctas: [
-			{ label: 'Start free trial', primary: true },
-			{ label: 'Buy now', primary: false },
-		],
-		lw: { name: 'Language Weaver Pro', line: 'Secure generative MT across every project your team runs.' },
-	},
-	business: {
-		name: 'Trados Business',
-		tag: 'Out-of-the-box TMS',
-		segments: ['teams', 'businesses'],
-		popularIn: ['businesses'],
-		priceType: 'none',
-		desc: {
-			teams: 'For language-service providers scaling up. An out-of-the-box TMS with vendor and freelancer management, automated client workflows and the reporting clients expect.',
-			businesses: 'For businesses bringing translation in-house. Automated workflows, dashboards and connectors plug Trados into the content your organization already produces.',
-		},
-		features: {
-			teams: ['Out-of-the-box TMS for LSPs', 'Manage vendors & freelance supply chain', 'Automate repeatable client workflows', 'Margin, cost & delivery dashboards', 'Connect to client content sources'],
-			businesses: ['Out-of-the-box TMS for your business', 'Automate internal translation requests', 'Dashboards for cost & turnaround', 'Connectors to your CMS & repositories', 'Manage internal & external linguists'],
-		},
-		ctas: [{ label: 'Speak to sales', primary: true }],
-		lw: { name: 'Language Weaver Pro', line: 'Enterprise-grade secure MT built into your workflows.' },
-	},
-	enterprise: {
-		name: 'Trados Enterprise',
-		tag: 'Fully customizable TMS',
-		segments: ['businesses'],
-		priceType: 'none',
-		desc: { businesses: 'A fully customizable TMS with SSO, advanced workflows and enterprise security for global content operations.' },
-		features: { businesses: ['Everything in Business', 'SSO & advanced security', 'Custom workflows & CPQ', 'Dedicated success team', 'Unlimited scale'] },
-		ctas: [{ label: 'Speak to sales', primary: true }],
-		lw: { name: 'Language Weaver Pro', line: 'Secure, adaptive MT at enterprise scale — fully governed and customizable.' },
-	},
-	edge: {
-		name: 'Trados Edge / GroupShare',
-		tag: 'On-prem & private cloud',
-		segments: ['businesses'],
-		priceType: 'none',
-		desc: { businesses: 'On-premises and private-cloud deployment for total data sovereignty and control.' },
-		features: { businesses: ['On-premises deployment', 'Full data sovereignty', 'Private-cloud option', 'Server-based collaboration', 'Air-gapped capable'] },
-		ctas: [{ label: 'Speak to sales', primary: true }],
-		lw: { name: 'Language Weaver Edge', line: 'On-premises machine translation for fully air-gapped, sovereign environments.' },
-	},
-}
+const order = lockKey ? fullOrder.filter((id) => products[id].segments.includes(lockKey)) : fullOrder
 
-const order = lockSegment ? fullOrder.filter((id) => products[id].segments.includes(lockSegment)) : fullOrder
+// Cards get a little roomier when the active segment has only a couple of them.
+// The count drives a --card-width variable (static CSS reads it); the script
+// updates it on segment switch. Rendered here so the first paint is correct.
+const activeCount = order.filter((id) => products[id].segments.includes(DEFAULT_SEGMENT)).length
+const cardWidth = activeCount <= 2 ? '20rem' : '17.375rem'
 
 // Tokens used by the segment show/hide CSS (a product can live in several segments).
 const segmentTokens = Object.fromEntries(order.map((id) => [id, products[id].segments.join(' ')]))
 
-// A card owns which segment(s) it's the popular one in (empty for most). The tab
-// control no longer needs to know — the script reads this off the card itself.
-const popularTokens = Object.fromEntries(order.map((id) => [id, (products[id].popularIn || []).join(' ')]))
+// A card owns which segment(s) it's the popular one in (empty for most) — read
+// off each segment's card via its CMS `productBadgeLabel`.
+const popularTokens = Object.fromEntries(order.map((id) => [id, products[id].segments.filter((s) => products[id].cards[s].productBadgeLabel === 'Most popular').join(' ')]))
 
 const splitName = (name) => (name.startsWith('Trados ') ? ['Trados', name.slice(7)] : ['', name])
 
@@ -238,7 +147,7 @@ const matrix = [
 	</div>
 </section>
 
-<div class="group" data-pricing data-active-segment={DEFAULT_SEGMENT} data-segment-order={segments.map((s) => s.key).join(' ')}>
+<div class="group" data-pricing data-active-segment={DEFAULT_SEGMENT} data-segment-order={segments.map((s) => s.key).join(' ')} style={`--card-width:${cardWidth}`}>
 	{
 		/* Segment control (radio group) — omitted on segment-locked pages, whose
 	     subtitle moved up into the hero above since there's no picker to sit under. */
@@ -306,9 +215,13 @@ const matrix = [
 				{
 					order.map((id) => {
 						const p = products[id]
-						const [brand, productName] = splitName(p.name)
+						const plan = p.base.pricingPlans?.[0]
+						const hasPricing = p.base.hasPricingPlans && plan
+						const ctas = p.base.annualCTA?.length ? p.base.annualCTA : p.base.monthlyCTA
+						const addon = p.base.productAddons?.[0]
+						const [brand, productName] = splitName(p.base.productTitle)
 						return (
-							<div class="flex w-full max-w-sm flex-col sm:w-[17.375rem] sm:max-w-none group-data-[active-segment=freelancers]:sm:w-80" data-product={id} data-segment data-segments={segmentTokens[id]} data-popular-in={popularTokens[id] || undefined} style={`view-transition-name:card-${id}`}>
+							<div class="flex w-full max-w-sm flex-col sm:max-w-none" data-product={id} data-segment data-segments={segmentTokens[id]} data-popular-in={popularTokens[id] || undefined} style={`view-transition-name:card-${id}`}>
 								<div data-card class="group/card relative flex w-full flex-1 flex-col rounded-lg border p-6 data-highlighted:glow-animate data-highlighted:border-accent">
 									<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
 										<svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -320,7 +233,7 @@ const matrix = [
 										Most popular
 									</span>
 
-									{p.priceType === 'billing' && (
+									{hasPricing && (
 										<div class="absolute top-4 right-4">
 											<button class="btn btn-outline btn-icon-both btn-xs w-full rounded-full bg-background px-2 font-bold tracking-wider text-foreground-subtle" id={`currency-button-${id}`} popovertarget={`currency-popover-${id}`} popovertargetaction="toggle" type="button" style={`anchor-name: --currency-anchor-${id};`}>
 												<span class="flex-1 text-left" data-currency-label>
@@ -351,7 +264,7 @@ const matrix = [
 										</div>
 									)}
 
-									<span class="-mt-0.5 text-xs font-bold tracking-wider text-primary uppercase">{p.tag}</span>
+									<span class="-mt-0.5 text-xs font-bold tracking-wider text-primary uppercase">{p.base.productTagline}</span>
 
 									<h3 class="mt-2 text-2xl font-bold tracking-tight">
 										<span>{brand}</span> <span class="text-secondary">{productName}</span>
@@ -359,7 +272,7 @@ const matrix = [
 
 									<hr class="my-4" />
 
-									{p.priceType === 'billing' && (
+									{hasPricing && (
 										<>
 											<div class="mb-3 flex items-center gap-2">
 												<div class="grid w-fit grid-cols-2 rounded-full border bg-foreground-softest p-0.5">
@@ -383,17 +296,17 @@ const matrix = [
 													<path d="M176.79,31.21c9.34,9.34,9.89,25.06,0,33.82C159.88,80,128,80,128,80s0-31.88,15-48.79C151.73,21.32,167.45,21.87,176.79,31.21Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
 													<path d="M79.21,31.21c-9.34,9.34-9.89,25.06,0,33.82C96.12,80,128,80,128,80s0-31.88-15-48.79C104.27,21.32,88.55,21.87,79.21,31.21Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
 												</svg>
-												2 months free with code PLFY26*
+												{p.base.annualRibbonText}
 											</div>
 
 											<div class="mb-4">
 												<div class="flex items-baseline gap-2">
-													<span data-was data-was-yearly={p.price.wasGbp ?? ''} data-was-monthly={p.price.monthlyGbp} hidden class="text-lg text-foreground-subtle line-through">
-														£{p.price.wasGbp ?? ''}
+													<span data-was data-was-yearly={plan.hasAnnualOfferPrice ? plan.annualPrice : ''} data-was-monthly={plan.monthlyPrice} hidden class="text-lg text-foreground-subtle line-through">
+														£{plan.hasAnnualOfferPrice ? plan.annualPrice : ''}
 													</span>
 
-													<span class="text-4xl font-bold tracking-tight" data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
-														£{p.price.annualGbp}
+													<span class="text-4xl font-bold tracking-tight" data-price data-monthly-gbp={plan.monthlyPrice} data-annual-gbp={plan.billedPrice} data-annual-monthly-gbp={plan.annualSaverPrice}>
+														£{plan.billedPrice}
 													</span>
 												</div>
 
@@ -432,7 +345,7 @@ const matrix = [
 
 									{p.segments.map((segment) => (
 										<p data-segment data-segments={segment} class="text-sm/relaxed text-pretty text-foreground-muted">
-											{p.desc[segment]}
+											{p.cards[segment].productDescription}
 										</p>
 									))}
 
@@ -440,7 +353,7 @@ const matrix = [
 
 									{p.segments.map((segment) => (
 										<ul data-segment data-segments={segment} role="list" class="flex flex-1 flex-col gap-3 text-left">
-											{p.features[segment].map((f) => (
+											{p.cards[segment].features.map((f) => (
 												<li class="flex items-start gap-2.5">
 													<span class="mt-0.25 flex size-4.5 shrink-0 items-center justify-center rounded-full bg-accent-softer text-accent">
 														<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
@@ -448,16 +361,16 @@ const matrix = [
 															<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
 														</svg>
 													</span>
-													<span class="text-sm/snug text-foreground-muted">{f}</span>
+													<span class="text-sm/snug text-foreground-muted">{f.featureTitle}</span>
 												</li>
 											))}
 										</ul>
 									))}
 
 									<div class="mt-5 flex flex-col gap-2.5">
-										{p.ctas.map((c) => (
-											<a href="#" class={`btn w-full text-sm ${c.primary ? 'btn-tertiary from-secondary to-tertiary bg-origin-border group-data-highlighted/card:bg-linear-to-br' : 'btn-outline'}`}>
-												{c.label}
+										{ctas.map((c, i) => (
+											<a href="#" class={`btn w-full text-sm ${i === 0 ? 'btn-tertiary from-secondary to-tertiary bg-origin-border group-data-highlighted/card:bg-linear-to-br' : 'btn-outline'}`}>
+												{c.text}
 											</a>
 										))}
 									</div>
@@ -485,10 +398,10 @@ const matrix = [
 														<path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z" />
 													</svg>
 												</span>
-												<span class="text-sm font-semibold text-tertiary">+ {p.lw.name}</span>
+												<span class="text-sm font-semibold text-tertiary">{addon.addonTitle}</span>
 												<span class="mt-1 ml-auto text-xs text-[0.625rem] font-bold tracking-wide text-accent-muted uppercase">Add-on</span>
 											</div>
-											<p class="mt-1.5 text-xs/snug text-pretty text-foreground-muted">{p.lw.line}</p>
+											<p class="mt-1.5 text-xs/snug text-pretty text-foreground-muted">{addon.addonDescription}</p>
 										</div>
 									</div>
 								</div>
@@ -529,12 +442,15 @@ const matrix = [
 				<div class="min-w-[56rem] overflow-clip rounded-lg border" data-accordion data-accordion-multi>
 					{/* Column header */}
 					<div class="sticky top-(--content-top) z-20 transition-[top] duration-300">
-						<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b bg-background/50 backdrop-blur group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] stuck:rounded-t-none">
+						<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b bg-background/50 backdrop-blur stuck:rounded-t-none">
 							<div></div>
 							{
 								order.map((id) => {
 									const p = products[id]
-									const [brand, productName] = splitName(p.name)
+									const [brand, productName] = splitName(p.base.productTitle)
+									const plan = p.base.pricingPlans?.[0]
+									const hasPricing = p.base.hasPricingPlans && plan
+									const cta = (p.base.annualCTA?.length ? p.base.annualCTA : p.base.monthlyCTA)[0]
 									return (
 										<div data-segment data-segments={segmentTokens[id]} class="flex flex-col items-center px-3 py-5 text-center">
 											<span class="text-base leading-tight font-semibold">
@@ -542,15 +458,14 @@ const matrix = [
 												<span class="text-secondary">{productName}</span>
 											</span>
 											<span class="mt-1 text-xs text-foreground-subtle">
-												{p.priceType === 'billing' && (
-													<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
-														£{p.price.annualGbp}
+												{hasPricing && (
+													<span data-price data-monthly-gbp={plan.monthlyPrice} data-annual-gbp={plan.billedPrice} data-annual-monthly-gbp={plan.annualSaverPrice}>
+														£{plan.billedPrice}
 													</span>
 												)}
-												{/* {p.priceType === 'none' && ' '} */}
 											</span>
 											<a href="#" class="btn btn-tertiary btn-xs mt-3 whitespace-nowrap">
-												{p.ctas[0].label}
+												{cta.text}
 											</a>
 										</div>
 									)
@@ -572,7 +487,7 @@ const matrix = [
 								</summary>
 								<div>
 									{sec.rows.map((r) => (
-										<div data-comparison class="grid border-b group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] group-last/sec:last:border-b-0">
+										<div data-comparison class="grid border-b group-last/sec:last:border-b-0">
 											<div class="flex items-center px-4 py-4 text-sm">
 												{r.tooltip ? (
 													<>

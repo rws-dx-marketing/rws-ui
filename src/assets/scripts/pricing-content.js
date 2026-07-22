@@ -65,6 +65,9 @@ export default function pricingContent() {
 		root.setAttribute('data-active-segment', segment)
 		const r = radios.find((r) => r.value === segment)
 		if (r) r.checked = true
+		// Roomier cards when the active segment has only a couple of products.
+		const count = root.querySelectorAll('[data-product][data-segments~="' + segment + '"]').length
+		root.style.setProperty('--card-width', count <= 2 ? '20rem' : '17.375rem')
 		applyPopular()
 		positionIndicator()
 	}

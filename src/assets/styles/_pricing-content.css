@@ -1,8 +1,27 @@
-/* Hides anything outside the active segment; a no-op on segment-locked pages since every rendered node already matches. */
+/* Hides anything outside the active segment. Enumerates the segment keys because
+   CSS can't test the container's active key against each card's data-segments
+   list; the keys mirror those derived from each segment's sub-text in pricing.js. */
 [data-pricing][data-active-segment='freelancers'] [data-segment]:not([data-segments~='freelancers']),
-[data-pricing][data-active-segment='teams'] [data-segment]:not([data-segments~='teams']),
+[data-pricing][data-active-segment='lsps-and-teams'] [data-segment]:not([data-segments~='lsps-and-teams']),
 [data-pricing][data-active-segment='businesses'] [data-segment]:not([data-segments~='businesses']) {
 	display: none !important;
+}
+
+/* Comparison columns size themselves to however many product cells are visible:
+   the label takes the fixed first column, each visible product flows into an auto
+   column, and hidden ones collapse — so the count follows the CMS with no JS. */
+[data-comparison] {
+	grid-auto-flow: column;
+	grid-template-columns: 16.5rem;
+	grid-auto-columns: minmax(10rem, 1fr);
+}
+
+/* Card width follows the active segment's product count via --card-width, set on
+   the container (initial value server-rendered, updated by the script on switch). */
+@media (min-width: 40rem) {
+	[data-pricing] [data-product] {
+		width: var(--card-width, 17.375rem);
+	}
 }
 
 /* Must be global — view-transition pseudo-elements target the document root, not the component.
