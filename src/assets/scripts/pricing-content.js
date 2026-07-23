@@ -1,10 +1,12 @@
+import { canViewTransition } from './motion'
+
 export default function pricingContent() {
 	const root = document.querySelector('[data-pricing]')
 	if (!root) return
 
 	const params = new URLSearchParams(location.search)
 	const SEGMENT_DEFAULT = root.getAttribute('data-active-segment') || 'teams'
-	const canVT = typeof document.startViewTransition === 'function' && !matchMedia('(prefers-reduced-motion: reduce)').matches
+	const canVT = canViewTransition()
 	const radios = Array.from(root.querySelectorAll('input[name="segment"]'))
 	// Segment-locked pages have no radios, so metadata falls back to data-locked-* on the root.
 	const segmentInput = (segment) => radios.find((r) => r.value === segment)

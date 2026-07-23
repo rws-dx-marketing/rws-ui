@@ -1,3 +1,5 @@
+import { canViewTransition } from './motion'
+
 // Every named element on the page (across all tab groups) gets pulled into any
 // view transition, so without this a transition triggered by one group visibly
 // reflows/animates every other group's panels too. Blanking their names before
@@ -9,7 +11,7 @@ function otherNamedElements(root) {
 }
 
 function initTabs(root) {
-	const canVT = () => typeof document.startViewTransition === 'function' && !matchMedia('(prefers-reduced-motion: reduce)').matches
+	const canVT = canViewTransition
 	const pill = root.querySelector('[data-tab-indicator]')
 	const fieldset = pill?.parentElement
 	// Scoped to the fieldset, not the whole root, so radios inside slotted panel content never get swept up.

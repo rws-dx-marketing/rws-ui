@@ -1,8 +1,10 @@
+import { reducedMotion } from './motion'
+
 export default function dots() {
 	if (typeof window === 'undefined') return
 
 	const sections = document.querySelectorAll('[data-theme="dots-enhanced"]')
-	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	const prefersReducedMotion = reducedMotion()
 
 	if (sections.length > 0 && !prefersReducedMotion) {
 		const SVG_NS = 'http://www.w3.org/2000/svg'

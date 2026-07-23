@@ -1,3 +1,5 @@
+import { canViewTransition } from './motion'
+
 function getSelectedValuesByFilter(filtersRoot) {
 	const selectedValuesByFilter = new Map()
 	const filters = filtersRoot.querySelectorAll('[data-filter]')
@@ -92,7 +94,7 @@ export default function cardFilters() {
 	const segmentIndicator = document.querySelector('[data-segment-indicator]')
 	const defaultSegment = segmentInputs.find((input) => input.defaultChecked)?.value ?? segmentInputs[0]?.value ?? null
 	const segmentOrder = segmentInputs.map((input) => input.value)
-	const canVT = typeof document.startViewTransition === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	const canVT = canViewTransition()
 	let activeSegment = defaultSegment
 
 	const getActiveSegment = () => activeSegment

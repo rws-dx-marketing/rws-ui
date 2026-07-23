@@ -1,3 +1,5 @@
+import { reducedMotion } from './motion'
+
 export default function countUp() {
 	const nodes = document.querySelectorAll('[data-count-up]')
 	if (!nodes.length) return
@@ -95,7 +97,7 @@ export default function countUp() {
 			})
 			.join('')
 
-	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	const prefersReducedMotion = reducedMotion()
 	const parseDelayMs = (element) => {
 		const inlineDelay = element.dataset.delay
 		if (inlineDelay) return Number(inlineDelay) || 0
