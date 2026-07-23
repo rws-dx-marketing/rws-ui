@@ -1,10 +1,14 @@
 ---
-const { variant = 1 } = Astro.props
+// Card — resource/service card in one of three named layout variants:
+//   'links'     — media, copy, action buttons + a resource-link footer
+//   'plain'     — no media, copy, hover tint + a service-link footer
+//   'clickable' — media, whole card is a single link, bulleted copy, no footer
+const { variant = 'links' } = Astro.props
 ---
 
 {
-	/* Variant 1: image + heading + copy + buttons + footer links */
-	variant === 1 && (
+	/* links: image + heading + copy + buttons + footer links */
+	variant === 'links' && (
 		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
 			<div class="group relative flex flex-1 flex-col">
 				<a href="#" class="block shrink-0 overflow-hidden">
@@ -14,7 +18,7 @@ const { variant = 1 } = Astro.props
 				<div class="flex flex-1 flex-col p-6">
 					<h3 class="mb-2 text-2xl font-bold">
 						<p>
-							<a href="#">This is the first variant</a>
+							<a href="#">This is the links variant</a>
 						</p>
 					</h3>
 
@@ -71,15 +75,15 @@ const { variant = 1 } = Astro.props
 }
 
 {
-	/* Variant 2: no image + heading + copy + footer links */
-	variant === 2 && (
+	/* plain: no image + heading + copy + footer links */
+	variant === 'plain' && (
 		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
 			<div class="group relative isolate flex flex-1 flex-col p-6">
 				<div class="flex flex-1 flex-col">
 					<h3 class="mb-2 text-2xl font-bold">
 						<p>
 							<a href="#">
-								This is the second variant that spans multiple lines
+								This is the plain variant that spans multiple lines
 								<span class="absolute inset-0" aria-hidden="true" />
 							</a>
 						</p>
@@ -127,8 +131,8 @@ const { variant = 1 } = Astro.props
 }
 
 {
-	/* Variant 3: image + whole-card clickable, footer excluded */
-	variant === 3 && (
+	/* clickable: image + whole-card clickable, footer excluded */
+	variant === 'clickable' && (
 		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
 			<div class="group relative isolate flex flex-1 flex-col">
 				<div class="shrink-0 overflow-hidden">
@@ -139,7 +143,7 @@ const { variant = 1 } = Astro.props
 					<h3 class="mb-2 text-2xl font-bold">
 						<p>
 							<a href="#">
-								This is the third variant
+								This is the clickable variant
 								<span class="absolute inset-0" aria-hidden="true" />
 							</a>
 						</p>

@@ -1,9 +1,49 @@
 ---
+// @ts-nocheck
 import Section from '../components/Section.astro'
 import Intro from '../components/Intro.astro'
 
 const { theme = 'pale', showIntro = true, ...intro } = Astro.props
-const cards = [1, 2]
+
+// Each post picks a footer style:
+//   author — whole card is clickable, byline footer
+//   button — image/title link, single "Read more" button
+//   split  — image/title link, two split buttons
+const posts = [
+	{
+		image: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png',
+		alt: 'office laptop working',
+		category: 'Article',
+		title: 'This is an article title',
+		href: '/resources/blog-1/',
+		excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.',
+		footer: { type: 'author', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png', name: 'Jese Leos', meta: 'Aug 15, 2021 • 16 min read' },
+	},
+	{
+		image: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/google-hq.png',
+		alt: 'Google HQ',
+		category: 'Article',
+		title: 'This is an article title',
+		href: '/resources/blog-2/',
+		excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor.',
+		footer: { type: 'button', label: 'Read more' },
+	},
+	{
+		image: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png',
+		alt: 'office laptops',
+		category: 'Article',
+		title: 'This is an article title that spans multiple lines',
+		href: '#',
+		excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.',
+		footer: {
+			type: 'split',
+			links: [
+				{ label: 'Button left', href: '#' },
+				{ label: 'Button right', href: '#' },
+			],
+		},
+	},
+]
 ---
 
 <Section theme={theme}>
@@ -11,106 +51,71 @@ const cards = [1, 2]
 
 	<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
 		{
-			cards.map((card) => (
-				<>
-					{/* Variant 1: full-card clickable + author info */}
-					<article class="group relative overflow-clip rounded-lg border text-left" data-card>
+			posts.map((post) => {
+				const clickable = post.footer.type === 'author'
+				return (
+					<article class:list={['rounded-lg border text-left', clickable && 'group relative overflow-clip']} data-card>
 						<div class="flex h-full flex-col">
 							<div class="p-4">
-								<div class="mb-5 block overflow-hidden rounded">
-									<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
-								</div>
+								{clickable ? (
+									<div class="mb-5 block overflow-hidden rounded">
+										<img class="aspect-video object-cover transition-transform group-hover:scale-110" src={post.image} alt={post.alt} />
+									</div>
+								) : (
+									<a href={post.href} class="mb-5 block overflow-hidden rounded">
+										<img class="aspect-video object-cover transition-transform hover:scale-110" src={post.image} alt={post.alt} />
+									</a>
+								)}
 
-								<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
+								<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> {post.category} </span>
 
 								<h2 class="mb-2 text-2xl font-bold">
 									<p>
-										<a href="/resources/blog-1/">
-											This is an article title
-											<span class="absolute inset-0" />
+										<a href={post.href}>
+											{post.title}
+											{clickable && <span class="absolute inset-0" />}
 										</a>
 									</p>
 								</h2>
 
 								<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
+									<p>{post.excerpt}</p>
 								</div>
 							</div>
 
-							<div class="mt-auto px-4 pb-4">
-								<div class="flex items-center space-x-4">
-									<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
-									<div>
-										<div class="font-semibold">Jese Leos</div>
-										<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>
+							{post.footer.type === 'author' && (
+								<div class="mt-auto px-4 pb-4">
+									<div class="flex items-center space-x-4">
+										<img class="h-10 w-10 rounded-full" src={post.footer.avatar} alt={`${post.footer.name} avatar`} />
+										<div>
+											<div class="font-semibold">{post.footer.name}</div>
+											<div class="text-sm text-foreground-muted">{post.footer.meta}</div>
+										</div>
 									</div>
 								</div>
-							</div>
-						</div>
-					</article>
+							)}
 
-					{/* Variant 2: image link + button */}
-					<article class="rounded-lg border text-left" data-card>
-						<div class="flex h-full flex-col">
-							<div class="p-4">
-								<a href="/resources/blog-1-legacy/" class="mb-5 block overflow-hidden rounded">
-									<img class="aspect-video object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/google-hq.png" alt="Google HQ" />
-								</a>
-
-								<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
-
-								<h2 class="mb-2 text-2xl font-bold">
-									<p>
-										<a href="/resources/blog-2/">This is an article title</a>
-									</p>
-								</h2>
-
-								<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor.</p>
+							{post.footer.type === 'button' && (
+								<div class="mt-auto px-4 pb-4">
+									<a href={post.href} class="btn btn-primary btn-sm">
+										{post.footer.label}
+									</a>
 								</div>
-							</div>
+							)}
 
-							<div class="mt-auto px-4 pb-4">
-								<a href="/resources/blog-2/" class="btn btn-primary btn-sm">
-									Read more
-								</a>
-							</div>
-						</div>
-					</article>
-
-					{/* Variant 3: image link + split buttons */}
-					<article class="rounded-lg border text-left" data-card>
-						<div class="flex h-full flex-col">
-							<div class="p-4">
-								<a href="/resources/blog-2/" class="mb-5 block overflow-hidden rounded">
-									<img class="aspect-video object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png" alt="office laptops" />
-								</a>
-
-								<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
-
-								<h2 class="mb-2 text-2xl font-bold">
-									<p>
-										<a href="#">This is an article title that spans multiple lines</a>
-									</p>
-								</h2>
-
-								<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
+							{post.footer.type === 'split' && (
+								<div class="mt-auto flex divide-x border-t">
+									{post.footer.links.map((link, i) => (
+										<a href={link.href} class:list={['btn btn-ghost btn-sm w-full rounded-none border-0 px-4 py-3', i === 0 ? 'rounded-bl-lg border-r' : 'rounded-br-lg']}>
+											{link.label}
+										</a>
+									))}
 								</div>
-							</div>
-
-							<div class="mt-auto flex divide-x border-t">
-								<a href="#" class="btn btn-ghost btn-sm w-full rounded-none rounded-bl-lg border-0 border-r px-4 py-3">
-									Button left
-								</a>
-								<a href="#" class="btn btn-ghost btn-sm w-full rounded-none rounded-br-lg border-0 px-4 py-3">
-									Button right
-								</a>
-							</div>
+							)}
 						</div>
 					</article>
-				</>
-			))
+				)
+			})
 		}
 	</div>
 </Section>

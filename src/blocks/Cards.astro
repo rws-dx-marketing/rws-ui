@@ -4,7 +4,7 @@ import Section from '../components/Section.astro'
 import Intro from '../components/Intro.astro'
 import Card from '../components/Card.astro'
 
-const { theme = 'default', showIntro = true, variants = [1, 2, 3], ...intro } = Astro.props
+const { theme = 'default', showIntro = true, variants = ['links', 'plain', 'clickable'], ...intro } = Astro.props
 ---
 
 <Section theme={theme}>
