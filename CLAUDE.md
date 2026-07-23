@@ -15,10 +15,11 @@ No test or lint scripts are configured.
 
 ## Stack
 
-- **Astro 6** — static site generator with file-based routing
+- **Astro 7** — static site generator with file-based routing
 - **Tailwind CSS 4** — utility-first styling via `@tailwindcss/vite` plugin (no `tailwind.config.js`)
-- **Flowbite 4** — pre-built UI component library
-- **ApexCharts** — for any chart/data visualization pages
+- **ApexCharts** — charts/data visualization (currently only `dashboard.astro`)
+
+Some markup began life as Flowbite templates (hence occasional `flowbite.s3.amazonaws.com` placeholder assets), but Flowbite is **not** a dependency — there is no Flowbite JS/CSS in the project.
 
 ## Architecture
 
@@ -26,9 +27,13 @@ No test or lint scripts are configured.
 File-based: every `.astro` file in `src/pages/` maps directly to a URL. Subdirectories create nested routes (e.g. `src/pages/resources/blog.astro` → `/resources/blog`).
 
 ### Component layers
-- `src/layouts/` — page wrappers (`Layout.astro` is the primary shell; `Trados.astro` for specific product pages). Import and wrap page content.
-- `src/blocks/` — full-width marketing sections (Hero, Features, Pricing, Testimonials, FAQ, etc.). These are composited inside pages.
-- `src/components/` — smaller reusable elements (Header, Footer, forms, dropdowns).
+- `src/layouts/` — page wrappers. `Layout.astro` is the single shell (real Header, SecondaryNav, client scripts); import and wrap page content.
+- `src/blocks/` — full-width marketing sections (Hero, Features, Pricing, Testimonials, etc.). These are composited inside pages.
+- `src/components/` — smaller reusable elements (Header, forms, dropdowns) plus the shared section primitives:
+  - `Section.astro` — section wrapper: `theme` + vertical `spacing` (from `utils/spacing`) + centred container.
+  - `Intro.astro` — the "subheading + heading + copy" lede; prop-driven with placeholder fallbacks.
+  - `Heading.astro` — heading with responsive `size` presets from `utils/heading-size`.
+  - Prefer these over re-declaring the section/intro markup inline. Blocks take `theme`, `showIntro`, and pass remaining props through to `Intro`.
 
 ### Styles
 Global CSS lives in `src/assets/styles/global.css` and imports Tailwind. Tailwind 4 is configured inline via CSS `@theme` directives rather than a separate config file.
@@ -37,7 +42,8 @@ Global CSS lives in `src/assets/styles/global.css` and imports Tailwind. Tailwin
 Scripts in `src/assets/scripts/` are loaded with `<script>` tags in layouts or components:
 - `theme.client.js` — dark mode toggle, persisted to `localStorage`
 - `secondary-nav.js` — resolves active secondary nav items from current pathname
-- Other scripts handle count-up animations, card filters, dropdown filters, and button magnet effects
+- Other scripts handle count-up animations, card filters, and dropdown filters
+- All modules are wired through `init.client.js`; `theme.client.js` runs standalone
 
 Animations use Tailwind Motion's `intersect:motion-preset-*` classes with `intersect-once` — they trigger once when elements enter the viewport via IntersectionObserver.
 
@@ -46,6 +52,9 @@ Static data (e.g. partner lists) lives in `src/data/` as JS/TS modules and is im
 
 ### Theming
 Components accept `data-theme` attributes to switch between visual variants.
+
+### Conventions
+- **Avoid TypeScript types.** Components use `// @ts-nocheck` and plain destructured props with defaults rather than `interface Props`/typed generics. Keep types minimal.
 
 ## Project context
 
