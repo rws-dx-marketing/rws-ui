@@ -1,9 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import FilterDropdown from '../../components/FilterDropdown.astro'
-import FilterOption from '../../components/FilterOption.astro'
-import EventsSegments from '../../components/EventsSegments.astro'
-import data from '../../data/events/filters.json'
+import EventsFeed from '../../blocks/EventsFeed.astro'
 
 const cards = [
 	{
@@ -23,22 +20,6 @@ const cards = [
 		},
 	},
 	{
-		image: '/images/placeholder-1.png',
-		type: 'Webinar',
-		href: '/events/webinar/',
-		date: '2 October 2026',
-		location: 'Online',
-		name: 'Accelerating the content lifecycle with GenAI',
-		description: '<p>See how RWS and Congree turn GenAI from a one-off experiment into a repeatable, measurable part of content operations.</p>',
-		filters: {
-			'event-type': ['webinar', 'virtual-event'],
-			'product': ['language-weaver'],
-			'solution': ['language-platforms'],
-			'industry': ['technology-software'],
-			'region': ['united-kingdom'],
-		},
-	},
-	{
 		image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
 		type: 'Conference',
 		href: '/events/event/',
@@ -52,22 +33,6 @@ const cards = [
 			'solution': ['intelligent-knowledge-platforms'],
 			'industry': ['media-entertainment'],
 			'region': ['united-kingdom'],
-		},
-	},
-	{
-		image: '/images/placeholder-1.png',
-		type: 'Virtual event',
-		href: '/events/webinar/',
-		date: '5 November 2026',
-		location: 'Online',
-		name: 'The future of regulated content in Life Sciences',
-		description: '<p>A virtual session exploring how life sciences teams keep regulated content compliant, accurate and on time across markets.</p>',
-		filters: {
-			'event-type': ['virtual-event', 'webinar'],
-			'product': ['tridion'],
-			'solution': ['ip-services'],
-			'industry': ['life-sciences'],
-			'region': ['germany'],
 		},
 	},
 	{
@@ -87,22 +52,6 @@ const cards = [
 		},
 	},
 	{
-		image: '/images/placeholder-1.png',
-		type: 'Webinar',
-		href: '/events/webinar/',
-		date: '3 December 2026',
-		location: 'Online',
-		name: 'Building a multilingual AI knowledge base',
-		description: '<p>An on-demand webinar on structuring, translating and maintaining knowledge so your AI answers correctly in every language.</p>',
-		filters: {
-			'event-type': ['webinar', 'virtual-event'],
-			'product': ['fonto'],
-			'solution': ['ai-data-services'],
-			'industry': ['telecommunications-it-infrastructure'],
-			'region': ['united-states'],
-		},
-	},
-	{
 		image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
 		type: 'In-person event',
 		href: '/events/event/',
@@ -119,19 +68,17 @@ const cards = [
 		},
 	},
 	{
-		image: '/images/placeholder-1.png',
-		type: 'Webinar',
-		href: '/events/webinar/',
-		date: '28 January 2027',
+		image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
+		type: 'Virtual event',
+		href: '/events/event/',
+		date: '5 November 2026',
 		location: 'Online',
-		name: 'Post-editing at scale: measuring MT quality',
-		description: '<p>Practical metrics and workflows for managing machine translation post-editing across high-volume, multilingual programmes.</p>',
+		name: 'The future of regulated content in Life Sciences',
+		description: '<p>A virtual session exploring how life sciences teams keep regulated content compliant, accurate and on time across markets.</p>',
 		filters: {
-			'event-type': ['webinar', 'virtual-event'],
-			'product': ['language-weaver'],
-			'solution': ['language-platforms'],
-			'industry': ['professional-services'],
-			'region': ['france'],
+			product: ['tridion'],
+			solution: ['ip-services'],
+			industry: ['life-sciences'],
 		},
 	},
 	{
@@ -150,280 +97,9 @@ const cards = [
 			'region': ['singapore'],
 		},
 	},
-	// Recorded webinars — same feed, tagged as `recorded` so the segment toggle
-	// (see EventsSegments / card-filters.js) swaps them in place of the upcoming set.
-	{
-		image: '/images/placeholder-1.png',
-		type: 'Recorded webinar',
-		href: '/events/webinar/',
-		recorded: 'May 2026',
-		duration: '45 min',
-		name: 'Making AI work for you—from planning to compliance',
-		description: '<p>See how RWS and Congree embed GenAI directly into everyday content workflows, from planning through to terminology and compliance checks.</p>',
-		filters: {
-			'event-type': ['webinar', 'virtual-event'],
-			'product': ['language-weaver'],
-			'solution': ['language-platforms'],
-			'industry': ['technology-software'],
-			'region': ['united-kingdom'],
-		},
-	},
-	{
-		image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
-		type: 'Recorded webinar',
-		href: '/events/webinar/',
-		recorded: 'April 2026',
-		duration: '38 min',
-		name: 'Reducing hallucinations in enterprise GenAI',
-		description: '<p>A practical look at grounding large language models in trusted content so your AI answers accurately and stays on-brand.</p>',
-		filters: {
-			'event-type': ['webinar'],
-			'product': ['language-weaver'],
-			'solution': ['ai-data-services'],
-			'industry': ['technology-software'],
-			'region': ['united-states'],
-		},
-	},
-	{
-		image: '/images/placeholder-1.png',
-		type: 'Recorded webinar',
-		href: '/events/webinar/',
-		recorded: 'March 2026',
-		duration: '52 min',
-		name: 'Scaling regulated content in Life Sciences',
-		description: '<p>How life sciences teams keep regulated content compliant, accurate and on time across every market they operate in.</p>',
-		filters: {
-			'event-type': ['webinar', 'virtual-event'],
-			'product': ['tridion'],
-			'solution': ['ip-services'],
-			'industry': ['life-sciences'],
-			'region': ['germany'],
-		},
-	},
-
-	// {
-	// 	image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
-	// 	type: 'Recorded webinar',
-	// 	href: '/events/webinar/',
-	// 	recorded: 'February 2026',
-	// 	duration: '41 min',
-	// 	name: 'Building a multilingual AI knowledge base',
-	// 	description: '<p>Structuring, translating and maintaining knowledge so your AI answers correctly in every language your customers use.</p>',
-	// 	filters: {
-	// 		'event-type': ['webinar'],
-	// 		'product': ['fonto'],
-	// 		'solution': ['ai-data-services'],
-	// 		'industry': ['telecommunications-it-infrastructure'],
-	// 		'region': ['united-states'],
-	// 	},
-	// },
-	// {
-	// 	image: '/images/placeholder-1.png',
-	// 	type: 'Recorded webinar',
-	// 	href: '/events/webinar/',
-	// 	recorded: 'January 2026',
-	// 	duration: '47 min',
-	// 	name: 'Post-editing at scale: measuring MT quality',
-	// 	description: '<p>Metrics and workflows for managing machine translation post-editing across high-volume, multilingual programmes.</p>',
-	// 	filters: {
-	// 		'event-type': ['webinar'],
-	// 		'product': ['language-weaver'],
-	// 		'solution': ['language-platforms'],
-	// 		'industry': ['professional-services'],
-	// 		'region': ['france'],
-	// 	},
-	// },
-	// {
-	// 	image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
-	// 	type: 'Recorded webinar',
-	// 	href: '/events/webinar/',
-	// 	recorded: 'December 2025',
-	// 	duration: '35 min',
-	// 	name: 'Terminology management for consistent AI output',
-	// 	description: '<p>Why approved terminology is the foundation of trustworthy AI content — and how to operationalise it across teams.</p>',
-	// 	filters: {
-	// 		'event-type': ['webinar'],
-	// 		'product': ['trados'],
-	// 		'solution': ['language-expert-services'],
-	// 		'industry': ['manufacturing-industrial'],
-	// 		'region': ['united-kingdom'],
-	// 	},
-	// },
 ]
-
-const upcomingCount = cards.filter((card) => card.type !== 'Recorded webinar').length
 ---
 
 <Layout title="Events – RWS UI">
-	<section class="pt-20 pb-0 md:pt-24 lg:pt-32" data-theme="default">
-		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-			<div hidden class="mb-3 font-bold text-foreground-muted xl:text-lg">
-				<p>Live and virtual</p>
-			</div>
-
-			<h1 class="mx-auto mb-5 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
-				<p>Events</p>
-			</h1>
-
-			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
-				<p>Meet us in person or join online. Explore our upcoming events and webinars to see the latest in AI-powered language, content and IP solutions — and connect with the experts behind them.</p>
-			</div>
-
-			{/* In-place segment toggle. Presented as the pill switcher but drives the `status` filter in card-filters.js — swaps the feed without leaving the page. */}
-			<div class="mt-10">
-				<EventsSegments />
-			</div>
-
-			<form class="relative z-10 mt-10 -mb-6.25">
-				<div class="mx-auto flex max-w-2xl gap-3" style="anchor-name: --filters-bar">
-					<div class="grow">
-						<label for="search" class="sr-only mb-2.5 block text-sm">Search</label>
-
-						<div class="relative">
-							<div class="rounded-full bg-background">
-								<input type="search" id="search" name="q" data-filters-search class="input input-search input-lg pr-11 pl-5" placeholder="Search" />
-							</div>
-
-							<div class="pointer-events-none absolute top-1/2 right-4 flex -translate-y-1/2 items-center">
-								<button type="button" class="svg-current size-5 opacity-50" tabindex="-1" data-search-icon>
-									<span class="sr-only">Search</span>
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-								</button>
-
-								<button type="button" class="svg-current pointer-events-auto size-5" tabindex="-1" data-search-clear hidden>
-									<span class="sr-only">Clear search</span>
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-								</button>
-							</div>
-						</div>
-					</div>
-
-					<button type="button" class="btn btn-primary btn-lg size-12.5 gap-2 sm:size-auto" popovertarget="filter-popover" popovertargetaction="toggle" data-popover-toggle-icon>
-						<span class="hidden sm:block">Filters</span>
-						<span data-icon-closed>
-							<svg class="mt-0.5 size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-						</span>
-						<span data-icon-open hidden>
-							<svg class="mt-0.5 size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-						</span>
-					</button>
-				</div>
-
-				<div id="filter-popover" popover="auto" class="dropdown top-[calc(anchor(bottom)+0.75rem)]! z-10 w-[calc(100%+2rem)] max-w-3xl bg-transparent" style="position-anchor: --filters-bar; position-area: bottom center; position-try: none;">
-					<div class="grid gap-3 rounded-lg border p-4 text-left shadow-lg sm:grid-cols-2 md:grid-cols-3" data-filters data-theme="default">
-						{
-							data.map((filter) => (
-								<FilterDropdown filterId={filter.id} label={filter.label}>
-									{(filter.optionGroups ?? [{ options: filter.options ?? [] }]).map((group, groupIndex) => (
-										<>
-											{group.label ? <li class="px-2 pb-1 text-2xs font-bold tracking-widest text-foreground-subtle uppercase not-first:pt-3 first:pt-1.5">{group.label}</li> : null}
-											{group.options.map((option) => (
-												<FilterOption id={`${filter.id}-${groupIndex}-${option.value}`} type={filter.inputType} name={filter.id} value={option.value} label={option.label} />
-											))}
-										</>
-									))}
-								</FilterDropdown>
-							))
-						}
-					</div>
-				</div>
-			</form>
-		</div>
-	</section>
-
-	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
-		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-			<div class="flex justify-between">
-				<div class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{upcomingCount} results</div>
-
-				<div class="flex items-center gap-4">
-					<div class="flex items-center gap-2">
-						<span class="shrink-0 text-sm text-foreground-subtle">Sort by</span>
-						<select name="sort-by" class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-4 text-sm focus:ring-0">
-							<option value="most-recent">Most recent</option>
-							<option value="oldest-first">Oldest first</option>
-							<option value="alphabetical">Alphabetical</option>
-							<option value="most-popular">Most popular</option>
-						</select>
-					</div>
-
-					<div class="flex items-center gap-2">
-						<label for="items-per-page" class="shrink-0 text-sm text-foreground-subtle">Show</label>
-						<select id="items-per-page" name="items-per-page" data-card-page-size class="input input-select bg-position-[right_0.25em_center]- px-2- py-1- rounded-none border-none bg-transparent bg-right p-0 pr-5 text-sm focus:ring-0">
-							<option value="3" selected>3</option>
-							<option value="6">6</option>
-							<option value="9">9</option>
-						</select>
-					</div>
-				</div>
-			</div>
-
-			<div class="mt-8 flex flex-wrap gap-2" data-filters-selected hidden>
-				<button type="button" class="btn btn-tertiary btn-icon-right btn-sm" data-filters-chip-template hidden>
-					<span data-filters-chip-label>Selected filter</span>
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
-				</button>
-				<button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" data-filters-clear-all>Clear all</button>
-			</div>
-
-			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3">
-				{
-					cards.map((card, index) => {
-						const isRecorded = card.type === 'Recorded webinar'
-						const status = isRecorded ? 'recorded' : 'upcoming'
-						const meta = isRecorded ? `Recorded ${card.recorded} · On demand` : `${card.date} · ${card.location}`
-						return (
-							<article class="group relative rounded-lg border text-left" data-card data-card-filters={JSON.stringify({ ...card.filters, status: [status] })} data-card-search={`${card.name} ${card.type} ${isRecorded ? 'recorded on demand' : card.location} ${card.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()} style={`view-transition-name:events-card-${index};view-transition-class:card-move`}>
-								<div class="flex h-full flex-col">
-									<div class="p-4">
-										<div class="mb-5 block overflow-hidden rounded">
-											<div class="relative">
-												<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={card.image} alt={card.name} />
-												<!-- {isRecorded && (
-													<span class="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-semibold text-white">
-														<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-															<path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27Z" fill="currentColor" />
-														</svg>
-														{card.duration}
-													</span>
-												)} -->
-											</div>
-										</div>
-
-										<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{card.type}</span>
-
-										<h2 class="mb-2 text-2xl font-bold">
-											<p>
-												<a href={card.href}>
-													{card.name}
-													<span class="absolute inset-0" />
-												</a>
-											</p>
-										</h2>
-
-										<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
-											<span>{meta}</span>
-										</div>
-
-										<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-											<Fragment set:html={card.description} />
-										</div>
-									</div>
-								</div>
-							</article>
-						)
-					})
-				}
-			</div>
-
-			<div class="mt-12 text-center">
-				<button type="button" class="btn btn-secondary" data-card-load-more hidden>Load more</button>
-			</div>
-
-			<div class="mt-12 pt-12 pb-24 text-center" data-card-empty-state hidden>
-				<p class="text-2xl font-bold">No events found</p>
-				<p class="mt-2 text-xl text-foreground-muted">Try removing a filter or search for a different term.</p>
-			</div>
-		</div>
-	</section>
+	<EventsFeed title="Events" description="Meet us in person. Explore our upcoming conferences, summits and trade shows to see the latest in AI-powered language, content and IP solutions — and connect with the experts behind them." active="events" cards={cards} filterIds={['event-type', 'product', 'solution', 'industry', 'region']} />
 </Layout>

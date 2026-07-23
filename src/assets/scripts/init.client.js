@@ -13,6 +13,7 @@ import postNav from './post-nav'
 import invokerCommandsPolyfill from './invoker-commands-polyfill'
 import pricingContent from './pricing-content'
 import tabs from './tabs'
+import timezoneSelect from './timezone-select'
 import animation from './animation'
 
 if (typeof window !== 'undefined') {
@@ -41,6 +42,7 @@ if (typeof window !== 'undefined') {
 		postNav()
 		pricingContent()
 		tabs()
+		timezoneSelect()
 		animation()
 	})
 }
