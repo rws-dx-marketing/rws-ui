@@ -1,0 +1,44 @@
+export const recorded = [
+	{
+		image: '/images/placeholder-1.png',
+		type: 'Recorded webinar',
+		href: '/events/webinar/',
+		recorded: 'May 2026',
+		duration: '45 min',
+		name: 'Making AI work for you—from planning to compliance',
+		description: '<p>See how RWS and Congree embed GenAI directly into everyday content workflows, from planning through to terminology and compliance checks.</p>',
+		filters: {
+			product: ['language-weaver'],
+			solution: ['language-platforms'],
+			industry: ['technology-software'],
+		},
+	},
+	{
+		image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
+		type: 'Recorded webinar',
+		href: '/events/webinar/',
+		recorded: 'April 2026',
+		duration: '38 min',
+		name: 'Reducing hallucinations in enterprise GenAI',
+		description: '<p>A practical look at grounding large language models in trusted content so your AI answers accurately and stays on-brand.</p>',
+		filters: {
+			product: ['language-weaver'],
+			solution: ['ai-data-services'],
+			industry: ['technology-software'],
+		},
+	},
+	{
+		image: '/images/placeholder-1.png',
+		type: 'Recorded webinar',
+		href: '/events/webinar/',
+		recorded: 'March 2026',
+		duration: '52 min',
+		name: 'Scaling regulated content in Life Sciences',
+		description: '<p>How life sciences teams keep regulated content compliant, accurate and on time across every market they operate in.</p>',
+		filters: {
+			product: ['tridion'],
+			solution: ['ip-services'],
+			industry: ['life-sciences'],
+		},
+	},
+]
