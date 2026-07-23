@@ -1,4 +1,4 @@
-import { canViewTransition } from './motion'
+import { segmentedControl } from './segmented-control'
 
 export default function pricingContent() {
 	const root = document.querySelector('[data-pricing]')
@@ -6,7 +6,6 @@ export default function pricingContent() {
 
 	const params = new URLSearchParams(location.search)
 	const SEGMENT_DEFAULT = root.getAttribute('data-active-segment') || 'teams'
-	const canVT = canViewTransition()
 	const radios = Array.from(root.querySelectorAll('input[name="segment"]'))
 	// Segment-locked pages have no radios, so metadata falls back to data-locked-* on the root.
 	const segmentInput = (segment) => radios.find((r) => r.value === segment)
@@ -85,40 +84,20 @@ export default function pricingContent() {
 		})
 	}
 
-	function setSegment(segment) {
-		const cur = activeSegment()
-		if (segment === cur || !isSegment(segment)) return
-		if (!canVT) {
-			applySegment(segment)
-			return
-		}
-		const el = document.documentElement
-		el.dataset.segmentDirection = segmentOrder.indexOf(segment) > segmentOrder.indexOf(cur) ? 'forward' : 'back'
-		tagCards(cur, segment)
-		const t = document.startViewTransition(() => applySegment(segment))
-		t.finished.finally(() => delete el.dataset.segmentDirection)
-	}
-
-	radios.forEach((radio) => {
-		radio.addEventListener('click', (e) => {
-			if (radio.value === activeSegment()) return
-			e.preventDefault()
-			setSegment(radio.value)
-		})
-		radio.addEventListener('keyup', () => {
-			if (radio.checked) setSegment(radio.value)
-		})
-	})
-
-	// Suppress the pill's transition so it doesn't animate in on first paint.
-	if (pill) pill.style.transition = 'none'
 	const initSegment = params.get('segment')
-	applySegment(initSegment && isSegment(initSegment) ? initSegment : activeSegment())
-	requestAnimationFrame(() => {
-		positionIndicator()
-		if (pill) pill.style.transition = ''
+	segmentedControl({
+		inputs: radios,
+		indicator: pill,
+		directionAttr: 'segmentDirection',
+		order: segmentOrder,
+		getActive: activeSegment,
+		apply: applySegment,
+		position: positionIndicator,
+		// A card in both segments morphs between its slots; one that only exists on
+		// one side slides in/out. No restore needed — the class is reset next change.
+		prepare: (cur, next) => tagCards(cur, next),
+		init: () => applySegment(initSegment && isSegment(initSegment) ? initSegment : activeSegment()),
 	})
-	addEventListener('resize', positionIndicator)
 
 	// ── Billing + currency (priced plans only) ──────────────────────────────
 	const rates = { GBP: { sym: '£', rate: 1 }, USD: { sym: '$', rate: 1.27 }, EUR: { sym: '€', rate: 1.17 } }

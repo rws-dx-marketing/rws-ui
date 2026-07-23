@@ -1,4 +1,4 @@
-import { canViewTransition } from './motion'
+import { segmentedControl } from './segmented-control'
 
 function getSelectedValuesByFilter(filtersRoot) {
 	const selectedValuesByFilter = new Map()
@@ -94,7 +94,6 @@ export default function cardFilters() {
 	const segmentIndicator = document.querySelector('[data-segment-indicator]')
 	const defaultSegment = segmentInputs.find((input) => input.defaultChecked)?.value ?? segmentInputs[0]?.value ?? null
 	const segmentOrder = segmentInputs.map((input) => input.value)
-	const canVT = canViewTransition()
 	let activeSegment = defaultSegment
 
 	const getActiveSegment = () => activeSegment
@@ -110,32 +109,17 @@ export default function cardFilters() {
 		segmentIndicator.style.transform = `translate(${label.offsetLeft}px, ${label.offsetTop}px)`
 	}
 
-	// Commit a segment change and, unless reduced-motion, run it inside a view
-	// transition so the outgoing cards slide off and the incoming ones slide in.
-	// Reuses the .card-move keyframes + [data-segment-direction] rules from
-	// _pricing-content.css (global) — every events card is a card-move since none
-	// exists in both segments.
-	const setSegment = (value) => {
-		if (value === activeSegment || !segmentOrder.includes(value)) return
+	// Commit a segment change. The view-transition + [data-segment-direction]
+	// handling lives in the shared segmentedControl primitive; this just performs
+	// the DOM update. Reuses the .card-move keyframes + [data-segment-direction]
+	// rules from _pricing-content.css (global) — every events card is a card-move
+	// since none exists in both segments.
+	const applySegment = (value) => {
 		const input = segmentInputs.find((item) => item.value === value)
-		if (!input) return
-
-		const commit = () => {
-			input.checked = true
-			activeSegment = value
-			positionIndicator()
-			applyFilters({ resetVisibleLimit: true })
-		}
-
-		if (!canVT) {
-			commit()
-			return
-		}
-
-		const root = document.documentElement
-		root.dataset.segmentDirection = segmentOrder.indexOf(value) > segmentOrder.indexOf(activeSegment) ? 'forward' : 'back'
-		const transition = document.startViewTransition(commit)
-		transition.finished.finally(() => delete root.dataset.segmentDirection)
+		if (input) input.checked = true
+		activeSegment = value
+		positionIndicator()
+		applyFilters({ resetVisibleLimit: true })
 	}
 
 	const applyFilters = ({ resetVisibleLimit = false } = {}) => {
@@ -176,19 +160,6 @@ export default function cardFilters() {
 		input.addEventListener('change', () => applyFilters({ resetVisibleLimit: true }))
 	})
 
-	segmentInputs.forEach((input) => {
-		// Intercept the click so the native check doesn't change the DOM before the
-		// view transition captures the outgoing state.
-		input.addEventListener('click', (event) => {
-			if (input.value === activeSegment) return
-			event.preventDefault()
-			setSegment(input.value)
-		})
-		input.addEventListener('keyup', () => {
-			if (input.value !== activeSegment) setSegment(input.value)
-		})
-	})
-
 	if (searchInput instanceof HTMLInputElement) {
 		let debounceId = null
 		searchInput.addEventListener('input', () => {
@@ -221,13 +192,14 @@ export default function cardFilters() {
 
 	applyFilters({ resetVisibleLimit: true })
 
-	// Position the pill without animating it in from 0×0 on first paint.
-	if (segmentIndicator) {
-		segmentIndicator.style.transition = 'none'
-		positionIndicator()
-		requestAnimationFrame(() => {
-			segmentIndicator.style.transition = ''
-		})
-		window.addEventListener('resize', positionIndicator)
-	}
+	// Segment toggle wiring + pill first-paint handled by the shared primitive.
+	segmentedControl({
+		inputs: segmentInputs,
+		indicator: segmentIndicator,
+		directionAttr: 'segmentDirection',
+		order: segmentOrder,
+		getActive: getActiveSegment,
+		apply: applySegment,
+		position: positionIndicator,
+	})
 }

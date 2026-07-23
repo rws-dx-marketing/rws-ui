@@ -1,4 +1,4 @@
-import { canViewTransition } from './motion'
+import { segmentedControl } from './segmented-control'
 
 // Every named element on the page (across all tab groups) gets pulled into any
 // view transition, so without this a transition triggered by one group visibly
@@ -11,7 +11,6 @@ function otherNamedElements(root) {
 }
 
 function initTabs(root) {
-	const canVT = canViewTransition
 	const pill = root.querySelector('[data-tab-indicator]')
 	const fieldset = pill?.parentElement
 	// Scoped to the fieldset, not the whole root, so radios inside slotted panel content never get swept up.
@@ -54,51 +53,25 @@ function initTabs(root) {
 		positionIndicator()
 	}
 
-	function setTab(tab) {
-		const cur = activeTab()
-		if (tab === cur || !tabOrder.includes(tab)) return
-		if (!canVT()) {
-			applyTab(tab)
-			return
-		}
-		const el = document.documentElement
-		el.dataset.tabsDirection = tabOrder.indexOf(tab) > tabOrder.indexOf(cur) ? 'forward' : 'back'
-
-		const others = otherNamedElements(root)
-		const restore = others.map((node) => {
-			const prev = node.style.viewTransitionName
-			node.style.viewTransitionName = 'none'
-			return () => (node.style.viewTransitionName = prev)
-		})
-
-		const t = document.startViewTransition(() => applyTab(tab))
-		// Restore as soon as the new state is captured (not after the animation
-		// finishes) so a quick click on another group mid-transition still works.
-		t.ready.finally(() => restore.forEach((fn) => fn()))
-		t.finished.finally(() => delete el.dataset.tabsDirection)
-	}
-
-	radios.forEach((radio) => {
-		radio.addEventListener('click', (e) => {
-			if (radio.value === activeTab()) return
-			e.preventDefault()
-			setTab(radio.value)
-		})
-		radio.addEventListener('keyup', () => {
-			if (radio.checked) setTab(radio.value)
-		})
+	segmentedControl({
+		inputs: radios,
+		indicator: pill,
+		directionAttr: 'tabsDirection',
+		order: tabOrder,
+		getActive: activeTab,
+		apply: applyTab,
+		position: positionIndicator,
+		// Blank every other tab group's named elements before the transition so
+		// they aren't swept into this group's snapshot; restore once captured.
+		prepare: () => {
+			const restore = otherNamedElements(root).map((node) => {
+				const prev = node.style.viewTransitionName
+				node.style.viewTransitionName = 'none'
+				return () => (node.style.viewTransitionName = prev)
+			})
+			return () => restore.forEach((fn) => fn())
+		},
 	})
-
-	// Suppress the pill's transition so it doesn't animate in on first paint. Position it once now
-	// (while transitions are off) and again next frame before re-enabling — re-enabling in the same
-	// tick as the first real size change would still animate from the 0×0 CSS default.
-	if (pill) pill.style.transition = 'none'
-	positionIndicator()
-	requestAnimationFrame(() => {
-		positionIndicator()
-		if (pill) pill.style.transition = ''
-	})
-	addEventListener('resize', positionIndicator)
 }
 
 export default function tabs() {
