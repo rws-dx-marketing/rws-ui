@@ -6,7 +6,6 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 {
 	showGrowler && (
 		<>
-			{/* Growler */}
 			<section id="growler" class="flex min-h-12 w-full items-center justify-between border-b border-foreground-softest py-2" role="alert" data-theme="secondary">
 				<div class="mx-auto max-w-7xl px-3 sm:px-4">
 					<div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
@@ -25,41 +24,6 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 							</svg>
 						</a>
 					</div>
-				</div>
-			</section>
-
-			{/* Growler with close */}
-			<section hidden id="growler" tabindex="-1" class="fixed z-999 flex w-full justify-between border border-b py-3" role="alert" data-theme="primary">
-				<div class="max-w-screen-xl- mx-auto pr-12 pl-3 sm:pl-4 lg:px-16">
-					<p class="text-sm lg:text-center">
-						{/* Text */}
-						<span class="mr-2">We have launched Flowbite Blocks including over 120+ website sections!</span>
-
-						{/* Link */}
-						<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
-							Check it out
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-								<>
-									<rect width="256" height="256" fill="none" />
-									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-									<polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-								</>
-							</svg>
-						</a>
-					</p>
-				</div>
-
-				{/* Close button */}
-				<div class="absolute top-1/2 right-2.5 -translate-y-1/2">
-					<button type="button" class="btn btn-ghost btn-md aspect-square p-1.5">
-						<svg class="m-0!" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-							<>
-								<rect width="256" height="256" fill="none" />
-								<line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-								<line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-							</>
-						</svg>
-					</button>
 				</div>
 			</section>
 		</>

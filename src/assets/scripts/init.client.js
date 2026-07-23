@@ -4,7 +4,6 @@ import cardFilters from './card-filters'
 import countUp from './count-up'
 import dots from './dots'
 import dropdownFilters from './dropdown-filters'
-import dropdownLabels from './dropdown-labels'
 import accordion from './accordion'
 import carousel from './carousel'
 import primaryNav from './primary-nav'
@@ -36,7 +35,6 @@ if (typeof window !== 'undefined') {
 		dots()
 		dropdownFilters()
 		cardFilters()
-		dropdownLabels()
 		accordion()
 		carousel()
 		postNav()

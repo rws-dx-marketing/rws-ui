@@ -1,7 +1,6 @@
 ---
 import '../assets/styles/global.css'
 import Header from '../components/Header.astro'
-import Footer from '../components/Footer.astro'
 import SecondaryNav from '../components/SecondaryNav.astro'
 import { resolveSecondaryNav } from '../utils/secondary-nav'
 
@@ -42,10 +41,7 @@ const secondaryNav = resolveSecondaryNav(pathname)
 			<slot />
 		</div>
 
-		<!-- <Footer /> -->
-
 		<script src="../assets/scripts/init.client.js"></script>
 		<script src="../assets/scripts/theme.client.js"></script>
-		<script src="../assets/scripts/btn-magnet.js"></script>
 	</body>
 </html>
