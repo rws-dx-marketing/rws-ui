@@ -1,37 +1,16 @@
 ---
 // @ts-nocheck
+import Section from '../components/Section.astro'
+import Intro from '../components/Intro.astro'
 import Card from '../components/Card.astro'
 
-const { theme = 'default', showIntro = true, variants = [1, 2, 3] } = Astro.props
+const { theme = 'default', showIntro = true, variants = [1, 2, 3], ...intro } = Astro.props
 ---
 
-<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-		{
-			showIntro && (
-				<>
-					{/* Subheading */}
-					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
-						<p>This is the subheading</p>
-					</div>
+<Section theme={theme}>
+	{showIntro && <Intro {...intro} />}
 
-					{/* Heading */}
-					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
-						<p>
-							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
-						</p>
-					</h2>
-
-					{/* Copy */}
-					<div class="prose text-foreground-muted md:prose-lg">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
-					</div>
-				</>
-			)
-		}
-
-		<div class="grid max-w-[80ch] gap-8 not-first:mt-12 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3 lg:not-first:mt-16">
-			{variants.map((variant) => <Card variant={variant} />)}
-		</div>
+	<div class="grid max-w-[80ch] gap-8 not-first:mt-12 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3 lg:not-first:mt-16">
+		{variants.map((variant) => <Card variant={variant} />)}
 	</div>
-</section>
+</Section>

@@ -1,0 +1,50 @@
+---
+// Intro — the "subheading + heading + copy" lede shared by most blocks.
+// Content is prop-driven (heading/copy accept inline markup) and falls back
+// to placeholder copy so an unconfigured block still renders.
+//
+// Props:
+//   subheading — small bold label above the heading (falsy to hide)
+//   heading    — heading text/markup (falsy to hide)
+//   copy       — supporting paragraph text/markup (falsy to hide)
+//   size       — heading size preset (default 'sm')
+//   as         — heading tag (default 'h2')
+//   align      — 'left' (default) or 'center'
+import Heading from './Heading.astro'
+
+const {
+	subheading = 'This is the subheading',
+	heading = 'Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur',
+	copy = 'Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.',
+	size = 'sm',
+	as = 'h2',
+	align = 'left',
+	class: className,
+} = Astro.props
+
+const alignment = align === 'center' ? 'mx-auto max-w-screen-sm text-center' : ''
+---
+
+<div class:list={[alignment, className]}>
+	{
+		subheading && (
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+				<p>{subheading}</p>
+			</div>
+		)
+	}
+	{
+		heading && (
+			<Heading as={as} size={size} class:list={['mb-6 max-w-[24ch]', align === 'center' && 'mx-auto']}>
+				<Fragment set:html={heading} />
+			</Heading>
+		)
+	}
+	{
+		copy && (
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p set:html={copy} />
+			</div>
+		)
+	}
+</div>

@@ -1,4 +1,4 @@
-spacing = {
+export const spacing = {
 	none: {
 		top: 'pt-0',
 		bottom: 'pb-0',

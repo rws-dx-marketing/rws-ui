@@ -1,5 +1,8 @@
 ---
 //@ts-nocheck
+import Section from '../components/Section.astro'
+import Intro from '../components/Intro.astro'
+
 const stats = [
 	{ value: '50%', label: 'increase in revenue', note: 'for new customers' },
 	{ value: '99+', label: 'managed projects', note: 'across multiple regions' },
@@ -17,49 +20,26 @@ const gridColsByCount = {
 
 const gridCols = gridColsByCount[stats.length] ?? gridColsByCount[3]
 
-const { theme = 'default', showIntro = true } = Astro.props
+const { theme = 'default', showIntro = true, ...intro } = Astro.props
 ---
 
-<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+<Section theme={theme}>
+	{showIntro && <Intro {...intro} />}
+
+	<div class:list={['grid gap-8 not-first:mt-12', gridCols]}>
 		{
-			showIntro && (
-				<>
-					{/* Subheading */}
-					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
-						<p>This is the subheading</p>
-					</div>
+			stats.map((stat, index) => (
+				<div class="@container grid place-content-center rounded-lg p-6 text-center" data-card>
+					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style={`--motion-delay: ${200 + index * 100}ms`} data-count-up>
+						{stat.value}
+					</p>
 
-					{/* Heading */}
-					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
-						<p>
-							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
-						</p>
-					</h2>
-
-					{/* Copy */}
-					<div class="prose text-foreground-muted md:prose-lg">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
+					<div class="intersect-once text-foreground-muted intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + index * 100}ms`}>
+						<p class="text-lg/tight font-bold">{stat.label}</p>
+						{stat.note && <p>{stat.note}</p>}
 					</div>
-				</>
-			)
+				</div>
+			))
 		}
-
-		<div class:list={['grid gap-8 not-first:mt-12', gridCols]}>
-			{
-				stats.map((stat, index) => (
-					<div class="@container grid place-content-center rounded-lg p-6 text-center" data-card>
-						<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style={`--motion-delay: ${200 + index * 100}ms`} data-count-up>
-							{stat.value}
-						</p>
-
-						<div class="intersect-once text-foreground-muted intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + index * 100}ms`}>
-							<p class="text-lg/tight font-bold">{stat.label}</p>
-							{stat.note && <p>{stat.note}</p>}
-						</div>
-					</div>
-				))
-			}
-		</div>
 	</div>
-</section>
+</Section>

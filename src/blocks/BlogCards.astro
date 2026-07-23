@@ -1,26 +1,15 @@
 ---
+import Section from '../components/Section.astro'
+import Intro from '../components/Intro.astro'
+
+const { theme = 'pale', showIntro = true, ...intro } = Astro.props
 const cards = [1, 2]
 ---
 
-<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
-	<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
-		<!-- Subheading -->
-		<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
-			<p>This is the subheading</p>
-		</div>
+<Section theme={theme}>
+	{showIntro && <Intro {...intro} />}
 
-		<!-- Heading -->
-		<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
-			<p>Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur</p>
-		</h2>
-
-		<!-- Copy -->
-		<div class="prose text-foreground-muted md:prose-lg">
-			<!-- <p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin donec ut cursus.</p> -->
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
-		</div>
-
-		<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
+	<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
 			{
 				cards.map((card) => (
 					<>
@@ -124,5 +113,4 @@ const cards = [1, 2]
 				))
 			}
 		</div>
-	</div>
-</section>
+</Section>
