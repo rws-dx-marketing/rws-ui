@@ -23,6 +23,8 @@
 //   showIntro   — whether to show the intro subheading, heading, and copy.
 
 import MediaCard from '../components/MediaCard.astro'
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
 
 const { orientation = 'columns', groups, cta, theme = 'default', showIntro = true } = Astro.props
 
@@ -58,43 +60,41 @@ const cardFill = 'flex-1'
 const ctaFill = isColumns ? '' : 'w-full shrink-0 sm:w-64'
 ---
 
-<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+<Section theme={theme}>
+	{
+		showIntro && (
+			<>
+				{/* Subheading */}
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>This is the subheading</p>
+				</div>
+
+				{/* Heading */}
+				<Heading as="h2" size="sm" class="mb-6 max-w-[24ch] font-bold tracking-tight text-pretty">
+					<p>
+						Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
+					</p>
+				</Heading>
+
+				{/* Copy */}
+				<div class="prose text-foreground-muted md:prose-lg">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
+				</div>
+			</>
+		)
+	}
+
+	{/* Soft outline frame wrapping the cards, mirroring BentoGrid. gap-6 spaces both the groups and the cards within them. */}
+	<div class:list={[outer, 'gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest not-first:mt-12 lg:not-first:mt-16']}>
 		{
-			showIntro && (
-				<>
-					{/* Subheading */}
-					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
-						<p>This is the subheading</p>
-					</div>
-
-					{/* Heading */}
-					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
-						<p>
-							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
-						</p>
-					</h2>
-
-					{/* Copy */}
-					<div class="prose text-foreground-muted md:prose-lg">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
-					</div>
-				</>
-			)
+			data.map((cards, gi) => (
+				<div class:list={group}>
+					{cards.map((card) => (
+						<MediaCard {...card} class={cardFill} />
+					))}
+					{ctaCard && gi === ctaIndex && <MediaCard cta={ctaCard} stacked={!isColumns} class={ctaFill} />}
+				</div>
+			))
 		}
-
-		{/* Soft outline frame wrapping the cards, mirroring BentoGrid. gap-6 spaces both the groups and the cards within them. */}
-		<div class:list={[outer, 'gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest not-first:mt-12 lg:not-first:mt-16']}>
-			{
-				data.map((cards, gi) => (
-					<div class:list={group}>
-						{cards.map((card) => (
-							<MediaCard {...card} class={cardFill} />
-						))}
-						{ctaCard && gi === ctaIndex && <MediaCard cta={ctaCard} stacked={!isColumns} class={ctaFill} />}
-					</div>
-				))
-			}
-		</div>
 	</div>
-</section>
+</Section>

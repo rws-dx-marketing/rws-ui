@@ -10,6 +10,8 @@
 // Unlike /events-all there is no segment toggle here: the "Upcoming / Recorded"
 // pill is replaced by links to the sibling pages, so card-filters.js finds no
 // [data-segment-input] and skips the `status` filter entirely — every card shows.
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
 import FilterDropdown from '../components/FilterDropdown.astro'
 import FilterOption from '../components/FilterOption.astro'
 import filterData from '../data/events/filters.json'
@@ -33,18 +35,20 @@ const navItems = [
 ]
 ---
 
-<section class="pt-20 pb-0 md:pt-24 lg:pt-32" data-theme="default">
+<Section top="xl" bottom="none" theme="default" container={false}>
 	<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
-		<h1 class="mx-auto mb-5 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+		<Heading as="h1" size="md" class="mx-auto mb-5 max-w-[16ch] font-bold tracking-tight">
 			<p>{title}</p>
-		</h1>
+		</Heading>
 
 		<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
 			<p>{description}</p>
 		</div>
 
-		{/* Page switcher — replaces the /events-all segment toggle. Active page is
-		    btn-outline, the others btn-tertiary. */}
+		{
+			/* Page switcher — replaces the /events-all segment toggle. Active page is
+		    btn-outline, the others btn-tertiary. */
+		}
 		<nav class="mt-10 flex flex-wrap justify-center gap-3" aria-label="Events sections">
 			{
 				navItems.map((item) => (
@@ -110,9 +114,9 @@ const navItems = [
 			</div>
 		</form>
 	</div>
-</section>
+</Section>
 
-<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots-enhanced">
+<Section top="md" bottom="md" theme="dots-enhanced" container={false}>
 	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 		<div class="flex justify-between">
 			<div class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{cards.length} results</div>
@@ -197,4 +201,4 @@ const navItems = [
 			<p class="mt-2 text-xl text-foreground-muted">Try removing a filter or search for a different term.</p>
 		</div>
 	</div>
-</section>
+</Section>

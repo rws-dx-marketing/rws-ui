@@ -1,0 +1,4 @@
+# Generated / vendored — never reformat
+pnpm-lock.yaml
+dist/
+.astro/

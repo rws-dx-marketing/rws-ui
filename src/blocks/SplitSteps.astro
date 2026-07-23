@@ -1,3 +1,9 @@
+---
+// @ts-nocheck
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
+---
+
 <!-- <style is:global>
 	@media (min-width: 1024px) {
 		html:has([data-split-steps]) {
@@ -5,7 +11,7 @@
 		}
 	}
 </style> -->
-<section data-split-steps data-active-step="1" data-theme="pale">
+<Section theme="pale" top={false} bottom={false} container={false} data-split-steps="" data-active-step="1">
 	<!-- Mobile animation (hidden on lg+) -->
 	<div class="mx-auto max-w-screen-xl px-8 pt-12 lg:hidden">
 		<div data-scene-anim data-scene="1" data-animation-status="play" class="mx-auto aspect-square w-1/2"></div>
@@ -20,9 +26,9 @@
 					<div class="intersect-once intersect:motion-preset-fade-up">
 						<p class="mb-3 font-bold text-foreground-muted xl:text-lg">Step one</p>
 
-						<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+						<Heading as="h2" size="xs" class="mb-6 font-bold tracking-tight">
 							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
-						</h2>
+						</Heading>
 
 						<div class="prose text-foreground-muted md:prose-lg">
 							<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat.</p>
@@ -42,9 +48,9 @@
 					<div class="intersect-once intersect:motion-preset-fade-up">
 						<p class="mb-3 font-bold text-foreground-muted xl:text-lg">Step two</p>
 
-						<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+						<Heading as="h2" size="xs" class="mb-6 font-bold tracking-tight">
 							Suspendisse luctus <em>tortor placerat</em> erat consequat
-						</h2>
+						</Heading>
 
 						<div class="prose text-foreground-muted md:prose-lg">
 							<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget.</p>
@@ -64,9 +70,9 @@
 					<div class="intersect-once intersect:motion-preset-fade-up">
 						<p class="mb-3 font-bold text-foreground-muted xl:text-lg">Step three</p>
 
-						<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+						<Heading as="h2" size="xs" class="mb-6 font-bold tracking-tight">
 							Pellentesque habitant <em>morbi tristique</em> senectus et netus
-						</h2>
+						</Heading>
 
 						<div class="prose text-foreground-muted md:prose-lg">
 							<p>Integer in feugiat lorem. Nulla facilisi. Maecenas aliquam turpis at ex malesuada, vitae hendrerit velit sodales. Duis nec risus at enim commodo tincidunt.</p>
@@ -94,7 +100,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</Section>
 
 <script>
 	const section = document.querySelector('[data-split-steps]')

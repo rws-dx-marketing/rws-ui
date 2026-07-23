@@ -1,4 +1,8 @@
-<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+---
+import Section from '../components/Section.astro'
+---
+
+<Section theme="dots" container={false}>
 	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 		<!-- Pricing Cards -->
 		<div id="pricingTabs" class="divide-y rounded-lg border lg:grid lg:grid-cols-3 lg:divide-x lg:divide-y-0" data-card>
@@ -268,4 +272,4 @@
 			updateTotal()
 		})
 	</script>
-</section>
+</Section>

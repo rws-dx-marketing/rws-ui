@@ -13,6 +13,8 @@
 //                 'chart' graphic instead of an image.
 
 import BentoGraphic from '../components/BentoGraphic.astro'
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
 
 const { items, count = 4, theme = 'default', showIntro = true, heroGraphic = true } = Astro.props
 
@@ -53,85 +55,83 @@ const span = {
 const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-fr lg:grid-rows-2'
 ---
 
-<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
-	<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+<Section theme={theme}>
+	{
+		showIntro && (
+			<>
+				{/* Subheading */}
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>This is the subheading</p>
+				</div>
+
+				{/* Heading */}
+				<Heading as="h2" size="sm" class="mb-6 max-w-[24ch] font-bold tracking-tight text-pretty">
+					<p>
+						Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
+					</p>
+				</Heading>
+
+				{/* Copy */}
+				<div class="prose text-foreground-muted md:prose-lg">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
+				</div>
+			</>
+		)
+	}
+
+	<div class:list={['grid gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest not-first:mt-12 sm:grid-cols-2 lg:grid-cols-4 lg:not-first:mt-16', rows]}>
 		{
-			showIntro && (
-				<>
-					{/* Subheading */}
-					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
-						<p>This is the subheading</p>
-					</div>
+			cards.map(({ title, body, img, graphic, href = '#', size, index }) => {
+				const isMedium = size === 'medium'
+				// Alternate the image side for stacked mediums (3-card variant).
+				const imageRight = isMedium && index % 2 === 0
 
-					{/* Heading */}
-					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
-						<p>
-							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur
-						</p>
-					</h2>
+				return (
+					<article class:list={['group relative isolate overflow-hidden rounded-lg border border-accent-soft bg-background', span[size], isMedium && 'flex max-sm:flex-col sm:min-h-72 lg:min-h-0']}>
+						{isMedium ? (
+							<>
+								<div class:list={['relative isolate flex items-start justify-center overflow-hidden max-sm:aspect-3/2 sm:w-2/5 sm:shrink-0 sm:items-center [&_svg]:size-full', imageRight && 'sm:order-last']}>
+									{graphic ? <BentoGraphic name={graphic} size={size} /> : <img src={img} alt="" class="size-full object-cover" />}
+									<div class:list={['absolute opacity-100 transition-opacity group-hover:opacity-0 max-sm:inset-x-0 max-sm:top-1/2 max-sm:bottom-0 max-sm:bg-linear-to-b max-sm:from-transparent max-sm:to-background', imageRight ? 'sm:inset-y-0 sm:right-1/2 sm:left-0 sm:bg-linear-to-l sm:from-transparent sm:to-background' : 'sm:inset-y-0 sm:right-0 sm:left-1/2 sm:bg-linear-to-r sm:from-transparent sm:to-background']} />
+								</div>
 
-					{/* Copy */}
-					<div class="prose text-foreground-muted md:prose-lg">
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
-					</div>
-				</>
-			)
+								<div class="p-6 sm:flex sm:grow sm:flex-col sm:justify-end lg:grow-0 lg:p-8">
+									<h3 class="mb-4 text-gradient text-2xl font-semibold text-balance">
+										<a href={href}>
+											{title}
+											<span class="absolute inset-0 rounded-lg" />
+										</a>
+									</h3>
+									<div class="prose text-foreground-muted">
+										<p>{body}</p>
+									</div>
+								</div>
+							</>
+						) : (
+							<>
+								<div class:list={['relative isolate flex aspect-3/2 items-start overflow-hidden [&_svg]:size-full', size === 'large' ? 'justify-end' : 'justify-center']}>
+									{graphic ? <BentoGraphic name={graphic} size={size} /> : <img src={img} alt="" class="size-full object-cover" />}
+									<div class="absolute inset-x-0 top-1/2 bottom-0 bg-linear-to-b from-transparent to-background opacity-100 transition-opacity group-hover:opacity-0" />
+								</div>
+
+								<div class="p-6 lg:p-8">
+									<h3 class:list={['text-gradient font-semibold text-balance', size === 'large' ? 'mb-5 max-w-[20ch] text-4xl' : 'mb-4 text-2xl']}>
+										<a href={href}>
+											{title}
+											<span class="absolute inset-0 rounded-lg" />
+										</a>
+									</h3>
+									<div class:list={['prose text-foreground-muted', size === 'large' && 'prose-lg']}>
+										<p>{body}</p>
+									</div>
+								</div>
+							</>
+						)}
+
+						<div class="absolute inset-0 -z-1 bg-linear-to-r from-accent-softer to-background opacity-0 transition-opacity group-hover:opacity-100" />
+					</article>
+				)
+			})
 		}
-
-		<div class:list={['grid gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest not-first:mt-12 sm:grid-cols-2 lg:grid-cols-4 lg:not-first:mt-16', rows]}>
-			{
-				cards.map(({ title, body, img, graphic, href = '#', size, index }) => {
-					const isMedium = size === 'medium'
-					// Alternate the image side for stacked mediums (3-card variant).
-					const imageRight = isMedium && index % 2 === 0
-
-					return (
-						<article class:list={['group relative isolate overflow-hidden rounded-lg border border-accent-soft bg-background', span[size], isMedium && 'flex max-sm:flex-col sm:min-h-72 lg:min-h-0']}>
-							{isMedium ? (
-								<>
-									<div class:list={['relative isolate flex items-start justify-center overflow-hidden max-sm:aspect-3/2 sm:w-2/5 sm:shrink-0 sm:items-center [&_svg]:size-full', imageRight && 'sm:order-last']}>
-										{graphic ? <BentoGraphic name={graphic} size={size} /> : <img src={img} alt="" class="size-full object-cover" />}
-										<div class:list={['absolute opacity-100 transition-opacity group-hover:opacity-0 max-sm:inset-x-0 max-sm:top-1/2 max-sm:bottom-0 max-sm:bg-linear-to-b max-sm:from-transparent max-sm:to-background', imageRight ? 'sm:inset-y-0 sm:right-1/2 sm:left-0 sm:bg-linear-to-l sm:from-transparent sm:to-background' : 'sm:inset-y-0 sm:right-0 sm:left-1/2 sm:bg-linear-to-r sm:from-transparent sm:to-background']} />
-									</div>
-
-									<div class="p-6 sm:flex sm:grow sm:flex-col sm:justify-end lg:grow-0 lg:p-8">
-										<h3 class="mb-4 text-gradient text-2xl font-semibold text-balance">
-											<a href={href}>
-												{title}
-												<span class="absolute inset-0 rounded-lg" />
-											</a>
-										</h3>
-										<div class="prose text-foreground-muted">
-											<p>{body}</p>
-										</div>
-									</div>
-								</>
-							) : (
-								<>
-									<div class:list={['relative isolate flex aspect-3/2 items-start overflow-hidden [&_svg]:size-full', size === 'large' ? 'justify-end' : 'justify-center']}>
-										{graphic ? <BentoGraphic name={graphic} size={size} /> : <img src={img} alt="" class="size-full object-cover" />}
-										<div class="absolute inset-x-0 top-1/2 bottom-0 bg-linear-to-b from-transparent to-background opacity-100 transition-opacity group-hover:opacity-0" />
-									</div>
-
-									<div class="p-6 lg:p-8">
-										<h3 class:list={['text-gradient font-semibold text-balance', size === 'large' ? 'mb-5 max-w-[20ch] text-4xl' : 'mb-4 text-2xl']}>
-											<a href={href}>
-												{title}
-												<span class="absolute inset-0 rounded-lg" />
-											</a>
-										</h3>
-										<div class:list={['prose text-foreground-muted', size === 'large' && 'prose-lg']}>
-											<p>{body}</p>
-										</div>
-									</div>
-								</>
-							)}
-
-							<div class="absolute inset-0 -z-1 bg-linear-to-r from-accent-softer to-background opacity-0 transition-opacity group-hover:opacity-100" />
-						</article>
-					)
-				})
-			}
-		</div>
 	</div>
-</section>
+</Section>

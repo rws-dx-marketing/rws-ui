@@ -1,11 +1,12 @@
 ---
 // @ts-nocheck
+import Section from '../components/Section.astro'
 const { tabs, defaultTab, name = 'tabs', label = 'Select a view', theme = 'default' } = Astro.props
 const active = defaultTab ?? tabs[0]?.key
 ---
 
 <div class="group/tabs" data-theme={theme} data-tabs data-active-tab={active} data-tab-order={tabs.map((t) => t.key).join(' ')} style={`view-transition-name:tabs-group-${name};view-transition-class:tabs-group`}>
-	<section class="relative z-1 pt-12 pb-0 md:pt-16 lg:pt-20" style={`view-transition-name:tabs-switcher-${name};view-transition-class:tabs-switcher`}>
+	<Section theme={null} top="md" bottom="none" container={false} class="relative z-1" style={`view-transition-name:tabs-switcher-${name};view-transition-class:tabs-switcher`}>
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
 			<div class="flex justify-center">
 				<fieldset role="radiogroup" aria-label={label} class="relative inline-flex w-full flex-col rounded-[1.5rem] border p-1.5 sm:w-fit sm:min-w-lg sm:flex-row sm:rounded-full" data-card>
@@ -21,7 +22,7 @@ const active = defaultTab ?? tabs[0]?.key
 				</fieldset>
 			</div>
 		</div>
-	</section>
+	</Section>
 
 	{
 		tabs.map((t) => (

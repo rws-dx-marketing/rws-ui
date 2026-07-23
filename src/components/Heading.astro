@@ -1,7 +1,7 @@
 ---
-// Heading — section/page heading with responsive size presets.
-// Size keys map to utils/heading-size so headings stay consistent rather
-// than hardcoding text-4xl/xl:text-5xl in every block.
+// Heading — maps a size key to the responsive type scale in utils/heading-size
+// so every section heading shares one source of truth. Deliberately
+// unopinionated about weight/tracking/wrap/margins — pass those via `class`.
 //
 // Props:
 //   as   — heading tag (default 'h2')
@@ -11,6 +11,6 @@ import { headingSize } from '../utils/heading-size'
 const { as: Tag = 'h2', size = 'sm', class: className, ...rest } = Astro.props
 ---
 
-<Tag class:list={['font-bold tracking-tight text-pretty', headingSize[size], className]} {...rest}>
+<Tag class:list={[headingSize[size], className]} {...rest}>
 	<slot />
 </Tag>

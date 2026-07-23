@@ -24,9 +24,11 @@ Some markup began life as Flowbite templates (hence occasional `flowbite.s3.amaz
 ## Architecture
 
 ### Routing
+
 File-based: every `.astro` file in `src/pages/` maps directly to a URL. Subdirectories create nested routes (e.g. `src/pages/resources/blog.astro` → `/resources/blog`).
 
 ### Component layers
+
 - `src/layouts/` — page wrappers. `Layout.astro` is the single shell (real Header, SecondaryNav, client scripts); import and wrap page content.
 - `src/blocks/` — full-width marketing sections (Hero, Features, Pricing, Testimonials, etc.). These are composited inside pages.
 - `src/components/` — smaller reusable elements (Header, forms, dropdowns) plus the shared section primitives:
@@ -36,10 +38,13 @@ File-based: every `.astro` file in `src/pages/` maps directly to a URL. Subdirec
   - Prefer these over re-declaring the section/intro markup inline. Blocks take `theme`, `showIntro`, and pass remaining props through to `Intro`.
 
 ### Styles
+
 Global CSS lives in `src/assets/styles/global.css` and imports Tailwind. Tailwind 4 is configured inline via CSS `@theme` directives rather than a separate config file.
 
 ### Client-side interactivity
+
 Scripts in `src/assets/scripts/` are loaded with `<script>` tags in layouts or components:
+
 - `theme.client.js` — dark mode toggle, persisted to `localStorage`
 - `secondary-nav.js` — resolves active secondary nav items from current pathname
 - Other scripts handle count-up animations, card filters, and dropdown filters
@@ -48,12 +53,15 @@ Scripts in `src/assets/scripts/` are loaded with `<script>` tags in layouts or c
 Animations use Tailwind Motion's `intersect:motion-preset-*` classes with `intersect-once` — they trigger once when elements enter the viewport via IntersectionObserver.
 
 ### Data
+
 Static data (e.g. partner lists) lives in `src/data/` as JS/TS modules and is imported directly into `.astro` files at build time.
 
 ### Theming
+
 Components accept `data-theme` attributes to switch between visual variants.
 
 ### Conventions
+
 - **Avoid TypeScript types.** Components use `// @ts-nocheck` and plain destructured props with defaults rather than `interface Props`/typed generics. Keep types minimal.
 
 ## Project context

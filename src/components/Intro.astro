@@ -12,15 +12,7 @@
 //   align      — 'left' (default) or 'center'
 import Heading from './Heading.astro'
 
-const {
-	subheading = 'This is the subheading',
-	heading = 'Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur',
-	copy = 'Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.',
-	size = 'sm',
-	as = 'h2',
-	align = 'left',
-	class: className,
-} = Astro.props
+const { subheading = 'This is the subheading', heading = 'Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur', copy = 'Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.', size = 'sm', as = 'h2', align = 'left', class: className } = Astro.props
 
 const alignment = align === 'center' ? 'mx-auto max-w-screen-sm text-center' : ''
 ---
@@ -35,7 +27,7 @@ const alignment = align === 'center' ? 'mx-auto max-w-screen-sm text-center' : '
 	}
 	{
 		heading && (
-			<Heading as={as} size={size} class:list={['mb-6 max-w-[24ch]', align === 'center' && 'mx-auto']}>
+			<Heading as={as} size={size} class:list={['mb-6 max-w-[24ch] font-bold tracking-tight text-pretty', align === 'center' && 'mx-auto']}>
 				<Fragment set:html={heading} />
 			</Heading>
 		)

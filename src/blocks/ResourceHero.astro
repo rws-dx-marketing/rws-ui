@@ -1,41 +1,7 @@
 ---
-interface Author {
-	name: string
-	role?: string
-	avatar: string
-	href?: string
-}
-
-interface Cta {
-	href: string
-	text: string
-	external?: boolean
-}
-
-interface Image {
-	src: string
-	alt: string
-}
-
-interface Logo {
-	src: string
-	alt: string
-	hidden?: boolean
-}
-
-interface Props {
-	title: string
-	image: Image
-	date?: string
-	location?: string
-	readTime?: string
-	logo?: Logo
-	description?: string
-	author?: Author
-	share?: boolean
-	cta?: Cta
-	layout?: 'split' | 'wide-text'
-}
+// @ts-nocheck
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
 
 const { title, image, date, location, readTime, logo, description, author, share = false, cta, layout = 'split' } = Astro.props
 
@@ -45,7 +11,7 @@ const titleMargin = description || cta ? 'mb-6' : ''
 const showMeta = date || location || readTime
 ---
 
-<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+<Section top="md" bottom="md" theme="default" container={false}>
 	<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 		<div class={textCols}>
 			{
@@ -88,7 +54,7 @@ const showMeta = date || location || readTime
 				)
 			}
 
-			<h2 class={`${titleMargin} text-4xl font-bold tracking-tight text-balance md:text-5xl xl:text-6xl`}>{title}</h2>
+			<Heading as="h2" size="md" class={`${titleMargin} font-bold tracking-tight text-balance`}>{title}</Heading>
 
 			{
 				description && (
@@ -169,4 +135,4 @@ const showMeta = date || location || readTime
 			</div>
 		</div>
 	</div>
-</section>
+</Section>

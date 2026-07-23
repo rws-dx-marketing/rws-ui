@@ -1,13 +1,15 @@
 ---
 //@ts-nocheck
 import Form from '../components/Form.astro'
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
 
 const { variant = 'lead-image', theme = 'default' } = Astro.props
 ---
 
 {
 	false && (
-		<section hidden class="pt-16 pb-16 md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme="default">
+		<Section theme="default" top="lg" bottom="lg" container={false} hidden>
 			<div class="mx-auto grid w-full max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				{/* Left column */}
 				<div class="lg:col-span-7">
@@ -16,11 +18,11 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 						<p>This is the subheading</p>
 					</div>
 
-					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty md:text-5xl xl:text-6xl">
+					<Heading as="h2" size="md" class="mb-6 max-w-[24ch] font-bold tracking-tight text-pretty">
 						<p>
 							Lorem ipsum dolor sit amet <em>adipiscing elitera</em> consectetur sed do
 						</p>
-					</h2>
+					</Heading>
 
 					<div class="prose text-foreground-muted md:prose-lg">
 						<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin donec ut cursus.</p>
@@ -308,24 +310,24 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	)
 }
 
 {
 	variant === 'lead-image' && (
-		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<Section theme={theme} container={false}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-6">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 						<p>This is the subheading</p>
 					</div>
 
-					<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+					<Heading as="h2" size="xs" class="mb-6 font-bold tracking-tight">
 						<p>
 							This is the <em>accuracy</em>, domain
 						</p>
-					</h2>
+					</Heading>
 
 					<div class="prose text-foreground-muted md:prose-lg">
 						<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est posuere ut pellentesque habitant.</p>
@@ -370,22 +372,22 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	)
 }
 
 {
 	variant === 'double-image-list' && (
-		<section class="grid min-h-[min(50vh,48rem)] place-items-center pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<Section theme={theme} container={false} class="grid min-h-[min(50vh,48rem)] place-items-center">
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-6">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 						<p>This is the subheading</p>
 					</div>
 
-					<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<Heading as="h2" size="sm" class="mb-6 font-bold tracking-tight">
 						<p>This is the heading</p>
-					</h2>
+					</Heading>
 
 					<div class="prose text-foreground-muted md:prose-lg">
 						<p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est.</p>
@@ -521,13 +523,13 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	)
 }
 
 {
 	variant === 'features-row' && (
-		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<Section theme={theme} container={false}>
 			<div class="mx-auto grid max-w-screen-xl items-start gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				{/* Content */}
 				<div class="lg:col-span-7">
@@ -535,11 +537,11 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 						<p>This is the subheading</p>
 					</div>
 
-					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+					<Heading as="h2" size="md" class="mb-6 max-w-[24ch] font-bold tracking-tight">
 						<p>
 							This is the heading and happens <em>to be longer</em> than the others
 						</p>
-					</h2>
+					</Heading>
 
 					<div class="prose text-foreground-muted md:prose-lg">
 						<p class="lead">Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin lorem, pharet.</p>
@@ -767,13 +769,13 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	)
 }
 
 {
 	variant === 'features-grid' && (
-		<section class="grid min-h-[min(100vh,64rem)] place-items-center pt-16 pb-16 md:pt-20 md:pb-20 lg:pt-24 lg:pb-24" data-theme={theme}>
+		<Section theme={theme} top="lg" bottom="lg" container={false} class="grid min-h-[min(100vh,64rem)] place-items-center">
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				{/* Content */}
 				<div class="lg:col-span-7">
@@ -781,11 +783,11 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 						<p>This is the subheading</p>
 					</div>
 
-					<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+					<Heading as="h2" size="md" class="mb-6 max-w-[24ch] font-bold tracking-tight">
 						<p>
 							This is the heading and happens <em>to be longer</em> than the others
 						</p>
-					</h2>
+					</Heading>
 
 					<div class="mb-8- prose text-foreground-muted md:prose-lg">
 						<p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis vivamus tempor sollicitudin lorem, pharetra mattis est.</p>
@@ -887,22 +889,22 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	)
 }
 
 {
 	variant === 'logos-animation' && (
-		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<Section theme={theme} container={false}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-6">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 						<p>This is the subheading</p>
 					</div>
 
-					<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+					<Heading as="h2" size="xs" class="mb-6 font-bold tracking-tight">
 						<p>This is the heading</p>
-					</h2>
+					</Heading>
 
 					<div class="prose text-foreground-muted md:prose-lg">
 						<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet purus. Vivamus faucibus neque risus, et dapibus tortor{/* dignissim in. Donec facilisis justo id leo porttitor consequat */}.</p>
@@ -990,22 +992,22 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	)
 }
 
 {
 	variant === 'video-text' && (
-		<section class="grid min-h-[min(50vh,48rem)] place-items-center pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<Section theme={theme} container={false} class="grid min-h-[min(50vh,48rem)] place-items-center">
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-6">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 						<p>This is the subheading</p>
 					</div>
 
-					<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<Heading as="h2" size="sm" class="mb-6 font-bold tracking-tight">
 						<p>This is the heading</p>
-					</h2>
+					</Heading>
 
 					<div class="prose text-foreground-muted md:prose-lg">
 						{/* <p>Nullam tincidunt non nisl sit amet placerat. Fusce mollis tellus a ornare lobortis. Vivamus tempor sollicitudin lorem, pharetra mattis est.</p> */}
@@ -1042,22 +1044,22 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	)
 }
 
 {
 	variant === 'stats-form' && (
-		<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme={theme}>
+		<Section theme={theme} container={false}>
 			<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 				<div class="lg:col-span-7">
 					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
 						<p>This is the subheading</p>
 					</div>
 
-					<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<Heading as="h2" size="sm" class="mb-6 font-bold tracking-tight">
 						<p>This is the heading</p>
-					</h2>
+					</Heading>
 
 					<div class="prose text-foreground-muted md:prose-lg">
 						<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
@@ -1146,7 +1148,7 @@ const { variant = 'lead-image', theme = 'default' } = Astro.props
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	)
 }
 

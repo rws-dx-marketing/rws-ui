@@ -10,107 +10,107 @@ const cards = [1, 2]
 	{showIntro && <Intro {...intro} />}
 
 	<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
-			{
-				cards.map((card) => (
-					<>
-						{/* Variant 1: full-card clickable + author info */}
-						<article class="group relative overflow-clip rounded-lg border text-left" data-card>
-							<div class="flex h-full flex-col">
-								<div class="p-4">
-									<div class="mb-5 block overflow-hidden rounded">
-										<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
-									</div>
-
-									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
-
-									<h2 class="mb-2 text-2xl font-bold">
-										<p>
-											<a href="/resources/blog-1/">
-												This is an article title
-												<span class="absolute inset-0" />
-											</a>
-										</p>
-									</h2>
-
-									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
-									</div>
+		{
+			cards.map((card) => (
+				<>
+					{/* Variant 1: full-card clickable + author info */}
+					<article class="group relative overflow-clip rounded-lg border text-left" data-card>
+						<div class="flex h-full flex-col">
+							<div class="p-4">
+								<div class="mb-5 block overflow-hidden rounded">
+									<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
 								</div>
 
-								<div class="mt-auto px-4 pb-4">
-									<div class="flex items-center space-x-4">
-										<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
-										<div>
-											<div class="font-semibold">Jese Leos</div>
-											<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>
-										</div>
+								<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
+
+								<h2 class="mb-2 text-2xl font-bold">
+									<p>
+										<a href="/resources/blog-1/">
+											This is an article title
+											<span class="absolute inset-0" />
+										</a>
+									</p>
+								</h2>
+
+								<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
+								</div>
+							</div>
+
+							<div class="mt-auto px-4 pb-4">
+								<div class="flex items-center space-x-4">
+									<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+									<div>
+										<div class="font-semibold">Jese Leos</div>
+										<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>
 									</div>
 								</div>
 							</div>
-						</article>
+						</div>
+					</article>
 
-						{/* Variant 2: image link + button */}
-						<article class="rounded-lg border text-left" data-card>
-							<div class="flex h-full flex-col">
-								<div class="p-4">
-									<a href="/resources/blog-1-legacy/" class="mb-5 block overflow-hidden rounded">
-										<img class="aspect-video object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/google-hq.png" alt="Google HQ" />
-									</a>
+					{/* Variant 2: image link + button */}
+					<article class="rounded-lg border text-left" data-card>
+						<div class="flex h-full flex-col">
+							<div class="p-4">
+								<a href="/resources/blog-1-legacy/" class="mb-5 block overflow-hidden rounded">
+									<img class="aspect-video object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/google-hq.png" alt="Google HQ" />
+								</a>
 
-									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
+								<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
 
-									<h2 class="mb-2 text-2xl font-bold">
-										<p>
-											<a href="/resources/blog-2/">This is an article title</a>
-										</p>
-									</h2>
+								<h2 class="mb-2 text-2xl font-bold">
+									<p>
+										<a href="/resources/blog-2/">This is an article title</a>
+									</p>
+								</h2>
 
-									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor.</p>
-									</div>
-								</div>
-
-								<div class="mt-auto px-4 pb-4">
-									<a href="/resources/blog-2/" class="btn btn-primary btn-sm">
-										Read more
-									</a>
+								<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor.</p>
 								</div>
 							</div>
-						</article>
 
-						{/* Variant 3: image link + split buttons */}
-						<article class="rounded-lg border text-left" data-card>
-							<div class="flex h-full flex-col">
-								<div class="p-4">
-									<a href="/resources/blog-2/" class="mb-5 block overflow-hidden rounded">
-										<img class="aspect-video object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png" alt="office laptops" />
-									</a>
+							<div class="mt-auto px-4 pb-4">
+								<a href="/resources/blog-2/" class="btn btn-primary btn-sm">
+									Read more
+								</a>
+							</div>
+						</div>
+					</article>
 
-									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
+					{/* Variant 3: image link + split buttons */}
+					<article class="rounded-lg border text-left" data-card>
+						<div class="flex h-full flex-col">
+							<div class="p-4">
+								<a href="/resources/blog-2/" class="mb-5 block overflow-hidden rounded">
+									<img class="aspect-video object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png" alt="office laptops" />
+								</a>
 
-									<h2 class="mb-2 text-2xl font-bold">
-										<p>
-											<a href="#">This is an article title that spans multiple lines</a>
-										</p>
-									</h2>
+								<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
 
-									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
-									</div>
-								</div>
+								<h2 class="mb-2 text-2xl font-bold">
+									<p>
+										<a href="#">This is an article title that spans multiple lines</a>
+									</p>
+								</h2>
 
-								<div class="mt-auto flex divide-x border-t">
-									<a href="#" class="btn btn-ghost btn-sm w-full rounded-none rounded-bl-lg border-0 border-r px-4 py-3">
-										Button left
-									</a>
-									<a href="#" class="btn btn-ghost btn-sm w-full rounded-none rounded-br-lg border-0 px-4 py-3">
-										Button right
-									</a>
+								<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
 								</div>
 							</div>
-						</article>
-					</>
-				))
-			}
-		</div>
+
+							<div class="mt-auto flex divide-x border-t">
+								<a href="#" class="btn btn-ghost btn-sm w-full rounded-none rounded-bl-lg border-0 border-r px-4 py-3">
+									Button left
+								</a>
+								<a href="#" class="btn btn-ghost btn-sm w-full rounded-none rounded-br-lg border-0 px-4 py-3">
+									Button right
+								</a>
+							</div>
+						</div>
+					</article>
+				</>
+			))
+		}
+	</div>
 </Section>
