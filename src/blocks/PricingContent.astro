@@ -319,7 +319,7 @@ const splitName = (name) => (name.startsWith('Trados ') ? ['Trados', name.slice(
 		<div class="overflow-x-auto lg:overflow-visible">
 			<div class="min-w-[56rem] overflow-clip rounded-lg border" data-accordion data-accordion-multi>
 				{/* Column header */}
-				<div class="sticky top-(--content-top) z-20 transition-[top] duration-300">
+				<div class="top-(--content-top) z-20 transition-[top] duration-300 lg:sticky">
 					<div data-comparison data-comparison-header class="grid items-start rounded-t-lg border-b bg-background/50 backdrop-blur group-data-[active-segment=businesses]:grid-cols-[16.5rem_repeat(4,minmax(10rem,1fr))] group-data-[active-segment=freelancers]:grid-cols-[16.5rem_repeat(2,minmax(10rem,1fr))] group-data-[active-segment=teams]:grid-cols-[16.5rem_repeat(3,minmax(10rem,1fr))] stuck:rounded-t-none">
 						<div></div>
 						{
