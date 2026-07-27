@@ -1,0 +1,125 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import FilterDropdown from '../../components/FilterDropdown.astro'
+import FilterOption from '../../components/FilterOption.astro'
+import { terms, topics } from '../../data/glossary/terms'
+
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
+const groups = alphabet.map((letter) => ({
+	letter,
+	terms: terms.filter((term) => term.name[0].toUpperCase() === letter),
+}))
+---
+
+<Layout title="Glossary – RWS UI">
+	<Section top="xl" bottom="none" container={false} theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<div hidden class="mb-3 font-bold text-foreground-muted xl:text-lg">
+				<p>Global content terms</p>
+			</div>
+
+			<h1 class="mx-auto mb-5 max-w-[22ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
+				<p>The Localization, AI & IP <em>glossary</em></p>
+			</h1>
+
+			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
+				<p>Build confidence in the language of global content. Browse our glossary of localization, translation, AI and intellectual property terms – created to help teams align understanding, manage complexity and protect ideas across markets.</p>
+			</div>
+
+			<nav class="mt-10 flex flex-wrap justify-center gap-1.5" aria-label="Browse terms by letter">
+				{
+					groups.map((group) =>
+						group.terms.length ? (
+							<a href={`#${group.letter.toLowerCase()}`} class="flex size-8 items-center justify-center rounded-full border bg-background text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+								{group.letter}
+							</a>
+						) : (
+							<span class="flex size-8 items-center justify-center rounded-full border font-semibold opacity-50" aria-hidden="true">
+								{group.letter}
+							</span>
+						),
+					)
+				}
+			</nav>
+
+			<form class="relative z-10 mt-10 -mb-6.25">
+				<div class="mx-auto flex max-w-2xl gap-3">
+					<div class="grow">
+						<label for="search" class="sr-only mb-2.5 block text-sm">Search</label>
+
+						<div class="relative">
+							<div class="rounded-full bg-background">
+								<input type="search" id="search" name="q" data-filters-search class="input input-search input-lg pr-11 pl-5" placeholder="Search terms" />
+							</div>
+
+							<div class="pointer-events-none absolute top-1/2 right-4 flex -translate-y-1/2 items-center">
+								<button type="button" class="svg-current size-5 opacity-50" tabindex="-1" data-search-icon>
+									<span class="sr-only">Search</span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								</button>
+
+								<button type="button" class="svg-current pointer-events-auto size-5" tabindex="-1" data-search-clear hidden>
+									<span class="sr-only">Clear search</span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<div hidden class="shrink-0 text-left" data-filters data-theme="default">
+						<FilterDropdown filterId="topic" label="Topic">
+							{topics.map((topic) => <FilterOption id={`topic-${topic.value}`} type="checkbox" name="topic" value={topic.value} label={topic.label} />)}
+						</FilterDropdown>
+					</div>
+				</div>
+
+				<div class="mx-auto mt-4 flex max-w-2xl flex-wrap justify-center gap-2" data-filters-selected hidden>
+					<button type="button" class="btn btn-tertiary btn-icon-right btn-sm" data-filters-chip-template hidden>
+						<span data-filters-chip-label>Selected filter</span>
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+					</button>
+					<button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" data-filters-clear-all>Clear all</button>
+				</div>
+			</form>
+		</div>
+	</Section>
+
+	<Section theme="dots">
+		<div hidden class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{terms.length} results</div>
+
+		<div class="mt-8 grid gap-12">
+			{
+				groups
+					.filter((group) => group.terms.length)
+					.map((group) => (
+						<section id={`${group.letter.toLowerCase()}`} class="scroll-mt-(--chrome-height) not-has-[[data-card-filters]:not([hidden])]:hidden">
+							<div class="mb-5 flex items-center gap-5">
+								<h2 class="text-3xl font-bold text-accent">{group.letter}</h2>
+								<hr class="grow" />
+							</div>
+
+							<div class="flex flex-wrap gap-4">
+								{group.terms.map((term) => (
+									<article class="group relative w-fit rounded-lg border bg-background px-4 py-3" data-card data-card-filters={JSON.stringify({ topic: term.topics })} data-card-search={term.name.toLowerCase()}>
+										<h3 class="font-bold transition-colors group-hover:text-accent">
+											<a href={term.href ?? '/glossary/ai-model-evaluation/'}>
+												{term.name}
+												<span class="absolute inset-0" />
+											</a>
+										</h3>
+									</article>
+								))}
+							</div>
+						</section>
+					))
+			}
+		</div>
+
+		<div class="mt-12 pt-12 pb-24 text-center" data-card-empty-state hidden>
+			<p class="text-2xl font-bold">No terms found</p>
+			<p class="mt-2 text-xl text-foreground-muted">Try removing a filter or search for a different term.</p>
+		</div>
+	</Section>
+</Layout>

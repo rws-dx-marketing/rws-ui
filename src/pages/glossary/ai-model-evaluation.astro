@@ -1,0 +1,150 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import Heading from '../../components/Heading.astro'
+
+const relatedTerms = [
+	{ name: 'Data annotation', href: '/glossary/ai-model-evaluation/' },
+	{ name: 'Generative Artificial Intelligence (Gen AI)', href: '/glossary/ai-model-evaluation/' },
+	{ name: 'Human-in-the-Loop (HITL)', href: '/glossary/ai-model-evaluation/' },
+	{ name: 'Large language model (LLM)', href: '/glossary/ai-model-evaluation/' },
+	{ name: 'TrainAI', href: '/glossary/ai-model-evaluation/' },
+]
+
+const benefits = [
+	{ title: 'Accuracy', copy: 'Ensures outputs meet target quality thresholds.' },
+	{ title: 'Transparency', copy: 'Provides measurable insight into model behavior.' },
+	{ title: 'Fairness', copy: 'Reduces bias through structured human evaluation.' },
+	{ title: 'Trust', copy: 'Builds confidence among users, regulators and partners.' },
+]
+---
+
+<Layout title="AI model evaluation – Glossary – RWS UI">
+	<Section top="lg" bottom="md" theme="default">
+		<div class="max-w-3xl">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+				<p><a href="/glossary/" class="transition-colors hover:text-accent">Glossary</a></p>
+			</div>
+
+			<Heading as="h1" size="md" class="mb-6 font-bold tracking-tight text-balance">AI model evaluation</Heading>
+
+			<div class="prose text-pretty text-foreground-muted md:prose-lg xl:prose-xl">
+				<p>AI model evaluation is the process of assessing an artificial intelligence system’s performance, accuracy and behavior against defined benchmarks and human expectations. It measures how effectively a model understands, generates or classifies information – and how reliably it performs across languages, domains and contexts.</p>
+			</div>
+		</div>
+	</Section>
+
+	<Section container={false} theme="dots">
+		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+			<aside class="order-2 lg:order-none lg:col-span-4">
+				<div class="grid gap-8 lg:sticky lg:top-20 xl:gap-12">
+					<div class="rounded-lg p-6 lg:p-10" data-card>
+						<h4 class="mb-4 text-lg font-bold">Related terms</h4>
+
+						<ul class="grid gap-3">
+							{
+								relatedTerms.map((term) => (
+									<li>
+										<a href={term.href} class="group flex items-start gap-2 font-semibold transition-colors hover:text-accent">
+											<svg class="mt-1 size-4 shrink-0 transition-transform group-hover:translate-x-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+												<rect width="256" height="256" fill="none" />
+												<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+												<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+											</svg>
+											{term.name}
+										</a>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					<div class="rounded-lg p-6" data-card>
+						<div class="flex items-start gap-6">
+							<div class="w-1/3 max-w-24 shrink-0">
+								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+							</div>
+							<div>
+								<h4 class="mb-2 text-lg font-semibold">TrainAI Data Services</h4>
+
+								<div class="prose mb-4 text-sm/normal text-foreground-muted">
+									<p>Multilingual, human-in-the-loop data services to train and evaluate your AI models.</p>
+								</div>
+
+								<a href="#" class="btn btn-primary btn-sm">Discover more</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+
+			<article class="order-1 col-span-full grid items-start gap-8 lg:order-none lg:col-span-8 xl:gap-12">
+				<div class="rounded-lg p-6 lg:p-10" data-card>
+					<div class="prose max-w-none text-pretty lg:text-lg">
+						<h2>Description</h2>
+						<p>Evaluating an AI model determines whether it does what it was designed to do – and whether it does it fairly, consistently and safely. The process involves quantitative and qualitative testing across metrics such as precision, recall, bias, latency and robustness. For Large Language Models (LLMs), evaluation extends to reasoning ability, factual accuracy, creativity and multilingual competence.</p>
+						<p>Effective model evaluation requires high-quality reference data, expert human judgment and iterative feedback. It identifies strengths, weaknesses and blind spots before models are deployed at scale. This continuous evaluation loop is central to responsible AI development – ensuring that automation remains aligned with human intent and ethical standards.</p>
+
+						<h2>Example use cases</h2>
+						<ul>
+							<li><strong>LLM benchmarking:</strong> Comparing model performance across languages and task categories.</li>
+							<li><strong>Fine-tuning validation:</strong> Measuring improvement after model retraining or domain adaptation.</li>
+							<li><strong>Bias analysis:</strong> Detecting and reducing cultural or linguistic bias in outputs.</li>
+							<li><strong>Safety testing:</strong> Confirming adherence to regulatory and ethical standards before deployment.</li>
+						</ul>
+					</div>
+				</div>
+
+				<div>
+					<h2 class="mb-6 text-2xl font-bold tracking-tight lg:text-3xl">Key benefits</h2>
+
+					<div class="grid gap-8 sm:grid-cols-2">
+						{
+							benefits.map((benefit, index) => (
+								<div class="intersect-once grid place-content-center rounded-lg p-6 text-center lg:p-10 intersect:motion-preset-expand" style={`--motion-delay: ${200 + index * 100}ms`} data-theme="secondary">
+									<p class="text-2xl font-bold text-balance">{benefit.title}</p>
+									<p class="mt-1 text-pretty">{benefit.copy}</p>
+								</div>
+							))
+						}
+					</div>
+				</div>
+
+				<div class="rounded-lg p-6 lg:p-10" data-card>
+					<div class="prose max-w-none text-pretty lg:text-lg">
+						<h2>RWS perspective</h2>
+						<p>At RWS, AI model evaluation is how we bring human insight into machine intelligence. Our TrainAI Data Services team designs multilingual, Human-in-the-loop evaluation programs that test AI systems for linguistic quality, cultural relevance and ethical compliance.</p>
+						<p>We combine specialist annotators, linguists and domain experts with intelligent automation to measure performance at scale. From benchmark creation to real-world validation, RWS ensures that every evaluation dataset reflects linguistic diversity and global representation. Our work supports leading technology providers, researchers and enterprises developing LLMs and GenAI applications. We help them identify where models succeed, where they fail and how they can improve – because better data and better evaluation lead to better intelligence.</p>
+					</div>
+
+					<div class="mt-8 flex flex-wrap items-center gap-4">
+						<a href="#" class="btn btn-secondary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							Discover more
+						</a>
+					</div>
+				</div>
+			</article>
+		</div>
+	</Section>
+
+	{/* Call to action */}
+	<Section hidden theme="pale">
+		<div class="mx-auto max-w-screen-sm text-center">
+			<div hidden class="mb-3 font-bold text-foreground-muted xl:text-lg">
+				<p>This is the subheading</p>
+			</div>
+
+			<Heading as="h2" size="sm" class="mx-auto mb-6 font-bold tracking-tight text-balance">Transform how the world understands you.</Heading>
+
+			<div class="mx-auto prose text-foreground-muted md:prose-lg">
+				<p>Discover the technology and expertise that powers the world’s most trusted brands.</p>
+			</div>
+
+			<div class="mt-8">
+				<a href="#" class="btn btn-primary btn-lg">See what's possible</a>
+			</div>
+		</div>
+	</Section>
+</Layout>
