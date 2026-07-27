@@ -11,6 +11,7 @@ import headerScroll from './header-scroll'
 import postNav from './post-nav'
 import invokerCommandsPolyfill from './invoker-commands-polyfill'
 import pricingContent from './pricing-content'
+import pronounce from './pronounce'
 import tabs from './tabs'
 import timezoneSelect from './timezone-select'
 import animation from './animation'
@@ -39,6 +40,7 @@ if (typeof window !== 'undefined') {
 		carousel()
 		postNav()
 		pricingContent()
+		pronounce()
 		tabs()
 		timezoneSelect()
 		animation()

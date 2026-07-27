@@ -89,12 +89,12 @@ const groups = alphabet.map((letter) => ({
 	<Section theme="dots">
 		<div hidden class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{terms.length} results</div>
 
-		<div class="mt-8 grid gap-12">
+		<div class="grid gap-12">
 			{
 				groups
 					.filter((group) => group.terms.length)
 					.map((group) => (
-						<section id={`${group.letter.toLowerCase()}`} class="scroll-mt-(--chrome-height) not-has-[[data-card-filters]:not([hidden])]:hidden">
+						<section id={`${group.letter.toLowerCase()}`} class="scroll-mt-12 not-has-[[data-card-filters]:not([hidden])]:hidden">
 							<div class="mb-5 flex items-center gap-5">
 								<h2 class="text-3xl font-bold text-accent">{group.letter}</h2>
 								<hr class="grow" />

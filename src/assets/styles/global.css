@@ -23,6 +23,7 @@
 
 @theme {
 	--font-sans: 'articulat-cf', sans-serif;
+	--font-serif: 'Noto Serif', serif;
 	--font-cursive: 'Caveat', 'Noteworthy', 'Comic Sans MS', cursive;
 
 	--default-transition-duration: 400ms;
