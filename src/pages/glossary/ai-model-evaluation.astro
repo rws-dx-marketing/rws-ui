@@ -10,8 +10,8 @@ import Heading from '../../components/Heading.astro'
 const term = {
 	name: 'AI model evaluation',
 	syllables: 'AI mod·el e·val·u·a·tion',
-	ipa: '/ˌeɪ ˈaɪ ˈmɒd(ə)l ɪˌvaljʊˈeɪʃ(ə)n/',
-	spoken: 'A.I. model evaluation',
+	ipa: 'ˈeɪˌaɪ ˈmɑdəl ɪˌvæljuˈeɪʃən',
+	spoken: 'AI model evaluation',
 	wordClass: 'noun',
 	topic: 'AI & data',
 	alsoKnownAs: ['Model benchmarking', 'AI evaluation', 'LLM evaluation'],
@@ -53,28 +53,28 @@ const benefits = [
 
 			<Heading as="h1" size="md" class="mb-4 font-bold tracking-tight text-balance">{term.name}</Heading>
 
-			<dl class="mb-8 flex flex-wrap items-center gap-x-4 gap-y-2 font-serif text-foreground-muted lg:text-lg">
+			<dl class="mb-8 flex flex-wrap items-center gap-x-8 gap-y-2 font-serif text-foreground-muted lg:text-lg">
 				<div>
 					<dt class="sr-only">Word class</dt>
 					<dd class="italic">{term.wordClass}</dd>
 				</div>
 
-				<div class="h-6 w-px bg-foreground-soft" aria-hidden="true"></div>
+				<!-- <div class="h-6 w-px bg-foreground-soft" aria-hidden="true"></div> -->
 
-				<div>
+				<!-- <div>
 					<dt class="sr-only">Syllables</dt>
 					<dd class="font-semibold text-foreground">{term.syllables}</dd>
-				</div>
+				</div> -->
 
-				<div class="h-6 w-px bg-foreground-soft" aria-hidden="true"></div>
+				<!-- <div class="h-6 w-px bg-foreground-soft" aria-hidden="true"></div> -->
 
-				<div class="flex items-center gap-2">
+				<div class="flex items-center gap-x-5">
 					<dt class="sr-only">Pronunciation</dt>
-					<dd lang="en-fonipa">{term.ipa}</dd>
+					<dd lang="en-fonipa">/ {term.ipa} /</dd>
 
-					<button type="button" class="group btn btn-outline -my-2 size-6 rounded-full p-0 data-speaking:text-accent" data-pronounce={term.spoken}>
+					<button type="button" class="group btn btn-ghost -my-2 size-6 rounded-full p-0 data-speaking:text-accent" data-pronounce={term.spoken}>
 						<span class="sr-only">Listen to the pronunciation of {term.name}</span>
-						<svg class="group-data-speaking:motion-preset-pulse- size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+						<svg class="group-data-speaking:motion-preset-pulse- size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 							<rect width="256" height="256" fill="none"></rect>
 							<path d="M88,168H40a8,8,0,0,1-8-8V96a8,8,0,0,1,8-8H88l72-56V224Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path>
 							<line x1="200" y1="104" x2="200" y2="152" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line>
