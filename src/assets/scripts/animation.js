@@ -17,6 +17,14 @@ function scopeSvg(svg, prefix) {
 		el.setAttribute('class', [...el.classList].map((c) => (classes.has(c) ? prefix + c : c)).join(' '))
 	})
 
+	// Rename a keyframe reference wherever it appears in a CSS string.
+	const prefixKeyframes = (css) => {
+		keyframes.forEach((name) => {
+			css = css.replace(new RegExp(`(^|[^\\w-])${name}(?![\\w-])`, 'g'), (m, before) => `${before}${prefix}${name}`)
+		})
+		return css
+	}
+
 	// Rewrite url(#id) and href="#id" references in every attribute.
 	svg.querySelectorAll('*').forEach((el) => {
 		for (const attr of el.attributes) {
@@ -26,6 +34,12 @@ function scopeSvg(svg, prefix) {
 			}
 			if ((attr.name === 'href' || attr.name.endsWith(':href')) && v.startsWith('#') && ids.has(v.slice(1))) {
 				v = `#${prefix}${v.slice(1)}`
+			}
+			// Minifiers (SVGO) hoist `#id { animation: kf_x }` rules into inline
+			// style attributes, so keyframe names live out here too — not just in
+			// the <style> block. Miss these and the renamed @keyframes go unmatched.
+			if (attr.name === 'style' && v.includes('animation')) {
+				v = prefixKeyframes(v)
 			}
 			if (v !== attr.value) attr.value = v
 		}
@@ -52,17 +66,14 @@ function scopeSvg(svg, prefix) {
 		let css = el.textContent
 		css = css.replace(/#([\w-]+)/g, (m, id) => (ids.has(id) ? `#${prefix}${id}` : m))
 		css = css.replace(/\.([\w-]+)/g, (m, c) => (classes.has(c) ? `.${prefix}${c}` : m))
-		keyframes.forEach((name) => {
-			css = css.replace(new RegExp(`(^|[^\\w-])${name}(?![\\w-])`, 'g'), (m, before) => `${before}${prefix}${name}`)
-		})
-		el.textContent = css
+		el.textContent = prefixKeyframes(css)
 	})
 }
 
 export default function animation() {
 	let svgCounter = 0
 
-	// Paused is the default state (see [data-svg-anim] rule in _animation.css);
+	// Paused is the default state (see svg[data-animated] rule in _animation.css);
 	// these observers add/remove data-svg-playing to gate it.
 	// Play once the SVG rises to 25% up from the bottom of the viewport (the
 	// bottom margin shrinks the root, so "intersecting" starts at that line).
@@ -82,8 +93,8 @@ export default function animation() {
 		}
 	})
 
-	// Replace an <img data-inline-svg> with the fetched inline <svg>, so the
-	// SVG's markup lives in the DOM and can be styled/animated.
+	// Replace an <img data-animated> with the fetched inline <svg>, so the
+	// SVG's markup lives in the DOM and its animations can run and be gated.
 	async function inlineSvg(img) {
 		try {
 			const res = await fetch(img.src)
@@ -102,9 +113,11 @@ export default function animation() {
 			svg.style.removeProperty('height')
 			if (!svg.getAttribute('style')) svg.removeAttribute('style')
 
-			// Carry over the img's attributes (class, id, alt→aria-label, etc.)
+			// Carry over the img's attributes (class, id, alt→aria-label, etc.).
+			// data-animated rides along too — it's what the paused-by-default CSS
+			// rule targets on the resulting <svg>.
 			for (const { name, value } of img.attributes) {
-				if (name === 'src' || name === 'data-inline-svg') continue
+				if (name === 'src') continue
 				if (name === 'alt') {
 					// Empty alt = decorative: hide from the a11y tree entirely.
 					if (value.trim()) {
@@ -122,10 +135,8 @@ export default function animation() {
 				svg.setAttribute(name, value)
 			}
 
-			// Mark it as ours so the default-paused CSS rule applies from the
-			// first frame. playObserver adds data-svg-playing at the 25% line;
-			// outObserver removes it again only once it's fully out of view.
-			svg.setAttribute('data-svg-anim', '')
+			// playObserver adds data-svg-playing at the 25% line; outObserver
+			// removes it again only once it's fully out of view.
 			img.replaceWith(svg)
 			playObserver.observe(svg)
 			outObserver.observe(svg)
@@ -134,5 +145,5 @@ export default function animation() {
 		}
 	}
 
-	document.querySelectorAll('img[data-inline-svg]').forEach(inlineSvg)
+	document.querySelectorAll('img[data-animated]').forEach(inlineSvg)
 }
