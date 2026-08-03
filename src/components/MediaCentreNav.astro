@@ -1,0 +1,24 @@
+---
+// @ts-nocheck
+// Media centre page switcher. Same pattern as the events feed nav (blocks/
+// EventsFeed.astro): the three archives are separate pages, not in-place
+// filters, so this is a plain list of links with the current one styled as
+// btn-outline.
+//
+// Props:
+//   active — section key from data/media-centre/media-centre.js, or null on the
+//            hub where no archive is current and every button reads as a CTA.
+import { sections } from '../data/media-centre/media-centre'
+
+const { active = null } = Astro.props
+---
+
+<nav class="flex flex-wrap justify-center gap-3" aria-label="Media centre sections">
+	{
+		sections.map((section) => (
+			<a href={section.href} class:list={['btn btn-lg', active === null ? 'btn-tertiary' : section.key === active ? 'btn-outline' : 'btn-tertiary']} aria-current={section.key === active ? 'page' : undefined}>
+				<span>{section.label}</span>
+			</a>
+		))
+	}
+</nav>

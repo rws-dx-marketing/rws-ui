@@ -1,0 +1,78 @@
+---
+// @ts-nocheck
+// Executive detail page. A copy of /authors/stacy-ayers/ with the "Articles by"
+// grid dropped — executives are not bylines, so the page is bio-only.
+//
+// One hand-authored prototype; in the real build this becomes a [slug] route.
+import Layout from '../../../layouts/Layout.astro'
+import Section from '../../../components/Section.astro'
+import Heading from '../../../components/Heading.astro'
+import { getExecutive } from '../../../data/about/executives'
+
+const executive = getExecutive('benjamin-faes')
+---
+
+<Layout title={`${executive.name} – Executive team – About – RWS UI`}>
+	<Section theme="default">
+		<div class="grid max-w-4xl gap-8 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-12">
+			<div class="size-28 shrink-0 overflow-hidden rounded-full lg:size-40">
+				<img class="size-full object-cover" src={executive.avatar} alt={executive.name} draggable="false" />
+			</div>
+
+			<div class="min-w-0">
+				<div class="mb-3 flex items-center gap-6 font-bold text-foreground-subtle">
+					<p><a href="/about/executive-team/" class="transition-colors hover:text-accent">Executive team</a></p>
+				</div>
+
+				<Heading as="h1" size="md" class="mb-4 font-bold tracking-tight text-balance">{executive.name}</Heading>
+
+				<div class="mb-6 text-lg font-semibold text-foreground-muted md:text-2xl xl:text-3xl">
+					<p>{executive.role}</p>
+				</div>
+
+				<div class="prose text-pretty text-foreground-muted md:prose-lg">
+					{executive.bio.map((paragraph) => <p>{paragraph}</p>)}
+				</div>
+
+				{
+					executive.social && (
+						<div hidden class="mt-8 flex items-center gap-2">
+							{executive.social.linkedin && (
+								<a href={executive.social.linkedin} class="svg-current size-6 text-foreground-soft transition-colors hover:text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+										<path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm1.205 6.91a1.705 1.705 0 1 0 0-3.41a1.705 1.705 0 0 0 0 3.41M7.909 19.5V9.273H4.5V19.5h3.41Zm4.432-10.227H9.273V19.5h3.068v-6.17c.395-.642 1.077-1.33 2.045-1.33c1.364 0 1.705 1.364 1.705 2.046V19.5H19.5v-5.454c0-1.828-.797-4.773-3.75-4.773c-1.878 0-2.92.685-3.41 1.327z" clip-rule="evenodd" />
+									</svg>
+									<span class="sr-only">{executive.name} on LinkedIn</span>
+								</a>
+							)}
+
+							{executive.social.x && (
+								<a href={executive.social.x} class="svg-current size-6 text-foreground-soft transition-colors hover:text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+										<path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm-.334 3.5a.75.75 0 0 0-.338 1.154l5.614 7.45l-5.915 6.345l-.044.051H6.03l4.83-5.179l3.712 4.928a.75.75 0 0 0 .337.251h4.422a.75.75 0 0 0 .336-1.154l-5.614-7.45L20.017 4.5h-2.05l-4.83 5.18l-3.714-4.928a.75.75 0 0 0-.337-.252zm10.88 13.548L6.431 5.952H8.45l9.114 12.095z" clip-rule="evenodd" />
+									</svg>
+									<span class="sr-only">{executive.name} on X</span>
+								</a>
+							)}
+
+							{executive.social.email && (
+								<a href={executive.social.email} class="svg-current size-6 text-foreground-soft transition-colors hover:text-accent">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<rect width="256" height="256" fill="none" />
+										<path fill="currentColor" d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,50,45.15H60.55ZM157.29,128,216,74.18V181.82Z" />
+									</svg>
+									<span class="sr-only">Email {executive.name}</span>
+								</a>
+							)}
+						</div>
+					)
+				}
+
+				<div class="mt-8 flex flex-wrap items-center gap-4">
+					<a href="mailto:ddavies@rws.com?subject=Media%20centre%20enquiry" class="btn btn-secondary">Request an interview</a>
+					<a href="/about/executive-team/" class="btn btn-tertiary">All executives</a>
+				</div>
+			</div>
+		</div>
+	</Section>
+</Layout>

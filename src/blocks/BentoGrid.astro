@@ -81,8 +81,10 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-
 
 	<div class:list={['grid gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest not-first:mt-12 sm:grid-cols-2 lg:grid-cols-4 lg:not-first:mt-16', rows]}>
 		{
-			cards.map(({ title, body, img, graphic, href = '#', size, index }) => {
+			cards.map(({ title, body, img, graphic, href = '#', external = false, size, index }) => {
 				const isMedium = size === 'medium'
+				// Off-site cards open in a new tab; everything else follows normally.
+				const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 				// Alternate the image side for stacked mediums (3-card variant).
 				const imageRight = isMedium && index % 2 === 0
 
@@ -97,7 +99,7 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-
 
 								<div class="p-6 sm:flex sm:grow sm:flex-col sm:justify-end lg:grow-0 lg:p-8">
 									<h3 class="mb-4 text-gradient text-2xl font-semibold text-balance">
-										<a href={href}>
+										<a href={href} {...linkAttrs}>
 											{title}
 											<span class="absolute inset-0 rounded-lg" />
 										</a>
@@ -116,7 +118,7 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-
 
 								<div class="p-6 lg:p-8">
 									<h3 class:list={['text-gradient font-semibold text-balance', size === 'large' ? 'mb-5 max-w-[20ch] text-4xl' : 'mb-4 text-2xl']}>
-										<a href={href}>
+										<a href={href} {...linkAttrs}>
 											{title}
 											<span class="absolute inset-0 rounded-lg" />
 										</a>

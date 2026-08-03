@@ -1,0 +1,161 @@
+---
+// @ts-nocheck
+// Press releases archive. Same feed anatomy as /events and /authors — hero,
+// search + filter popover, sort/show controls, card grid, load more — all wired
+// to card-filters.js via [data-filters], [data-card] and [data-card-filters].
+import Layout from '../../../layouts/Layout.astro'
+import Section from '../../../components/Section.astro'
+import Heading from '../../../components/Heading.astro'
+import FilterDropdown from '../../../components/FilterDropdown.astro'
+import FilterOption from '../../../components/FilterOption.astro'
+import MediaCentreNav from '../../../components/MediaCentreNav.astro'
+import { pressReleases, filters } from '../../../data/media-centre/press-releases'
+---
+
+<Layout title="Press releases – Media centre – RWS UI">
+	<Section top="xl" bottom="none" theme="default" container={false}>
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<Heading as="h1" size="md" class="mx-auto mb-5 max-w-[16ch] font-bold tracking-tight">
+				<p>Press releases</p>
+			</Heading>
+
+			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
+				<p>Company announcements, financial results, product news and partnerships from across the RWS group. Filter by type, topic or year to find what you need.</p>
+			</div>
+
+			<div class="mt-10">
+				<MediaCentreNav active="press-releases" />
+			</div>
+
+			<form class="relative z-10 mt-10 -mb-6.25">
+				<div class="mx-auto flex max-w-2xl gap-3" style="anchor-name: --filters-bar">
+					<div class="grow">
+						<label for="search" class="sr-only mb-2.5 block text-sm">Search</label>
+
+						<div class="relative">
+							<div class="rounded-full bg-background">
+								<input type="search" id="search" name="q" data-filters-search class="input input-search input-lg pr-11 pl-5" placeholder="Search" />
+							</div>
+
+							<div class="pointer-events-none absolute top-1/2 right-4 flex -translate-y-1/2 items-center">
+								<button type="button" class="svg-current size-5 opacity-50" tabindex="-1" data-search-icon>
+									<span class="sr-only">Search</span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="112" cy="112" r="80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><line x1="168.57" y1="168.57" x2="224" y2="224" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								</button>
+
+								<button type="button" class="svg-current pointer-events-auto size-5" tabindex="-1" data-search-clear hidden>
+									<span class="sr-only">Clear search</span>
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<button type="button" class="btn btn-primary btn-lg size-12.5 gap-2 sm:size-auto" popovertarget="filter-popover" popovertargetaction="toggle" data-popover-toggle-icon>
+						<span class="hidden sm:block">Filters</span>
+						<span data-icon-closed>
+							<svg class="mt-0.5 size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="64" y1="136" x2="192" y2="136" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="24" y1="88" x2="232" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="104" y1="184" x2="152" y2="184" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+						</span>
+						<span data-icon-open hidden>
+							<svg class="mt-0.5 size-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+						</span>
+					</button>
+				</div>
+
+				<div id="filter-popover" popover="auto" class="dropdown top-[calc(anchor(bottom)+0.75rem)]! z-10 w-[calc(100%+2rem)] max-w-2xl bg-transparent" style="position-anchor: --filters-bar; position-area: bottom center; position-try: none;">
+					<div class="grid gap-3 rounded-lg border p-4 text-left shadow-lg sm:grid-cols-3" data-filters data-theme="default">
+						{
+							filters.map((filter) => (
+								<FilterDropdown filterId={filter.id} label={filter.label}>
+									{filter.options.map((option) => (
+										<FilterOption id={`${filter.id}-${option.value}`} type={filter.inputType} name={filter.id} value={option.value} label={option.label} />
+									))}
+								</FilterDropdown>
+							))
+						}
+					</div>
+				</div>
+			</form>
+		</div>
+	</Section>
+
+	<Section theme="dots" container={false}>
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="flex justify-between">
+				<div class="pl-1.5 text-sm text-foreground-subtle" data-card-results-count>{pressReleases.length} results</div>
+
+				<div class="flex items-center gap-4">
+					<div class="flex items-center gap-2">
+						<span class="shrink-0 text-sm text-foreground-subtle">Sort by</span>
+						<select name="sort-by" class="input input-select rounded-none border-none bg-transparent bg-right p-0 pr-4 text-sm focus:ring-0">
+							<option value="most-recent">Most recent</option>
+							<option value="oldest-first">Oldest first</option>
+							<option value="alphabetical">Alphabetical</option>
+						</select>
+					</div>
+
+					<div class="flex items-center gap-2">
+						<label for="items-per-page" class="shrink-0 text-sm text-foreground-subtle">Show</label>
+						<select id="items-per-page" name="items-per-page" data-card-page-size class="input input-select rounded-none border-none bg-transparent bg-right p-0 pr-5 text-sm focus:ring-0">
+							<option value="6" selected>6</option>
+							<option value="9">9</option>
+							<option value="12">12</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<div class="mt-8 flex flex-wrap gap-2" data-filters-selected hidden>
+				<button type="button" class="btn btn-tertiary btn-icon-right btn-sm" data-filters-chip-template hidden>
+					<span data-filters-chip-label>Selected filter</span>
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="200" y1="56" x2="56" y2="200" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><line x1="200" y1="200" x2="56" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line></svg>
+				</button>
+				<button type="button" class="px-2 py-1 text-left text-sm font-semibold text-foreground-subtle transition-colors hover:text-accent" data-filters-clear-all>Clear all</button>
+			</div>
+
+			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3">
+				{
+					pressReleases.map((release, index) => (
+						<article class="group relative rounded-lg border text-left" data-card data-card-filters={JSON.stringify(release.filters)} data-card-search={`${release.name} ${release.type} ${release.date} ${release.description.replace(/<[^>]*>/g, ' ')}`.toLowerCase()} style={`view-transition-name:press-release-card-${index};view-transition-class:card-move`}>
+							<div class="flex h-full flex-col">
+								<div class="p-4">
+									<div class="mb-5 block overflow-hidden rounded">
+										<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={release.image} alt={release.name} />
+									</div>
+
+									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{release.type}</span>
+
+									<h2 class="mb-2 text-2xl font-bold">
+										<p>
+											<a href={release.href}>
+												{release.name}
+												<span class="absolute inset-0" />
+											</a>
+										</p>
+									</h2>
+
+									<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
+										<span>{release.date}</span>
+									</div>
+
+									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+										<Fragment set:html={release.description} />
+									</div>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+
+			<div class="mt-12 text-center">
+				<button type="button" class="btn btn-secondary" data-card-load-more hidden>Load more</button>
+			</div>
+
+			<div class="mt-12 pt-12 pb-24 text-center" data-card-empty-state hidden>
+				<p class="text-2xl font-bold">No press releases found</p>
+				<p class="mt-2 text-xl text-foreground-muted">Try removing a filter or search for a different term.</p>
+			</div>
+		</div>
+	</Section>
+</Layout>

@@ -1,173 +1,118 @@
 ---
+// @ts-nocheck
+// Media centre hub. Mirrors https://www.rws.com/about/media-centre/ — heading,
+// press contact CTA, then the three archives. On the live site those three are
+// in-page tabs; here each is a button through to its own archive page, the same
+// model /events uses for Events / Webinars / Recorded webinars.
 import Layout from '../../layouts/Layout.astro'
-import ResourceHero from '../../blocks/ResourceHero.astro'
-import Accordions from '../../blocks/Accordions.astro'
+import Section from '../../components/Section.astro'
+import Intro from '../../components/Intro.astro'
+import Heading from '../../components/Heading.astro'
+import MediaCentreNav from '../../components/MediaCentreNav.astro'
+import MediaGrid from '../../blocks/MediaGrid.astro'
+import { sections } from '../../data/media-centre/media-centre'
+import { pressReleases } from '../../data/media-centre/press-releases'
 
-const cards = [1, 2, 3]
+const latest = pressReleases.slice(0, 3)
+
+// MediaGrid variant of the same feed: two rows of two cards, with the CTA
+// appended alongside the second row.
+const toMediaCard = (release) => ({ badge: release.type, title: release.name, img: release.image, href: release.href })
+const latestGroups = [pressReleases.slice(0, 2).map(toMediaCard), pressReleases.slice(2, 4).map(toMediaCard)]
+const latestCta = { title: 'Discover more', body: 'Find the latest blogs, customer stories and more at the RWS insights center.', href: '/media-centre/press-releases/' }
 ---
 
-<Layout title="Connector 1 – RWS UI">
-	<ResourceHero layout="wide-text" title="Adobe Experience Manager (AEM)" logo={{ src: '/logos/adobe.svg', alt: 'Adobe' }} description="This integration gives greater control of translation to users of AEM Sites, AEM Assets and XML Documentation for AEM. It adds a range of translation management features directly to AEM, both 6.x and cloud versions, helping AEM users to create and manage multilingual content much more easily." cta={{ href: '#form', text: 'Find out more' }} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
+<Layout title="Media centre – RWS UI">
+	<Section top="xl" bottom="md" theme="default" container={false}>
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<Heading as="h1" size="md" class="mx-auto mb-5 max-w-[16ch] font-bold tracking-tight">
+				<p>Media centre</p>
+			</Heading>
 
-	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
-		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
-			<aside class="hidden lg:col-span-4 lg:block">
-				<div class="grid gap-8 transition-[top] duration-300 lg:sticky lg:top-[calc(var(--content-top)+4rem)] xl:gap-12">
-					<div hidden class="relative rounded-lg p-10" data-card>
-						<!-- <h4 class="mb-6 text-lg font-bold">Key details</h4> -->
-
-						<ul class="grid gap-4">
-							<li>
-								<p class="font-bold">Client</p>
-								<p>Alibaba Group</p>
-							</li>
-
-							<li>
-								<p class="font-bold">Webite</p>
-								<p><a href="https://www.alibaba.com" target="_blank">alibaba.com</a></p>
-							</li>
-
-							<li>
-								<p class="font-bold">Connector type</p>
-								<p>Technology connector</p>
-							</li>
-
-							<li>
-								<p class="font-bold">Product</p>
-								<p>Tridion</p>
-							</li>
-
-							<li>
-								<p class="font-bold">Solution</p>
-								<p>Language Platforms</p>
-							</li>
-
-							<li>
-								<p class="font-bold">Industry</p>
-								<p>Life sciences</p>
-							</li>
-
-							<li>
-								<p class="font-bold">Service areas</p>
-								<p>Translation localisation</p>
-							</li>
-
-							<li>
-								<p class="font-bold">Region</p>
-								<p>Argentina</p>
-							</li>
-						</ul>
-					</div>
-
-					<div class="rounded-lg p-6" data-card>
-						<div class="flex items-start gap-6">
-							<div class="w-1/3 max-w-24 shrink-0">
-								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
-							</div>
-							<div>
-								<h4 class="mb-2 text-lg font-semibold">Lorem ipsum dolor</h4>
-
-								<div class="prose mb-4 text-sm/normal text-foreground-muted">
-									<p>Tenetur et nesciunt neque, asperiores dolorem repudian, tempora provident fugit?</p>
-								</div>
-
-								<a href="#" class="btn btn-primary btn-sm">Get connector</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</aside>
-
-			<article class="col-span-full grid items-start gap-8 lg:col-span-8 xl:gap-12">
-				<div class="rounded-lg p-6 lg:p-10" data-card>
-					<div class="prose max-w-none text-pretty lg:text-lg">
-						<p>Within AEM it offers:</p>
-						<ul>
-							<li>A project creation wizard, guiding users to push content to Trados for translation</li>
-							<li>An option to approve the cost before translation proceeds</li>
-							<li>A detailed project overview, showing project workflow status</li>
-							<li>A scheduler to automate retrieval of translated content back from Trados</li>
-						</ul>
-						<h2>What we offer</h2>
-						<p>Nulla congue dictum arcu. Aliquam iaculis ultrices pretium. Etiam nec tortor varius, consequat augue vitae, efficitur massa. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent feugiat facilisis arcu nec tincidunt. Sed hendrerit ante ac felis ultrices, vel sollicitudin sem imperdiet. Praesent pretium lobortis viverra.</p>
-						<h2>How it works</h2>
-						<p>Praesent sed lacinia tortor, et convallis lacus. Donec convallis tellus eu nibh blandit, vel venenatis lectus malesuada. Phasellus ut sapien viverra, gravida mauris vitae, tincidunt dui. Praesent accumsan faucibus arcu et tempor. Vivamus lacinia felis non dui rhoncus volutpat. Pellentesque eleifend libero euismod dictum elementum. Integer egestas a enim quis venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam est urna, condimentum sed ultrices sed, mollis eget tortor. Donec dolor erat, scelerisque eget odio id, elementum lobortis augue. Quisque pellentesque in dolor sit amet viverra. Sed sit amet nisl pulvinar, mollis velit vitae, iaculis nisl. Nulla blandit vitae metus sed laoreet. Nam at tortor vitae erat molestie vulputate. Nullam sollicitudin non mi vitae vulputate. Quisque hendrerit nulla egestas velit gravida vehicula et quis augue.</p>
-					</div>
-				</div>
-			</article>
-		</div>
-	</section>
-
-	<!-- FAQs -->
-	<Accordions theme="default" variant="panel-swap" />
-	<!-- variant="side-by-side" -->
-
-	<!-- Related articles -->
-	<section hidden class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
-		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
-			<!-- Subheading -->
-			<div hidden class="mb-3 font-bold text-foreground-muted xl:text-lg">
-				<p>This is the subheading</p>
+			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
+				<p>Press releases, media resources and our latest research, all in one place. For interview requests, images or comment, get in touch with the press office.</p>
 			</div>
 
-			<!-- Heading -->
-			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
-				<p>Related <em>articles</em></p>
-			</h2>
-
-			<!-- Copy -->
-			<div class="prose text-foreground-muted md:prose-lg">
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere.</p>
+			<div hidden class="flex flex-wrap justify-center gap-4">
+				<a href="mailto:ddavies@rws.com?subject=Media%20centre%20enquiry" class="btn btn-primary btn-lg">Get in touch</a>
 			</div>
 
-			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
+			<div class="mt-10">
+				<MediaCentreNav />
+			</div>
+
+			<div hidden class="mx-auto mt-10 grid max-w-4xl gap-6 text-left sm:grid-cols-3">
 				{
-					cards.map((card) => (
-						<>
-							{/* Variant 1: full-card clickable + author info */}
-							<article class="group relative rounded-lg border text-left" data-card>
-								<div class="flex h-full flex-col">
-									<div class="p-4">
-										<div class="mb-5 block overflow-hidden rounded">
-											<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
-										</div>
-
-										<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted"> Article </span>
-
-										<h2 class="mb-2 text-2xl font-bold">
-											<p>
-												<a href="/resources/blog-1/">
-													This is an article title
-													<span class="absolute inset-0" />
-												</a>
-											</p>
-										</h2>
-
-										<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-											<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
-										</div>
-									</div>
-
-									<div class="mt-auto px-4 pb-4">
-										<div class="flex items-center space-x-4">
-											<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
-											<div>
-												<div class="font-semibold">Jese Leos</div>
-												<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</article>
-						</>
+					sections.map((section) => (
+						<div class="prose text-sm/normal text-pretty text-foreground-muted">
+							<p>{section.description}</p>
+						</div>
 					))
 				}
 			</div>
 		</div>
-	</section>
+	</Section>
+
+	<Section hidden theme="dots" container={false}>
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<Intro subheading="" heading="Latest media" size="xs" />
+
+			<div hidden class="flex flex-wrap items-baseline justify-between gap-4">
+				<Heading as="h2" size="xs" class="font-bold tracking-tight text-pretty">
+					<p>Latest media</p>
+				</Heading>
+
+				<a href="/media-centre/press-releases/" class="text-sm font-semibold text-accent transition-colors hover:text-foreground">View all</a>
+			</div>
+
+			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3">
+				{
+					latest.map((release, index) => (
+						<article data-card class="group relative rounded-lg border text-left" style={`view-transition-name:media-centre-card-${index};view-transition-class:card-move`}>
+							<div class="flex h-full flex-col">
+								<div class="p-4">
+									<div class="mb-5 block overflow-hidden rounded">
+										<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={release.image} alt={release.name} />
+									</div>
+
+									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{release.type}</span>
+
+									<h3 class="mb-2 text-2xl font-bold">
+										<p>
+											<a href={release.href}>
+												{release.name}
+												<span class="absolute inset-0" />
+											</a>
+										</p>
+									</h3>
+
+									<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
+										<span>{release.date}</span>
+									</div>
+
+									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+										<Fragment set:html={release.description} />
+									</div>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</Section>
+
+	<!-- Alternative "Latest media" — same three releases through the MediaCard/MediaGrid block -->
+	<!-- <Section theme="dots" bottom="none" container={false}>
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<Intro subheading="" heading="Latest media (media cards)" size="xs" />
+		</div>
+	</Section> -->
+
+	<MediaGrid theme="dots" showIntro={false} groups={latestGroups} cta={latestCta} />
 
 	<!-- Call to action + form -->
-	<section id="form" class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
 			<div class="lg:col-span-7">
 				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">

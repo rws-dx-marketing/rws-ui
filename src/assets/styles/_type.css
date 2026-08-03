@@ -12,7 +12,7 @@
 
 @layer base {
 	:where(h1, h2, h3, h4, h5, h6) > em,
-	:where(h1, h2, h3, h4, h5, h6) > :where(p, span, div) > em {
+	:where(h1, h2, h3, h4, h5, h6) > :where(p, a, span, div) > em {
 		@apply text-gradient-animate pr-[0.025em] not-italic!;
 	}
 }

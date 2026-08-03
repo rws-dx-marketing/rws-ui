@@ -45,7 +45,7 @@
 }
 
 @utility text-gradient {
-	@apply bg-gradient bg-clip-text text-transparent;
+	@apply bg-gradient bg-clip-text text-transparent pb-[0.05em];
 	/* background-size: 100%; */
 }
 

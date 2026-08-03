@@ -48,16 +48,25 @@ const ctaCard = cta ?? (groups ? undefined : demoCta)
 const ctaIndex = data.length - 1
 const isColumns = orientation === 'columns'
 
-// Columns: outer is a row of columns that stretch to equal height; mobile
-// collapses to a single stack. Rows: outer stacks the bands vertically.
-const outer = isColumns ? 'flex flex-col lg:flex-row' : 'flex flex-col'
-// A column is a vertical stack (equal width via flex-1); a band is horizontal.
-const group = isColumns ? 'flex min-w-0 flex-1 flex-col gap-6' : 'flex flex-col gap-6 sm:flex-row'
+// Columns: outer is a row of columns that stretch to equal height, wrapping (and
+// so eventually stacking) once they can't hold their basis. Rows: outer stacks
+// the bands vertically.
+const outer = isColumns ? 'flex flex-wrap' : 'flex flex-col'
+// A column is a vertical stack that asks for an 18rem basis and grows to share
+// the row equally; a band wraps its cards, so they reflow onto another line
+// rather than squashing at intermediate widths.
+const group = isColumns ? 'flex min-w-0 flex-[1_1_18rem] flex-col gap-6' : 'flex flex-wrap gap-6'
 // Cards grow to fill — the stretched column height in columns, the band width
-// in rows. The CTA stays its natural height at the foot of a column; in a band
-// it takes a fixed, narrow width so the media cards keep the remaining room.
-const cardFill = 'flex-1'
-const ctaFill = isColumns ? '' : 'w-full shrink-0 sm:w-64'
+// in rows. In a column it's flex-auto, not flex-1: spare height is shared out
+// *on top of* each card's natural height, so a card with a long title keeps the
+// room it needs instead of being forced to an equal share and clipped.
+// In a band each card asks for an 18rem basis and grows from there; once two no
+// longer fit, the band wraps instead of shrinking them further.
+const cardFill = isColumns ? 'flex-auto' : 'min-w-0 flex-[1_1_18rem]'
+// The CTA stays its natural height at the foot of a column. In a band it holds
+// a narrow fixed width while everything is on one line, but grows once it wraps
+// so it never sits as a stranded stub.
+const ctaFill = isColumns ? '' : 'min-w-0 flex-[1_1_16rem] lg:flex-[0_1_16rem]'
 ---
 
 <Section theme={theme}>

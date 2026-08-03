@@ -1,0 +1,46 @@
+---
+// @ts-nocheck
+// Latest reports. Same three-item BentoGrid shape as /media-centre/media-
+// resources/ — the newest report takes the large hero slot, the other two sit
+// as mediums alongside it.
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import Heading from '../../components/Heading.astro'
+import BentoGrid from '../../blocks/BentoGrid.astro'
+import MediaCentreNav from '../../components/MediaCentreNav.astro'
+import { latestReports } from '../../data/media-centre/media-centre'
+---
+
+<Layout title="Latest reports – Media centre – RWS UI">
+	<Section top="xl" bottom="xs" theme="default" container={false}>
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<Heading as="h1" size="md" class="mx-auto mb-5 max-w-[16ch] font-bold tracking-tight">
+				<p>Latest reports</p>
+			</Heading>
+
+			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
+				<p>Original research on how organizations are putting AI to work across language, content and intellectual property. Free to download, and free to quote with attribution.</p>
+			</div>
+
+			<div class="mt-10">
+				<MediaCentreNav active="latest-reports" />
+			</div>
+		</div>
+	</Section>
+
+	<BentoGrid items={latestReports} theme="default" showIntro={false} />
+
+	<Section hidden theme="pale">
+		<div class="text-center">
+			<Heading as="h2" size="xs" class="mx-auto mb-5 max-w-[24ch] font-bold tracking-tight text-pretty">
+				<p>Reporting on our research?</p>
+			</Heading>
+
+			<div class="mx-auto prose mb-8 max-w-[52ch] text-pretty text-foreground-muted md:prose-lg">
+				<p>We can provide the underlying data, methodology notes and an author interview. Embargo copies are available ahead of publication.</p>
+			</div>
+
+			<a href="mailto:ddavies@rws.com?subject=Media%20centre%20enquiry" class="btn btn-primary btn-lg">Get in touch</a>
+		</div>
+	</Section>
+</Layout>

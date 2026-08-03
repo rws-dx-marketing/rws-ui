@@ -1,0 +1,46 @@
+---
+// @ts-nocheck
+// Media resources. Three destinations — the blog, the executive team and our
+// sister podcast — so BentoGrid resolves to one large hero plus two mediums
+// without any per-card positioning.
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import Heading from '../../components/Heading.astro'
+import BentoGrid from '../../blocks/BentoGrid.astro'
+import MediaCentreNav from '../../components/MediaCentreNav.astro'
+import { mediaResources } from '../../data/media-centre/media-centre'
+---
+
+<Layout title="Media resources – Media centre – RWS UI">
+	<Section top="xl" bottom="xs" theme="default" container={false}>
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<Heading as="h1" size="md" class="mx-auto mb-5 max-w-[16ch] font-bold tracking-tight">
+				<p>Media resources</p>
+			</Heading>
+
+			<div class="mx-auto prose prose-xl mb-8 max-w-[52ch] text-pretty text-foreground-muted xl:prose-2xl">
+				<p>Background, commentary and the people behind it. Start here for expert bios, long-form thinking and the conversations we host across the industry.</p>
+			</div>
+
+			<div class="mt-10">
+				<MediaCentreNav active="media-resources" />
+			</div>
+		</div>
+	</Section>
+
+	<BentoGrid items={mediaResources} theme="default" showIntro={false} />
+
+	<Section hidden theme="pale">
+		<div class="text-center">
+			<Heading as="h2" size="xs" class="mx-auto mb-5 max-w-[24ch] font-bold tracking-tight text-pretty">
+				<p>Need something else?</p>
+			</Heading>
+
+			<div class="mx-auto prose mb-8 max-w-[52ch] text-pretty text-foreground-muted md:prose-lg">
+				<p>High-resolution logos, product imagery and executive headshots are available on request. Tell us what you need and when you need it by.</p>
+			</div>
+
+			<a href="mailto:ddavies@rws.com?subject=Media%20centre%20enquiry" class="btn btn-primary btn-lg">Get in touch</a>
+		</div>
+	</Section>
+</Layout>
