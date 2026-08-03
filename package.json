@@ -13,7 +13,7 @@
 		"@tailwindcss/typography": "^0.5.20",
 		"@tailwindcss/vite": "^4.3.3",
 		"apexcharts": "3.54.1",
-		"astro": "^7.1.4",
+		"astro": "^7.1.6",
 		"embla-carousel": "9.0.0-rc02",
 		"lottie-web": "^5.13.0",
 		"prettier": "^3.9.6",

@@ -38,7 +38,7 @@ const author = getAuthor('stacy-ayers')
 
 				{
 					author.social && (
-						<div hidden class="mt-8 flex items-center gap-2">
+						<div class="mt-8 flex items-center gap-2">
 							{author.social.linkedin && (
 								<a href={author.social.linkedin} class="svg-current size-6 text-foreground-soft transition-colors hover:text-accent">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@ const author = getAuthor('stacy-ayers')
 								</a>
 							)}
 
-							{author.social.email && (
+							{/*{author.social.email && (
 								<a href={author.social.email} class="svg-current size-6 text-foreground-soft transition-colors hover:text-accent">
 									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 										<rect width="256" height="256" fill="none" />
@@ -65,7 +65,7 @@ const author = getAuthor('stacy-ayers')
 									</svg>
 									<span class="sr-only">Email {author.name}</span>
 								</a>
-							)}
+							)}*/}
 						</div>
 					)
 				}
