@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro'
 ---
 
-<Layout title="Economics – TrainAI Bench">
+<Layout title="Leaderboard – M-Gate">
 	<!-- Hero -->
 	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-16 md:pt-20 lg:pt-24" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
@@ -11,11 +11,11 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<h1 class="mx-auto mb-6 max-w-[16ch] text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl">
-				<p>Economics</p>
+				<p>Leaderboard</p>
 			</h1>
 
 			<div class="mx-auto prose prose-xl max-w-[56ch] text-foreground-muted md:prose-2xl">
-				<p>What does multilingual quality cost me per task and what are the trade-offs? Lorem ipsum dolor sit, amet consectetur adipisicing elit vitae quo.</p>
+				<p>What's the overall state of multilingual AI across all models, languages and tasks? Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
 			</div>
 
 			<div hidden class="flex flex-col gap-4 sm:flex-row sm:justify-center">
@@ -102,68 +102,56 @@ import Layout from '../../layouts/Layout.astro'
 
 			<!-- Charts -->
 			<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8">
-				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Latency bar chart</h3>
-				<ul>
-					<li>Avg seconds to respond (bar) + median (dot overlay) per model, brand color-coded, model variants toggle</li>
+				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – grammar MCC by model × language</h3>
+				<ul class="text-foreground-muted">
+					<li>Models (rows) × 30 languages (columns)</li>
+					<li>Color gradient: red (low) → green (high)</li>
+					<li>Tooltip on hover, language sort (alpha/by score), model variants toggle</li>
 				</ul>
 			</div>
 
-			<div class="grid gap-8 md:grid-cols-2">
-				<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8 md:aspect-square">
-					<h3 class="mb-4 text-xl font-bold text-foreground-muted">Cost vs. performance scatter</h3>
-					<ul class="text-foreground-muted">
-						<li>Score (%) vs. cost per 1M output tokens (USD)</li>
-						<li>Toggle: price list / total cost views</li>
-						<li>Pareto frontier line, brand color-coded dots</li>
-						<li>Zoom/pan, tooltip on hover</li>
-					</ul>
-				</div>
-
-				<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8 md:aspect-square">
-					<h3 class="mb-4 text-xl font-bold text-foreground-muted">Score vs. latency scatter</h3>
-					<ul class="text-foreground-muted">
-						<li>Score (%) vs. avg latency (seconds)</li>
-						<li>Brand color-coded, companion data table below</li>
-					</ul>
-				</div>
+			<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8">
+				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Bar chart – grammar MCC by model</h3>
+				<ul class="text-foreground-muted">
+					<li>Aggregate score per model, brand color-coded</li>
+				</ul>
 			</div>
 		</div>
 	</section>
 
-	<section hidden class="py-16" data-theme="default">
+	<section hidden class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
-			<h1 class="text-3xl font-bold tracking-tight">Economics</h1>
-			<p class="mt-3 max-w-2xl text-base text-foreground-muted">Cost per word and cost-quality trade-offs across benchmarked models.</p>
-
-			<div class="mt-10 overflow-x-auto rounded-lg border">
+			<div class="overflow-x-auto rounded-lg border">
 				<table class="w-full text-sm">
 					<thead class="border-b bg-foreground-softest">
 						<tr>
+							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground-subtle uppercase">Rank</th>
 							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground-subtle uppercase">Model</th>
-							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">Cost / 1k tokens</th>
-							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">Cost / word</th>
+							<th class="px-4 py-3 text-left text-xs font-bold tracking-wider text-foreground-subtle uppercase">Provider</th>
 							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">COMET</th>
-							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">Quality / cost</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">BLEU</th>
+							<th class="px-4 py-3 text-right text-xs font-bold tracking-wider text-foreground-subtle uppercase">Human eval</th>
 						</tr>
 					</thead>
 					<tbody class="divide-y divide-foreground-softest">
 						{
 							[
-								{ model: 'Language Weaver', cost1k: '$0.006', costWord: '$0.0001', comet: '86.8', ratio: 'Excellent' },
-								{ model: 'NLLB-200 (self-hosted)', cost1k: '—', costWord: '$0.00003', comet: '81.5', ratio: 'Very high' },
-								{ model: 'DeepL', cost1k: '$0.025', costWord: '$0.0005', comet: '86.1', ratio: 'High' },
-								{ model: 'Llama 3.1 405B', cost1k: '$0.003', costWord: '$0.00008', comet: '84.7', ratio: 'High' },
-								{ model: 'Mistral Large', cost1k: '$0.004', costWord: '$0.0001', comet: '83.2', ratio: 'Good' },
-								{ model: 'Gemini 1.5 Pro', cost1k: '$0.007', costWord: '$0.00018', comet: '87.3', ratio: 'Good' },
-								{ model: 'Claude 3.5 Sonnet', cost1k: '$0.015', costWord: '$0.0004', comet: '88.9', ratio: 'Moderate' },
-								{ model: 'GPT-4o', cost1k: '$0.015', costWord: '$0.0004', comet: '89.4', ratio: 'Moderate' },
+								{ rank: 1, model: 'GPT-4o', provider: 'OpenAI', comet: '89.4', bleu: '42.1', human: '4.6' },
+								{ rank: 2, model: 'Claude 3.5 Sonnet', provider: 'Anthropic', comet: '88.9', bleu: '41.7', human: '4.5' },
+								{ rank: 3, model: 'Gemini 1.5 Pro', provider: 'Google', comet: '87.3', bleu: '40.2', human: '4.4' },
+								{ rank: 4, model: 'Language Weaver', provider: 'RWS', comet: '86.8', bleu: '39.9', human: '4.4' },
+								{ rank: 5, model: 'DeepL', provider: 'DeepL', comet: '86.1', bleu: '39.1', human: '4.3' },
+								{ rank: 6, model: 'Llama 3.1 405B', provider: 'Meta', comet: '84.7', bleu: '37.8', human: '4.1' },
+								{ rank: 7, model: 'Mistral Large', provider: 'Mistral', comet: '83.2', bleu: '36.5', human: '4.0' },
+								{ rank: 8, model: 'NLLB-200', provider: 'Meta', comet: '81.5', bleu: '34.2', human: '3.8' },
 							].map((row) => (
 								<tr class="transition-colors hover:bg-foreground-softest">
+									<td class="px-4 py-3.5 font-semibold">{row.rank}</td>
 									<td class="px-4 py-3.5">{row.model}</td>
-									<td class="px-4 py-3.5 text-right text-foreground-muted tabular-nums">{row.cost1k}</td>
-									<td class="px-4 py-3.5 text-right text-foreground-muted tabular-nums">{row.costWord}</td>
+									<td class="px-4 py-3.5 text-foreground-subtle">{row.provider}</td>
 									<td class="px-4 py-3.5 text-right font-semibold tabular-nums">{row.comet}</td>
-									<td class="px-4 py-3.5 text-right font-semibold text-foreground-muted">{row.ratio}</td>
+									<td class="px-4 py-3.5 text-right text-foreground-muted tabular-nums">{row.bleu}</td>
+									<td class="px-4 py-3.5 text-right text-foreground-muted tabular-nums">{row.human}</td>
 								</tr>
 							))
 						}

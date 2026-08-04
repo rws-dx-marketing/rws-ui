@@ -1,0 +1,621 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+
+const stats = [
+	{ value: '30', label: 'Languages', note: '' },
+	{ value: '50+', label: 'Models tested', note: '' },
+	{ value: '2M+', label: 'Tokens used', note: '' },
+]
+
+const gridColsByCount = {
+	1: 'grid-cols-1',
+	2: 'sm:grid-cols-2',
+	3: 'sm:grid-cols-3',
+	4: 'sm:grid-cols-2 lg:grid-cols-4',
+	5: 'sm:grid-cols-2 lg:grid-cols-5',
+	6: 'sm:grid-cols-2 lg:grid-cols-3',
+}
+
+const gridCols = gridColsByCount[stats.length] ?? gridColsByCount[3]
+
+const languagesGrammar = [
+	{ name: 'Portuguese (Brazil)', color: 'blue', model: 'Tood 2.0 Lite', score: '0.41' },
+	{ name: 'German', color: 'green', model: 'Gemini 3 Flash', score: '0.38' },
+	{ name: 'French', color: 'orangered', model: 'MiniMax M1', score: '0.35' },
+	{ name: 'Arabic', color: 'purple', model: 'Claude Opus 4.6', score: '0.32' },
+	{ name: 'Korean', color: 'purple', model: 'Claude Fable 5', score: '0.29' },
+]
+
+const languagesTranslation = [
+	{ name: 'Spanish', color: 'green', model: 'Gemini 3.5 Flash', score: '94%' },
+	{ name: 'Icelandic', color: 'green', model: 'Gemini 3.5 Flash', score: '94%' },
+	{ name: 'Polish', color: 'blue', model: 'Tood 2.0 Lite', score: '93%' },
+	{ name: 'Simplified Chinese', color: 'purple', model: 'Claude Fable 5', score: '92%' },
+	{ name: 'Japanese', color: 'purple', model: 'Claude Fable 5', score: '89%' },
+]
+
+// Gating examples — shared sample data
+const gateRows = [
+	{ name: 'Grok 4.20', color: 'rgb(17, 17, 17)', score: '0.44', left: 40, width: 43.6 },
+	{ name: 'Gemini 3.1 Pro Preview', color: 'rgb(66, 133, 244)', score: '0.23', left: 40, width: 22.8 },
+	{ name: 'Gemini 3.5 Flash', color: 'rgb(66, 133, 244)', score: '0.05', left: 40, width: 5.5 },
+	{ name: 'Claude Fable 5', color: 'rgb(217, 119, 87)', score: '0.02', left: 40, width: 2.1 },
+	{ name: 'GPT-5', color: 'rgb(16, 163, 127)', score: '-0.04', left: 36, width: 4.0 },
+]
+
+const gateBands = [
+	{ language: 'Spanish', model: 'Gemini 3.5 Flash', band: 'Strong', tone: 'strong' },
+	{ language: 'German', model: 'Tood 2.0 Lite', band: 'Strong', tone: 'strong' },
+	{ language: 'Korean', model: 'Claude Fable 5', band: 'Adequate', tone: 'adequate' },
+	{ language: 'Thai', model: 'Grok 4.20', band: 'Adequate', tone: 'adequate' },
+	{ language: 'Icelandic', model: 'GPT-5', band: 'Weak', tone: 'weak' },
+]
+
+const bandTones = {
+	strong: 'border-green-600/25 bg-green-600/10 text-green-700 dark:text-green-400',
+	adequate: 'border-amber-600/25 bg-amber-600/10 text-amber-700 dark:text-amber-400',
+	weak: 'border-red-600/25 bg-red-600/10 text-red-700 dark:text-red-400',
+}
+
+const gateMatrix = [
+	{ language: 'Japanese', models: '34', best: 'Claude Fable 5' },
+	{ language: 'Arabic', models: '34', best: 'Gemini 3.1 Pro' },
+	{ language: 'Korean', models: '31', best: 'Grok 4.20' },
+	{ language: 'Finnish', models: '29', best: 'Tood 2.0 Lite' },
+]
+---
+
+<Layout title="M-Gate">
+	<!-- Hero -->
+	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-20 md:pt-24 lg:pt-32" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+				<p>By language experts</p>
+			</div>
+
+			<h1 class="mx-auto mb-6 max-w-[16ch] text-5xl font-bold tracking-tight md:text-6xl xl:text-7xl">
+				<p>Does your AI actually <em>speak the language</em>?</p>
+			</h1>
+
+			<div hidden class="mx-auto mb-8 max-w-[56ch] text-xl text-pretty text-foreground-muted xl:text-2xl">
+				<p>The first independent multilingual benchmark that tests grammar, meaning preservation, and tokenizer efficiency across 30 languages.</p>
+			</div>
+
+			<div class="mx-auto prose prose-xl mb-8 max-w-[56ch] text-foreground-muted md:prose-2xl">
+				<p>The first independent multilingual benchmark that tests grammar, meaning preservation, and tokenizer efficiency across 30 languages.</p>
+			</div>
+
+			<div class="flex flex-col gap-4 sm:flex-row sm:justify-center">
+				<a href="/m-gate/leaderboard" class="btn btn-primary btn-xl">View leaderboard</a>
+				<a href="/m-gate/methodology" class="btn btn-outline btn-xl">Read methodology</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Stats -->
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class:list={['grid gap-8', gridCols]}>
+				{
+					stats.map((stat, index) => (
+						<div class="@container grid place-content-center rounded-lg p-6 text-center" data-card>
+							<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style={`--motion-delay: ${200 + index * 100}ms`} data-count-up>
+								{stat.value}
+							</p>
+
+							<div class="intersect-once intersect:motion-preset-slide-up-sm" style={`--motion-delay: ${200 + index * 100}ms`}>
+								<p class="text-lg/tight font-bold">{stat.label}</p>
+								{stat.note && <p>{stat.note}</p>}
+							</div>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Split -->
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<div class="lg:col-span-6">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>Consectetur adipiscing elit</p>
+				</div>
+
+				<h2 class="mb-6 text-3xl font-bold tracking-tight xl:text-4xl">
+					<p>Lorem ipsum dolor sit amet</p>
+				</h2>
+
+				<div class="prose text-foreground-muted md:prose-lg">
+					<p>Which model is best for my market? Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit suspendisse luctus tortor.</p>
+					<p>How does this specific model perform across languages and tasks? Ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</div>
+
+				<div class="mt-8 flex flex-wrap items-center gap-4">
+					<a href="#" class="btn btn-secondary btn-icon-right btn-lg">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						By language
+					</a>
+					<a href="#" class="btn btn-tertiary btn-icon-right btn-lg">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						By model
+					</a>
+				</div>
+			</div>
+
+			<div class="lg:col-span-6">
+				<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
+					<img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/search-mockup.png" alt="Graphs" class="w-full rounded-lg object-cover" draggable="false" />
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Top models -->
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="text-center- *:mx-auto- mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+				<p>Consectetur adipiscing elit</p>
+			</div>
+
+			<h2 class="mb-6 max-w-[24ch] text-3xl font-bold tracking-tight text-pretty xl:text-4xl">
+				<p>There is no single best AI for every language</p>
+			</h2>
+
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p>The top model changes depending on what you need it to speak. Here is who leads where, and by how much. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+			</div>
+
+			<!-- Scores -->
+			<div class="mt-12 lg:mt-16">
+				<div class="grid items-start gap-8 md:grid-cols-2">
+					<div class="grid gap-4">
+						<div class="flex items-center justify-between gap-6 px-5">
+							<span class="flex-1 text-lg font-bold">Grammar</span>
+							<span class="font-semibold text-foreground-subtle">MCC</span>
+						</div>
+
+						{
+							languagesGrammar.map((lang) => (
+								<div class="flex items-center gap-6 rounded border px-5 py-4 font-semibold" data-card>
+									<span class="flex-1">{lang.name}</span>
+									<span class="flex items-center gap-2">
+										<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
+										<span class="font-bold">{lang.model}</span>
+									</span>
+									<span class="text-foreground-muted tabular-nums">{lang.score}</span>
+								</div>
+							))
+						}
+					</div>
+
+					<div class="grid gap-4">
+						<div class="flex items-center justify-between gap-6 px-5">
+							<span class="flex-1 text-lg font-bold">Translation</span>
+							<span class="font-semibold text-foreground-subtle">Score %</span>
+						</div>
+
+						{
+							languagesTranslation.map((lang) => (
+								<div class="flex items-center gap-6 rounded border px-5 py-4 font-semibold" data-card>
+									<span class="flex-1">{lang.name}</span>
+									<span class="flex items-center gap-2">
+										<span class="mt-0.25 size-3 rounded-xs" style={`background-color: ${lang.color}`} />
+										<span class="font-bold">{lang.model}</span>
+									</span>
+									<span class="text-foreground-muted tabular-nums">{lang.score}</span>
+								</div>
+							))
+						}
+					</div>
+				</div>
+
+				<div class="mt-10 flex flex-col gap-x-6 gap-y-4 sm:flex-row sm:items-center">
+					<div class="flex-1 text-pretty text-foreground-muted">
+						<p>Best model per language &bull; grammar in MCC, translation in score %</p>
+					</div>
+
+					<div>
+						<a href="/m-gate/leaderboard" class="btn btn-link btn-icon-right text-accent">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							See the full leaderboard
+						</a>
+					</div>
+				</div>
+
+				<div hidden class="grid aspect-2/1 place-items-center rounded-lg border bg-background-softest">
+					<a href="/m-gate/register" class="btn btn-primary btn-icon-right btn-lg">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						Register to explore full data
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Preview -->
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<!-- Chart -->
+			<div class="relative z-[1] overflow-hidden rounded-lg border bg-background-softest text-foreground *:pointer-events-none *:select-none">
+				<div class="flex flex-col gap-4 border-b px-6 py-4">
+					<div>
+						<h3 class="m-0 text-xl font-bold text-foreground/80">Bar chart — all models ranked by grammar MCC for Thai</h3>
+					</div>
+
+					<div class="flex items-center justify-between gap-4">
+						<div class="flex min-w-0 items-center gap-[18px]">
+							<div class="inline-flex gap-0.5 rounded bg-foreground-softer p-1.25">
+								<button type="button" class="btn btn-ghost rounded-sm bg-background text-foreground">Grammar</button>
+								<button type="button" class="btn btn-ghost rounded-sm text-foreground/80">Translation</button>
+								<button type="button" class="btn btn-ghost rounded-sm text-foreground/80">Tokenizer</button>
+							</div>
+							<div hidden class="min-w-0">
+								<h3 class="m-0 text-xl font-bold text-foreground/80">Bar chart — all models ranked by grammar MCC for Thai</h3>
+								<p class="mt-0.5 mb-0 text-xs text-foreground-subtle">Horizontal bars · brand color-coded · sorted by score</p>
+							</div>
+						</div>
+						<div class="flex flex-none flex-col items-end gap-2">
+							<span class="inline-flex items-center rounded-full border border-accent-soft bg-accent-softer px-2.5 py-1 text-xs font-bold text-accent tabular-nums">11 of 34 models</span>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="relative px-6 pt-5 pb-2.5">
+						<div class="relative">
+							<div class="pointer-events-none absolute top-0 bottom-0" style="left: calc(184px); right: 40px;">
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 0%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 20%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 40%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 60%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 80%;"></span>
+								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 100%;"></span>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Grok 4.20</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(17, 17, 17);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 43.6436%; background: rgb(17, 17, 17);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 83.6436%;">0.44</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Gemini 3.1 Pro Preview</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(66, 133, 244);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 22.7836%; background: rgb(66, 133, 244);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 62.7836%;">0.23</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Gemini 3.5 Flash</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(66, 133, 244);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 5.48357%; background: rgb(66, 133, 244);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 45.4836%;">0.05</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Mistral Medium 3.1</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(255, 112, 0);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 4.82805%; background: rgb(255, 112, 0);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 44.828%;">0.05</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Gemini 3 Flash Preview</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(66, 133, 244);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 4.45435%; background: rgb(66, 133, 244);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 44.4544%;">0.04</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Claude Opus 4.5</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(217, 119, 87);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 2.54906%; background: rgb(217, 119, 87);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 42.5491%;">0.03</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Gemma 4 31B</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(66, 133, 244);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 2.37624%; background: rgb(66, 133, 244);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 42.3762%;">0.02</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Mistral Medium 3.5</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(255, 112, 0);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 40%; width: 1.2%; background: rgb(255, 112, 0);"></div>
+									<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 40%;">0.00</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">GPT-5</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(16, 163, 127);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 35.9709%; width: 4.02911%; background: rgb(16, 163, 127);"></div>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 35.9709%;">-0.04</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">Command A Translate</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(57, 89, 76);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 35.4117%; width: 4.58831%; background: rgb(57, 89, 76);"></div>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 35.4117%;">-0.05</span>
+								</div>
+							</div>
+							<div class="group relative mb-1.5 flex items-center gap-3.5">
+								<div class="flex w-[170px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+									<span class="overflow-hidden text-ellipsis whitespace-nowrap">GLM 5.2</span>
+									<span class="h-2 w-2 flex-none rounded-full" style="background: rgb(14, 165, 233);"></span>
+								</div>
+								<div class="relative mr-10 h-6 flex-1 cursor-default">
+									<div data-bar-fill="" class="absolute top-0 h-full rounded-[5px] transition-[left,width,background-color] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:brightness-[1.08] motion-reduce:transition-none" style="left: 6.94303%; width: 33.057%; background: rgb(14, 165, 233);"></div>
+									<span class="absolute top-1/2 -translate-x-full -translate-y-1/2 pr-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style="left: 6.94303%;">-0.33</span>
+								</div>
+							</div>
+						</div>
+						<div class="relative mt-0.5 h-4" style="margin-left: calc(184px); margin-right: 40px;">
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 0%;">-0.40</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 20%;">-0.20</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 40%;">0.00</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 60%;">0.20</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 80%;">0.40</span>
+							<span class="absolute -translate-x-1/2 text-[10px] whitespace-nowrap text-foreground-subtle" style="left: 100%;">0.60</span>
+						</div>
+						<p class="mt-1.5 text-center text-[11px] text-foreground-subtle">MCC</p>
+					</div>
+				</div>
+				<div class="border-t px-6 py-3">
+					<a class="text-[13px] font-semibold text-accent no-underline hover:underline" href="#methodology">How we measure this — methodology &amp; metric definitions →</a>
+				</div>
+
+				<!-- Overlay -->
+				<div class="absolute inset-0 grid place-content-center bg-background/75 backdrop-blur *:pointer-events-auto *:select-auto" data-card>
+					<div class="max-w-[42ch] px-6 text-center">
+						<h3 class="mb-3 text-xl font-semibold text-balance">Unlock the full dataset</h3>
+
+						<p class="mb-6 text-base text-pretty text-foreground-muted">Every model, language and metric — including detailed per-language and per-domain breakdowns.</p>
+
+						<a href="/m-gate/register" class="btn btn-primary btn-icon-right">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+							Get access now
+						</a>
+
+						<p class="mt-4 text-xs text-foreground-subtle">Free — takes about 2 minutes</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Gating patterns -->
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<div class="mb-10 max-w-[60ch]">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>Gating patterns</p>
+				</div>
+				<h2 class="mb-4 text-3xl font-bold tracking-tight md:text-4xl">Other ways to tease the data</h2>
+				<p class="text-lg text-pretty text-foreground-muted">Alternatives to the blur overlay above. Each one withholds the value on the server rather than hiding it with CSS, so nothing sensitive ships to the browser.</p>
+			</div>
+
+			<div class="grid items-start gap-8 lg:grid-cols-2">
+				<!-- 1. Truncate and fade -->
+				<div class="overflow-hidden rounded-lg border bg-background-softest">
+					<div class="border-b px-6 py-4">
+						<h3 class="m-0 text-base font-bold">1 — Truncate and fade</h3>
+						<p class="mt-1 mb-0 text-xs text-foreground-subtle">Real rows, honestly counted. The rest are never rendered.</p>
+					</div>
+
+					<div class="relative">
+						<div class="p-6">
+							{
+								gateRows.map((row) => (
+									<div class="mb-1.5 flex items-center gap-3.5">
+										<div class="flex w-[150px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+											<span class="overflow-hidden text-ellipsis whitespace-nowrap">{row.name}</span>
+											<span class="h-2 w-2 flex-none rounded-full" style={`background: ${row.color};`} />
+										</div>
+										<div class="relative mr-10 h-6 flex-1">
+											<div class="absolute top-0 h-full rounded-[5px]" style={`left: ${row.left}%; width: ${row.width}%; background: ${row.color};`} />
+											<span class="absolute top-1/2 -translate-y-1/2 pl-1.5 text-[11px] font-semibold whitespace-nowrap text-foreground/80" style={`left: ${row.left + row.width}%;`}>
+												{row.score}
+											</span>
+										</div>
+									</div>
+								))
+							}
+						</div>
+						<div class="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-linear-to-t from-background-softest to-transparent"></div>
+					</div>
+
+					<div class="flex flex-wrap items-center justify-between gap-3 border-t px-6 py-4">
+						<p class="m-0 text-sm text-foreground-muted">Showing <span class="font-semibold text-foreground tabular-nums">5</span> of <span class="font-semibold text-foreground tabular-nums">34</span> models</p>
+						<a href="/m-gate/register" class="btn btn-primary btn-sm">See all 34</a>
+					</div>
+				</div>
+
+				<!-- 2. Round the answer down -->
+				<div class="overflow-hidden rounded-lg border bg-background-softest">
+					<div class="border-b px-6 py-4">
+						<h3 class="m-0 text-base font-bold">2 — Round the answer down</h3>
+						<p class="mt-1 mb-0 text-xs text-foreground-subtle">A band gives you the shape. The exact score is what you register for.</p>
+					</div>
+
+					<div class="overflow-x-auto">
+						<table class="w-full text-left text-sm">
+							<thead class="border-b text-xs text-foreground-subtle">
+								<tr>
+									<th scope="col" class="px-6 py-3 font-semibold">Language</th>
+									<th scope="col" class="px-6 py-3 font-semibold">Best model</th>
+									<th scope="col" class="px-6 py-3 font-semibold">Grammar</th>
+									<th scope="col" class="px-6 py-3 text-right font-semibold">Exact MCC</th>
+								</tr>
+							</thead>
+							<tbody>
+								{
+									gateBands.map((row) => (
+										<tr class="border-b last:border-0">
+											<td class="px-6 py-3 font-semibold">{row.language}</td>
+											<td class="px-6 py-3 text-foreground-muted">{row.model}</td>
+											<td class="px-6 py-3">
+												<span class={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-bold ${bandTones[row.tone]}`}>{row.band}</span>
+											</td>
+											<td class="px-6 py-3 text-right text-foreground-subtle">
+												<span aria-hidden="true">••••</span>
+												<span class="sr-only">Locked — register to view</span>
+											</td>
+										</tr>
+									))
+								}
+							</tbody>
+						</table>
+					</div>
+
+					<div class="flex flex-wrap items-center justify-between gap-3 border-t px-6 py-4">
+						<p class="m-0 text-sm text-foreground-muted">Exact scores for all <span class="font-semibold text-foreground tabular-nums">30</span> languages</p>
+						<a href="/m-gate/register" class="btn btn-primary btn-sm">Unlock scores</a>
+					</div>
+				</div>
+
+				<!-- 3. Keep the headers, empty the cells -->
+				<div class="overflow-hidden rounded-lg border bg-background-softest">
+					<div class="border-b px-6 py-4">
+						<h3 class="m-0 text-base font-bold">3 — Keep the headers, empty the cells</h3>
+						<p class="mt-1 mb-0 text-xs text-foreground-subtle">You always know exactly what you're missing.</p>
+					</div>
+
+					<div class="overflow-x-auto">
+						<table class="w-full text-left text-sm">
+							<thead class="border-b text-xs text-foreground-subtle">
+								<tr>
+									<th scope="col" class="px-6 py-3 font-semibold">Language</th>
+									<th scope="col" class="px-6 py-3 text-right font-semibold">Models</th>
+									<th scope="col" class="px-6 py-3 font-semibold">Best model</th>
+									<th scope="col" class="px-6 py-3 text-right font-semibold">Tokenizer cost</th>
+								</tr>
+							</thead>
+							<tbody>
+								{
+									gateMatrix.map((row) => (
+										<tr class="border-b last:border-0">
+											<td class="px-6 py-3 font-semibold">{row.language}</td>
+											<td class="px-6 py-3 text-right text-foreground-muted tabular-nums">{row.models}</td>
+											<td class="px-6 py-3 text-foreground-muted">{row.best}</td>
+											<td class="px-6 py-3">
+												<span class="ml-auto flex h-4 w-4 text-foreground-subtle" aria-hidden="true">
+													<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+														<rect width="256" height="256" fill="none" />
+														<rect x="40" y="88" width="176" height="128" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+														<path d="M88,88V56a40,40,0,0,1,80,0V88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+													</svg>
+												</span>
+												<span class="sr-only">Locked — register to view</span>
+											</td>
+										</tr>
+									))
+								}
+							</tbody>
+						</table>
+					</div>
+
+					<div class="flex flex-wrap items-center justify-between gap-3 border-t px-6 py-4">
+						<p class="m-0 text-sm text-foreground-muted"><span class="font-semibold text-foreground tabular-nums">1</span> of <span class="font-semibold text-foreground tabular-nums">4</span> columns locked</p>
+						<a href="/m-gate/register" class="btn btn-primary btn-sm">Unlock columns</a>
+					</div>
+				</div>
+
+				<!-- 4. Shape without the scale -->
+				<div class="overflow-hidden rounded-lg border bg-background-softest">
+					<div class="border-b px-6 py-4">
+						<h3 class="m-0 text-base font-bold">4 — Shape without the scale</h3>
+						<p class="mt-1 mb-0 text-xs text-foreground-subtle">The ranking is readable. The axis that would let you quote it is not.</p>
+					</div>
+
+					<div class="px-6 pt-5 pb-4">
+						{
+							gateRows.map((row) => (
+								<div class="mb-1.5 flex items-center gap-3.5">
+									<div class="flex w-[150px] flex-none items-center justify-end gap-1.5 overflow-hidden text-right text-xs text-foreground">
+										<span class="overflow-hidden text-ellipsis whitespace-nowrap">{row.name}</span>
+										<span class="h-2 w-2 flex-none rounded-full" style={`background: ${row.color};`} />
+									</div>
+									<div class="relative h-6 flex-1">
+										<div class="absolute top-0 h-full rounded-[5px] opacity-60" style={`left: ${row.left}%; width: ${row.width}%; background: ${row.color};`} />
+									</div>
+								</div>
+							))
+						}
+						<div class="relative mt-0.5 ml-[164px] h-4">
+							{
+								[0, 20, 40, 60, 80, 100].map((left) => (
+									<span class="absolute -translate-x-1/2 text-[10px] text-foreground-subtle" style={`left: ${left}%;`} aria-hidden="true">
+										••
+									</span>
+								))
+							}
+						</div>
+						<p class="mt-1.5 text-center text-[11px] text-foreground-subtle">MCC — values hidden</p>
+					</div>
+
+					<div class="flex flex-wrap items-center justify-between gap-3 border-t px-6 py-4">
+						<p class="m-0 text-sm text-foreground-muted">Ranking shown, exact scores hidden</p>
+						<a href="/m-gate/register" class="btn btn-primary btn-sm">Show values</a>
+					</div>
+				</div>
+
+				<!-- 5. Gate the export, not the view -->
+				<div hidden class="overflow-hidden rounded-lg border bg-background-softest lg:col-span-2">
+					<div class="border-b px-6 py-4">
+						<h3 class="m-0 text-base font-bold">5 — Gate the export, not the view</h3>
+						<p class="mt-1 mb-0 text-xs text-foreground-subtle">Everything on screen stays open and indexable. Registering buys the data in a form you can actually work with.</p>
+					</div>
+
+					<div class="flex flex-wrap items-center gap-3 px-6 py-5">
+						{
+							['Download CSV', 'API access', 'Custom chart', 'Full PDF report'].map((label) => (
+								<a href="/m-gate/register" class="btn btn-outline btn-icon-left btn-sm">
+									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+										<rect width="256" height="256" fill="none" />
+										<rect x="40" y="88" width="176" height="128" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										<path d="M88,88V56a40,40,0,0,1,80,0V88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									</svg>
+									{label}
+								</a>
+							))
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>

@@ -1,16 +1,16 @@
 const secondaryNavTree = [
 	{
-		id: 'trainai-bench',
-		label: 'TrainAI Bench',
-		href: '/trainai-bench',
+		id: 'm-gate',
+		label: 'M-Gate',
+		href: '/m-gate',
 		children: [
-			{ id: 'trainai-bench-leaderboard', label: 'Leaderboard', href: '/trainai-bench/leaderboard' },
-			{ id: 'trainai-bench-by-language', label: 'By language', href: '/trainai-bench/by-language' },
-			{ id: 'trainai-bench-by-model', label: 'By model', href: '/trainai-bench/by-model' },
-			{ id: 'trainai-bench-economics', label: 'Economics', href: '/trainai-bench/economics' },
-			{ id: 'trainai-bench-methodology', label: 'Methodology', href: '/trainai-bench/methodology' },
-			{ id: 'trainai-bench-insights', label: 'Insights', href: '/trainai-bench/insights' },
-			{ id: 'trainai-bench-register', label: 'Register', href: '/trainai-bench/register' },
+			{ id: 'm-gate-leaderboard', label: 'Leaderboard', href: '/m-gate/leaderboard' },
+			{ id: 'm-gate-by-language', label: 'By language', href: '/m-gate/by-language' },
+			{ id: 'm-gate-by-model', label: 'By model', href: '/m-gate/by-model' },
+			{ id: 'm-gate-economics', label: 'Economics', href: '/m-gate/economics' },
+			{ id: 'm-gate-methodology', label: 'Methodology', href: '/m-gate/methodology' },
+			{ id: 'm-gate-insights', label: 'Insights', href: '/m-gate/insights' },
+			{ id: 'm-gate-register', label: 'Register', href: '/m-gate/register' },
 		],
 	},
 	{
