@@ -77,10 +77,14 @@ export default function animation() {
 	// these observers add/remove data-svg-playing to gate it.
 	// Play once the SVG rises to 25% up from the bottom of the viewport (the
 	// bottom margin shrinks the root, so "intersecting" starts at that line).
+	// SMIL (<animate> and friends) ignores animation-play-state, so it's gated
+	// on the SVG's own timeline instead.
 	const playObserver = new IntersectionObserver(
 		(entries) => {
 			for (const entry of entries) {
-				if (entry.isIntersecting) entry.target.setAttribute('data-svg-playing', '')
+				if (!entry.isIntersecting) continue
+				entry.target.setAttribute('data-svg-playing', '')
+				entry.target.unpauseAnimations()
 			}
 		},
 		{ rootMargin: '0px 0px -25% 0px' },
@@ -89,7 +93,9 @@ export default function animation() {
 	// Pause only once the SVG is completely out of the viewport.
 	const outObserver = new IntersectionObserver((entries) => {
 		for (const entry of entries) {
-			if (!entry.isIntersecting) entry.target.removeAttribute('data-svg-playing')
+			if (entry.isIntersecting) continue
+			entry.target.removeAttribute('data-svg-playing')
+			entry.target.pauseAnimations()
 		}
 	})
 
@@ -138,6 +144,17 @@ export default function animation() {
 			// playObserver adds data-svg-playing at the 25% line; outObserver
 			// removes it again only once it's fully out of view.
 			img.replaceWith(svg)
+
+			// Reduced motion: the CSS rule parks the CSS animations; do the same
+			// for SMIL by seeking past the end and freezing there.
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				svg.setCurrentTime(100000)
+				svg.pauseAnimations()
+				return
+			}
+
+			// Paused until the play line, matching the CSS default.
+			svg.pauseAnimations()
 			playObserver.observe(svg)
 			outObserver.observe(svg)
 		} catch {
