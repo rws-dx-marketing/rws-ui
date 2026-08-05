@@ -1,0 +1,363 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import ResourceHero from '../../blocks/ResourceHero.astro'
+
+const details = [
+	{ label: 'Product', value: 'Tridion Sites 10' },
+	{ label: 'Course code', value: 'TS10-DELTA' },
+	{ label: 'Duration', value: '2 days' },
+	{ label: 'Level', value: 'Intermediate' },
+	// { label: 'Delivery', value: 'Virtual, instructor-led' },
+	{ label: 'Language', value: 'English' },
+	// { label: 'Audience', value: 'Developers, architects, administrators' },
+	// { label: 'Prerequisites', value: 'Working knowledge of Tridion Sites 9' },
+]
+
+const objectives = ['Understand what has changed between Tridion Sites 9 and Tridion Sites 10, and why.', 'Plan an upgrade path that fits your existing implementation and release cycle.', 'Work confidently with the updated content model, APIs and delivery stack.', 'Explain the benefits of Tridion Sites 10 to stakeholders, users and development teams.']
+
+const audience = ['Development teams responsible for maintaining an existing Tridion Sites implementation.', 'Solution architects planning an upgrade or migration.', 'System administrators supporting content delivery environments.', 'Executive sponsors who need to understand the impact of the release.']
+
+const modules = [
+	{
+		title: 'Module 1 — Release overview',
+		body: ['A guided tour of what is new in Tridion Sites 10, framed around the problems each change is intended to solve. We cover the release timeline, support windows and how the release fits into the wider Tridion roadmap.', 'By the end of this module you will be able to summarise the release for a non-technical audience.'],
+	},
+	{
+		title: 'Module 2 — Content model and authoring changes',
+		body: ['Changes to schemas, components and page composition, with hands-on exercises against a sample implementation. We look at what carries over untouched, what needs revisiting, and where the new capabilities are worth adopting immediately.'],
+	},
+	{
+		title: 'Module 3 — APIs and integrations',
+		body: ['A walkthrough of the updated public APIs, deprecations and their replacements. Includes practical guidance on identifying affected custom code in your own implementation before you begin an upgrade.'],
+	},
+	{
+		title: 'Module 4 — Content delivery and deployment',
+		body: ['Updates to the content delivery stack, deployment topology and configuration. We cover the operational impact of the changes and the checks worth running in a staging environment first.'],
+	},
+	{
+		title: 'Module 5 — Planning your upgrade',
+		body: ['A structured approach to scoping, sequencing and de-risking the upgrade. Participants leave with a draft plan for their own implementation and a checklist of open questions to take back to their team.'],
+	},
+]
+
+const related = [
+	{ title: 'Tridion Sites 10 — Developer Fundamentals', duration: '3 days', level: 'Foundation', description: 'A practical introduction to building and extending Tridion Sites 10 implementations, from content model to delivery.' },
+	{ title: 'Tridion Docs 15 — Technical Delta', duration: '2 days', level: 'Intermediate', description: 'What has changed in Tridion Docs 15, and how to plan an upgrade for an existing structured content implementation.' },
+	{ title: 'Tridion Sites — Administration', duration: '2 days', level: 'Intermediate', description: 'Day-to-day administration of Tridion Sites environments: users, permissions, publishing and troubleshooting.' },
+]
+---
+
+<Layout title="Tridion Sites 10 – Technical Delta – RWS UI">
+	<ResourceHero layout="wide-text" title="Tridion Sites 10 — Technical Delta" description="This course is designed to help teams and their executive sponsors understand, prepare for, and explain the benefits of Tridion Sites 10 to their internal stakeholders, users and development teams. Over two days we work through what has changed since Sites 9, what it means for your implementation, and how to plan the upgrade." cta={{ href: '#form', text: 'Download course outline' }} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
+
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
+		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+			<aside class="hidden lg:col-span-4 lg:block">
+				<div class="grid gap-8 transition-[top] duration-300 lg:sticky lg:top-[calc(var(--content-top)+4rem)] xl:gap-12">
+					<div class="relative rounded-lg p-10" data-card>
+						<!-- <h4 class="mb-6 text-lg font-bold">Course details</h4> -->
+
+						<ul class="grid gap-4">
+							{
+								details.map((detail) => (
+									<li>
+										<p class="font-bold">{detail.label}</p>
+										<p>{detail.value}</p>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					<div class="rounded-lg p-6" data-card>
+						<div class="flex items-start gap-6">
+							<div class="w-1/3 max-w-24 shrink-0">
+								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+							</div>
+							<div>
+								<h4 class="mb-2 text-lg font-semibold">Course outline</h4>
+
+								<div class="prose mb-4 text-sm/normal text-foreground-muted">
+									<p>Get the full outline to share with your team, or ask about a private session.</p>
+								</div>
+
+								<a href="#form" class="btn btn-tertiary btn-sm">Contact us</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+
+			<article class="col-span-full grid items-start gap-8 lg:col-span-8 xl:gap-12">
+				<div class="rounded-lg p-6 lg:p-10" data-card>
+					<div class="prose max-w-none text-pretty lg:text-lg">
+						<h2>Overview</h2>
+						<p>Tridion Sites 10 is a significant release, and the questions it raises are rarely only technical. Development teams need to know what breaks and what to rewrite. Sponsors need to know what the upgrade buys them and what it will cost. This course answers both, in the same room.</p>
+						<p>The delta format assumes you already know Tridion Sites 9. Rather than re-covering the fundamentals, we work through what has changed, module by module, with exercises against a sample implementation so the changes land in practice rather than in the abstract.</p>
+
+						<h2>What you'll learn</h2>
+						<ul>
+							{objectives.map((objective) => <li>{objective}</li>)}
+						</ul>
+
+						<h2>Who should attend</h2>
+						<ul>
+							{audience.map((item) => <li>{item}</li>)}
+						</ul>
+
+						<h2>Prerequisites</h2>
+						<p>Participants should have working knowledge of Tridion Sites 9 — content modelling, templating and day-to-day authoring — and be comfortable reading the custom code in their own implementation. No prior exposure to Tridion Sites 10 is assumed.</p>
+					</div>
+				</div>
+
+				<div class="rounded-lg p-6 pb-1 lg:p-10 lg:pb-5" data-card>
+					<h2 class="mb-10 text-3xl font-bold tracking-tight">Course agenda</h2>
+
+					<div class="divide-y" data-accordion>
+						{
+							modules.map((module) => (
+								<details class="group">
+									<summary class="flex cursor-pointer list-none items-center justify-between gap-5 py-5 text-left font-semibold group-first:pt-0 in-data-[accordion-locked]:cursor-default md:text-lg">
+										<span class="text-pretty transition-colors group-hover:text-accent in-data-open:text-accent">{module.title}</span>
+										<svg class="size-5 shrink-0 transition-[color,rotate] group-hover:text-accent group-data-[open]:rotate-180 in-data-open:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+											<rect width="256" height="256" fill="none" />
+											<polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+										</svg>
+									</summary>
+									<div>
+										<div class="border-t py-5">
+											<div class="prose text-foreground-muted">
+												{module.body.map((paragraph) => (
+													<p>{paragraph}</p>
+												))}
+											</div>
+										</div>
+									</div>
+								</details>
+							))
+						}
+					</div>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<!-- Related courses -->
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>Related <em>courses</em></p>
+			</h2>
+
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p>Other courses in the Tridion training catalogue that teams often take alongside this one.</p>
+			</div>
+
+			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
+				{
+					related.map((course) => (
+						<article class="group relative rounded-lg border text-left" data-card>
+							<div class="flex h-full flex-col">
+								<div class="p-4">
+									<div class="mb-5 block overflow-hidden rounded">
+										<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="Placeholder" />
+									</div>
+
+									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">Training course</span>
+
+									<h3 class="mb-2 text-2xl font-bold">
+										<a href="/resources/training-course/">
+											{course.title}
+											<span class="absolute inset-0" />
+										</a>
+									</h3>
+
+									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+										<p>{course.description}</p>
+									</div>
+								</div>
+
+								<div class="mt-auto px-4 pb-4">
+									<div class="flex items-center gap-4 text-sm text-foreground-muted">
+										<span>{course.duration}</span>
+										<span aria-hidden="true">•</span>
+										<span>{course.level}</span>
+									</div>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<!-- Call to action + form -->
+	<section id="form" class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+		<div class="mx-auto grid max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<div class="lg:col-span-7">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>This is the subheading</p>
+				</div>
+
+				<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+					<p>This is the heading</p>
+				</h2>
+
+				<div class="prose text-foreground-muted md:prose-lg">
+					<p>Donec ut cursus est. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis.</p>
+
+					<ul>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+						</li>
+						<li>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
+						</li>
+					</ul>
+
+					<p>Aenean aliquet tellus nec tempor semper. Etiam finibus ex ac neque semper interdum. Nam in mauris vitae enim egestas euismod semper sit amet.</p>
+				</div>
+
+				<div class="mt-8 flex flex-wrap items-center gap-4">
+					<a href="#" class="btn btn-secondary btn-icon-right">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						Find out more
+					</a>
+				</div>
+
+				<hr hidden class="mt-12 mb-8" />
+
+				<!-- Stats -->
+				<div hidden class="mt-8">
+					<!-- border-t pt-8 -->
+					<ul class="@container/stats flex flex-wrap justify-start gap-x-[min(5cqi,2rem)] gap-y-[min(2.5cqi,1rem)]">
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 200ms">42k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 200ms">
+								<div>Our Active</div>
+								<div>Users</div>
+							</div>
+						</li>
+
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 300ms">3k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 300ms">
+								<div>Professional</div>
+								<div>Creators</div>
+							</div>
+						</li>
+
+						<li class="flex items-center">
+							<span class="intersect-once text-[min(7.5cqi,3rem)]/none font-extrabold intersect:motion-preset-focus" style="--motion-delay: 400ms">560k</span>
+
+							<div class="intersect-once pl-[min(2.5cqi,1rem)] text-[min(2.5cqi,1rem)]/snug text-foreground-muted intersect:motion-preset-slide-right-sm" style="--motion-delay: 400ms">
+								<div>Weekly</div>
+								<div>Downloads</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="h-full lg:col-span-5">
+				<div class="rounded-lg border p-8" data-card>
+					<h3 class="mb-4 text-2xl font-semibold">
+						<p>Book a meeting</p>
+					</h3>
+
+					<div class="prose mb-6 text-foreground-muted">
+						<p>We're here to help you with any questions you have. Please fill out the form below and we'll get back to you as soon as possible.</p>
+					</div>
+
+					<div class="hubspot-form">
+						<div id="hs_2f5091f7-ff77-4faa-99bd-8af0a538b2d2" class="hs-form-html" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-activity-type="Contact Form" data-activity-subject="Contact Form: Contact" data-activity-campaign-id="" data-activity-interest-profile="" data-thank-you-message="Thank you for your interest. One of our specialists will be in touch with you soon." data-thank-you-page-url="" data-external-page-url="" data-post-back-on-submit="False" data-resource-url="" data-resource-file-name="" data-on-form-submitted="" data-submit-text="" data-conversion-level="primary" data-form-type="HubSpot" data-region="na1" data-calendly-enabled="False" data-calendly-config-id="" data-calendly-widget="" data-calendly-text="" data-hs-forms-root="true">
+							<form id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1" method="POST" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="" action="https://forms.hsforms.com/submissions/v3/public/submit/formsnext/multipart/147991/80943ed9-df96-4201-84bd-0aa63e3f08e1" class="hs-form-private hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1 hs-form-80943ed9-df96-4201-84bd-0aa63e3f08e1_50a5e501-d8e3-426f-9d47-f5ae39a33270 hs-form stacked" target="target_iframe_80943ed9-df96-4201-84bd-0aa63e3f08e1" data-instance-id="50a5e501-d8e3-426f-9d47-f5ae39a33270" data-form-id="80943ed9-df96-4201-84bd-0aa63e3f08e1" data-portal-id="147991" data-test-id="hsForm_80943ed9-df96-4201-84bd-0aa63e3f08e1">
+								<fieldset class="form-columns-2">
+									<div class="hs_name hs-name hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-name-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="name-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Name</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="name-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="name" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="name" value="" />
+										</div>
+									</div>
+
+									<div class="hs_email hs-email hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-email-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="email-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Email</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="email-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="email" required="" placeholder="" type="email" class="hs-input hs-field-ready" inputmode="email" autocomplete="email" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="hs_phone hs-phone hs-fieldtype-phonenumber field hs-form-field">
+										<div class="input">
+											<label id="label-phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Phone number</span>
+											</label>
+
+											<input id="phone-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="phone" placeholder="" type="tel" class="hs-input hs-field-ready" inputmode="tel" autocomplete="tel" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-2">
+									<div class="hs_company hs-company hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-company-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="company-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Company</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="company-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="company" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization" value="" />
+										</div>
+									</div>
+
+									<div class="hs_jobtitle hs-jobtitle hs-fieldtype-text field hs-form-field">
+										<div class="input">
+											<label id="label-jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" for="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1">
+												<span>Job title</span>
+												<span class="hs-form-required">*</span>
+											</label>
+
+											<input id="jobtitle-80943ed9-df96-4201-84bd-0aa63e3f08e1" name="jobtitle" required="" placeholder="" type="text" class="hs-input hs-field-ready" inputmode="text" autocomplete="organization-title" value="" />
+										</div>
+									</div>
+								</fieldset>
+
+								<fieldset class="form-columns-1">
+									<div class="legal-consent-container">
+										<div class="hs-richtext">
+											<p>By entering your personal data you are affirmatively consenting to our use of your personal data and our <a href="https://www.rws.com/legal/privacy/" target="_blank" rel="noopener">privacy policy</a>.</p>
+										</div>
+									</div>
+								</fieldset>
+
+								<div class="hs_submit hs-submit">
+									<div class="hs-field-desc" style="display: none;"></div>
+									<div class="actions">
+										<input type="submit" class="hs-button primary large" value="Send" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
