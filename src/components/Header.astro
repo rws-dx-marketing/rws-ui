@@ -58,8 +58,8 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 						<svg class="mt-0.25 size-3 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="36"></polyline></svg>
 					</button>
 
-					<div id="desktop-what-we-do-menu" popover="auto" role="menu" aria-labelledby="desktop-what-we-do-menu-button" class="dropdown z-20 mt-2 overflow-clip rounded-lg bg-tertiary-softest p-4 shadow-lg" style="--dropdown-ideal-width: 56rem; position-anchor: --desktop-what-we-do-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
-						<div class="grid gap-4 md:grid-cols-3">
+					<div id="desktop-what-we-do-menu" popover="auto" role="menu" aria-labelledby="desktop-what-we-do-menu-button" class="dropdown z-20 mt-2 overflow-clip rounded-lg bg-tertiary-softest p-4 shadow-lg" style="--cols: 3; --dropdown-ideal-width: calc(var(--cols) * 17.5rem + (var(--cols) - 1) * 1rem + 2rem); position-anchor: --desktop-what-we-do-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
+						<div class="grid gap-4 md:grid-cols-[repeat(var(--cols),minmax(0,1fr))]">
 							<section class="flex h-full flex-col">
 								<div class="mb-3 px-3">
 									<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-tertiary-muted uppercase">Generate</a>
@@ -215,8 +215,8 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 						<svg class="mt-0.25 size-3 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="36"></polyline></svg>
 					</button>
 
-					<div id="desktop-about-menu" popover="auto" role="menu" aria-labelledby="desktop-about-menu-button" class="dropdown z-20 mt-2 overflow-clip rounded-lg bg-tertiary-softest p-4 shadow-lg" style="--dropdown-ideal-width: 56rem; position-anchor: --desktop-about-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
-						<div class="grid grid-cols-3 gap-4">
+					<div id="desktop-about-menu" popover="auto" role="menu" aria-labelledby="desktop-about-menu-button" class="dropdown z-20 mt-2 overflow-clip rounded-lg bg-tertiary-softest p-4 shadow-lg" style="--cols: 3; --dropdown-ideal-width: calc(var(--cols) * 17.5rem + (var(--cols) - 1) * 1rem + 2rem); position-anchor: --desktop-about-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
+						<div class="grid grid-cols-[repeat(var(--cols),minmax(0,1fr))] gap-4">
 							<section class="flex h-full flex-col">
 								<div class="mb-3 px-3">
 									<a href="#" class="block w-fit text-2xs/none font-bold tracking-widest text-tertiary-muted uppercase">Use cases</a>
@@ -344,7 +344,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 						<svg class="mt-0.25 size-3 opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="36"></polyline></svg>
 					</button>
 
-					<div id="desktop-resources-mega2" popover="auto" role="menu" aria-labelledby="desktop-resources-mega2-button" class="dropdown z-20 mt-2 overflow-clip rounded-2xl bg-tertiary-softest p-4 shadow-lg" style="--dropdown-ideal-width: 56rem; position-anchor: --desktop-resources-mega2-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
+					<div id="desktop-resources-mega2" popover="auto" role="menu" aria-labelledby="desktop-resources-mega2-button" class="dropdown z-20 mt-2 overflow-clip rounded-2xl bg-tertiary-softest p-4 shadow-lg" style="--cols: 3; --dropdown-ideal-width: calc(var(--cols) * 17.5rem + (var(--cols) - 1) * 1rem + 2rem); position-anchor: --desktop-resources-mega2-anchor; top: anchor(--site-header-anchor bottom); left: clamp(1rem, anchor(left), calc(100vw - min(var(--dropdown-ideal-width), calc(100vw - 2rem)) - 1rem)); width: min(var(--dropdown-ideal-width), calc(100vw - 2rem)); position-area: unset; position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline; position-try-order: most-inline-size;">
 						<div class="grid gap-4 lg:grid-cols-[1fr_1.2fr_1.2fr]">
 							<section class="grid h-full min-h-0 grid-rows-[auto_auto_1fr] gap-4">
 								<a href="/resources" class="block rounded border border-tertiary-soft bg-background p-4 transition-colors hover:bg-tertiary-softer">
