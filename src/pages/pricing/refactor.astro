@@ -1,0 +1,449 @@
+---
+// @ts-nocheck
+// Pricing on plain tabs: one panel per audience segment, each rendering its own
+// plans and its own comparison table. Everything is resolved in the loops below
+// at build time — which plans are columns, which rows are worth showing, how
+// wide the cards are — so the only runtime job is showing one panel at a time.
+// Deliberately one file: it maps 1:1 to a single Razor view.
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import Heading from '../../components/Heading.astro'
+import { segments, fullOrder, products, matrix } from '../../data/pricing/plans.js'
+
+const DEFAULT_TAB = 'teams'
+
+const splitName = (name) => (name.startsWith('Trados ') ? ['Trados', name.slice(7)] : ['', name])
+
+// A plan shows a dash for this feature — nothing to compare.
+const isBlank = (v) => v === false || v == null
+
+// Tab icons, keyed by the `icon` name on each segment.
+const icons = {
+	user: `<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+	users: `<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>`,
+	building: `<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 12h4"/><path d="M10 8h4"/><path d="M14 21v-3a2 2 0 0 0-4 0v3"/><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2"/><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"/></svg>`,
+}
+---
+
+<Layout title="Pricing (refactor) – RWS UI">
+	<Section top="lg" bottom="none" container={false}>
+		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+			<span class="mb-8 inline-flex items-center justify-between rounded-full border border-accent-soft bg-accent-softer px-4 py-1 text-center text-sm" role="alert">
+				<span class="py-1 text-sm font-bold tracking-wider text-accent uppercase">Summer discount - 10% off</span>
+			</span>
+
+			<Heading as="h1" size="md" class="mx-auto mb-5 max-w-[16ch] font-bold tracking-tight">
+				<p>Trados <em>Pricing.</em></p>
+			</Heading>
+		</div>
+	</Section>
+
+	{
+		/* Nothing but the standard tab hooks (data-tabs / data-tab-indicator /
+		   data-tab-panel) and the shared tabs-* view-transition names, so the
+		   site-wide tabs.js and _tabs.css drive the switching — this can be swapped
+		   for the plain tabs component wholesale. */
+	}
+	<div class="group/tabs" data-tabs data-active-tab={DEFAULT_TAB} data-tab-order={segments.map((s) => s.key).join(' ')} style="view-transition-name:tabs-group-pricing;view-transition-class:tabs-group">
+		<Section theme="default" top="md" bottom="none" container={false} class="relative z-1" style="view-transition-name:tabs-switcher-pricing;view-transition-class:tabs-switcher">
+			<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
+				<div class="flex justify-center">
+					<fieldset role="radiogroup" aria-label="Which best describes you?" class="relative inline-flex w-full flex-col rounded-[1.5rem] border p-1.5 sm:w-fit sm:min-w-lg sm:flex-row sm:rounded-full" data-card>
+						<span data-tab-indicator aria-hidden="true" class="pointer-events-none absolute inset-y-1.5 left-0 w-0 rounded-full bg-linear-to-br from-primary to-tertiary shadow-xl transition-[transform,width,height] duration-300 ease-out motion-reduce:transition-none" style="view-transition-name:tabs-pill-pricing;view-transition-class:tabs-pill"></span>
+						{
+							segments.map((s) => (
+								<label class="relative z-1 flex flex-1 cursor-pointer flex-col items-center rounded-full px-4 py-2 text-center text-foreground-muted transition-colors select-none has-[:checked]:text-white" style={`view-transition-name:tabs-option-pricing-${s.key};view-transition-class:tabs-option`}>
+									<input type="radio" name="pricing" value={s.key} class="sr-only" checked={s.key === DEFAULT_TAB} />
+									<span class="text-sm leading-tight font-semibold sm:text-base">{s.label}</span>
+									<span class="mt-0.5 flex items-center gap-1.5">
+										<span class="flex items-center" set:html={icons[s.icon]} />
+										<span class="text-xs opacity-80">{s.sub}</span>
+									</span>
+								</label>
+							))
+						}
+					</fieldset>
+				</div>
+			</div>
+		</Section>
+
+		{/* One panel per segment */}
+		{
+			segments.map((s) => {
+				// The plans in this segment, in canonical order — these are the columns.
+				const order = fullOrder.filter((id) => products[id].segments.includes(s.key))
+				// Same table for every segment, minus the rows that are a dash for all of
+				// its plans, minus any section left with nothing in it.
+				const sections = matrix.map((sec) => ({ ...sec, rows: sec.rows.filter((r) => !order.every((id) => isBlank(r.vals[id]))) })).filter((sec) => sec.rows.length > 0)
+				// Ids are scoped to the segment: a plan can appear in more than one panel,
+				// and popovers/anchors/radio groups must stay unique across the document.
+				const uid = (...parts) => [s.key, ...parts].join('-')
+				// The label column plus one column per plan in this segment.
+				const columns = `grid-template-columns: 16.5rem repeat(${order.length}, minmax(10rem, 1fr))`
+				// A short row can afford wider cards — keyed on the plan count, not the segment.
+				const cardWidth = order.length <= 2 ? 'sm:w-80' : 'sm:w-[17.375rem]'
+
+				return (
+					<div data-tab-panel data-tab-key={s.key} hidden={s.key !== DEFAULT_TAB} style={`view-transition-name:tabs-panel-pricing-${s.key};view-transition-class:tabs-panel`}>
+						<Section top="xxs" bottom="sm" container={false}>
+							<div class="mx-auto max-w-screen-xl px-8 text-center">
+								<div class="text-foreground-muted">
+									<p>{s.subtitle}</p>
+								</div>
+							</div>
+						</Section>
+
+						{/* Cards */}
+						<Section top="sm" bottom="sm" theme="dots">
+							<div class="flex flex-wrap justify-center gap-x-6 gap-y-10">
+								{order.map((id) => {
+									const p = products[id]
+									const [brand, productName] = splitName(p.name)
+									const popular = id === s.popular
+									return (
+										<div class:list={['flex w-full max-w-sm flex-col sm:max-w-none', cardWidth]} data-product={id}>
+											<div data-card data-popular={popular ? '' : undefined} data-highlighted={popular ? '' : undefined} class="group/card relative flex w-full flex-1 flex-col rounded-lg border p-6 data-highlighted:glow-animate data-highlighted:border-accent">
+												<span data-popular-badge class="absolute -top-3 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-linear-to-br from-primary to-secondary px-3 py-1 text-xs font-bold whitespace-nowrap text-white shadow group-data-popular/card:inline-flex">
+													<svg class="size-2.5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+														<>
+															<rect width="256" height="256" fill="none" />
+															<path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z" />
+														</>
+													</svg>
+													Most popular
+												</span>
+
+												{p.priceType === 'billing' && (
+													<div class="absolute top-4 right-4">
+														<button class="btn btn-outline btn-icon-both btn-xs w-full rounded-full bg-background px-2 font-bold tracking-wider text-foreground-subtle" id={uid('currency-button', id)} popovertarget={uid('currency-popover', id)} popovertargetaction="toggle" type="button" style={`anchor-name: --currency-anchor-${uid(id)};`}>
+															<span class="flex-1 text-left" data-currency-label>
+																GBP
+															</span>
+															<svg class="ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+																<rect width="256" height="256" fill="none" />
+																<polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+															</svg>
+														</button>
+
+														<div data-card id={uid('currency-popover', id)} popover="auto" role="menu" aria-labelledby={uid('currency-button', id)} class="dropdown z-10 mt-1 w-fit rounded border shadow-lg" style={`position-anchor: --currency-anchor-${uid(id)}; position-area: bottom span-left;`}>
+															<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-xs font-bold tracking-wider select-none">
+																{[
+																	['GBP', '£'],
+																	['USD', '$'],
+																	['EUR', '€'],
+																].map(([code, sym]) => (
+																	<li>
+																		<label class="inline-flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1.5 transition-colors hover:bg-accent-softer has-checked:bg-accent-softest hover:has-checked:bg-accent-softer">
+																			<input hidden data-currency-option type="radio" value={code} name={uid('currency', id)} class="input input-radio" checked={code === 'GBP'} />
+																			{sym} {code}
+																		</label>
+																	</li>
+																))}
+															</ul>
+														</div>
+													</div>
+												)}
+
+												<span class="-mt-0.5 text-xs font-bold tracking-wider text-primary uppercase">{p.tag}</span>
+
+												<h3 class="mt-2 text-2xl font-bold tracking-tight">
+													<span>{brand}</span> <span class="text-secondary">{productName}</span>
+												</h3>
+
+												<hr class="my-4" />
+
+												{p.priceType === 'billing' && (
+													<>
+														<div class="mb-3 flex items-center gap-2">
+															<div class="grid w-fit grid-cols-2 rounded-full border bg-foreground-softest p-0.5">
+																<button type="button" data-billing="monthly" class="btn btn-xs transition-all">
+																	Monthly
+																</button>
+																<button type="button" data-billing="annual" class="btn btn-xs transition-all">
+																	Annual
+																</button>
+															</div>
+
+															<span class="text-[0.625rem]/none font-bold tracking-wider text-foreground-subtle uppercase">Contract duration</span>
+														</div>
+
+														<div data-annual-pill hidden class="mb-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-emerald-500/12 px-3 py-1 text-xs font-semibold text-emerald-600">
+															<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+																<rect width="256" height="256" fill="none" />
+																<rect x="32" y="80" width="192" height="48" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+																<path d="M208,128v72a8,8,0,0,1-8,8H56a8,8,0,0,1-8-8V128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+																<line x1="128" y1="80" x2="128" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+																<path d="M176.79,31.21c9.34,9.34,9.89,25.06,0,33.82C159.88,80,128,80,128,80s0-31.88,15-48.79C151.73,21.32,167.45,21.87,176.79,31.21Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+																<path d="M79.21,31.21c-9.34,9.34-9.89,25.06,0,33.82C96.12,80,128,80,128,80s0-31.88-15-48.79C104.27,21.32,88.55,21.87,79.21,31.21Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+															</svg>
+															2 months free with code PLFY26*
+														</div>
+
+														<div class="mb-4">
+															<div class="flex items-baseline gap-2">
+																<span data-was data-was-yearly={p.price.wasGbp ?? ''} data-was-monthly={p.price.monthlyGbp} hidden class="text-lg text-foreground-subtle line-through">
+																	£{p.price.wasGbp ?? ''}
+																</span>
+
+																<span class="text-4xl font-bold tracking-tight" data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
+																	£{p.price.annualGbp}
+																</span>
+															</div>
+
+															<p class="mt-1 text-sm text-foreground-subtle">
+																<span data-billing-note>
+																	<span data-note-rolling hidden>
+																		per user / month · billed monthly
+																	</span>
+																	<span data-note-annual>
+																		per user / month · <span data-year-total>£240 </span>billed&nbsp;
+																		<button type="button" data-cadence-trigger id={uid('cadence-button', id)} popovertarget={uid('cadence-popover', id)} popovertargetaction="toggle" style={`anchor-name: --cadence-anchor-${uid(id)};`} class="cursor-pointer font-semibold text-primary underline decoration-dotted underline-offset-2">
+																			<span data-cadence-label>yearly</span>
+																		</button>
+																	</span>
+																</span>
+															</p>
+
+															<div data-card id={uid('cadence-popover', id)} popover="auto" role="menu" aria-labelledby={uid('cadence-button', id)} class="dropdown z-10 mt-1 w-max rounded border shadow-lg" style={`position-anchor: --cadence-anchor-${uid(id)}; position-area: bottom span-left;`}>
+																<ul class="grid gap-px p-2 text-sm select-none">
+																	{[
+																		['yearly', 'Billed yearly (annual contract)'],
+																		['monthly', 'Billed monthly (annual contract)'],
+																	].map(([val, label]) => (
+																		<li>
+																			<label class="inline-flex w-full cursor-pointer items-center gap-2 rounded px-2 py-1.5 whitespace-nowrap transition-colors hover:bg-accent-softer has-checked:bg-accent-softest hover:has-checked:bg-accent-softer">
+																				<input hidden data-cadence-option type="radio" value={val} name={uid('cadence', id)} class="input input-radio" checked={val === 'yearly'} />
+																				{label}
+																			</label>
+																		</li>
+																	))}
+																</ul>
+															</div>
+														</div>
+													</>
+												)}
+
+												<p class="text-sm/relaxed text-pretty text-foreground-muted">{p.desc[s.key]}</p>
+
+												<hr class="my-4" />
+
+												<ul role="list" class="flex flex-1 flex-col gap-3 text-left">
+													{p.features[s.key].map((f) => (
+														<li class="flex items-start gap-2.5">
+															<span class="mt-0.25 flex size-4.5 shrink-0 items-center justify-center rounded-full bg-accent-softer text-accent">
+																<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+																	<rect width="256" height="256" fill="none" />
+																	<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+																</svg>
+															</span>
+															<span class="text-sm/snug text-foreground-muted">{f}</span>
+														</li>
+													))}
+												</ul>
+
+												<div class="mt-5 flex flex-col gap-2.5">
+													{p.ctas.map((c) => (
+														<a href="#" class={`btn w-full text-sm ${c.primary ? 'btn-tertiary from-secondary to-tertiary bg-origin-border group-data-highlighted/card:bg-linear-to-br' : 'btn-outline'}`}>
+															{c.label}
+														</a>
+													))}
+												</div>
+											</div>
+
+											<div class="relative">
+												<div class="grid h-10 place-items-center">
+													<span class="h-full w-0.5 bg-linear-to-br from-primary-soft to-secondary-soft [grid-area:1/1]" />
+
+													<span class="flex size-6 items-center justify-center rounded-full border-2 border-primary bg-background text-base font-bold text-primary shadow [grid-area:1/1]">
+														<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+															<rect width="256" height="256" fill="none" />
+															<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+															<line x1="128" y1="40" x2="128" y2="216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+														</svg>
+													</span>
+												</div>
+
+												<div class="rounded-lg" data-card>
+													<div class="rounded-lg border border-primary-soft bg-linear-to-br from-primary-softest to-secondary-softest p-4 text-left">
+														<div class="flex items-center gap-2">
+															<span class="flex size-5 items-center justify-center rounded-sm bg-linear-to-br from-primary to-secondary text-white">
+																<svg class="size-3 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+																	<rect width="256" height="256" fill="none" />
+																	<path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z" />
+																</svg>
+															</span>
+															<span class="text-sm font-semibold text-tertiary">+ {p.lw.name}</span>
+															<span class="mt-1 ml-auto text-xs text-[0.625rem] font-bold tracking-wide text-accent-muted uppercase">Add-on</span>
+														</div>
+														<p class="mt-1.5 text-xs/snug text-pretty text-foreground-muted">{p.lw.line}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									)
+								})}
+							</div>
+
+							<p class="mx-auto mt-8 max-w-4xl text-center text-xs/relaxed text-pretty text-foreground-subtle">*New Trados subscriptions only. Get instant access to Studio 2024, plus Studio 2026 at launch. Applies to first-year annual plans. Prices exclude VAT.</p>
+						</Section>
+
+						{/* Comparison table */}
+						<Section container={false}>
+							<div class="mx-auto max-w-screen-xl px-8 text-center *:mx-auto lg:px-12">
+								<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+									<p>Compare plans</p>
+								</div>
+
+								<Heading size="xs" class="mb-6 max-w-[24ch] font-bold tracking-tight text-pretty">
+									<p>Compare every feature</p>
+								</Heading>
+
+								<div class="prose text-foreground-muted md:prose-lg">
+									<p>See exactly what’s included across the “{s.label}” plans.</p>
+								</div>
+							</div>
+						</Section>
+
+						<Section top={false} bottom={false} class="pb-16 md:pb-20">
+							<div class="overflow-x-auto lg:overflow-visible">
+								<div class="min-w-[56rem] overflow-clip rounded-lg border" data-accordion data-accordion-multi>
+									{/* Column header */}
+									<div class="top-(--content-top) z-20 transition-[top] duration-300 lg:sticky">
+										<div class="grid items-start rounded-t-lg border-b bg-background/50 backdrop-blur stuck:rounded-t-none" style={columns}>
+											<div />
+											{order.map((id) => {
+												const p = products[id]
+												const [brand, productName] = splitName(p.name)
+												return (
+													<div class="flex flex-col items-center px-3 py-5 text-center">
+														<span class="text-base leading-tight font-semibold">
+															<span>{brand} </span>
+															<span class="text-secondary">{productName}</span>
+														</span>
+														<span class="mt-1 text-xs text-foreground-subtle">
+															{p.priceType === 'billing' && (
+																<span data-price data-monthly-gbp={p.price.monthlyGbp} data-annual-gbp={p.price.annualGbp} data-annual-monthly-gbp={p.price.annualMonthlyGbp}>
+																	£{p.price.annualGbp}
+																</span>
+															)}
+														</span>
+														<a href="#" class="btn btn-tertiary btn-xs mt-3 whitespace-nowrap">
+															{p.ctas[0].label}
+														</a>
+													</div>
+												)
+											})}
+										</div>
+									</div>
+
+									{/* Feature sections */}
+									{sections.map((sec) => (
+										<details class="group/sec" open>
+											<summary class="flex cursor-pointer list-none items-center justify-between border-b bg-foreground-softest px-4 py-3 group-[&:last-child:not([open])]/sec:border-b-0">
+												<h4 class="text-base font-semibold transition-colors">{sec.title}</h4>
+												<svg class="size-5 shrink-0 text-foreground-subtle transition-[color,rotate] group-data-[open]/sec:rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+													<rect width="256" height="256" fill="none" />
+													<polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+												</svg>
+											</summary>
+											<div>
+												{sec.rows.map((r) => (
+													<div class="grid border-b group-last/sec:last:border-b-0" style={columns}>
+														<div class="flex items-center px-4 py-4 text-sm">
+															{r.tooltip ? (
+																<>
+																	<span class="relative block w-fit">
+																		{r.label}
+																		<button type="button" popovertarget={uid('tooltip', r.id)} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${r.label}`}>
+																			<svg class="-mb-0.5 size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+																				<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+																			</svg>
+																		</button>
+																	</span>
+																	<div id={uid('tooltip', r.id)} popover="auto" role="tooltip" class="tooltip">
+																		<p set:html={r.tooltip} />
+																	</div>
+																</>
+															) : (
+																r.label
+															)}
+														</div>
+														{order.map((id) => {
+															const v = r.vals[id]
+															const showValueTip = r.valueTooltip && v === r.valueTooltip.match && (!r.valueTooltip.products || r.valueTooltip.products.includes(id))
+															return (
+																<div class="flex items-center justify-center border-l border-foreground-softest px-3 py-4 text-center">
+																	{v === true && (
+																		<span class="relative flex size-5 items-center justify-center rounded-full bg-accent-softer text-accent">
+																			<svg class="size-2.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
+																				<rect width="256" height="256" fill="none" />
+																				<polyline points="40 144 96 200 224 72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="40" />
+																			</svg>
+																			{showValueTip && (
+																				<>
+																					<button type="button" popovertarget={uid('tooltip', r.id, id)} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${r.label}`}>
+																						<svg class="size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+																							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+																						</svg>
+																					</button>
+																					<div id={uid('tooltip', r.id, id)} popover="auto" role="tooltip" class="tooltip">
+																						<p set:html={r.valueTooltip.text} />
+																					</div>
+																				</>
+																			)}
+																		</span>
+																	)}
+																	{isBlank(v) && (
+																		<span class="text-foreground-subtle" aria-label="Not included">
+																			–
+																		</span>
+																	)}
+																	{typeof v === 'string' && (
+																		<span class="flex items-center gap-3">
+																			{showValueTip ? (
+																				<>
+																					<span class="relative w-fit">
+																						<span class="text-sm">{v}</span>
+																						<button type="button" popovertarget={uid('tooltip', r.id, id)} popovertargetaction="toggle" class="absolute top-1/2 left-full translate-x-2 -translate-y-1/2 text-foreground" aria-label={`More information about ${v}`}>
+																							<svg class="-mb-0.5 size-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+																								<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+																							</svg>
+																						</button>
+																					</span>
+																					<div id={uid('tooltip', r.id, id)} popover="auto" role="tooltip" class="tooltip">
+																						<p set:html={r.valueTooltip.text} />
+																					</div>
+																				</>
+																			) : (
+																				<span class="text-sm">{v}</span>
+																			)}
+																			{r.lw && v === 'Add-on' && (
+																				<span class="inline-flex items-center gap-1 rounded-full border border-primary-soft bg-primary-softest px-2 py-0.5 text-[0.6rem] font-bold tracking-wide text-primary uppercase">
+																					<svg class="size-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+																						<rect width="256" height="256" fill="none" />
+																						<path d="M213.85,125.46l-112,120a8,8,0,0,1-13.69-7l14.66-73.33L45.19,143.49a8,8,0,0,1-3-13l112-120a8,8,0,0,1,13.69,7L153.18,90.9l57.63,21.61a8,8,0,0,1,3,12.95Z" />
+																					</svg>
+																					LW Pro
+																				</span>
+																			)}
+																		</span>
+																	)}
+																</div>
+															)
+														})}
+													</div>
+												))}
+											</div>
+										</details>
+									))}
+								</div>
+							</div>
+
+							<p class="mx-auto mt-8 max-w-3xl text-center text-xs/relaxed text-pretty text-foreground-subtle">Trados Go and Trados Freelance prices reflect per-user list pricing (excluding VAT). Studio Pro, Team, Business, Enterprise and Edge / GroupShare are tailored to your needs — speak to sales for a quote. Prices are set in GBP; other currencies are indicative conversions.</p>
+						</Section>
+					</div>
+				)
+			})
+		}
+	</div>
+</Layout>

@@ -20,6 +20,12 @@ function initTabs(root) {
 
 	const activeTab = () => root.getAttribute('data-active-tab')
 
+	// ?tab= (legacy: ?segment=) opens a group on a named panel. Ignored unless the
+	// value matches one of this group's keys, so it's harmless on other groups.
+	const params = new URLSearchParams(location.search)
+	const deepLink = params.get('tab') || params.get('segment')
+	const wantsDeepLink = deepLink && panels.some((p) => p.dataset.tabKey === deepLink)
+
 	function positionIndicator() {
 		if (!pill || !fieldset) return
 		const input = fieldset.querySelector('input[value="' + activeTab() + '"]')
@@ -57,10 +63,14 @@ function initTabs(root) {
 		inputs: radios,
 		indicator: pill,
 		directionAttr: 'tabsDirection',
-		order: tabOrder,
+		// Optional: without data-tab-order, fall back to the radios' own order.
+		order: tabOrder.length ? tabOrder : undefined,
 		getActive: activeTab,
 		apply: applyTab,
 		position: positionIndicator,
+		// Applied under the same first-paint suppression as the pill's initial
+		// placement, so a deep link lands with no visible switch on load.
+		init: () => (wantsDeepLink ? applyTab(deepLink) : positionIndicator()),
 		// Blank every other tab group's named elements before the transition so
 		// they aren't swept into this group's snapshot; restore once captured.
 		prepare: () => {

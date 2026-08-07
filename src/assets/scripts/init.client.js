@@ -11,6 +11,7 @@ import headerScroll from './header-scroll'
 import postNav from './post-nav'
 import invokerCommandsPolyfill from './invoker-commands-polyfill'
 import pricingContent from './pricing-content'
+import pricingRefactor from './pricing-refactor'
 import pronounce from './pronounce'
 import tabs from './tabs'
 import timezoneSelect from './timezone-select'
@@ -39,7 +40,8 @@ if (typeof window !== 'undefined') {
 		accordion()
 		carousel()
 		postNav()
-		pricingContent()
+		// pricingContent()
+		pricingRefactor()
 		pronounce()
 		tabs()
 		timezoneSelect()
