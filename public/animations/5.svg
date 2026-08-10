@@ -1,0 +1,89 @@
+<svg width="960" height="960" viewBox="0 0 960 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style>
+</style>
+<g id="hero">
+<g clip-path="url(#clip0_506_35471)">
+<rect width="960" height="960" rx="16" fill="url(#paint0_linear_506_35471)"/>
+<line id="Line_4" transform="translate(157 810.011)" y1="-0.734694" x2="637" y2="-0.734694" stroke="#CABEFE" stroke-width="1.46939"/>
+<line id="Line_6" transform="translate(157 661.011)" y1="-0.734694" x2="637" y2="-0.734694" stroke="#D7CEFF" stroke-width="1.46939"/>
+<line id="Line_7" transform="translate(157 586.011)" y1="-0.734694" x2="637" y2="-0.734694" stroke="#D7CEFF" stroke-width="1.46939"/>
+<line id="Line_5" transform="translate(157 735.011)" y1="-0.734694" x2="637" y2="-0.734694" stroke="#D7CEFF" stroke-width="1.46939"/>
+<line id="Line_5_2" transform="matrix(0 -1 1 0 158 810.011)" y1="-0.734694" x2="557" y2="-0.734694" stroke="#C9BDFC" stroke-width="1.46939"/>
+<g id="Rectangle_1" filter="url(#filter0_d_506_35471)" transform="translate(459 565.011)">
+<path d="M0 5.99999C0 2.68628 2.68629 0 6 0H33C36.3137 0 39 2.68629 39 6V244H0V5.99999Z" id="Rectangle_1_bg_0" fill="#AF9EFF">
+</path>
+<path d="M6 0.5H33C36.0376 0.5 38.5 2.96243 38.5 6V243.5H0.5V6C0.5 2.96243 2.96243 0.5 6 0.5Z" stroke="#8353FD"/>
+</g>
+<path id="Rectangle_2" transform="matrix(1 0 0 -1 390 809.011)" d="M37.5 0.5V332C37.5 335.038 35.0376 337.5 32 337.5H6C2.96243 337.5 0.5 335.038 0.5 332V0.5H37.5Z" fill="white" stroke="#CABEFE">
+<animate attributeName="d" values="M32 466.5C32 466.5 6 466.5 6 466.5C2.96243 466.5 0.5 464.038 0.5 461C0.5 461 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 461 37.5 461C37.5 464.038 35.0376 466.5 32 466.5Z; M32 531.5C32 531.5 6 531.5 6 531.5C2.96243 531.5 0.5 529.038 0.5 526C0.5 526 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 526 37.5 526C37.5 529.038 35.0376 531.5 32 531.5Z; M32 466.5C32 466.5 6 466.5 6 466.5C2.96243 466.5 0.5 464.038 0.5 461C0.5 461 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 461 37.5 461C37.5 464.038 35.0376 466.5 32 466.5Z" keyTimes="0; 0.494184; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" dur="1.80297s" calcMode="spline" repeatCount="1" fill="freeze" />
+</path>
+<path id="Rectangle_3" transform="matrix(1 0 0 -1 320 809.011)" d="M37.5 0.5V289C37.5 292.038 35.0376 294.5 32 294.5H6C2.96243 294.5 0.5 292.038 0.5 289V0.5H37.5Z" fill="white" stroke="#CABEFE">
+<animate attributeName="d" values="M32 406.5C32 406.5 6 406.5 6 406.5C2.96243 406.5 0.5 404.038 0.5 401C0.5 401 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 401 37.5 401C37.5 404.038 35.0376 406.5 32 406.5Z; M32 364.5C32 364.5 6 364.5 6 364.5C2.96243 364.5 0.5 362.038 0.5 359C0.5 359 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 359 37.5 359C37.5 362.038 35.0376 364.5 32 364.5Z; M32 406.5C32 406.5 6 406.5 6 406.5C2.96243 406.5 0.5 404.038 0.5 401C0.5 401 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 401 37.5 401C37.5 404.038 35.0376 406.5 32 406.5Z" keyTimes="0; 0.494845; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" dur="1.80297s" calcMode="spline" repeatCount="1" fill="freeze" />
+</path>
+<path id="Rectangle_4" transform="matrix(1 0 0 -1 250 809.011)" d="M37.5 0.5V370C37.5 373.038 35.0376 375.5 32 375.5H6C2.96243 375.5 0.5 373.038 0.5 370V0.5H37.5Z" fill="white" stroke="#CABEFE">
+<animate attributeName="d" values="M32 518.5C32 518.5 6 518.5 6 518.5C2.96243 518.5 0.5 516.038 0.5 513C0.5 513 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 513 37.5 513C37.5 516.038 35.0376 518.5 32 518.5Z; M32 437.5C32 437.5 6 437.5 6 437.5C2.96243 437.5 0.5 435.038 0.5 432C0.5 432 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 432 37.5 432C37.5 435.038 35.0376 437.5 32 437.5Z; M32 518.5C32 518.5 6 518.5 6 518.5C2.96243 518.5 0.5 516.038 0.5 513C0.5 513 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 513 37.5 513C37.5 516.038 35.0376 518.5 32 518.5Z" keyTimes="0; 0.503379; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" dur="1.80297s" calcMode="spline" repeatCount="1" fill="freeze" />
+</path>
+<path id="Rectangle_5" transform="matrix(1 0 0 -1 180 809.011)" d="M38.5 0.5V258C38.5 261.038 36.0376 263.5 33 263.5H6C2.96243 263.5 0.5 261.038 0.5 258V0.5H38.5Z" fill="white" stroke="#CABEFE">
+<animate attributeName="d" values="M33 364.5C33 364.5 6 364.5 6 364.5C2.96243 364.5 0.5 362.038 0.5 359C0.5 359 0.5 0.5 0.5 0.5C0.5 0.5 38.5 0.5 38.5 0.5C38.5 0.5 38.5 359 38.5 359C38.5 362.038 36.0376 364.5 33 364.5Z; M33 439.5C33 439.5 6 439.5 6 439.5C2.96243 439.5 0.5 437.038 0.5 434C0.5 434 0.5 0.5 0.5 0.5C0.5 0.5 38.5 0.5 38.5 0.5C38.5 0.5 38.5 434 38.5 434C38.5 437.038 36.0376 439.5 33 439.5Z; M33 364.5C33 364.5 6 364.5 6 364.5C2.96243 364.5 0.5 362.038 0.5 359C0.5 359 0.5 0.5 0.5 0.5C0.5 0.5 38.5 0.5 38.5 0.5C38.5 0.5 38.5 359 38.5 359C38.5 362.038 36.0376 364.5 33 364.5Z" keyTimes="0; 0.499722; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" dur="1.80297s" calcMode="spline" repeatCount="1" fill="freeze" />
+</path>
+<path id="Rectangle_6" transform="matrix(1 0 0 -1 739 809.011)" d="M37.5 0.5V345C37.5 348.038 35.0376 350.5 32 350.5H6C2.96243 350.5 0.5 348.038 0.5 345V0.5H37.5Z" fill="white" stroke="#CABEFE">
+<animate attributeName="d" values="M32 484.5C32 484.5 6 484.5 6 484.5C2.96243 484.5 0.5 482.038 0.5 479C0.5 479 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 479 37.5 479C37.5 482.038 35.0376 484.5 32 484.5Z; M32 298.5C32 298.5 6 298.5 6 298.5C2.96243 298.5 0.5 296.038 0.5 293C0.5 293 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 293 37.5 293C37.5 296.038 35.0376 298.5 32 298.5Z; M32 484.5C32 484.5 6 484.5 6 484.5C2.96243 484.5 0.5 482.038 0.5 479C0.5 479 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 479 37.5 479C37.5 482.038 35.0376 484.5 32 484.5Z" keyTimes="0; 0.504836; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" dur="1.80297s" calcMode="spline" repeatCount="1" fill="freeze" />
+</path>
+<path id="Rectangle_7" transform="matrix(1 0 0 -1 669 809.011)" d="M37.5 0.5V258C37.5 261.038 35.0376 263.5 32 263.5H6C2.96243 263.5 0.5 261.038 0.5 258V0.5H37.5Z" fill="white" stroke="#CABEFE">
+<animate attributeName="d" values="M32 364.5C32 364.5 6 364.5 6 364.5C2.96243 364.5 0.5 362.038 0.5 359C0.5 359 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 359 37.5 359C37.5 362.038 35.0376 364.5 32 364.5Z; M32 525.5C32 525.5 6 525.5 6 525.5C2.96243 525.5 0.5 523.038 0.5 520C0.5 520 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 520 37.5 520C37.5 523.038 35.0376 525.5 32 525.5Z; M32 364.5C32 364.5 6 364.5 6 364.5C2.96243 364.5 0.5 362.038 0.5 359C0.5 359 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 359 37.5 359C37.5 362.038 35.0376 364.5 32 364.5Z" keyTimes="0; 0.494996; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" dur="1.80297s" calcMode="spline" repeatCount="1" fill="freeze" />
+</path>
+<path id="Rectangle_8" transform="matrix(1 0 0 -1 599 809.011)" d="M37.5 0.5V379C37.5 382.038 35.0376 384.5 32 384.5H6C2.96243 384.5 0.5 382.038 0.5 379V0.5H37.5Z" fill="white" stroke="#CABEFE">
+<animate attributeName="d" values="M32 531.5C32 531.5 6 531.5 6 531.5C2.96243 531.5 0.5 529.038 0.5 526C0.5 526 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 526 37.5 526C37.5 529.038 35.0376 531.5 32 531.5Z; M32 421.5C32 421.5 6 421.5 6 421.5C2.96243 421.5 0.5 419.038 0.5 416C0.5 416 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 416 37.5 416C37.5 419.038 35.0376 421.5 32 421.5Z; M32 533.5C32 533.5 6 533.5 6 533.5C2.96243 533.5 0.5 531.038 0.5 528C0.5 528 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 528 37.5 528C37.5 531.038 35.0376 533.5 32 533.5Z" keyTimes="0; 0.499722; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" dur="1.80297s" calcMode="spline" repeatCount="1" fill="freeze" />
+</path>
+<path id="Rectangle_9" transform="matrix(1 0 0 -1 529 809.011)" d="M37.5 0.5V258C37.5 261.038 35.0376 263.5 32 263.5H6C2.96243 263.5 0.5 261.038 0.5 258V0.5H37.5Z" fill="white" stroke="#CABEFE">
+<animate attributeName="d" values="M32 364.5C32 364.5 6 364.5 6 364.5C2.96243 364.5 0.5 362.038 0.5 359C0.5 359 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 359 37.5 359C37.5 362.038 35.0376 364.5 32 364.5Z; M32 466.5C32 466.5 6 466.5 6 466.5C2.96243 466.5 0.5 464.038 0.5 461C0.5 461 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 461 37.5 461C37.5 464.038 35.0376 466.5 32 466.5Z; M32 364.5C32 364.5 6 364.5 6 364.5C2.96243 364.5 0.5 362.038 0.5 359C0.5 359 0.5 0.5 0.5 0.5C0.5 0.5 37.5 0.5 37.5 0.5C37.5 0.5 37.5 359 37.5 359C37.5 362.038 35.0376 364.5 32 364.5Z" keyTimes="0; 0.51343; 1" keySplines="0.42 0 0.58 1; 0.42 0 0.58 1" dur="1.80297s" calcMode="spline" repeatCount="1" fill="freeze" />
+</path>
+<g id="Group_6" transform="translate(405 94)">
+<g id="Group_2" filter="url(#filter1_d_506_35471)">
+<circle id="Ellipse_10" cx="71.5748" cy="71.5748" r="71.3299" fill="#8353FD" stroke="#CABEFE" stroke-width="0.489796"/>
+<g id="Group_8" transform="translate(28.2628 43.4812)">
+<path id="Vector" d="M86.8027 50.6823C51.2911 68.0312 35.5116 34.2712 0 51.6201V5.11863C35.5116 -12.2303 51.2911 21.5298 86.8027 4.18086V50.6823Z" stroke="#F0EEFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" transform="translate(35.6511 20.1502)" d="M7.75024 15.5005C12.0306 15.5005 15.5005 12.0306 15.5005 7.75024C15.5005 3.4699 12.0306 0 7.75024 0C3.4699 0 0 3.4699 0 7.75024C0 12.0306 3.4699 15.5005 7.75024 15.5005Z" stroke="#F0EEFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_3" transform="translate(13.9504 17.0501)" d="M0 0V15.5005" stroke="#F0EEFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_4" transform="translate(72.8522 23.2503)" d="M0 0V15.5005" stroke="#F0EEFF" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="Group_3" transform="translate(67 143)">
+<path id="Line_7_2" transform="matrix(-2.85171e-08 1 1 6.70014e-08 6.59201 -2.00279e-06)" d="M0 0L325.393 9.27925e-06" stroke="#603BBC" stroke-width="2.93878"/>
+<circle id="Ellipse_12" transform="translate(0 322)" cx="6" cy="6" r="5.7551" fill="#603BBC" stroke="#603BBC" stroke-width="0.489796"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d_506_35471" x="-12" y="-2" width="63" height="268" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="3" operator="erode" in="SourceAlpha" result="effect1_dropShadow_506_35471"/>
+<feOffset dy="10"/>
+<feGaussianBlur stdDeviation="7.5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.105 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_506_35471"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_506_35471" result="shape"/>
+</filter>
+<filter id="filter1_d_506_35471" x="-12" y="-2.00002" width="167.15" height="167.15" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feMorphology radius="3" operator="erode" in="SourceAlpha" result="effect1_dropShadow_506_35471"/>
+<feOffset dy="10"/>
+<feGaussianBlur stdDeviation="7.5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.105 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_506_35471"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_506_35471" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_506_35471" x1="480" y1="0" x2="480" y2="960" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="1" stop-color="#E2DDFF"/>
+</linearGradient>
+<clipPath id="clip0_506_35471">
+<rect width="960" height="960" rx="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
