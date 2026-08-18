@@ -49,10 +49,10 @@ const span = {
 	small: '',
 }
 
-// Row heights. Even by default; but the 4-item layout puts one short (medium)
-// card alone on the second row, so give that row less of the hero's height
-// instead of splitting it evenly.
-const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-fr lg:grid-rows-2'
+// Row heights. Even by default; but in the 4-item layout row 2 is sized by the
+// square sizer below (one column wide) so the lone medium card ends up exactly
+// as tall as a small card is wide. Row 1 takes the hero's remaining height.
+const rows = data.length === 4 ? 'lg:grid-rows-[1fr_auto]' : 'lg:auto-rows-fr lg:grid-rows-2'
 ---
 
 <Section theme={theme}>
@@ -89,7 +89,7 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-
 				const imageRight = isMedium && index % 2 === 0
 
 				return (
-					<article class:list={['group relative isolate overflow-hidden rounded-lg border border-accent-soft bg-background', span[size], isMedium && 'flex max-sm:flex-col sm:min-h-72 lg:min-h-0']}>
+					<article class:list={['group relative isolate overflow-hidden rounded-lg border border-accent-soft bg-background', span[size], isMedium && 'flex max-sm:flex-col sm:min-h-72 lg:min-h-0', isMedium && data.length === 4 && 'lg:col-start-3 lg:row-start-2']}>
 						{isMedium ? (
 							<>
 								<div class:list={['relative isolate flex items-start justify-center overflow-hidden max-sm:aspect-3/2 sm:w-2/5 sm:shrink-0 sm:items-center [&_svg]:size-full', imageRight && 'sm:order-last']}>
@@ -98,9 +98,9 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-
 								</div>
 
 								<div class="p-6 sm:flex sm:grow sm:flex-col sm:justify-end lg:grow-0 lg:p-8">
-									<h3 class="mb-4 text-gradient text-2xl font-semibold text-balance">
+									<h3 class="mb-4 text-2xl font-semibold text-balance">
 										<a href={href} {...linkAttrs}>
-											{title}
+											<em>{title}</em>
 											<span class="absolute inset-0 rounded-lg" />
 										</a>
 									</h3>
@@ -117,9 +117,9 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-
 								</div>
 
 								<div class="p-6 lg:p-8">
-									<h3 class:list={['text-gradient font-semibold text-balance', size === 'large' ? 'mb-5 max-w-[20ch] text-4xl' : 'mb-4 text-2xl']}>
+									<h3 class:list={['font-semibold text-balance', size === 'large' ? 'mb-5 max-w-[20ch] text-4xl' : 'mb-4 text-2xl']}>
 										<a href={href} {...linkAttrs}>
-											{title}
+											<em>{title}</em>
 											<span class="absolute inset-0 rounded-lg" />
 										</a>
 									</h3>
@@ -135,5 +135,12 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1.12fr_0.88fr]' : 'lg:auto-rows-
 				)
 			})
 		}
+
+		{
+			/* Height sizer for row 2: shares the medium card's cell but spans a single
+		    column, so `aspect-square` makes it exactly one column wide and one column
+		    tall — and the medium card stretches to match. */
+		}
+		{data.length === 4 && <div aria-hidden="true" class="pointer-events-none col-start-3 row-start-2 hidden aspect-square lg:block" />}
 	</div>
 </Section>
