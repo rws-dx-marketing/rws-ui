@@ -56,6 +56,8 @@ Animations use Tailwind Motion's `intersect:motion-preset-*` classes with `inter
 
 Static data (e.g. partner lists) lives in `src/data/` as JS modules and is imported directly into `.astro` files at build time. Astro Content Collections are deliberately **not** used — there is no markdown and no dynamic routing, so they would add schemas (i.e. types) for nothing.
 
+Data filenames mirror `src/pages/`: a section's main content module is `src/data/<section>/index.js` (imported as `../../data/<section>`), and where a section has several pages the data files take the page names — `data/events/index.js`, `webinars.js`, `recorded.js` alongside `pages/events/index.astro`, `webinars.astro`, `recorded.astro`. `filters.js` is the exception: it has no page of its own and keeps that name everywhere.
+
 Filter option lists all come from `src/data/taxonomies.js` — one source for products, solutions, industries, countries, service areas, topics etc., plus the `facet()`, `relabel()` and `labelFor()` helpers. Each archive's `src/data/<domain>/filters.js` composes facets from it rather than restating option lists; don't inline a new option list in a domain file if the axis already exists there. Option `value` strings are the contract with `card-filters.js`: every value in a record's `filters` object must exist in the facet of the same `id`.
 
 ### Theming

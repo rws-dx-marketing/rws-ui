@@ -1,6 +1,6 @@
 // Executive team for /about/executive-team/ and its detail pages.
 //
-// A near-copy of data/authors/authors.js — same `filters` + records shape so the
+// A near-copy of data/authors/index.js — same `filters` + records shape so the
 // archive can feed FilterDropdown/FilterOption and card-filters.js unchanged.
 // The difference: executives are not bylines, so there is no articleCount and no
 // articles list; the detail page is bio-only.

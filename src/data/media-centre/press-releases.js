@@ -1,6 +1,6 @@
 // Press releases for /media-centre/press-releases/.
 //
-// Same shape as data/events/events.js so the archive can reuse the events feed
+// Same shape as data/events/index.js so the archive can reuse the events feed
 // markup verbatim: `filters` drives FilterDropdown/FilterOption, and each
 // record's `filters` object is serialised into data-card-filters for
 // card-filters.js to match against.
