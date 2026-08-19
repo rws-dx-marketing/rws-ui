@@ -1,7 +1,7 @@
 const secondaryNavTree = [
 	{
 		id: 'm-gate',
-		label: 'M-Gate',
+		label: 'M-GATE',
 		href: '/m-gate',
 		children: [
 			{ id: 'm-gate-leaderboard', label: 'Leaderboard', href: '/m-gate/leaderboard' },

@@ -66,7 +66,7 @@ const gateMatrix = [
 ]
 ---
 
-<Layout title="M-Gate">
+<Layout title="M-GATE">
 	<!-- Hero -->
 	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-20 md:pt-24 lg:pt-32" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
@@ -239,30 +239,28 @@ const gateMatrix = [
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<!-- Chart -->
 			<div class="relative z-[1] overflow-hidden rounded-lg border bg-background-softest text-foreground *:pointer-events-none *:select-none">
-				<div class="flex flex-col gap-4 border-b px-6 py-4">
-					<div>
-						<h3 class="m-0 text-xl font-bold text-foreground/80">Bar chart — all models ranked by grammar MCC for Thai</h3>
+				<!-- Nested tabs, sharing a row with the count badge -->
+				<div class="flex flex-col-reverse gap-2 border-b px-6 pt-4 sm:flex-row sm:items-stretch sm:justify-between sm:gap-4 sm:pt-0">
+					<!-- -mb-px sits on the scroll box, not the buttons: a negative margin on a
+					     child of an overflow container gets clipped instead of overlapping. -->
+					<div class="-mb-px flex min-w-0 gap-6 overflow-x-auto">
+						<button type="button" data-active class="border-b-2 border-transparent py-3 text-sm font-medium whitespace-nowrap text-foreground-subtle transition-colors hover:text-foreground data-[active]:border-accent data-[active]:font-bold data-[active]:text-foreground sm:py-4">Grammar</button>
+						<button type="button" class="border-b-2 border-transparent py-3 text-sm font-medium whitespace-nowrap text-foreground-subtle transition-colors hover:text-foreground data-[active]:border-accent data-[active]:font-bold data-[active]:text-foreground sm:py-4">Translation</button>
+						<button type="button" class="border-b-2 border-transparent py-3 text-sm font-medium whitespace-nowrap text-foreground-subtle transition-colors hover:text-foreground data-[active]:border-accent data-[active]:font-bold data-[active]:text-foreground sm:py-4">Tokenizer</button>
 					</div>
 
-					<div class="flex items-center justify-between gap-4">
-						<div class="flex min-w-0 items-center gap-[18px]">
-							<div class="inline-flex gap-0.5 rounded bg-foreground-softer p-1.25">
-								<button type="button" class="btn btn-ghost rounded-sm bg-background text-foreground">Grammar</button>
-								<button type="button" class="btn btn-ghost rounded-sm text-foreground/80">Translation</button>
-								<button type="button" class="btn btn-ghost rounded-sm text-foreground/80">Tokenizer</button>
-							</div>
-							<div hidden class="min-w-0">
-								<h3 class="m-0 text-xl font-bold text-foreground/80">Bar chart — all models ranked by grammar MCC for Thai</h3>
-								<p class="mt-0.5 mb-0 text-xs text-foreground-subtle">Horizontal bars · brand color-coded · sorted by score</p>
-							</div>
-						</div>
-						<div class="flex flex-none flex-col items-end gap-2">
-							<span class="inline-flex items-center rounded-full border border-accent-soft bg-accent-softer px-2.5 py-1 text-xs font-bold text-accent tabular-nums">11 of 34 models</span>
-						</div>
+					<div class="flex flex-none items-center">
+						<span class="inline-flex items-center rounded-full border border-accent-soft bg-accent-softer px-2.5 py-1 text-xs font-bold text-accent tabular-nums">11 of 34 models</span>
 					</div>
 				</div>
 				<div>
 					<div class="relative px-6 pt-5 pb-2.5">
+						<!-- Chart heading -->
+						<div class="mb-5">
+							<h3 class="m-0 text-xl font-bold text-foreground/80">Bar chart — all models ranked by grammar MCC for Thai</h3>
+							<p hidden class="mt-0.5 mb-0 text-xs text-foreground-subtle">Horizontal bars · brand color-coded · sorted by score</p>
+						</div>
+
 						<div class="relative">
 							<div class="pointer-events-none absolute top-0 bottom-0" style="left: calc(184px); right: 40px;">
 								<span class="absolute top-0 bottom-0 w-px -translate-x-1/2 bg-foreground/[0.06]" style="left: 0%;"></span>

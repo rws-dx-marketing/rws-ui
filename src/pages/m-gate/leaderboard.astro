@@ -1,8 +1,91 @@
 ---
 import Layout from '../../layouts/Layout.astro'
+import { languages, models } from '../../data/m-gate/leaderboard'
+
+// Diverging colour ramp for the heatmap, ported from the production app so the
+// cells match the live chart exactly. Stops are OKLCH; sampling happens in
+// OKLab so the ramp passes through the neutral midpoint instead of swinging
+// around the hue circle between the two ends. Kept local to this page — nothing
+// else on the site uses it.
+const DIVERGING = [
+	[0, [0.41, 0.2, 273]],
+	[0.125, [0.589, 0.175, 273]],
+	[0.25, [0.753, 0.11, 273]],
+	[0.375, [0.919, 0.045, 273]],
+	[0.5, [1, 0, 0]],
+	[0.625, [0.919, 0.043, 9.04]],
+	[0.75, [0.753, 0.153, 10.87]],
+	[0.875, [0.589, 0.235, 12.88]],
+	[1, [0.41, 0.164, 13]],
+]
+
+// Above this lightness a cell needs dark text on it, below it needs light.
+const CONTRAST_THRESHOLD = 0.62
+const CONTRAST_DARK = '#1f2937'
+const CONTRAST_LIGHT = '#ffffff'
+
+const clamp = (n) => Math.max(0, Math.min(1, n))
+const lerp = (a, b, t) => a + (b - a) * t
+const round = (n) => Math.round(n * 1000) / 1000
+
+const toLab = ([l, c, h]) => {
+	const rad = (h * Math.PI) / 180
+	return [l, c * Math.cos(rad), c * Math.sin(rad)]
+}
+
+function sampleLab(t) {
+	t = clamp(t)
+	for (let i = 0; i < DIVERGING.length - 1; i++) {
+		const [aStop, aColor] = DIVERGING[i]
+		const [bStop, bColor] = DIVERGING[i + 1]
+		if (t > bStop) continue
+		const f = (t - aStop) / (bStop - aStop || 1)
+		const a = toLab(aColor)
+		const b = toLab(bColor)
+		return [lerp(a[0], b[0], f), lerp(a[1], b[1], f), lerp(a[2], b[2], f)]
+	}
+	return toLab(DIVERGING[DIVERGING.length - 1][1])
+}
+
+// MCC runs −1…1; the ramp runs 0…1 with its neutral point in the middle.
+const scaledVal = (value) => (value + 1) / 2
+
+function colorFor(t) {
+	const [l, a, b] = sampleLab(t)
+	return `oklab(${round(l)} ${round(a)} ${round(b)})`
+}
+
+function textColor(t) {
+	return sampleLab(t)[0] >= CONTRAST_THRESHOLD ? CONTRAST_DARK : CONTRAST_LIGHT
+}
+
+const scaleGradient = 'linear-gradient(to right in oklab,' + DIVERGING.map(([stop, [l, c, h]]) => `oklch(${l} ${c} ${h}) ${stop * 100}%`).join(',') + ')'
+
+// Label plus the MCC value its swatch is sampled at.
+const legendBuckets = [
+	['−1.0 to −0.6', -0.8],
+	['−0.6 to −0.2', -0.4],
+	['−0.2 to 0.2', 0],
+	['0.2 to 0.6', 0.4],
+	['0.6 to 1.0', 0.8],
+].map(([label, mid]) => ({ label, color: colorFor(scaledVal(mid)) }))
+
+// Matches the production grid: fixed model-label and overall columns, then one
+// flexible column per language that never drops below the minimum cell width.
+const ROW_LABEL_WIDTH = 176
+const OVERALL_WIDTH = 64
+const GRID_GAP = 2
+const CELL_MIN = 46
+
+const gridStyle = `grid-template-columns: ${ROW_LABEL_WIDTH}px ${OVERALL_WIDTH}px repeat(${languages.length}, minmax(${CELL_MIN}px, 1fr));`
+const overallLeft = `${ROW_LABEL_WIDTH + GRID_GAP}px`
+const railWidth = ROW_LABEL_WIDTH + GRID_GAP + OVERALL_WIDTH + GRID_GAP
+
+const fmt = (value) => value.toFixed(2)
+const cellStyle = (value) => (value === null ? '' : `background: ${colorFor(scaledVal(value))}; color: ${textColor(scaledVal(value))};`)
 ---
 
-<Layout title="Leaderboard – M-Gate">
+<Layout title="Leaderboard – M-GATE">
 	<!-- Hero -->
 	<section class="grid- min-h-[min(calc(100svh-16rem),48rem)]- place-items-center- pb-20- md:pb-24- lg:pb-32- pt-16 md:pt-20 lg:pt-24" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 text-center lg:px-12">
@@ -101,20 +184,99 @@ import Layout from '../../layouts/Layout.astro'
 			</div>
 
 			<!-- Charts -->
-			<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8">
-				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Heatmap – grammar MCC by model × language</h3>
-				<ul class="text-foreground-muted">
-					<li>Models (rows) × 30 languages (columns)</li>
-					<li>Color gradient: red (low) → green (high)</li>
-					<li>Tooltip on hover, language sort (alpha/by score), model variants toggle</li>
-				</ul>
-			</div>
+			<div class="relative z-[1] mt-8 overflow-hidden rounded-lg border bg-background-softest text-foreground">
+				<!-- Nested tabs, sharing a row with the count badge -->
+				<div class="flex flex-col-reverse gap-2 border-b px-6 pt-4 sm:flex-row sm:items-stretch sm:justify-between sm:gap-4 sm:pt-0">
+					<!-- -mb-px sits on the scroll box, not the buttons: a negative margin on a
+					     child of an overflow container gets clipped instead of overlapping. -->
+					<div class="-mb-px flex min-w-0 gap-6 overflow-x-auto">
+						<button type="button" data-active class="inline-flex items-center gap-2 border-b-2 border-transparent py-3 text-sm font-medium whitespace-nowrap text-foreground-subtle transition-colors hover:text-foreground data-[active]:border-accent data-[active]:font-bold data-[active]:text-foreground sm:py-4">
+							<svg class="h-3.5 w-3.5 flex-none" viewBox="0 0 13 10" fill="currentColor" aria-hidden="true"><path d="M12 0H1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1ZM4 9H1V6.5h3V9Zm0-3.5H1V3h3v2.5ZM8 9H5V6.5h3V9Zm0-3.5H5V3h3v2.5ZM12 9H9V6.5h3V9Zm0-3.5H9V3h3v2.5Z"></path></svg>
+							<span>Per-language heatmap</span>
+						</button>
+						<button type="button" class="inline-flex items-center gap-2 border-b-2 border-transparent py-3 text-sm font-medium whitespace-nowrap text-foreground-subtle transition-colors hover:text-foreground data-[active]:border-accent data-[active]:font-bold data-[active]:text-foreground sm:py-4">
+							<svg class="h-3.5 w-3.5 flex-none" viewBox="0 0 13 10" fill="currentColor" aria-hidden="true"><path d="M0 1a1 1 0 0 1 1-1h10a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1Zm0 4a1 1 0 0 1 1-1h6a1 1 0 0 1 0 2H1a1 1 0 0 1-1-1Zm0 4a1 1 0 0 1 1-1h3a1 1 0 1 1 0 2H1a1 1 0 0 1-1-1Z"></path></svg>
+							<span>Overall bar chart</span>
+						</button>
+					</div>
 
-			<div class="mt-8 aspect-2/1 rounded-lg border bg-background-softest p-8">
-				<h3 class="mb-4 text-xl font-bold text-foreground-muted">Bar chart – grammar MCC by model</h3>
-				<ul class="text-foreground-muted">
-					<li>Aggregate score per model, brand color-coded</li>
-				</ul>
+					<div class="flex flex-none items-center">
+						<span class="inline-flex items-center rounded-full border border-accent-soft bg-accent-softer px-2.5 py-1 text-xs font-bold text-accent tabular-nums">{models.length} of 34 models</span>
+					</div>
+				</div>
+
+				<!-- Heatmap -->
+				<div class="p-4">
+					<!-- Chart heading + legend -->
+					<div class="flex flex-col items-start gap-3 px-2 pt-2 pb-4 md:flex-row md:gap-4">
+						<h3 class="m-0 text-xl font-bold text-foreground/80 md:shrink-0">Heatmap — grammar MCC by model × language</h3>
+						<!-- The key is the flexible one: it takes the leftover width and wraps onto
+						     more lines as that shrinks, so the heading never has to. -->
+						<div class="flex w-full min-w-0 flex-col items-start gap-2 md:flex-1 md:items-end md:pt-1.5">
+							<div class="flex w-full flex-wrap items-center gap-x-3.5 gap-y-1.5 text-xs text-foreground/60 md:justify-end">
+								{
+									legendBuckets.map((bucket) => (
+										<span class="inline-flex items-center gap-1.5 whitespace-nowrap">
+											<span class="inline-block h-[11px] w-[11px] flex-none rounded-full" style={`background: ${bucket.color};`} />
+											{bucket.label}
+										</span>
+									))
+								}
+								<span class="inline-block h-3 w-24 flex-none rounded-full" role="img" style={`background: ${scaleGradient};`} aria-label="Score colour scale. Higher is better."></span>
+								<span class="shrink-0 font-semibold whitespace-nowrap text-foreground/70" aria-hidden="true">Higher is better</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="relative overflow-x-auto">
+						<!-- Seals the gap the sticky label and overall columns scroll under -->
+						<div class="heatmap-rail pointer-events-none sticky left-0 z-[8] float-left" style={`width: ${railWidth}px; margin-right: ${-railWidth}px;`} aria-hidden="true"></div>
+
+						<div class="grid w-max min-w-full gap-0.5 py-4 pr-4" style={gridStyle}>
+							<div class="sticky left-0 z-[12] flex min-h-[30px] items-end justify-center bg-[color-mix(in_oklch,var(--foreground)_2.5%,var(--background))] pb-1.5"></div>
+							<div class="sticky z-[9] flex min-h-[30px] items-end justify-center bg-[color-mix(in_oklch,var(--foreground)_5%,var(--background))] pb-1.5 shadow-[0_0_2px_color-mix(in_oklch,var(--foreground)_10%,transparent)]" style={`left: ${overallLeft};`}>
+								<span class="text-[11px]/4 font-bold whitespace-nowrap text-foreground">Overall</span>
+							</div>
+							{
+								languages.map((lang) => (
+									<div class="flex min-h-[30px] items-end justify-center pb-1.5" title={lang.name}>
+										<span class="text-xs font-semibold whitespace-nowrap text-foreground/60">{lang.code}</span>
+									</div>
+								))
+							}
+
+							{
+								models.map((model, ri) => (
+									<>
+										<div class="sticky left-0 z-10 flex items-center justify-end gap-1.5 bg-[color-mix(in_oklch,var(--foreground)_2.5%,var(--background))] pr-3 text-right text-xs text-foreground" title={`${model.name} · ${model.company}`}>
+											<span class="overflow-hidden text-ellipsis whitespace-nowrap">{model.name}</span>
+											<span class="h-2 w-2 flex-none rounded-full" style={`background: ${model.color};`} aria-hidden="true" />
+										</div>
+
+										<div class="heatmap-cell heatmap-cell--overall" style={`left: ${overallLeft}; ${cellStyle(model.overall)}`} title={`${model.name} — overall ${fmt(model.overall)} MCC`}>
+											{fmt(model.overall)}
+										</div>
+
+										{languages.map((lang, ci) => {
+											const value = model.cells[lang.code]
+											return (
+												<div class:list={['heatmap-cell', value === null && 'heatmap-cell--empty']} style={`animation-delay: ${(ri + ci) * 6}ms; ${cellStyle(value)}`} title={value === null ? `${model.name} — ${lang.name}: no data` : `${model.name} — ${lang.name}: ${fmt(value)} MCC`}>
+													{value === null ? '' : fmt(value)}
+												</div>
+											)
+										})}
+									</>
+								))
+							}
+						</div>
+					</div>
+
+					<div class="border-t px-6 py-3 text-center text-xs text-foreground/40">MCC</div>
+				</div>
+
+				<div class="border-t px-6 py-3">
+					<a class="text-[13px] font-semibold text-accent no-underline hover:underline" href="/m-gate/methodology">How we measure this — methodology &amp; metric definitions →</a>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -161,3 +323,78 @@ import Layout from '../../layouts/Layout.astro'
 		</div>
 	</section>
 </Layout>
+
+<!-- Scoped to this page: the heatmap is the only thing on the site that uses it. -->
+<style>
+	.heatmap-cell {
+		display: flex;
+		min-height: 28px;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--radius-xs);
+		font-size: var(--text-xs);
+		font-weight: var(--font-weight-semibold);
+		animation: heatmap-cell-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+		transition:
+			outline 0.2s var(--default-transition-timing-function),
+			scale 0.2s var(--default-transition-timing-function);
+	}
+
+	/* Hundreds of cells; skip layout/paint for the ones scrolled out of view. The
+	   overall column is sticky, so it must stay rendered. */
+	.heatmap-cell:not(.heatmap-cell--overall) {
+		content-visibility: auto;
+		contain-intrinsic-size: auto 28px;
+	}
+
+	@media (hover: hover) {
+		.heatmap-cell:hover {
+			scale: 1.25;
+			outline: 1.5px solid color-mix(in oklab, var(--color-white) 90%, transparent);
+			box-shadow: 0 4px 14px rgb(0 0 0 / 0.25);
+		}
+		.heatmap-cell:not(.heatmap-cell--overall):hover {
+			z-index: 5;
+		}
+		.heatmap-cell--overall:hover {
+			z-index: 11;
+		}
+		.heatmap-cell--empty:hover {
+			background: color-mix(in oklch, var(--foreground) 11%, var(--background));
+		}
+	}
+
+	.heatmap-cell--overall {
+		position: sticky;
+		z-index: 9;
+		font-weight: var(--font-weight-bold);
+		box-shadow: 0 0 2px color-mix(in oklch, var(--foreground) 10%, transparent);
+	}
+
+	.heatmap-cell--empty {
+		background: color-mix(in oklch, var(--foreground) 7%, var(--background));
+		color: color-mix(in oklch, var(--foreground) 35%, transparent);
+	}
+
+	/* Seals the gap the sticky label and overall columns scroll under. */
+	.heatmap-rail {
+		background: color-mix(in oklch, var(--foreground) 2.5%, var(--background));
+	}
+
+	@keyframes heatmap-cell-in {
+		from {
+			opacity: 0;
+			transform: scale(0.4);
+		}
+		to {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.heatmap-cell {
+			animation: none;
+		}
+	}
+</style>
