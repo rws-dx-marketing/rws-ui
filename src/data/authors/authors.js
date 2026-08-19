@@ -4,35 +4,12 @@
 // the one exception is Stacy Ayers, who already appears as the byline on
 // /resources/blog-1/, so she gets the prototype detail page and keeps her photo.
 //
-// `filters` mirrors the shape of data/events/filters.json so the archive can
-// feed FilterDropdown/FilterOption directly, and each author's `filters` object
-// is serialised into data-card-filters for card-filters.js to match against.
+// `filters` mirrors the shape of data/events/filters.js so the archive can feed
+// FilterDropdown/FilterOption directly, and each author's `filters` object is
+// serialised into data-card-filters for card-filters.js to match against.
+import { authorTeams, facet, topics } from '../taxonomies.js'
 
-export const filters = [
-	{
-		id: 'topic',
-		label: 'Topic',
-		inputType: 'checkbox',
-		options: [
-			{ value: 'ai-data', label: 'AI & data' },
-			{ value: 'localization-translation', label: 'Localization & translation' },
-			{ value: 'content-management', label: 'Content management' },
-			{ value: 'intellectual-property', label: 'Intellectual property' },
-			{ value: 'regulatory', label: 'Regulatory & life sciences' },
-		],
-	},
-	{
-		id: 'team',
-		label: 'Team',
-		inputType: 'checkbox',
-		options: [
-			{ value: 'leadership', label: 'Leadership' },
-			{ value: 'product', label: 'Product' },
-			{ value: 'research', label: 'Research & linguistics' },
-			{ value: 'services', label: 'Services & delivery' },
-		],
-	},
-]
+export const filters = [facet('topic', 'Topic', topics), facet('team', 'Team', authorTeams)]
 
 const avatar = (name) => `https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/${name}.png`
 
@@ -43,10 +20,7 @@ export const authors = [
 		role: 'Head of Quality, TrainAI',
 		avatar: 'https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433',
 		excerpt: 'Writes about training data quality, human-in-the-loop evaluation and what it takes to ship AI that behaves in every market.',
-		bio: [
-			'Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex.',
-			'Integer auctor nulla vel leo, sed vestibulum ligula tempor id. Donec at neque vitae massa dictum tincidunt. Praesent efficitur, augue non tincidunt vulputate, sapien nisi tempus arcu, non facilisis lorem ipsum eu velit.',
-		],
+		bio: ['Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex.', 'Integer auctor nulla vel leo, sed vestibulum ligula tempor id. Donec at neque vitae massa dictum tincidunt. Praesent efficitur, augue non tincidunt vulputate, sapien nisi tempus arcu, non facilisis lorem ipsum eu velit.'],
 		articleCount: 9,
 		social: {
 			linkedin: '#',
@@ -176,11 +150,7 @@ export const authors = [
 
 // Placeholder article list for the author detail page. Nine cards so the
 // "Load more" button has something to reveal at the default page size of six.
-const blogImages = [
-	'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png',
-	'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/google-hq.png',
-	'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png',
-]
+const blogImages = ['https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png', 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/google-hq.png', 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png']
 
 export const articles = [
 	{ type: 'Article', title: 'This is an article title', date: 'Aug 15, 2026', readTime: '16 min read' },

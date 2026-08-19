@@ -3,14 +3,10 @@
 // (A alone has ~26 terms, C ~47). Topic tags drive the archive filter and are
 // assigned here (the live site has no topic taxonomy). Every term links to the
 // single prototype detail page unless it declares its own href.
-
-export const topics = [
-	{ value: 'ai-data', label: 'AI & data' },
-	{ value: 'localization-translation', label: 'Localization & translation' },
-	{ value: 'content-management', label: 'Content management' },
-	{ value: 'intellectual-property', label: 'Intellectual property' },
-	{ value: 'regulatory', label: 'Regulatory & life sciences' },
-]
+//
+// Topics come from data/taxonomies.js — the same list the author archive uses.
+// Re-exported so the page can keep importing { terms, topics } from here.
+export { topics } from '../taxonomies.js'
 
 export const terms = [
 	// A

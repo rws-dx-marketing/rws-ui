@@ -2,16 +2,14 @@
 // FAQDetails template. `summary` is the short answer used by the archive
 // search index and by the accordion of related questions on a detail page;
 // the full answer body is authored in the detail page itself.
+//
+// Categories come from data/taxonomies.js — the same list backing the archive's
+// category facet in data/faq/filters.js.
+import { faqCategories, labelFor } from '../taxonomies.js'
 
-export const categories = [
-	{ value: 'security', label: 'Security & data protection' },
-	{ value: 'licensing', label: 'Licensing & accounts' },
-	{ value: 'billing', label: 'Billing & subscriptions' },
-	{ value: 'product', label: 'Products & features' },
-	{ value: 'support', label: 'Support & training' },
-]
+export { faqCategories as categories }
 
-export const categoryLabel = (value) => categories.find((category) => category.value === value)?.label ?? value
+export const categoryLabel = (value) => labelFor(faqCategories, value)
 
 export const faqs = [
 	{
