@@ -3,7 +3,7 @@
 import Layout from '../../layouts/Layout.astro'
 import Section from '../../components/Section.astro'
 import Heading from '../../components/Heading.astro'
-import { faqs, categories, categoryLabel } from '../../data/faq/faqs'
+import { faqs, categories, categoryLabel } from '../../data/faqs/faqs'
 
 // One question per page, matching the live FAQDetails template. The full answer
 // is authored here; the archive and the related accordion below read the short
@@ -50,9 +50,9 @@ const resources = [
 	<Section top="lg" bottom="md" theme="default">
 		<div class="max-w-3xl">
 			<div class="mb-3 flex flex-wrap items-center gap-x-2 font-bold text-foreground-muted xl:text-lg">
-				<a href="/faq/" class="transition-colors hover:text-accent">FAQ</a>
+				<a href="/faqs/" class="transition-colors hover:text-accent">FAQ</a>
 				<span class="text-foreground-subtle" aria-hidden="true">·</span>
-				<a href={`/faq/#${faq.category}`} class="transition-colors hover:text-accent">{categoryLabel(faq.category)}</a>
+				<a href={`/faqs/#${faq.category}`} class="transition-colors hover:text-accent">{categoryLabel(faq.category)}</a>
 			</div>
 
 			<Heading as="h1" size="sm" class="mb-6 font-bold tracking-tight text-balance">{faq.question}</Heading>
@@ -74,7 +74,7 @@ const resources = [
 							{
 								categories.map((category) => (
 									<li>
-										<a href={`/faq/#${category.value}`} class:list={['font-semibold transition-colors hover:text-accent', category.value === faq.category && 'text-accent']}>
+										<a href={`/faqs/#${category.value}`} class:list={['font-semibold transition-colors hover:text-accent', category.value === faq.category && 'text-accent']}>
 											{category.label}
 										</a>
 									</li>
@@ -83,7 +83,7 @@ const resources = [
 						</ul>
 
 						<div class="mt-6 border-t pt-6">
-							<a href="/faq/" class="btn btn-secondary btn-sm">See all questions</a>
+							<a href="/faqs/" class="btn btn-secondary btn-sm">See all questions</a>
 						</div>
 					</div>
 
@@ -176,7 +176,7 @@ const resources = [
 										</div>
 
 										<div class="mt-5">
-											<a href={related.href ?? '/faq/faq-1/'} class="btn btn-tertiary btn-icon-right btn-sm">
+											<a href={related.href ?? '/faqs/faq-1/'} class="btn btn-tertiary btn-icon-right btn-sm">
 												<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
 													<>
 														<rect width="256" height="256" fill="none" />

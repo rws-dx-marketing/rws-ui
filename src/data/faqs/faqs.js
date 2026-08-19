@@ -1,10 +1,10 @@
-// FAQ content for /faq/ — one question per detail page, mirroring the live
+// FAQ content for /faqs/ — one question per detail page, mirroring the live
 // FAQDetails template. `summary` is the short answer used by the archive
 // search index and by the accordion of related questions on a detail page;
 // the full answer body is authored in the detail page itself.
 //
 // Categories come from data/taxonomies.js — the same list backing the archive's
-// category facet in data/faq/filters.js.
+// category facet in data/faqs/filters.js.
 import { faqCategories, labelFor } from '../taxonomies.js'
 
 export { faqCategories as categories }
@@ -14,7 +14,7 @@ export const categoryLabel = (value) => labelFor(faqCategories, value)
 export const faqs = [
 	{
 		question: 'As a Canadian customer, how can I protect my data when using Trados?',
-		href: '/faq/faq-1/',
+		href: '/faqs/faq-1/',
 		category: 'security',
 		summary: 'Store only the appropriate classification of data in the cloud, use customer-provided encryption keys, and add contract clauses that keep Protected B work inside Canada.',
 		filters: {

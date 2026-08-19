@@ -4,8 +4,8 @@ import Layout from '../../layouts/Layout.astro'
 import Section from '../../components/Section.astro'
 import FilterDropdown from '../../components/FilterDropdown.astro'
 import FilterOption from '../../components/FilterOption.astro'
-import { faqs, categories } from '../../data/faq/faqs'
-import filterData from '../../data/faq/filters.js'
+import { faqs, categories } from '../../data/faqs/faqs'
+import filterData from '../../data/faqs/filters.js'
 
 // Questions are grouped by category rather than paginated — the archive is a
 // scannable directory, and each question links out to its own detail page.
@@ -127,7 +127,7 @@ const groups = categories.map((category) => ({
 										<div class="flex items-start justify-between gap-5">
 											<div>
 												<h3 class="font-bold text-pretty transition-colors group-hover:text-accent md:text-lg">
-													<a href={faq.href ?? '/faq/faq-1/'}>
+													<a href={faq.href ?? '/faqs/faq-1/'}>
 														{faq.question}
 														<span class="absolute inset-0" />
 													</a>
