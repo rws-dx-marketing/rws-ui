@@ -27,6 +27,20 @@
 	--color-tertiary-softest: oklch(from var(--color-tertiary) 0.9853 calc(c * 0.0516) h);
 	--color-tertiary-strong: color-mix(in oklch, var(--color-tertiary) 80%, black);
 	--color-on-tertiary: var(--color-white);
+
+	--color-quaternary: oklch(0.855547 0.174878 88.0084);
+	/* Saffron's base already sits at L 0.86 — lighter than primary's own `subtle` — so the
+	   dark-base constants used above collapse soft/subtle/muted into three near-identical
+	   yellows. These are sRGB tints spaced by equal perceptual step (OKLab dE ~0.042 apart).
+	   Mixing in srgb rather than oklch keeps R pinned at 255, so the ramp stays yellow
+	   instead of drifting to khaki as chroma drops. */
+	--color-quaternary-muted: color-mix(in srgb, var(--color-quaternary) 71%, white);
+	--color-quaternary-subtle: color-mix(in srgb, var(--color-quaternary) 51%, white);
+	--color-quaternary-soft: color-mix(in srgb, var(--color-quaternary) 36%, white);
+	--color-quaternary-softer: color-mix(in srgb, var(--color-quaternary) 21%, white);
+	--color-quaternary-softest: color-mix(in srgb, var(--color-quaternary) 8%, white);
+	--color-quaternary-strong: color-mix(in oklch, var(--color-quaternary) 92.5%, black);
+	--color-on-quaternary: var(--color-black);
 }
 
 :root {
@@ -45,7 +59,7 @@
 }
 
 @utility text-gradient {
-	@apply bg-gradient bg-clip-text text-transparent pb-[0.05em];
+	@apply bg-gradient bg-clip-text pb-[0.05em] text-transparent;
 	/* background-size: 100%; */
 }
 

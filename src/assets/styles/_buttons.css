@@ -68,6 +68,11 @@
 		@apply bg-tertiary text-white shadow-xs hover:bg-tertiary-strong focus-visible:bg-tertiary-strong focus-visible:ring-tertiary-soft;
 	}
 
+	/* Saffron is light, so it takes black text rather than the white the other three use. */
+	.btn-quaternary {
+		@apply bg-quaternary text-black shadow-xs hover:bg-quaternary-strong focus-visible:bg-quaternary-strong focus-visible:ring-quaternary-soft;
+	}
+
 	.btn-outline {
 		@apply border border-foreground-soft bg-transparent text-foreground hover:bg-foreground-softest focus-visible:bg-foreground-softest focus-visible:ring-foreground-soft;
 	}

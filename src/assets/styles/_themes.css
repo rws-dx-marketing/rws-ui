@@ -128,6 +128,16 @@
 		--tint-boost: 2;
 	}
 
+	/* The only light brand theme: black on saffron, so tint-boost stays at 1 — black mixed
+	   into a light background reads strongly at low percentages, unlike white into a dark one. */
+	[data-theme='quaternary'] {
+		--background-seed: var(--color-quaternary);
+		--foreground-seed: var(--color-on-quaternary);
+		--accent-seed: var(--color-on-quaternary);
+		--gradient: linear-gradient(94.96deg, var(--color-tertiary) 0%, var(--color-primary) 47.7%, var(--color-primary) 52.3%, var(--color-tertiary) 100%);
+		--tint-boost: 1;
+	}
+
 	[data-theme='inverse'] {
 		--background-seed: color-mix(in oklab, var(--color-neutral), black 80%);
 		--foreground-seed: var(--color-white);
@@ -177,6 +187,10 @@
 		--background-seed: color-mix(in oklab, var(--color-tertiary), black 12%);
 	}
 
+	[data-theme='quaternary'] [data-card] {
+		--background-seed: color-mix(in oklab, var(--color-quaternary), white 16%);
+	}
+
 	[data-theme='primary'] .btn-primary {
 		@apply bg-foreground text-background hover:bg-primary-soft focus-visible:bg-primary-softest focus-visible:ring-primary-soft;
 	}
@@ -187,5 +201,11 @@
 
 	[data-theme='tertiary'] .btn-tertiary {
 		@apply bg-foreground text-background hover:bg-tertiary-soft focus-visible:bg-tertiary-softest focus-visible:ring-tertiary-soft;
+	}
+
+	/* Inverts to black-on-saffron. Hover goes darker rather than to a soft tint — the soft
+	   tints are pale yellows, which would leave saffron text unreadable. */
+	[data-theme='quaternary'] .btn-quaternary {
+		@apply bg-foreground text-background hover:bg-foreground-muted focus-visible:bg-foreground-muted focus-visible:ring-quaternary-soft;
 	}
 }
