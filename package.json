@@ -13,7 +13,7 @@
 		"@tailwindcss/typography": "^0.5.20",
 		"@tailwindcss/vite": "^4.3.3",
 		"apexcharts": "3.54.1",
-		"astro": "^7.2.2",
+		"astro": "^7.2.4",
 		"embla-carousel": "9.0.0-rc02",
 		"lottie-web": "^5.13.0",
 		"prettier": "^3.9.6",
@@ -23,5 +23,5 @@
 		"tailwindcss-intersect": "^2.2.0",
 		"tailwindcss-motion": "^1.1.1"
 	},
-	"packageManager": "pnpm@11.22.0"
+	"packageManager": "pnpm@11.23.0"
 }
