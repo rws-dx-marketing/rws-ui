@@ -29,7 +29,7 @@ const { theme = 'default', showIntro = true, ...intro } = Astro.props
 	<div class:list={['grid gap-8 not-first:mt-12', gridCols]}>
 		{
 			stats.map((stat, index) => (
-				<div class="@container grid place-content-center rounded-lg p-6 text-center" data-card>
+				<div class="@container grid place-content-center rounded-lg border p-6 text-center" data-card>
 					<p class="intersect-once mb-3 text-[min(23cqi,3.5rem)]/none font-extrabold text-accent tabular-nums intersect:motion-preset-focus" style={`--motion-delay: ${200 + index * 100}ms`} data-count-up>
 						{stat.value}
 					</p>
