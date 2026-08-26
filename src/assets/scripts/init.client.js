@@ -10,10 +10,11 @@ import primaryNav from './primary-nav'
 import headerScroll from './header-scroll'
 import postNav from './post-nav'
 import invokerCommandsPolyfill from './invoker-commands-polyfill'
-import pricingContent from './pricing-content'
+// import pricingContent from './pricing-content'
 import pricingRefactor from './pricing-refactor'
 import pronounce from './pronounce'
 import tabs from './tabs'
+import themePicker from './theme-picker'
 import timezoneSelect from './timezone-select'
 import animation from './animation'
 
@@ -21,14 +22,15 @@ if (typeof window !== 'undefined') {
 	Observer.start()
 	invokerCommandsPolyfill()
 
-	const initCountUp = () => {
+	const initEarly = () => {
 		countUp()
+		themePicker()
 	}
 
 	if (document.readyState === 'loading') {
-		window.addEventListener('DOMContentLoaded', initCountUp, { once: true })
+		window.addEventListener('DOMContentLoaded', initEarly, { once: true })
 	} else {
-		initCountUp()
+		initEarly()
 	}
 
 	window.addEventListener('load', () => {

@@ -5,5 +5,5 @@ const theme = [
 	{ label: 'Hidcote Blue', value: 'primary' },
 	{ label: 'Hillier Pink', value: 'secondary' },
 	{ label: 'Galaxy Purple', value: 'tertiary' },
-	{ label: 'Saffron', value: 'quaternary' },
+	// { label: 'Saffron', value: 'quaternary' },
 ]

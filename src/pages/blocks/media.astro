@@ -2,6 +2,7 @@
 // @ts-nocheck
 import Layout from '../../layouts/Layout.astro'
 import MediaGrid from '../../blocks/MediaGrid.astro'
+import ThemePicker from '../../components/ThemePicker.astro'
 import { themes } from '../../data/themes'
 
 const orientations = ['columns', 'rows']
@@ -17,21 +18,12 @@ const orientations = ['columns', 'rows']
 			<div class="prose text-foreground-muted md:prose-lg">
 				<p>A fluid alternative to Bento — author-defined groups laid out with flex as equal-width columns or full-width rows. Optional accent CTA card appended to the last group.</p>
 			</div>
+
+			<ThemePicker />
 		</div>
 	</section>
 
-	{
-		orientations.map((orientation) =>
-			themes.map((theme, ti) =>
-				ti === 0 ? (
-					<>
-						<div id={orientation} />
-						<MediaGrid orientation={orientation} theme={theme} />
-					</>
-				) : (
-					<MediaGrid orientation={orientation} theme={theme} />
-				),
-			),
-		)
-	}
+	<div data-theme-preview>
+		{orientations.map((orientation) => themes.map((theme) => <MediaGrid orientation={orientation} theme={theme} />))}
+	</div>
 </Layout>

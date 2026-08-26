@@ -6,5 +6,5 @@ export const themes = [
 	'primary',
 	'secondary',
 	'tertiary',
-	'quaternary',
+	// 'quaternary',
 ]

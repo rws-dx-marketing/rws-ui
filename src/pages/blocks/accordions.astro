@@ -2,6 +2,7 @@
 // @ts-nocheck
 import Layout from '../../layouts/Layout.astro'
 import Accordions from '../../blocks/Accordions.astro'
+import ThemePicker from '../../components/ThemePicker.astro'
 import { themes } from '../../data/themes'
 
 const variants = ['centered', 'side-by-side', 'panel-swap']
@@ -22,6 +23,8 @@ const variants = ['centered', 'side-by-side', 'panel-swap']
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque venenatis felis posuere. Nullam lectus orci, maximus vel nibh vel, congue sodales ex. Integer auctor nulla vel leo.</p>
 			</div>
 
+			<ThemePicker />
+
 			<div hidden class="mt-8 flex flex-wrap items-center gap-4">
 				<a href="/reference" class="btn btn-outline btn-icon-left">
 					<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg> -->
@@ -32,18 +35,7 @@ const variants = ['centered', 'side-by-side', 'panel-swap']
 		</div>
 	</section>
 
-	{
-		variants.map((variant) =>
-			themes.map((theme, i) =>
-				i === 0 ? (
-					<>
-						<div id={variant} />
-						<Accordions variant={variant} theme={theme} />
-					</>
-				) : (
-					<Accordions variant={variant} theme={theme} />
-				),
-			),
-		)
-	}
+	<div data-theme-preview>
+		{variants.map((variant) => themes.map((theme) => <Accordions variant={variant} theme={theme} />))}
+	</div>
 </Layout>

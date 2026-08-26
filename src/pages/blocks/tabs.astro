@@ -5,7 +5,11 @@ import Tabs from '../../blocks/Tabs.astro'
 import Split from '../../blocks/Split.astro'
 import Accordions from '../../blocks/Accordions.astro'
 import Features from '../../blocks/Features.astro'
+import ThemePicker from '../../components/ThemePicker.astro'
 import { themes } from '../../data/themes'
+
+// Tabs has no dots variant — keep the picker and the stack on the same list.
+const previewThemes = themes.filter((theme) => theme !== 'dots')
 ---
 
 <Layout title="Tabs – RWS UI">
@@ -18,13 +22,14 @@ import { themes } from '../../data/themes'
 			<div class="prose text-foreground-muted md:prose-lg">
 				<p>A pill tab switcher extracted from the pricing segment picker. Wraps any block as a "slide" — switching tabs swipes the outgoing slide fully off-screen and the incoming one in from the opposite direction, with a view-transition on the sliding indicator too.</p>
 			</div>
+
+			<ThemePicker themes={previewThemes} />
 		</div>
 	</section>
 
-	{
-		themes
-			.filter((theme) => theme !== 'dots')
-			.map((theme) => (
+	<div data-theme-preview>
+		{
+			previewThemes.map((theme) => (
 				<Tabs
 					name={`tabs-${theme}`}
 					theme={theme}
@@ -45,5 +50,6 @@ import { themes } from '../../data/themes'
 					</Fragment>
 				</Tabs>
 			))
-	}
+		}
+	</div>
 </Layout>

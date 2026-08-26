@@ -1,0 +1,42 @@
+---
+// @ts-nocheck
+// ThemePicker — reference-page control for choosing which theme a block preview
+// shows. The page still renders one copy of the block per theme (so nothing is
+// lost for testing); this just toggles which of them is visible, driven by
+// scripts/theme-picker.js. Wrap the previews in `<div data-theme-preview>` — the
+// script targets that element's direct `[data-theme]` children.
+//
+// Props:
+//   themes  — theme keys to offer (defaults to data/themes)
+//   value   — initially checked option (default 'default')
+//   showAll — include the "All themes" option (default true)
+//   label   — accessible name / visible legend
+import { themes as allThemes } from '../data/themes'
+
+const { themes = allThemes, value = 'default', showAll = true, label = 'Theme' } = Astro.props
+---
+
+<div data-theme-picker class="mt-8 flex flex-wrap items-center gap-x-4 gap-y-3">
+	<!-- <span class="text-sm font-semibold tracking-wide text-foreground-subtle uppercase">{label}</span> -->
+
+	<fieldset role="radiogroup" aria-label={`${label} — preview`} class="flex flex-wrap gap-1">
+		{
+			themes.map((theme) => (
+				<label class="flex cursor-pointer items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-semibold text-foreground-muted transition-colors select-none hover:bg-accent-softest has-checked:bg-accent-softer has-focus-visible:ring-2 has-focus-visible:ring-accent-subtle">
+					<input type="radio" name="theme-preview" value={theme} checked={theme === value} class="sr-only" />
+					<span data-theme={theme} aria-hidden="true" class="size-3 shrink-0 rounded-full border border-foreground-softer" />
+					<span class="capitalize">{theme}</span>
+				</label>
+			))
+		}
+
+		{
+			showAll && (
+				<label class="flex cursor-pointer items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-semibold text-foreground-muted transition-colors select-none hover:bg-accent-softest has-checked:bg-accent-softer has-focus-visible:ring-2 has-focus-visible:ring-accent-subtle">
+					<input type="radio" name="theme-preview" value="all" checked={value === 'all'} class="sr-only" />
+					<span>All themes</span>
+				</label>
+			)
+		}
+	</fieldset>
+</div>
