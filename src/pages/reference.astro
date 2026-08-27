@@ -13,6 +13,124 @@ const blocks = [
 	{ name: 'Tabs', href: '/blocks/tabs', variants: 'wraps Split · Accordions · Features' },
 	{ name: 'Testimonials', href: '/blocks/testimonials', variants: 'morphing-dots · simple-dots' },
 ]
+
+const templates = [
+	{
+		name: 'Home',
+		pages: [{ name: 'Home', href: '/' }],
+	},
+	{
+		name: 'About',
+		pages: [
+			{ name: 'About', href: '/about' },
+			{ name: 'Executive team', href: '/about/executive-team' },
+			{ name: 'Executive profile', href: '/about/executive-team/benjamin-faes' },
+		],
+	},
+	// {
+	// 	name: 'What we do',
+	// 	pages: [
+	// 		{ name: 'Localization services', href: '/what-we-do/localization-services' },
+	// 		{ name: 'Creative & digital content', href: '/what-we-do/localization-services/creative-digital-content' },
+	// 		{ name: 'Translation services', href: '/what-we-do/localization-services/translation-services' },
+	// 		{ name: 'Translation & language', href: '/what-we-do/localization-services/translation-services/translation-language' },
+	// 		{ name: 'Video & audio', href: '/what-we-do/localization-services/translation-services/video-audio' },
+	// 		{ name: 'Video', href: '/what-we-do/localization-services/translation-services/video-audio/video' },
+	// 		{ name: 'Audio', href: '/what-we-do/localization-services/translation-services/video-audio/audio' },
+	// 	],
+	// },
+	{
+		name: 'Resources',
+		pages: [
+			{ name: 'Resources archive', href: '/resources' },
+			{ name: 'Blog post', href: '/resources/blog-1' },
+			// { name: 'Blog post (long)', href: '/resources/blog-1-long' },
+			{ name: 'Blog post (alt)', href: '/resources/blog-2' },
+			// { name: 'Blog post (legacy)', href: '/resources/blog-1-legacy' },
+			{ name: 'Case study', href: '/resources/case-study' },
+			{ name: 'Training course', href: '/resources/training-course' },
+		],
+	},
+	{
+		name: 'Events',
+		pages: [
+			{ name: 'Events archive', href: '/events' },
+			{ name: 'Event detail', href: '/events/event' },
+			{ name: 'Webinars archive', href: '/events/webinars' },
+			{ name: 'Webinar detail', href: '/events/webinar' },
+			{ name: 'Recorded webinars', href: '/events/recorded' },
+			// { name: 'Events (combined)', href: '/events-all' },
+		],
+	},
+	{
+		name: 'Partners',
+		pages: [
+			{ name: 'Partners archive', href: '/partners' },
+			{ name: 'Partner detail', href: '/partners/partner-1' },
+		],
+	},
+	{
+		name: 'Connectors',
+		pages: [
+			{ name: 'Connectors archive', href: '/connectors' },
+			{ name: 'Connector detail', href: '/connectors/connector-1' },
+		],
+	},
+	{
+		name: 'Media centre',
+		pages: [
+			{ name: 'Media centre', href: '/media-centre' },
+			{ name: 'Press releases', href: '/media-centre/press-releases' },
+			{ name: 'Press release detail', href: '/media-centre/press-releases/press-release-1' },
+			{ name: 'Latest reports', href: '/media-centre/latest-reports' },
+			{ name: 'Media resources', href: '/media-centre/media-resources' },
+		],
+	},
+	{
+		name: 'Knowledge',
+		pages: [
+			{ name: 'Glossary', href: '/glossary' },
+			{ name: 'Glossary term', href: '/glossary/ai-model-evaluation' },
+			{ name: 'FAQs', href: '/faqs' },
+			{ name: 'FAQ detail', href: '/faqs/faq-1' },
+			{ name: 'Authors', href: '/authors' },
+			{ name: 'Author profile', href: '/authors/stacy-ayers' },
+		],
+	},
+	{
+		name: 'Pricing',
+		pages: [
+			// { name: 'Pricing', href: '/pricing' },
+			{ name: 'Pricing v1', href: '/pricing/alt' },
+			// { name: 'Pricing (new)', href: '/pricing/new' },
+			// { name: 'Pricing (existing customers)', href: '/pricing/existing' },
+			// { name: 'Pricing for teams', href: '/pricing/teams' },
+			// { name: 'Pricing components', href: '/pricing/components' },
+			{ name: 'Pricing v2', href: '/pricing/refactor' },
+		],
+	},
+	{
+		name: 'M-GATE',
+		pages: [
+			{ name: 'M-GATE', href: '/m-gate' },
+			{ name: 'Leaderboard', href: '/m-gate/leaderboard' },
+			{ name: 'By model', href: '/m-gate/by-model' },
+			{ name: 'By language', href: '/m-gate/by-language' },
+			{ name: 'Economics', href: '/m-gate/economics' },
+			{ name: 'Insights', href: '/m-gate/insights' },
+			{ name: 'Methodology', href: '/m-gate/methodology' },
+			{ name: 'Register', href: '/m-gate/register' },
+		],
+	},
+	{
+		name: 'Other',
+		pages: [
+			{ name: 'Contact', href: '/contact' },
+			{ name: 'Dashboard', href: '/dashboard' },
+			{ name: 'Animation', href: '/animation' },
+		],
+	},
+]
 ---
 
 <Layout title="Reference – RWS UI">
@@ -37,18 +155,20 @@ const blocks = [
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
 					Style guide
 				</a>
+				<!-- <a href="#blocks" class="btn btn-outline">Blocks</a> -->
+				<!-- <a href="#templates" class="btn btn-outline">Templates</a> -->
 			</div>
 		</div>
 	</section>
 
-	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
+	<section id="blocks" class="scroll-mt-24 pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="pale">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<header class="mb-10 space-y-2">
 				<h1 class="text-3xl font-bold">Blocks</h1>
 				<p class="text-foreground-muted">Showcase pages stack each variant across every theme.</p>
 			</header>
 
-			<ul class="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+			<ul class="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
 				<li hidden>
 					<a href="/blocks/tester" class="block rounded-xl border border-gray-200 bg-white p-6 transition-colors hover:border-accent">
 						<div class="text-lg font-semibold">Tester</div>
@@ -62,6 +182,34 @@ const blocks = [
 								<div class="text-lg font-semibold">{block.name}</div>
 								{/* <div class="mt-1 text-sm text-foreground-muted">{block.variants}</div> */}
 							</a>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+
+	<section id="templates" class="scroll-mt-24 pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<header class="mb-10 space-y-2">
+				<h1 class="text-3xl font-bold">Templates</h1>
+				<p class="text-foreground-muted">Full page layouts — archives and their detail pages, grouped by section.</p>
+			</header>
+
+			<ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+				{
+					templates.map((group) => (
+						<li class="rounded-xl border p-6" data-card>
+							<div class="text-lg font-semibold">{group.name}</div>
+							<ul class="mt-3 space-y-1">
+								{group.pages.map((page) => (
+									<li>
+										<a href={page.href} class="text-sm text-foreground-muted transition-colors hover:text-accent">
+											{page.name}
+										</a>
+									</li>
+								))}
+							</ul>
 						</li>
 					))
 				}
