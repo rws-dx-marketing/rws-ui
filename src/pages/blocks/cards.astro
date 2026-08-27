@@ -5,12 +5,11 @@ import Cards from '../../blocks/Cards.astro'
 import ThemePicker from '../../components/ThemePicker.astro'
 import { themes } from '../../data/themes'
 
-// Counts that aren't a multiple of three: 4 renders as two half-width rows,
-// 7 and 10 as full 3-up rows with the leftover card centred.
+// Counts that aren't a multiple of three: 4 drops to a 2-up grid, 7 stays 3-up
+// with a ragged last row.
 const three = ['links', 'plain', 'clickable']
 const four = ['links', 'clickable', 'clickable', 'links']
 const seven = Array.from({ length: 7 }, () => 'links')
-const ten = Array.from({ length: 10 }, () => 'links')
 ---
 
 <Layout title="Cards – RWS UI">
@@ -40,9 +39,8 @@ const ten = Array.from({ length: 10 }, () => 'links')
 			themes.map((theme) => (
 				<>
 					<Cards theme={theme} variants={three} subheading="Three cards" />
-					<Cards theme={theme} variants={four} subheading="Four cards — two half-width rows" />
-					<Cards theme={theme} variants={seven} subheading="Seven cards — leftover centred" />
-					<Cards theme={theme} variants={ten} subheading="Ten cards — leftover centred" />
+					<Cards theme={theme} variants={four} subheading="Four cards — 2-up grid" />
+					<Cards theme={theme} variants={seven} subheading="Seven cards" />
 				</>
 			))
 		}

@@ -1,40 +1,21 @@
 ---
 // @ts-nocheck
-// Cards — 3-up card grid on a 12-column track at lg, so a card can take a third
-// (span 4) or a half (span 6) and can be offset to sit centred in an incomplete
-// row.
-//
-// A 3-up grid leaves a two-column hole whenever the count is one more than a
-// multiple of three (4, 7, 10…). Four items become two half-width rows; above
-// that the leftover card stays a third and is centred under the rows above, so
-// the gap reads as deliberate rather than as a missing card.
-//
-// Counts with a remainder of two (5, 8…) are left ragged-right; they only lose
-// one column, not two.
+// Cards — 3-up card grid. Four cards would leave a two-column hole in the last
+// row, so that count drops to a 2-up grid instead; every other count lays out
+// 3-up and any incomplete final row is left ragged-right.
 import Section from '../components/Section.astro'
 import Intro from '../components/Intro.astro'
 import Card from '../components/Card.astro'
 
 const { theme = 'default', showIntro = true, variants = ['links', 'plain', 'clickable'], ...intro } = Astro.props
 
-const THIRD = 'lg:col-span-4'
-const HALF = 'lg:col-span-6'
-const CENTER_THIRD = 'lg:col-start-5' // centres a lone trailing third-width card
-
-const count = variants.length
-const spans = Array.from({ length: count }, () => THIRD)
-
-if (count > 4 && count % 3 === 1) {
-	spans[count - 1] = `${THIRD} ${CENTER_THIRD}`
-} else if (count === 4) {
-	spans.fill(HALF)
-}
+const columns = variants.length === 4 ? 'lg:grid-cols-2' : 'lg:grid-cols-3'
 ---
 
 <Section theme={theme}>
 	{showIntro && <Intro {...intro} />}
 
-	<div class="grid max-w-[80ch] gap-8 not-first:mt-12 sm:grid-cols-2 lg:max-w-none lg:grid-cols-12 lg:not-first:mt-16">
-		{variants.map((variant, i) => <Card variant={variant} class={spans[i]} />)}
+	<div class:list={['grid max-w-[80ch] gap-8 not-first:mt-12 sm:grid-cols-2 lg:max-w-none lg:not-first:mt-16', columns]}>
+		{variants.map((variant) => <Card variant={variant} />)}
 	</div>
 </Section>

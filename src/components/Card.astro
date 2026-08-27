@@ -3,14 +3,13 @@
 //   'links'     — media, copy, action buttons + a resource-link footer
 //   'plain'     — no media, copy, hover tint + a service-link footer
 //   'clickable' — media, whole card is a single link, bulleted copy, no footer
-//   class       — extra classes on the <article> (grid spans, etc.)
-const { variant = 'links', class: className } = Astro.props
+const { variant = 'links' } = Astro.props
 ---
 
 {
 	/* links: image + heading + copy + buttons + footer links */
 	variant === 'links' && (
-		<article class:list={['flex flex-col overflow-clip rounded-lg border text-left', className]} data-card>
+		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
 			<div class="group relative flex flex-1 flex-col">
 				<a href="#" class="block shrink-0 overflow-hidden">
 					<img class="aspect-video w-full object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
@@ -78,7 +77,7 @@ const { variant = 'links', class: className } = Astro.props
 {
 	/* plain: no image + heading + copy + footer links */
 	variant === 'plain' && (
-		<article class:list={['flex flex-col overflow-clip rounded-lg border text-left', className]} data-card>
+		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
 			<div class="group relative isolate flex flex-1 flex-col p-6">
 				<div class="flex flex-1 flex-col">
 					<h3 class="mb-2 text-2xl font-bold">
@@ -134,7 +133,7 @@ const { variant = 'links', class: className } = Astro.props
 {
 	/* clickable: image + whole-card clickable, footer excluded */
 	variant === 'clickable' && (
-		<article class:list={['flex flex-col overflow-clip rounded-lg border text-left', className]} data-card>
+		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
 			<div class="group relative isolate flex flex-1 flex-col">
 				<div class="shrink-0 overflow-hidden">
 					<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png" alt="office laptops" />
