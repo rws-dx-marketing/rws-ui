@@ -3,11 +3,12 @@
 import Section from '../components/Section.astro'
 import Heading from '../components/Heading.astro'
 
-const { title, image, date, location, readTime, logo, description, author, share = false, cta, layout = 'split' } = Astro.props
+const { title, subtitle, image, date, location, readTime, logo, description, author, share = false, cta, layout = 'split' } = Astro.props
 
 const textCols = layout === 'wide-text' ? 'lg:col-span-7' : 'lg:col-span-6'
 const imageCols = layout === 'wide-text' ? 'lg:col-span-5' : 'lg:col-span-6'
-const titleMargin = description || cta ? 'mb-6' : ''
+const titleMargin = subtitle || description || cta ? 'mb-6' : ''
+const subtitleMargin = description || cta ? 'mb-6' : ''
 const showMeta = date || location || readTime
 ---
 
@@ -55,6 +56,8 @@ const showMeta = date || location || readTime
 			}
 
 			<Heading as="h2" size="md" class={`${titleMargin} font-bold tracking-tight text-balance`}>{title}</Heading>
+
+			<!-- {subtitle && <p class={`${subtitleMargin} text-xl/snug font-semibold text-pretty text-foreground-muted xl:text-2xl/snug`}>{subtitle}</p>} -->
 
 			{
 				description && (

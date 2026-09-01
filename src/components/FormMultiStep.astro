@@ -1,0 +1,28 @@
+---
+// @ts-nocheck
+// The HubSpot "multi-step" form (forms v4, the `hsfc-*` markup) — the one the
+// live gated resource pages and the contact page use. Unlike Form.astro, which
+// is a static copy of a legacy v2 form, nothing here is hand-written markup:
+// HubSpot's embed script finds the mount point by its data attributes and
+// renders the steps itself. Styling for `.hsfc-*` lives in styles/_hubspot.css.
+//
+// The data-activity-* / data-resource-* attributes are what the production
+// Razor template emits — they are read by RWS's own form wiring, not HubSpot's,
+// so they are carried here to keep the markup portable.
+//
+// Props:
+//   formId / portalId / region — HubSpot form to render
+//   activityType / activitySubject / campaignId / interestProfile — RWS tracking
+//   submitText       — overrides the button label on the final step
+//   resourceUrl      — file the submission unlocks
+//   thankYouPageUrl  — where to send people after submit; takes precedence over
+//                      the message, so set one or the other
+//   thankYouMessage  — shown in place of the form after submit
+const { formId = '38b16edf-75ac-4f5f-8173-af76207c2b4b', portalId = '147991', region = 'na1', activityType = '', activitySubject = '', campaignId = '', interestProfile = '', submitText = '', resourceUrl = '', thankYouPageUrl = '', thankYouMessage = thankYouPageUrl ? '' : 'Thank you for filling out the form.', class: className = '' } = Astro.props
+---
+
+<div class:list={['hubspot-form', className]}>
+	<script is:inline defer src={`https://js.hsforms.net/forms/embed/developer/${portalId}.js`}></script>
+
+	<div class="hubspot_form__body hs-form-html" data-form-id={formId} data-portal-id={portalId} data-region={region} data-form-type="HubSpot Multi-Step" data-activity-type={activityType} data-activity-subject={activitySubject} data-activity-campaign-id={campaignId} data-activity-interest-profile={interestProfile} data-thank-you-message={thankYouMessage} data-thank-you-page-url={thankYouPageUrl} data-external-page-url="" data-post-back-on-submit="False" data-resource-url={resourceUrl} data-resource-file-name={resourceUrl} data-on-form-submitted="" data-submit-text={submitText} data-conversion-level="" data-calendly-enabled="False"></div>
+</div>

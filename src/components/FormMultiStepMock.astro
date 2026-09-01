@@ -1,0 +1,129 @@
+---
+// @ts-nocheck
+// A static stand-in for FormMultiStep — same `hsfc-*` markup, no HubSpot.
+//
+// Why it exists: which step a field sits on is form config in the HubSpot
+// portal, so a different split can't be shown by changing anything here. This
+// reproduces the rendered form so an arrangement can be reviewed before anyone
+// edits the real one.
+//
+// The fields mirror form 38b16edf-75ac-4f5f-8173-af76207c2b4b as it stands:
+//   step 1 — Email
+//   step 2 — First/Last name (two columns), Company, Country, Phone, Job title,
+//            consent
+// Conditional fields (State, second Phone, pixel-tracking consent) are left
+// out; they only appear once Country is answered.
+//
+// Class names are HubSpot's own, so styles/_hubspot.css applies unchanged.
+// HubSpot ships layout CSS that we don't have, so the structural utilities
+// (flex, widths, progress-bar height) are added here.
+//
+// NOT a working form: no validation, no submit. The buttons only move between
+// steps so the arrangement can be clicked through.
+//
+// Props:
+//   namesOnFirstStep — the proposal: the First/Last name row moves to step 1
+//   submitText       — final button label
+//   idPrefix         — input id namespace, if two copies share a page
+const { namesOnFirstStep = true, submitText = 'Submit', idPrefix = 'mock', class: className = '' } = Astro.props
+
+// One row per entry; a row with two fields is HubSpot's two-column layout.
+const nameRow = [
+	{ label: 'First Name', name: 'firstname', autocomplete: 'given-name', required: true },
+	{ label: 'Last Name', name: 'lastname', autocomplete: 'family-name', required: true },
+]
+
+const emailRow = [{ label: 'Email', name: 'email', type: 'email', autocomplete: 'email', required: true }]
+
+const detailRows = [[{ label: 'Company Name', name: 'company', autocomplete: 'organization', required: true }], [{ label: 'Country', name: 'country', type: 'dropdown', placeholder: 'Please Select', required: true }], [{ label: 'Phone number', name: 'phone_number', type: 'tel', autocomplete: 'tel' }], [{ label: 'Job Title', name: 'jobtitle', autocomplete: 'organization-title', required: true }]]
+
+const stepOneRows = namesOnFirstStep ? [nameRow, emailRow] : [emailRow]
+const stepTwoRows = namesOnFirstStep ? detailRows : [nameRow, ...detailRows]
+---
+
+<div class:list={['hubspot-form', className]} data-form-mock>
+	<div class="hsfc-Renderer">
+		<div class="hsfc-FormWrapper">
+			<form class="hsfc-Form" novalidate>
+				{
+					[stepOneRows, stepTwoRows].map((rows, step) => (
+						<div class:list={['hsfc-Step', step && 'hsfc-Step--layoutTemplate-top']} data-form-mock-step={step + 1} hidden={!!step}>
+							{!!step && <div class="hsfc-Step__Banner" />}
+
+							<div class="hsfc-Step__Content">
+								{rows.map((fields) => (
+									<div class:list={['hsfc-Row', fields.length > 1 && 'flex flex-col @sm/form:flex-row']}>
+										{fields.map((field) => (
+											<div class:list={[field.type === 'dropdown' ? 'hsfc-DropdownField' : 'hsfc-TextField', fields.length > 1 && 'flex-1']}>
+												<label class="hsfc-FieldLabel" for={`${idPrefix}-${field.name}`}>
+													<span>
+														<span>{field.label}</span>
+														{field.required && <span class="hsfc-FieldLabel__RequiredIndicator">*</span>}
+													</span>
+												</label>
+
+												{/* HubSpot renders its dropdown as a text input with a caret, not a select */}
+												{field.type === 'dropdown' ? (
+													<div class="hsfc-DropdownInput">
+														<input class="hsfc-TextInput w-full" type="text" id={`${idPrefix}-${field.name}`} name={field.name} placeholder={field.placeholder} readonly />
+													</div>
+												) : (
+													<input class="hsfc-TextInput w-full" type={field.type ?? 'text'} inputmode={field.type === 'email' ? 'email' : undefined} id={`${idPrefix}-${field.name}`} name={field.name} autocomplete={field.autocomplete} />
+												)}
+											</div>
+										))}
+									</div>
+								))}
+
+								{!!step && (
+									<div class="hsfc-Row">
+										<div class="hsfc-DataPrivacyField grid gap-3">
+											<div class="hsfc-RichText">
+												<p>RWS is committed to protecting and respecting your privacy, and we'll only use your personal information to administer your account and to provide the products and services you requested from us. From time to time, we would like to contact you about our products and services, as well as other content that may be of interest to you. If you consent to us contacting you for this purpose, please tick below to say how you would like us to contact you:</p>
+											</div>
+
+											<label class="hsfc-CheckboxField flex items-start font-sans text-xs/relaxed font-medium text-foreground-muted">
+												<input type="checkbox" name="marketing_consent" class="mt-0.5" />
+												<span>I agree to receive occasional marketing communications from RWS.</span>
+											</label>
+										</div>
+									</div>
+								)}
+
+								<div class="hsfc-Row">
+									<div class="hsfc-ProgressBar">
+										<div hidden class="hsfc-ProgressBar__Text" aria-hidden="true">
+											{step + 1}/2
+										</div>
+										<div class="hsfc-ProgressBar__Progress mt-6 h-1 overflow-hidden rounded-full">
+											<div class="h-full" style={`width:${(step + 1) * 50}%`} />
+										</div>
+									</div>
+								</div>
+
+								<div class="hsfc-NavigationRow">
+									<div class="hsfc-NavigationRow__Buttons flex gap-3">
+										{step ? (
+											<>
+												<button type="button" class="hsfc-Button" data-form-mock-step-to="1">
+													Previous
+												</button>
+												<button type="button" class="hsfc-Button">
+													{submitText}
+												</button>
+											</>
+										) : (
+											<button type="button" class="hsfc-Button" data-form-mock-step-to="2">
+												Get started
+											</button>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+					))
+				}
+			</form>
+		</div>
+	</div>
+</div>

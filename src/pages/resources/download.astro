@@ -1,0 +1,123 @@
+---
+// @ts-nocheck
+// Download resource page — one resource, rendered gated and open so the two can
+// be compared directly. Only the `gated` flag differs; the copy, artwork and
+// sidebar are shared. Live references:
+//   gated → /localization/services/resources/global-content-playbook/
+//   open  → /about/translation-technology-insights/infographic/
+import Layout from '../../layouts/Layout.astro'
+import PreviewSettings from '../../components/PreviewSettings.astro'
+import VariantPicker from '../../components/VariantPicker.astro'
+import ResourceDetail from '../../blocks/ResourceDetail.astro'
+
+// Artwork and the file itself are hotlinked from the live site so the prototype
+// reads with the real assets rather than placeholders.
+const playbookCover = 'https://www.rws.com/media/fallback/images/GC-playbook-thumbnail-640x320_tcm228-300782.png'
+const playbookPdf = 'https://www.rws.com/media/images/transform_global-content_ebook_2026_en_tcm228-300778.pdf'
+
+const related = [
+	{
+		tag: 'Infographic',
+		title: 'Translation Technology Insights 2025',
+		meta: '1 page · PDF',
+		copy: 'The key numbers behind the shift: how 1,000+ organizations are adapting their localization strategy to AI.',
+		href: '/resources/download/',
+		image: 'https://www.rws.com/media/images/security-ebook-2025_tcm228-282266.jpg',
+	},
+	{
+		tag: 'Webinar',
+		title: 'How to accelerate global growth',
+		meta: 'On-demand · 45 min',
+		copy: 'How successful global brands build content operations that scale without adding complexity or risk.',
+		href: '/resources/video/',
+		image: 'https://www.rws.com/media/images/Evolve%20blog%20image_tcm228-299690.png',
+	},
+	{
+		tag: 'Case study',
+		title: 'Scaling content for a global product launch',
+		meta: '6 min read',
+		copy: 'How one enterprise team cut localization turnaround by half without adding headcount.',
+		href: '/resources/case-study/',
+		image: 'https://www.rws.com/media/images/transcreation-resource-page-thumbnail_resource-page-thumbnail-image_tcm228-200305.png',
+	},
+]
+
+const resource = {
+	kind: 'download',
+	tag: 'eBook',
+	title: 'The global content playbook',
+	subtitle: 'The enterprise guide to global content transformation',
+	lede: 'The enterprises winning in global markets have built content operations that scale with their ambition. This guide gives you the framework to do the same.',
+	image: { src: playbookCover, alt: 'The global content playbook' },
+	assetHref: playbookPdf,
+	details: [
+		{ label: 'Format', value: 'eBook (PDF)' },
+		{ label: 'Length', value: '32 pages' },
+		{ label: 'Language', value: 'English' },
+	],
+	ctaText: 'Download',
+	heroCtaText: 'Find out more',
+	panelTitle: 'Get <em>the global content playbook</em>',
+	bodyTitle: 'The enterprise guide to global content transformation',
+	body: `
+		<p>The enterprises winning in global markets have built content operations that scale with their ambition. This guide gives you the framework to do the same.</p>
+
+		<p>In it, you'll find:</p>
+
+		<ul>
+			<li><strong>Content as your growth engine</strong> — why the enterprises pulling ahead treat global content as a commercial priority, connecting it directly to market entry, revenue and competitive advantage.</li>
+			<li><strong>The complexity tax</strong> — what's really eating 21% of localization budgets, where the cost is hiding and why building for global from the start changes the economics entirely.</li>
+			<li><strong>AI, deliberately deployed</strong> — how leading enterprises decide where AI runs autonomously and where human expertise stays in the loop.</li>
+			<li><strong>When the stakes are higher</strong> — what regulated enterprises need to know about AI governance, multilingual content risk and building infrastructure before the risk materializes.</li>
+			<li><strong>Four steps to get moving</strong> — a practical starting point that doesn't require a full transformation program.</li>
+		</ul>
+	`,
+	// Both gate arrangements, stacked, so they can be compared directly.
+	gateLayouts: [
+		// 'header',
+		'split',
+	],
+	gateBullets: [
+		'Free to download',
+		// 'No obligation — we won’t pass your details on',
+		'Takes under a minute',
+	],
+	form: {
+		// Static stand-in for the HubSpot form, so the proposed step split can be
+		// shown before the portal is touched. `mock: false` restores the live form;
+		// `namesOnFirstStep: false` is today's arrangement, for comparison.
+		mock: true,
+		namesOnFirstStep: true,
+		activityType: 'ebooks',
+		activitySubject: 'ebooks: The global content playbook',
+		campaignId: '701cz00000paiWdAAI',
+		interestProfile: 'Language Services',
+		submitText: 'Submit',
+		resourceUrl: playbookPdf,
+		thankYouPageUrl: '/resources/download/?variant=open',
+	},
+	related,
+}
+---
+
+<Layout title="Download – RWS UI">
+	<PreviewSettings>
+		<VariantPicker
+			label="Access"
+			options={[
+				{ value: 'gated', label: 'Gated' },
+				{ value: 'open', label: 'Open' },
+			]}
+		/>
+	</PreviewSettings>
+
+	<div data-variant-preview>
+		<div data-variant="gated">
+			<ResourceDetail {...resource} gated={true} panelCopy="Please fill in your details to download the eBook." />
+		</div>
+
+		<div data-variant="open" hidden>
+			<ResourceDetail {...resource} anchor="resource-open" panelCopy="Free to download — no registration required. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec nibh ante. Donec quis feugiat ex. Phasellus egestas lorem lacinia dui auctor, in vulputate nibh tempus." />
+		</div>
+	</div>
+</Layout>

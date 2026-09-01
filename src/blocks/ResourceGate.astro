@@ -1,0 +1,86 @@
+---
+// @ts-nocheck
+// ResourceGate — the form panel at the top of a gated resource's content
+// column. Two arrangements of the same parts, because the form's height varies
+// a lot between steps and that rules out anything that has to match it:
+//
+//   header — badge + title + copy across the full panel, rule, form beneath at
+//            a readable width. Nothing lines up against the form, so step 2
+//            growing changes nothing.
+//   split  — the pitch in a left column, form on the right. Uses the width, and
+//            the uneven column heights read as normal because the left column
+//            has real content rather than an empty graphic. No lock here — the
+//            bullets carry the gating.
+//
+// Both keep the multi-step form: flattening it to one step pushes the body copy
+// too far down the page.
+//
+// Props:
+//   layout    — 'header' (default) or 'split'
+//   anchor    — id for the panel, so the hero CTA can scroll to it
+//   title     — panel heading (HTML string)
+//   copy      — standfirst under the heading
+//   bullets   — short reassurance list; only shown by the split layout, which
+//               needs the left column to carry its own weight
+//   form      — props forwarded to FormMultiStep. `mock: true` swaps in
+//               FormMultiStepMock instead — static markup we control, for
+//               reviewing a step split HubSpot hasn't been changed to yet.
+import FormMultiStep from '../components/FormMultiStep.astro'
+import FormMultiStepMock from '../components/FormMultiStepMock.astro'
+
+const { layout = 'header', anchor = 'resource', title, copy, bullets = [], form = {} } = Astro.props
+
+const { mock = false, ...formProps } = form
+const Form = mock ? FormMultiStepMock : FormMultiStep
+
+const isSplit = layout === 'split'
+---
+
+<div id={anchor} class="scroll-mt-16 rounded-lg border p-6 lg:p-10" data-card>
+	<div class:list={['gap-8 lg:gap-10', isSplit && 'grid lg:grid-cols-12']}>
+		<div class:list={[isSplit && 'lg:col-span-5']}>
+			<div class="flex items-start gap-4">
+				{
+					!isSplit && (
+						<div class="flex size-12 shrink-0 items-center justify-center rounded-full border border-accent-softer bg-accent-softest">
+							<svg class="size-6 fill-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
+								<rect width="256" height="256" fill="none" />
+								<path d="M208,80H176V56a48,48,0,0,0-96,0V80H48A16,16,0,0,0,32,96V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V96A16,16,0,0,0,208,80ZM96,56a32,32,0,0,1,64,0V80H96Z" />
+							</svg>
+						</div>
+					)
+				}
+
+				<div class="prose text-foreground-muted">
+					{
+						title && (
+							<h2 class="mb-3 text-3xl font-bold text-pretty">
+								<Fragment set:html={title} />
+							</h2>
+						)
+					}
+
+					{copy && <p>{copy}</p>}
+
+					{
+						isSplit && !!bullets.length && (
+							<ul>
+								{bullets.map((bullet) => (
+									<li>{bullet}</li>
+								))}
+							</ul>
+						)
+					}
+				</div>
+			</div>
+		</div>
+
+		{
+			/* Header layout: a full-width rule turns the block above into a panel
+		    header, and the form sits under it at a sane line length. */
+		}
+		<div class:list={[isSplit ? 'lg:col-span-7' : 'mt-6 border-t pt-6 lg:mt-8 lg:pt-8']}>
+			<Form {...formProps} class={isSplit ? '' : 'max-w-xl'} />
+		</div>
+	</div>
+</div>

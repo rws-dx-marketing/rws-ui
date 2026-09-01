@@ -1,0 +1,205 @@
+---
+// @ts-nocheck
+// ResourceDetail — the resource landing page behind downloads (eBook,
+// infographic, report) and videos (product overview, webinar recording), in
+// both gated and ungated form.
+//
+// Gating is the only difference between the two versions of a resource: same
+// hero, same artwork, same copy. All it changes is what sits at the top of the
+// content column — the form, or the asset itself.
+//
+// Props:
+//   kind       — 'download' (default) or 'video'
+//   gated      — swap the asset for the form (default false)
+//   anchor     — id of that first panel (default 'resource'); only worth setting
+//                when two copies of this block share one document
+//   tag        — asset label ('eBook', 'Infographic'…)
+//   title      — page heading
+//   subtitle   — secondary heading under the title
+//   lede       — hero paragraph
+//   image      — the resource artwork { src, alt }, shown in the hero
+//   details    — [{ label, value }] listed in the sidebar
+//   assetHref  — direct URL for an ungated download
+//   video      — { embed, src, poster }; `embed` is an iframe player URL
+//                (Brightcove on the live site), `src` a plain file for <video>
+//   ctaText    — label for the primary action; sensible default per kind/gating
+//   heroCtaText — hero button label when it should differ from ctaText (the hero
+//                 only scrolls down, so it often wants softer wording)
+//   panelTitle / panelCopy — the form panel's heading and standfirst
+//   bodyTitle  — heading above the body copy
+//   body       — body copy as an HTML string; falls back to the default slot.
+//                Lets a page define its copy once and render it gated and open.
+//   form       — props forwarded to FormMultiStep when gated
+//   gateLayouts — ResourceGate arrangements to render, in order. One entry
+//                 normally; pass several to compare them on one page.
+//   gateBullets — reassurance list for the 'split' gate layout
+//   related    — [{ tag, title, meta, copy, href, image }]
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
+import ResourceGate from './ResourceGate.astro'
+import ResourceHero from './ResourceHero.astro'
+
+const { kind = 'download', gated = false, anchor = 'resource', tag, title, subtitle, lede, image, details = [], assetHref = '#', video = {}, ctaText, heroCtaText, panelTitle, panelCopy, bodyTitle, body, form = {}, gateLayouts = ['header'], gateBullets = [], related = [] } = Astro.props
+
+const isVideo = kind === 'video'
+
+// An ungated download is the one case where the action leaves the page — the
+// file is a direct link. Everything else scrolls to the top of the content
+// column, where the form or the player is.
+const actionHref = !gated && !isVideo ? assetHref : `#${anchor}`
+const actionText = ctaText ?? (isVideo ? (gated ? 'Watch the recording' : 'Watch now') : gated ? 'Download now' : 'Download for free')
+const heroText = heroCtaText ?? actionText
+---
+
+<ResourceHero layout="wide-text" title={title} subtitle={subtitle} description={lede} image={image} cta={{ href: actionHref, text: heroText }} share={true} />
+
+<Section theme="dots" container={false}>
+	<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
+		<aside class="hidden lg:col-span-4 lg:block">
+			<div class="grid gap-8 transition-[top] duration-300 lg:sticky lg:top-[calc(var(--content-top)+4rem)] xl:gap-12">
+				{/* What the resource is */}
+				<div class="rounded-lg border p-8" data-card>
+					<!-- {tag && <span class="mb-5 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{tag}</span>} -->
+
+					<ul class="grid gap-4">
+						{
+							details.map((detail) => (
+								<li>
+									<p class="font-bold">{detail.label}</p>
+									<p>{detail.value}</p>
+								</li>
+							))
+						}
+					</ul>
+
+					<!-- <a href={actionHref} class="btn btn-primary btn-icon-right mt-8 w-full">
+						{actionText}
+						{
+							isVideo ? (
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<path d="M232.4,114.49,88.32,26.35a16,16,0,0,0-16.2-.3A15.86,15.86,0,0,0,64,39.87V216.13A15.94,15.94,0,0,0,80,232a16.07,16.07,0,0,0,8.36-2.35L232.4,141.51a15.81,15.81,0,0,0,0-27ZM80,215.94V40l143.83,88Z" fill="currentColor" />
+								</svg>
+							) : (
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0ZM90.34,117.66l29.66-29.65V152a8,8,0,0,0,16,0V88l29.66,29.65a8,8,0,0,0,11.31-11.31l-43.31-43.32a8,8,0,0,0-11.32,0L79,106.34a8,8,0,0,0,11.31,11.32Z" fill="currentColor" />
+								</svg>
+							)
+						}
+					</a> -->
+				</div>
+
+				{/* Host contact */}
+				<div class="rounded-lg border p-6" data-card>
+					<div class="flex items-start gap-6">
+						<div class="w-1/3 max-w-24 shrink-0">
+							<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+						</div>
+						<div>
+							<h4 class="mb-2 text-lg/tight font-semibold">Questions about this resource?</h4>
+
+							<div class="prose mb-4 text-sm/normal text-foreground-muted">
+								<p>Our team is happy to help with access, content and follow-up queries.</p>
+							</div>
+
+							<a href="/contact/" class="btn btn-secondary btn-sm">Get in touch</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</aside>
+
+		<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12">
+			{
+				/* Gating swaps the asset for the form; everything below is the same
+				   either way. An ungated video plays here, same as the webinar page. */
+				gated ? (
+					gateLayouts.map((layout, index) => <ResourceGate layout={layout} anchor={index ? `${anchor}-${layout}` : anchor} title={panelTitle} copy={panelCopy} bullets={gateBullets} form={form} />)
+				) : isVideo ? (
+					<div id={anchor} class="scroll-mt-16 overflow-hidden rounded-lg">
+						<div class="aspect-video size-full">{video.embed ? <iframe src={video.embed} title={title} class="size-full" allow="encrypted-media" allowfullscreen loading="lazy" /> : <video src={video.src} class="size-full object-cover" controls poster={video.poster} />}</div>
+					</div>
+				) : (
+					<div id={anchor} class="scroll-mt-16 rounded-lg border p-6 lg:p-10" data-card>
+						{panelTitle && (
+							<h2 class="mb-3 text-3xl font-bold text-pretty">
+								<Fragment set:html={panelTitle} />
+							</h2>
+						)}
+
+						{panelCopy && (
+							<div class="prose mb-6 text-foreground-muted lg:prose-lg">
+								<p>{panelCopy}</p>
+							</div>
+						)}
+
+						<a href={actionHref} class="btn btn-primary btn-icon-right">
+							{actionText}
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none" />
+								<line x1="128" y1="144" x2="128" y2="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								<polyline points="216 144 216 208 40 208 40 144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								<polyline points="168 104 128 144 88 104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+							</svg>
+						</a>
+					</div>
+				)
+			}
+
+			<div class="rounded-lg border p-6 lg:p-10" data-card>
+				<div class="prose max-w-none text-pretty lg:text-lg">
+					{bodyTitle && <h2>{bodyTitle}</h2>}
+					{body ? <Fragment set:html={body} /> : <slot />}
+				</div>
+			</div>
+		</article>
+	</div>
+</Section>
+
+{
+	!!related.length && (
+		<Section theme="default">
+			<Heading as="h2" size="sm" class="mb-6 max-w-[24ch] font-bold tracking-tight text-pretty">
+				Related <em>resources</em>
+			</Heading>
+
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p>More reading and viewing from the RWS team.</p>
+			</div>
+
+			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
+				{related.map((item) => (
+					<article class="group relative rounded-lg border text-left" data-card>
+						<div class="flex h-full flex-col">
+							<div class="p-4">
+								<div class="mb-5 block overflow-hidden rounded">
+									<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={item.image} alt={item.tag} draggable="false" />
+								</div>
+
+								{item.tag && <span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{item.tag}</span>}
+
+								<h3 class="mb-2 text-2xl font-bold">
+									<a href={item.href}>
+										{item.title}
+										<span class="absolute inset-0" />
+									</a>
+								</h3>
+
+								{item.meta && (
+									<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
+										<span>{item.meta}</span>
+									</div>
+								)}
+
+								<div class="prose line-clamp-3 text-pretty text-foreground-muted">
+									<p>{item.copy}</p>
+								</div>
+							</div>
+						</div>
+					</article>
+				))}
+			</div>
+		</Section>
+	)
+}

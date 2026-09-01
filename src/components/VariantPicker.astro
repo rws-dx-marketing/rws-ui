@@ -1,0 +1,28 @@
+---
+// @ts-nocheck
+// VariantPicker — demo-page control for choosing which variant of a page is
+// shown. The page renders one copy per variant (so nothing is lost for
+// testing); this just toggles which of them is visible, driven by
+// scripts/variant-picker.js. Wrap the copies in `<div data-variant-preview>` —
+// the script targets that element's direct `[data-variant]` children.
+//
+// Renders as a labelled group meant for the PreviewSettings cog's slot, not as
+// a standalone band above the page. Options are FilterOption, the same row the
+// archive filter dropdowns use, so the hover/checked states match.
+//
+// Props:
+//   options — [{ value, label }] to offer
+//   value   — initially checked option (defaults to the first)
+//   label   — accessible name / visible legend
+import FilterOption from './FilterOption.astro'
+
+const { options = [], value = options[0]?.value, label = 'Variant' } = Astro.props
+---
+
+<fieldset data-variant-picker role="radiogroup" aria-label={`${label} — preview`}>
+	<legend class="mb-1.5 px-2 text-sm font-semibold text-foreground">{label}</legend>
+
+	<ul class="grid gap-px text-sm">
+		{options.map((option) => <FilterOption id={`variant-preview-${option.value}`} type="radio" name="variant-preview" value={option.value} label={option.label} checked={option.value === value} />)}
+	</ul>
+</fieldset>

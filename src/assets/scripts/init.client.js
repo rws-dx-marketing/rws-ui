@@ -4,6 +4,7 @@ import cardFilters from './card-filters'
 import countUp from './count-up'
 import dots from './dots'
 import dropdownFilters from './dropdown-filters'
+import formMock from './form-mock'
 import accordion from './accordion'
 import carousel from './carousel'
 import primaryNav from './primary-nav'
@@ -15,6 +16,7 @@ import pricingRefactor from './pricing-refactor'
 import pronounce from './pronounce'
 import tabs from './tabs'
 import themePicker from './theme-picker'
+import variantPicker from './variant-picker'
 import timezoneSelect from './timezone-select'
 import animation from './animation'
 
@@ -25,6 +27,7 @@ if (typeof window !== 'undefined') {
 	const initEarly = () => {
 		countUp()
 		themePicker()
+		variantPicker()
 	}
 
 	if (document.readyState === 'loading') {
@@ -39,6 +42,7 @@ if (typeof window !== 'undefined') {
 		dots()
 		dropdownFilters()
 		cardFilters()
+		formMock()
 		accordion()
 		carousel()
 		postNav()

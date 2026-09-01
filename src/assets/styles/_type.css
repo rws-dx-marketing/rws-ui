@@ -21,6 +21,7 @@
 	.prose {
 		--tw-prose-body: color-mix(in oklch, var(--foreground) 80%, transparent);
 		--tw-prose-lead: color-mix(in oklch, var(--foreground) 90%, transparent);
+		--tw-prose-headings: var(--foreground);
 		--tw-prose-bold: var(--foreground);
 		--tw-prose-links: var(--accent);
 		--tw-prose-hr: color-mix(in oklch, var(--foreground) 10%, transparent);

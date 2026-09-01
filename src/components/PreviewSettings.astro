@@ -1,0 +1,37 @@
+---
+// @ts-nocheck
+// PreviewSettings — floating cog for the demo pages. Holds the controls that
+// change how a prototype is being previewed, in a popover anchored to the
+// button, so they sit over the page instead of taking a band above it.
+//
+// Slot in one control component per setting — VariantPicker today, more later;
+// each renders its own labelled group and brings its own script.
+//
+// Props:
+//   label — accessible name for the button and panel heading
+//   id    — unique base for the button/popover/anchor names
+const { label = 'Preview settings', id = 'preview-settings' } = Astro.props
+
+const buttonId = `${id}-button`
+const popoverId = `${id}-popover`
+const anchorName = `--${id}-anchor`
+---
+
+<div data-preview-settings class="fixed right-4 bottom-4 z-999 sm:right-6 sm:bottom-6 print:hidden">
+	<button type="button" id={buttonId} data-theme="default" popovertarget={popoverId} popovertargetaction="toggle" aria-label={label} style={`anchor-name: ${anchorName};`} class="flex size-12 items-center justify-center rounded-full border text-foreground-muted shadow-lg transition-colors hover:text-accent focus-visible:ring-2 focus-visible:ring-accent-subtle [[data-preview-settings]:has([popover]:popover-open)_&]:text-accent">
+		<svg class="size-6 transition-transform duration-300 [[data-preview-settings]:has([popover]:popover-open)_&]:rotate-45" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true">
+			<rect width="256" height="256" fill="none"></rect>
+			<circle cx="128" cy="128" r="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></circle>
+			<path d="M41.43,178.09A99.14,99.14,0,0,1,31.36,153.8l16.78-21a81.59,81.59,0,0,1,0-9.64l-16.77-21a99.43,99.43,0,0,1,10.05-24.3l26.71-3a81.47,81.47,0,0,1,6.81-6.81l3-26.7A99.14,99.14,0,0,1,102.2,31.36l21,16.78a81.59,81.59,0,0,1,9.64,0l21-16.77a99.43,99.43,0,0,1,24.3,10.05l3,26.71a81.47,81.47,0,0,1,6.81,6.81l26.7,3a99.14,99.14,0,0,1,10.07,24.29l-16.78,21a81.59,81.59,0,0,1,0,9.64l16.77,21a99.43,99.43,0,0,1-10,24.3l-26.71,3a81.47,81.47,0,0,1-6.81,6.81l-3,26.7a99.14,99.14,0,0,1-24.29,10.07l-21-16.78a81.59,81.59,0,0,1-9.64,0l-21,16.77a99.43,99.43,0,0,1-24.3-10l-3-26.71a81.47,81.47,0,0,1-6.81-6.81Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"></path>
+		</svg>
+	</button>
+
+	{/* `fixed` re-asserts the popover's own positioning: `data-theme` (for the surface tokens) would otherwise make it `relative` and anchor positioning would have nothing to resolve against. */}
+	<div id={popoverId} data-theme="default" popover="auto" aria-labelledby={`${id}-heading`} class="dropdown fixed mb-2 w-60 rounded border p-2 shadow-lg" style={`position-anchor: ${anchorName}; position-area: top span-left;`}>
+		<!-- <p id={`${id}-heading`} class="mb-2 px-2 pt-1 text-xs font-semibold tracking-wide text-foreground-subtle uppercase">{label}</p> -->
+
+		<div class="grid gap-4">
+			<slot />
+		</div>
+	</div>
+</div>

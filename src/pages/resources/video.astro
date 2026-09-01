@@ -1,0 +1,126 @@
+---
+// @ts-nocheck
+// Video resource page — one resource, rendered gated and open so the two can be
+// compared directly. Only the `gated` flag differs; the copy, artwork and
+// sidebar are shared. Live references:
+//   gated → /localization/services/resources/how-to-accelerate-global-growth/
+//   open  → /contenta/resources/livecontent-video/
+import Layout from '../../layouts/Layout.astro'
+import PreviewSettings from '../../components/PreviewSettings.astro'
+import VariantPicker from '../../components/VariantPicker.astro'
+import ResourceDetail from '../../blocks/ResourceDetail.astro'
+
+// The live video pages play through Brightcove — same account and player, one
+// video id per resource. The recording for this session is behind the gate on
+// the live site, so an RWS webinar recording from one of the open pages stands
+// in for it here.
+const brightcove = (videoId) => `https://players.brightcove.net/6202477137001/tUlWmVF9q_default/index.html?videoId=${videoId}`
+
+// The image the live page uses as its video placeholder.
+const growthImage = 'https://www.rws.com/media/images/Evolve%20blog%20image_tcm228-299690.png'
+
+const related = [
+	{
+		tag: 'Video',
+		title: 'LiveContent — product overview',
+		meta: '3 min',
+		copy: 'Mission-critical technical information delivered to Aerospace and Defense teams at the point of need.',
+		href: '/resources/video/',
+		image: 'https://www.rws.com/media/images/transcreation-resource-page-thumbnail_resource-page-thumbnail-image_tcm228-200305.png',
+	},
+	{
+		tag: 'eBook',
+		title: 'The global content playbook',
+		meta: '32 pages · PDF',
+		copy: 'The enterprise guide to building content operations that scale with your ambition.',
+		href: '/resources/download/',
+		image: 'https://www.rws.com/media/fallback/images/GC-playbook-thumbnail-640x320_tcm228-300782.png',
+	},
+	{
+		tag: 'Infographic',
+		title: 'Translation Technology Insights 2025',
+		meta: '1 page · PDF',
+		copy: 'The key numbers behind the shift: how 1,000+ organizations are adapting their localization strategy to AI.',
+		href: '/resources/download/',
+		image: 'https://www.rws.com/media/images/security-ebook-2025_tcm228-282266.jpg',
+	},
+]
+
+const resource = {
+	kind: 'video',
+	tag: 'Webinar recording',
+	title: 'How to accelerate global growth',
+	subtitle: 'Building a content operation that scales with your ambition',
+	lede: 'Global growth has never depended more on content. But as demand increases, the way you manage and deliver that content naturally has to evolve.',
+	image: { src: growthImage, alt: 'How to accelerate global growth' },
+	video: { embed: brightcove('1869590055922887141'), poster: growthImage },
+	details: [
+		{ label: 'Format', value: 'On-demand webinar' },
+		{ label: 'Duration', value: '45 minutes' },
+		{ label: 'Language', value: 'English' },
+	],
+	ctaText: 'Find out more',
+	panelTitle: 'Watch <em>the recording</em>',
+	bodyTitle: 'About this session',
+	body: `
+		<p>Manual translations and disconnected workflows can quickly become bottlenecks that drain budget and slow expansion.</p>
+
+		<p>Whether you are looking to validate your current strategy or find more efficient ways to operate, building a truly scalable model requires a deliberate approach.</p>
+
+		<p>In this on-demand session, Lenny Grinberg and Zak Haitkin explore how successful global brands build their content operations. Discover how to create a connected, AI-enabled content engine that supports international expansion without increasing complexity or risk.</p>
+
+		<p>Watch the session to learn:</p>
+
+		<ul>
+			<li><strong>The scalability gap</strong> — why 'working' and 'scalable' are not the same thing, and how to spot the difference in your operations.</li>
+			<li><strong>The hidden costs</strong> — how to identify and eliminate additional costs that accumulate across global content workflows.</li>
+			<li><strong>Safe AI adoption</strong> — how to integrate AI to amplify quality and speed.</li>
+			<li><strong>Real-world success</strong> — how brands like Canva design content for global audiences from day one to support massive scale.</li>
+		</ul>
+	`,
+	// Both gate arrangements, stacked, so they can be compared directly.
+	gateLayouts: [
+		// 'header',
+		'split',
+	],
+	gateBullets: [
+		'Free to watch',
+		// 'No obligation — we won’t pass your details on',
+		'Takes under a minute',
+	],
+	form: {
+		// Static stand-in for the HubSpot form, matching /resources/download — see
+		// FormMultiStepMock for what the switches do.
+		mock: true,
+		namesOnFirstStep: true,
+		activityType: 'webinars',
+		activitySubject: 'webinars: How to accelerate global growth',
+		interestProfile: 'Language Services',
+		submitText: 'Watch now',
+		thankYouPageUrl: '/resources/video/?variant=open',
+	},
+	related,
+}
+---
+
+<Layout title="Video – RWS UI">
+	<PreviewSettings>
+		<VariantPicker
+			label="Access"
+			options={[
+				{ value: 'gated', label: 'Gated' },
+				{ value: 'open', label: 'Open' },
+			]}
+		/>
+	</PreviewSettings>
+
+	<div data-variant-preview>
+		<div data-variant="gated">
+			<ResourceDetail {...resource} gated={true} panelCopy="Please fill in your details to watch the webinar recording." />
+		</div>
+
+		<div data-variant="open" hidden>
+			<ResourceDetail {...resource} anchor="resource-open" />
+		</div>
+	</div>
+</Layout>
