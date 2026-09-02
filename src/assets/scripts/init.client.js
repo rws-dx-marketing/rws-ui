@@ -11,6 +11,7 @@ import primaryNav from './primary-nav'
 import headerScroll from './header-scroll'
 import postNav from './post-nav'
 import invokerCommandsPolyfill from './invoker-commands-polyfill'
+import anchorPolyfill from './anchor-polyfill'
 // import pricingContent from './pricing-content'
 import pricingRefactor from './pricing-refactor'
 import pronounce from './pronounce'
@@ -23,6 +24,7 @@ import animation from './animation'
 if (typeof window !== 'undefined') {
 	Observer.start()
 	invokerCommandsPolyfill()
+	anchorPolyfill()
 
 	const initEarly = () => {
 		countUp()

@@ -19,6 +19,13 @@
 	transform: translate(0, 0) scale(1);
 }
 
+.dropdown[popover].dropdown-mega {
+	position-try-fallbacks:
+		flip-inline,
+		flip-block,
+		flip-block flip-inline;
+}
+
 .dropdown[popover][data-motion='from-right'] {
 	--dropdown-enter-x: -0.875rem;
 }
