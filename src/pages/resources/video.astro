@@ -116,11 +116,11 @@ const resource = {
 
 	<div data-variant-preview>
 		<div data-variant="gated">
-			<ResourceDetail {...resource} gated={true} panelCopy="Please fill in your details to watch the webinar recording." />
+			<ResourceDetail {...resource} state="gated" panelCopy="Please fill in your details to watch the webinar recording." />
 		</div>
 
 		<div data-variant="open" hidden>
-			<ResourceDetail {...resource} anchor="resource-open" />
+			<ResourceDetail {...resource} state="open" anchor="resource-open" />
 		</div>
 	</div>
 </Layout>

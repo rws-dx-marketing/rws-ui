@@ -1,16 +1,21 @@
 ---
 // @ts-nocheck
 // ResourceDetail — the resource landing page behind downloads (eBook,
-// infographic, report) and videos (product overview, webinar recording), in
-// both gated and ungated form.
+// infographic, report) and videos (product overview, webinar recording).
 //
-// Gating is the only difference between the two versions of a resource: same
-// hero, same artwork, same copy. All it changes is what sits at the top of the
-// content column — the form, or the asset itself.
+// The hero, artwork, sidebar and body copy are the same in every state; all
+// that changes is what sits at the top of the content column.
+//
+//   gated   — the form
+//   success — where the gated form redirects once it's submitted: the thank-you
+//             panel, with the file behind its button. Downloads only; a video
+//             sends people to `open` instead, where the player is.
+//   open    — no panel at all. A download is a direct link, offered in the hero
+//             and again under the body copy; a video plays in the column.
 //
 // Props:
 //   kind       — 'download' (default) or 'video'
-//   gated      — swap the asset for the form (default false)
+//   state      — 'gated' (default), 'success' or 'open'
 //   anchor     — id of that first panel (default 'resource'); only worth setting
 //                when two copies of this block share one document
 //   tag        — asset label ('eBook', 'Infographic'…)
@@ -22,10 +27,14 @@
 //   assetHref  — direct URL for an ungated download
 //   video      — { embed, src, poster }; `embed` is an iframe player URL
 //                (Brightcove on the live site), `src` a plain file for <video>
-//   ctaText    — label for the primary action; sensible default per kind/gating
+//   ctaText    — label for the primary action; sensible default per kind/state
 //   heroCtaText — hero button label when it should differ from ctaText (the hero
-//                 only scrolls down, so it often wants softer wording)
+//                 usually only scrolls down, so it often wants softer wording).
+//                 Ignored on an open download, where the hero is the download.
 //   panelTitle / panelCopy — the form panel's heading and standfirst
+//   thanksTitle / thanksCopy — the success panel's heading and copy. Generic by
+//                default and normally left that way: the CMS fields are spent on
+//                the gated panel, so there's no per-resource wording to put here.
 //   bodyTitle  — heading above the body copy
 //   body       — body copy as an HTML string; falls back to the default slot.
 //                Lets a page define its copy once and render it gated and open.
@@ -39,19 +48,33 @@ import Heading from '../components/Heading.astro'
 import ResourceGate from './ResourceGate.astro'
 import ResourceHero from './ResourceHero.astro'
 
-const { kind = 'download', gated = false, anchor = 'resource', tag, title, subtitle, lede, image, details = [], assetHref = '#', video = {}, ctaText, heroCtaText, panelTitle, panelCopy, bodyTitle, body, form = {}, gateLayouts = ['header'], gateBullets = [], related = [] } = Astro.props
+const { kind = 'download', state = 'gated', anchor = 'resource', tag, title, subtitle, lede, image, details = [], assetHref = '#', video = {}, ctaText, heroCtaText, panelTitle, panelCopy, thanksTitle = 'Thank you', thanksCopy = 'Your download is ready — the button below opens it in a new tab. Lorem ipsum dolor sit amet, consectetur adipiscing elit.', bodyTitle, body, form = {}, gateLayouts = ['header'], gateBullets = [], related = [] } = Astro.props
 
 const isVideo = kind === 'video'
+const isGated = state === 'gated'
+const isSuccess = state === 'success' && !isVideo
+const isOpenDownload = !isGated && !isSuccess && !isVideo
 
-// An ungated download is the one case where the action leaves the page — the
-// file is a direct link. Everything else scrolls to the top of the content
-// column, where the form or the player is.
-const actionHref = !gated && !isVideo ? assetHref : `#${anchor}`
-const actionText = ctaText ?? (isVideo ? (gated ? 'Watch the recording' : 'Watch now') : gated ? 'Download now' : 'Download for free')
-const heroText = heroCtaText ?? actionText
+// An open download is the one case where the action leaves the page — the file
+// is a direct link. Everywhere else the hero scrolls to the top of the content
+// column, where the form, the panel or the player is, so it can afford softer
+// wording. The success panel's own button is still the file.
+const actionHref = !isVideo && !isGated ? assetHref : `#${anchor}`
+const actionText = ctaText ?? (isVideo ? (isGated ? 'Watch the recording' : 'Watch now') : isGated ? 'Download now' : 'Download for free')
+const heroHref = isOpenDownload ? assetHref : `#${anchor}`
+const heroText = isOpenDownload ? actionText : (heroCtaText ?? actionText)
+
+const downloadIcon = `
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+		<rect width="256" height="256" fill="none" />
+		<line x1="128" y1="144" x2="128" y2="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+		<polyline points="216 144 216 208 40 208 40 144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+		<polyline points="168 104 128 144 88 104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+	</svg>
+`
 ---
 
-<ResourceHero layout="wide-text" title={title} subtitle={subtitle} description={lede} image={image} cta={{ href: actionHref, text: heroText }} share={true} />
+<ResourceHero layout="wide-text" title={title} subtitle={subtitle} description={lede} image={image} cta={{ href: heroHref, text: heroText, download: isOpenDownload }} share={true} />
 
 <Section theme="dots" container={false}>
 	<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
@@ -111,38 +134,29 @@ const heroText = heroCtaText ?? actionText
 		</aside>
 
 		<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12">
+			{isGated && gateLayouts.map((layout, index) => <ResourceGate layout={layout} anchor={index ? `${anchor}-${layout}` : anchor} title={panelTitle} copy={panelCopy} bullets={gateBullets} form={form} />)}
+
 			{
-				/* Gating swaps the asset for the form; everything below is the same
-				   either way. An ungated video plays here, same as the webinar page. */
-				gated ? (
-					gateLayouts.map((layout, index) => <ResourceGate layout={layout} anchor={index ? `${anchor}-${layout}` : anchor} title={panelTitle} copy={panelCopy} bullets={gateBullets} form={form} />)
-				) : isVideo ? (
+				isSuccess && (
+					<div id={anchor} class="scroll-mt-16 rounded-lg border p-6 lg:p-10" data-theme="tertiary">
+						<h2 class="mb-3 text-3xl font-bold text-pretty">{thanksTitle}</h2>
+
+						<div class="prose mb-6 text-foreground-muted lg:prose-lg">
+							<p>{thanksCopy}</p>
+						</div>
+
+						<a href={actionHref} class="btn btn-primary btn-icon-right" target="_blank" rel="noopener">
+							{actionText}
+							<Fragment set:html={downloadIcon} />
+						</a>
+					</div>
+				)
+			}
+
+			{
+				!isGated && isVideo && (
 					<div id={anchor} class="scroll-mt-16 overflow-hidden rounded-lg">
 						<div class="aspect-video size-full">{video.embed ? <iframe src={video.embed} title={title} class="size-full" allow="encrypted-media" allowfullscreen loading="lazy" /> : <video src={video.src} class="size-full object-cover" controls poster={video.poster} />}</div>
-					</div>
-				) : (
-					<div id={anchor} class="scroll-mt-16 rounded-lg border p-6 lg:p-10" data-card>
-						{panelTitle && (
-							<h2 class="mb-3 text-3xl font-bold text-pretty">
-								<Fragment set:html={panelTitle} />
-							</h2>
-						)}
-
-						{panelCopy && (
-							<div class="prose mb-6 text-foreground-muted lg:prose-lg">
-								<p>{panelCopy}</p>
-							</div>
-						)}
-
-						<a href={actionHref} class="btn btn-primary btn-icon-right">
-							{actionText}
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-								<rect width="256" height="256" fill="none" />
-								<line x1="128" y1="144" x2="128" y2="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-								<polyline points="216 144 216 208 40 208 40 144" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-								<polyline points="168 104 128 144 88 104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-							</svg>
-						</a>
 					</div>
 				)
 			}
@@ -152,6 +166,15 @@ const heroText = heroCtaText ?? actionText
 					{bodyTitle && <h2>{bodyTitle}</h2>}
 					{body ? <Fragment set:html={body} /> : <slot />}
 				</div>
+
+				{
+					isOpenDownload && (
+						<a href={actionHref} class="btn btn-primary btn-icon-right mt-8" target="_blank" rel="noopener">
+							{actionText}
+							<Fragment set:html={downloadIcon} />
+						</a>
+					)
+				}
 			</div>
 		</article>
 	</div>

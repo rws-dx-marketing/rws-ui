@@ -36,7 +36,7 @@ const Form = mock ? FormMultiStepMock : FormMultiStep
 const isSplit = layout === 'split'
 ---
 
-<div id={anchor} class="scroll-mt-16 rounded-lg border p-6 lg:p-10" data-card>
+<div id={anchor} class="scroll-mt-16 rounded-lg border p-6 lg:p-10" data-theme="tertiary">
 	<div class:list={['gap-8 lg:gap-10', isSplit && 'grid lg:grid-cols-12']}>
 		<div class:list={[isSplit && 'lg:col-span-5']}>
 			<div class="flex items-start gap-4">
@@ -51,7 +51,7 @@ const isSplit = layout === 'split'
 					)
 				}
 
-				<div class="prose text-foreground-muted">
+				<div class="prose text-foreground">
 					{
 						title && (
 							<h2 class="mb-3 text-3xl font-bold text-pretty">

@@ -239,6 +239,18 @@
 		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'/%3E%3Cpolyline points='80 176 128 224 176 176' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3Cpolyline points='80 80 128 32 176 80' fill='none' stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='16'/%3E%3C/svg%3E");
 	}
 
+	[data-theme='primary'] .hubspot-form,
+	[data-theme='secondary'] .hubspot-form,
+	[data-theme='tertiary'] .hubspot-form {
+		.hsfc-ProgressBar__Progress {
+			@apply bg-foreground-softer!;
+		}
+
+		.hsfc-ProgressBar__Progress > div {
+			@apply bg-accent!;
+		}
+	}
+
 	[data-theme='primary'] .hubspot-form input[type='submit'] {
 		@apply bg-foreground text-background hover:bg-foreground-muted focus-visible:bg-foreground-muted focus-visible:ring-accent-soft;
 	}

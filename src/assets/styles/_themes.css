@@ -128,8 +128,6 @@
 		--tint-boost: 2;
 	}
 
-	/* The only light brand theme: black on saffron, so tint-boost stays at 1 — black mixed
-	   into a light background reads strongly at low percentages, unlike white into a dark one. */
 	[data-theme='quaternary'] {
 		--background-seed: var(--color-quaternary);
 		--foreground-seed: var(--color-on-quaternary);

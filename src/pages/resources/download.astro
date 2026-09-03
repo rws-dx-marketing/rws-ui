@@ -1,8 +1,8 @@
 ---
 // @ts-nocheck
-// Download resource page — one resource, rendered gated and open so the two can
-// be compared directly. Only the `gated` flag differs; the copy, artwork and
-// sidebar are shared. Live references:
+// Download resource page — one resource in all three states, so they can be
+// compared directly. Only `state` differs; the copy, artwork and sidebar are
+// shared. Live references:
 //   gated → /localization/services/resources/global-content-playbook/
 //   open  → /about/translation-technology-insights/infographic/
 import Layout from '../../layouts/Layout.astro'
@@ -94,7 +94,7 @@ const resource = {
 		interestProfile: 'Language Services',
 		submitText: 'Submit',
 		resourceUrl: playbookPdf,
-		thankYouPageUrl: '/resources/download/?variant=open',
+		thankYouPageUrl: '/resources/download/?variant=success',
 	},
 	related,
 }
@@ -106,6 +106,7 @@ const resource = {
 			label="Access"
 			options={[
 				{ value: 'gated', label: 'Gated' },
+				{ value: 'success', label: 'Success' },
 				{ value: 'open', label: 'Open' },
 			]}
 		/>
@@ -113,11 +114,15 @@ const resource = {
 
 	<div data-variant-preview>
 		<div data-variant="gated">
-			<ResourceDetail {...resource} gated={true} panelCopy="Please fill in your details to download the eBook." />
+			<ResourceDetail {...resource} state="gated" panelCopy="Please fill in your details to download the eBook." />
+		</div>
+
+		<div data-variant="success" hidden>
+			<ResourceDetail {...resource} state="success" anchor="resource-success" />
 		</div>
 
 		<div data-variant="open" hidden>
-			<ResourceDetail {...resource} anchor="resource-open" panelCopy="Free to download — no registration required. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec nibh ante. Donec quis feugiat ex. Phasellus egestas lorem lacinia dui auctor, in vulputate nibh tempus." />
+			<ResourceDetail {...resource} state="open" anchor="resource-open" />
 		</div>
 	</div>
 </Layout>
