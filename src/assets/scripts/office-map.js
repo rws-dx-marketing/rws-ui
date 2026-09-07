@@ -82,7 +82,11 @@ function showFallback(container, reason) {
 function marker(interactive = true) {
 	const element = document.createElement('span')
 	element.className = interactive ? 'office-map__pin' : 'office-map__pin office-map__pin--static'
-	element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor" d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></svg>'
+	// The pin from public/shapes/marker.svg, inlined so fill can follow currentColor.
+	// The white ring matches the cluster bubble's border: paint-order puts the stroke
+	// under the fill so only its outer half shows, which at 30px wide is ~2px, and
+	// overflow-visible stops that half being clipped at the viewBox edge.
+	element.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 192" overflow="visible" aria-hidden="true"><path fill="currentColor" stroke="white" stroke-width="21" stroke-linejoin="round" paint-order="stroke" d="M160 79.5499C160 35.6151 124.183 0 80 0C35.8167 0 0 35.6151 0 79.5499C0 102.369 9.66207 122.942 25.138 137.448L79.9985 192L134.859 137.448C150.337 122.944 159.997 102.369 159.997 79.5499H160Z"/></svg>'
 	return element
 }
 
@@ -129,7 +133,6 @@ function archiveMap(container) {
 	map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-right')
 	map.addControl(new mapboxgl.AttributionControl({ compact: true }))
 
-	let markers = []
 	let visible = offices
 
 	// focusAfterOpen defaults to true: Mapbox focuses the first focusable element in
@@ -139,10 +142,96 @@ function archiveMap(container) {
 	// between pin and panel stays what it was when the arrow was there.
 	const popup = (office) => new mapboxgl.Popup({ offset: 38, closeButton: false, focusAfterOpen: false }).setHTML(`<a class="office-map__popup" href="${office.href}"><span class="office-map__popup__name">${office.name}</span><span class="office-map__popup__address">${office.address}</span></a>`)
 
-	const drawPins = () => {
-		markers.forEach((existing) => existing.remove())
-		markers = visible.map((office) => new mapboxgl.Marker({ element: marker(), anchor: 'bottom' }).setLngLat([office.lng, office.lat]).setPopup(popup(office)).addTo(map))
+	// Clustering is Mapbox's (supercluster under the hood) but the pins stay HTML
+	// markers, so they keep the same styling, hover and popup as before. Each render
+	// we ask the source what it currently shows — clusters or lone offices — and
+	// reconcile the markers on screen against that.
+	const sourceId = 'offices'
+	const geojson = () => ({
+		type: 'FeatureCollection',
+		features: visible.map((office) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [office.lng, office.lat] }, properties: office })),
+	})
+
+	// Markers start hidden. Mapbox only works out whether a point is on the far side
+	// of the globe ~60ms after a marker is added, and sets opacity then; added at
+	// opacity 1, every pin behind the globe would show and then fade out on load.
+	// Starting at 0 means the near side fades in and the far side never appears.
+	const hidden = (element) => {
+		element.style.opacity = '0'
+		return element
 	}
+
+	const clusterMarker = (feature) => {
+		const { cluster_id: id, point_count: count } = feature.properties
+		const element = hidden(document.createElement('button'))
+		element.type = 'button'
+		element.className = 'office-map__cluster'
+		element.textContent = count
+		element.setAttribute('aria-label', `${count} offices, zoom in`)
+		element.addEventListener('click', () => {
+			map.getSource(sourceId).getClusterExpansionZoom(id, (error, zoom) => {
+				if (!error) map.easeTo({ center: feature.geometry.coordinates, zoom })
+			})
+		})
+		return new mapboxgl.Marker({ element }).setLngLat(feature.geometry.coordinates)
+	}
+
+	const pinMarker = (feature) => new mapboxgl.Marker({ element: hidden(marker()), anchor: 'bottom' }).setLngLat(feature.geometry.coordinates).setPopup(popup(feature.properties))
+
+	let markers = new Map()
+
+	const clearMarkers = () => {
+		markers.forEach((existing) => existing.remove())
+		markers = new Map()
+	}
+
+	// querySourceFeatures returns a feature once per tile it touches, so the same
+	// id can come back more than once — the `has` check dedupes.
+	const syncMarkers = () => {
+		if (!map.isSourceLoaded(sourceId)) return
+		const next = new Map()
+		for (const feature of map.querySourceFeatures(sourceId)) {
+			const { cluster, cluster_id, slug } = feature.properties
+			const id = cluster ? `cluster-${cluster_id}` : `office-${slug}`
+			if (next.has(id)) continue
+			const existing = markers.get(id) ?? (cluster ? clusterMarker(feature) : pinMarker(feature)).addTo(map)
+			next.set(id, existing)
+		}
+		markers.forEach((existing, id) => {
+			if (!next.has(id)) existing.remove()
+		})
+		markers = next
+	}
+
+	// The globe turns slowly on its own until the reader takes hold of it. Each
+	// one-second ease is chained off the previous one's moveend, which is how
+	// Mapbox's own example does it — a plain rAF loop would fight the map's camera.
+	// Zoomed in past the globe there's nothing to spin, so it stops there too.
+	let spinning = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	const spinStep = () => {
+		if (!spinning || map.getZoom() > 4) return
+		const center = map.getCenter()
+		center.lng -= 3
+		map.easeTo({ center, duration: 1000, easing: (n) => n })
+	}
+	const stopSpinning = () => {
+		spinning = false
+	}
+
+	// Not `wheel`: with cooperativeGestures a plain scroll over the map only shows
+	// the "use ⌘ + scroll" hint, and someone scrolling past shouldn't lose the spin.
+	// A real zoom, from ctrl+wheel or the +/- buttons, arrives as zoomstart.
+	for (const event of ['mousedown', 'touchstart', 'dragstart', 'zoomstart']) map.on(event, stopSpinning)
+	map.on('moveend', spinStep)
+
+	// A source with no layer never loads its tiles, so nothing comes back from
+	// querySourceFeatures. The circle layer is invisible; it only forces the load.
+	map.on('load', () => {
+		map.addSource(sourceId, { type: 'geojson', data: geojson(), cluster: true, clusterMaxZoom: 10, clusterRadius: 44 })
+		map.addLayer({ id: sourceId, type: 'circle', source: sourceId, paint: { 'circle-radius': 0, 'circle-opacity': 0 } })
+		map.on('render', syncMarkers)
+		spinStep()
+	})
 
 	// Frame whatever is showing. A single pin has no extent to fit, so it gets a
 	// flyTo at street zoom instead of a degenerate bounding box.
@@ -157,13 +246,18 @@ function archiveMap(container) {
 		map.fitBounds(bounds, { padding: 64, maxZoom: 9, duration: 600 })
 	}
 
-	map.on('load', drawPins)
 	followTheme(map)
 
 	document.addEventListener('cards:filtered', (event) => {
 		const slugs = new Set(event.detail.cards.map((card) => card.dataset.cardSlug).filter(Boolean))
 		visible = offices.filter((office) => slugs.has(office.slug))
-		drawPins()
+		// Cluster ids are reassigned when the data changes, so an old marker's id can
+		// now mean a different group. Start clean and let the next render redraw.
+		clearMarkers()
+		map.getSource(sourceId)?.setData(geojson())
+		// Filtering is the reader steering the map too: framing the results while the
+		// globe is still turning would have the two fighting over the camera.
+		stopSpinning()
 		frame()
 	})
 }

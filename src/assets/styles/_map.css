@@ -5,7 +5,7 @@
 /* No transform here: Mapbox rewrites this element's inline transform every frame
    to keep the pin on its coordinates, so anything we set would fight it. */
 .office-map__pin {
-	@apply block size-9 cursor-pointer text-secondary drop-shadow-sm;
+	@apply block h-9 w-7.5 cursor-pointer text-secondary drop-shadow-sm;
 }
 
 /* mapbox-gl.css sets `transition: opacity .2s` on .mapboxgl-marker — a shorthand,
@@ -21,11 +21,26 @@
 	@apply text-secondary-strong;
 }
 
-/* Detail pages: the pin is decoration, so it takes no clicks and no hover, and a
-   drag that starts on it pans the map. Mapbox writes pointer-events:auto inline on
+/* Detail pages: the pin is the only thing on the map, so it's bigger. It's also
+   decoration, so it takes no clicks and no hover, and a drag that starts on it
+   pans the map. Mapbox writes pointer-events:auto inline on
    every marker, so this has to be !important to land. */
 .office-map__pin--static {
-	@apply pointer-events-none!;
+	@apply pointer-events-none! h-12 w-10;
+}
+
+/* A grouped set of pins, showing how many it stands for. Clicking zooms in far
+   enough for the group to split. */
+.office-map__cluster {
+	@apply flex size-9 cursor-pointer items-center justify-center rounded-full border-2 border-white bg-secondary text-sm font-bold text-white drop-shadow-sm;
+}
+
+.office-map__cluster.mapboxgl-marker {
+	@apply transition-[background-color,opacity];
+}
+
+.office-map__cluster:hover {
+	@apply bg-secondary-strong;
 }
 
 .office-map__popup {
