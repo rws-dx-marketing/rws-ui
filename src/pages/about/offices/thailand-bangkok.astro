@@ -1,0 +1,16 @@
+---
+// @ts-nocheck
+// Hand-authored prototype; in the real build this becomes a [slug] route over
+// data/about/offices.js. The page itself is just the slug — everything else
+// lives in blocks/OfficeDetail.astro.
+import Layout from '../../../layouts/Layout.astro'
+import OfficeDetail from '../../../blocks/OfficeDetail.astro'
+import { getOffice } from '../../../data/about/offices'
+
+const slug = 'thailand-bangkok'
+const office = getOffice(slug)
+---
+
+<Layout title={`${office.name} – RWS UI`}>
+	<OfficeDetail slug={slug} />
+</Layout>

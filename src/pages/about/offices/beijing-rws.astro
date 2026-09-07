@@ -1,0 +1,15 @@
+---
+// @ts-nocheck
+// Built out because Beijing is one of the few offices carrying two numbers with
+// division labels, which is the case the masked reveal has to get right.
+import Layout from '../../../layouts/Layout.astro'
+import OfficeDetail from '../../../blocks/OfficeDetail.astro'
+import { getOffice } from '../../../data/about/offices'
+
+const slug = 'beijing-rws'
+const office = getOffice(slug)
+---
+
+<Layout title={`${office.name} – RWS UI`}>
+	<OfficeDetail slug={slug} />
+</Layout>

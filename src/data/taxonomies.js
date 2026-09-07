@@ -110,6 +110,7 @@ export const countries = [
 		options: [
 			{ value: 'austria', label: 'Austria' },
 			{ value: 'belgium', label: 'Belgium' },
+			{ value: 'croatia', label: 'Croatia' },
 			{ value: 'czech-republic', label: 'Czech Republic' },
 			{ value: 'denmark', label: 'Denmark' },
 			{ value: 'finland', label: 'Finland' },
@@ -119,12 +120,14 @@ export const countries = [
 			{ value: 'ireland', label: 'Ireland' },
 			{ value: 'israel', label: 'Israel' },
 			{ value: 'italy', label: 'Italy' },
+			{ value: 'lebanon', label: 'Lebanon' },
 			{ value: 'netherlands', label: 'Netherlands' },
 			{ value: 'nigeria', label: 'Nigeria' },
 			{ value: 'norway', label: 'Norway' },
 			{ value: 'poland', label: 'Poland' },
 			{ value: 'portugal', label: 'Portugal' },
 			{ value: 'romania', label: 'Romania' },
+			{ value: 'russia', label: 'Russia' },
 			{ value: 'saudi-arabia', label: 'Saudi Arabia' },
 			{ value: 'south-africa', label: 'South Africa' },
 			{ value: 'spain', label: 'Spain' },
@@ -154,6 +157,17 @@ export const countries = [
 			{ value: 'vietnam', label: 'Vietnam' },
 		],
 	},
+]
+
+// Continents. Separate axis from `countries` — the offices archive filters by
+// physical continent, not by the sales region `countries` is grouped into.
+export const continents = [
+	{ value: 'africa', label: 'Africa' },
+	{ value: 'asia', label: 'Asia' },
+	{ value: 'australia-oceania', label: 'Australia/Oceania' },
+	{ value: 'europe', label: 'Europe' },
+	{ value: 'north-america', label: 'North America' },
+	{ value: 'south-america', label: 'South America' },
 ]
 
 // Coarse markets. Separate axis from `countries` — support content is scoped by
@@ -320,6 +334,17 @@ export const facet = (id, label, options, inputType = 'checkbox') => (options[0]
 // without forking the option list (connectors reuse the partner types verbatim
 // but call them connectors).
 export const relabel = (options, overrides) => options.map((option) => ({ ...option, label: overrides[option.value] ?? option.label }))
+
+// Narrows an option list to the values actually in use, keeping the shared list's
+// order and dropping any group left empty. Lets an archive filter by a subset of a
+// taxonomy (offices exist in 32 countries, not all of them) without forking it.
+export const only = (options, values) => {
+	const wanted = new Set(values)
+	if (options[0] && 'options' in options[0]) {
+		return options.map((group) => ({ ...group, options: group.options.filter((option) => wanted.has(option.value)) })).filter((group) => group.options.length)
+	}
+	return options.filter((option) => wanted.has(option.value))
+}
 
 // Label lookup for a flat option list, falling back to the raw value.
 export const labelFor = (options, value) => options.find((option) => option.value === value)?.label ?? value

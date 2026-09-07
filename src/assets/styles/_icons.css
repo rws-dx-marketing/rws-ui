@@ -1,9 +1,15 @@
 @layer utilities {
-	.svg-current > svg,
-	.svg-current > svg * {
+	/* Sizing goes on the <svg> only. Inheriting width/height onto descendants
+	   overrides the geometry attributes on <rect>, so any icon with a real rect
+	   in it (the fax machine's paper tray) collapses to the icon's own box. */
+	.svg-current > svg {
 		color: inherit;
 		width: inherit;
 		height: inherit;
+	}
+
+	.svg-current > svg * {
+		color: inherit;
 	}
 
 	.svg-current > svg [stroke]:not([stroke='none']) {

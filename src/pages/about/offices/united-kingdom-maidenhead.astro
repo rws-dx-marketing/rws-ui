@@ -1,0 +1,15 @@
+---
+// @ts-nocheck
+// The head office — the target of the "Head office" button on /about/offices/.
+// Same block as every other office detail page; only the slug differs.
+import Layout from '../../../layouts/Layout.astro'
+import OfficeDetail from '../../../blocks/OfficeDetail.astro'
+import { getOffice } from '../../../data/about/offices'
+
+const slug = 'united-kingdom-maidenhead'
+const office = getOffice(slug)
+---
+
+<Layout title={`${office.name} – RWS UI`}>
+	<OfficeDetail slug={slug} />
+</Layout>

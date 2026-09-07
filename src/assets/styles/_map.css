@@ -1,0 +1,78 @@
+/* Mapbox — only the bits that make the map look like the rest of the UI.
+   Everything else comes from mapbox-gl's own stylesheet, imported by
+   scripts/office-map.js. */
+
+/* No transform here: Mapbox rewrites this element's inline transform every frame
+   to keep the pin on its coordinates, so anything we set would fight it. */
+.office-map__pin {
+	@apply block size-9 cursor-pointer text-secondary drop-shadow-sm;
+}
+
+/* mapbox-gl.css sets `transition: opacity .2s` on .mapboxgl-marker — a shorthand,
+   so it resets transition-property to opacity alone — and its stylesheet is
+   injected after ours, so a single-class rule here loses the cascade and the
+   colour snaps. Matching Mapbox's class too wins on specificity; opacity stays in
+   the list so their marker fade still works. */
+.office-map__pin.mapboxgl-marker {
+	@apply transition-[color,opacity];
+}
+
+.office-map__pin:hover {
+	@apply text-secondary-strong;
+}
+
+/* Detail pages: the pin is decoration, so it takes no clicks and no hover, and a
+   drag that starts on it pans the map. Mapbox writes pointer-events:auto inline on
+   every marker, so this has to be !important to land. */
+.office-map__pin--static {
+	@apply pointer-events-none!;
+}
+
+.office-map__popup {
+	@apply block px-1 py-0.5 no-underline;
+}
+
+.office-map__popup__name {
+	@apply block font-bold text-foreground transition-colors;
+}
+
+.office-map__popup:hover .office-map__popup__name {
+	@apply text-accent;
+}
+
+.office-map__popup__address {
+	@apply mt-0.5 block text-sm text-foreground-muted;
+}
+
+/* rounded is !important because mapbox-gl.css flattens whichever corner the tip
+   meets (.mapboxgl-popup-anchor-* .mapboxgl-popup-content), and that rule both
+   outweighs a single class and loads after ours. With no tip, a flattened corner
+   just reads as a bug. */
+.mapboxgl-popup-content {
+	@apply rounded! border bg-background px-3 py-2 font-sans shadow-lg;
+}
+
+/* No arrow: it's a bordered CSS triangle, so our border stops at the box and the
+   tip hangs off it unoutlined. Cleaner to drop it than to fake a border round it. */
+.mapboxgl-popup-tip {
+	@apply hidden;
+}
+
+/* mapbox-gl paints these white from its own stylesheet, which reads as a hole
+   in the dark theme. */
+.mapboxgl-ctrl-group,
+.mapboxgl-ctrl-attrib {
+	@apply bg-background text-foreground;
+}
+
+.mapboxgl-ctrl-group button + button {
+	@apply border-t;
+}
+
+.mapboxgl-ctrl-icon {
+	@apply dark:invert;
+}
+
+.mapboxgl-ctrl-attrib a {
+	@apply text-foreground-muted;
+}

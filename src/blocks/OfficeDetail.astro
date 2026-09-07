@@ -1,0 +1,211 @@
+---
+// @ts-nocheck
+// OfficeDetail — the office landing page behind every /about/offices/<slug>/.
+//
+// Follows the live rws.com layout: address box left, map right, then the other
+// offices on the same continent. The map is Mapbox GL rather than a Google Maps
+// iframe — scripts/office-map.js reads the data-office-map attributes below and
+// falls back to a panel when PUBLIC_MAPBOX_TOKEN is unset.
+//
+// Every field is optional in the data, so phone, fax and email each render only
+// when the office actually has one. Phone numbers use the masked-digit reveal
+// from scripts/phone-reveal.js so the click can be tracked.
+//
+// Props:
+//   slug — office slug from data/about/offices.js
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
+import { encodePhone, getOffice, maskPhone, officeHref, offices, splitEmail, splitPhone, summarise } from '../data/about/offices'
+import { continents, labelFor } from '../data/taxonomies'
+
+const { slug } = Astro.props
+
+const office = getOffice(slug)
+
+// Nearest siblings by continent, minus this office. Gives the page a tail
+// without inventing an editorial relationship between offices.
+const nearby = offices.filter((item) => item.slug !== office.slug && item.filters.continent[0] === office.filters.continent[0]).slice(0, 3)
+
+const continentLabel = labelFor(continents, office.filters.continent[0])
+
+// No coordinates, no map — the column is dropped at build time rather than
+// rendered and then hidden, so the address block takes the full width instead of
+// sitting next to an empty panel. Beijing is currently the only such office.
+//
+// The map column carries min-w-0. `aspect-4/3` plus `min-h-80` gives it a
+// min-content width of 320 × 4/3 = 427px, and on mobile the grid is a single
+// track shared with the address — so without it that floor sized the track for
+// both columns and pushed the page 86px wider than a 375px viewport.
+const hasMap = Number.isFinite(office.lat) && Number.isFinite(office.lng)
+
+const mapsQuery = encodeURIComponent([...office.lines, office.city, office.countryLabel, office.postcode].filter(Boolean).join(', '))
+---
+
+<Section theme="default" container={false}>
+	<div class:list={['mx-auto grid max-w-screen-xl items-center gap-8 px-8 lg:px-12 xl:gap-12', hasMap && 'lg:grid-cols-12']}>
+		<div class:list={[hasMap && 'lg:col-span-5']}>
+			<Heading as="h1" size="sm" class="mb-8 font-bold tracking-tight text-balance">{office.name}</Heading>
+
+			<ul class="grid gap-5">
+				<li class="flex gap-4">
+					<span class="svg-current mt-1.25 size-5 shrink-0 text-accent" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="104" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><path d="M208,104c0,72-80,128-80,128S48,176,48,104a80,80,0,0,1,160,0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></path></svg>
+					</span>
+
+					<address class="text-lg/relaxed text-pretty not-italic">
+						{office.lines.map((line) => <span class="block">{line}</span>)}
+						<span class="block">{[office.city, office.region, office.countryLabel, office.postcode].filter(Boolean).join(', ')}</span>
+					</address>
+				</li>
+
+				{
+					office.phone.length ? (
+						<li class="flex gap-4">
+							<span class="svg-current mt-1.25 size-5 shrink-0 text-accent" aria-hidden="true">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<path d="M156.39,153.34a8,8,0,0,1,8.14-.63l47.11,21.11a8,8,0,0,1,4.62,8.36A48.33,48.33,0,0,1,168,224,136,136,0,0,1,32,88,48.33,48.33,0,0,1,73.82,40.26a8,8,0,0,1,8.36,4.62l21.11,47.15a8,8,0,0,1-.59,8.06L81.32,125.79a7.93,7.93,0,0,0-.54,7.81c8.27,16.93,25.77,34.22,42.75,42.41a7.92,7.92,0,0,0,7.83-.59Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</svg>
+							</span>
+
+							<ul class="grid gap-1 text-lg/relaxed">
+								{office.phone.map((entry) => {
+									const { number, label } = splitPhone(entry)
+
+									// The division goes in the tracked office name as well as the
+									// markup, so two reveals on the same office stay tellable apart
+									// in reporting once the label itself is hidden.
+									return (
+										<li class="group flex flex-wrap items-baseline gap-x-3 gap-y-1" data-phone-reveal="mask" data-phone-office={label ? `${office.name} (${label})` : office.name} data-phone-number={encodePhone(number)}>
+											<span class="group-data-revealed:hidden" aria-hidden="true">
+												{maskPhone(number)}
+											</span>
+											<span class="hidden group-data-revealed:inline" data-phone-output />
+											{label ? <span class="hidden text-base text-foreground-muted group-data-revealed:inline">({label})</span> : null}
+											{/* self-center keeps the button out of the row's baseline group. Baseline
+											    alignment sizes a row as max-ascent + max-descent across its items, not
+											    max-height, and the button's bottom padding and border hang below the
+											    text's descender — so the masked row came out taller than the 29.25px
+											    line box it collapses to once the button is hidden. */}
+											<button type="button" data-phone-trigger class="btn btn-outline btn-xs self-center group-data-revealed:hidden">
+												Show number
+											</button>
+										</li>
+									)
+								})}
+							</ul>
+						</li>
+					) : null
+				}
+
+				{
+					office.fax ? (
+						<li class="flex gap-4">
+							<span class="svg-current mt-1.25 size-5 shrink-0 text-accent" aria-hidden="true">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<polyline points="64 80 64 40 192 40 192 80" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<rect x="64" y="160" width="128" height="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<path d="M64,176H24V96c0-8.84,7.76-16,17.33-16H214.67C224.24,80,232,87.16,232,96v80H192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<circle cx="188" cy="120" r="16" />
+								</svg>
+							</span>
+
+							<p class="text-lg/relaxed">
+								<span class="sr-only">Fax: </span>
+								{office.fax}
+							</p>
+						</li>
+					) : null
+				}
+
+				{
+					office.email.length ? (
+						<li class="flex gap-4">
+							<span class="svg-current mt-1.25 size-5 shrink-0 text-accent" aria-hidden="true">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-96,85.15L52.57,64H203.43ZM98.71,128,40,181.81V74.19Zm11.84,10.85,12,11.05a8,8,0,0,0,10.82,0l12-11.05,58,53.15H52.57ZM157.29,128,216,74.18V181.82Z" fill="currentColor" />
+								</svg>
+							</span>
+
+							<ul class="grid gap-1 text-lg/relaxed">
+								{office.email.map((entry) => {
+									const { address, label } = splitEmail(entry)
+
+									return (
+										<li class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+											<a href={`mailto:${address}`} class="transition-colors hover:text-accent">
+												{address}
+											</a>
+											{label ? <span class="text-base text-foreground-muted">({label})</span> : null}
+										</li>
+									)
+								})}
+							</ul>
+						</li>
+					) : null
+				}
+
+				<li class="flex gap-4">
+					<span class="svg-current mt-1.25 size-5 shrink-0 text-accent" aria-hidden="true">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></circle><polyline points="128 72 128 128 184 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					</span>
+
+					<p class="text-lg/relaxed">
+						Local time <time class="font-bold" data-local-time={office.timezone}>—</time>
+					</p>
+				</li>
+			</ul>
+
+			<div class="mt-10 flex flex-wrap items-center gap-4">
+				<a href={`https://www.google.com/maps/search/?api=1&query=${mapsQuery}`} target="_blank" rel="noopener" class="btn btn-secondary btn-icon-right">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></line><polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+					Get directions
+				</a>
+			</div>
+		</div>
+
+		{
+			hasMap ? (
+				<div class="min-w-0 lg:col-span-7">
+					<div class="relative h-full overflow-hidden rounded-lg border">
+						<div class="aspect-4/3 size-full min-h-80" data-office-map data-lat={office.lat} data-lng={office.lng} data-zoom={office.zoom} />
+
+						<div class="flex aspect-4/3 size-full min-h-80 flex-col items-center justify-center gap-2 bg-foreground-softest p-8 text-center" data-map-fallback hidden>
+							<p class="font-bold">Map unavailable</p>
+							<p class="text-sm text-foreground-muted" data-map-fallback-reason>
+								Set PUBLIC_MAPBOX_TOKEN in .env to load the map.
+							</p>
+						</div>
+					</div>
+				</div>
+			) : null
+		}
+	</div>
+</Section>
+
+<Section theme="dots">
+	<Heading as="h2" size="xs" class="mb-8 font-bold tracking-tight">Other offices in {continentLabel}</Heading>
+
+	<div class="grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:max-w-none lg:grid-cols-3">
+		{
+			nearby.map((item) => (
+				<article class="group relative rounded-lg border p-6 text-left lg:p-8" data-card>
+					<p class="mb-2 text-sm font-semibold text-accent">{item.countryLabel}</p>
+
+					<h3 class="text-xl font-bold text-pretty transition-colors group-hover:text-accent">
+						<p>
+							<a href={officeHref(item)}>
+								{item.name}
+								<span class="absolute inset-0" />
+							</a>
+						</p>
+					</h3>
+
+					<p class="mt-3 text-sm/relaxed text-pretty text-foreground-muted">{summarise(item)}</p>
+				</article>
+			))
+		}
+	</div>
+</Section>

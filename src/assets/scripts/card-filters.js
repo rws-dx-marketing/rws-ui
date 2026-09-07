@@ -154,6 +154,10 @@ export default function cardFilters() {
 		updateResultsCount(matchingCards.length)
 		updateEmptyState(matchingCards.length)
 		updateLoadMoreButton(loadMoreButton, visibleLimit, matchingCards.length)
+
+		// Every card that matched, not just the ones under the page-size limit —
+		// the offices map pins the whole result set while the grid pages through it.
+		document.dispatchEvent(new CustomEvent('cards:filtered', { detail: { cards: matchingCards } }))
 	}
 
 	filtersRoot.querySelectorAll('[data-filter-input]').forEach((input) => {
