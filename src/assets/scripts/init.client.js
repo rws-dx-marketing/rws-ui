@@ -23,6 +23,8 @@ import themePicker from './theme-picker'
 import variantPicker from './variant-picker'
 import timezoneSelect from './timezone-select'
 import animation from './animation'
+import blob from './blob'
+import range from './range'
 
 if (typeof window !== 'undefined') {
 	Observer.start()
@@ -60,5 +62,7 @@ if (typeof window !== 'undefined') {
 		tabs()
 		timezoneSelect()
 		animation()
+		blob()
+		range()
 	})
 }

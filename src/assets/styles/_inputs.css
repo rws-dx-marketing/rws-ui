@@ -50,6 +50,52 @@
 		}
 	}
 
+	/* Range: own track and thumb rather than the native control, because Chrome
+	   tints an accent-color range lighter on hover and draws a translucent halo
+	   on press. The filled track needs the value as a percentage, which CSS
+	   can't read from a live input, so range.js writes it to --range-progress. */
+	.input-range {
+		@apply h-4 w-full cursor-pointer appearance-none bg-transparent focus-visible:outline-none;
+
+		&::-webkit-slider-runnable-track {
+			@apply h-1.5 rounded-full;
+			background: linear-gradient(to right, var(--accent) var(--range-progress, 0%), var(--foreground-softer) 0);
+		}
+		&::-moz-range-track {
+			@apply h-1.5 rounded-full bg-foreground-softer;
+		}
+		&::-moz-range-progress {
+			@apply h-1.5 rounded-full bg-accent;
+		}
+
+		&::-webkit-slider-thumb {
+			@apply -mt-1.25 size-4 appearance-none rounded-full border-2 border-background bg-accent shadow-sm transition-transform;
+		}
+		&::-moz-range-thumb {
+			@apply size-4 rounded-full border-2 border-background bg-accent shadow-sm transition-transform;
+		}
+		&:hover::-webkit-slider-thumb,
+		&:focus-visible::-webkit-slider-thumb {
+			@apply scale-115;
+		}
+		&:hover::-moz-range-thumb,
+		&:focus-visible::-moz-range-thumb {
+			@apply scale-115;
+		}
+		&:active::-webkit-slider-thumb {
+			@apply scale-100;
+		}
+		&:active::-moz-range-thumb {
+			@apply scale-100;
+		}
+		&:focus-visible::-webkit-slider-thumb {
+			@apply outline outline-offset-2 outline-accent;
+		}
+		&:focus-visible::-moz-range-thumb {
+			@apply outline outline-offset-2 outline-accent;
+		}
+	}
+
 	.input-file {
 		@apply block w-full text-sm;
 

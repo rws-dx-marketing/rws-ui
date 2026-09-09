@@ -1,0 +1,1280 @@
+// 3D blob lab — the brand mark as a noise-displaced body with swappable "skins".
+// The shape itself (a rounded W) comes from blob-shape.js.
+//
+//   [data-blob-lab]              groups hosts with their controls. Every host
+//                                inside shares one skin and one set of sliders;
+//                                a host with no lab ancestor is a lab of its own.
+//   [data-blob="water"]          a canvas host; the first host's value is the
+//                                lab's initial skin
+//   [data-blob-detail="7"]       icosahedron subdivisions (default 7 ≈ 164k verts;
+//                                single-mesh skins use one level finer, ≈ 655k)
+//   [data-blob-skin="balls"]     a button that switches skin
+//   [data-blob-param="amp"]      a range input that drives a live parameter
+//   [data-blob-controls]         panel for the active skin's own controls. Its
+//                                <template> (label + range input) is cloned per
+//                                control; the panel is emptied on every switch.
+//
+// Bleed: style the canvas larger than its host (absolute, centred, e.g. 140%)
+// and skins that reach past the body — long hair, satellites — stay visible
+// instead of clipping at the host's edge. The camera widens by the same ratio,
+// so the body sits exactly where it would in a host-sized canvas. Give the
+// canvas pointer-events: none so the overflow doesn't cover what's around it.
+//
+// The blob never rotates: it's a brand mark and reads front-on. Scroll instead
+// feeds a damped spring ("sway") that each skin interprets — liquid sloshes,
+// hair streams, balls jostle — so the shape stays put while the surface reacts.
+//
+// Displacement runs in the vertex shader. Every material that shades the main
+// mesh is patched via onBeforeCompile to push each vertex along its radius by
+// 4D Perlin noise + the sway + the hover bulge, and to rebuild the normal by
+// finite differences. The geometry itself never changes, so vertex count is
+// only bounded by the GPU. The instanced skins — balls and hair — sample the
+// same field per instance, so nothing is rebuilt on the CPU per frame.
+//
+// three is imported dynamically so the shared init bundle doesn't carry ~700KB
+// for pages that never show a blob.
+import { reducedMotion } from './motion'
+import { createShape } from './blob-shape'
+import { syncRange } from './range'
+
+const brand = {
+	primary: 0x7c4dff,
+	tertiary: 0x3b1466,
+	water: 0xdff4ff,
+}
+
+export default function blob() {
+	if (typeof window === 'undefined') return
+	const hosts = document.querySelectorAll('[data-blob]')
+	if (!hosts.length) return
+
+	const labs = new Map()
+	hosts.forEach((host) => {
+		const lab = host.closest('[data-blob-lab]') ?? host
+		labs.set(lab, [...(labs.get(lab) ?? []), host])
+	})
+
+	Promise.all([import('three'), import('three/examples/jsm/environments/RoomEnvironment.js'), import('three/examples/jsm/objects/MarchingCubes.js')]).then(([THREE, { RoomEnvironment }, { MarchingCubes }]) => {
+		labs.forEach((hosts, lab) => mountLab(lab, hosts, THREE, RoomEnvironment, MarchingCubes))
+	})
+}
+
+// ── lab: one set of controls, any number of hosts ────────────────────────────
+function mountLab(lab, hosts, THREE, RoomEnvironment, MarchingCubes) {
+	const still = reducedMotion()
+
+	// Shared by every host in the lab; the inputs write straight into it.
+	const params = {
+		amp: 0.22, // displacement amplitude
+		freq: 1.4, // noise frequency across the surface
+		speed: 0.35, // noise scroll through time
+		hover: 0.4, // bulge height under the pointer
+		inertia: 1, // how hard scroll kicks the spring
+	}
+
+	const instances = hosts.map((host) => mount(host, params, THREE, RoomEnvironment, MarchingCubes))
+	const rerender = () => still && instances.forEach((i) => i.render())
+
+	function setSkin(name) {
+		if (!instances.map((i) => i.setSkin(name)).some(Boolean)) return
+		lab.querySelectorAll('[data-blob-skin]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.blobSkin === name)))
+		renderControls(instances[0].active?.controls)
+	}
+
+	// ── per-skin controls ────────────────────────────────────────────────────
+	// The panel's <template> holds one label + range input; it's cloned per
+	// control so the markup (and its classes) stays in the page, not here.
+	// Ranges and defaults come from the first instance; every input drives
+	// the control of the same key on all of them.
+	const panel = lab.querySelector('[data-blob-controls]')
+	const template = panel?.querySelector('template')
+	function renderControls(controls = {}) {
+		if (!panel) return
+		panel.querySelectorAll(':scope > :not(template)').forEach((el) => el.remove())
+		const entries = Object.entries(controls)
+		panel.hidden = !entries.length
+		entries.forEach(([key, c]) => {
+			const node = template ? template.content.cloneNode(true) : fallbackControl()
+			const label = node.querySelector('label') ?? node.firstElementChild
+			const input = node.querySelector('input')
+			const text = node.querySelector('[data-blob-control-label]') ?? label
+			text.prepend(c.label)
+			Object.assign(input, { type: 'range', min: c.min, max: c.max, step: c.step, value: c.value })
+			input.dataset.blobControl = key
+			input.addEventListener('input', () => {
+				const v = parseFloat(input.value)
+				instances.forEach((i) => i.active?.controls?.[key]?.set(v))
+				rerender()
+			})
+			panel.append(node)
+		})
+	}
+	function fallbackControl() {
+		const frag = document.createDocumentFragment()
+		const label = document.createElement('label')
+		label.append(document.createElement('input'))
+		frag.append(label)
+		return frag
+	}
+
+	lab.querySelectorAll('[data-blob-skin]').forEach((b) => b.addEventListener('click', () => setSkin(b.dataset.blobSkin)))
+	lab.querySelectorAll('[data-blob-param]').forEach((input) => {
+		const key = input.dataset.blobParam
+		if (!(key in params)) return
+		input.value = params[key]
+		syncRange(input)
+		input.addEventListener('input', () => {
+			params[key] = parseFloat(input.value)
+			rerender()
+		})
+	})
+
+	setSkin(hosts[0].dataset.blob || 'clay')
+}
+
+// ── noise ────────────────────────────────────────────────────────────────────
+// 4D classic Perlin noise, after webgl-noise (Ian McEwan, Ashima Arts, MIT).
+// Perlin rather than simplex on purpose: 4D simplex noise is only piecewise
+// smooth across its cells, and once displacement is scaled up the seams show
+// as straight creases and flat facets no amount of tessellation removes.
+// Classic noise blends with a quintic fade, so it is C2 everywhere.
+
+const noiseGLSL = /* glsl */ `
+vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }
+vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }
+vec4 fade(vec4 t) { return t * t * t * (t * (t * 6.0 - 15.0) + 10.0); }
+
+// Gradient for four lattice points hashed in h: a unit-ish vec4 per component.
+void grad4(vec4 h, out vec4 gx, out vec4 gy, out vec4 gz, out vec4 gw) {
+	gx = h * (1.0 / 7.0);
+	gy = floor(gx) * (1.0 / 7.0);
+	gz = floor(gy) * (1.0 / 6.0);
+	gx = fract(gx) - 0.5;
+	gy = fract(gy) - 0.5;
+	gz = fract(gz) - 0.5;
+	gw = vec4(0.75) - abs(gx) - abs(gy) - abs(gz);
+	vec4 sw = step(gw, vec4(0.0));
+	gx -= sw * (step(0.0, gx) - 0.5);
+	gy -= sw * (step(0.0, gy) - 0.5);
+}
+
+float noise4(vec4 P) {
+	vec4 Pi0 = mod289(floor(P));
+	vec4 Pi1 = mod289(Pi0 + 1.0);
+	vec4 Pf0 = fract(P);
+	vec4 Pf1 = Pf0 - 1.0;
+	// Corner order in each vec4: (x0,y0) (x1,y0) (x0,y1) (x1,y1)
+	vec4 ix = vec4(Pi0.x, Pi1.x, Pi0.x, Pi1.x);
+	vec4 iy = vec4(Pi0.yy, Pi1.yy);
+	vec4 ixy = permute(permute(ix) + iy);
+	vec4 ixy0 = permute(ixy + Pi0.zzzz);
+	vec4 ixy1 = permute(ixy + Pi1.zzzz);
+	vec4 h00 = permute(ixy0 + Pi0.wwww);
+	vec4 h01 = permute(ixy0 + Pi1.wwww);
+	vec4 h10 = permute(ixy1 + Pi0.wwww);
+	vec4 h11 = permute(ixy1 + Pi1.wwww);
+
+	vec4 gx00, gy00, gz00, gw00; grad4(h00, gx00, gy00, gz00, gw00);
+	vec4 gx01, gy01, gz01, gw01; grad4(h01, gx01, gy01, gz01, gw01);
+	vec4 gx10, gy10, gz10, gw10; grad4(h10, gx10, gy10, gz10, gw10);
+	vec4 gx11, gy11, gz11, gw11; grad4(h11, gx11, gy11, gz11, gw11);
+
+	vec4 g0000 = vec4(gx00.x, gy00.x, gz00.x, gw00.x);
+	vec4 g1000 = vec4(gx00.y, gy00.y, gz00.y, gw00.y);
+	vec4 g0100 = vec4(gx00.z, gy00.z, gz00.z, gw00.z);
+	vec4 g1100 = vec4(gx00.w, gy00.w, gz00.w, gw00.w);
+	vec4 g0010 = vec4(gx10.x, gy10.x, gz10.x, gw10.x);
+	vec4 g1010 = vec4(gx10.y, gy10.y, gz10.y, gw10.y);
+	vec4 g0110 = vec4(gx10.z, gy10.z, gz10.z, gw10.z);
+	vec4 g1110 = vec4(gx10.w, gy10.w, gz10.w, gw10.w);
+	vec4 g0001 = vec4(gx01.x, gy01.x, gz01.x, gw01.x);
+	vec4 g1001 = vec4(gx01.y, gy01.y, gz01.y, gw01.y);
+	vec4 g0101 = vec4(gx01.z, gy01.z, gz01.z, gw01.z);
+	vec4 g1101 = vec4(gx01.w, gy01.w, gz01.w, gw01.w);
+	vec4 g0011 = vec4(gx11.x, gy11.x, gz11.x, gw11.x);
+	vec4 g1011 = vec4(gx11.y, gy11.y, gz11.y, gw11.y);
+	vec4 g0111 = vec4(gx11.z, gy11.z, gz11.z, gw11.z);
+	vec4 g1111 = vec4(gx11.w, gy11.w, gz11.w, gw11.w);
+
+	vec4 n00 = taylorInvSqrt(vec4(dot(g0000, g0000), dot(g0100, g0100), dot(g1000, g1000), dot(g1100, g1100)));
+	g0000 *= n00.x; g0100 *= n00.y; g1000 *= n00.z; g1100 *= n00.w;
+	vec4 n10 = taylorInvSqrt(vec4(dot(g0010, g0010), dot(g0110, g0110), dot(g1010, g1010), dot(g1110, g1110)));
+	g0010 *= n10.x; g0110 *= n10.y; g1010 *= n10.z; g1110 *= n10.w;
+	vec4 n01 = taylorInvSqrt(vec4(dot(g0001, g0001), dot(g0101, g0101), dot(g1001, g1001), dot(g1101, g1101)));
+	g0001 *= n01.x; g0101 *= n01.y; g1001 *= n01.z; g1101 *= n01.w;
+	vec4 n11 = taylorInvSqrt(vec4(dot(g0011, g0011), dot(g0111, g0111), dot(g1011, g1011), dot(g1111, g1111)));
+	g0011 *= n11.x; g0111 *= n11.y; g1011 *= n11.z; g1111 *= n11.w;
+
+	float n0000 = dot(g0000, Pf0);
+	float n1000 = dot(g1000, vec4(Pf1.x, Pf0.yzw));
+	float n0100 = dot(g0100, vec4(Pf0.x, Pf1.y, Pf0.zw));
+	float n1100 = dot(g1100, vec4(Pf1.xy, Pf0.zw));
+	float n0010 = dot(g0010, vec4(Pf0.xy, Pf1.z, Pf0.w));
+	float n1010 = dot(g1010, vec4(Pf1.x, Pf0.y, Pf1.z, Pf0.w));
+	float n0110 = dot(g0110, vec4(Pf0.x, Pf1.yz, Pf0.w));
+	float n1110 = dot(g1110, vec4(Pf1.xyz, Pf0.w));
+	float n0001 = dot(g0001, vec4(Pf0.xyz, Pf1.w));
+	float n1001 = dot(g1001, vec4(Pf1.x, Pf0.yz, Pf1.w));
+	float n0101 = dot(g0101, vec4(Pf0.x, Pf1.y, Pf0.z, Pf1.w));
+	float n1101 = dot(g1101, vec4(Pf1.xy, Pf0.z, Pf1.w));
+	float n0011 = dot(g0011, vec4(Pf0.xy, Pf1.zw));
+	float n1011 = dot(g1011, vec4(Pf1.x, Pf0.y, Pf1.zw));
+	float n0111 = dot(g0111, vec4(Pf0.x, Pf1.yzw));
+	float n1111 = dot(g1111, Pf1);
+
+	vec4 f = fade(Pf0);
+	vec4 n_0w = mix(vec4(n0000, n1000, n0100, n1100), vec4(n0001, n1001, n0101, n1101), f.w);
+	vec4 n_1w = mix(vec4(n0010, n1010, n0110, n1110), vec4(n0011, n1011, n0111, n1111), f.w);
+	vec4 n_zw = mix(n_0w, n_1w, f.z);
+	vec2 n_yzw = mix(n_zw.xy, n_zw.zw, f.y);
+	return 2.2 * mix(n_yzw.x, n_yzw.y, f.x);
+}
+`
+
+// The body and the displacement field every skin samples.
+//
+// The body is the mark from blob-shape.js: its 2D signed distance lives in
+// a small float texture, extruded here with a rounded edge. The geometry is
+// still a unit sphere; each vertex's direction is marched from the centre to
+// where it leaves the body, and the noise then pushes along the body's own
+// normal, so it reads as bumps on the front face and not just on the rim.
+const bodyGLSL = /* glsl */ `
+uniform sampler2D uShape;
+uniform vec4 uShapeInfo; // extent, resolution, depth, round
+float sd2(vec2 q) {
+	vec2 uv = q / uShapeInfo.x * 0.5 + 0.5;
+#ifdef BLOB_SHAPE_LINEAR
+	return texture2D(uShape, uv).r;
+#else
+	// No float linear filtering: blend four nearest texels by hand.
+	float r = uShapeInfo.y;
+	vec2 g = clamp(uv * r - 0.5, 0.0, r - 1.0);
+	vec2 i = floor(g), f = g - i;
+	vec2 o = (i + 0.5) / r;
+	float s = 1.0 / r;
+	float a = texture2D(uShape, o).r, b = texture2D(uShape, o + vec2(s, 0.0)).r;
+	float c = texture2D(uShape, o + vec2(0.0, s)).r, d = texture2D(uShape, o + vec2(s, s)).r;
+	return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+#endif
+}
+float sdBody(vec3 p) {
+	vec2 w = vec2(sd2(p.xy) + uShapeInfo.w, abs(p.z) - (uShapeInfo.z - uShapeInfo.w));
+	return min(max(w.x, w.y), 0.0) + length(max(w, vec2(0.0))) - uShapeInfo.w;
+}
+`
+
+const displaceGLSL = /* glsl */ `
+uniform float uTime, uAmp, uFreq, uSway, uHover, uPointerStrength;
+uniform vec3 uPointer;
+// Where the ray from the centre along d leaves the body. The centre is
+// inside, so stepping by the (negative) distance walks outward and settles
+// on the surface; the mark is near enough star-shaped for every ray to exit.
+vec3 bodyBase(vec3 d) {
+	float t = 0.0;
+	for (int i = 0; i < 24; i++) t -= sdBody(d * t);
+	return d * t;
+}
+vec3 bodyN(vec3 p) {
+	const vec2 k = vec2(1.0, -1.0);
+	const float e = 0.008;
+	return normalize(k.xyy * sdBody(p + k.xyy * e) + k.yyx * sdBody(p + k.yyx * e) + k.yxy * sdBody(p + k.yxy * e) + k.xxx * sdBody(p + k.xxx * e));
+}
+// Displacement at a point on the body.
+float blobD(vec3 p) {
+	float s = uSway;
+	float v = uAmp * noise4(vec4(p.x * uFreq, p.y * uFreq + s * 1.5, p.z * uFreq, uTime));
+	v += s * (-p.y * 0.28 + 0.1 * sin(p.y * 5.0 + s * 4.0) * (1.0 - p.y * p.y));
+	vec3 q = p - uPointer;
+	v += uPointerStrength * uHover * exp(-dot(q, q) * 5.0);
+	return v;
+}
+vec3 blobP(vec3 d) {
+	vec3 b = bodyBase(d);
+	return b + bodyN(b) * blobD(b);
+}
+// Normal by finite differences along two tangents of the unit sphere.
+vec3 blobN(vec3 d, vec3 p) {
+	vec3 t1 = normalize(cross(d, abs(d.y) < 0.99 ? vec3(0.0, 1.0, 0.0) : vec3(1.0, 0.0, 0.0)));
+	vec3 t2 = cross(d, t1);
+	float e = 0.004;
+	vec3 p1 = blobP(normalize(d + t1 * e));
+	vec3 p2 = blobP(normalize(d + t2 * e));
+	return normalize(cross(p1 - p, p2 - p));
+}
+`
+
+// ── procedural texture ───────────────────────────────────────────────────────
+// Drawn to a canvas at mount so there is no image asset to serve.
+
+// Reads a brand token off the host as its raw CSS string (oklch() as written).
+function token(host, name, fallback) {
+	return getComputedStyle(host).getPropertyValue(name).trim() || fallback
+}
+
+// THREE.Color can't parse oklch(), so resolve a token through a 1px canvas:
+// the browser does the colour-space conversion and hands back sRGB bytes.
+function tokenColor(THREE, host, name, fallback) {
+	const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true })
+	ctx.canvas.width = ctx.canvas.height = 1
+	ctx.fillStyle = token(host, name, fallback)
+	ctx.fillRect(0, 0, 1, 1)
+	const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+	return new THREE.Color().setRGB(r / 255, g / 255, b / 255, THREE.SRGBColorSpace)
+}
+
+// A matcap is a picture of a lit sphere; the material looks up the normal in
+// it. Painted from the brand tokens on the host, so it follows the theme:
+// secondary lights the top-left, primary carries the body, tertiary takes the
+// shadow side and the rim. Canvas accepts the oklch() strings as they are.
+// `rim` is how far in from the silhouette the shadow starts (0–1 of the
+// radius), `highlight` the specular radius, `blend` where primary gives way
+// to tertiary along the body gradient.
+function matcapTexture(THREE, host, { rim = 0.4, highlight = 0.14, blend = 0.55 } = {}) {
+	const primary = token(host, '--color-primary', '#7c4dff')
+	const secondary = token(host, '--color-secondary', '#e6306e')
+	const tertiary = token(host, '--color-tertiary', '#3b1466')
+
+	const size = 256
+	const c = document.createElement('canvas')
+	c.width = c.height = size
+	const ctx = c.getContext('2d')
+
+	const body = ctx.createLinearGradient(size * 0.1, size * 0.05, size * 0.9, size * 0.95)
+	body.addColorStop(0, secondary)
+	body.addColorStop(Math.min(0.2, blend * 0.5), secondary)
+	body.addColorStop(blend, primary)
+	body.addColorStop(1, tertiary)
+	ctx.fillStyle = body
+	ctx.fillRect(0, 0, size, size)
+
+	// Rim: normals near the silhouette fall to tertiary.
+	const rimG = ctx.createRadialGradient(size * 0.5, size * 0.5, size * 0.5 * (1 - rim), size * 0.5, size * 0.5, size * 0.5)
+	rimG.addColorStop(0, 'transparent')
+	rimG.addColorStop(1, tertiary)
+	ctx.fillStyle = rimG
+	ctx.fillRect(0, 0, size, size)
+
+	// Soft specular where the secondary light sits.
+	if (highlight > 0) {
+		const spec = ctx.createRadialGradient(size * 0.33, size * 0.3, 0, size * 0.33, size * 0.3, size * highlight)
+		spec.addColorStop(0, 'rgba(255,255,255,0.7)')
+		spec.addColorStop(0.4, 'rgba(255,255,255,0.15)')
+		spec.addColorStop(1, 'transparent')
+		ctx.fillStyle = spec
+		ctx.fillRect(0, 0, size, size)
+	}
+
+	const t = new THREE.CanvasTexture(c)
+	t.colorSpace = THREE.SRGBColorSpace
+	return t
+}
+
+// A skin control: one range input in the [data-blob-controls] panel. `set`
+// runs on every input event with the parsed value.
+const ctl = (label, min, max, step, value, set) => ({ label, min, max, step, value, set })
+
+// ── instance: one canvas ─────────────────────────────────────────────────────
+// Returns { setSkin, render, active }; the lab owns the controls.
+function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
+	const still = reducedMotion()
+	const detail = parseInt(host.dataset.blobDetail, 10) || 7
+
+	// ── renderer / scene ─────────────────────────────────────────────────────
+	const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
+	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+	renderer.toneMapping = THREE.ACESFilmicToneMapping
+	renderer.outputColorSpace = THREE.SRGBColorSpace
+	host.append(renderer.domElement)
+
+	const scene = new THREE.Scene()
+	const fov = 32
+	const camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 50)
+	camera.position.set(0, 0, 4.6)
+
+	// A room environment gives physical materials (glass/water) something to
+	// refract and reflect, and lifts everything else without hand-placed lights.
+	const pmrem = new THREE.PMREMGenerator(renderer)
+	scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture
+	pmrem.dispose()
+
+	const key = new THREE.DirectionalLight(0xffffff, 1.6)
+	key.position.set(3, 4, 5)
+	scene.add(key, new THREE.HemisphereLight(0xffffff, 0x3b1466, 0.6))
+
+	const group = new THREE.Group()
+	scene.add(group)
+
+	// ── scroll → spring ──────────────────────────────────────────────────────
+	// Scroll velocity kicks a damped oscillator. `sway.x` is the value skins read:
+	// positive means the page just moved up (scrolling down), so loose material
+	// trails downward; it then overshoots and settles like liquid in a glass.
+	const sway = { x: 0, v: 0 }
+	let lastScroll = window.scrollY
+	let kick = 0
+	window.addEventListener(
+		'scroll',
+		() => {
+			kick += window.scrollY - lastScroll
+			lastScroll = window.scrollY
+		},
+		{ passive: true },
+	)
+
+	function stepSway(dt, stiffness, damping) {
+		sway.v += Math.max(-4, Math.min(4, kick * 0.008 * params.inertia))
+		kick = 0
+		sway.v += (-sway.x * stiffness - sway.v * damping) * dt
+		sway.x = Math.max(-1, Math.min(1, sway.x + sway.v * dt))
+	}
+
+	// ── body ─────────────────────────────────────────────────────────────────
+	const shape = createShape()
+	const shapeTexture = new THREE.DataTexture(shape.grid, shape.res, shape.res, THREE.RedFormat, THREE.FloatType)
+	// Hardware bilinear on a float texture needs an extension; without it the
+	// shader blends texels itself.
+	const linear = renderer.extensions.has('OES_texture_float_linear')
+	shapeTexture.minFilter = shapeTexture.magFilter = linear ? THREE.LinearFilter : THREE.NearestFilter
+	shapeTexture.generateMipmaps = false
+	shapeTexture.needsUpdate = true
+	const shapeDefines = linear ? { BLOB_SHAPE_LINEAR: '' } : {}
+
+	// ── displacement ─────────────────────────────────────────────────────────
+	// The geometry stays a sphere: the vertex shader marches each direction
+	// to the body surface, so the bounding sphere just has to cover the mark.
+	const geometry = new THREE.IcosahedronGeometry(1, detail)
+	// One subdivision finer (4× the vertices) for skins that draw the mesh
+	// once. Cores sit underneath other geometry, so they keep the coarser one.
+	const fine = new THREE.IcosahedronGeometry(1, detail + 1)
+	for (const g of [geometry, fine]) g.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 2)
+	// `vel` accumulates pointer movement across the surface and decays each
+	// frame, so skins can react to a swipe, not just a position.
+	const pointer = { local: new THREE.Vector3(0, 0, shape.depth), vel: new THREE.Vector3(), strength: 0, target: 0 }
+	let time = 0
+	let slosh = 0.5 // how much sway deforms the body (liquid 1, solids less)
+
+	// Shared by every patched material; updated once per frame.
+	const uniforms = {
+		uShape: { value: shapeTexture },
+		uShapeInfo: { value: new THREE.Vector4(shape.extent, shape.res, shape.depth, shape.round) },
+		uTime: { value: 0 },
+		uAmp: { value: params.amp },
+		uFreq: { value: params.freq },
+		uSway: { value: 0 },
+		uHover: { value: params.hover },
+		uPointerStrength: { value: 0 },
+		uPointer: { value: pointer.local },
+		uPointerVel: { value: pointer.vel },
+		// Raw spring state and a rattle amount, for skins that read the spring
+		// directly rather than through the body slosh.
+		uSwayX: { value: 0 },
+		uSwayV: { value: 0 },
+		uJostle: { value: 0 },
+	}
+
+	// Patch a built-in material so its vertex stage lands each vertex on the
+	// displaced body and rebuilds the normal. Works for any material whose
+	// vertex shader uses the standard chunks — Standard, Physical, Matcap,
+	// Basic, Points.
+	function displaced(material) {
+		material.defines = { ...material.defines, ...shapeDefines }
+		material.onBeforeCompile = (shader) => {
+			Object.assign(shader.uniforms, uniforms)
+			shader.vertexShader = shader.vertexShader.replace('#include <common>', `#include <common>\n${noiseGLSL}\n${bodyGLSL}\n${displaceGLSL}`).replace('#include <beginnormal_vertex>', 'vec3 blobDir = normalize(position); vec3 blobPos = blobP(blobDir); vec3 objectNormal = blobN(blobDir, blobPos);').replace('#include <begin_vertex>', 'vec3 transformed = blobP(normalize(position));')
+		}
+		material.customProgramCacheKey = () => 'blob'
+		return material
+	}
+
+	const core = (scale, color = brand.tertiary) => {
+		const m = new THREE.Mesh(geometry, displaced(new THREE.MeshStandardMaterial({ color, roughness: 0.85 })))
+		m.scale.setScalar(scale)
+		return m
+	}
+
+	// ── skins ────────────────────────────────────────────────────────────────
+	// Each skin returns { objects, spring?, slosh?, controls?, update?, dispose? }.
+	//   spring   — [stiffness, damping] for the scroll oscillator
+	//   slosh    — how much sway deforms the body itself
+	//   controls — { key: ctl(...) } rendered into [data-blob-controls]
+	//   update   — runs each frame after the spring has stepped
+	const skins = {
+		clay() {
+			const material = displaced(new THREE.MeshStandardMaterial({ color: brand.primary, roughness: 0.55, metalness: 0.05 }))
+			const mesh = new THREE.Mesh(fine, material)
+			return {
+				objects: [mesh],
+				spring: [60, 7],
+				slosh: 0.35,
+				controls: {
+					roughness: ctl('Roughness', 0, 1, 0.01, material.roughness, (v) => (material.roughness = v)),
+					metalness: ctl('Metalness', 0, 1, 0.01, material.metalness, (v) => (material.metalness = v)),
+					sheen: ctl('Sheen', 0, 3, 0.05, material.envMapIntensity, (v) => (material.envMapIntensity = v)),
+				},
+				dispose: () => material.dispose(),
+			}
+		},
+
+		water() {
+			const material = displaced(
+				new THREE.MeshPhysicalMaterial({
+					color: brand.water,
+					transmission: 1,
+					thickness: 1.4,
+					roughness: 0.04,
+					ior: 1.33,
+					attenuationColor: new THREE.Color(0x8fd3ff),
+					attenuationDistance: 1.2,
+					clearcoat: 1,
+					clearcoatRoughness: 0.05,
+					envMapIntensity: 1.4,
+				}),
+			)
+			const mesh = new THREE.Mesh(fine, material)
+			// Transmission refracts whatever is behind the mesh; on a transparent
+			// canvas that's just the environment map, so a coloured core gives the
+			// refraction something to bend. The core lags the slosh, like a bubble.
+			// Sized to sit inside the middle stroke, with room to lag up and down.
+			const inner = new THREE.Mesh(new THREE.IcosahedronGeometry(0.22, 3), new THREE.MeshStandardMaterial({ color: brand.primary, roughness: 0.3 }))
+			const p = { lag: 0.3, bubble: 1 }
+			return {
+				objects: [mesh, inner],
+				spring: [30, 2.2],
+				slosh: 1,
+				controls: {
+					depth: ctl('Depth', 0.1, 4, 0.05, material.thickness, (v) => (material.thickness = v)),
+					refraction: ctl('Refraction', 1, 2.33, 0.01, material.ior, (v) => (material.ior = v)),
+					tint: ctl('Tint', 0, 1, 0.01, 1 - material.attenuationDistance / 3, (v) => (material.attenuationDistance = 3 * (1 - v) + 0.05)),
+					frost: ctl('Frost', 0, 0.5, 0.005, material.roughness, (v) => (material.roughness = v)),
+					bubble: ctl('Bubble size', 0, 2, 0.05, p.bubble, (v) => inner.scale.setScalar(v)),
+					lag: ctl('Bubble lag', 0, 1, 0.01, p.lag, (v) => (p.lag = v)),
+				},
+				update() {
+					inner.position.y = sway.x * p.lag
+				},
+				dispose: () => {
+					material.dispose()
+					inner.geometry.dispose()
+					inner.material.dispose()
+				},
+			}
+		},
+
+		iridescent() {
+			const material = displaced(
+				new THREE.MeshPhysicalMaterial({
+					color: 0xffffff,
+					metalness: 0.25,
+					roughness: 0.18,
+					iridescence: 1,
+					iridescenceIOR: 1.6,
+					iridescenceThicknessRange: [120, 520],
+					envMapIntensity: 1.2,
+				}),
+			)
+			const mesh = new THREE.Mesh(fine, material)
+			return {
+				objects: [mesh],
+				spring: [45, 4],
+				slosh: 0.6,
+				controls: {
+					film: ctl('Film thickness', 100, 1400, 10, material.iridescenceThicknessRange[1], (v) => (material.iridescenceThicknessRange = [Math.min(120, v), v])),
+					shimmer: ctl('Shimmer', 0, 1, 0.01, material.iridescence, (v) => (material.iridescence = v)),
+					metalness: ctl('Metalness', 0, 1, 0.01, material.metalness, (v) => (material.metalness = v)),
+					roughness: ctl('Roughness', 0, 1, 0.01, material.roughness, (v) => (material.roughness = v)),
+				},
+				dispose: () => material.dispose(),
+			}
+		},
+
+		matcap() {
+			// The lit-sphere image is repainted on each control change (256px
+			// canvas, cheap) and swapped into the material.
+			const p = { rim: 0.4, highlight: 0.14, blend: 0.55 }
+			const material = displaced(new THREE.MeshMatcapMaterial({ matcap: matcapTexture(THREE, host, p) }))
+			const mesh = new THREE.Mesh(fine, material)
+			const repaint = (key) => (v) => {
+				p[key] = v
+				material.matcap.dispose()
+				material.matcap = matcapTexture(THREE, host, p)
+			}
+			return {
+				objects: [mesh],
+				spring: [60, 7],
+				slosh: 0.35,
+				controls: {
+					rim: ctl('Rim shadow', 0, 0.9, 0.01, p.rim, repaint('rim')),
+					highlight: ctl('Highlight', 0, 0.4, 0.005, p.highlight, repaint('highlight')),
+					blend: ctl('Colour blend', 0.2, 0.95, 0.01, p.blend, repaint('blend')),
+				},
+				dispose: () => {
+					material.matcap.dispose()
+					material.dispose()
+				},
+			}
+		},
+
+		balls() {
+			// The whole body is balls, not a shell of them: a face-centred cubic
+			// lattice clipped to the body. Each instance carries its lattice
+			// centre; the vertex shader marches the centre's direction to the
+			// surface and moves the ball by that point's displacement, scaled by
+			// how deep it sits, so the outer layer *is* the surface and the
+			// interior stretches with it. Nothing is touched on the CPU.
+			const spacing = 0.047
+			const radius = spacing * 0.58 // nearest neighbours sit spacing·√2 apart
+			const centres = []
+			const seeds = []
+			const n = Math.ceil(1.1 / spacing)
+			const tilt = new THREE.Euler(0.45, 0.35, 0.2) // keep lattice planes off the view axis; the jitter below hides the rows
+			const v = new THREE.Vector3()
+			for (let i = -n; i <= n; i++)
+				for (let j = -n; j <= n; j++)
+					for (let k = -n; k <= n; k++) {
+						if ((i + j + k) & 1) continue
+						v.set(i + (Math.random() - 0.5) * 0.3, j + (Math.random() - 0.5) * 0.3, k + (Math.random() - 0.5) * 0.3)
+							.multiplyScalar(spacing)
+							.applyEuler(tilt)
+						if (shape.sdBody(v.x, v.y, v.z) > -radius * 0.7) continue
+						centres.push(v.x, v.y, v.z)
+						seeds.push(Math.random())
+					}
+			const count = seeds.length
+			const ballGeo = new THREE.SphereGeometry(radius, 8, 6)
+			ballGeo.setAttribute('aCenter', new THREE.InstancedBufferAttribute(new Float32Array(centres), 3))
+			ballGeo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(new Float32Array(seeds), 1))
+			const material = new THREE.MeshStandardMaterial({ color: brand.primary, roughness: 0.35, metalness: 0.1 })
+			const own = {
+				uBallSize: { value: 1 },
+				uSwell: { value: 1.6 },
+				uRattle: { value: 1 },
+				uVary: { value: 0.3 },
+			}
+			material.defines = { ...shapeDefines }
+			material.onBeforeCompile = (shader) => {
+				Object.assign(shader.uniforms, uniforms, own)
+				shader.vertexShader = shader.vertexShader.replace('#include <common>', `#include <common>\n${noiseGLSL}\n${bodyGLSL}\n${displaceGLSL}\nattribute vec3 aCenter; attribute float aSeed; uniform float uJostle, uBallSize, uSwell, uRattle, uVary;`).replace(
+					'#include <begin_vertex>',
+					/* glsl */ `
+					vec3 blobDir = normalize(aCenter);
+					vec3 surf = bodyBase(blobDir);
+					// 0 at the centre, 1 on the surface.
+					float blobR = length(aCenter) / max(length(surf), 1e-4);
+					float blobDisp = blobD(surf);
+					vec3 c = aCenter + bodyN(surf) * blobDisp * blobR;
+					// Rattle sideways while the spring is moving fast.
+					c.x += noise4(vec4(aSeed * 40.0, uTime * 9.0, 0.0, 0.0)) * uJostle * uRattle;
+					// Outer balls swell where the surface pushes out; inner ones vary a little by seed.
+					float sc = uBallSize * (1.0 - uVary * 0.5 + uVary * aSeed) * (1.0 + max(blobDisp, 0.0) * uSwell * smoothstep(0.5, 1.0, blobR));
+					vec3 transformed = position * sc + c;`,
+				)
+			}
+			material.customProgramCacheKey = () => 'blob-balls'
+			// Instance matrices stay identity; the shader owns placement.
+			const mesh = new THREE.InstancedMesh(ballGeo, material, count)
+			mesh.frustumCulled = false
+			return {
+				objects: [mesh],
+				spring: [70, 5],
+				slosh: 0.5,
+				controls: {
+					size: ctl('Ball size', 0.3, 1.8, 0.01, own.uBallSize.value, (v) => (own.uBallSize.value = v)),
+					vary: ctl('Size variety', 0, 1, 0.01, own.uVary.value, (v) => (own.uVary.value = v)),
+					swell: ctl('Swell', 0, 4, 0.05, own.uSwell.value, (v) => (own.uSwell.value = v)),
+					rattle: ctl('Rattle', 0, 4, 0.05, own.uRattle.value, (v) => (own.uRattle.value = v)),
+					gloss: ctl('Gloss', 0, 1, 0.01, 1 - material.roughness, (v) => (material.roughness = 1 - v)),
+				},
+				dispose: () => {
+					ballGeo.dispose()
+					material.dispose()
+				},
+			}
+		},
+
+		hair() {
+			// A full coat: tens of thousands of strands as one instanced draw. Each
+			// strand is a camera-facing ribbon whose shape is a parabola evaluated
+			// in the vertex shader — root on the displaced surface, launched along
+			// the body normal, bent by a force that sums gravity, scroll drag, a
+			// wind noise, and the pointer (strands part away from it and get
+			// brushed along with its movement). No per-frame CPU work.
+			const count = 40000
+			const segments = 7
+			const rows = segments + 1
+			// `position` doubles as the strand parameter: x = t along the strand,
+			// y = which side of the ribbon.
+			const base = new Float32Array(rows * 2 * 3)
+			const index = []
+			for (let i = 0; i < rows; i++) {
+				const t = i / segments
+				base.set([t, -1, 0, t, 1, 0], i * 6)
+				if (i < segments) index.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 1, i * 2 + 3, i * 2 + 2)
+			}
+			// Roots are directions on a Fibonacci sphere, marched to the body in
+			// the shader: even in angle, so a little denser on the flat faces.
+			const roots = new Float32Array(count * 3)
+			const seeds = new Float32Array(count)
+			const golden = Math.PI * (3 - Math.sqrt(5))
+			for (let i = 0; i < count; i++) {
+				const y = 1 - (2 * (i + 0.5)) / count
+				const r = Math.sqrt(1 - y * y)
+				const a = golden * i
+				roots.set([Math.cos(a) * r, y, Math.sin(a) * r], i * 3)
+				seeds[i] = Math.random()
+			}
+			const geo = new THREE.InstancedBufferGeometry()
+			geo.instanceCount = count
+			geo.setIndex(index)
+			geo.setAttribute('position', new THREE.BufferAttribute(base, 3))
+			geo.setAttribute('aRoot', new THREE.InstancedBufferAttribute(roots, 3))
+			geo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(seeds, 1))
+			geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 2)
+
+			const material = new THREE.ShaderMaterial({
+				defines: { ...shapeDefines },
+				uniforms: {
+					...uniforms,
+					uLength: { value: 0.34 },
+					uWidth: { value: 0.0035 },
+					uDroop: { value: 0.7 }, // gravity: 0 stands the coat on end
+					uWind: { value: 0.6 }, // strength of the noise breeze
+					uComb: { value: 1 }, // pointer parts the strands (0 = none)
+					uBrush: { value: 3.5 }, // a swipe drags strands along with it
+					uCurl: { value: 0 }, // per-strand sideways kink, seeded
+					// Root in the shadow tone, body in primary, tips catch secondary.
+					uRoot: { value: tokenColor(THREE, host, '--color-tertiary', '#3b1466') },
+					uMid: { value: tokenColor(THREE, host, '--color-primary', '#7c4dff') },
+					uTip: { value: tokenColor(THREE, host, '--color-secondary', '#e6306e') },
+				},
+				vertexShader: /* glsl */ `
+					${noiseGLSL}
+					${bodyGLSL}
+					${displaceGLSL}
+					attribute vec3 aRoot;
+					attribute float aSeed;
+					uniform float uLength, uWidth, uSwayX, uSwayV, uDroop, uWind, uComb, uBrush, uCurl;
+					uniform vec3 uPointerVel, uRoot, uMid, uTip;
+					varying vec3 vColor;
+
+					vec3 strand(vec3 base, vec3 n, vec3 force, float len, float t) {
+						return base + n * len * t + force * len * t * t;
+					}
+
+					void main() {
+						vec3 b = bodyBase(normalize(aRoot));
+						vec3 n = bodyN(b);
+						vec3 base = b + n * blobD(b);
+						float len = uLength * (0.7 + 0.6 * aSeed);
+
+						// Gravity plus scroll drag: strands stream against the direction
+						// the page moved, then swing back as the spring settles.
+						vec3 force = vec3(0.0, -(uDroop + uSwayX * 1.4), 0.0);
+						force.x += noise4(vec4(b * 2.0 + vec3(uTime * 0.6, 0.0, 0.0), 0.0)) * uWind + uSwayV * 0.12;
+						// Curl: each strand kinks off to its own side, scaled by seed.
+						vec3 t1 = normalize(cross(n, abs(n.y) < 0.99 ? vec3(0.0, 1.0, 0.0) : vec3(1.0, 0.0, 0.0)));
+						force += t1 * (aSeed - 0.5) * 2.0 * uCurl;
+						// Pointer: part away from it across the surface, and follow its drag.
+						vec3 q = b - uPointer;
+						float h = uPointerStrength * exp(-dot(q, q) * 4.0);
+						vec3 away = q - n * dot(q, n);
+						force += normalize(away + 1e-5) * h * 0.9 * uComb + uPointerVel * h * uBrush;
+
+						float t = position.x;
+						vec3 p = strand(base, n, force, len, t);
+						vec3 p2 = strand(base, n, force, len, t + 0.05);
+						vec4 mv = modelViewMatrix * vec4(p, 1.0);
+						vec4 mv2 = modelViewMatrix * vec4(p2, 1.0);
+						// Ribbon faces the camera and tapers to the tip.
+						vec3 side = normalize(cross(normalize(mv2.xyz - mv.xyz), vec3(0.0, 0.0, 1.0)) + 1e-5);
+						mv.xyz += side * position.y * uWidth * (1.0 - t * 0.85);
+						gl_Position = projectionMatrix * mv;
+
+						float lit = 0.35 + 0.65 * max(dot(n, normalize(vec3(0.5, 0.8, 1.0))), 0.0);
+						vec3 col = t < 0.5 ? mix(uRoot, uMid, t * 2.0) : mix(uMid, uTip, (t - 0.5) * 2.0);
+						vColor = col * lit * (0.85 + 0.3 * aSeed);
+					}
+				`,
+				fragmentShader: /* glsl */ `
+					varying vec3 vColor;
+					void main() {
+						gl_FragColor = vec4(vColor, 1.0);
+						#include <tonemapping_fragment>
+						#include <colorspace_fragment>
+					}
+				`,
+				side: THREE.DoubleSide,
+			})
+			const mesh = new THREE.Mesh(geo, material)
+			mesh.frustumCulled = false
+			// The coat adds up to ~0.45 to the radius, so shrink the body to keep
+			// the silhouette inside the frame.
+			mesh.scale.setScalar(0.78)
+			const u = material.uniforms
+			const uni = (name) => (v) => (u[name].value = v)
+			return {
+				objects: [mesh, core(0.77)],
+				spring: [40, 3.5],
+				slosh: 0.25,
+				controls: {
+					length: ctl('Length', 0.05, 0.8, 0.01, u.uLength.value, uni('uLength')),
+					thickness: ctl('Thickness', 0.001, 0.012, 0.0005, u.uWidth.value, uni('uWidth')),
+					droop: ctl('Droop', 0, 2, 0.02, u.uDroop.value, uni('uDroop')),
+					wind: ctl('Wind', 0, 2, 0.02, u.uWind.value, uni('uWind')),
+					curl: ctl('Curl', 0, 2, 0.02, u.uCurl.value, uni('uCurl')),
+					comb: ctl('Comb (parting)', 0, 3, 0.05, u.uComb.value, uni('uComb')),
+					brush: ctl('Brush (drag)', 0, 10, 0.1, u.uBrush.value, uni('uBrush')),
+				},
+				dispose: () => {
+					geo.dispose()
+					material.dispose()
+				},
+			}
+		},
+
+		metaballs() {
+			// Marching cubes over a scalar field: the mark as one heavy body plus
+			// satellites on fixed orbits that merge into it, and the pointer as a
+			// ball of its own. The one skin that polygonises on the CPU each
+			// frame (resolution³ cells), so there is no vertex displacement: the
+			// field is the shape. Amplitude and frequency don't apply; the skin's
+			// own controls set the satellite count, orbit reach and so on.
+			const resolution = 64
+			// Glossy gel in the brand colour, so it doesn't read as the iridescent skin.
+			const material = new THREE.MeshPhysicalMaterial({
+				color: brand.primary,
+				roughness: 0.22,
+				clearcoat: 1,
+				clearcoatRoughness: 0.08,
+				envMapIntensity: 1,
+			})
+			const effect = new MarchingCubes(resolution, material, false, false, 200000)
+			effect.isolation = 70
+			effect.scale.setScalar(1.9)
+			const sats = Array.from({ length: 9 }, (_, i) => ({
+				a: 0.6 + (i % 3) * 0.35,
+				b: 0.45 + ((i * 7) % 5) * 0.2,
+				c: 0.5 + ((i * 3) % 4) * 0.25,
+				p: i * 2.1,
+				q: i * 1.3,
+				s: 0.4 + (i % 4) * 0.09,
+				r: 0.75 + ((i * 5) % 4) * 0.09,
+			}))
+			// Field space is 0..1 with the body at the centre; world = (field·2−1)·scale.
+			// A ball's surface radius is sqrt(strength / (subtract + isolation)):
+			// 0.07–0.09 for satellites. Orbits reach ~0.3 by default, so satellites
+			// detach and re-merge.
+			const c = (v) => 0.5 + v * 0.5
+			const p = { count: 3, roam: 0.62, size: 0.7, speed: 3, core: 1 }
+			// The body is written as a metaball whose "distance" is the signed
+			// distance to the mark plus a pseudo-radius, so it falls off like the
+			// satellites and merges with them. Squared distances are cached once;
+			// per frame only the strength/subtract step runs, with the body
+			// displaced through the grid for the slosh.
+			const subtract = 12
+			const pseudo = 0.08 // smaller = steeper falloff, so satellites merge closer in and the notches stay open
+			const cells = resolution ** 3
+			const bodyD = new Float32Array(cells)
+			const toWorld = (i) => ((i / resolution) * 2 - 1) * effect.scale.x
+			for (let z = 0; z < resolution; z++)
+				for (let y = 0; y < resolution; y++)
+					for (let x = 0; x < resolution; x++) {
+						bodyD[(z * resolution + y) * resolution + x] = Math.max(0.02, shape.sdBody(toWorld(x), toWorld(y), toWorld(z)) / effect.scale.x / 2 + pseudo)
+					}
+			const strength = (effect.isolation + subtract) * pseudo * pseudo // surface at sd = 0 by default
+			// Slosh: the body rides the spring, the top lagging the bottom so it
+			// stretches on the kick and squashes on the rebound, and the spring's
+			// velocity shears it sideways. Each cell gathers the *distance* from
+			// where it has moved from, bilinearly, and applies the falloff after.
+			// Distance is smooth so it interpolates cleanly; the 1/d² field does
+			// not, and blending shifted copies of it ripples the surface.
+			function writeBody() {
+				const field = effect.field
+				const s = strength * p.core
+				const reach = Math.sqrt(s / subtract) // beyond this the body contributes nothing
+				const mid = resolution / 2
+				const slice = resolution * resolution
+				const last = resolution - 1
+				for (let z = 0; z < resolution; z++) {
+					const z0 = z * slice
+					for (let y = 0; y < resolution; y++) {
+						const rel = (y - mid) / resolution // -0.5 at the bottom, 0.5 at the top
+						const sy = y - sway.x * resolution * (0.1 + 0.12 * rel)
+						const dx = sway.v * resolution * 0.012 * rel
+						if (sy < 0 || sy > last) continue
+						const y0 = Math.floor(sy)
+						const fy = sy - y0
+						const r0 = z0 + y0 * resolution
+						const r1 = z0 + Math.min(y0 + 1, last) * resolution
+						const row = z0 + y * resolution
+						for (let x = 0; x < resolution; x++) {
+							const sx = x + dx
+							if (sx < 0 || sx > last) continue
+							const x0 = Math.floor(sx)
+							const x1 = Math.min(x0 + 1, last)
+							const fx = sx - x0
+							const d = (bodyD[r0 + x0] * (1 - fx) + bodyD[r0 + x1] * fx) * (1 - fy) + (bodyD[r1 + x0] * (1 - fx) + bodyD[r1 + x1] * fx) * fy
+							if (d >= reach) continue
+							field[row + x] += s / (d * d) - subtract
+						}
+					}
+				}
+			}
+			return {
+				objects: [effect],
+				spring: [35, 3],
+				slosh: 0,
+				controls: {
+					count: ctl('Satellites', 0, sats.length, 1, p.count, (v) => (p.count = v)),
+					roam: ctl('Roam', 0, 0.8, 0.01, p.roam, (v) => (p.roam = v)),
+					size: ctl('Satellite size', 0.2, 2.5, 0.05, p.size, (v) => (p.size = v)),
+					// core: ctl('Body size', 0.3, 2.5, 0.05, p.core, (v) => (p.core = v)), // parked: the two skins read this differently, revisit
+					speed: ctl('Orbit speed', 0, 8, 0.1, p.speed, (v) => (p.speed = v)),
+					goo: ctl('Gooeyness', 30, 150, 1, effect.isolation, (v) => (effect.isolation = v)),
+				},
+				update() {
+					effect.reset()
+					writeBody()
+					const t = time * p.speed
+					for (let i = 0; i < p.count; i++) {
+						const o = sats[i]
+						const rr = p.roam * o.r
+						// Satellites trail the body: further out, more lag and more shear.
+						const x = Math.sin(t * o.a + o.p) * Math.cos(t * o.c + o.q) * rr - sway.v * 0.03 * o.r
+						const y = Math.sin(t * o.b + o.q) * rr + sway.x * (0.16 + 0.12 * o.r)
+						const z = Math.cos(t * o.a + o.p) * Math.sin(t * o.c + o.q) * rr * 0.6
+						effect.addBall(c(x), c(y), c(z), o.s * p.size, 12)
+					}
+					// The hover bulge is a ball riding the pointer just under the surface.
+					if (pointer.strength > 0.01) {
+						const r = 0.9 / effect.scale.x
+						effect.addBall(c(pointer.local.x * r), c(pointer.local.y * r), c(pointer.local.z * r), pointer.strength * params.hover * 1.2, 12)
+					}
+					effect.update()
+				},
+				dispose: () => {
+					effect.geometry.dispose()
+					material.dispose()
+				},
+			}
+		},
+
+		goo() {
+			// Metaballs again, but raymarched: the same body, satellites and
+			// pointer ball as a signed-distance scene blended with a smooth
+			// minimum, sphere-traced per pixel in a fragment shader. No field,
+			// no polygonisation, nothing per frame on the CPU beyond a handful
+			// of uniforms; the merge is exact at any zoom. Drawn on one quad
+			// held in front of the body; rays start on the quad and are clipped
+			// to a bounding sphere so misses stay cheap. Shaded with the same
+			// brand matcap as the matcap skin plus a fresnel rim, since there
+			// is no mesh for a built-in material to light.
+			const sats = Array.from({ length: 9 }, (_, i) => ({
+				a: 0.6 + (i % 3) * 0.35,
+				b: 0.45 + ((i * 7) % 5) * 0.2,
+				c: 0.5 + ((i * 3) % 4) * 0.25,
+				p: i * 2.1,
+				q: i * 1.3,
+				s: 0.4 + (i % 4) * 0.09,
+				r: 0.75 + ((i * 5) % 4) * 0.09,
+			}))
+			const p = { count: 3, roam: 0.62, size: 0.7, core: 1, speed: 3, goo: 0.22, rim: 0.5 }
+			const balls = Array.from({ length: sats.length }, () => new THREE.Vector4())
+			const camLocal = new THREE.Vector3()
+			const material = new THREE.ShaderMaterial({
+				defines: { ...shapeDefines },
+				transparent: true,
+				depthWrite: false,
+				uniforms: {
+					uShape: uniforms.uShape,
+					uShapeInfo: uniforms.uShapeInfo,
+					uPointer: uniforms.uPointer,
+					uPointerStrength: uniforms.uPointerStrength,
+					uHover: uniforms.uHover,
+					uSwayX: uniforms.uSwayX,
+					uSwayV: uniforms.uSwayV,
+					uCam: { value: camLocal },
+					uBalls: { value: balls },
+					uCount: { value: p.count },
+					uCore: { value: 0 },
+					uGoo: { value: p.goo },
+					uRim: { value: p.rim },
+					uMatcap: { value: matcapTexture(THREE, host, { rim: 0.3, highlight: 0.12, blend: 0.55 }) },
+				},
+				vertexShader: /* glsl */ `
+					varying vec3 vPos;
+					void main() {
+						vPos = position;
+						gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+					}
+				`,
+				fragmentShader: /* glsl */ `
+					${bodyGLSL}
+					uniform float uPointerStrength, uHover, uSwayX, uSwayV, uCore, uGoo, uRim;
+					uniform int uCount;
+					uniform vec3 uPointer, uCam;
+					uniform mat3 normalMatrix; // vertex-stage built-in; Three still binds it here once declared
+					uniform vec4 uBalls[9]; // xyz centre, w radius
+					uniform sampler2D uMatcap;
+					varying vec3 vPos;
+
+					float smin(float a, float b, float k) {
+						float h = max(k - abs(a - b), 0.0) / k;
+						return min(a, b) - h * h * k * 0.25;
+					}
+					// Slosh: the body rides the spring, the top lagging the bottom, and
+					// the spring's velocity shears it sideways. Warping the sample
+					// point stretches the field a little, so the march steps short.
+					float sdScene(vec3 p) {
+						vec3 q = p;
+						q.y -= uSwayX * (0.3 + 0.25 * p.y);
+						q.x -= uSwayV * 0.03 * p.y;
+						// Body size is an offset, not a scale: inflating an SDF fills the
+						// notches and rounds the mark, deflating thins it, which is what
+						// the metaballs field does as its body strength changes.
+						float d = sdBody(q) - uCore;
+						// The hover bulge is the same Gaussian push the mesh skins use, so
+						// it scales linearly with the pointer strength and fades without a
+						// step. A ball unioned in with smin was tried first: it pops as it
+						// sinks back under the surface.
+						vec3 h = p - uPointer;
+						d -= uPointerStrength * uHover * 0.5 * exp(-dot(h, h) * 4.0);
+						for (int i = 0; i < 9; i++) {
+							if (i >= uCount) break;
+							d = smin(d, length(p - uBalls[i].xyz) - uBalls[i].w, uGoo);
+						}
+						return d;
+					}
+					// Wider taps than the mesh skins use: the bilinear distance grid is
+					// only piecewise linear, and a finer normal shows its cells.
+					vec3 sceneN(vec3 p) {
+						const vec2 k = vec2(1.0, -1.0);
+						const float e = 0.012;
+						return normalize(k.xyy * sdScene(p + k.xyy * e) + k.yyx * sdScene(p + k.yyx * e) + k.yxy * sdScene(p + k.yxy * e) + k.xxx * sdScene(p + k.xxx * e));
+					}
+					void main() {
+						vec3 ro = uCam;
+						vec3 rd = normalize(vPos - ro);
+						// Clip the ray to a sphere round everything the scene can reach.
+						const float R = 2.4;
+						float b = dot(ro, rd);
+						float h = b * b - dot(ro, ro) + R * R;
+						if (h < 0.0) discard;
+						h = sqrt(h);
+						float t = -b - h, tFar = -b + h;
+						float nearest = 1e9, tNear = t;
+						bool hit = false;
+						// The bulge steepens the field, so step shorter while it is up.
+						float safe = 0.8 / (1.0 + uPointerStrength * uHover * 1.5);
+						for (int i = 0; i < 96; i++) {
+							vec3 pos = ro + rd * t;
+							float d = sdScene(pos);
+							if (d < nearest) { nearest = d; tNear = t; }
+							if (d < 0.0015) { hit = true; break; }
+							t += d * safe;
+							if (t > tFar) break;
+						}
+						// Near misses get the closest point's shading at a fading alpha,
+						// which softens the silhouette without supersampling.
+						const float aa = 0.006;
+						if (!hit && nearest > aa) discard;
+						vec3 pos = ro + rd * (hit ? t : tNear);
+						vec3 n = sceneN(pos);
+						vec3 vn = normalize(normalMatrix * n);
+						vec3 col = texture2D(uMatcap, vn.xy * 0.495 + 0.5).rgb;
+						// Fresnel rim and a tight highlight from the key light give it the gel look.
+						float fres = pow(1.0 - max(dot(n, -rd), 0.0), 3.0);
+						col += fres * uRim * 0.35;
+						vec3 l = normalize(vec3(0.5, 0.7, 1.0));
+						float spec = pow(max(dot(reflect(-l, vn), vec3(0.0, 0.0, 1.0)), 0.0), 80.0);
+						col += spec * 0.5;
+						gl_FragColor = vec4(col, hit ? 1.0 : 1.0 - nearest / aa);
+						#include <tonemapping_fragment>
+						#include <colorspace_fragment>
+					}
+				`,
+			})
+			// The offset is baked into the geometry, not the mesh, so vertex
+			// positions (and so the rays) are in the group's space.
+			const quad = new THREE.Mesh(new THREE.PlaneGeometry(6, 6).translate(0, 0, 2.5), material)
+			quad.frustumCulled = false
+			return {
+				objects: [quad],
+				spring: [35, 3],
+				slosh: 0,
+				controls: {
+					count: ctl('Satellites', 0, sats.length, 1, p.count, (v) => (material.uniforms.uCount.value = p.count = v)),
+					roam: ctl('Roam', 0, 0.8, 0.01, p.roam, (v) => (p.roam = v)),
+					size: ctl('Satellite size', 0.2, 2.5, 0.05, p.size, (v) => (p.size = v)),
+					// core: ctl('Body size', 0.3, 2.5, 0.05, p.core, (v) => (material.uniforms.uCore.value = (v - 1) * 0.3)), // parked: the two skins read this differently, revisit
+					speed: ctl('Orbit speed', 0, 8, 0.1, p.speed, (v) => (p.speed = v)),
+					goo: ctl('Gooeyness', 0.02, 0.6, 0.01, p.goo, (v) => (material.uniforms.uGoo.value = v)),
+					rim: ctl('Rim light', 0, 1.5, 0.01, p.rim, (v) => (material.uniforms.uRim.value = v)),
+				},
+				update() {
+					camLocal.copy(camera.position)
+					group.worldToLocal(camLocal)
+					const t = time * p.speed
+					for (let i = 0; i < p.count; i++) {
+						const o = sats[i]
+						const rr = p.roam * o.r * 1.9
+						// Satellites trail the body: further out, more lag and more shear.
+						const x = Math.sin(t * o.a + o.p) * Math.cos(t * o.c + o.q) * rr - sway.v * 0.06 * o.r
+						const y = Math.sin(t * o.b + o.q) * rr + sway.x * (0.3 + 0.25 * o.r)
+						const z = Math.cos(t * o.a + o.p) * Math.sin(t * o.c + o.q) * rr * 0.6
+						balls[i].set(x, y, z, o.s * p.size * 0.55)
+					}
+				},
+				dispose: () => {
+					quad.geometry.dispose()
+					material.uniforms.uMatcap.value.dispose()
+					material.dispose()
+				},
+			}
+		},
+
+		points() {
+			// Detail 5 is plenty for a point cloud; at 164k the dots merge into a fill.
+			const geo = new THREE.IcosahedronGeometry(1, Math.min(detail, 5))
+			const pts = new THREE.Points(geo, displaced(new THREE.PointsMaterial({ color: brand.primary, size: 0.022, sizeAttenuation: true })))
+			const dark = core(0.965, 0x140626)
+			return {
+				objects: [pts, dark],
+				spring: [55, 5],
+				slosh: 0.6,
+				controls: {
+					size: ctl('Dot size', 0.004, 0.08, 0.001, pts.material.size, (v) => (pts.material.size = v)),
+					// Shrinking the core reveals the far side of the cloud.
+					core: ctl('Core', 0, 1, 0.005, dark.scale.x, (v) => dark.scale.setScalar(v)),
+				},
+				dispose: () => {
+					geo.dispose()
+					pts.material.dispose()
+				},
+			}
+		},
+	}
+
+	let active = null
+	// Returns whether the skin changed, so the lab can skip unknown names.
+	function setSkin(name) {
+		if (!skins[name] || active?.name === name) return false
+		if (active) {
+			active.objects.forEach((o) => group.remove(o))
+			active.dispose?.()
+		}
+		active = { name, ...skins[name]() }
+		slosh = active.slosh ?? 0.5
+		active.objects.forEach((o) => group.add(o))
+		host.dataset.blob = name
+		if (still) renderFrame(0)
+		return true
+	}
+
+	// ── hover: raycast onto the body, bulge toward the pointer ───────────────
+	const raycaster = new THREE.Raycaster()
+	const ndc = new THREE.Vector2()
+	// A coarse copy of the body, marched on the CPU, inflated a little so the
+	// pointer still "sticks" on displaced peaks.
+	const proxyGeo = new THREE.IcosahedronGeometry(1, 4)
+	const pos = proxyGeo.attributes.position
+	for (let i = 0; i < pos.count; i++) {
+		const x = pos.getX(i),
+			y = pos.getY(i),
+			z = pos.getZ(i)
+		const t = shape.march(x, y, z) + 0.15
+		pos.setXYZ(i, x * t, y * t, z * t)
+	}
+	const hitBody = new THREE.Mesh(proxyGeo)
+	hitBody.visible = false
+	group.add(hitBody)
+
+	host.addEventListener('pointermove', (e) => {
+		const r = renderer.domElement.getBoundingClientRect()
+		ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1)
+		raycaster.setFromCamera(ndc, camera)
+		const hit = raycaster.intersectObject(hitBody, false)[0]
+		if (hit) {
+			const next = group.worldToLocal(hit.point)
+			if (pointer.target) pointer.vel.add(next).sub(pointer.local)
+			pointer.local.copy(next)
+			pointer.target = 1
+		} else {
+			pointer.target = 0
+		}
+	})
+	host.addEventListener('pointerleave', () => (pointer.target = 0))
+
+	// ── sizing / visibility ──────────────────────────────────────────────────
+	function resize() {
+		const canvas = renderer.domElement
+		const w = canvas.clientWidth || host.clientWidth
+		const h = canvas.clientHeight || host.clientHeight
+		if (!w || !h) return
+		renderer.setSize(w, h, false)
+		// Bleed (see header): a canvas taller than its host gets a proportionally
+		// wider view, so the body keeps its on-screen size and position.
+		const bleed = h / (host.clientHeight || h)
+		camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(fov / 2)) * bleed))
+		camera.aspect = w / h
+		camera.updateProjectionMatrix()
+		if (still) renderFrame(0)
+	}
+	new ResizeObserver(resize).observe(host)
+
+	let visible = true
+	// Entries can arrive batched (e.g. a scroll restore right after mount), so
+	// read the newest one, not the first.
+	new IntersectionObserver((entries) => (visible = entries[entries.length - 1].isIntersecting), { rootMargin: '10%' }).observe(host)
+
+	// ── frame ────────────────────────────────────────────────────────────────
+	const timer = new THREE.Timer()
+
+	function renderFrame(dt) {
+		pointer.strength += (pointer.target - pointer.strength) * Math.min(1, dt * 6)
+		pointer.vel.multiplyScalar(Math.exp(-dt * 5)).clampLength(0, 0.3)
+		const [stiffness, damping] = active?.spring ?? [50, 5]
+		stepSway(dt, stiffness, damping)
+		// A whisper of tilt with the spring keeps it alive without ever turning
+		// the mark away from the viewer.
+		group.rotation.x = sway.x * 0.05
+		group.rotation.z = -sway.v * 0.004
+
+		uniforms.uTime.value = time
+		uniforms.uAmp.value = params.amp
+		uniforms.uFreq.value = params.freq
+		uniforms.uHover.value = params.hover
+		uniforms.uSway.value = sway.x * slosh
+		uniforms.uSwayX.value = sway.x
+		uniforms.uSwayV.value = sway.v
+		uniforms.uJostle.value = Math.abs(sway.v) * 0.04
+		uniforms.uPointerStrength.value = pointer.strength
+
+		active?.update?.()
+		renderer.render(scene, camera)
+	}
+
+	function loop() {
+		requestAnimationFrame(loop)
+		if (!visible) {
+			kick = 0
+			lastScroll = window.scrollY
+			return
+		}
+		timer.update()
+		const dt = Math.min(timer.getDelta(), 0.05)
+		// Hovering and sloshing speed the noise up a touch so the surface feels reactive.
+		time += dt * params.speed * (1 + pointer.strength * 0.8 + Math.abs(sway.x) * 0.6)
+		renderFrame(dt)
+	}
+
+	resize()
+	if (!still) loop()
+
+	return {
+		setSkin,
+		render: () => renderFrame(0),
+		get active() {
+			return active
+		},
+	}
+}

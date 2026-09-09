@@ -1,0 +1,297 @@
+---
+// @ts-nocheck
+import Layout from '../layouts/Layout.astro'
+import Section from '../components/Section.astro'
+
+const skins = [
+	{ id: 'metaballs', label: 'Metaballs', note: "Marching cubes (64³ cells, polygonised on the CPU each frame) over a field of the mark itself (its signed distance written as one big metaball) and up to nine orbiting satellites that detach from it and merge back. Glossy gel in the brand colour. The hover bulge is a ball of its own under the pointer. Amplitude and frequency don't apply; its own controls set the satellite count, how far they roam and how gooey the merge is. The only skin without vertex displacement: the field is the shape." },
+	{ id: 'goo', label: 'Goo', note: 'The metaballs skin rebuilt as a raymarched signed-distance scene: the same body, satellites and pointer ball blended with a smooth minimum and sphere-traced per pixel in one fragment shader on a single quad. No field and no polygonisation, so nothing runs on the CPU per frame and the merge is exact at any zoom. Shaded with the brand matcap plus a fresnel rim, since there is no mesh for a built-in material to light. The hover bulge is the same Gaussian push the mesh skins use rather than a ball of its own, so it fades cleanly. Same controls as metaballs; gooeyness is the blend radius.' },
+	{ id: 'matcap', label: 'Matcap', note: 'MeshMatcapMaterial with a lit-sphere image painted at mount from the CSS brand tokens: secondary lights the top-left, primary carries the body, tertiary takes the shadow and rim. No lights, cheapest shading here, and it follows the theme.' },
+	{ id: 'iridescent', label: 'Iridescent', note: 'Physical material with a thin-film iridescence layer. Colour shifts with the view angle, so surface movement reads even without rotation.' },
+	// { id: 'clay', label: 'Clay', note: 'Plain MeshStandardMaterial. Stiff spring, little slosh. The baseline every other skin builds on.' },
+	{ id: 'balls', label: 'Balls', note: 'The whole body is balls: a face-centred cubic lattice of spheres clipped to the mark, one InstancedMesh. The vertex shader marches each centre out to the surface and moves it by the displacement there, scaled by depth, so the outer layer is the surface and the interior stretches with it. Outer balls swell on the peaks and rattle while the spring is moving.' },
+	{ id: 'hair', label: 'Hair', note: '40,000 strands as one instanced draw of camera-facing ribbons, shaped entirely in the vertex shader. Gravity, scroll drag and wind bend them; the pointer parts them and a swipe brushes them along with it. Coloured from the brand tokens: tertiary at the root, primary along the strand, secondary at the tip.' },
+	{ id: 'water', label: 'Water', note: 'MeshPhysicalMaterial with transmission and IOR 1.33. Loosest spring: the body sloshes fully and the inner core lags like a bubble.' },
+	{ id: 'points', label: 'Points', note: 'THREE.Points over a 10k-direction copy of the body (denser merges into a fill) with a dark core to occlude the far side.' },
+]
+
+const options = [
+	{
+		name: 'Three.js (WebGL)',
+		verdict: 'Start here',
+		tone: 'primary',
+		what: 'The default scene-graph library for 3D on the web. Cameras, lights, PBR materials, loaders, instancing, post-processing — all included.',
+		pros: ['Every texture idea (water, fur, particles, glass) has a worked example somewhere', 'Works with plain JS in Astro — no framework needed', 'Huge ecosystem: loaders for Blender exports, MeshTransmissionMaterial, drei-style helpers'],
+		cons: ['~600KB minified before tree-shaking; must be lazy-loaded per page', 'Custom looks still end up in GLSL sooner or later'],
+		fit: 'Best fit. It is what runs on this page.',
+	},
+	{
+		name: 'Three.js + TSL / WebGPU',
+		verdict: 'Next step',
+		tone: 'tertiary',
+		what: 'Three Shading Language lets you write materials as JS node graphs that compile to WGSL or GLSL, so one codebase targets WebGPU with a WebGL fallback.',
+		pros: ['Move the noise displacement onto the GPU without hand-writing shaders', 'Compute shaders for particle / hair simulation at 100k+ instances', 'Same scene code as classic Three'],
+		cons: ['API still shifting release to release', 'WebGPU is on by default in Chrome/Edge/Safari 26 but Firefox lags'],
+		fit: 'Adopt once a direction is chosen and the CPU displacement becomes the bottleneck.',
+	},
+	{
+		name: 'Raw WebGL / WebGPU + GLSL',
+		verdict: 'Only for shader art',
+		tone: 'neutral',
+		what: 'No library: a full-screen quad and a fragment shader doing raymarching (signed distance fields) for the blob and its surface.',
+		pros: ['Tiny bundle (a few KB)', 'Unmatched for gooey, metaball, liquid effects — SDFs blend for free'],
+		cons: ['Everything is bespoke: lighting, hover, resize, loaders', 'Hair and balls are painful in a raymarcher; each texture is a research project'],
+		fit: 'Worth a spike for a single hero if it is purely a blob. Not for a family of textures.',
+	},
+	{
+		name: 'OGL',
+		verdict: 'Lighter Three',
+		tone: 'neutral',
+		what: 'A minimal WebGL library (~30KB) with a Three-like API. Popular in agency portfolios.',
+		pros: ['One tenth of the bundle', 'Closer to the metal, easy to read the whole source'],
+		cons: ['No PBR, no transmission, no instancing helpers — you write those shaders', 'Small community; fewer references to copy'],
+		fit: 'Consider if the bundle size of Three becomes a hard constraint in production.',
+	},
+	{
+		name: 'Spline',
+		verdict: 'Designer-first',
+		tone: 'neutral',
+		what: 'A visual 3D editor that exports a runtime (@splinetool/runtime) with scroll and hover events wired in the editor.',
+		pros: ['Iterate on look without code', 'Scroll / hover / drag events built in'],
+		cons: ['Runtime is 1MB+ and hosted; limited control over materials in code', 'Hard to port to the .NET/Razor site cleanly; brand-token theming is awkward'],
+		fit: 'Good for exploring the look with a designer, poor as the production runtime.',
+	},
+	{
+		name: 'Rive / Lottie / baked video',
+		verdict: '2.5D fallback',
+		tone: 'neutral',
+		what: 'Render the blob in Blender, export as a scrubbable video, image sequence or Rive state machine.',
+		pros: ['Any render quality, zero GPU cost, trivial to port', 'Rive supports pointer and scroll inputs'],
+		cons: ['Not real 3D — no true hover deformation, fixed camera', 'Large assets for long sequences'],
+		fit: 'Keep as the reduced-motion / low-power fallback for whatever the 3D version becomes.',
+	},
+	{
+		name: 'CSS 3D transforms',
+		verdict: 'Not for this',
+		tone: 'neutral',
+		what: 'transform-style: preserve-3d with DOM elements; scroll-driven animations via animation-timeline.',
+		pros: ['No JS, native scroll timelines, accessible DOM'],
+		cons: ['Only flat planes — no organic surfaces, no lighting, no textures'],
+		fit: 'Fine for cards and carousels. Cannot make a blob.',
+	},
+]
+
+const tones = {
+	primary: 'bg-primary text-on-primary',
+	tertiary: 'bg-tertiary text-on-tertiary',
+	neutral: 'bg-foreground-softer text-foreground-muted',
+}
+---
+
+<Layout title="3D – RWS UI">
+	<!-- The lab: every [data-blob] inside shares the skin and sliders set here. -->
+	<div data-blob-lab>
+		<!-- Hero -->
+		<Section theme="dots" top="lg" bottom="lg" class="overflow-x-clip">
+			<div class="grid items-center gap-8 lg:grid-cols-12">
+				<div class="lg:col-span-5">
+					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+						<p>3D lab</p>
+					</div>
+					<h1 class="mb-6 text-5xl font-bold tracking-tight md:text-6xl">
+						<p>One mark,<br /><em>many skins</em></p>
+					</h1>
+					<div class="prose text-foreground-muted md:prose-lg">
+						<p>The brand mark as a noise-displaced body rendered with Three.js. Move the pointer over it to push the surface, scroll to slosh it, and switch the skin to see how one geometry drives very different materials.</p>
+					</div>
+
+					<div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Skin">
+						{
+							skins.map((s) => (
+								<button type="button" class="btn btn-outline btn-sm aria-pressed:bg-foreground aria-pressed:text-background" data-blob-skin={s.id} aria-pressed={s.id === 'metaballs'}>
+									{s.label}
+								</button>
+							))
+						}
+					</div>
+
+					<div class="mt-6 grid gap-4 sm:grid-cols-2">
+						<label class="text-sm font-bold text-foreground-muted">
+							Amplitude
+							<input type="range" min="0" max="0.6" step="0.01" data-blob-param="amp" class="input-range mt-1" />
+						</label>
+						<label class="text-sm font-bold text-foreground-muted">
+							Frequency
+							<input type="range" min="0.4" max="4" step="0.05" data-blob-param="freq" class="input-range mt-1" />
+						</label>
+						<label class="text-sm font-bold text-foreground-muted">
+							Speed
+							<input type="range" min="0" max="1.5" step="0.01" data-blob-param="speed" class="input-range mt-1" />
+						</label>
+						<label class="text-sm font-bold text-foreground-muted">
+							Hover bulge
+							<input type="range" min="0" max="1" step="0.01" data-blob-param="hover" class="input-range mt-1" />
+						</label>
+						<label class="text-sm font-bold text-foreground-muted">
+							Scroll inertia
+							<input type="range" min="0" max="3" step="0.05" data-blob-param="inertia" class="input-range mt-1" />
+						</label>
+					</div>
+
+					<!-- Skin controls: filled by blob.js from the active skin's `controls`. -->
+					<div class="mt-6 grid gap-4 border-t border-foreground-softer pt-6 sm:grid-cols-2" data-blob-controls hidden>
+						<template>
+							<label class="text-sm font-bold text-foreground-muted">
+								<input type="range" class="input-range mt-1" />
+							</label>
+						</template>
+					</div>
+				</div>
+
+				<div class="lg:col-span-7">
+					<div class="relative aspect-square w-full touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob="metaballs" aria-hidden="true"></div>
+				</div>
+			</div>
+		</Section>
+
+		<!-- How each skin is built -->
+		<Section hidden theme="default" top="md" bottom="md">
+			<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+				<p>How the demo works</p>
+			</div>
+			<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+				<p>Same surface, <em>eight skins</em></p>
+			</h2>
+			<div class="prose mb-10 max-w-[64ch] text-foreground-muted md:prose-lg">
+				<p>
+					The shape is the mark: its outline (128 points sampled from the artwork, in <code>blob-shape.js</code>) is rasterised at mount into a small signed-distance grid and extruded with a fully rounded edge, so the body is a pillow-like W. The geometry is still an icosahedron with 163,842 vertices (subdivision 7, set per instance with <code>data-blob-detail</code>); skins that draw the mesh once (water, iridescent, matcap, clay) use one subdivision finer, 655,362 vertices, so peaks stay round at high amplitude. Every material is patched with <code>onBeforeCompile</code> so the vertex shader marches each vertex's direction from the centre to where it leaves the body, then pushes it along the body normal by 4D classic Perlin noise (position + time; simplex noise was tried first, but its cell seams show as creases at high amplitude), a scroll-driven slosh term, and a Gaussian bulge centred on wherever the pointer ray hits, then rebuilds the normal by finite differences. The geometry never changes on the CPU, so the vertex count is bounded only by the GPU. The instanced skins, balls and hair, sample the same field per instance in their own vertex shaders. The script is <code>src/assets/scripts/blob.js</code>.
+				</p>
+			</div>
+			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				{
+					skins.map((s) => (
+						<div class="rounded-lg border border-foreground-softer p-6">
+							<h3 class="mb-2 text-xl font-bold">{s.label}</h3>
+							<p class="text-foreground-muted">{s.note}</p>
+						</div>
+					))
+				}
+			</div>
+		</Section>
+
+		<!-- Scroll-driven instance: follows the hero's skin and controls -->
+		<Section theme="default" top="lg" bottom="lg" class="overflow-x-clip">
+			<div class="grid gap-12 lg:grid-cols-12">
+				<div class="lg:col-span-5">
+					<div class="sticky top-[calc(var(--chrome-height,0px)+2rem)]">
+						<div class="relative aspect-square w-full touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob aria-hidden="true"></div>
+					</div>
+				</div>
+				<div class="lg:col-span-7">
+					<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+						<p>Scroll-driven</p>
+					</div>
+					<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+						<p>It never turns, <em>it reacts</em></p>
+					</h2>
+					<div class="prose text-foreground-muted md:prose-lg">
+						<p>The body is the brand mark, so it always faces the viewer. Scrolling doesn't rotate it. Instead scroll velocity kicks a damped spring, and every skin reads that spring in its own way. Scroll this page briskly, then stop, and watch the surface overshoot and settle. This blob is the hero's twin: both sit in one <code>[data-blob-lab]</code>, so the skin buttons and sliders at the top drive them together. Each canvas keeps its own spring, pointer and clock, so they slosh alike but never in lockstep.</p>
+						<h3>The spring</h3>
+						<p>Each frame the distance scrolled since the last frame is added to the spring's velocity (scaled by the inertia slider and clamped so a flick can't launch it), then a stiffness and damping pair pulls it back toward rest. A positive value means the page just moved up, so loose material trails downward; the overshoot on the way back is what reads as inertia. Every skin sets its own stiffness and damping: water is loose and rings for a second or two, matcap is stiff and settles almost at once.</p>
+						<h3>What the spring drives</h3>
+						<ul>
+							<li><strong>Body.</strong> The noise field shifts with the spring so the whole surface lurches, mass piles toward the trailing pole, and a travelling ring wave runs round the equator. Each skin scales how much of this it takes: full for water, a third for matcap, a quarter for hair (the coat does the rest), none for metaballs.</li>
+							<li><strong>Water.</strong> The refracting bubble inside lags the shell, like air in a glass; its lag has a slider.</li>
+							<li><strong>Hair.</strong> Strands bend under gravity plus scroll drag, so they stream against the page movement then swing back, and the spring's velocity adds a sideways gust. Hovering parts the coat away from the pointer and dragging across it brushes the strands along.</li>
+							<li><strong>Metaballs.</strong> No displacement here; instead the body's field is shifted whole rows up or down with the spring and the satellites ride along, so the mass lurches and re-merges.</li>
+							<li><strong>Balls.</strong> Rattle sideways while the spring is moving fast, calm when it settles.</li>
+							<li><strong>Tilt.</strong> A few degrees of lean with the spring keeps it alive. It never exceeds that, so the mark stays front-on.</li>
+						</ul>
+						<p>The scroll listener only accumulates a delta; all the physics runs inside the render loop, so there is nothing to throttle and it ports to Razor unchanged. GSAP ScrollTrigger would only be worth adding for choreography across sections: a morph from water to hair at 40%, say.</p>
+						<h3>Hover</h3>
+						<p>A raycast from the pointer hits an invisible coarse copy of the body, marched on the CPU and inflated a little. The hit point becomes the centre of a bulge that fades out with distance. The strength lerps toward 1 while hovering and back to 0 on leave, so entry and exit are soft. Pointer movement across the surface is tracked too and decays each frame; hair reads it as a brush. Metaballs has no bulge to raise, so the pointer becomes a ball of its own just under the surface. Hovering and sloshing also speed the noise up a touch, so the surface feels reactive.</p>
+						<h3>Performance notes</h3>
+						<ul>
+							<li>Rendering pauses while the canvas is off-screen (IntersectionObserver), and scroll deltas accrued while hidden are discarded so it doesn't lurch on return. With two canvases on the page, usually only one is rendering.</li>
+							<li>Device pixel ratio is capped at 2.</li>
+							<li>Three (plus RoomEnvironment and MarchingCubes) is imported dynamically, so it only loads on pages that have a <code>[data-blob]</code>.</li>
+							<li>With <code>prefers-reduced-motion</code> the blob renders once and stays still; skins and sliders still work, each change rendering one frame.</li>
+							<li>Displacement is on the GPU: three surface marches (24 distance-grid reads each, plus four for the body normal) and three noise evaluations per vertex, for position and the two normal taps, plus the same again for the dark core in hair and points. Drop <code>data-blob-detail</code> to 5 or 6 on a phone; single-mesh skins draw at one level finer than that.</li>
+							<li>Metaballs is the one skin with per-frame CPU work: marching cubes over 64³ cells, a few milliseconds on a laptop, and each canvas does its own. Goo is the same scene raymarched in a fragment shader on one quad: nothing on the CPU, and the cost is per pixel (up to 96 steps, each a distance-grid read plus one sphere per satellite) over the blob's screen area, so the pixel-ratio cap is what bounds it. Balls and hair are single instanced draws whose placement lives in the vertex shader, one surface march and two noise samples per vertex: hair across 640k vertices, balls across every vertex of every sphere in the lattice.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</Section>
+	</div>
+
+	<!-- Options -->
+	<Section hidden theme="default" top="lg" bottom="lg">
+		<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+			<p>Technology options</p>
+		</div>
+		<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+			<p>What could <em>render this</em></p>
+		</h2>
+		<div class="prose mb-10 max-w-[64ch] text-foreground-muted md:prose-lg">
+			<p>The brief is a single organic shape with interchangeable surface treatments, reacting to scroll and hover, on a marketing site that will be ported to .NET. That rules out anything framework-bound (React Three Fiber) and favours plain-JS runtimes.</p>
+		</div>
+
+		<div class="grid gap-6 lg:grid-cols-2">
+			{
+				options.map((o) => (
+					<article class="flex flex-col rounded-lg border border-foreground-softer p-6">
+						<div class="mb-4 flex items-start justify-between gap-4">
+							<h3 class="text-xl font-bold">{o.name}</h3>
+							<span class:list={['shrink-0 rounded-full px-3 py-1 text-xs font-bold', tones[o.tone]]}>{o.verdict}</span>
+						</div>
+						<p class="mb-4 text-foreground-muted">{o.what}</p>
+						<div class="mb-4 grid gap-4 text-sm sm:grid-cols-2">
+							<ul class="space-y-1">
+								{o.pros.map((p) => (
+									<li class="flex gap-2">
+										<span class="text-primary" aria-hidden="true">
+											+
+										</span>
+										<span>{p}</span>
+									</li>
+								))}
+							</ul>
+							<ul class="space-y-1">
+								{o.cons.map((c) => (
+									<li class="flex gap-2">
+										<span class="text-secondary" aria-hidden="true">
+											−
+										</span>
+										<span>{c}</span>
+									</li>
+								))}
+							</ul>
+						</div>
+						<p class="mt-auto border-t border-foreground-softer pt-4 text-sm font-bold">{o.fit}</p>
+					</article>
+				))
+			}
+		</div>
+	</Section>
+
+	<!-- Next steps -->
+	<Section hidden theme="inverse" top="lg" bottom="lg" width="lg">
+		<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+			<p>Where to go next</p>
+		</div>
+		<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
+			<p>Ideas to <em>try next</em></p>
+		</h2>
+		<div class="prose text-foreground-muted md:prose-lg">
+			<ol>
+				<li><strong>Tune the springs.</strong> The stiffness and damping pairs are guesses per skin. Once a direction is picked, dial them in with real scroll on a trackpad and a mouse wheel; the two feel very different.</li>
+				<li><strong>Skin morphing.</strong> Cross-fade between two skins on scroll instead of hard switching: both objects in the group, opacity and scale driven by scroll progress.</li>
+				<li><strong>Simulated hair.</strong> Strands are shaped by a closed-form bend, so they can't collide or keep momentum of their own. TSL compute could simulate them properly if the direction becomes hair.</li>
+				<li><strong>Brand colour from CSS.</strong> Read <code>--color-primary</code> from the host at mount and convert oklch to sRGB, so the blob follows <code>data-theme</code> and dark mode.</li>
+				<li><strong>Goo shading.</strong> The raymarched skin is lit by the matcap and a rim term. If it wins over metaballs, the next step is sampling the room environment for real reflections, or writing depth so it can sit among mesh objects.</li>
+				<li><strong>Porting checklist.</strong> The Razor page needs a <code>[data-blob-lab]</code> ancestor wrapping every <code>[data-blob]</code> host that should share a skin (one or several), buttons with <code>[data-blob-skin]</code>, an optional <code>[data-blob-controls]</code> panel holding a <code>&lt;template&gt;</code> of one label and range input for the skin's own sliders, and three served as an ES module. To let long skins overflow the host, style the canvas absolute, centred and larger than the host (this page uses 140%) with <code>pointer-events: none</code>; the script widens the camera to match, so the body stays put. Nothing else is Astro-specific.</li>
+			</ol>
+		</div>
+	</Section>
+</Layout>
