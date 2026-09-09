@@ -13,6 +13,10 @@
 //   [data-blob-controls]         panel for the active skin's own controls. Its
 //                                <template> (label + range input) is cloned per
 //                                control; the panel is emptied on every switch.
+//   [data-blob-settings]         JSON on the lab (or host) overriding the shared
+//                                params, plus a `controls` object applied to the
+//                                active skin's own controls on every switch:
+//                                {"amp":0.3,"controls":{"count":5,"goo":0.3}}
 //
 // Bleed: style the canvas larger than its host (absolute, centred, e.g. 140%)
 // and skins that reach past the body — long hair, satellites — stay visible
@@ -72,11 +76,27 @@ function mountLab(lab, hosts, THREE, RoomEnvironment, MarchingCubes) {
 		inertia: 1, // how hard scroll kicks the spring
 	}
 
+	const settings = readSettings(lab) ?? readSettings(hosts[0]) ?? {}
+	Object.keys(params).forEach((k) => {
+		if (typeof settings[k] === 'number') params[k] = settings[k]
+	})
+
 	const instances = hosts.map((host) => mount(host, params, THREE, RoomEnvironment, MarchingCubes))
 	const rerender = () => still && instances.forEach((i) => i.render())
 
 	function setSkin(name) {
 		if (!instances.map((i) => i.setSkin(name)).some(Boolean)) return
+		// Page-supplied values for the skin's own controls; keys the skin
+		// doesn't have are ignored, so one object can cover several skins.
+		instances.forEach((i) =>
+			Object.entries(settings.controls ?? {}).forEach(([key, v]) => {
+				const c = i.active?.controls?.[key]
+				if (!c || typeof v !== 'number') return
+				c.value = v
+				c.set(v)
+			}),
+		)
+		rerender()
 		lab.querySelectorAll('[data-blob-skin]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.blobSkin === name)))
 		renderControls(instances[0].active?.controls)
 	}
@@ -142,6 +162,17 @@ function mountLab(lab, hosts, THREE, RoomEnvironment, MarchingCubes) {
 	})
 
 	setSkin(hosts[0].dataset.blob || 'clay')
+}
+
+function readSettings(el) {
+	const raw = el?.dataset.blobSettings
+	if (!raw) return null
+	try {
+		return JSON.parse(raw)
+	} catch {
+		console.warn('[blob] data-blob-settings is not valid JSON', el)
+		return null
+	}
 }
 
 // ── noise ────────────────────────────────────────────────────────────────────
@@ -1083,9 +1114,26 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 				s: 0.4 + (i % 4) * 0.09,
 				r: 0.75 + ((i * 5) % 4) * 0.09,
 			}))
-			const p = { count: 3, roam: 0.62, size: 0.7, core: 1, speed: 3, goo: 0.22, rim: 0.5 }
+			const p = { count: 3, roam: 0.62, size: 0.7, core: 1, speed: 3, goo: 0.22, rim: 0.5, light: 1 }
 			const balls = Array.from({ length: sats.length }, () => new THREE.Vector4())
 			const camLocal = new THREE.Vector3()
+			// Key light in view space. It follows the pointer anywhere on the
+			// page: the target is the pointer's offset from the host's centre,
+			// in host half-widths, eased so the highlight glides. The matcap has
+			// its light baked in at `keyDefault`, so the lookup normal is
+			// rotated by the inverse of the rotation that takes keyDefault to
+			// the current light, and the highlight moves with it. Kept small:
+			// a large swing rolls the whole colour gradient, not just the light.
+			const keyDefault = new THREE.Vector3(0.5, 0.7, 1).normalize()
+			const light = { dir: keyDefault.clone(), target: keyDefault.clone(), rot: new THREE.Matrix3(), q: new THREE.Quaternion(), m4: new THREE.Matrix4() }
+			const onLightMove = (e) => {
+				const r = host.getBoundingClientRect()
+				const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2)
+				const dy = -(e.clientY - (r.top + r.height / 2)) / (r.height / 2)
+				const k = 0.18 * p.light
+				light.target.set(keyDefault.x + dx * k, keyDefault.y + dy * k, keyDefault.z).normalize()
+			}
+			window.addEventListener('pointermove', onLightMove, { passive: true })
 			const material = new THREE.ShaderMaterial({
 				defines: { ...shapeDefines },
 				transparent: true,
@@ -1104,6 +1152,8 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					uCore: { value: 0 },
 					uGoo: { value: p.goo },
 					uRim: { value: p.rim },
+					uLight: { value: light.dir },
+					uLightRot: { value: light.rot },
 					uMatcap: { value: matcapTexture(THREE, host, { rim: 0.3, highlight: 0.12, blend: 0.55 }) },
 				},
 				vertexShader: /* glsl */ `
@@ -1117,8 +1167,9 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					${bodyGLSL}
 					uniform float uPointerStrength, uHover, uSwayX, uSwayV, uCore, uGoo, uRim;
 					uniform int uCount;
-					uniform vec3 uPointer, uCam;
+					uniform vec3 uPointer, uCam, uLight;
 					uniform mat3 normalMatrix; // vertex-stage built-in; Three still binds it here once declared
+					uniform mat3 uLightRot;
 					uniform vec4 uBalls[9]; // xyz centre, w radius
 					uniform sampler2D uMatcap;
 					varying vec3 vPos;
@@ -1186,12 +1237,11 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 						vec3 pos = ro + rd * (hit ? t : tNear);
 						vec3 n = sceneN(pos);
 						vec3 vn = normalize(normalMatrix * n);
-						vec3 col = texture2D(uMatcap, vn.xy * 0.495 + 0.5).rgb;
+						vec3 col = texture2D(uMatcap, (uLightRot * vn).xy * 0.495 + 0.5).rgb;
 						// Fresnel rim and a tight highlight from the key light give it the gel look.
 						float fres = pow(1.0 - max(dot(n, -rd), 0.0), 3.0);
 						col += fres * uRim * 0.35;
-						vec3 l = normalize(vec3(0.5, 0.7, 1.0));
-						float spec = pow(max(dot(reflect(-l, vn), vec3(0.0, 0.0, 1.0)), 0.0), 80.0);
+						float spec = pow(max(dot(reflect(-uLight, vn), vec3(0.0, 0.0, 1.0)), 0.0), 80.0);
 						col += spec * 0.5;
 						gl_FragColor = vec4(col, hit ? 1.0 : 1.0 - nearest / aa);
 						#include <tonemapping_fragment>
@@ -1215,10 +1265,14 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					speed: ctl('Orbit speed', 0, 8, 0.1, p.speed, (v) => (p.speed = v)),
 					goo: ctl('Gooeyness', 0.02, 0.6, 0.01, p.goo, (v) => (material.uniforms.uGoo.value = v)),
 					rim: ctl('Rim light', 0, 1.5, 0.01, p.rim, (v) => (material.uniforms.uRim.value = v)),
+					light: ctl('Light follow', 0, 2, 0.05, p.light, (v) => (p.light = v)),
 				},
 				update() {
 					camLocal.copy(camera.position)
 					group.worldToLocal(camLocal)
+					light.dir.lerp(light.target, 0.08).normalize()
+					light.q.setFromUnitVectors(keyDefault, light.dir)
+					light.rot.setFromMatrix4(light.m4.makeRotationFromQuaternion(light.q)).transpose()
 					const t = time * p.speed
 					for (let i = 0; i < p.count; i++) {
 						const o = sats[i]
@@ -1231,6 +1285,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					}
 				},
 				dispose: () => {
+					window.removeEventListener('pointermove', onLightMove)
 					quad.geometry.dispose()
 					material.uniforms.uMatcap.value.dispose()
 					material.dispose()

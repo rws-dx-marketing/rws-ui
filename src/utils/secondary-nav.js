@@ -1,4 +1,21 @@
+import weavaIcon from '/icons/weava_w_white.svg?raw'
+
+// `icon` (an inline SVG string) on a root node replaces the RWS mark in the
+// section pill; roots without one keep the default. `labelClass` is added to
+// the pill's label, for per-brand optical tweaks.
 const secondaryNavTree = [
+	{
+		id: 'weava',
+		label: 'weava',
+		href: '/3d/goo',
+		icon: weavaIcon,
+    labelClass: 'relative -top-px -ml-1 font-bold',
+    children: [
+      { id: 'link-1', label: 'Link 1', href: '#' },
+      { id: 'link-2', label: 'Link 2', href: '#' },
+      { id: 'link-3', label: 'Link 3', href: '#' },
+		],
+	},
 	{
 		id: 'm-gate',
 		label: 'M-GATE',
@@ -80,7 +97,7 @@ const findPathToNode = (nodes, targetPath, trail = []) => {
 const toBreadcrumbs = (pathNodes, currentPath) => {
 	const isLeafNode = (node) => !node.children?.length
 	const filtered = pathNodes.filter((node, index) => {
-		if (index !== pathNodes.length - 1) return true
+		if (index === 0 || index !== pathNodes.length - 1) return true
 		return !isLeafNode(node)
 	})
 
@@ -108,6 +125,8 @@ export const resolveSecondaryNav = (pathname) => {
 	const parentNode = pathNodes[pathNodes.length - 2]
 
 	return {
+		icon: pathNodes[0].icon ?? null,
+		labelClass: pathNodes[0].labelClass ?? null,
 		breadcrumbs: toBreadcrumbs(pathNodes, currentPath),
 		links: toSubLinks(currentNode, parentNode),
 		current: {
