@@ -117,23 +117,23 @@ const tones = {
 
 					<div class="mt-6 grid gap-4 sm:grid-cols-2">
 						<label class="text-sm font-bold text-foreground-muted">
-							Amplitude
+							<span class="flex justify-between">Amplitude<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
 							<input type="range" min="0" max="0.6" step="0.01" data-blob-param="amp" class="input-range mt-1" />
 						</label>
 						<label class="text-sm font-bold text-foreground-muted">
-							Frequency
+							<span class="flex justify-between">Frequency<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
 							<input type="range" min="0.4" max="4" step="0.05" data-blob-param="freq" class="input-range mt-1" />
 						</label>
 						<label class="text-sm font-bold text-foreground-muted">
-							Speed
+							<span class="flex justify-between">Speed<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
 							<input type="range" min="0" max="1.5" step="0.01" data-blob-param="speed" class="input-range mt-1" />
 						</label>
 						<label class="text-sm font-bold text-foreground-muted">
-							Hover bulge
+							<span class="flex justify-between">Hover bulge<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
 							<input type="range" min="0" max="1" step="0.01" data-blob-param="hover" class="input-range mt-1" />
 						</label>
 						<label class="text-sm font-bold text-foreground-muted">
-							Scroll inertia
+							<span class="flex justify-between">Scroll inertia<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
 							<input type="range" min="0" max="3" step="0.05" data-blob-param="inertia" class="input-range mt-1" />
 						</label>
 					</div>
@@ -142,6 +142,7 @@ const tones = {
 					<div class="mt-6 grid gap-4 border-t border-foreground-softer pt-6 sm:grid-cols-2" data-blob-controls hidden>
 						<template>
 							<label class="text-sm font-bold text-foreground-muted">
+								<span class="flex justify-between"><span data-blob-control-label></span><output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
 								<input type="range" class="input-range mt-1" />
 							</label>
 						</template>
@@ -164,7 +165,7 @@ const tones = {
 			</h2>
 			<div class="prose mb-10 max-w-[64ch] text-foreground-muted md:prose-lg">
 				<p>
-					The shape is the mark: its outline (128 points sampled from the artwork, in <code>blob-shape.js</code>) is rasterised at mount into a small signed-distance grid and extruded with a fully rounded edge, so the body is a pillow-like W. The geometry is still an icosahedron with 163,842 vertices (subdivision 7, set per instance with <code>data-blob-detail</code>); skins that draw the mesh once (water, iridescent, matcap, clay) use one subdivision finer, 655,362 vertices, so peaks stay round at high amplitude. Every material is patched with <code>onBeforeCompile</code> so the vertex shader marches each vertex's direction from the centre to where it leaves the body, then pushes it along the body normal by 4D classic Perlin noise (position + time; simplex noise was tried first, but its cell seams show as creases at high amplitude), a scroll-driven slosh term, and a Gaussian bulge centred on wherever the pointer ray hits, then rebuilds the normal by finite differences. The geometry never changes on the CPU, so the vertex count is bounded only by the GPU. The instanced skins, balls and hair, sample the same field per instance in their own vertex shaders. The script is <code>src/assets/scripts/blob.js</code>.
+					The shape is the mark: its outline (128 points sampled from the artwork, in <code>blob-shape.js</code>) is rasterised at mount into a small signed-distance grid, its corners rounded to one radius (tips cut back, notches filled), and extruded with a fully rounded edge, so the body is a pillow-like W. The geometry is still a geodesic sphere with 167,700 vertices (subdivision 7, set per instance with <code>data-blob-detail</code>); skins that draw the mesh once (water, iridescent, matcap, clay) use one subdivision finer, 663,060 vertices, so peaks stay round at high amplitude. Every material is patched with <code>onBeforeCompile</code> so the vertex shader marches each vertex's direction to where it leaves the body (from a point that slides toward whichever hump the direction points at, since the mark isn't star-shaped from its centre), then pushes it along the body normal by 4D classic Perlin noise (position + time; simplex noise was tried first, but its cell seams show as creases at high amplitude), a scroll-driven slosh term, and a Gaussian bulge centred on wherever the pointer ray hits, then rebuilds the normal by finite differences. The geometry never changes on the CPU, so the vertex count is bounded only by the GPU. The instanced skins, balls and hair, sample the same field per instance in their own vertex shaders. The script is <code>src/assets/scripts/blob.js</code>.
 				</p>
 			</div>
 			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

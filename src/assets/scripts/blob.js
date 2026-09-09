@@ -6,8 +6,8 @@
 //                                a host with no lab ancestor is a lab of its own.
 //   [data-blob="water"]          a canvas host; the first host's value is the
 //                                lab's initial skin
-//   [data-blob-detail="7"]       icosahedron subdivisions (default 7 ≈ 164k verts;
-//                                single-mesh skins use one level finer, ≈ 655k)
+//   [data-blob-detail="7"]       sphere subdivisions (default 7 ≈ 168k verts;
+//                                single-mesh skins use one level finer, ≈ 663k)
 //   [data-blob-skin="balls"]     a button that switches skin
 //   [data-blob-param="amp"]      a range input that drives a live parameter
 //   [data-blob-controls]         panel for the active skin's own controls. Its
@@ -101,13 +101,23 @@ function mountLab(lab, hosts, THREE, RoomEnvironment, MarchingCubes) {
 			text.prepend(c.label)
 			Object.assign(input, { type: 'range', min: c.min, max: c.max, step: c.step, value: c.value })
 			input.dataset.blobControl = key
+			showValue(input)
 			input.addEventListener('input', () => {
 				const v = parseFloat(input.value)
 				instances.forEach((i) => i.active?.controls?.[key]?.set(v))
+				showValue(input)
 				rerender()
 			})
 			panel.append(node)
 		})
+	}
+	// Prints the input's value into the [data-blob-value] readout in its label,
+	// with as many decimals as the step has, so settings can be copied exactly.
+	function showValue(input) {
+		const out = input.closest('label')?.querySelector('[data-blob-value]')
+		if (!out) return
+		const decimals = (String(input.step).split('.')[1] || '').length
+		out.textContent = parseFloat(input.value).toFixed(decimals)
 	}
 	function fallbackControl() {
 		const frag = document.createDocumentFragment()
@@ -123,8 +133,10 @@ function mountLab(lab, hosts, THREE, RoomEnvironment, MarchingCubes) {
 		if (!(key in params)) return
 		input.value = params[key]
 		syncRange(input)
+		showValue(input)
 		input.addEventListener('input', () => {
 			params[key] = parseFloat(input.value)
+			showValue(input)
 			rerender()
 		})
 	})
@@ -243,9 +255,13 @@ const bodyGLSL = /* glsl */ `
 uniform sampler2D uShape;
 uniform vec4 uShapeInfo; // extent, resolution, depth, round
 float sd2(vec2 q) {
+	// The grid clamps at its edge, so add the distance to it: otherwise the
+	// field goes flat past ±extent and anything inflated beyond it fills the
+	// whole outside.
+	float outside = length(max(abs(q) - uShapeInfo.x, 0.0));
 	vec2 uv = q / uShapeInfo.x * 0.5 + 0.5;
 #ifdef BLOB_SHAPE_LINEAR
-	return texture2D(uShape, uv).r;
+	return texture2D(uShape, uv).r + outside;
 #else
 	// No float linear filtering: blend four nearest texels by hand.
 	float r = uShapeInfo.y;
@@ -255,7 +271,7 @@ float sd2(vec2 q) {
 	float s = 1.0 / r;
 	float a = texture2D(uShape, o).r, b = texture2D(uShape, o + vec2(s, 0.0)).r;
 	float c = texture2D(uShape, o + vec2(0.0, s)).r, d = texture2D(uShape, o + vec2(s, s)).r;
-	return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+	return mix(mix(a, b, f.x), mix(c, d, f.x), f.y) + outside;
 #endif
 }
 float sdBody(vec3 p) {
@@ -267,13 +283,31 @@ float sdBody(vec3 p) {
 const displaceGLSL = /* glsl */ `
 uniform float uTime, uAmp, uFreq, uSway, uHover, uPointerStrength;
 uniform vec3 uPointer;
-// Where the ray from the centre along d leaves the body. The centre is
-// inside, so stepping by the (negative) distance walks outward and settles
-// on the surface; the mark is near enough star-shaped for every ray to exit.
+// The mark isn't star-shaped from its centre: from there the inner sides of
+// the outer humps are only grazed, so a plain radial mapping bunches its
+// vertices and shows a horn at each tip. Instead each direction's ray sets
+// out from a point that slides toward whichever hump or lobe it points at,
+// which meets every part of the outline at a decent angle. Faded out toward
+// the poles, where the in-plane direction is ill-defined and the front face
+// is reached from anywhere.
+vec3 rayOrigin(vec3 d) {
+	float r = length(d.xy);
+	vec2 u = d.xy / max(r, 1e-5);
+	float k = mix(-0.8, 1.0, smoothstep(-0.2, 0.2, u.y)); // lobes below sit closer in than the humps above
+	return vec3(u.x * u.y * 0.5 * k, u.y * 0.15, 0.0) * smoothstep(0.0, 0.3, r);
+}
+// Where the ray along d leaves the body: sphere-traced inward from beyond
+// everything the body reaches, so it settles on the outermost crossing
+// rather than stalling on a grazed edge.
 vec3 bodyBase(vec3 d) {
-	float t = 0.0;
-	for (int i = 0; i < 24; i++) t -= sdBody(d * t);
-	return d * t;
+	vec3 o = rayOrigin(d);
+	float t = 2.0;
+	for (int i = 0; i < 24; i++) {
+		float sd = sdBody(o + d * t);
+		t -= sd;
+		if (abs(sd) < 1e-4) break;
+	}
+	return o + d * t;
 }
 vec3 bodyN(vec3 p) {
 	const vec2 k = vec2(1.0, -1.0);
@@ -374,6 +408,66 @@ function matcapTexture(THREE, host, { rim = 0.4, highlight = 0.14, blend = 0.55 
 // runs on every input event with the parsed value.
 const ctl = (label, min, max, step, value, set) => ({ label, min, max, step, value, set })
 
+// A unit geodesic sphere: each icosahedron face carved into an n×n
+// triangle grid and pushed out to the sphere, indexed. three's own
+// IcosahedronGeometry does the same but unindexed, and its `detail` is the
+// grid size, not a subdivision count, so detail 8 is only 1,620 triangles;
+// here n = 2^detail gives the counts a subdivision would. Vertices on face
+// edges are duplicated, which the shaders don't mind: they place every
+// vertex by its direction alone, so seams stay closed.
+function geodesic(THREE, n) {
+	const t = (1 + Math.sqrt(5)) / 2
+	// prettier-ignore
+	const v = [-1, t, 0, 1, t, 0, -1, -t, 0, 1, -t, 0, 0, -1, t, 0, 1, t, 0, -1, -t, 0, 1, -t, t, 0, -1, t, 0, 1, -t, 0, -1, -t, 0, 1]
+	// prettier-ignore
+	const f = [0, 11, 5, 0, 5, 1, 0, 1, 7, 0, 7, 10, 0, 10, 11, 1, 5, 9, 5, 11, 4, 11, 10, 2, 10, 7, 6, 7, 1, 8, 3, 9, 4, 3, 4, 2, 3, 2, 6, 3, 6, 8, 3, 8, 9, 4, 9, 5, 2, 4, 11, 6, 2, 10, 8, 6, 7, 9, 8, 1]
+	const perFace = ((n + 1) * (n + 2)) / 2
+	const position = new Float32Array(20 * perFace * 3)
+	const index = new Uint32Array(20 * n * n * 3)
+	let pi = 0,
+		ii = 0
+	for (let face = 0; face < 20; face++) {
+		const base = face * perFace
+		const [a, b, c] = [0, 1, 2].map((k) => v.slice(f[face * 3 + k] * 3, f[face * 3 + k] * 3 + 3))
+		// Row i has n + 1 - i vertices; `row(i)` is the index of its first.
+		const row = (i) => base + i * (n + 1) - (i * (i - 1)) / 2
+		for (let i = 0; i <= n; i++)
+			for (let j = 0; j <= n - i; j++) {
+				const x = a[0] + ((b[0] - a[0]) * j + (c[0] - a[0]) * i) / n
+				const y = a[1] + ((b[1] - a[1]) * j + (c[1] - a[1]) * i) / n
+				const z = a[2] + ((b[2] - a[2]) * j + (c[2] - a[2]) * i) / n
+				const l = Math.hypot(x, y, z)
+				position.set([x / l, y / l, z / l], pi)
+				pi += 3
+			}
+		for (let i = 0; i < n; i++)
+			for (let j = 0; j < n - i; j++) {
+				const p = row(i) + j,
+					q = row(i + 1) + j
+				index.set([p, p + 1, q], ii)
+				ii += 3
+				if (j < n - i - 1) {
+					index.set([p + 1, q + 1, q], ii)
+					ii += 3
+				}
+			}
+	}
+	const geometry = new THREE.BufferGeometry()
+	geometry.setAttribute('position', new THREE.BufferAttribute(position, 3))
+	geometry.setIndex(new THREE.BufferAttribute(index, 1))
+	// Directions are normals on a unit sphere; the displaced materials
+	// replace them but the attribute needs to exist for the built-in chunks.
+	geometry.setAttribute('normal', new THREE.BufferAttribute(position, 3))
+	geometry.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 2)
+	return geometry
+}
+
+// The distance grid and the spheres are the same for every canvas on the
+// page (a geometry can be drawn by several renderers), so build them once.
+let sharedShape
+const spheres = new Map()
+const sphere = (THREE, n) => spheres.get(n) ?? spheres.set(n, geodesic(THREE, n)).get(n)
+
 // ── instance: one canvas ─────────────────────────────────────────────────────
 // Returns { setSkin, render, active }; the lab owns the controls.
 function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
@@ -429,7 +523,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 	}
 
 	// ── body ─────────────────────────────────────────────────────────────────
-	const shape = createShape()
+	const shape = (sharedShape ??= createShape())
 	const shapeTexture = new THREE.DataTexture(shape.grid, shape.res, shape.res, THREE.RedFormat, THREE.FloatType)
 	// Hardware bilinear on a float texture needs an extension; without it the
 	// shader blends texels itself.
@@ -442,11 +536,11 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 	// ── displacement ─────────────────────────────────────────────────────────
 	// The geometry stays a sphere: the vertex shader marches each direction
 	// to the body surface, so the bounding sphere just has to cover the mark.
-	const geometry = new THREE.IcosahedronGeometry(1, detail)
+	const geometry = sphere(THREE, 2 ** detail)
 	// One subdivision finer (4× the vertices) for skins that draw the mesh
-	// once. Cores sit underneath other geometry, so they keep the coarser one.
-	const fine = new THREE.IcosahedronGeometry(1, detail + 1)
-	for (const g of [geometry, fine]) g.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 2)
+	// once. Cores sit underneath other geometry, so a coarse one does.
+	const fine = sphere(THREE, 2 ** (detail + 1))
+	const coarse = sphere(THREE, 2 ** Math.min(detail, 5))
 	// `vel` accumulates pointer movement across the surface and decays each
 	// frame, so skins can react to a swipe, not just a position.
 	const pointer = { local: new THREE.Vector3(0, 0, shape.depth), vel: new THREE.Vector3(), strength: 0, target: 0 }
@@ -487,7 +581,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 	}
 
 	const core = (scale, color = brand.tertiary) => {
-		const m = new THREE.Mesh(geometry, displaced(new THREE.MeshStandardMaterial({ color, roughness: 0.85 })))
+		const m = new THREE.Mesh(coarse, displaced(new THREE.MeshStandardMaterial({ color, roughness: 0.85 })))
 		m.scale.setScalar(scale)
 		return m
 	}
@@ -658,8 +752,9 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					/* glsl */ `
 					vec3 blobDir = normalize(aCenter);
 					vec3 surf = bodyBase(blobDir);
-					// 0 at the centre, 1 on the surface.
-					float blobR = length(aCenter) / max(length(surf), 1e-4);
+					// 0 at the ray's origin, 1 on the surface.
+					vec3 blobO = rayOrigin(blobDir);
+					float blobR = clamp(length(aCenter - blobO) / max(length(surf - blobO), 1e-4), 0.0, 1.0);
 					float blobDisp = blobD(surf);
 					vec3 c = aCenter + bodyN(surf) * blobDisp * blobR;
 					// Rattle sideways while the spring is moving fast.
@@ -698,7 +793,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			// the body normal, bent by a force that sums gravity, scroll drag, a
 			// wind noise, and the pointer (strands part away from it and get
 			// brushed along with its movement). No per-frame CPU work.
-			const count = 40000
+			const count = 80000
 			const segments = 7
 			const rows = segments + 1
 			// `position` doubles as the strand parameter: x = t along the strand,
@@ -712,22 +807,27 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			}
 			// Roots are directions on a Fibonacci sphere, marched to the body in
 			// the shader: even in angle, so a little denser on the flat faces.
-			const roots = new Float32Array(count * 3)
-			const seeds = new Float32Array(count)
+			// The body never turns, so roots on the upper back can only ever be
+			// occluded by it and are skipped. The lower back keeps its strands:
+			// with enough length and droop they hang below the silhouette.
+			const roots = []
+			const seeds = []
 			const golden = Math.PI * (3 - Math.sqrt(5))
 			for (let i = 0; i < count; i++) {
 				const y = 1 - (2 * (i + 0.5)) / count
 				const r = Math.sqrt(1 - y * y)
 				const a = golden * i
-				roots.set([Math.cos(a) * r, y, Math.sin(a) * r], i * 3)
-				seeds[i] = Math.random()
+				const z = Math.sin(a) * r
+				if (z < -0.55 && y > -0.2) continue
+				roots.push(Math.cos(a) * r, y, z)
+				seeds.push(Math.random())
 			}
 			const geo = new THREE.InstancedBufferGeometry()
-			geo.instanceCount = count
+			geo.instanceCount = seeds.length
 			geo.setIndex(index)
 			geo.setAttribute('position', new THREE.BufferAttribute(base, 3))
-			geo.setAttribute('aRoot', new THREE.InstancedBufferAttribute(roots, 3))
-			geo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(seeds, 1))
+			geo.setAttribute('aRoot', new THREE.InstancedBufferAttribute(new Float32Array(roots), 3))
+			geo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(new Float32Array(seeds), 1))
 			geo.boundingSphere = new THREE.Sphere(new THREE.Vector3(), 2)
 
 			const material = new THREE.ShaderMaterial({
@@ -807,12 +907,15 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			const mesh = new THREE.Mesh(geo, material)
 			mesh.frustumCulled = false
 			// The coat adds up to ~0.45 to the radius, so shrink the body to keep
-			// the silhouette inside the frame.
+			// the silhouette inside the frame. Gravity hangs the coat below the
+			// body, so lift it to keep the silhouette centred with the other skins.
+			const body = core(0.77)
 			mesh.scale.setScalar(0.78)
+			mesh.position.y = body.position.y = 0.2
 			const u = material.uniforms
 			const uni = (name) => (v) => (u[name].value = v)
 			return {
-				objects: [mesh, core(0.77)],
+				objects: [mesh, body],
 				spring: [40, 3.5],
 				slosh: 0.25,
 				controls: {
@@ -880,7 +983,10 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					for (let x = 0; x < resolution; x++) {
 						bodyD[(z * resolution + y) * resolution + x] = Math.max(0.02, shape.sdBody(toWorld(x), toWorld(y), toWorld(z)) / effect.scale.x / 2 + pseudo)
 					}
-			const strength = (effect.isolation + subtract) * pseudo * pseudo // surface at sd = 0 by default
+			// Surface a shade inside sd = 0: marching cubes interpolates the 1/d²
+			// field linearly across a cell, which bows the isosurface outward by
+			// about a cell, and this pulls it back onto the mesh skins' outline.
+			const strength = (effect.isolation + subtract) * (pseudo - 0.01) ** 2
 			// Slosh: the body rides the spring, the top lagging the bottom so it
 			// stretches on the kick and squashes on the rebound, and the spring's
 			// velocity shears it sideways. Each cell gathers the *distance* from
@@ -927,7 +1033,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					count: ctl('Satellites', 0, sats.length, 1, p.count, (v) => (p.count = v)),
 					roam: ctl('Roam', 0, 0.8, 0.01, p.roam, (v) => (p.roam = v)),
 					size: ctl('Satellite size', 0.2, 2.5, 0.05, p.size, (v) => (p.size = v)),
-					// core: ctl('Body size', 0.3, 2.5, 0.05, p.core, (v) => (p.core = v)), // parked: the two skins read this differently, revisit
+					core: ctl('Body size', 0.3, 2.5, 0.05, p.core, (v) => (p.core = v)),
 					speed: ctl('Orbit speed', 0, 8, 0.1, p.speed, (v) => (p.speed = v)),
 					goo: ctl('Gooeyness', 30, 150, 1, effect.isolation, (v) => (effect.isolation = v)),
 				},
@@ -1105,7 +1211,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					count: ctl('Satellites', 0, sats.length, 1, p.count, (v) => (material.uniforms.uCount.value = p.count = v)),
 					roam: ctl('Roam', 0, 0.8, 0.01, p.roam, (v) => (p.roam = v)),
 					size: ctl('Satellite size', 0.2, 2.5, 0.05, p.size, (v) => (p.size = v)),
-					// core: ctl('Body size', 0.3, 2.5, 0.05, p.core, (v) => (material.uniforms.uCore.value = (v - 1) * 0.3)), // parked: the two skins read this differently, revisit
+					core: ctl('Body size', 0.3, 2.5, 0.05, p.core, (v) => (material.uniforms.uCore.value = (v - 1) * 0.2)),
 					speed: ctl('Orbit speed', 0, 8, 0.1, p.speed, (v) => (p.speed = v)),
 					goo: ctl('Gooeyness', 0.02, 0.6, 0.01, p.goo, (v) => (material.uniforms.uGoo.value = v)),
 					rim: ctl('Rim light', 0, 1.5, 0.01, p.rim, (v) => (material.uniforms.uRim.value = v)),
@@ -1133,9 +1239,9 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		},
 
 		points() {
-			// Detail 5 is plenty for a point cloud; at 164k the dots merge into a fill.
-			const geo = new THREE.IcosahedronGeometry(1, Math.min(detail, 5))
-			const pts = new THREE.Points(geo, displaced(new THREE.PointsMaterial({ color: brand.primary, size: 0.022, sizeAttenuation: true })))
+			// The coarse sphere (≈10k directions) is plenty for a point cloud; at
+			// 164k the dots merge into a fill.
+			const pts = new THREE.Points(coarse, displaced(new THREE.PointsMaterial({ color: brand.primary, size: 0.022, sizeAttenuation: true })))
 			const dark = core(0.965, 0x140626)
 			return {
 				objects: [pts, dark],
@@ -1146,10 +1252,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					// Shrinking the core reveals the far side of the cloud.
 					core: ctl('Core', 0, 1, 0.005, dark.scale.x, (v) => dark.scale.setScalar(v)),
 				},
-				dispose: () => {
-					geo.dispose()
-					pts.material.dispose()
-				},
+				dispose: () => pts.material.dispose(),
 			}
 		},
 	}
@@ -1175,14 +1278,15 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 	const ndc = new THREE.Vector2()
 	// A coarse copy of the body, marched on the CPU, inflated a little so the
 	// pointer still "sticks" on displaced peaks.
-	const proxyGeo = new THREE.IcosahedronGeometry(1, 4)
+	const proxyGeo = geodesic(THREE, 16) // its own: the vertices are moved
 	const pos = proxyGeo.attributes.position
 	for (let i = 0; i < pos.count; i++) {
 		const x = pos.getX(i),
 			y = pos.getY(i),
 			z = pos.getZ(i)
-		const t = shape.march(x, y, z) + 0.15
-		pos.setXYZ(i, x * t, y * t, z * t)
+		const [px, py, pz] = shape.march(x, y, z)
+		const n = 1 + 0.15 / Math.hypot(px, py, pz)
+		pos.setXYZ(i, px * n, py * n, pz * n)
 	}
 	const hitBody = new THREE.Mesh(proxyGeo)
 	hitBody.visible = false
