@@ -29,9 +29,10 @@
 // hair streams, balls jostle — so the shape stays put while the surface reacts.
 //
 // Displacement runs in the vertex shader. Every material that shades the main
-// mesh is patched via onBeforeCompile to push each vertex along its radius by
-// 4D Perlin noise + the sway + the hover bulge, and to rebuild the normal by
-// finite differences. The geometry itself never changes, so vertex count is
+// mesh is patched via onBeforeCompile to march each vertex along its radius
+// onto the body's distance field offset by 4D Perlin noise + the sway + the
+// hover bulge, with the normal as that field's gradient (the same surface the
+// goo skin raymarches). The geometry itself never changes, so vertex count is
 // only bounded by the GPU. The instanced skins — balls and hair — sample the
 // same field per instance, so nothing is rebuilt on the CPU per frame.
 //
@@ -290,19 +291,33 @@ float sd2(vec2 q) {
 	// field goes flat past ±extent and anything inflated beyond it fills the
 	// whole outside.
 	float outside = length(max(abs(q) - uShapeInfo.x, 0.0));
-	vec2 uv = q / uShapeInfo.x * 0.5 + 0.5;
-#ifdef BLOB_SHAPE_LINEAR
-	return texture2D(uShape, uv).r + outside;
-#else
-	// No float linear filtering: blend four nearest texels by hand.
+	// Cubic B-spline read, matching cubic() in the black-hole shader and
+	// cubicSample() on the CPU. A bilinear read is only piecewise linear, and
+	// the slope breaks at every cell edge came through the march and the
+	// finite-difference normals as facets along the rim.
 	float r = uShapeInfo.y;
-	vec2 g = clamp(uv * r - 0.5, 0.0, r - 1.0);
-	vec2 i = floor(g), f = g - i;
-	vec2 o = (i + 0.5) / r;
-	float s = 1.0 / r;
-	float a = texture2D(uShape, o).r, b = texture2D(uShape, o + vec2(s, 0.0)).r;
-	float c = texture2D(uShape, o + vec2(0.0, s)).r, d = texture2D(uShape, o + vec2(s, s)).r;
-	return mix(mix(a, b, f.x), mix(c, d, f.x), f.y) + outside;
+	vec2 g = (q / uShapeInfo.x * 0.5 + 0.5) * r - 0.5;
+	vec2 i = floor(g), f = g - i, f2 = f * f, f3 = f2 * f;
+	vec2 w0 = (1.0 - 3.0 * f + 3.0 * f2 - f3) / 6.0, w1 = (4.0 - 6.0 * f2 + 3.0 * f3) / 6.0;
+	vec2 w2 = (1.0 + 3.0 * f + 3.0 * f2 - 3.0 * f3) / 6.0, w3 = f3 / 6.0;
+#ifdef BLOB_SHAPE_LINEAR
+	// With hardware bilinear the 16 taps fold into 4: each pair of weights
+	// becomes one fetch placed between the two texels.
+	vec2 g0 = w0 + w1, g1 = w2 + w3;
+	vec2 h0 = (i - 0.5 + w1 / g0) / r, h1 = (i + 1.5 + w3 / g1) / r;
+	float a = texture2D(uShape, vec2(h0.x, h0.y)).r, b = texture2D(uShape, vec2(h1.x, h0.y)).r;
+	float c = texture2D(uShape, vec2(h0.x, h1.y)).r, d = texture2D(uShape, vec2(h1.x, h1.y)).r;
+	return mix(mix(a, b, g1.x), mix(c, d, g1.x), g1.y) + outside;
+#else
+	vec4 wx = vec4(w0.x, w1.x, w2.x, w3.x), wy = vec4(w0.y, w1.y, w2.y, w3.y);
+	ivec2 o = ivec2(i) - 1, hi = ivec2(int(r) - 1);
+	float v = 0.0;
+	for (int y = 0; y < 4; y++) {
+		float row = 0.0;
+		for (int x = 0; x < 4; x++) row += wx[x] * texelFetch(uShape, clamp(o + ivec2(x, y), ivec2(0), hi), 0).r;
+		v += wy[y] * row;
+	}
+	return v + outside;
 #endif
 }
 float sdBody(vec3 p) {
@@ -340,32 +355,51 @@ vec3 bodyBase(vec3 d) {
 	}
 	return o + d * t;
 }
-vec3 bodyN(vec3 p) {
+// Body normal from taps e apart; wide taps smooth over the medial axis,
+// where the exact gradient flips, for anything displaced from inside the body.
+vec3 bodyNAt(vec3 p, float e) {
 	const vec2 k = vec2(1.0, -1.0);
-	const float e = 0.008;
 	return normalize(k.xyy * sdBody(p + k.xyy * e) + k.yyx * sdBody(p + k.yyx * e) + k.yxy * sdBody(p + k.yxy * e) + k.xxx * sdBody(p + k.xxx * e));
 }
+vec3 bodyN(vec3 p) { return bodyNAt(p, 0.008); }
 // Displacement at a point on the body.
 float blobD(vec3 p) {
 	float s = uSway;
 	float v = uAmp * noise4(vec4(p.x * uFreq, p.y * uFreq + s * 1.5, p.z * uFreq, uTime));
 	v += s * (-p.y * 0.28 + 0.1 * sin(p.y * 5.0 + s * 4.0) * (1.0 - p.y * p.y));
+	// The same bulge profile as the goo skin, so hover feels alike across skins.
 	vec3 q = p - uPointer;
-	v += uPointerStrength * uHover * exp(-dot(q, q) * 5.0);
+	v += uPointerStrength * uHover * 0.5 * exp(-dot(q, q) * 4.0);
 	return v;
 }
+// The displaced surface is the zero set of sdBody(p) - blobD(p): the noise,
+// slosh and hover bulge offset the body's distance field, which is what the
+// goo skin raymarches. Pushing each vertex along the body normal by the bulge
+// at its base was tried first, and at the humps' tips and the notches, where
+// neighbouring normals diverge or cross, the bulge fanned out or folded. An
+// offset field instead rounds a tip and fillets a notch on its own.
+float sdBlob(vec3 p) { return sdBody(p) - blobD(p); }
+// Refines the body hit along its ray onto the displaced field. The offset
+// field isn't a true distance (the noise adds to its slope), so the steps are
+// damped; from the body the surface is within the displacement, so a few
+// steps settle. Tracing from outside in with the result held near the body
+// hit was tried, to keep grazing rays from crossing a filled notch, but
+// neighbouring rays then land on different crossings and the notch creases.
 vec3 blobP(vec3 d) {
-	vec3 b = bodyBase(d);
-	return b + bodyN(b) * blobD(b);
+	vec3 o = rayOrigin(d);
+	float t = dot(bodyBase(d) - o, d);
+	for (int i = 0; i < 10; i++) {
+		float sd = sdBlob(o + d * t);
+		t -= sd * 0.6;
+		if (abs(sd) < 1e-4) break;
+	}
+	return o + d * t;
 }
-// Normal by finite differences along two tangents of the unit sphere.
+// Normal as the field's gradient, the same tetrahedron taps as the body.
 vec3 blobN(vec3 d, vec3 p) {
-	vec3 t1 = normalize(cross(d, abs(d.y) < 0.99 ? vec3(0.0, 1.0, 0.0) : vec3(1.0, 0.0, 0.0)));
-	vec3 t2 = cross(d, t1);
-	float e = 0.004;
-	vec3 p1 = blobP(normalize(d + t1 * e));
-	vec3 p2 = blobP(normalize(d + t2 * e));
-	return normalize(cross(p1 - p, p2 - p));
+	const vec2 k = vec2(1.0, -1.0);
+	const float e = 0.008;
+	return normalize(k.xyy * sdBlob(p + k.xyy * e) + k.yyx * sdBlob(p + k.yyx * e) + k.yxy * sdBlob(p + k.yxy * e) + k.xxx * sdBlob(p + k.xxx * e));
 }
 `
 
@@ -495,9 +529,247 @@ function geodesic(THREE, n) {
 
 // The distance grid and the spheres are the same for every canvas on the
 // page (a geometry can be drawn by several renderers), so build them once.
-let sharedShape
 const spheres = new Map()
 const sphere = (THREE, n) => spheres.get(n) ?? spheres.set(n, geodesic(THREE, n)).get(n)
+
+let sharedShape
+let sharedHarmonic
+
+// Cubic B-spline read of a square grid over ±extent, matching cubic() in
+// the black-hole shader. Bilinear reads have slope breaks at every cell
+// edge, and anything traced along the rim inherits them as wrinkles.
+function cubicSample(grid, res, extent, x, y) {
+	const gx = ((x / extent) * 0.5 + 0.5) * res - 0.5
+	const gy = ((y / extent) * 0.5 + 0.5) * res - 0.5
+	const ix = Math.floor(gx),
+		iy = Math.floor(gy),
+		fx = gx - ix,
+		fy = gy - iy
+	const weights = (f) => {
+		const f2 = f * f,
+			f3 = f2 * f
+		return [(1 - 3 * f + 3 * f2 - f3) / 6, (4 - 6 * f2 + 3 * f3) / 6, (1 + 3 * f + 3 * f2 - 3 * f3) / 6, f3 / 6]
+	}
+	const wx = weights(fx),
+		wy = weights(fy)
+	const at = (i, j) => grid[Math.max(0, Math.min(res - 1, j)) * res + Math.max(0, Math.min(res - 1, i))]
+	let v = 0
+	for (let j = 0; j < 4; j++) {
+		let row = 0
+		for (let i = 0; i < 4; i++) row += wx[i] * at(ix - 1 + i, iy - 1 + j)
+		v += wy[j] * row
+	}
+	return v
+}
+
+// The flow field for the black-hole skin: a smooth stand-in for distance
+// from the mark. A distance field creases wherever the nearest edge switches
+// and beams shaped by it kink there. This instead solves the screened
+// Poisson equation (∇²c = c/L²) for a field that continues exp(-d/L) off the
+// mark, so -L·ln(c) equals distance at the outline and inside it, yet is
+// smooth everywhere outside. The grid is ±extent across; cells on and just
+// inside the mark, and a ring just outside it, are fixed at the exact
+// near-field value, and the far edge at 0. Full multigrid: the coarsest
+// level is relaxed outright, each solution is lifted to start the next finer
+// level, and V-cycles polish it; converged to about 1e-4 of the mark's
+// size at the rim, where beams pack tightest. Solved once per page.
+function harmonicField(shape, res = 384, extent = 2.5, L = 0.5, cycles = 6) {
+	// The grid only clamps at its edge, so add the distance to it beyond.
+	const shapeSD = (x, y) => {
+		const ox = Math.max(Math.abs(x) - shape.extent, 0)
+		const oy = Math.max(Math.abs(y) - shape.extent, 0)
+		return cubicSample(shape.grid, shape.res, shape.extent, x, y) + Math.hypot(ox, oy)
+	}
+	const levels = []
+	for (let n = res; n >= 16; n /= 2) {
+		const step = (2 * extent) / n
+		const fixed = new Uint8Array(n * n)
+		const value = new Float32Array(n * n)
+		const sd = new Float32Array(n * n)
+		for (let j = 0; j < n; j++)
+			for (let i = 0; i < n; i++) {
+				const k = j * n + i
+				sd[k] = shapeSD(-extent + (i + 0.5) * step, -extent + (j + 0.5) * step)
+				if (sd[k] <= 0 || i === 0 || j === 0 || i === n - 1 || j === n - 1) {
+					fixed[k] = 1
+					// Inside, the exact near-field continuation, so the cubic read
+					// across the rim sees no step; the rim value itself is 1.
+					value[k] = sd[k] <= 0 ? Math.exp(-sd[k] / L) : 0
+				}
+			}
+		levels.push({ n, step, fixed, value, sd, u: new Float32Array(n * n), f: new Float32Array(n * n), r: new Float32Array(n * n) })
+	}
+	// Stencils. Regular cells use the five-point screened Laplacian. On the
+	// finest level, cells next to the outline are cut cells (Shortley–Weller):
+	// each arm that crosses the outline is shortened to the crossing, where
+	// the value is exactly 1. Fixing a ring of cells to the straight-edge
+	// formula instead was measured to leave a band of ripple where the ring
+	// ends, since that formula is wrong along a curved wall.
+	for (const lv of levels) {
+		const { n, step, fixed, sd } = lv
+		const h2L = (step / L) ** 2
+		const a = [new Float32Array(n * n), new Float32Array(n * n), new Float32Array(n * n), new Float32Array(n * n)] // E W N S
+		const diag = new Float32Array(n * n)
+		const rhs = new Float32Array(n * n)
+		const cut = lv === levels[0]
+		for (let j = 1; j < n - 1; j++)
+			for (let i = 1; i < n - 1; i++) {
+				const k = j * n + i
+				if (fixed[k]) continue
+				const nb = [k + 1, k - 1, k + n, k - n]
+				let d = h2L
+				for (let axis = 0; axis < 2; axis++) {
+					const t = [1, 1]
+					for (let side = 0; side < 2; side++) {
+						const m = nb[axis * 2 + side]
+						if (cut && sd[m] <= 0) t[side] = Math.max(0.1, sd[k] / (sd[k] - sd[m]))
+					}
+					const sum = t[0] + t[1]
+					for (let side = 0; side < 2; side++) {
+						const m = nb[axis * 2 + side]
+						const coef = 2 / (t[side] * sum)
+						if (cut && sd[m] <= 0)
+							rhs[k] += coef // the outline's value, 1
+						else a[axis * 2 + side][k] = coef
+					}
+					d += 2 / (t[0] * t[1])
+				}
+				diag[k] = d
+			}
+		Object.assign(lv, { a, diag, rhs })
+	}
+	const smooth = (lv, sweeps) => {
+		const { n, fixed, u, f, a, diag, rhs } = lv
+		for (let s = 0; s < sweeps; s++)
+			for (let j = 1; j < n - 1; j++)
+				for (let i = 1; i < n - 1; i++) {
+					const k = j * n + i
+					if (!fixed[k]) u[k] = (f[k] + rhs[k] + a[0][k] * u[k + 1] + a[1][k] * u[k - 1] + a[2][k] * u[k + n] + a[3][k] * u[k - n]) / diag[k]
+				}
+	}
+	const residual = (lv) => {
+		const { n, fixed, u, f, r, a, diag, rhs } = lv
+		for (let j = 1; j < n - 1; j++)
+			for (let i = 1; i < n - 1; i++) {
+				const k = j * n + i
+				r[k] = fixed[k] ? 0 : f[k] + rhs[k] - (diag[k] * u[k] - a[0][k] * u[k + 1] - a[1][k] * u[k - 1] - a[2][k] * u[k + n] - a[3][k] * u[k - n])
+			}
+	}
+	// Bilinear prolongation of a coarse array onto a fine level's free cells.
+	const lift = (lv, co, src, add) => {
+		const n = lv.n,
+			m = co.n
+		for (let j = 0; j < n; j++)
+			for (let i = 0; i < n; i++) {
+				const k = j * n + i
+				if (lv.fixed[k]) continue
+				const gx = Math.max(0, Math.min(m - 1.001, (i + 0.5) / 2 - 0.5))
+				const gy = Math.max(0, Math.min(m - 1.001, (j + 0.5) / 2 - 0.5))
+				const i0 = Math.floor(gx),
+					j0 = Math.floor(gy),
+					fx = gx - i0,
+					fy = gy - j0
+				const v = (src[j0 * m + i0] * (1 - fx) + src[j0 * m + i0 + 1] * fx) * (1 - fy) + (src[(j0 + 1) * m + i0] * (1 - fx) + src[(j0 + 1) * m + i0 + 1] * fx) * fy
+				if (add) lv.u[k] += v
+				else lv.u[k] = v
+			}
+	}
+	// One V-cycle from level l: smooth, restrict the residual (2×2 sum, which
+	// is the coarser operator's scaling), solve the coarse error from zero,
+	// lift it back, smooth again. Coarse levels run in correction mode, so
+	// their rhs is dropped there.
+	const vcycle = (l) => {
+		const lv = levels[l]
+		if (l === levels.length - 1) return smooth(lv, 200)
+		smooth(lv, 3)
+		residual(lv)
+		const co = levels[l + 1]
+		const n = lv.n,
+			m = co.n
+		for (let J = 0; J < m; J++)
+			for (let I = 0; I < m; I++) {
+				const K = J * m + I
+				const k = 2 * J * n + 2 * I
+				co.f[K] = co.fixed[K] ? 0 : lv.r[k] + lv.r[k + 1] + lv.r[k + n] + lv.r[k + n + 1]
+				co.u[K] = 0
+			}
+		co.rhs.fill(0)
+		vcycle(l + 1)
+		lift(lv, co, co.u, true)
+		smooth(lv, 3)
+	}
+	// Full multigrid: solve the coarsest level outright, then lift each
+	// solution as the next finer level's start and polish with V-cycles. The
+	// coarse levels' own rhs is only used while they are solved as starts.
+	const rhsFull = levels.map((lv) => Float32Array.from(lv.rhs))
+	for (let l = levels.length - 1; l >= 0; l--) {
+		const lv = levels[l]
+		lv.u.set(lv.value)
+		lv.f.fill(0)
+		lv.rhs.set(rhsFull[l])
+		if (l === levels.length - 1) {
+			smooth(lv, 400)
+			continue
+		}
+		lift(lv, levels[l + 1], Float32Array.from(levels[l + 1].u), false)
+		for (let c = 0; c < cycles; c++) {
+			vcycle(l)
+			lv.rhs.set(rhsFull[l])
+		}
+	}
+	const top = levels[0]
+	// Inside the mark the field is read too: the cubic sample straddles the
+	// rim by two cells. Continue the solved field inward along the normal
+	// with the slope it has one cell outside, so it is slope-continuous at
+	// the rim; the straight-edge exponential used as the solve's start is
+	// not, since the true slope depends on the rim's curvature.
+	{
+		const { n, step, u, sd } = top
+		const read = (x, y) => {
+			const gx = Math.max(0, Math.min(n - 1.001, ((x / extent) * 0.5 + 0.5) * n - 0.5))
+			const gy = Math.max(0, Math.min(n - 1.001, ((y / extent) * 0.5 + 0.5) * n - 0.5))
+			const i0 = Math.floor(gx),
+				j0 = Math.floor(gy),
+				fx = gx - i0,
+				fy = gy - j0
+			return (u[j0 * n + i0] * (1 - fx) + u[j0 * n + i0 + 1] * fx) * (1 - fy) + (u[(j0 + 1) * n + i0] * (1 - fx) + u[(j0 + 1) * n + i0 + 1] * fx) * fy
+		}
+		const out = Float32Array.from(u)
+		for (let j = 1; j < n - 1; j++)
+			for (let i = 1; i < n - 1; i++) {
+				const k = j * n + i
+				if (sd[k] > 0 || sd[k] < -5 * step) continue
+				const x = -extent + (i + 0.5) * step
+				const y = -extent + (j + 0.5) * step
+				const e = step * 0.5
+				let nx = shapeSD(x + e, y) - shapeSD(x - e, y)
+				let ny = shapeSD(x, y + e) - shapeSD(x, y - e)
+				const g = Math.hypot(nx, ny) || 1
+				nx /= g
+				ny /= g
+				// The rim point, and the field one cell out from it.
+				const rx = x - sd[k] * nx,
+					ry = y - sd[k] * ny
+				const slope = (1 - read(rx + nx * step, ry + ny * step)) / step
+				out[k] = 1 + slope * -sd[k]
+			}
+		u.set(out)
+	}
+	// The grid's edge is pinned to zero, so the field is only trusted well
+	// inside it; past that the shader hands over to the plain distance, which
+	// runs forever. Far from the mark the smooth distance is the plain one
+	// plus a near-constant; measure it on a ring where the hand-over begins
+	// so the two agree there.
+	let offset = 0
+	const ring = 0.6 * extent
+	for (let i = 0; i < 64; i++) {
+		const a = (i / 64) * Math.PI * 2
+		const x = Math.cos(a) * ring
+		const y = Math.sin(a) * ring
+		offset += -L * Math.log(Math.max(cubicSample(top.u, res, extent, x, y), 1e-6)) - shapeSD(x, y)
+	}
+	return { grid: top.u, res, extent, L, offset: offset / 64 }
+}
 
 // ── instance: one canvas ─────────────────────────────────────────────────────
 // Returns { setSkin, render, active }; the lab owns the controls.
@@ -534,7 +806,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 	// Scroll velocity kicks a damped oscillator. `sway.x` is the value skins read:
 	// positive means the page just moved up (scrolling down), so loose material
 	// trails downward; it then overshoots and settles like liquid in a glass.
-	const sway = { x: 0, v: 0 }
+	const sway = { x: 0, v: 0, dir: 1, kicked: false } // dir: which way the last scroll went; kicked: a scroll arrived this frame
 	let lastScroll = window.scrollY
 	let kick = 0
 	window.addEventListener(
@@ -548,6 +820,10 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 
 	function stepSway(dt, stiffness, damping) {
 		sway.v += Math.max(-4, Math.min(4, kick * 0.008 * params.inertia))
+		if (kick) {
+			sway.dir = Math.sign(kick)
+			sway.kicked = true
+		}
 		kick = 0
 		sway.v += (-sway.x * stiffness - sway.v * damping) * dt
 		sway.x = Math.max(-1, Math.min(1, sway.x + sway.v * dt))
@@ -556,8 +832,8 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 	// ── body ─────────────────────────────────────────────────────────────────
 	const shape = (sharedShape ??= createShape())
 	const shapeTexture = new THREE.DataTexture(shape.grid, shape.res, shape.res, THREE.RedFormat, THREE.FloatType)
-	// Hardware bilinear on a float texture needs an extension; without it the
-	// shader blends texels itself.
+	// Hardware bilinear on a float texture needs an extension; with it the
+	// cubic read in sd2 needs four fetches instead of sixteen.
 	const linear = renderer.extensions.has('OES_texture_float_linear')
 	shapeTexture.minFilter = shapeTexture.magFilter = linear ? THREE.LinearFilter : THREE.NearestFilter
 	shapeTexture.generateMipmaps = false
@@ -605,7 +881,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		material.defines = { ...material.defines, ...shapeDefines }
 		material.onBeforeCompile = (shader) => {
 			Object.assign(shader.uniforms, uniforms)
-			shader.vertexShader = shader.vertexShader.replace('#include <common>', `#include <common>\n${noiseGLSL}\n${bodyGLSL}\n${displaceGLSL}`).replace('#include <beginnormal_vertex>', 'vec3 blobDir = normalize(position); vec3 blobPos = blobP(blobDir); vec3 objectNormal = blobN(blobDir, blobPos);').replace('#include <begin_vertex>', 'vec3 transformed = blobP(normalize(position));')
+			shader.vertexShader = shader.vertexShader.replace('#include <common>', `#include <common>\n${noiseGLSL}\n${bodyGLSL}\n${displaceGLSL}`).replace('#include <beginnormal_vertex>', 'vec3 blobDir = normalize(position); vec3 blobPos = blobP(blobDir); vec3 objectNormal = blobN(blobDir, blobPos);').replace('#include <begin_vertex>', 'vec3 transformed = blobPos;')
 		}
 		material.customProgramCacheKey = () => 'blob'
 		return material
@@ -786,8 +1062,16 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					// 0 at the ray's origin, 1 on the surface.
 					vec3 blobO = rayOrigin(blobDir);
 					float blobR = clamp(length(aCenter - blobO) / max(length(surf - blobO), 1e-4), 0.0, 1.0);
-					float blobDisp = blobD(surf);
-					vec3 c = aCenter + bodyN(surf) * blobDisp * blobR;
+					// Each ball moves by the field offset at its own position, along a
+					// smoothed body normal there, fading toward the centre. Riding the
+					// ray to the displaced surface, as the mesh skins do, was tried:
+					// a ray grazing a notch slides its ball a long way along the flank
+					// when a bulge fills the notch, and a lattice shows that as a
+					// cavity with a pile-up beyond it. Moving along the normal by the
+					// offset at the ball keeps neighbours together and fills a notch
+					// from below.
+					float blobDisp = blobD(aCenter);
+					vec3 c = aCenter + bodyNAt(aCenter, 0.12) * blobDisp * blobR;
 					// Rattle sideways while the spring is moving fast.
 					c.x += noise4(vec4(aSeed * 40.0, uTime * 9.0, 0.0, 0.0)) * uJostle * uRattle;
 					// Outer balls swell where the surface pushes out; inner ones vary a little by seed.
@@ -941,8 +1225,16 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			// the silhouette inside the frame. Gravity hangs the coat below the
 			// body, so lift it to keep the silhouette centred with the other skins.
 			const body = core(0.77)
-			mesh.scale.setScalar(0.78)
-			mesh.position.y = body.position.y = 0.2
+			// The dark core sits just under the coat's roots, so it follows the
+			// body's scale; the coat is a fraction of the body's radius, so a
+			// bigger body needs no other change.
+			const size = (v) => {
+				mesh.scale.setScalar(v)
+				body.scale.setScalar(v * (0.77 / 0.78))
+			}
+			const lift = (v) => (mesh.position.y = body.position.y = v)
+			size(0.78)
+			lift(0.2)
 			const u = material.uniforms
 			const uni = (name) => (v) => (u[name].value = v)
 			return {
@@ -950,6 +1242,8 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 				spring: [40, 3.5],
 				slosh: 0.25,
 				controls: {
+					size: ctl('Body size', 0.3, 2.5, 0.01, mesh.scale.x, size),
+					lift: ctl('Lift', -0.5, 0.5, 0.01, mesh.position.y, lift),
 					length: ctl('Length', 0.05, 0.8, 0.01, u.uLength.value, uni('uLength')),
 					thickness: ctl('Thickness', 0.001, 0.012, 0.0005, u.uWidth.value, uni('uWidth')),
 					droop: ctl('Droop', 0, 2, 0.02, u.uDroop.value, uni('uDroop')),
@@ -1201,8 +1495,8 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 						}
 						return d;
 					}
-					// Wider taps than the mesh skins use: the bilinear distance grid is
-					// only piecewise linear, and a finer normal shows its cells.
+					// Wider taps than the mesh skins use, so the satellites' smooth
+					// minimum doesn't show up as ridges in the normal.
 					vec3 sceneN(vec3 p) {
 						const vec2 k = vec2(1.0, -1.0);
 						const float e = 0.012;
@@ -1288,6 +1582,401 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					window.removeEventListener('pointermove', onLightMove)
 					quad.geometry.dispose()
 					material.uniforms.uMatcap.value.dispose()
+					material.dispose()
+				},
+			}
+		},
+
+		hole() {
+			// The mark as a black hole: its interior is dark and a sheet of light
+			// beams flows left to right round it, bending at the edges rather
+			// than crossing them. Pure 2D on one quad in the body's plane. The
+			// beams are level sets of a stream function: `y` far from the mark,
+			// squeezed to zero at its boundary (like potential flow round a
+			// cylinder, where the surface is itself a streamline), and flat
+			// inside, so every line wraps the outline and the nearest ones pile
+			// up against it as a bright rim. Line width is held in pixels with
+			// screen-space derivatives, so the pile-up tightens without
+			// thickening. Flow is a travelling pulse along x per line, phased by
+			// a per-line hash so the beams don't move in lockstep.
+			const p = { spacing: 0.13, width: 2.2, glow: 0.3, squeeze: 0.3, flow: 3, streak: 0.7, halo: 0.2, reach: 1.5, backdrop: 1, scale: 1, pull: 0.8, pullReach: 0.6, ripple: 1 }
+			const harmonic = (sharedHarmonic ??= harmonicField(shape))
+			const harmonicTexture = new THREE.DataTexture(harmonic.grid, harmonic.res, harmonic.res, THREE.RedFormat, THREE.FloatType)
+			harmonicTexture.minFilter = harmonicTexture.magFilter = THREE.NearestFilter
+			harmonicTexture.generateMipmaps = false
+			harmonicTexture.needsUpdate = true
+			// The pointer anywhere over the host, on the mark's plane, in group
+			// space: a light the beams swell and brighten under; nothing moves. The lab's
+			// own pointer only exists while it is over the mark.
+			const lens = { pos: new THREE.Vector2(), target: 0, strength: 0, ray: new THREE.Raycaster(), ndc: new THREE.Vector2(), plane: new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), hit: new THREE.Vector3() }
+			const onLensMove = (e) => {
+				const r = renderer.domElement.getBoundingClientRect()
+				lens.ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1)
+				lens.ray.setFromCamera(lens.ndc, camera)
+				if (lens.ray.ray.intersectPlane(lens.plane, lens.hit)) {
+					lens.pos.set(lens.hit.x, lens.hit.y)
+					lens.target = 1
+				}
+			}
+			const onLensLeave = () => (lens.target = 0)
+			host.addEventListener('pointermove', onLensMove)
+			host.addEventListener('pointerleave', onLensLeave)
+			const material = new THREE.ShaderMaterial({
+				defines: { ...shapeDefines },
+				transparent: true,
+				depthWrite: false,
+				// Output is premultiplied so the beams add over the backdrop.
+				premultipliedAlpha: true,
+				uniforms: {
+					uShape: uniforms.uShape,
+					uShapeInfo: uniforms.uShapeInfo,
+					uHarmonic: { value: harmonicTexture },
+					uHarmonicInfo: { value: new THREE.Vector4(harmonic.extent, harmonic.res, harmonic.L, harmonic.offset) },
+					uTime: uniforms.uTime,
+					uAmp: uniforms.uAmp,
+					uFreq: uniforms.uFreq,
+					uHover: uniforms.uHover,
+					uSwayX: uniforms.uSwayX,
+					uSwayV: uniforms.uSwayV,
+					uLens: { value: lens.pos },
+					uLensStrength: { value: 0 },
+					uReachH: { value: 0.3 },
+					uRipple: { value: new THREE.Vector3(0, 0, p.ripple) }, // band centre y, envelope, strength
+					uSpacing: { value: p.spacing },
+					uWidth: { value: p.width },
+					uGlow: { value: p.glow },
+					uSqueeze: { value: p.squeeze },
+					uFlow: { value: p.flow },
+					uStreak: { value: p.streak },
+					uHalo: { value: p.halo },
+					uReach: { value: p.reach },
+					uBackdrop: { value: p.backdrop },
+					uScale: { value: 1 },
+					uPixel: { value: 0.001 },
+					uPull: { value: p.pull },
+					uPullReach: { value: p.pullReach },
+					uColA: { value: tokenColor(THREE, host, '--color-primary', '#7c4dff') },
+					uColB: { value: tokenColor(THREE, host, '--color-secondary', '#e6306e') },
+					uHole: { value: tokenColor(THREE, host, '--color-tertiary', '#3b1466').multiplyScalar(0.12) },
+				},
+				vertexShader: /* glsl */ `
+					varying vec3 vPos;
+					void main() {
+						vPos = position;
+						gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+					}
+				`,
+				fragmentShader: /* glsl */ `
+					${noiseGLSL}
+					${bodyGLSL}
+					uniform sampler2D uHarmonic;
+					uniform vec4 uHarmonicInfo; // extent, resolution, decay length, far-field offset
+					uniform float uTime, uAmp, uFreq, uHover, uSwayX, uSwayV, uLensStrength, uReachH;
+					uniform float uSpacing, uWidth, uGlow, uSqueeze, uFlow, uStreak, uHalo, uReach, uBackdrop, uScale, uPull, uPullReach, uPixel;
+					uniform vec2 uLens;
+					uniform vec3 uColA, uColB, uHole, uRipple;
+					varying vec3 vPos;
+
+					float hash(float n) { return fract(sin(n * 127.1) * 43758.5453); }
+
+					// Cubic B-spline read (16 texels) of a square grid over ±extent,
+					// returning the value and its gradient per unit. Bilinear reads
+					// have slope breaks at every texel edge; beams packed against the
+					// rim sit a few texels apart and show them as wrinkles, and the rim
+					// itself reads as faintly polygonal. The B-spline is C2 across
+					// texels, and its analytic gradient is what sizes the beams: a
+					// screen-space derivative is estimated per 2×2 pixel block and
+					// jitters from block to block, which the packed band makes visible.
+					vec3 cubic(sampler2D tex, float extent, float res, vec2 q) {
+						vec2 g = (q / extent * 0.5 + 0.5) * res - 0.5;
+						vec2 i = floor(g), f = g - i;
+						vec2 f2 = f * f, f3 = f2 * f;
+						vec4 wx = vec4(1.0 - 3.0 * f.x + 3.0 * f2.x - f3.x, 4.0 - 6.0 * f2.x + 3.0 * f3.x, 1.0 + 3.0 * f.x + 3.0 * f2.x - 3.0 * f3.x, f3.x) / 6.0;
+						vec4 wy = vec4(1.0 - 3.0 * f.y + 3.0 * f2.y - f3.y, 4.0 - 6.0 * f2.y + 3.0 * f3.y, 1.0 + 3.0 * f.y + 3.0 * f2.y - 3.0 * f3.y, f3.y) / 6.0;
+						vec4 dx = vec4(-3.0 + 6.0 * f.x - 3.0 * f2.x, -12.0 * f.x + 9.0 * f2.x, 3.0 + 6.0 * f.x - 9.0 * f2.x, 3.0 * f2.x) / 6.0;
+						vec4 dy = vec4(-3.0 + 6.0 * f.y - 3.0 * f2.y, -12.0 * f.y + 9.0 * f2.y, 3.0 + 6.0 * f.y - 9.0 * f2.y, 3.0 * f2.y) / 6.0;
+						ivec2 o = ivec2(i) - 1, hi = ivec2(int(res) - 1);
+						vec3 v = vec3(0.0);
+						for (int y = 0; y < 4; y++) {
+							vec2 row = vec2(0.0);
+							for (int x = 0; x < 4; x++) {
+								float t = texelFetch(tex, clamp(o + ivec2(x, y), ivec2(0), hi), 0).r;
+								row += vec2(wx[x], dx[x]) * t;
+							}
+							v += vec3(wy[y] * row.x, wy[y] * row.y, dy[y] * row.x);
+						}
+						return vec3(v.x, v.yz * res / (2.0 * extent));
+					}
+					// The mark's distance, read smoothly, with its gradient; past the
+					// grid add the distance to it, so it runs to any width.
+					vec3 sdMarkG(vec2 q) {
+						vec2 o = max(abs(q) - uShapeInfo.x, 0.0);
+						float ol = length(o);
+						vec3 s = cubic(uShape, uShapeInfo.x, uShapeInfo.y, q);
+						return vec3(s.x + ol, s.yz + (ol > 0.0 ? o / ol * sign(q) : vec2(0.0)));
+					}
+					float sdMark(vec2 q) { return sdMarkG(q).x; }
+					// The screened field, above 1 inside the mark and decaying to 0 far
+					// away, with its gradient.
+					vec3 harm(vec2 q) {
+						if (any(greaterThan(abs(q), vec2(uHarmonicInfo.x)))) return vec3(0.0);
+						return cubic(uHarmonic, uHarmonicInfo.x, uHarmonicInfo.y, q);
+					}
+					void main() {
+						// The mark holds still under scroll: the spring only rides the beams.
+						vec2 p = vPos.xy;
+						vec2 q = p;
+						// Hover: light only. Beams under the pointer swell, brighten, surge
+						// on their pulses and warm in colour; nothing moves, so the rim
+						// and every beam centre are exactly where they are unhovered.
+						// Moving beams was tried twice, as a bump and as a pull toward
+						// the pointer's own beam: both break down at the tips, where the
+						// beams split above and below the mark. The glow is stretched
+						// along the flow so it reads as light streaming past the pointer.
+						vec2 h = p - uLens / uScale; // the pointer is in group space; the quad is scaled
+						vec2 hs = vec2(h.x * 0.6, h.y);
+						// The light's radius grows with the setting as well as its strength,
+						// so a high hover reads as a wide bright pool, not a hot spot.
+						float rh = uReachH * (1.0 + uHover);
+						float grav = exp(-dot(hs, hs) / (rh * rh));
+						float amount = uHover * uLensStrength * 3.0 * grav;
+						// Scroll: a band of the same light sweeps across the beams, top
+						// to bottom on a scroll down, the other way on a scroll up.
+						float band = uRipple.y * exp(-pow((p.y - uRipple.x) / 0.7, 2.0));
+						amount += uRipple.z * 3.0 * band;
+						// Edge wobble, confined to the outline. The rim is a distance
+						// field, so its gradient is 1 and a pixel of it is uPixel.
+						float d = sdMark(q);
+						float wob = uAmp * 0.35 * noise4(vec4(p * uFreq, 0.0, uTime)) * exp(-max(d, 0.0) * 8.0);
+						d += wob;
+						float inside = 1.0 - smoothstep(-uPixel, uPixel, d);
+
+						// Smooth distance from the field, with the wobble and lens
+						// folded in the same way as the exact one, and its gradient
+						// (the wobble's is left out: it only nudges beam widths).
+						vec3 cm = harm(q);
+						float c = max(cm.x, 1e-6);
+						float ds = -uHarmonicInfo.z * log(c) + wob;
+						vec2 dsG = -uHarmonicInfo.z * cm.yz / c;
+						// The field's grid is pinned to zero at its edge, so beams still
+						// bent there would snap flat, in a hero wide enough to show it.
+						// Hand over to the plain distance before the edge: far out the two
+						// differ by a measured constant, and any crease in the plain one
+						// is too far from the mark to show.
+						float far = max(abs(q.x), abs(q.y)) / uHarmonicInfo.x;
+						float t = clamp((far - 0.6) / 0.25, 0.0, 1.0);
+						if (t > 0.0) {
+							vec3 sg = sdMarkG(q);
+							float hand = t * t * (3.0 - 2.0 * t);
+							float plain = sg.x + uHarmonicInfo.w + wob;
+							// The ramp's own slope goes into the gradient too: the beam
+							// width is sized from it, and leaving the ramp out fattens the
+							// beams across the band.
+							vec2 farG = abs(q.x) > abs(q.y) ? vec2(sign(q.x), 0.0) : vec2(0.0, sign(q.y));
+							vec2 handG = farG * (6.0 * t * (1.0 - t) / (0.25 * uHarmonicInfo.x));
+							dsG = mix(dsG, sg.yz, hand) + (plain - ds) * handG;
+							ds = mix(ds, plain, hand);
+						}
+
+						// Stream function and its level sets, one beam per spacing,
+						// offset by half so the flat interior (psi = 0) falls between two.
+						// The squeeze pushes beams off the outline; the pull draws them
+						// toward the mark's centre line first, so they funnel into the
+						// tips and bunch against the edge, like light bent by a mass.
+						float e1 = exp(-max(ds, 0.0) / uSqueeze), e2 = exp(-max(ds, 0.0) / uPullReach);
+						float w = ds > 0.0 ? (1.0 - e1) * (1.0 + uPull * e2) : 0.0;
+						float wD = ds > 0.0 ? (e1 / uSqueeze) * (1.0 + uPull * e2) - (1.0 - e1) * uPull * e2 / uPullReach : 0.0;
+						w *= 1.0 - inside;
+						wD *= 1.0 - inside;
+						float psi = p.y * w;
+						vec2 psiG = vec2(p.y * wD * dsG.x, w + p.y * wD * dsG.y);
+						float n = psi / uSpacing;
+						// Beams per unit from the analytic gradient, then per pixel.
+						vec2 nG = psiG / uSpacing;
+						float fw = max(length(nG) * uPixel, 1e-6);
+						float idx = floor(n);
+						float px = (fract(n) - 0.5) / fw; // pixels from the nearest beam
+						// Sum the nearest beams rather than draw only the closest, and
+						// weight each beam's colour and pulse into the same sum: where
+						// beams pack tighter than their width, against the rim, both
+						// the intensity and the colour then vary smoothly instead of
+						// switching at each beam's midline and aliasing.
+						float line = 0.0, core = 0.0;
+						vec3 colAcc = vec3(0.0);
+						for (int k = -2; k <= 2; k++) {
+							float pk = px - float(k) / fw;
+							float hk1 = hash(idx + float(k) + 1.0), hk2 = hash(idx + float(k) + 7.0);
+							float wk = uWidth * (0.7 + 0.6 * hk1) * (1.0 + 0.7 * amount);
+							float g = exp(-pk * pk / (wk * wk));
+							// A pulse travelling left to right along this beam; more
+							// pronounced under the pointer, so the flow seems to surge there.
+							float sk = 0.5 + 0.5 * sin(p.x * 2.0 - uTime * uFlow * 4.0 + hk2 * 6.2832);
+							float gi = g * mix(1.0, pow(sk, 3.0) * 2.2, min(1.0, uStreak + 0.4 * amount));
+							line += gi;
+							colAcc += gi * mix(uColA, uColB, hk1 * 0.6 + 0.4 * sk);
+							core += gi * (0.25 + 0.3 * uStreak * pow(sk, 3.0));
+						}
+						// The light under the pointer, capped so a strong setting
+						// brightens rather than bleaches.
+						float lift = 1.0 + min(amount, 2.0);
+						line *= lift;
+						core *= lift;
+						float lineN = max(line, 1e-6);
+						vec3 beamCol = mix(colAcc / lineN, uColB, 0.5 * min(amount, 1.0));
+						core /= lineN;
+						line = min(line, 1.0);
+						float glow = uGlow * 0.5 * exp(-abs(px) / 4.0) * (1.0 + amount);
+
+						// Beams and ground fade with distance from the mark, in a rounded
+						// square so they fill the host rather than a disc inside it. The
+						// canvas bleeds past the host, so the default reach is the host's
+						// half-width; raise it to spread across a hero.
+						vec2 p4 = p * p * p * p;
+						float fade = 1.0 - smoothstep(uReach * 0.75, uReach, pow(p4.x + p4.y, 0.25));
+						float beams = (line + glow) * fade * (1.0 - inside);
+						// A soft halo hugging the outline, like light caught at the horizon.
+						float halo = uHalo * exp(-max(d, 0.0) * 12.0) * (1.0 - inside);
+
+						// A pale core down the middle of each beam, hotter on the pulses.
+						beamCol = mix(beamCol, vec3(1.0), line * core);
+						vec3 haloCol = mix(uColA, uColB, 0.5);
+						// Dark ground fading out with the beams, so they glow on any page;
+						// invisible over a dark one.
+						float ground = max(inside, uBackdrop * fade);
+						float light = beams + halo;
+						vec3 col = uHole * ground + beamCol * beams + haloCol * halo;
+						gl_FragColor = vec4(col, clamp(ground + light, 0.0, 1.0));
+						#include <colorspace_fragment>
+					}
+				`,
+			})
+			// Sits in the body's plane, so vPos.xy is the mark's own 2D space
+			// and the tilt from the spring still reads. Oversized so it still
+			// covers a wide hero-filling canvas once scaled down.
+			const quad = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), material)
+			quad.frustumCulled = false
+			const u = material.uniforms
+			// Sizing. With a [data-blob-fit] element in the lab (copy set inside
+			// the hole) the mark scales until the hole clears that element's box
+			// by the attribute's value in pixels, so the gap holds across
+			// viewports: bigger mark on a wide screen, smaller on a phone, tips
+			// off the sides if need be. Without one the mark is sized to the
+			// host's height, growing when the host is taller than wide so it
+			// still reads as the mark. The pointer proxy scales with it so hover
+			// still lands.
+			const fitEl = (host.closest('[data-blob-lab]') ?? host.parentElement)?.querySelector('[data-blob-fit]')
+			const gapPx = parseFloat(fitEl?.dataset.blobFit) || 40
+			function contentScale() {
+				const hr = host.getBoundingClientRect()
+				const er = fitEl.getBoundingClientRect()
+				if (!hr.height || !er.height) return 1
+				// World units per pixel at the mark's plane.
+				const upp = (2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) / hr.height
+				const cx = (er.left + er.width / 2 - (hr.left + hr.width / 2)) * upp
+				const cy = -(er.top + er.height / 2 - (hr.top + hr.height / 2)) * upp
+				const hw = (er.width / 2) * upp
+				const hh = (er.height / 2) * upp
+				const pts = []
+				for (let i = 0; i <= 8; i++) {
+					const t = -1 + i / 4
+					pts.push([cx + t * hw, cy + hh], [cx + t * hw, cy - hh], [cx + hw, cy + t * hh], [cx - hw, cy + t * hh])
+				}
+				// The box's perimeter must sit inside the outline by the gap plus
+				// the edge wobble, both in world units; sd2 is in mark units.
+				const fits = (s) => {
+					const gap = gapPx * upp + params.amp * 0.35 * s
+					return pts.every(([x, y]) => shape.sd2(x / s, y / s) * s <= -gap)
+				}
+				let lo = 0.2
+				let hi = 8
+				for (let i = 0; i < 24; i++) {
+					const m = (lo + hi) / 2
+					if (fits(m)) hi = m
+					else lo = m
+				}
+				return hi
+			}
+			let fit = 1
+			let dirty = true
+			const ripple = { dir: 1, t: 1e9, speed: 0, glow: 0 } // the scroll band's direction, distance travelled, speed and brightness
+			const refit = () => {
+				if (!dirty) return
+				dirty = false
+				const next = (fitEl ? contentScale() : Math.max(1, 0.85 / camera.aspect)) * p.scale
+				if (next === fit) return
+				fit = next
+				quad.scale.setScalar(fit)
+				hitBody.scale.setScalar(fit)
+				u.uScale.value = fit
+				// Spacing is set in the mark's own units; keep it constant on screen.
+				u.uSpacing.value = p.spacing / fit
+			}
+			const watch = new ResizeObserver(() => (dirty = true))
+			watch.observe(host)
+			if (fitEl) watch.observe(fitEl)
+			return {
+				objects: [quad],
+				spring: [40, 4],
+				slosh: 0,
+				tilt: 0, // scroll sweeps a band of light across the beams instead of moving the mark
+				hoverSpeed: 0, // the beams' pulses keep their pace under the pointer
+				controls: {
+					spacing: ctl('Beam spacing', 0.02, 0.3, 0.005, p.spacing, (v) => (u.uSpacing.value = (p.spacing = v) / fit)),
+					width: ctl('Beam width', 0.3, 4, 0.05, p.width, (v) => (u.uWidth.value = v)),
+					glow: ctl('Glow', 0, 1.5, 0.01, p.glow, (v) => (u.uGlow.value = v)),
+					squeeze: ctl('Squeeze', 0.05, 1, 0.01, p.squeeze, (v) => (u.uSqueeze.value = v)),
+					flow: ctl('Flow speed', 0, 10, 0.1, p.flow, (v) => (u.uFlow.value = v)),
+					streak: ctl('Streaks', 0, 1, 0.01, p.streak, (v) => (u.uStreak.value = v)),
+					halo: ctl('Halo', 0, 1.5, 0.01, p.halo, (v) => (u.uHalo.value = v)),
+					reach: ctl('Reach', 1, 12, 0.05, p.reach, (v) => (u.uReach.value = v)),
+					backdrop: ctl('Backdrop', 0, 1, 0.01, p.backdrop, (v) => (u.uBackdrop.value = v)),
+					pull: ctl('Pull', 0, 3, 0.01, p.pull, (v) => (u.uPull.value = v)),
+					pullReach: ctl('Pull reach', 0.05, 2, 0.01, p.pullReach, (v) => (u.uPullReach.value = v)),
+					ripple: ctl('Scroll ripple', 0, 3, 0.01, p.ripple, (v) => (u.uRipple.value.z = v)),
+					scale: ctl('Mark size', 0.3, 2, 0.01, p.scale, (v) => ((p.scale = v), (dirty = true))),
+				},
+				update(dt) {
+					refit()
+					// One device pixel in the quad's units, for beam widths and the rim's edge.
+					const px = (2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) / (renderer.domElement.height || 1)
+					u.uPixel.value = px / fit
+					lens.strength += (lens.target - lens.strength) * 0.1
+					u.uLensStrength.value = lens.strength
+					// The band enters at the edge the scroll came from and crosses at
+					// a steady speed and brightness set by how hard the scroll kicked
+					// the spring, so a hard scroll sends a bright band through fast
+					// and a light one a dimmer band at a stroll. Reading the spring
+					// live was tried: the band rushed the first half and dawdled the
+					// rest, since the spring is fastest at the kick. A scroll the
+					// other way, or one after the band has left, starts a fresh band;
+					// one the same way makes this one brighter and quicker. Measured
+					// in the quad's units so it spans the canvas whatever the fit.
+					const half = (camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) / fit + 0.7
+					if (sway.kicked) {
+						const v = Math.min(2, Math.abs(sway.v))
+						if (ripple.dir !== sway.dir || ripple.t > 2 * half) {
+							ripple.t = 0
+							ripple.speed = 0
+							ripple.glow = 0
+						}
+						ripple.dir = sway.dir
+						ripple.speed = Math.max(ripple.speed, 2.5 + 2 * v)
+						ripple.glow = Math.max(ripple.glow, Math.min(1, 0.5 + v * 0.5))
+						sway.kicked = false
+					}
+					ripple.t += ripple.speed * dt
+					u.uRipple.value.x = ripple.dir * (half - ripple.t)
+					// Scaled by the inertia setting the way the hover light is by its
+					// own, so equal settings light the beams equally.
+					u.uRipple.value.y = ripple.t > 2 * half ? 0 : ripple.glow * params.inertia
+				},
+				dispose: () => {
+					watch.disconnect()
+					host.removeEventListener('pointermove', onLensMove)
+					host.removeEventListener('pointerleave', onLensLeave)
+					harmonicTexture.dispose()
+					hitBody.scale.setScalar(1)
+					quad.geometry.dispose()
 					material.dispose()
 				},
 			}
@@ -1394,9 +2083,10 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		const [stiffness, damping] = active?.spring ?? [50, 5]
 		stepSway(dt, stiffness, damping)
 		// A whisper of tilt with the spring keeps it alive without ever turning
-		// the mark away from the viewer.
-		group.rotation.x = sway.x * 0.05
-		group.rotation.z = -sway.v * 0.004
+		// the mark away from the viewer; a skin that holds still can turn it off.
+		const tilt = active?.tilt ?? 1
+		group.rotation.x = sway.x * 0.05 * tilt
+		group.rotation.z = -sway.v * 0.004 * tilt
 
 		uniforms.uTime.value = time
 		uniforms.uAmp.value = params.amp
@@ -1408,7 +2098,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		uniforms.uJostle.value = Math.abs(sway.v) * 0.04
 		uniforms.uPointerStrength.value = pointer.strength
 
-		active?.update?.()
+		active?.update?.(dt)
 		renderer.render(scene, camera)
 	}
 
@@ -1421,8 +2111,10 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		}
 		timer.update()
 		const dt = Math.min(timer.getDelta(), 0.05)
-		// Hovering and sloshing speed the noise up a touch so the surface feels reactive.
-		time += dt * params.speed * (1 + pointer.strength * 0.8 + Math.abs(sway.x) * 0.6)
+		// Hovering and sloshing speed the noise up a touch so the surface feels
+		// reactive; a skin whose motion is a steady flow can turn the hover
+		// part off, or the flow lurches every time the pointer crosses the mark.
+		time += dt * params.speed * (1 + pointer.strength * (active?.hoverSpeed ?? 0.8) + Math.abs(sway.x) * 0.6)
 		renderFrame(dt)
 	}
 

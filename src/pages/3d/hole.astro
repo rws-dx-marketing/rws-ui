@@ -1,0 +1,65 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import Heading from '../../components/Heading.astro'
+
+// Black hole blob settings — the shared params and the skin's own controls.
+// These are the script's current defaults; change them here and the page
+// passes them to blob.js through [data-blob-settings].
+const blob = {
+	amp: 0, // edge wobble amplitude
+	freq: 0, // wobble frequency along the edge
+	speed: 0.33, // wobble and pulse time scale
+	hover: 0.5, // the light under the pointer: its radius and how far beams swell and brighten; nothing moves
+	inertia: 0.5, // the band of light scroll sends across the beams: how bright, and how hard scroll kicks the spring that paces it; matches hover at the same value
+	controls: {
+		spacing: 0.1, // beam spacing (0.02–0.3)
+		width: 2, // beam width in pixels (0.3–4)
+		glow: 0.1, // glow round each beam (0–1.5)
+		squeeze: 0.15, // how tightly beams hug the edge; smaller is tighter (0.05–1)
+		flow: 3, // pulse speed along the beams (0–10)
+		streak: 0.3, // pulse contrast (0–1)
+		halo: 0, // glow hugging the outline (0–1.5)
+		reach: 4, // how far beams and ground spread from the mark; 1.5 fills a square host, 12 fills any hero (1–12)
+		backdrop: 1, // dark ground behind the beams; 0 for an already dark page (0–1)
+		pull: 1.1, // how strongly beams are drawn toward the mark's centre line before the edge repels them (0–3)
+		pullReach: 1, // how far out the pull acts, in mark units (0.05–2)
+		scale: 1, // multiplies the fitted mark size; the fit itself comes from [data-blob-fit] on the copy (0.3–2)
+	},
+}
+---
+
+<Layout title="Black hole – RWS UI">
+	<!-- Hero: the blob fills the whole section, the copy sits inside the hole.
+	     The background seed is the shader's ground, tertiary scaled to 12% in linear light (blob.js uHole), so nothing shifts when the scene loads in -->
+	<Section theme="tertiary" top="lg" bottom="lg" container={false} class="relative overflow-clip [--background-seed:color-mix(in_srgb-linear,var(--color-tertiary)_12%,black)]" data-blob-lab data-blob-settings={JSON.stringify(blob)}>
+		<!-- Blob: a layer the size of the section, canvas the same size, so the beams run edge to edge -->
+		<div class="absolute inset-0 touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:block [&>canvas]:size-full" data-blob="hole" aria-hidden="true"></div>
+
+		<!-- Copy: pointer events pass through to the blob except on the buttons -->
+		<div class="pointer-events-none relative z-10 mx-auto flex min-h-[44rem] max-w-screen-xl flex-col items-center justify-center px-8 text-center lg:px-12 [&_a]:pointer-events-auto">
+			<!-- The hole is sized to clear this box by the given gap in pixels -->
+			<div class="flex flex-col items-center" data-blob-fit="48">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>weava world of possibility</p>
+				</div>
+
+				<Heading as="h1" size="sm" class="mb-6 max-w-[16ch] font-bold tracking-tight text-pretty">
+					<p>Stop translating.<br />Start transforming.</p>
+				</Heading>
+
+				<div class="prose prose-lg max-w-[36ch] text-foreground-muted not-last:mb-8 md:prose-xl">
+					<p>Designed for real markets, real people, real impact.</p>
+				</div>
+
+				<div class="flex flex-col gap-4 sm:flex-row">
+					<a href="#" class="btn btn-primary btn-lg">Get started</a>
+					<a href="#" class="btn btn-ghost btn-lg">Find a solution</a>
+				</div>
+			</div>
+		</div>
+	</Section>
+
+	<section class="h-screen"></section>
+</Layout>

@@ -1,0 +1,69 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import Heading from '../../components/Heading.astro'
+
+// Background image for the hero. Set on the section as --bg-image and applied
+// with Tailwind's bg-(image:--bg-image) utility.
+const bgImage = '/images/skyline-1.jpg'
+
+// Hair blob settings — the shared params and the hair skin's own controls.
+// These are the script's current defaults; change them here and the page
+// passes them to blob.js through [data-blob-settings].
+const blob = {
+	amp: 0, // displacement amplitude
+	freq: 0, // noise frequency across the surface
+	speed: 0.35, // noise scroll through time
+	hover: 0, // bulge height under the pointer
+	inertia: 1, // how hard scroll kicks the spring
+	controls: {
+		size: 0.9, // body size, matched to the goo page (0.3–2.5)
+		lift: 0.15, // vertical offset; the lab lifts the coat 0.2 to centre it under gravity (-0.5–0.5)
+		length: 0.15, // strand length (0.05–0.8)
+		thickness: 0.01, // strand width (0.001–0.012)
+		droop: 1, // gravity: 0 stands the coat on end (0–2)
+		wind: 0.25, // strength of the noise breeze (0–2)
+		curl: 0.2, // per-strand sideways kink (0–2)
+		comb: 0.1, // how much the pointer parts the strands (0–3)
+		brush: 3.5, // how much a swipe drags strands along (0–10)
+	},
+}
+---
+
+<Layout title="Hair – RWS UI">
+	<!-- Hero: split layout over a full-bleed background image -->
+	<Section theme="tertiary" top="lg" bottom="lg" container={false} class="relative overflow-x-clip bg-(image:--bg-image) bg-cover bg-center bg-no-repeat" style={`--bg-image: url('${bgImage}')`} data-blob-lab data-blob-settings={JSON.stringify(blob)}>
+		<!-- Tint so the copy stays legible over any image -->
+		<div class="absolute inset-0 bg-linear-to-r from-background/80 to-background/20" aria-hidden="true"></div>
+
+		<div class="relative mx-auto grid w-full max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<!-- Copy -->
+			<div class="lg:col-span-6">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>weava world of possibility</p>
+				</div>
+
+				<Heading as="h1" size="md" class="mb-6 max-w-[16ch] font-bold tracking-tight text-pretty">
+					<p>Stop translating.<br />Start transforming.</p>
+				</Heading>
+
+				<div class="prose prose-xl max-w-[48ch] text-foreground-muted not-last:mb-8 md:prose-2xl">
+					<p>Designed for real markets, real people, real impact.</p>
+				</div>
+
+				<div class="flex flex-col gap-4 sm:flex-row">
+					<a href="#" class="btn btn-primary btn-xl">Get started</a>
+					<a href="#" class="btn btn-ghost btn-xl">Find a solution</a>
+				</div>
+			</div>
+
+			<!-- Blob -->
+			<div class="lg:col-span-6">
+				<div class="relative aspect-square w-full touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob="hair" aria-hidden="true"></div>
+			</div>
+		</div>
+	</Section>
+
+	<section class="h-screen"></section>
+</Layout>

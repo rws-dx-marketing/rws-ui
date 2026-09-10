@@ -1,14 +1,15 @@
 ---
 // @ts-nocheck
-import Layout from '../layouts/Layout.astro'
-import Section from '../components/Section.astro'
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
 
 const skins = [
-	{ id: 'metaballs', label: 'Metaballs', note: "Marching cubes (64³ cells, polygonised on the CPU each frame) over a field of the mark itself (its signed distance written as one big metaball) and up to nine orbiting satellites that detach from it and merge back. Glossy gel in the brand colour. The hover bulge is a ball of its own under the pointer. Amplitude and frequency don't apply; its own controls set the satellite count, how far they roam and how gooey the merge is. The only skin without vertex displacement: the field is the shape." },
 	{ id: 'goo', label: 'Goo', note: 'The metaballs skin rebuilt as a raymarched signed-distance scene: the same body, satellites and pointer ball blended with a smooth minimum and sphere-traced per pixel in one fragment shader on a single quad. No field and no polygonisation, so nothing runs on the CPU per frame and the merge is exact at any zoom. Shaded with the brand matcap plus a fresnel rim, since there is no mesh for a built-in material to light. The hover bulge is the same Gaussian push the mesh skins use rather than a ball of its own, so it fades cleanly. Same controls as metaballs; gooeyness is the blend radius.' },
+	{ id: 'hole', label: 'Black hole', note: "The mark as a dark hole with light beams flowing left to right round it. One quad in the body's plane, all 2D: the beams are level sets of a stream function that equals y far away and is squeezed to zero at the outline, so they bend round the mark and the nearest ones pile up against it as a bright rim, the way flow lines hug an obstacle. The squeeze reads a smooth stand-in for distance, a screened Poisson field solved by multigrid once at mount, since a true distance field creases above every notch. Widths come from the field's own gradient, not screen-space derivatives. Amplitude and frequency wobble the edge; hover is light only: beams under the pointer swell, brighten, surge on their pulses and warm in colour, anywhere over the canvas, while nothing moves. Its own controls set spacing, width, glow, how tightly beams squeeze against the edge, and the pulse that travels along them." },
 	{ id: 'matcap', label: 'Matcap', note: 'MeshMatcapMaterial with a lit-sphere image painted at mount from the CSS brand tokens: secondary lights the top-left, primary carries the body, tertiary takes the shadow and rim. No lights, cheapest shading here, and it follows the theme.' },
 	{ id: 'iridescent', label: 'Iridescent', note: 'Physical material with a thin-film iridescence layer. Colour shifts with the view angle, so surface movement reads even without rotation.' },
 	// { id: 'clay', label: 'Clay', note: 'Plain MeshStandardMaterial. Stiff spring, little slosh. The baseline every other skin builds on.' },
+	{ id: 'metaballs', label: 'Metaballs', note: "Marching cubes (64³ cells, polygonised on the CPU each frame) over a field of the mark itself (its signed distance written as one big metaball) and up to nine orbiting satellites that detach from it and merge back. Glossy gel in the brand colour. The hover bulge is a ball of its own under the pointer. Amplitude and frequency don't apply; its own controls set the satellite count, how far they roam and how gooey the merge is. The only skin without vertex displacement: the field is the shape." },
 	{ id: 'balls', label: 'Balls', note: 'The whole body is balls: a face-centred cubic lattice of spheres clipped to the mark, one InstancedMesh. The vertex shader marches each centre out to the surface and moves it by the displacement there, scaled by depth, so the outer layer is the surface and the interior stretches with it. Outer balls swell on the peaks and rattle while the spring is moving.' },
 	{ id: 'hair', label: 'Hair', note: '40,000 strands as one instanced draw of camera-facing ribbons, shaped entirely in the vertex shader. Gravity, scroll drag and wind bend them; the pointer parts them and a swipe brushes them along with it. Coloured from the brand tokens: tertiary at the root, primary along the strand, secondary at the tip.' },
 	{ id: 'water', label: 'Water', note: 'MeshPhysicalMaterial with transmission and IOR 1.33. Loosest spring: the body sloshes fully and the inner core lags like a bubble.' },
@@ -108,7 +109,7 @@ const tones = {
 					<div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Skin">
 						{
 							skins.map((s) => (
-								<button type="button" class="btn btn-outline btn-sm aria-pressed:bg-foreground aria-pressed:text-background" data-blob-skin={s.id} aria-pressed={s.id === 'metaballs'}>
+								<button type="button" class="btn btn-outline btn-sm aria-pressed:bg-foreground aria-pressed:text-background" data-blob-skin={s.id} aria-pressed={s.id === 'goo'}>
 									{s.label}
 								</button>
 							))
@@ -129,7 +130,7 @@ const tones = {
 							<input type="range" min="0" max="1.5" step="0.01" data-blob-param="speed" class="input-range mt-1" />
 						</label>
 						<label class="text-sm font-bold text-foreground-muted">
-							<span class="flex justify-between">Hover bulge<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
+							<span class="flex justify-between">Hover<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
 							<input type="range" min="0" max="1" step="0.01" data-blob-param="hover" class="input-range mt-1" />
 						</label>
 						<label class="text-sm font-bold text-foreground-muted">
@@ -150,7 +151,7 @@ const tones = {
 				</div>
 
 				<div class="lg:col-span-7">
-					<div class="relative aspect-square w-full touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob="metaballs" aria-hidden="true"></div>
+					<div class="relative aspect-square w-full touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob="goo" aria-hidden="true"></div>
 				</div>
 			</div>
 		</Section>
@@ -165,7 +166,7 @@ const tones = {
 			</h2>
 			<div class="prose mb-10 max-w-[64ch] text-foreground-muted md:prose-lg">
 				<p>
-					The shape is the mark: its outline (128 points sampled from the artwork, in <code>blob-shape.js</code>) is rasterised at mount into a small signed-distance grid, its corners rounded to one radius (tips cut back, notches filled), and extruded with a fully rounded edge, so the body is a pillow-like W. The geometry is still a geodesic sphere with 167,700 vertices (subdivision 7, set per instance with <code>data-blob-detail</code>); skins that draw the mesh once (water, iridescent, matcap, clay) use one subdivision finer, 663,060 vertices, so peaks stay round at high amplitude. Every material is patched with <code>onBeforeCompile</code> so the vertex shader marches each vertex's direction to where it leaves the body (from a point that slides toward whichever hump the direction points at, since the mark isn't star-shaped from its centre), then pushes it along the body normal by 4D classic Perlin noise (position + time; simplex noise was tried first, but its cell seams show as creases at high amplitude), a scroll-driven slosh term, and a Gaussian bulge centred on wherever the pointer ray hits, then rebuilds the normal by finite differences. The geometry never changes on the CPU, so the vertex count is bounded only by the GPU. The instanced skins, balls and hair, sample the same field per instance in their own vertex shaders. The script is <code>src/assets/scripts/blob.js</code>.
+					The shape is the mark: its outline (128 points sampled from the artwork, in <code>blob-shape.js</code>) is rasterised at mount into a small signed-distance grid, its corners rounded to one radius (tips cut back, notches filled), and extruded with a fully rounded edge, so the body is a pillow-like W. The geometry is still a geodesic sphere with 167,700 vertices (subdivision 7, set per instance with <code>data-blob-detail</code>); skins that draw the mesh once (water, iridescent, matcap, clay) use one subdivision finer, 663,060 vertices, so peaks stay round at high amplitude. Every material is patched with <code>onBeforeCompile</code> so the vertex shader marches each vertex's direction to where it leaves the body (from a point that slides toward whichever hump the direction points at, since the mark isn't star-shaped from its centre), then refines it along the same ray onto the body's distance field offset by 4D classic Perlin noise (position + time; simplex noise was tried first, but its cell seams show as creases at high amplitude), a scroll-driven slosh term, and a Gaussian bulge centred on wherever the pointer ray hits, and takes the normal as that field's gradient. That is the surface the goo skin raymarches, so a bulge rounds a tip and fillets a notch instead of fanning out or folding, which pushing along the body normal did. The geometry never changes on the CPU, so the vertex count is bounded only by the GPU. The instanced skins, balls and hair, sample the same field per instance in their own vertex shaders. The script is <code>src/assets/scripts/blob.js</code>.
 				</p>
 			</div>
 			<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

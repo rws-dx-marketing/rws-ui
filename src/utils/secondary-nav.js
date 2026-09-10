@@ -2,12 +2,14 @@ import weavaIcon from '/icons/weava_w_white.svg?raw'
 
 // `icon` (an inline SVG string) on a root node replaces the RWS mark in the
 // section pill; roots without one keep the default. `labelClass` is added to
-// the pill's label, for per-brand optical tweaks.
+// the pill's label, for per-brand optical tweaks. `aliases` lists other
+// paths that resolve to the node, for demo pages sharing one nav.
 const secondaryNavTree = [
 	{
 		id: 'weava',
 		label: 'weava',
 		href: '/3d/goo',
+		aliases: ['/3d/hair'],
 		icon: weavaIcon,
     labelClass: 'relative -top-px -ml-1 font-bold',
     children: [
@@ -85,7 +87,7 @@ const normalizePath = (path = '/') => {
 const findPathToNode = (nodes, targetPath, trail = []) => {
 	for (const node of nodes) {
 		const nextTrail = [...trail, node]
-		if (normalizePath(node.href) === targetPath) return nextTrail
+		if ([node.href, ...(node.aliases ?? [])].some((href) => normalizePath(href) === targetPath)) return nextTrail
 		if (node.children?.length) {
 			const found = findPathToNode(node.children, targetPath, nextTrail)
 			if (found) return found
