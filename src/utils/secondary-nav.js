@@ -77,6 +77,9 @@ const secondaryNavTree = [
 
 const normalizePath = (path = '/') => {
 	if (!path) return '/'
+	// Placeholder links (`#`, `#foo`) must never resolve to `/`, or the home
+	// page would match them.
+	if (path.startsWith('#')) return null
 	const trimmedPath = path.split('?')[0].split('#')[0]
 	if (trimmedPath.length > 1 && trimmedPath.endsWith('/')) {
 		return trimmedPath.slice(0, -1)
