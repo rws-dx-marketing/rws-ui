@@ -70,8 +70,8 @@ function mountLab(lab, hosts, THREE, RoomEnvironment, MarchingCubes) {
 
 	// Shared by every host in the lab; the inputs write straight into it.
 	const params = {
-		amp: 0.22, // displacement amplitude
-		freq: 1.4, // noise frequency across the surface
+		amp: 0, // displacement amplitude
+		freq: 0, // noise frequency across the surface
 		speed: 0.35, // noise scroll through time
 		hover: 0.4, // bulge height under the pointer
 		inertia: 1, // how hard scroll kicks the spring
@@ -400,6 +400,31 @@ vec3 blobN(vec3 d, vec3 p) {
 	const vec2 k = vec2(1.0, -1.0);
 	const float e = 0.008;
 	return normalize(k.xyy * sdBlob(p + k.xyy * e) + k.yyx * sdBlob(p + k.yyx * e) + k.yxy * sdBlob(p + k.yxy * e) + k.xxx * sdBlob(p + k.xxx * e));
+}
+`
+
+// Vertex stage for the skins that shade with their own ShaderMaterial (toon,
+// contours, wire): the same march as displaced(), with the object-space
+// point, the height above the undisplaced body and an optional push along
+// the normal (the toon outline) handed to the fragment stage.
+const marchedVertexGLSL = /* glsl */ `
+${noiseGLSL}
+${bodyGLSL}
+${displaceGLSL}
+uniform float uInflate;
+varying vec3 vN, vV, vP;
+varying float vH;
+void main() {
+	vec3 d = normalize(position);
+	vec3 p = blobP(d);
+	vec3 n = blobN(d, p);
+	vP = p;
+	vH = sdBody(p);
+	p += n * uInflate;
+	vN = normalize(normalMatrix * n);
+	vec4 mv = modelViewMatrix * vec4(p, 1.0);
+	vV = -mv.xyz;
+	gl_Position = projectionMatrix * mv;
 }
 `
 
@@ -875,8 +900,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 
 	// Patch a built-in material so its vertex stage lands each vertex on the
 	// displaced body and rebuilds the normal. Works for any material whose
-	// vertex shader uses the standard chunks — Standard, Physical, Matcap,
-	// Basic, Points.
+	// vertex shader uses the standard chunks — Standard, Physical, Matcap.
 	function displaced(material) {
 		material.defines = { ...material.defines, ...shapeDefines }
 		material.onBeforeCompile = (shader) => {
@@ -891,6 +915,166 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		const m = new THREE.Mesh(coarse, displaced(new THREE.MeshStandardMaterial({ color, roughness: 0.85 })))
 		m.scale.setScalar(scale)
 		return m
+	}
+
+	// ── glyph skins: ascii and matrix ────────────────────────────────────────
+	// The body is drawn with the brand matcap into an offscreen target, and a
+	// quad in front of it then draws one glyph per screen cell from that image:
+	// the cell's brightness picks a character from a density ramp (ascii), or
+	// columns of code characters rain down inside the silhouette with the
+	// shading underneath (matrix). The glyphs live in an atlas painted to a
+	// canvas at mount; cells are in screen pixels, so the type never scales
+	// with the body. The two skins are one function with different defaults.
+	const glyphAtlas = (chars) => {
+		const cw = 20
+		const ch = 32
+		const c = document.createElement('canvas')
+		c.width = cw * chars.length
+		c.height = ch
+		const ctx = c.getContext('2d')
+		ctx.font = `bold 26px ui-monospace, Menlo, Consolas, monospace`
+		ctx.textAlign = 'center'
+		ctx.textBaseline = 'middle'
+		ctx.fillStyle = '#fff'
+		chars.forEach((ch2, i) => ctx.fillText(ch2, cw * (i + 0.5), ch * 0.52))
+		const t = new THREE.CanvasTexture(c)
+		t.minFilter = t.magFilter = THREE.LinearFilter
+		t.generateMipmaps = false
+		return t
+	}
+	function glyphs({ rain }) {
+		// Density ramp first, then the code set the rain draws from.
+		const ramp = [...' .:-=+*#%@']
+		const code = [...'01{}[]<>/\\=+*#$%&;:ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉ']
+		const atlas = glyphAtlas([...ramp, ...code])
+		const body = new THREE.Mesh(fine, displaced(new THREE.MeshMatcapMaterial({ matcap: matcapTexture(THREE, host, { rim: 0.5, highlight: 0.16, blend: 0.55 }) })))
+		body.layers.set(1)
+		const size = renderer.getDrawingBufferSize(new THREE.Vector2())
+		const rt = new THREE.WebGLRenderTarget(size.x, size.y)
+		const own = {
+			uCell: { value: 9 },
+			uSpeed: { value: 1 },
+			uTrail: { value: 9 },
+			uFlicker: { value: rain ? 8 : 0 },
+			uMono: { value: rain ? 1 : 0.7 },
+			uShade: { value: rain ? 0.6 : 0 },
+			uAmbient: { value: rain ? 0.2 : 0.12 },
+			uContrast: { value: 2.5 },
+			uInvert: { value: 1 },
+		}
+		const material = new THREE.ShaderMaterial({
+			defines: rain ? { GLYPH_RAIN: '' } : {},
+			transparent: true,
+			depthWrite: false,
+			uniforms: {
+				...own,
+				uScene: { value: rt.texture },
+				uAtlas: { value: atlas },
+				uRes: { value: size },
+				uPx: { value: renderer.getPixelRatio() },
+				uTime: uniforms.uTime,
+				uRampN: { value: ramp.length },
+				uTotalN: { value: ramp.length + code.length },
+				uColor: { value: tokenColor(THREE, host, '--color-primary', '#7c4dff') },
+				uColor2: { value: tokenColor(THREE, host, '--color-secondary', '#e6306e') },
+			},
+			vertexShader: /* glsl */ `
+				void main() { gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+			`,
+			fragmentShader: /* glsl */ `
+				uniform sampler2D uScene, uAtlas;
+				uniform vec2 uRes;
+				uniform float uCell, uPx, uTime, uSpeed, uTrail, uFlicker, uMono, uShade, uAmbient, uRampN, uTotalN, uContrast, uInvert;
+				uniform vec3 uColor, uColor2;
+				float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+				void main() {
+					vec2 cellSz = vec2(uCell * 0.6, uCell) * uPx;
+					vec2 cell = floor(gl_FragCoord.xy / cellSz);
+					vec4 s = texture2D(uScene, (cell + 0.5) * cellSz / uRes);
+					if (s.a < 0.5) discard;
+					// The matcap's luminance sits in a narrow dark band; stretch it over
+					// the ramp. Inverted, dense glyphs fall on the shadow side, which is
+					// how shading reads on a light page.
+					float l = clamp(0.5 + (dot(s.rgb, vec3(0.299, 0.587, 0.114)) - 0.25) * uContrast, 0.0, 1.0);
+					l = mix(l, 1.0 - l, uInvert);
+					float tick = floor(uTime * uFlicker);
+					float r = hash(cell + tick);
+					// Rain: two drops per column, each with its own pace and phase,
+					// leaving a trail that fades over uTrail rows. Rows count from the top.
+					float b = 1.0, hot = 0.0;
+					vec2 inCell = fract(gl_FragCoord.xy / cellSz);
+#ifdef GLYPH_RAIN
+					float rows = uRes.y / cellSz.y;
+					float row = rows - cell.y;
+					float drop = 0.0;
+					for (int k = 0; k < 2; k++) {
+						float seed = hash(vec2(cell.x + 1.0, float(k) * 13.0));
+						float head = mod(uTime * uSpeed * (5.0 + seed * 7.0) + seed * rows * 3.0, rows * 1.5) - rows * 0.25;
+						float d = head - row;
+						if (d >= 0.0) {
+							float tr = exp(-d / uTrail);
+							drop = max(drop, tr);
+							hot = max(hot, smoothstep(0.75, 1.0, tr));
+						}
+					}
+					b = max(drop, uAmbient);
+					// A code character, reshuffled at uFlicker per second.
+					float idx = uRampN + floor(r * (uTotalN - uRampN - 0.001));
+#else
+					// The density ramp by brightness; flicker jitters the pick a little.
+					float idx = floor(clamp(l + (r - 0.5) * 0.15 * min(uFlicker, 1.0), 0.0, 0.999) * uRampN);
+#endif
+					float g = texture2D(uAtlas, vec2((idx + inCell.x) / uTotalN, inCell.y)).a;
+					vec3 col = mix(s.rgb, uColor, uMono) * mix(1.0, 0.4 + l, uShade);
+					col = mix(col, uColor2, hot);
+					gl_FragColor = vec4(col * mix(1.0, b, 0.5), g * b);
+					#include <colorspace_fragment>
+				}
+			`,
+		})
+		const quad = new THREE.Mesh(new THREE.PlaneGeometry(6, 6).translate(0, 0, 2.5), material)
+		quad.frustumCulled = false
+		return {
+			objects: [body, quad],
+			spring: rain ? [40, 4] : [60, 7],
+			slosh: 0.4,
+			controls: {
+				cell: ctl('Cell size', 6, 40, 1, own.uCell.value, (v) => (own.uCell.value = v)),
+				...(rain
+					? {
+							speed: ctl('Rain speed', 0, 4, 0.05, own.uSpeed.value, (v) => (own.uSpeed.value = v)),
+							trail: ctl('Trail', 1, 30, 0.5, own.uTrail.value, (v) => (own.uTrail.value = v)),
+							ambient: ctl('Idle glow', 0, 0.6, 0.01, own.uAmbient.value, (v) => (own.uAmbient.value = v)),
+						}
+					: {
+							contrast: ctl('Contrast', 0.5, 6, 0.1, own.uContrast.value, (v) => (own.uContrast.value = v)),
+							invert: ctl('Invert', 0, 1, 1, own.uInvert.value, (v) => (own.uInvert.value = v)),
+						}),
+				flicker: ctl('Flicker', 0, 30, 0.5, own.uFlicker.value, (v) => (own.uFlicker.value = v)),
+				mono: ctl('Brand → mono', 0, 1, 0.01, own.uMono.value, (v) => (own.uMono.value = v)),
+				shade: ctl('Shading', 0, 1, 0.01, own.uShade.value, (v) => (own.uShade.value = v)),
+			},
+			// Runs before the main render: draw the body alone (layer 1) into
+			// the target the quad reads. Sized to the drawing buffer.
+			update() {
+				renderer.getDrawingBufferSize(size)
+				if (rt.width !== size.x || rt.height !== size.y) rt.setSize(size.x, size.y)
+				material.uniforms.uPx.value = renderer.getPixelRatio()
+				camera.layers.set(1)
+				renderer.setRenderTarget(rt)
+				renderer.render(scene, camera)
+				renderer.setRenderTarget(null)
+				camera.layers.set(0)
+			},
+			dispose: () => {
+				rt.dispose()
+				atlas.dispose()
+				body.material.matcap.dispose()
+				body.material.dispose()
+				quad.geometry.dispose()
+				material.dispose()
+			},
+		}
 	}
 
 	// ── skins ────────────────────────────────────────────────────────────────
@@ -1982,22 +2166,388 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			}
 		},
 
-		points() {
-			// The coarse sphere (≈10k directions) is plenty for a point cloud; at
-			// 164k the dots merge into a fill.
-			const pts = new THREE.Points(coarse, displaced(new THREE.PointsMaterial({ color: brand.primary, size: 0.022, sizeAttenuation: true })))
-			const dark = core(0.965, 0x140626)
+		toon() {
+			// Cel shading in the brand's own flat colours: three hard bands
+			// (tertiary shadow, primary body, secondary light) from the key
+			// light, a hard specular dot, an ink rim, and a silhouette line
+			// drawn as a back-face copy pushed out along the normal. No tone
+			// mapping, so the bands are the tokens exactly.
+			const own = {
+				uShadow: { value: 0.42 },
+				uLight: { value: 0.8 },
+				uSoft: { value: 0.01 },
+				uRim: { value: 0.22 },
+				uSpec: { value: 0.7 },
+			}
+			const palette = {
+				uLit: { value: tokenColor(THREE, host, '--color-secondary', '#e6306e') },
+				uMid: { value: tokenColor(THREE, host, '--color-primary', '#7c4dff') },
+				uShade: { value: tokenColor(THREE, host, '--color-tertiary', '#3b1466') },
+				uInk: { value: new THREE.Color(0x140626) },
+				uLightDir: { value: new THREE.Vector3(0.5, 0.7, 1).normalize() },
+			}
+			const material = new THREE.ShaderMaterial({
+				defines: { ...shapeDefines },
+				uniforms: { ...uniforms, ...palette, ...own, uInflate: { value: 0 } },
+				vertexShader: marchedVertexGLSL,
+				fragmentShader: /* glsl */ `
+					uniform vec3 uLit, uMid, uShade, uInk, uLightDir;
+					uniform float uShadow, uLight, uSoft, uRim, uSpec;
+					varying vec3 vN, vV;
+					// A hard step, one pixel wide, softened further by uSoft.
+					float band(float x, float edge) {
+						float w = max(fwidth(x), uSoft);
+						return smoothstep(edge - w, edge + w, x);
+					}
+					void main() {
+						vec3 n = normalize(vN);
+						vec3 v = normalize(vV);
+						float l = dot(n, uLightDir) * 0.5 + 0.5;
+						vec3 col = mix(uShade, uMid, band(l, uShadow));
+						col = mix(col, uLit, band(l, uLight));
+						float spec = pow(max(dot(reflect(-uLightDir, n), v), 0.0), 40.0) * uSpec;
+						col = mix(col, vec3(1.0), band(spec, 0.5));
+						float rim = 1.0 - dot(n, v);
+						col = mix(col, uInk, band(rim, 1.0 - uRim));
+						gl_FragColor = vec4(col, 1.0);
+						#include <colorspace_fragment>
+					}
+				`,
+			})
+			const outline = new THREE.ShaderMaterial({
+				defines: { ...shapeDefines },
+				side: THREE.BackSide,
+				uniforms: { ...uniforms, uInk: palette.uInk, uInflate: { value: 0.018 } },
+				vertexShader: marchedVertexGLSL,
+				fragmentShader: /* glsl */ `
+					uniform vec3 uInk;
+					void main() {
+						gl_FragColor = vec4(uInk, 1.0);
+						#include <colorspace_fragment>
+					}
+				`,
+			})
+			const mesh = new THREE.Mesh(fine, material)
+			const line = new THREE.Mesh(geometry, outline)
 			return {
-				objects: [pts, dark],
-				spring: [55, 5],
+				objects: [mesh, line],
+				spring: [60, 7],
+				slosh: 0.35,
+				controls: {
+					shadow: ctl('Shadow edge', 0.1, 0.7, 0.01, own.uShadow.value, (v) => (own.uShadow.value = v)),
+					light: ctl('Light edge', 0.5, 1, 0.01, own.uLight.value, (v) => (own.uLight.value = v)),
+					soft: ctl('Softness', 0, 0.2, 0.005, own.uSoft.value, (v) => (own.uSoft.value = v)),
+					spec: ctl('Highlight', 0, 2, 0.05, own.uSpec.value, (v) => (own.uSpec.value = v)),
+					rim: ctl('Ink rim', 0, 0.6, 0.01, own.uRim.value, (v) => (own.uRim.value = v)),
+					outline: ctl('Outline', 0, 0.05, 0.001, outline.uniforms.uInflate.value, (v) => (outline.uniforms.uInflate.value = v)),
+				},
+				dispose: () => {
+					material.dispose()
+					outline.dispose()
+				},
+			}
+		},
+
+		contours() {
+			// A topographic map of the surface: level sets of either depth along
+			// the view axis or of the displacement itself, drawn as lines held at
+			// a pixel width with screen-space derivatives over a dim body. The
+			// mark never rotates, so this is the skin where the noise and slosh
+			// are most legible: the lines crawl and bunch as the surface moves.
+			const own = {
+				uDensity: { value: 14 },
+				uWidth: { value: 1.2 },
+				uSource: { value: 0 },
+				uFill: { value: 0.35 },
+				uGlow: { value: 1.2 },
+			}
+			const material = new THREE.ShaderMaterial({
+				defines: { ...shapeDefines },
+				uniforms: {
+					...uniforms,
+					...own,
+					uInflate: { value: 0 },
+					uBase: { value: tokenColor(THREE, host, '--color-tertiary', '#3b1466') },
+					uLine: { value: tokenColor(THREE, host, '--color-primary', '#7c4dff') },
+					uLine2: { value: tokenColor(THREE, host, '--color-secondary', '#e6306e') },
+					uLightDir: { value: new THREE.Vector3(0.5, 0.7, 1).normalize() },
+				},
+				vertexShader: marchedVertexGLSL,
+				fragmentShader: /* glsl */ `
+					uniform vec3 uBase, uLine, uLine2, uLightDir;
+					uniform float uDensity, uWidth, uSource, uFill, uGlow;
+					varying vec3 vN, vV, vP;
+					varying float vH;
+					void main() {
+						vec3 n = normalize(vN);
+						vec3 v = normalize(vV);
+						float facing = dot(n, v);
+						float ndl = dot(n, uLightDir) * 0.5 + 0.5;
+						// vH is the height above the undisplaced body: small, so scaled up
+						// to give the two sources a similar line count.
+						float field = mix(vP.z, vH * 4.0, uSource) * uDensity;
+						float d = abs(fract(field + 0.5) - 0.5) / max(fwidth(field), 1e-5);
+						float line = 1.0 - smoothstep(uWidth - 0.5, uWidth + 0.5, d);
+						// Lines pack into a solid at grazing angles; fade them out there.
+						line *= smoothstep(0.0, 0.35, facing);
+						vec3 base = uBase * uFill * (0.5 + 0.5 * ndl);
+						vec3 ink = mix(uLine, uLine2, clamp(vH * 3.0 + 0.4, 0.0, 1.0)) * uGlow;
+						vec3 col = mix(base, ink, line);
+						col += pow(1.0 - facing, 4.0) * uBase * 0.5;
+						gl_FragColor = vec4(col, 1.0);
+						#include <tonemapping_fragment>
+						#include <colorspace_fragment>
+					}
+				`,
+			})
+			const mesh = new THREE.Mesh(fine, material)
+			return {
+				objects: [mesh],
+				spring: [50, 5],
 				slosh: 0.6,
 				controls: {
-					size: ctl('Dot size', 0.004, 0.08, 0.001, pts.material.size, (v) => (pts.material.size = v)),
-					// Shrinking the core reveals the far side of the cloud.
-					core: ctl('Core', 0, 1, 0.005, dark.scale.x, (v) => dark.scale.setScalar(v)),
+					density: ctl('Density', 2, 40, 0.5, own.uDensity.value, (v) => (own.uDensity.value = v)),
+					width: ctl('Line width', 0.5, 3, 0.05, own.uWidth.value, (v) => (own.uWidth.value = v)),
+					source: ctl('Depth → displacement', 0, 1, 0.01, own.uSource.value, (v) => (own.uSource.value = v)),
+					fill: ctl('Fill', 0, 1, 0.01, own.uFill.value, (v) => (own.uFill.value = v)),
+					glow: ctl('Line glow', 0.4, 2.5, 0.05, own.uGlow.value, (v) => (own.uGlow.value = v)),
 				},
-				dispose: () => pts.material.dispose(),
+				dispose: () => material.dispose(),
 			}
+		},
+
+		mercury() {
+			// Liquid metal: fully metallic, near-mirror physical material
+			// reflecting the room environment, so the brand colour comes through
+			// as a tint on the reflection rather than a fill. Loose spring, like
+			// water, so it sloshes as a bead of mercury would.
+			const primary = tokenColor(THREE, host, '--color-primary', '#7c4dff')
+			const material = displaced(new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 1, roughness: 0.06, envMapIntensity: 1.6 }))
+			const mesh = new THREE.Mesh(fine, material)
+			const p = { tint: 0.25 }
+			const tint = (v) => material.color.lerpColors(new THREE.Color(0xffffff), primary, (p.tint = v))
+			tint(p.tint)
+			return {
+				objects: [mesh],
+				spring: [30, 2.5],
+				slosh: 0.9,
+				controls: {
+					polish: ctl('Polish', 0.5, 1, 0.005, 1 - material.roughness, (v) => (material.roughness = 1 - v)),
+					tint: ctl('Tint', 0, 1, 0.01, p.tint, tint),
+					reflection: ctl('Reflection', 0, 3, 0.05, material.envMapIntensity, (v) => (material.envMapIntensity = v)),
+					metal: ctl('Metalness', 0, 1, 0.01, material.metalness, (v) => (material.metalness = v)),
+				},
+				dispose: () => material.dispose(),
+			}
+		},
+
+		cloud() {
+			// The mark as mist: the goo raymarcher again, but instead of stopping
+			// at a surface the ray accumulates density from the body's distance
+			// field offset by the same noise, puffed out, and composited front to
+			// back. Each sample takes a second density read toward the light for
+			// self-shadowing, so the bright side reads as lit. Slosh warps the
+			// sample point as goo does; the pointer puffs the mist up. Per pixel
+			// over the blob's area, so heavier than goo: two noise evaluations
+			// per step, 40 steps.
+			const camLocal = new THREE.Vector3()
+			const own = {
+				uDensity: { value: 16 },
+				uSoft: { value: 0.16 },
+				uPuff: { value: 0.12 },
+				uDrift: { value: 1 },
+				uGlow: { value: 1 },
+			}
+			const lit = tokenColor(THREE, host, '--color-primary', '#7c4dff').lerp(new THREE.Color(0xffffff), 0.35)
+			const material = new THREE.ShaderMaterial({
+				defines: { ...shapeDefines },
+				transparent: true,
+				depthWrite: false,
+				uniforms: {
+					uShape: uniforms.uShape,
+					uShapeInfo: uniforms.uShapeInfo,
+					uPointer: uniforms.uPointer,
+					uPointerStrength: uniforms.uPointerStrength,
+					uHover: uniforms.uHover,
+					uSwayX: uniforms.uSwayX,
+					uSwayV: uniforms.uSwayV,
+					uTime: uniforms.uTime,
+					uAmp: uniforms.uAmp,
+					uFreq: uniforms.uFreq,
+					uCam: { value: camLocal },
+					uLit: { value: lit },
+					uShade: { value: tokenColor(THREE, host, '--color-tertiary', '#3b1466') },
+					uLightDir: { value: new THREE.Vector3(0.5, 0.7, 1).normalize() },
+					...own,
+				},
+				vertexShader: /* glsl */ `
+					varying vec3 vPos;
+					void main() {
+						vPos = position;
+						gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+					}
+				`,
+				fragmentShader: /* glsl */ `
+					${noiseGLSL}
+					${bodyGLSL}
+					uniform float uPointerStrength, uHover, uSwayX, uSwayV, uTime, uAmp, uFreq, uDensity, uSoft, uPuff, uDrift, uGlow;
+					uniform vec3 uPointer, uCam, uLit, uShade, uLightDir;
+					varying vec3 vPos;
+
+					float density(vec3 p) {
+						vec3 q = p;
+						q.y -= uSwayX * (0.3 + 0.25 * p.y);
+						q.x -= uSwayV * 0.03 * p.y;
+						float sd = sdBody(q) - uPuff;
+						vec3 h = p - uPointer;
+						sd -= uPointerStrength * uHover * 0.5 * exp(-dot(h, h) * 4.0);
+						// The mist rises: the noise scrolls downward through the body.
+						sd -= (noise4(vec4(q * uFreq * 1.5 + vec3(0.0, -uTime * uDrift * 0.25, 0.0), uTime * 0.4)) * 0.5 + 0.15) * uAmp * 2.0;
+						return clamp(-sd / uSoft, 0.0, 1.0);
+					}
+					float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+					void main() {
+						vec3 ro = uCam;
+						vec3 rd = normalize(vPos - ro);
+						const float R = 1.7;
+						float b = dot(ro, rd);
+						float h = b * b - dot(ro, ro) + R * R;
+						if (h < 0.0) discard;
+						h = sqrt(h);
+						float t = -b - h, tFar = -b + h;
+						const int steps = 40;
+						float dt = (tFar - t) / float(steps);
+						// Jitter the start per pixel so the slices don't band.
+						t += dt * hash(gl_FragCoord.xy);
+						vec3 col = vec3(0.0);
+						float T = 1.0;
+						for (int i = 0; i < steps; i++) {
+							vec3 pos = ro + rd * t;
+							float dn = density(pos);
+							if (dn > 0.002) {
+								float a = 1.0 - exp(-dn * uDensity * dt);
+								float shade = density(pos + uLightDir * 0.14);
+								vec3 c = mix(uShade, uLit * uGlow, clamp(1.0 - shade * 1.3, 0.0, 1.0));
+								col += T * a * c;
+								T *= 1.0 - a;
+								if (T < 0.02) break;
+							}
+							t += dt;
+						}
+						float alpha = 1.0 - T;
+						if (alpha < 0.004) discard;
+						gl_FragColor = vec4(col / alpha, alpha);
+						#include <tonemapping_fragment>
+						#include <colorspace_fragment>
+					}
+				`,
+			})
+			const quad = new THREE.Mesh(new THREE.PlaneGeometry(6, 6).translate(0, 0, 2.5), material)
+			quad.frustumCulled = false
+			return {
+				objects: [quad],
+				spring: [30, 2.5],
+				slosh: 0,
+				controls: {
+					density: ctl('Density', 1, 30, 0.5, own.uDensity.value, (v) => (own.uDensity.value = v)),
+					soft: ctl('Softness', 0.05, 0.6, 0.01, own.uSoft.value, (v) => (own.uSoft.value = v)),
+					puff: ctl('Puff', -0.1, 0.4, 0.01, own.uPuff.value, (v) => (own.uPuff.value = v)),
+					drift: ctl('Drift', 0, 4, 0.05, own.uDrift.value, (v) => (own.uDrift.value = v)),
+					glow: ctl('Glow', 0.4, 2, 0.05, own.uGlow.value, (v) => (own.uGlow.value = v)),
+				},
+				update() {
+					camLocal.copy(camera.position)
+					group.worldToLocal(camLocal)
+				},
+				dispose: () => {
+					quad.geometry.dispose()
+					material.dispose()
+				},
+			}
+		},
+
+		voxels() {
+			// An axis-aligned cubic lattice, sized to cover the body plus the
+			// reach of the displacement, and each cube shown only when its cell
+			// centre is inside the displaced field the mesh skins march onto.
+			// Cells switch on and off as the surface passes through them, so
+			// the shape steps rather than flows; nothing moves. Moving each
+			// cube by the displacement at its centre and snapping back to the
+			// lattice was tried first: where the body normal flips, along the
+			// mark's medial planes, neighbours part and a seam opens.
+			const spacing = 0.06
+			const centres = []
+			const seeds = []
+			const n = Math.ceil(1.5 / spacing)
+			// A column of cubes sits centred on each axis: the camera looks
+			// straight down the gap between two columns meeting at x = 0 or
+			// y = 0 and sees the background through the whole body.
+			for (let i = -n; i <= n; i++)
+				for (let j = -n; j <= n; j++)
+					for (let k = -n; k <= n; k++) {
+						const x = i * spacing
+						const y = j * spacing
+						const z = k * spacing
+						if (shape.sdBody(x, y, z) > 0.4) continue
+						centres.push(x, y, z)
+						seeds.push(Math.random())
+					}
+			const count = seeds.length
+			const cube = new THREE.BoxGeometry(1, 1, 1)
+			cube.setAttribute('aCenter', new THREE.InstancedBufferAttribute(new Float32Array(centres), 3))
+			cube.setAttribute('aSeed', new THREE.InstancedBufferAttribute(new Float32Array(seeds), 1))
+			const material = new THREE.MeshStandardMaterial({ color: brand.primary, roughness: 0.55, metalness: 0.05 })
+			const own = {
+				uSpacing: { value: spacing },
+				uFill: { value: 0.92 },
+				uSnap: { value: 1 },
+				uRattle: { value: 1 },
+				uVary: { value: 0.25 },
+			}
+			material.defines = { ...shapeDefines }
+			material.onBeforeCompile = (shader) => {
+				Object.assign(shader.uniforms, uniforms, own)
+				shader.vertexShader = shader.vertexShader.replace('#include <common>', `#include <common>\n${noiseGLSL}\n${bodyGLSL}\n${displaceGLSL}\nattribute vec3 aCenter; attribute float aSeed; uniform float uJostle, uSpacing, uFill, uSnap, uRattle, uVary; varying float vTone;`).replace(
+					'#include <begin_vertex>',
+					/* glsl */ `
+					vec3 c = aCenter;
+					c.x += noise4(vec4(aSeed * 40.0, uTime * 9.0, 0.0, 0.0)) * uJostle * uRattle;
+					// Inside the displaced field: a hard step at full snap, else the
+					// cube grows in over a cell's width as the surface approaches.
+					float inside = -sdBlob(aCenter);
+					float w = mix(uSpacing, 0.0005, uSnap);
+					float sc = smoothstep(-w, w, inside) * uSpacing * uFill;
+					vTone = 1.0 - uVary * aSeed;
+					vec3 transformed = position * sc + c;`,
+				)
+				shader.fragmentShader = shader.fragmentShader.replace('#include <common>', '#include <common>\nvarying float vTone;').replace('#include <color_fragment>', '#include <color_fragment>\ndiffuseColor.rgb *= vTone;')
+			}
+			material.customProgramCacheKey = () => 'blob-voxels'
+			const mesh = new THREE.InstancedMesh(cube, material, count)
+			mesh.frustumCulled = false
+			return {
+				objects: [mesh],
+				spring: [70, 5],
+				slosh: 0.5,
+				controls: {
+					fill: ctl('Cube fill', 0.4, 1, 0.01, own.uFill.value, (v) => (own.uFill.value = v)),
+					snap: ctl('Snap', 0, 1, 0.01, own.uSnap.value, (v) => (own.uSnap.value = v)),
+					vary: ctl('Tone variety', 0, 0.6, 0.01, own.uVary.value, (v) => (own.uVary.value = v)),
+					rattle: ctl('Rattle', 0, 4, 0.05, own.uRattle.value, (v) => (own.uRattle.value = v)),
+					gloss: ctl('Gloss', 0, 1, 0.01, 1 - material.roughness, (v) => (material.roughness = 1 - v)),
+				},
+				dispose: () => {
+					cube.dispose()
+					material.dispose()
+				},
+			}
+		},
+		ascii() {
+			return glyphs({ rain: 0 })
+		},
+
+		matrix() {
+			return glyphs({ rain: 1 })
 		},
 	}
 
