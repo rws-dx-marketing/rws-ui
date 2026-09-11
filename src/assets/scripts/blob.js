@@ -24,7 +24,8 @@
 // so the body sits exactly where it would in a host-sized canvas. Give the
 // canvas pointer-events: none so the overflow doesn't cover what's around it.
 //
-// The blob never rotates: it's a brand mark and reads front-on. Scroll instead
+// The blob never turns away: it's a brand mark and reads front-on. It leans a
+// few degrees toward the cursor wherever it is on the page (`tilt`), and scroll
 // feeds a damped spring ("sway") that each skin interprets — liquid sloshes,
 // hair streams, balls jostle — so the shape stays put while the surface reacts.
 //
@@ -75,6 +76,7 @@ function mountLab(lab, hosts, THREE, RoomEnvironment, MarchingCubes) {
 		speed: 0.35, // noise scroll through time
 		hover: 0.4, // bulge height under the pointer
 		inertia: 1, // how hard scroll kicks the spring
+		tilt: 1, // how far the mark leans toward the cursor (0 = none, 1 ≈ 3°, 2 ≈ 6°)
 	}
 
 	const settings = readSettings(lab) ?? readSettings(hosts[0]) ?? {}
@@ -854,6 +856,24 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		sway.x = Math.max(-1, Math.min(1, sway.x + sway.v * dt))
 	}
 
+	// ── cursor → lean ────────────────────────────────────────────────────────
+	// Where the pointer is relative to the host's centre, anywhere on the page,
+	// in half-viewport units clamped to ±1. `lean` eases toward it each frame
+	// and the group turns a few degrees that way; skins can also read it (the
+	// goo key light follows it). Nothing happens under reduced motion.
+	const cursor = new THREE.Vector2()
+	const lean = new THREE.Vector2()
+	if (!still) {
+		window.addEventListener(
+			'pointermove',
+			(e) => {
+				const r = host.getBoundingClientRect()
+				cursor.set((e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2), -(e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)).clampScalar(-1, 1)
+			},
+			{ passive: true },
+		)
+	}
+
 	// ── body ─────────────────────────────────────────────────────────────────
 	const shape = (sharedShape ??= createShape())
 	const shapeTexture = new THREE.DataTexture(shape.grid, shape.res, shape.res, THREE.RedFormat, THREE.FloatType)
@@ -1595,23 +1615,15 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			const p = { count: 3, roam: 0.62, size: 0.7, core: 1, speed: 3, goo: 0.22, rim: 0.5, light: 1 }
 			const balls = Array.from({ length: sats.length }, () => new THREE.Vector4())
 			const camLocal = new THREE.Vector3()
-			// Key light in view space. It follows the pointer anywhere on the
-			// page: the target is the pointer's offset from the host's centre,
-			// in host half-widths, eased so the highlight glides. The matcap has
+			// Key light in view space. It follows the shared cursor (the pointer's
+			// offset from the host's centre, anywhere on the page), eased so the
+			// highlight glides. The matcap has
 			// its light baked in at `keyDefault`, so the lookup normal is
 			// rotated by the inverse of the rotation that takes keyDefault to
 			// the current light, and the highlight moves with it. Kept small:
 			// a large swing rolls the whole colour gradient, not just the light.
 			const keyDefault = new THREE.Vector3(0.5, 0.7, 1).normalize()
 			const light = { dir: keyDefault.clone(), target: keyDefault.clone(), rot: new THREE.Matrix3(), q: new THREE.Quaternion(), m4: new THREE.Matrix4() }
-			const onLightMove = (e) => {
-				const r = host.getBoundingClientRect()
-				const dx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2)
-				const dy = -(e.clientY - (r.top + r.height / 2)) / (r.height / 2)
-				const k = 0.18 * p.light
-				light.target.set(keyDefault.x + dx * k, keyDefault.y + dy * k, keyDefault.z).normalize()
-			}
-			window.addEventListener('pointermove', onLightMove, { passive: true })
 			const material = new THREE.ShaderMaterial({
 				defines: { ...shapeDefines },
 				transparent: true,
@@ -1748,6 +1760,10 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 				update() {
 					camLocal.copy(camera.position)
 					group.worldToLocal(camLocal)
+					// The cursor is in half-viewport units; the light used host
+					// half-widths before, so scale up to keep the same swing.
+					const k = 0.18 * p.light * (window.innerWidth / host.clientWidth)
+					light.target.set(keyDefault.x + cursor.x * k, keyDefault.y + cursor.y * k, keyDefault.z).normalize()
 					light.dir.lerp(light.target, 0.08).normalize()
 					light.q.setFromUnitVectors(keyDefault, light.dir)
 					light.rot.setFromMatrix4(light.m4.makeRotationFromQuaternion(light.q)).transpose()
@@ -1763,7 +1779,6 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					}
 				},
 				dispose: () => {
-					window.removeEventListener('pointermove', onLightMove)
 					quad.geometry.dispose()
 					material.uniforms.uMatcap.value.dispose()
 					material.dispose()
@@ -2635,7 +2650,10 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		// A whisper of tilt with the spring keeps it alive without ever turning
 		// the mark away from the viewer; a skin that holds still can turn it off.
 		const tilt = active?.tilt ?? 1
-		group.rotation.x = sway.x * 0.05 * tilt
+		lean.lerp(cursor, Math.min(1, dt * 4))
+		const toward = 0.05 * params.tilt * tilt
+		group.rotation.x = sway.x * 0.05 * tilt - lean.y * toward
+		group.rotation.y = lean.x * toward
 		group.rotation.z = -sway.v * 0.004 * tilt
 
 		uniforms.uTime.value = time

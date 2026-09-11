@@ -143,6 +143,10 @@ const tones = {
 							<span class="flex justify-between">Scroll inertia<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
 							<input type="range" min="0" max="3" step="0.05" data-blob-param="inertia" class="input-range mt-1" />
 						</label>
+						<label class="text-sm font-bold text-foreground-muted">
+							<span class="flex justify-between">Cursor tilt<output class="font-mono font-normal tabular-nums" data-blob-value></output></span>
+							<input type="range" min="0" max="3" step="0.05" data-blob-param="tilt" class="input-range mt-1" />
+						</label>
 					</div>
 
 					<!-- Skin controls: filled by blob.js from the active skin's `controls`. -->
@@ -203,7 +207,7 @@ const tones = {
 						<p>It never turns, <em>it reacts</em></p>
 					</h2>
 					<div class="prose text-foreground-muted md:prose-lg">
-						<p>The body is the brand mark, so it always faces the viewer. Scrolling doesn't rotate it. Instead scroll velocity kicks a damped spring, and every skin reads that spring in its own way. Scroll this page briskly, then stop, and watch the surface overshoot and settle. This blob is the hero's twin: both sit in one <code>[data-blob-lab]</code>, so the skin buttons and sliders at the top drive them together. Each canvas keeps its own spring, pointer and clock, so they slosh alike but never in lockstep.</p>
+						<p>The body is the brand mark, so it always faces the viewer. It leans a few degrees toward the cursor wherever it is on the page (the cursor tilt slider), but never turns away. Scrolling doesn't rotate it either. Instead scroll velocity kicks a damped spring, and every skin reads that spring in its own way. Scroll this page briskly, then stop, and watch the surface overshoot and settle. This blob is the hero's twin: both sit in one <code>[data-blob-lab]</code>, so the skin buttons and sliders at the top drive them together. Each canvas keeps its own spring, pointer and clock, so they slosh alike but never in lockstep.</p>
 						<h3>The spring</h3>
 						<p>Each frame the distance scrolled since the last frame is added to the spring's velocity (scaled by the inertia slider and clamped so a flick can't launch it), then a stiffness and damping pair pulls it back toward rest. A positive value means the page just moved up, so loose material trails downward; the overshoot on the way back is what reads as inertia. Every skin sets its own stiffness and damping: water is loose and rings for a second or two, matcap is stiff and settles almost at once.</p>
 						<h3>What the spring drives</h3>
