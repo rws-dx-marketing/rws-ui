@@ -161,7 +161,7 @@ const tones = {
 				</div>
 
 				<div class="lg:col-span-7">
-					<div class="relative aspect-square w-full touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob="goo" aria-hidden="true"></div>
+					<div class="relative aspect-square w-full touch-pan-y [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob="goo" aria-hidden="true"></div>
 				</div>
 			</div>
 		</Section>
@@ -196,7 +196,7 @@ const tones = {
 			<div class="grid gap-12 lg:grid-cols-12">
 				<div class="lg:col-span-5">
 					<div class="sticky top-[calc(var(--chrome-height,0px)+2rem)]">
-						<div class="relative aspect-square w-full touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob aria-hidden="true"></div>
+						<div class="relative aspect-square w-full touch-pan-y [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob aria-hidden="true"></div>
 					</div>
 				</div>
 				<div class="lg:col-span-7">
@@ -302,7 +302,7 @@ const tones = {
 				<li><strong>Simulated hair.</strong> Strands are shaped by a closed-form bend, so they can't collide or keep momentum of their own. TSL compute could simulate them properly if the direction becomes hair.</li>
 				<li><strong>Brand colour from CSS.</strong> Read <code>--color-primary</code> from the host at mount and convert oklch to sRGB, so the blob follows <code>data-theme</code> and dark mode.</li>
 				<li><strong>Goo shading.</strong> The raymarched skin is lit by the matcap and a rim term. If it wins over metaballs, the next step is sampling the room environment for real reflections, or writing depth so it can sit among mesh objects.</li>
-				<li><strong>Porting checklist.</strong> The Razor page needs a <code>[data-blob-lab]</code> ancestor wrapping every <code>[data-blob]</code> host that should share a skin (one or several), buttons with <code>[data-blob-skin]</code>, an optional <code>[data-blob-controls]</code> panel holding a <code>&lt;template&gt;</code> of one label and range input for the skin's own sliders, and three served as an ES module. To let long skins overflow the host, style the canvas absolute, centred and larger than the host (this page uses 140%) with <code>pointer-events: none</code>; the script widens the camera to match, so the body stays put. Nothing else is Astro-specific.</li>
+				<li><strong>Porting checklist.</strong> The Razor page needs a <code>[data-blob-lab]</code> ancestor wrapping every <code>[data-blob]</code> host that should share a skin (one or several), buttons with <code>[data-blob-skin]</code>, an optional <code>[data-blob-controls]</code> panel holding a <code>&lt;template&gt;</code> of one label and range input for the skin's own sliders, and three served as an ES module. To let long skins overflow the host, style the canvas absolute, centred and larger than the host (this page uses 140%) with <code>pointer-events: none</code>; the script widens the camera to match, so the body stays put. Give the host <code>touch-action: pan-y</code> (not <code>none</code>), or a finger over the mark can't scroll the page. Nothing else is Astro-specific.</li>
 			</ol>
 		</div>
 	</Section>

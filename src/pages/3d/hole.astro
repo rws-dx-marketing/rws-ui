@@ -35,7 +35,7 @@ const blob = {
 	     The background seed is the shader's ground, tertiary scaled to 12% in linear light (blob.js uHole), so nothing shifts when the scene loads in -->
 	<Section theme="tertiary" top="lg" bottom="lg" container={false} class="relative overflow-clip [--background-seed:color-mix(in_srgb-linear,var(--color-tertiary)_12%,black)]" data-blob-lab data-blob-settings={JSON.stringify(blob)}>
 		<!-- Blob: a layer the size of the section, canvas the same size, so the beams run edge to edge -->
-		<div class="absolute inset-0 touch-none [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:block [&>canvas]:size-full" data-blob="hole" aria-hidden="true"></div>
+		<div class="absolute inset-0 touch-pan-y [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:block [&>canvas]:size-full" data-blob="hole" aria-hidden="true"></div>
 
 		<!-- Copy: pointer events pass through to the blob except on the buttons -->
 		<div class="pointer-events-none relative z-10 mx-auto flex min-h-[44rem] max-w-screen-xl flex-col items-center justify-center px-8 text-center lg:px-12 [&_a]:pointer-events-auto">

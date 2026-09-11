@@ -2615,7 +2615,13 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			pointer.target = 0
 		}
 	})
-	host.addEventListener('pointerleave', () => (pointer.target = 0))
+	// On touch the browser takes over a vertical drag as a scroll (the hosts
+	// use touch-action: pan-y) and fires pointercancel, never pointerleave; a
+	// lifted finger ends the hover too, where a released mouse button doesn't.
+	const release = () => (pointer.target = 0)
+	host.addEventListener('pointerleave', release)
+	host.addEventListener('pointercancel', release)
+	host.addEventListener('pointerup', (e) => e.pointerType !== 'mouse' && release())
 
 	// ── sizing / visibility ──────────────────────────────────────────────────
 	function resize() {
