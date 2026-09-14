@@ -937,6 +937,133 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		return m
 	}
 
+	// ── backdrop: the page behind the canvas, for glass ──────────────────────
+	// Transmission refracts what is in the scene, not what is on the page, so
+	// the nearest ancestor's background image (cover, centred; a plain colour
+	// if there is no image) is drawn on a screen-filling quad. It draws only in
+	// the transmission pass, which renders to a target: in the main pass, to
+	// the canvas, it writes nothing, and the real page shows through. Its UVs
+	// are re-derived from the two rects each frame so it lines up with the CSS
+	// image under the canvas. The colour is put through the inverse of the
+	// renderer's tone mapping so the image seen through the glass comes out
+	// as it is on the page. Skins opt in with `backdrop: true`.
+	let backdrop = null
+	function getBackdrop() {
+		if (backdrop) return backdrop
+		let el = host.parentElement
+		let url = null
+		for (; el; el = el.parentElement) {
+			const cs = getComputedStyle(el)
+			// Quoted or bare url(); a data: SVG can hold the other quote inside.
+			url = cs.backgroundImage.match(/url\((["']?)(.*?)\1\)/)?.[2] ?? null
+			if (url || (cs.backgroundColor !== 'transparent' && !cs.backgroundColor.startsWith('rgba(0, 0, 0, 0)'))) break
+		}
+		const material = new THREE.ShaderMaterial({
+			depthTest: false,
+			depthWrite: false,
+			defines: renderer.toneMapping === THREE.ACESFilmicToneMapping ? { BACKDROP_ACES: '' } : {},
+			uniforms: {
+				uMap: { value: null },
+				uColor: { value: el ? tokenColor(THREE, el, 'background-color', '#ffffff') : new THREE.Color(0xffffff) },
+				uRect: { value: new THREE.Vector4(0, 0, 1, 1) },
+				uRepeat: { value: 0 },
+				uExposure: { value: renderer.toneMappingExposure },
+			},
+			vertexShader: /* glsl */ `
+				varying vec2 vUv;
+				void main() {
+					vUv = uv;
+					gl_Position = vec4(position.xy, 0.9999, 1.0);
+				}
+			`,
+			fragmentShader: /* glsl */ `
+				uniform sampler2D uMap;
+				uniform vec3 uColor;
+				uniform vec4 uRect;
+				uniform float uRepeat;
+				uniform float uExposure;
+				varying vec2 vUv;
+				#ifdef BACKDROP_ACES
+					// Inverse of three's ACESFilmicToneMapping: the output matrix
+					// undone, the rational RRT/ODT fit solved as a quadratic, the
+					// input matrix undone, then the exposure and the 1/0.6 gain.
+					vec3 acesInverse(vec3 c) {
+						const mat3 outInv = mat3(vec3(0.64304, 0.05927, 0.00596), vec3(0.31119, 0.93144, 0.06393), vec3(0.04578, 0.00929, 0.93012));
+						const mat3 inInv = mat3(vec3(1.76474, -0.14703, -0.03634), vec3(-0.67578, 1.16025, -0.16244), vec3(-0.08896, -0.01322, 1.19877));
+						vec3 y = outInv * clamp(c, 0.0, 0.99);
+						vec3 A = 1.0 - 0.983729 * y;
+						vec3 B = 0.0245786 - 0.4329510 * y;
+						vec3 C = -(0.000090537 + 0.238081 * y);
+						vec3 v = (-B + sqrt(B * B - 4.0 * A * C)) / (2.0 * A);
+						return inInv * v * 0.6 / uExposure;
+					}
+				#endif
+				void main() {
+					vec3 c = uColor;
+					#ifdef USE_MAP
+						// The image composited over the colour, as CSS draws it; a
+						// non-repeating one only inside its own box.
+						vec2 uv = uRect.xy + vUv * uRect.zw;
+						vec4 t = texture2D(uMap, uv);
+						if (uRepeat < 0.5 && (uv != clamp(uv, 0.0, 1.0))) t.a = 0.0;
+						c = mix(c, t.rgb, t.a);
+					#endif
+					#ifdef BACKDROP_ACES
+						c = acesInverse(c);
+					#endif
+					gl_FragColor = vec4(c, 1.0);
+				}
+			`,
+		})
+		const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material)
+		quad.frustumCulled = false
+		quad.renderOrder = -1
+		quad.onBeforeRender = (r) => (material.colorWrite = r.getRenderTarget() !== null)
+		let image = null
+		if (url) {
+			new THREE.TextureLoader().load(url, (t) => {
+				t.colorSpace = THREE.SRGBColorSpace
+				if (getComputedStyle(el).backgroundRepeat.startsWith('repeat')) {
+					t.wrapS = t.wrapT = THREE.RepeatWrapping
+					material.uniforms.uRepeat.value = 1
+				}
+				material.uniforms.uMap.value = t
+				material.defines.USE_MAP = ''
+				material.needsUpdate = true
+				image = t.image
+				if (still) renderFrame(0)
+			})
+		}
+		backdrop = {
+			quad,
+			// Canvas UV → image UV, laying the image out as CSS does: sized by
+			// background-size (cover, contain, auto or lengths), placed by
+			// background-position, and tiled from there if it repeats.
+			sync() {
+				if (!image) return
+				const cs = getComputedStyle(el)
+				const c = renderer.domElement.getBoundingClientRect()
+				const e = el.getBoundingClientRect()
+				const [sx, sy = 'auto'] = cs.backgroundSize.split(' ')
+				let w, h
+				if (sx === 'cover' || sx === 'contain') {
+					const s = (sx === 'cover' ? Math.max : Math.min)(e.width / image.width, e.height / image.height)
+					w = image.width * s
+					h = image.height * s
+				} else {
+					w = sx === 'auto' ? image.width : parseFloat(sx)
+					h = sy === 'auto' ? (w * image.height) / image.width : parseFloat(sy)
+				}
+				const [px, py] = cs.backgroundPosition.split(' ')
+				const place = (v, room) => (v.endsWith('%') ? (room * parseFloat(v)) / 100 : parseFloat(v))
+				const x0 = e.left + place(px, e.width - w)
+				const y0 = e.top + place(py, e.height - h)
+				material.uniforms.uRect.value.set((c.left - x0) / w, 1 - (c.top + c.height - y0) / h, c.width / w, c.height / h)
+			},
+		}
+		return backdrop
+	}
+
 	// ── glyph skins: ascii and matrix ────────────────────────────────────────
 	// The body is drawn with the brand matcap into an offscreen target, and a
 	// quad in front of it then draws one glyph per screen cell from that image:
@@ -1166,6 +1293,9 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		},
 
 		iridescent() {
+			// Thin-film physical material. With transparency up it turns to
+			// glass: transmission refracts the backdrop (see getBackdrop) and the
+			// film stays as a soap-bubble sheen on the surface.
 			const material = displaced(
 				new THREE.MeshPhysicalMaterial({
 					color: 0xffffff,
@@ -1175,11 +1305,15 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					iridescenceIOR: 1.6,
 					iridescenceThicknessRange: [120, 520],
 					envMapIntensity: 1.2,
+					transmission: 0,
+					thickness: 1,
+					ior: 1.5,
 				}),
 			)
 			const mesh = new THREE.Mesh(fine, material)
 			return {
 				objects: [mesh],
+				backdrop: true,
 				spring: [45, 4],
 				slosh: 0.6,
 				controls: {
@@ -1187,6 +1321,9 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					shimmer: ctl('Shimmer', 0, 1, 0.01, material.iridescence, (v) => (material.iridescence = v)),
 					metalness: ctl('Metalness', 0, 1, 0.01, material.metalness, (v) => (material.metalness = v)),
 					roughness: ctl('Roughness', 0, 1, 0.01, material.roughness, (v) => (material.roughness = v)),
+					glass: ctl('Transparency', 0, 1, 0.01, material.transmission, (v) => (material.transmission = v)),
+					refraction: ctl('Refraction', 1, 2.33, 0.01, material.ior, (v) => (material.ior = v)),
+					depth: ctl('Depth', 0.1, 4, 0.05, material.thickness, (v) => (material.thickness = v)),
 				},
 				dispose: () => material.dispose(),
 			}
@@ -2331,31 +2468,6 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			}
 		},
 
-		mercury() {
-			// Liquid metal: fully metallic, near-mirror physical material
-			// reflecting the room environment, so the brand colour comes through
-			// as a tint on the reflection rather than a fill. Loose spring, like
-			// water, so it sloshes as a bead of mercury would.
-			const primary = tokenColor(THREE, host, '--color-primary', '#7c4dff')
-			const material = displaced(new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 1, roughness: 0.06, envMapIntensity: 1.6 }))
-			const mesh = new THREE.Mesh(fine, material)
-			const p = { tint: 0.25 }
-			const tint = (v) => material.color.lerpColors(new THREE.Color(0xffffff), primary, (p.tint = v))
-			tint(p.tint)
-			return {
-				objects: [mesh],
-				spring: [30, 2.5],
-				slosh: 0.9,
-				controls: {
-					polish: ctl('Polish', 0.5, 1, 0.005, 1 - material.roughness, (v) => (material.roughness = 1 - v)),
-					tint: ctl('Tint', 0, 1, 0.01, p.tint, tint),
-					reflection: ctl('Reflection', 0, 3, 0.05, material.envMapIntensity, (v) => (material.envMapIntensity = v)),
-					metal: ctl('Metalness', 0, 1, 0.01, material.metalness, (v) => (material.metalness = v)),
-				},
-				dispose: () => material.dispose(),
-			}
-		},
-
 		cloud() {
 			// The mark as mist: the goo raymarcher again, but instead of stopping
 			// at a surface the ray accumulates density from the body's distance
@@ -2576,6 +2688,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		}
 		active = { name, ...skins[name]() }
 		slosh = active.slosh ?? 0.5
+		if (active.backdrop) active.objects.push(getBackdrop().quad)
 		active.objects.forEach((o) => group.add(o))
 		host.dataset.blob = name
 		if (still) renderFrame(0)
@@ -2673,6 +2786,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 		uniforms.uPointerStrength.value = pointer.strength
 
 		active?.update?.(dt)
+		if (active?.backdrop) backdrop.sync()
 		renderer.render(scene, camera)
 	}
 

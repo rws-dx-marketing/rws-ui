@@ -8,7 +8,7 @@ const skins = [
 	{ id: 'cloud', label: 'Cloud', note: "The goo raymarcher with no surface to hit: the ray accumulates density from the body's distance field, puffed out and offset by the same noise, and composites it front to back, so the mark is a bank of brand-coloured mist. Each sample takes a second density read toward the light for self-shadowing. Slosh warps the sample point as goo does, the pointer puffs the mist up, and the noise scrolls so it rises. Forty steps per pixel with two noise evaluations each, so the heaviest skin here per pixel." },
 	{ id: 'hole', label: 'Black hole', note: "The mark as a dark hole with light beams flowing left to right round it. One quad in the body's plane, all 2D: the beams are level sets of a stream function that equals y far away and is squeezed to zero at the outline, so they bend round the mark and the nearest ones pile up against it as a bright rim, the way flow lines hug an obstacle. The squeeze reads a smooth stand-in for distance, a screened Poisson field solved by multigrid once at mount, since a true distance field creases above every notch. Widths come from the field's own gradient, not screen-space derivatives. Amplitude and frequency wobble the edge; hover is light only: beams under the pointer swell, brighten, surge on their pulses and warm in colour, anywhere over the canvas, while nothing moves. Its own controls set spacing, width, glow, how tightly beams squeeze against the edge, and the pulse that travels along them." },
 	{ id: 'matcap', label: 'Matcap', note: 'MeshMatcapMaterial with a lit-sphere image painted at mount from the CSS brand tokens: secondary lights the top-left, primary carries the body, tertiary takes the shadow and rim. No lights, cheapest shading here, and it follows the theme.' },
-	{ id: 'iridescent', label: 'Iridescent', note: 'Physical material with a thin-film iridescence layer. Colour shifts with the view angle, so surface movement reads even without rotation.' },
+	{ id: 'iridescent', label: 'Iridescent', note: 'Physical material with a thin-film iridescence layer. Colour shifts with the view angle, so surface movement reads even without rotation. Transparency turns it to glass: the page behind the canvas is drawn into the transmission pass, so the mark refracts the real background image.' },
 	{ id: 'toon', label: 'Toon', note: 'Cel shading in the flat brand colours: three hard bands (tertiary shadow, primary body, secondary light) cut from the key light with one-pixel edges, a hard specular dot, an ink rim, and a silhouette line drawn as a back-face copy of the body pushed out along the normal. No tone mapping, so the bands are the CSS tokens exactly. The one skin that matches the flat design of the rest of the site.' },
 	{ id: 'contours', label: 'Contours', note: 'A topographic map of the surface: level sets of depth along the view axis, or of the displacement itself, drawn as lines held at a pixel width with screen-space derivatives over a dim body. Since the mark never rotates this is where the noise and slosh read most clearly: the lines crawl and bunch as the surface moves.' },
 	// { id: 'clay', label: 'Clay', note: 'Plain MeshStandardMaterial. Stiff spring, little slosh. The baseline every other skin builds on.' },
@@ -19,7 +19,6 @@ const skins = [
 	{ id: 'voxels', label: 'Voxels', note: 'An axis-aligned cubic lattice covering the body and the reach of the displacement, one InstancedMesh; each cube is shown only when its cell centre is inside the displaced field the mesh skins march onto. Cells switch on and off as the surface passes through them, so the shape steps rather than flows and nothing moves. Snap eases that switch into a grow-in over one cell.' },
 	{ id: 'hair', label: 'Hair', note: '40,000 strands as one instanced draw of camera-facing ribbons, shaped entirely in the vertex shader. Gravity, scroll drag and wind bend them; the pointer parts them and a swipe brushes them along with it. Coloured from the brand tokens: tertiary at the root, primary along the strand, secondary at the tip.' },
 	{ id: 'water', label: 'Water', note: 'MeshPhysicalMaterial with transmission and IOR 1.33. Loosest spring: the body sloshes fully and the inner core lags like a bubble.' },
-	{ id: 'mercury', label: 'Mercury', note: 'Liquid metal: a fully metallic, near-mirror physical material reflecting the room environment, so the brand colour comes through as a tint on the reflection rather than a fill. Loose spring, so it sloshes like a bead of mercury.' },
 ]
 
 const options = [
@@ -172,7 +171,7 @@ const tones = {
 				<p>How the demo works</p>
 			</div>
 			<h2 class="mb-6 text-4xl font-bold tracking-tight xl:text-5xl">
-				<p>Same surface, <em>fifteen skins</em></p>
+				<p>Same surface, <em>fourteen skins</em></p>
 			</h2>
 			<div class="prose mb-10 max-w-[64ch] text-foreground-muted md:prose-lg">
 				<p>

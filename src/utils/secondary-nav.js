@@ -9,7 +9,7 @@ const secondaryNavTree = [
 		id: 'weava',
 		label: 'weava',
 		href: '/3d/goo',
-		aliases: ['/3d/hair'],
+		aliases: ['/3d/hair', '/3d/glass'],
 		icon: weavaIcon,
     labelClass: 'relative -top-px -ml-1 font-bold',
     children: [

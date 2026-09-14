@@ -1,0 +1,70 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import Section from '../../components/Section.astro'
+import Heading from '../../components/Heading.astro'
+
+// Background image for the hero. Set on the section as --bg-image and applied
+// with Tailwind's bg-(image:--bg-image) utility. The glass refracts this very
+// image: blob.js finds it on the nearest ancestor of the canvas host and draws
+// it behind the mark in the transmission pass, lined up with the CSS.
+const bgImage = '/images/skyline-1.jpg'
+
+// Glass settings — the shared params and the iridescent skin's own controls
+// with transparency all the way up. Change them here and the page passes them
+// to blob.js through [data-blob-settings].
+const blob = {
+	amp: 0, // displacement amplitude
+	freq: 0, // noise frequency across the surface
+	speed: 0.35, // noise scroll through time
+	hover: 0.1, // bulge height under the pointer
+	inertia: 0.5, // how hard scroll kicks the spring
+	tilt: 3, // how far the mark leans toward the cursor (0 = none, 1 ≈ 3°, 2 ≈ 6°)
+	controls: {
+		film: 500, // thin-film thickness (100–1400): the colour of the sheen
+		shimmer: 0.5, // how strong the film is (0–1)
+		metalness: 0, // metals don't transmit, so keep at 0 for glass
+		roughness: 0.125, // frosts the glass (0–1)
+		glass: 1, // transparency (0 = the iridescent body, 1 = clear glass)
+		refraction: 1.125, // index of refraction (1 = none, 1.5 = glass, 2.33 = diamond)
+		depth: 2, // how thick the glass is: how far the refraction bends (0.1–4)
+	},
+}
+---
+
+<Layout title="Glass – RWS UI">
+	<!-- Hero: split layout over a full-bleed background image -->
+	<Section theme="tertiary" top="lg" bottom="lg" container={false} class="relative overflow-x-clip bg-(image:--bg-image) bg-cover bg-center bg-no-repeat" style={`--bg-image: url('${bgImage}')`} data-blob-lab data-blob-settings={JSON.stringify(blob)}>
+		<!-- Tint under the copy only: the glass shows the image as it is, so it stays untinted behind the mark -->
+		<div class="absolute inset-y-0 left-0 w-full bg-linear-to-r from-background/80 to-transparent lg:w-1/2" aria-hidden="true"></div>
+
+		<div class="relative mx-auto grid w-full max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
+			<!-- Copy -->
+			<div class="lg:col-span-6">
+				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+					<p>weava world of possibility</p>
+				</div>
+
+				<Heading as="h1" size="md" class="mb-6 max-w-[16ch] font-bold tracking-tight text-pretty">
+					<p>Stop translating.<br />Start transforming.</p>
+				</Heading>
+
+				<div class="prose prose-xl max-w-[48ch] text-foreground-muted not-last:mb-8 md:prose-2xl">
+					<p>Designed for real markets, real people, real impact.</p>
+				</div>
+
+				<div class="flex flex-col gap-4 sm:flex-row">
+					<a href="#" class="btn btn-primary btn-xl">Get started</a>
+					<a href="#" class="btn btn-ghost btn-xl">Find a solution</a>
+				</div>
+			</div>
+
+			<!-- Blob -->
+			<div class="lg:col-span-6">
+				<div class="relative aspect-square w-full touch-pan-y [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-blob="iridescent" aria-hidden="true"></div>
+			</div>
+		</div>
+	</Section>
+
+	<section class="h-screen"></section>
+</Layout>
