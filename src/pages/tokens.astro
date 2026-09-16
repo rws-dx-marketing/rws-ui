@@ -1,0 +1,427 @@
+---
+// @ts-nocheck
+import Layout from '../layouts/Layout.astro'
+import { palette, rampOrder, base, status, fonts, weights, textScale, tracking, leading, radius, spacingSteps, breakpoints, containers, durations, easings, shadows, themeModes, semantic, cardSemantic, cssVar, breakpointModes, sectionPadding, headingSizes, gutter, gutterStep, collectionNames, primitivesFile, paletteFile, breakpointFile } from '../data/tokens'
+import { remToPx } from '../utils/dtcg'
+
+// Files that need no browser resolution are built here and handed to the
+// client as JSON; the theme files are assembled client-side from the probes.
+const staticFiles = {
+	primitives: primitivesFile(),
+	palette: paletteFile(),
+	...Object.fromEntries(breakpointModes.map((bp) => [`breakpoint.${bp}`, breakpointFile(bp)])),
+}
+
+// Figma names each imported mode after its file; rename it there after import.
+const collections = [
+	{ name: collectionNames.primitives, files: ['primitives'], note: 'Single mode. Spacing, type, radius, breakpoints, containers, motion.' },
+	{ name: collectionNames.palette, files: ['palette'], note: 'Single mode. Colour ramps, white/black, status.' },
+	{ name: collectionNames.theme, files: themeModes.map((m) => `theme.${m}`), note: 'One file per mode. Drop all six at once to create the collection with its modes.' },
+	{ name: collectionNames.breakpoint, files: breakpointModes.map((bp) => `breakpoint.${bp}`), note: 'One file per mode. Section padding, gutter and heading sizes per viewport.' },
+]
+
+const title = (key) => key.replace('DEFAULT', 'base')
+---
+
+<Layout title="Tokens – RWS UI">
+	<main id="tokens" class="mx-auto max-w-screen-xl px-6 py-16" data-theme="default" data-palette-collection={collectionNames.palette}>
+		<header class="mb-10 space-y-3">
+			<h1 class="text-3xl font-semibold">Design tokens</h1>
+			<p class="max-w-prose text-foreground-muted">Figma variable collections in DTCG format. Each file is one mode: in Figma's Variables panel create a collection, then drag the files for that collection in together. To update later, right-click a mode and choose <em class="font-semibold not-italic">Import mode</em>.</p>
+		</header>
+
+		<section class="mb-16 grid gap-4 md:grid-cols-2">
+			{
+				collections.map((c) => (
+					<div class="rounded-xl border bg-white p-5">
+						<h2 class="text-lg font-semibold">{c.name}</h2>
+						<p class="mt-1 text-sm text-foreground-muted">{c.note}</p>
+						<ul class="mt-4 divide-y">
+							{c.files.map((file) => (
+								<li class="flex items-center justify-between gap-4 py-2">
+									<code class="text-sm">{file}.tokens.json</code>
+									<span class="flex gap-2">
+										<button type="button" class="btn btn-ghost btn-sm" data-copy={file} disabled>
+											Copy
+										</button>
+										<button type="button" class="btn btn-outline btn-sm" data-download={file} disabled>
+											Download
+										</button>
+									</span>
+								</li>
+							))}
+						</ul>
+					</div>
+				))
+			}
+		</section>
+
+		<!-- Palette -->
+		<section class="mb-16 space-y-8">
+			<h2 class="text-2xl font-semibold">Palette</h2>
+			{
+				palette.map((b) => (
+					<div>
+						<h3 class="text-lg font-semibold">
+							{b.label} <span class="font-normal text-foreground-muted">· {b.brandName}</span>
+							{b.key === 'saffron' && <span class="ml-2 text-sm font-normal text-foreground-subtle">(CSS: quaternary)</span>}
+						</h3>
+						<div class="mt-4 grid gap-4 sm:grid-cols-4 lg:grid-cols-7">
+							{rampOrder.map((step) => (
+								<div class="rounded-xl border bg-white p-3">
+									<div class="aspect-video w-full rounded" style={`background-color: ${b.hexes[step]}`} />
+									<div class="mt-2 space-y-0.5 text-center text-sm">
+										<span class="block font-semibold">{title(step)}</span>
+										<code class="block text-xs text-foreground-subtle">{b.hexes[step]}</code>
+									</div>
+								</div>
+							))}
+						</div>
+					</div>
+				))
+			}
+			<div>
+				<h3 class="text-lg font-semibold">Base &amp; status</h3>
+				<div class="mt-4 grid gap-4 sm:grid-cols-4 lg:grid-cols-7">
+					{
+						[...base, ...status].map((c) => (
+							<div class="rounded-xl border bg-white p-3">
+								<div class="aspect-video w-full rounded border" style={`background-color: ${c.hex}`} />
+								<div class="mt-2 space-y-0.5 text-center text-sm">
+									<span class="block font-semibold">{c.key}</span>
+									<code class="block text-xs text-foreground-subtle">{c.hex}</code>
+								</div>
+							</div>
+						))
+					}
+				</div>
+			</div>
+		</section>
+
+		<!-- Theme -->
+		<section class="mb-16 space-y-8">
+			<h2 class="text-2xl font-semibold">Theme</h2>
+			<p class="max-w-prose text-foreground-muted">Semantic colours per mode, resolved from the live cascade. Each swatch is the probe its hex is read from. Values that exactly match a palette colour alias the <code>{collectionNames.palette}</code> collection, so import that first.</p>
+			{
+				themeModes.map((mode) => (
+					<div class="isolate space-y-6 rounded-xl p-6" data-theme={mode}>
+						<h3 class="text-lg font-semibold">{mode}</h3>
+						{semantic.map(({ group, keys }) => (
+							<div class="grid gap-3 sm:grid-cols-4 lg:grid-cols-7">
+								{keys.map((key) => (
+									<div class="rounded-lg border p-2 text-center">
+										<div class="aspect-video w-full rounded border" data-probe data-mode={mode} data-path={`${group}/${key}`} data-css={cssVar(group, key)} style={`background-color: var(${cssVar(group, key)})`} />
+										<span class="mt-2 block text-xs font-semibold">
+											{group}/{title(key)}
+										</span>
+										<code class="block text-2xs text-foreground-subtle" data-hex>
+											…
+										</code>
+									</div>
+								))}
+							</div>
+						))}
+						<div class="rounded-lg p-4" data-card>
+							<div class="grid gap-3 sm:grid-cols-4 lg:grid-cols-7">
+								{cardSemantic.map(({ group, keys }) =>
+									keys.map((key) => (
+										<div class="rounded-lg border p-2 text-center">
+											<div class="aspect-video w-full rounded border" data-probe data-mode={mode} data-path={`${group}/${key}`} data-css={`[data-card] ${cssVar(group, key)}`} style={`background-color: var(${cssVar(group, key)})`} />
+											<span class="mt-2 block text-xs font-semibold">
+												{group}/{key}
+											</span>
+											<code class="block text-2xs text-foreground-subtle" data-hex>
+												…
+											</code>
+										</div>
+									)),
+								)}
+							</div>
+						</div>
+					</div>
+				))
+			}
+		</section>
+
+		<!-- Primitives -->
+		<section class="mb-16 space-y-10">
+			<h2 class="text-2xl font-semibold">Primitives</h2>
+
+			<div class="grid gap-x-12 gap-y-10 lg:grid-cols-2">
+				<div>
+					<h3 class="text-lg font-semibold">Font family</h3>
+					<table class="mt-3 w-full text-sm">
+						<tbody class="divide-y">
+							{
+								fonts.map((f) => (
+									<tr>
+										<td class="py-2 font-semibold">{f.key}</td>
+										<td class="py-2">{f.figma}</td>
+										<td class="py-2 text-right text-foreground-subtle">{f.note}</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Font weight</h3>
+					<table class="mt-3 w-full text-sm">
+						<tbody class="divide-y">
+							{
+								weights.map((w) => (
+									<tr>
+										<td class="py-2 font-semibold">{w.key}</td>
+										<td class="py-2">{w.weight}</td>
+										<td class="py-2 text-right text-foreground-subtle">{w.note}</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Font size / line-height</h3>
+					<table class="mt-3 w-full text-sm">
+						<tbody class="divide-y">
+							{
+								textScale.map((t) => (
+									<tr>
+										<td class="py-2 font-semibold">{t.key}</td>
+										<td class="py-2">{remToPx(t.rem)}px</td>
+										<td class="py-2">{t.lineHeight ? `${remToPx(t.lineHeight)}px` : '—'}</td>
+										<td class="py-2 text-right text-foreground-subtle">{t.note}</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div class="space-y-10">
+					<div>
+						<h3 class="text-lg font-semibold">Tracking</h3>
+						<table class="mt-3 w-full text-sm">
+							<tbody class="divide-y">
+								{
+									tracking.map((t) => (
+										<tr>
+											<td class="py-2 font-semibold">{t.key}</td>
+											<td class="py-2">{parseFloat(t.em) * 100}%</td>
+											<td class="py-2 text-right text-foreground-subtle">{t.note}</td>
+										</tr>
+									))
+								}
+							</tbody>
+						</table>
+					</div>
+					<div>
+						<h3 class="text-lg font-semibold">Leading</h3>
+						<table class="mt-3 w-full text-sm">
+							<tbody class="divide-y">
+								{
+									leading.map((l) => (
+										<tr>
+											<td class="py-2 font-semibold">{l.key}</td>
+											<td class="py-2">{l.value * 100}%</td>
+										</tr>
+									))
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Radius</h3>
+					<table class="mt-3 w-full text-sm">
+						<tbody class="divide-y">
+							{
+								radius.map((r) => (
+									<tr>
+										<td class="py-2 font-semibold">{r.key}</td>
+										<td class="py-2">{r.rem ? `${remToPx(r.rem)}px` : `${r.pxValue}px`}</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Spacing</h3>
+					<div class="mt-3 flex flex-wrap gap-2 text-sm">
+						{
+							spacingSteps.map((s) => (
+								<span class="rounded border px-2 py-1">
+									<span class="font-semibold">{s}</span> <span class="text-foreground-subtle">{s * 4}px</span>
+								</span>
+							))
+						}
+					</div>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Breakpoints</h3>
+					<table class="mt-3 w-full text-sm">
+						<tbody class="divide-y">
+							{
+								breakpoints.map((b) => (
+									<tr>
+										<td class="py-2 font-semibold">{b.key}</td>
+										<td class="py-2">{remToPx(b.rem)}px</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Containers</h3>
+					<table class="mt-3 w-full text-sm">
+						<tbody class="divide-y">
+							{
+								containers.map((c) => (
+									<tr>
+										<td class="py-2 font-semibold">{c.key}</td>
+										<td class="py-2">{remToPx(c.rem)}px</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Motion</h3>
+					<table class="mt-3 w-full text-sm">
+						<tbody class="divide-y">
+							{
+								durations.map((d) => (
+									<tr>
+										<td class="py-2 font-semibold">duration/{d.key}</td>
+										<td class="py-2">{d.ms}ms</td>
+										<td class="py-2 text-right text-foreground-subtle">{d.note}</td>
+									</tr>
+								))
+							}
+							{
+								easings.map((e) => (
+									<tr>
+										<td class="py-2 font-semibold">easing/{e.key}</td>
+										<td class="py-2" colspan="2">
+											<code>{e.value}</code>
+										</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Shadows <span class="text-sm font-normal text-foreground-subtle">(reference only — recreate as effect styles)</span></h3>
+					<table class="mt-3 w-full text-sm">
+						<tbody class="divide-y">
+							{
+								shadows.map((s) => (
+									<tr>
+										<td class="py-2 font-semibold">{s.key}</td>
+										<td class="py-2">
+											<code class="text-xs">{s.value}</code>
+										</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
+		<!-- Breakpoint modes -->
+		<section class="mb-16 space-y-8">
+			<h2 class="text-2xl font-semibold">Breakpoint modes</h2>
+			<p class="max-w-prose text-foreground-muted">Responsive scales from the section spacing and heading size utilities, one value per mode. Section padding and heading sizes alias the Primitives spacing, font size and line-height variables, so that collection must be imported first and named exactly <code>{collectionNames.primitives}</code>.</p>
+
+			<div class="grid gap-x-12 gap-y-10 lg:grid-cols-2">
+				<div>
+					<h3 class="text-lg font-semibold">Section padding</h3>
+					<table class="mt-3 w-full text-sm">
+						<thead>
+							<tr class="text-left text-foreground-subtle">
+								<th class="py-2 font-normal"></th>
+								{breakpointModes.map((bp) => <th class="py-2 font-normal">{bp}</th>)}
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+							{
+								sectionPadding.map((s) => (
+									<tr>
+										<td class="py-2 font-semibold">{s.key}</td>
+										{breakpointModes.map((bp) => (
+											<td class="py-2">{s.px[bp]}px</td>
+										))}
+									</tr>
+								))
+							}
+							<tr>
+								<td class="py-2 font-semibold">gutter</td>
+								{
+									breakpointModes.map((bp) => (
+										<td class="py-2">
+											{gutter[bp]}px <span class="text-foreground-subtle">→ spacing/{gutterStep[bp]}</span>
+										</td>
+									))
+								}
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div>
+					<h3 class="text-lg font-semibold">Heading size / line-height</h3>
+					<table class="mt-3 w-full text-sm">
+						<thead>
+							<tr class="text-left text-foreground-subtle">
+								<th class="py-2 font-normal"></th>
+								{breakpointModes.map((bp) => <th class="py-2 font-normal">{bp}</th>)}
+							</tr>
+						</thead>
+						<tbody class="divide-y">
+							{
+								headingSizes.map((h) => (
+									<tr>
+										<td class="py-2 font-semibold">{h.key}</td>
+										{breakpointModes.map((bp) => (
+											<td class="py-2">
+												{h.px[bp]}/{h.lineHeight[bp]}px <span class="text-foreground-subtle">→ font/size/{h.size[bp]}</span>
+											</td>
+										))}
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</section>
+
+		<!-- Hidden probes so palette colours are resolved by the same canvas path as
+		     the theme probes; exact matches between the two are then reliable. -->
+		<div hidden>
+			{palette.map((b) => rampOrder.map((step) => <i data-palette-probe data-name={`${b.key}/${step}`} style={`background-color: var(${step === 'DEFAULT' ? b.css : `${b.css}-${step}`})`} />))}
+			{[...base, ...status].map((c) => <i data-palette-probe data-name={c.key} style={`background-color: var(${c.css})`} />)}
+		</div>
+
+		<script type="application/json" id="tokens-static" set:html={JSON.stringify(staticFiles)} />
+	</main>
+</Layout>
+
+<script>
+	import tokens from '../assets/scripts/tokens'
+	tokens()
+</script>

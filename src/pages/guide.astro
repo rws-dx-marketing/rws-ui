@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro'
 import { themes } from '../data/themes'
 import { headingSize } from '../utils/heading-size'
+import { palette, rampOrder } from '../data/tokens'
 
 const textScale = [
 	{ name: 'text-2xs', rem: '0.625rem', px: 10 },
@@ -32,45 +33,19 @@ const fontWeights = [
 	// { name: 'font-black', weight: 900 },
 ]
 
-const semanticPrimary = [
-	{ name: 'primary-softest', hex: '#faf9ff', className: 'bg-primary-softest' },
-	{ name: 'primary-softer', hex: '#f0eeff', className: 'bg-primary-softer' },
-	{ name: 'primary-soft', hex: '#e2ddff', className: 'bg-primary-soft' },
-	{ name: 'primary-subtle', hex: '#af9eff', className: 'bg-primary-subtle' },
-	{ name: 'primary-muted', hex: '#977cff', className: 'bg-primary-muted' },
-	{ name: 'primary', hex: '#8353fd', className: 'bg-primary' },
-	{ name: 'primary-strong', hex: '#603bbc', className: 'bg-primary-strong' },
-]
+// Brand ramps come from the tokens module so the hexes live in one place.
+// `cssName` is the CSS slot (quaternary) where it differs from the token key (saffron).
+const ramp = (key, cssName = key) =>
+	rampOrder.map((step) => ({
+		name: step === 'DEFAULT' ? cssName : `${cssName}-${step}`,
+		hex: palette.find((b) => b.key === key).hexes[step],
+		className: step === 'DEFAULT' ? `bg-${cssName}` : `bg-${cssName}-${step}`,
+	}))
 
-const semanticSecondary = [
-	{ name: 'secondary-softest', hex: '#fff7f8', className: 'bg-secondary-softest' },
-	{ name: 'secondary-softer', hex: '#ffe9ea', className: 'bg-secondary-softer' },
-	{ name: 'secondary-soft', hex: '#ffd2d6', className: 'bg-secondary-soft' },
-	{ name: 'secondary-subtle', hex: '#fa8795', className: 'bg-secondary-subtle' },
-	{ name: 'secondary-muted', hex: '#f15875', className: 'bg-secondary-muted' },
-	{ name: 'secondary', hex: '#e60054', className: 'bg-secondary' },
-	{ name: 'secondary-strong', hex: '#aa013c', className: 'bg-secondary-strong' },
-]
-
-const semanticTertiary = [
-	{ name: 'tertiary-softest', hex: '#fbf9ff', className: 'bg-tertiary-softest' },
-	{ name: 'tertiary-softer', hex: '#f4edff', className: 'bg-tertiary-softer' },
-	{ name: 'tertiary-soft', hex: '#e9ddfe', className: 'bg-tertiary-soft' },
-	{ name: 'tertiary-subtle', hex: '#856dab', className: 'bg-tertiary-subtle' },
-	{ name: 'tertiary-muted', hex: '#603e8d', className: 'bg-tertiary-muted' },
-	{ name: 'tertiary', hex: '#3e016f', className: 'bg-tertiary' },
-	{ name: 'tertiary-strong', hex: '#2b0050', className: 'bg-tertiary-strong' },
-]
-
-const semanticQuaternary = [
-	{ name: 'quaternary-softest', hex: '#fffbeb', className: 'bg-quaternary-softest' },
-	{ name: 'quaternary-softer', hex: '#fff3c9', className: 'bg-quaternary-softer' },
-	{ name: 'quaternary-soft', hex: '#ffeba3', className: 'bg-quaternary-soft' },
-	{ name: 'quaternary-subtle', hex: '#ffe27d', className: 'bg-quaternary-subtle' },
-	{ name: 'quaternary-muted', hex: '#ffd74a', className: 'bg-quaternary-muted' },
-	{ name: 'quaternary', hex: '#ffc700', className: 'bg-quaternary' },
-	{ name: 'quaternary-strong', hex: '#e6b300', className: 'bg-quaternary-strong' },
-]
+const semanticPrimary = ramp('primary')
+const semanticSecondary = ramp('secondary')
+const semanticTertiary = ramp('tertiary')
+const semanticQuaternary = ramp('saffron', 'quaternary')
 
 const semanticNeutral = [
 	{ name: 'foreground-softest', hex: '#f7f7f7', className: 'bg-foreground-softest' },

@@ -1,5 +1,6 @@
 @theme {
 	--text-2xs: 0.625rem;
+	--text-2xs--line-height: calc(0.875 / 0.625);
 
 	--leading-none: 1;
 
