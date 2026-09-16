@@ -1,0 +1,124 @@
+---
+//@ts-nocheck
+// CTA — a single rounded panel with an icon, a short message and an action.
+//
+// Props:
+//   variant — 'card' (label + heading + copy + outline button),
+//             'banner' (one-line heading + link with arrow) or
+//             'stacked' (centred; larger heading + primary button and optional
+//             secondary link — a page closer) (default 'card')
+//   theme   — section theme (default 'default')
+//   label   — small pill above the heading (card only; falsy to hide)
+//   heading — heading text/markup
+//   copy    — supporting paragraph (card and stacked; falsy to hide)
+//   href    — action destination
+//   action  — action text
+//   secondaryAction/secondaryHref — text link beside the button (stacked only)
+//   icon    — 'graduation' | 'code' | 'chat' | 'none' — pick a built-in icon, or pass
+//             your own via the `icon` slot (default 'graduation')
+//   top/bottom — vertical spacing presets passed to Section (default 'md')
+import Section from '../components/Section.astro'
+import Heading from '../components/Heading.astro'
+
+const { variant = 'card', theme = 'default', label = 'For students', heading = 'Not job hunting yet? Visit RWS Campus', copy = 'Internships, placements and graduate programs for students building toward a career in language and technology.', href = '#', action = 'Visit RWS Campus', secondaryAction = '', secondaryHref = '#', icon = 'graduation', top = 'md', bottom = 'md' } = Astro.props
+
+const isBanner = variant === 'banner'
+const isStacked = variant === 'stacked'
+const showIcon = icon !== 'none' || Astro.slots.has('icon')
+---
+
+<Section theme={theme} top={top} bottom={bottom}>
+	<div class:list={['intersect-once flex rounded-xl border intersect:motion-preset-slide-up-sm', isStacked && 'flex-col items-center p-8 text-center md:p-12 lg:p-16', isBanner && 'flex-wrap items-center gap-x-6 gap-y-4 p-6 md:gap-x-8 md:px-8', !isBanner && !isStacked && 'flex-col gap-6 p-6 sm:p-8 md:flex-row md:items-center md:gap-10 md:p-10 lg:px-12']} data-card>
+		{
+			showIcon && (
+				<div aria-hidden="true" class:list={['flex shrink-0 items-center justify-center', isStacked && 'mb-8', isBanner ? 'size-8 text-accent' : 'size-14 rounded-full bg-accent-softest text-foreground lg:size-16 [&_svg]:size-1/2']}>
+					<slot name="icon">
+						{icon === 'graduation' && (
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none" />
+								<polygon points="12 96 128 32 244 96 128 160 12 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								<polyline points="180 240 180 124.69 128 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								<path d="M216,111.45v54.84a8,8,0,0,1-2,5.31c-11.3,12.59-38.9,36.4-86,36.4s-74.68-23.81-86-36.4a8,8,0,0,1-2-5.31V111.45" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+							</svg>
+						)}
+						{icon === 'code' && (
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none" />
+								<polyline points="64 88 16 128 64 168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								<polyline points="192 88 240 128 192 168" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								<line x1="160" y1="40" x2="96" y2="216" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+							</svg>
+						)}
+						{icon === 'chat' && (
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+								<rect width="256" height="256" fill="none" />
+								<line x1="96" y1="108" x2="160" y2="108" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								<line x1="96" y1="148" x2="160" y2="148" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								<path d="M79.93,211.11a96,96,0,1,0-35-35h0L32.42,213.46a8,8,0,0,0,10.12,10.12l37.39-12.47Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+							</svg>
+						)}
+					</slot>
+				</div>
+			)
+		}
+
+		<div class:list={['min-w-0', isStacked ? 'mb-8 max-w-screen-md' : 'flex-1']}>
+			{!isBanner && label && <span class="mb-3 inline-block rounded-full border border-accent-softer bg-accent-softest px-3 py-1 text-xs font-bold tracking-widest text-foreground-muted uppercase">{label}</span>}
+
+			{
+				isBanner ? (
+					<p class="text-lg text-pretty md:text-xl">
+						<Fragment set:html={heading} />
+					</p>
+				) : (
+					<Heading as="h2" size={isStacked ? 'xs' : 'xxs'} class:list={['font-bold tracking-tight text-pretty', isStacked ? 'mx-auto max-w-[24ch]' : 'max-w-[32ch]', copy && (isStacked ? 'mb-5' : 'mb-3')]}>
+						<Fragment set:html={heading} />
+					</Heading>
+				)
+			}
+
+			{
+				!isBanner && copy && (
+					<div class:list={['prose text-foreground-muted', isStacked ? 'mx-auto prose-lg max-w-[56ch] md:prose-xl' : 'max-w-[60ch]']}>
+						<p set:html={copy} />
+					</div>
+				)
+			}
+		</div>
+
+		<div class:list={['shrink-0', isStacked && 'flex flex-col gap-4 sm:flex-row sm:justify-center', isBanner && 'basis-full md:basis-auto', isBanner && showIcon && 'max-md:ml-14']}>
+			{
+				isBanner ? (
+					<a href={href} class="btn btn-link btn-icon-right btn-lg text-accent md:btn-xl">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+							<rect width="256" height="256" fill="none" />
+							<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+							<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+						</svg>
+						{action}
+					</a>
+				) : isStacked ? (
+					<>
+						<a href={href} class="btn btn-primary btn-lg">
+							{action}
+						</a>
+						{secondaryAction && (
+							<a href={secondaryHref} class="btn btn-icon-right btn-ghost btn-lg">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+									<rect width="256" height="256" fill="none" />
+									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+									<polyline points="168 80 216 128 168 176" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
+								</svg>
+								{secondaryAction}
+							</a>
+						)}
+					</>
+				) : (
+					<a href={href} class="btn btn-outline btn-lg border-accent text-accent hover:bg-accent-softest focus-visible:ring-accent-soft">
+						{action}
+					</a>
+				)
+			}
+		</div>
+	</div>
+</Section>

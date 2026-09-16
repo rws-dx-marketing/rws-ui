@@ -1,0 +1,35 @@
+---
+// @ts-nocheck
+import Layout from '../../layouts/Layout.astro'
+import Cta from '../../blocks/Cta.astro'
+import ThemePicker from '../../components/ThemePicker.astro'
+import { themes } from '../../data/themes'
+---
+
+<Layout title="CTA – RWS UI">
+	<section class="border-b border-foreground-softest pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>CTA</p>
+			</h2>
+
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p>A single rounded panel with an icon, a short message and one action. The <code>card</code> variant carries a label, heading, copy and an outline button; the <code>banner</code> variant is a one-liner with a text link; the <code>stacked</code> variant is a centred page closer with a primary button and optional secondary link.</p>
+			</div>
+
+			<ThemePicker />
+		</div>
+	</section>
+
+	<div data-theme-preview>
+		{
+			themes.map((theme) => (
+				<div data-theme={theme}>
+					<Cta variant="card" theme={theme} icon="graduation" bottom="none" />
+					<Cta variant="banner" theme={theme} icon="code" heading="Curious what building technology at RWS looks like?" action="Explore tech careers" top="sm" bottom="none" />
+					<Cta variant="stacked" theme={theme} icon="chat" label="" heading="Let's talk about your next project" copy="Tell us what you're working on and we'll match you with the right team, tools and timeline. Lorem ipsum dolor sit amet." action="Talk to sales" secondaryAction="See pricing" top="sm" />
+				</div>
+			))
+		}
+	</div>
+</Layout>
