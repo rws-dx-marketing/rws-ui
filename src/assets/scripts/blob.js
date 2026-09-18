@@ -2200,12 +2200,15 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			// host's height, growing when the host is taller than wide so it
 			// still reads as the mark. The pointer proxy scales with it so hover
 			// still lands.
+			// The gap is the attribute's value, or `--blob-gap` on the same element
+			// when set, so a page can vary it by breakpoint with utility classes.
+			// Read on every fit, since a resize can cross a breakpoint.
 			const fitEl = (host.closest('[data-blob-lab]') ?? host.parentElement)?.querySelector('[data-blob-fit]')
-			const gapPx = parseFloat(fitEl?.dataset.blobFit) || 40
 			function contentScale() {
 				const hr = host.getBoundingClientRect()
 				const er = fitEl.getBoundingClientRect()
 				if (!hr.height || !er.height) return 1
+				const gapPx = parseFloat(getComputedStyle(fitEl).getPropertyValue('--blob-gap')) || parseFloat(fitEl.dataset.blobFit) || 40
 				// World units per pixel at the mark's plane.
 				const upp = (2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) / hr.height
 				const cx = (er.left + er.width / 2 - (hr.left + hr.width / 2)) * upp

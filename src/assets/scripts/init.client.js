@@ -2,6 +2,7 @@ import { Observer } from 'tailwindcss-intersect'
 
 import cardFilters from './card-filters'
 import countUp from './count-up'
+import countdown from './countdown'
 import dots from './dots'
 import dropdownFilters from './dropdown-filters'
 import formMock from './form-mock'
@@ -33,6 +34,7 @@ if (typeof window !== 'undefined') {
 
 	const initEarly = () => {
 		countUp()
+		countdown()
 		themePicker()
 		variantPicker()
 	}
