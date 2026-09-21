@@ -189,7 +189,7 @@ import Layout from '../../layouts/Layout.astro'
 	         …
 	────────────────────────────────────────────────────────────────────── */
 	}
-	<style is:inline>
+	<!-- <style is:inline>
 		[data-theme] {
 			background-color: var(--background);
 			color: var(--foreground);
@@ -319,14 +319,14 @@ import Layout from '../../layouts/Layout.astro'
 				line-height: 1.7778;
 			}
 		}
-	</style>
+	</style> -->
 
 	{
 		/* Hand-off JS — interim embed for the hard-coded accordions. is:inline so it
 	   ships verbatim (Astro won't bundle/hoist it). The data-accordion-ready guard
 	   makes it a no-op once the real accordion.js runs; remove when that lands. */
 	}
-	<script is:inline>
+	<!-- <script is:inline>
 		;(function () {
 			const DURATION = 300
 			const EASING = 'ease-in-out'
@@ -412,5 +412,5 @@ import Layout from '../../layouts/Layout.astro'
 				init()
 			}
 		})()
-	</script>
+	</script> -->
 </Layout>

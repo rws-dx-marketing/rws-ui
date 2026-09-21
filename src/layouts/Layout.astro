@@ -4,31 +4,31 @@ import Header from '../components/Header.astro'
 import SecondaryNav from '../components/SecondaryNav.astro'
 import { resolveSecondaryNav } from '../utils/secondary-nav'
 
-const { title = 'RWS UI' } = Astro.props
+const { title = 'RWS UI', mode = 'light' } = Astro.props
+const forcedDark = mode === 'dark'
 const pathname = Astro.url.pathname
 const secondaryNav = resolveSecondaryNav(pathname)
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class:list={[forcedDark && 'dark']} data-mode={forcedDark ? 'dark' : undefined}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="theme-color" content="#ffffff" />
 		<title>{title}</title>
-		<script>
-			if (localStorage.getItem('color-theme') === 'dark') {
-				document.documentElement.classList.add('dark')
-			} else {
-				document.documentElement.classList.remove('dark')
+		<script is:inline>
+			if (!document.documentElement.dataset.mode) {
+				document.documentElement.classList.toggle('dark', localStorage.getItem('rws:mode') === 'dark')
 			}
 		</script>
 	</head>
 	<body>
 		<Header />
 
-		<div id="page-shell" class="isolate origin-right bg-white transition-[translate,scale,height] motion-reduce:transition-none lg:transition-none">
+		<div id="page-shell" class="isolate origin-right bg-background transition-[translate,scale,height] after:pointer-events-none after:absolute after:inset-[var(--shell-clip-top,0px)_0_var(--shell-clip-bottom,0px)] after:z-999 after:rounded-lg after:border after:border-black/10 after:opacity-0 after:transition-opacity data-menu-open:after:opacity-100 motion-reduce:transition-none motion-reduce:after:transition-none lg:transition-none dark:after:border-white/10">
 			{secondaryNav ? <SecondaryNav icon={secondaryNav.icon} labelClass={secondaryNav.labelClass} breadcrumbs={secondaryNav.breadcrumbs} links={secondaryNav.links} current={secondaryNav.current} parent={secondaryNav.parent} pathname={pathname} /> : null}
 			<script is:inline>
 				;(function () {
@@ -42,6 +42,6 @@ const secondaryNav = resolveSecondaryNav(pathname)
 		</div>
 
 		<script src="../assets/scripts/init.client.js"></script>
-		<script src="../assets/scripts/theme.client.js"></script>
+		<script src="../assets/scripts/mode.client.js"></script>
 	</body>
 </html>

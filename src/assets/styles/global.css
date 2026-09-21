@@ -54,6 +54,13 @@
 		color-scheme: dark;
 	}
 
+	.mode-switching,
+	.mode-switching *,
+	.mode-switching ::before,
+	.mode-switching ::after {
+		transition: none !important;
+	}
+
 	button:not(:disabled),
 	[role='button']:not(:disabled) {
 		@apply cursor-pointer;

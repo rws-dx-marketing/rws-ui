@@ -45,10 +45,10 @@ Global CSS lives in `src/assets/styles/global.css` and imports Tailwind. Tailwin
 
 Scripts in `src/assets/scripts/` are loaded with `<script>` tags in layouts or components:
 
-- `theme.client.js` — dark mode toggle, persisted to `localStorage`
+- `mode.client.js` — dark mode toggle, persisted to `localStorage`
 - `secondary-nav.js` — resolves active secondary nav items from current pathname
 - Other scripts handle count-up animations, card filters, and dropdown filters
-- All modules are wired through `init.client.js`; `theme.client.js` runs standalone
+- All modules are wired through `init.client.js`; `mode.client.js` runs standalone
 
 Animations use Tailwind Motion's `intersect:motion-preset-*` classes with `intersect-once` — they trigger once when elements enter the viewport via IntersectionObserver.
 

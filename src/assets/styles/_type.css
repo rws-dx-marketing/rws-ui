@@ -25,6 +25,7 @@
 		--tw-prose-headings: var(--foreground);
 		--tw-prose-bold: var(--foreground);
 		--tw-prose-links: var(--accent);
+		--tw-prose-quotes: color-mix(in oklch, var(--foreground) 90%, transparent);
 		--tw-prose-hr: color-mix(in oklch, var(--foreground) 10%, transparent);
 
 		:where(p):not(:where([class~='not-prose'], [class~='not-prose'] *)) {

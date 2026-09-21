@@ -1,0 +1,23 @@
+---
+// @ts-nocheck
+// Forced dark mode test. `mode="dark"` on Layout applies the dark class server-side
+// regardless of the header toggle; every other page follows the toggle.
+import Layout from '../layouts/Layout.astro'
+import Hero from '../blocks/Hero.astro'
+import Features from '../blocks/Features.astro'
+import Cards from '../blocks/Cards.astro'
+import Stats from '../blocks/Stats.astro'
+import Testimonials from '../blocks/Testimonials.astro'
+import Cta from '../blocks/Cta.astro'
+---
+
+<Layout title="Dark mode – RWS UI" mode="dark">
+	<Hero theme="default" />
+	<Features theme="pale" />
+	<Cards theme="dots" />
+	<Stats theme="primary" />
+	<Features theme="secondary" />
+	<Testimonials theme="tertiary" />
+	<Features theme="inverse" />
+	<Cta variant="stacked" theme="pale" />
+</Layout>

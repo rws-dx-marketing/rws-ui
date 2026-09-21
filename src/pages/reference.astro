@@ -187,7 +187,7 @@ const templates = [
 
 			<ul class="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
 				<li hidden>
-					<a href="/blocks/tester" class="block rounded-xl border border-gray-200 bg-white p-6 transition-colors hover:border-accent">
+					<a href="/blocks/tester" class="block rounded-xl border p-6 transition-colors hover:border-accent" data-card>
 						<div class="text-lg font-semibold">Tester</div>
 						{/* <div class="mt-1 text-sm text-foreground-muted">{block.variants}</div> */}
 					</a>
@@ -195,7 +195,7 @@ const templates = [
 				{
 					blocks.map((block) => (
 						<li>
-							<a href={block.href} class="block rounded-xl border border-gray-200 bg-white px-6 py-5 transition-colors hover:border-accent">
+							<a href={block.href} class="block rounded-lg border px-6 py-5 transition-colors hover:border-accent" data-card>
 								<div class="text-lg font-semibold">{block.name}</div>
 								{/* <div class="mt-1 text-sm text-foreground-muted">{block.variants}</div> */}
 							</a>

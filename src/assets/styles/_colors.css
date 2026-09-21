@@ -1,5 +1,17 @@
-@theme {
-	--color-neutral: oklch(0.553 0.013 58.071);
+/* `static` so every ramp step is emitted even when no utility references it: the style
+   guide (and /tokens) read these as `var(--color-*)` rather than through `bg-*` classes. */
+@theme static {
+	/* The neutral ramp is the light-mode text scale: `neutral` is body text and the other
+	   steps use the same white mixes as the `foreground-*` ramp in _themes.css, so on the
+	   default theme in light mode the two match hex for hex. `strong` is the exception: it
+	   is the dark-mode page rather than a heavier text colour. */
+	--color-neutral: oklch(0.2 0.0047 58.071);
+	--color-neutral-muted: color-mix(in oklab, var(--color-neutral) 80%, white);
+	--color-neutral-subtle: color-mix(in oklab, var(--color-neutral) 60%, white);
+	--color-neutral-soft: color-mix(in oklab, var(--color-neutral) 12%, white);
+	--color-neutral-softer: color-mix(in oklab, var(--color-neutral) 6%, white);
+	--color-neutral-softest: color-mix(in oklab, var(--color-neutral) 3%, white);
+	--color-neutral-strong: color-mix(in oklab, var(--color-neutral) 60%, black);
 
 	--color-primary: oklch(0.591 0.238 290.15);
 	--color-primary-muted: color-mix(in oklch, var(--color-primary) 80%, white);

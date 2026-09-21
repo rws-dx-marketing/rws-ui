@@ -24,6 +24,7 @@ const ramp = (hexes) => ({
 })
 
 export const palette = [
+	{ key: 'neutral', label: 'Neutral', brandName: 'Neutral', css: '--color-neutral', hexes: ramp(['#f7f7f7', '#efefef', '#dfdfdf', '#6a6867', '#3f3d3b', '#181614', '#060605']) },
 	{ key: 'primary', label: 'Primary', brandName: 'Hidcote Blue', css: '--color-primary', hexes: ramp(['#faf9ff', '#f0eeff', '#e2ddff', '#af9eff', '#977cff', '#8353fd', '#603bbc']) },
 	{ key: 'secondary', label: 'Secondary', brandName: 'Hillier Pink', css: '--color-secondary', hexes: ramp(['#fff7f8', '#ffe9ea', '#ffd2d6', '#fa8795', '#f15875', '#e60054', '#aa013c']) },
 	{ key: 'tertiary', label: 'Tertiary', brandName: 'Galaxy Purple', css: '--color-tertiary', hexes: ramp(['#fbf9ff', '#f4edff', '#e9ddfe', '#856dab', '#603e8d', '#3e016f', '#2b0050']) },

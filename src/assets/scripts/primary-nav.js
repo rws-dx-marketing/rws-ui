@@ -130,6 +130,12 @@ export default function primaryNav() {
 				shellClipPath = `inset(${topClip}px 0 ${bottomClip}px 0 round 1rem)`
 				shellTarget.style.willChange = 'transform, clip-path'
 				shellTarget.style.clipPath = shellClipPath
+				// Outline the clipped card via ::after so the shell stays separable from the
+				// black backdrop in dark mode; the pseudo needs a positioned parent.
+				shellTarget.style.position = 'relative'
+				shellTarget.style.setProperty('--shell-clip-top', `${topClip}px`)
+				shellTarget.style.setProperty('--shell-clip-bottom', `${bottomClip}px`)
+				shellTarget.dataset.menuOpen = ''
 				shellMotionClasses.forEach((className) => {
 					shellTarget.classList.add(className)
 				})
@@ -157,6 +163,7 @@ export default function primaryNav() {
 			shellMotionClasses.forEach((className) => {
 				shellTarget.classList.remove(className)
 			})
+			delete shellTarget.dataset.menuOpen
 		}
 
 		if (!isOpen) {
@@ -170,6 +177,9 @@ export default function primaryNav() {
 						clipAnimation = null
 					}
 					shellTarget.style.clipPath = ''
+					shellTarget.style.position = ''
+					shellTarget.style.removeProperty('--shell-clip-top')
+					shellTarget.style.removeProperty('--shell-clip-bottom')
 				}
 				if (!languageChangeDialogs.some((d) => d.open)) {
 					unlockDocumentScroll()

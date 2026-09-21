@@ -1,65 +1,54 @@
 ---
+// @ts-nocheck
+// Logos — trust strip. Each logo renders as two stacked layers: a flattened monochrome
+// layer at rest and the full-colour artwork revealed on hover. The rest layer is forced
+// to black by `brightness-0` and simply inverted for dark mode, which is deterministic for
+// any artwork. The colour layer can't be filtered safely, so a brand whose colour form
+// doesn't survive a dark background supplies a `dark` file, shown/hidden the same way as
+// the header logo.
 import Section from '../components/Section.astro'
+
+const {
+	theme = 'default',
+	logos = [
+		{ name: 'Canva', href: 'https://www.canva.com', src: '/logos/canva.svg' },
+		{ name: 'Uber', href: 'https://www.uber.com', src: '/logos/uber.svg', dark: '/logos/uber-dark.svg' },
+		{ name: 'DHL', href: 'https://www.dhl.com', src: '/logos/dhl.svg' },
+		{ name: 'HP', href: 'https://www.hp.com', src: '/logos/hp.svg' },
+		{ name: 'Deliveroo', href: 'https://deliveroo.com', src: '/logos/deliveroo.svg' },
+		{ name: 'Allianz', href: 'https://www.allianz.com', src: '/logos/allianz.svg' },
+	],
+} = Astro.props
+
+const rest = 'max-h-10 object-contain opacity-50 brightness-0 grayscale transition-opacity group-hover:opacity-0 group-hover:delay-400 xl:max-h-16 dark:invert'
+const colour = 'absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0'
 ---
 
-<!-- Wrapper -->
-<Section theme="default" top="none" bottom="sm" container={false}>
-	<!-- Container -->
+<Section theme={theme} top="none" bottom="sm" container={false}>
 	<div class="mx-auto max-w-screen-md px-8 lg:max-w-screen-lg lg:px-12">
-		<!-- Tagline -->
 		<div class="intersect-once mb-8 text-center font-semibold text-foreground-muted motion-delay-300 lg:mb-12 intersect:motion-preset-slide-up">
 			<p>Trusted by 85 of the world’s top 100 brands</p>
 		</div>
 
-		<!-- Logos -->
 		<div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-4 md:flex-nowrap lg:gap-12">
-			<a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 300ms">
-				<span class="relative block">
-					<img src="/logos/canva.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 grayscale transition-opacity group-hover:opacity-0 group-hover:delay-400 xl:max-h-16" draggable="false" />
-					<img src="/logos/canva.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-				</span>
-				<span class="sr-only">Canva</span>
-			</a>
-
-			<a href="https://www.uber.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 400ms">
-				<span class="relative block">
-					<img src="/logos/uber.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 grayscale transition-opacity group-hover:opacity-0 group-hover:delay-400 xl:max-h-16" draggable="false" />
-					<img src="/logos/uber.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-				</span>
-				<span class="sr-only">Uber</span>
-			</a>
-
-			<a href="https://www.dhl.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 500ms">
-				<span class="relative block">
-					<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 grayscale transition-opacity group-hover:opacity-0 group-hover:delay-400 xl:max-h-16" draggable="false" />
-					<img src="/logos/dhl.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-				</span>
-				<span class="sr-only">DHL</span>
-			</a>
-
-			<a href="https://www.hp.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 600ms">
-				<span class="relative block">
-					<img src="/logos/hp.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 grayscale transition-opacity group-hover:opacity-0 group-hover:delay-400 xl:max-h-16" draggable="false" />
-					<img src="/logos/hp.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-				</span>
-				<span class="sr-only">HP</span>
-			</a>
-
-			<a href="https://deliveroo.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 700ms">
-				<span class="relative block">
-					<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 grayscale transition-opacity group-hover:opacity-0 group-hover:delay-400 xl:max-h-16" draggable="false" />
-					<img src="/logos/deliveroo.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-				</span>
-				<span class="sr-only">Deliveroo</span>
-			</a>
-
-			<a href="https://www.allianz.com" target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style="--motion-delay: 800ms">
-				<span class="relative block">
-					<img src="/logos/allianz.svg" alt="" aria-hidden="true" class="max-h-10 object-contain opacity-50 brightness-0 grayscale transition-opacity group-hover:opacity-0 group-hover:delay-400 xl:max-h-16" draggable="false" />
-					<img src="/logos/allianz.svg" alt="" aria-hidden="true" class="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity delay-100 group-hover:opacity-100 group-hover:delay-0" draggable="false" />
-				</span>
-				<span class="sr-only">Allianz</span>
-			</a>
+			{
+				logos.map((logo, index) => (
+					<a href={logo.href} target="_blank" rel="noopener noreferrer" class="group intersect-once flex items-center justify-center intersect:motion-preset-slide-up" style={`--motion-delay: ${300 + index * 100}ms`}>
+						<span class="relative block">
+							<img src={logo.src} alt="" aria-hidden="true" class={rest} draggable="false" />
+							{logo.dark ? (
+								<>
+									<img src={logo.src} alt="" aria-hidden="true" class:list={[colour, 'dark:hidden']} draggable="false" />
+									<img src={logo.dark} alt="" aria-hidden="true" class:list={[colour, 'hidden dark:block']} draggable="false" />
+								</>
+							) : (
+								<img src={logo.src} alt="" aria-hidden="true" class={colour} draggable="false" />
+							)}
+						</span>
+						<span class="sr-only">{logo.name}</span>
+					</a>
+				))
+			}
 		</div>
 	</div>
 </Section>

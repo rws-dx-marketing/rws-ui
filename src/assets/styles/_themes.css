@@ -40,6 +40,13 @@
 		border-color: var(--border, currentColor);
 	}
 
+	:root {
+		--background-seed: var(--color-white);
+		--foreground-seed: var(--color-neutral);
+		--accent-seed: var(--color-primary);
+	}
+
+	:root,
 	[data-theme],
 	[data-card] {
 		--background: var(--background-seed);
@@ -56,17 +63,27 @@
 		--foreground-softest: color-mix(in oklab, var(--foreground-seed) calc(3% * var(--tint-boost, 1)), var(--background-seed));
 		--foreground-strong: color-mix(in oklab, var(--foreground-seed) 12%, black);
 
+		--input: var(--background-softest);
+	}
+
+	/* The accent ramp is derived separately so data-accent can re-seed it on any element,
+	   not only on a theme or card; the background and foreground seeds inherit unchanged. */
+	:root,
+	[data-theme],
+	[data-card],
+	[data-accent] {
 		--accent: var(--accent-seed);
 		--accent-muted: color-mix(in oklab, var(--accent-seed) 80%, var(--background-seed));
 		--accent-subtle: color-mix(in oklab, var(--accent-seed) 50%, var(--background-seed));
-		--accent-soft: color-mix(in oklab, var(--accent-seed) 24%, var(--background-seed));
-		--accent-softer: color-mix(in oklab, var(--accent-seed) 12%, var(--background-seed));
-		--accent-softest: color-mix(in oklab, var(--accent-seed) 6%, var(--background-seed));
+		--accent-soft: color-mix(in oklab, var(--accent-seed) calc(24% * var(--accent-boost, 1)), var(--background-seed));
+		--accent-softer: color-mix(in oklab, var(--accent-seed) calc(12% * var(--accent-boost, 1)), var(--background-seed));
+		--accent-softest: color-mix(in oklab, var(--accent-seed) calc(6% * var(--accent-boost, 1)), var(--background-seed));
 		--accent-strong: color-mix(in oklab, var(--accent-seed) 82%, var(--foreground-seed));
 		--on-accent: var(--background-seed);
+	}
 
-		--input: var(--background-softest);
-
+	[data-theme],
+	[data-card] {
 		@apply relative bg-background text-foreground;
 	}
 
@@ -77,13 +94,13 @@
 
 	[data-theme='default'] {
 		--background-seed: var(--color-white);
-		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
+		--foreground-seed: var(--color-neutral);
 		--accent-seed: var(--color-primary);
 	}
 
 	[data-theme='pale'] {
-		--background-seed: color-mix(in oklab, var(--color-neutral), white 96%);
-		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
+		--background-seed: var(--color-neutral-softest);
+		--foreground-seed: var(--color-neutral);
 		--accent-seed: var(--color-primary);
 		--input: var(--background-strong);
 	}
@@ -91,7 +108,7 @@
 	[data-theme='dots'],
 	[data-theme='dots-enhanced'] {
 		--background-seed: color-mix(in oklab, var(--accent-seed) 4%, white);
-		--foreground-seed: color-mix(in oklab, var(--color-neutral), black 64%);
+		--foreground-seed: var(--color-neutral);
 		--accent-seed: var(--color-primary);
 	}
 
@@ -137,10 +154,83 @@
 	}
 
 	[data-theme='inverse'] {
-		--background-seed: color-mix(in oklab, var(--color-neutral), black 80%);
+		--background-seed: var(--color-neutral-strong);
 		--foreground-seed: var(--color-white);
 		--accent-seed: var(--color-primary);
 		--tint-boost: 3;
+	}
+
+	[data-accent='primary'] {
+		--accent-seed: var(--color-primary);
+	}
+
+	[data-accent='secondary'] {
+		--accent-seed: var(--color-secondary);
+	}
+
+	[data-accent='tertiary'] {
+		--accent-seed: var(--color-tertiary);
+	}
+
+	/* The light ramps push `strong` towards white/black; in dark mode those directions swap. */
+	.dark [data-theme],
+	.dark [data-card] {
+		--background-strong: color-mix(in oklab, var(--background-seed) 12%, black);
+		--foreground-strong: color-mix(in oklab, var(--foreground-seed) 12%, white);
+	}
+
+	/* Low-percentage tints vanish against ink, so the soft ramps get the same kind of boost
+	   the brand themes already use. Scoped to the neutral themes so brand boosts stay put. */
+	.dark [data-theme='default'],
+	.dark [data-theme='pale'],
+	.dark [data-theme='dots'],
+	.dark [data-theme='dots-enhanced'] {
+		--tint-boost: 2;
+		--accent-boost: 2;
+	}
+
+	.dark,
+	.dark [data-theme='default'] {
+		--background-seed: var(--color-neutral-strong);
+		--foreground-seed: var(--color-neutral-softer);
+	}
+
+	.dark [data-theme='pale'] {
+		--background-seed: color-mix(in oklab, var(--color-neutral-strong), white 4%);
+		--foreground-seed: var(--color-neutral-softer);
+		--input: var(--background-strong);
+	}
+
+	.dark [data-theme='dots'],
+	.dark [data-theme='dots-enhanced'] {
+		--background-seed: color-mix(in oklab, var(--accent-seed) 8%, var(--color-neutral-strong));
+		--foreground-seed: var(--color-neutral-softer);
+	}
+
+	.dark [data-theme='dots'] {
+		background-image: url("data:image/svg+xml,<svg width='48' height='48' viewBox='0 0 48 48' fill='none' xmlns='http://www.w3.org/2000/svg'><circle cx='23.5' cy='23.5' r='1.5' fill='white' fill-opacity='0.2'/></svg>");
+	}
+
+	/* Brand sections at full luminance glare against ink; a small dim keeps them recognisably
+	   the brand colour. Saffron gets less because black pulls it towards olive. */
+	.dark [data-theme='primary'] {
+		--background-seed: color-mix(in oklab, var(--color-primary), black 10%);
+	}
+
+	.dark [data-theme='secondary'] {
+		--background-seed: color-mix(in oklab, var(--color-secondary), black 10%);
+	}
+
+	.dark [data-theme='tertiary'] {
+		--background-seed: color-mix(in oklab, var(--color-tertiary), black 10%);
+	}
+
+	.dark [data-theme='quaternary'] {
+		--background-seed: color-mix(in oklab, var(--color-quaternary), black 6%);
+	}
+
+	.dark [data-accent='tertiary'] {
+		--accent-seed: var(--color-tertiary-subtle);
 	}
 }
 
@@ -187,6 +277,38 @@
 
 	[data-theme='quaternary'] [data-card] {
 		--background-seed: color-mix(in oklab, var(--color-quaternary), white 16%);
+	}
+
+	/* Same card steps as light mode, applied to the dimmed dark-mode section colours above. */
+	.dark [data-theme='primary'] [data-card] {
+		--background-seed: color-mix(in oklab, color-mix(in oklab, var(--color-primary), black 10%), black 8%);
+	}
+
+	.dark [data-theme='secondary'] [data-card] {
+		--background-seed: color-mix(in oklab, color-mix(in oklab, var(--color-secondary), black 10%), white 8%);
+	}
+
+	.dark [data-theme='tertiary'] [data-card] {
+		--background-seed: color-mix(in oklab, color-mix(in oklab, var(--color-tertiary), black 10%), black 12%);
+	}
+
+	.dark [data-theme='quaternary'] [data-card] {
+		--background-seed: color-mix(in oklab, color-mix(in oklab, var(--color-quaternary), black 6%), white 16%);
+	}
+
+	/* Cards sit a step above their section in dark mode rather than on a pale tint. */
+	.dark [data-theme='default'] [data-card] {
+		--background-seed: color-mix(in oklab, var(--color-neutral-strong), white 5%);
+		--border: var(--foreground-softer);
+	}
+
+	.dark [data-theme='pale'] [data-card] {
+		--background-seed: var(--color-neutral-strong);
+	}
+
+	.dark [data-theme='dots'] [data-card],
+	.dark [data-theme='dots-enhanced'] [data-card] {
+		--background-seed: var(--color-neutral-strong);
 	}
 
 	[data-theme='primary'] .btn-primary {

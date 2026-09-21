@@ -36,26 +36,23 @@ const fontWeights = [
 // Brand ramps come from the tokens module so the hexes live in one place.
 // `cssName` is the CSS slot (quaternary) where it differs from the token key (saffron).
 const ramp = (key, cssName = key) =>
-	rampOrder.map((step) => ({
-		name: step === 'DEFAULT' ? cssName : `${cssName}-${step}`,
-		hex: palette.find((b) => b.key === key).hexes[step],
-		className: step === 'DEFAULT' ? `bg-${cssName}` : `bg-${cssName}-${step}`,
-	}))
+	rampOrder.map((step) => {
+		const name = step === 'DEFAULT' ? cssName : `${cssName}-${step}`
+		return {
+			name,
+			hex: palette.find((b) => b.key === key).hexes[step],
+			// Inline style rather than a `bg-*` class: the names are built at runtime, so Tailwind
+			// would only emit the ones that happen to appear literally elsewhere in the source.
+			style: `background-color: var(--color-${name})`,
+		}
+	})
 
 const semanticPrimary = ramp('primary')
 const semanticSecondary = ramp('secondary')
 const semanticTertiary = ramp('tertiary')
 const semanticQuaternary = ramp('saffron', 'quaternary')
 
-const semanticNeutral = [
-	{ name: 'foreground-softest', hex: '#f7f7f7', className: 'bg-foreground-softest' },
-	{ name: 'foreground-softer', hex: '#efefef', className: 'bg-foreground-softer' },
-	{ name: 'foreground-soft', hex: '#e0dfdf', className: 'bg-foreground-soft' },
-	{ name: 'foreground-subtle', hex: '#6a6966', className: 'bg-foreground-subtle' },
-	{ name: 'foreground-muted', hex: '#3e3d3b', className: 'bg-foreground-muted' },
-	{ name: 'foreground', hex: '#181514', className: 'bg-foreground' },
-	{ name: 'foreground-strong', hex: '#000000', className: 'bg-foreground-strong' },
-]
+const semanticNeutral = ramp('neutral')
 
 const themeVariants = themes.map((theme) => ({
 	theme,
@@ -80,8 +77,8 @@ const themeVariants = themes.map((theme) => ({
 			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticPrimary.map((item) => (
-						<div class="rounded-xl border border-gray-200 bg-white p-4">
-							<div class={`aspect-video w-full rounded ${item.className}`} />
+						<div class="rounded-lg border bg-white p-4 dark:bg-black" data-card>
+							<div class="aspect-video w-full rounded" style={item.style} />
 							<div class="text-body mt-3 space-y-1 text-sm">
 								<span class="block text-center font-semibold">{item.name.replace('primary-', '')}</span>
 								<code class="text-body-subtle block text-center text-xs">{item.hex}</code>
@@ -97,8 +94,8 @@ const themeVariants = themes.map((theme) => ({
 			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticSecondary.map((item) => (
-						<div class="rounded-xl border border-gray-200 bg-white p-4">
-							<div class={`aspect-video w-full rounded ${item.className}`} />
+						<div class="rounded-lg border bg-white p-4 dark:bg-black" data-card>
+							<div class="aspect-video w-full rounded" style={item.style} />
 							<div class="text-body mt-3 space-y-1 text-sm">
 								<span class="block text-center font-semibold">{item.name.replace('secondary-', '')}</span>
 								<code class="text-body-subtle block text-center text-xs">{item.hex}</code>
@@ -114,8 +111,8 @@ const themeVariants = themes.map((theme) => ({
 			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticTertiary.map((item) => (
-						<div class="rounded-xl border border-gray-200 bg-white p-4">
-							<div class={`aspect-video w-full rounded ${item.className}`} />
+						<div class="rounded-lg border bg-white p-4 dark:bg-black" data-card>
+							<div class="aspect-video w-full rounded" style={item.style} />
 							<div class="text-body mt-3 space-y-1 text-sm">
 								<span class="block text-center font-semibold">{item.name.replace('tertiary-', '')}</span>
 								<code class="text-body-subtle block text-center text-xs">{item.hex}</code>
@@ -131,8 +128,8 @@ const themeVariants = themes.map((theme) => ({
 			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticQuaternary.map((item) => (
-						<div class="rounded-xl border border-gray-200 bg-white p-4">
-							<div class={`aspect-video w-full rounded ${item.className}`} />
+						<div class="rounded-lg border bg-white p-4 dark:bg-black" data-card>
+							<div class="aspect-video w-full rounded" style={item.style} />
 							<div class="text-body mt-3 space-y-1 text-sm">
 								<span class="block text-center font-semibold">{item.name.replace('quaternary-', '')}</span>
 								<code class="text-body-subtle block text-center text-xs">{item.hex}</code>
@@ -148,10 +145,10 @@ const themeVariants = themes.map((theme) => ({
 			<div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-7">
 				{
 					semanticNeutral.map((item) => (
-						<div class="rounded-xl border border-gray-200 bg-white p-4">
-							<div class={`aspect-video w-full rounded ${item.className}`} />
+						<div class="rounded-lg border bg-white p-4 dark:bg-black" data-card>
+							<div class="aspect-video w-full rounded" style={item.style} />
 							<div class="text-body mt-3 space-y-1 text-sm">
-								<span class="block text-center font-semibold">{item.name.replace('foreground-', '')}</span>
+								<span class="block text-center font-semibold">{item.name.replace('neutral-', '')}</span>
 								<code class="text-body-subtle block text-center text-xs">{item.hex}</code>
 							</div>
 						</div>
@@ -366,7 +363,7 @@ const themeVariants = themes.map((theme) => ({
 		<div class="grid gap-x-12 gap-y-12 lg:grid-cols-2">
 			<section class="space-y-6">
 				<h3 class="text-xl font-semibold">Type scale</h3>
-				<div class="mt-6 divide-y divide-gray-200 dark:divide-gray-700">
+				<div class="mt-6 divide-y">
 					{
 						textScale.map((t) => (
 							<div class="flex items-center gap-6 py-4">
@@ -423,7 +420,7 @@ const themeVariants = themes.map((theme) => ({
 				Responsive presets from <code class="font-semibold text-foreground">src/utils/heading-size.js</code>. Use these for page and section headings rather than raw
 				<code class="font-semibold text-foreground">text-*</code> sizes — they scale across breakpoints automatically.
 			</p> -->
-			<div class="mt-6 divide-y divide-gray-200 dark:divide-gray-700">
+			<div class="mt-6 divide-y">
 				{
 					Object.entries(headingSize).map(([key, cls]) => (
 						<div class="space-y-2 py-5">

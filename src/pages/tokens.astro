@@ -33,7 +33,7 @@ const title = (key) => key.replace('DEFAULT', 'base')
 		<section class="mb-16 grid gap-4 md:grid-cols-2">
 			{
 				collections.map((c) => (
-					<div class="rounded-xl border bg-white p-5">
+					<div class="rounded-xl border p-5" data-card>
 						<h2 class="text-lg font-semibold">{c.name}</h2>
 						<p class="mt-1 text-sm text-foreground-muted">{c.note}</p>
 						<ul class="mt-4 divide-y">
@@ -68,7 +68,7 @@ const title = (key) => key.replace('DEFAULT', 'base')
 						</h3>
 						<div class="mt-4 grid gap-4 sm:grid-cols-4 lg:grid-cols-7">
 							{rampOrder.map((step) => (
-								<div class="rounded-xl border bg-white p-3">
+								<div class="rounded-lg border bg-white p-4 dark:bg-black" data-card>
 									<div class="aspect-video w-full rounded" style={`background-color: ${b.hexes[step]}`} />
 									<div class="mt-2 space-y-0.5 text-center text-sm">
 										<span class="block font-semibold">{title(step)}</span>
@@ -85,7 +85,7 @@ const title = (key) => key.replace('DEFAULT', 'base')
 				<div class="mt-4 grid gap-4 sm:grid-cols-4 lg:grid-cols-7">
 					{
 						[...base, ...status].map((c) => (
-							<div class="rounded-xl border bg-white p-3">
+							<div class="rounded-lg border bg-white p-4 dark:bg-black" data-card>
 								<div class="aspect-video w-full rounded border" style={`background-color: ${c.hex}`} />
 								<div class="mt-2 space-y-0.5 text-center text-sm">
 									<span class="block font-semibold">{c.key}</span>
