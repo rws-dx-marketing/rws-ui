@@ -43,43 +43,37 @@ const treatments = [
 ]
 const treatment = 'text-gradient'
 
-// Teaser: the black hole skin, zoomed in on the mark so only a stretch of its edge shows. Blob settings — the shared params and the skin's own controls.
-// These are the script's current defaults; change them here and the page
-// passes them to blob.js through [data-blob-settings].
-const blob = {
-	amp: 0, // edge wobble amplitude
-	freq: 0, // wobble frequency along the edge
-	speed: 0.33, // wobble and pulse time scale
+// Teaser: the black hole, zoomed in on the mark so only a stretch of its edge shows.
+// These are black-hole.js's own defaults; change them here and the page passes
+// them to the script through [data-black-hole-settings]. Ranges in the script.
+const hole = {
 	hover: 0.5, // the light under the pointer: its radius and how far beams swell and brighten; nothing moves
 	inertia: 0.5, // the band of light scroll sends across the beams: how bright, and how hard scroll kicks the spring that paces it; matches hover at the same value
-	controls: {
-		spacing: 0.166, // beam spacing (0.02–0.3)
-		width: 2, // beam width in pixels (0.3–4)
-		glow: 0.1, // glow round each beam (0–1.5)
-		squeeze: 0.15, // how tightly beams hug the edge; smaller is tighter (0.05–1)
-		flow: 3, // pulse speed along the beams (0–10)
-		streak: 0.3, // pulse contrast (0–1)
-		halo: 0, // glow hugging the outline (0–1.5)
-		reach: 4, // how far beams and ground spread from the mark; 1.5 fills a square host, 12 fills any hero (1–12)
-		backdrop: 0, // dark ground behind the beams; 0 for an already dark page (0–1)
-		pull: 1.1, // how strongly beams are drawn toward the mark's centre line before the edge repels them (0–3)
-		pullReach: 1, // how far out the pull acts, in mark units (0.05–2)
-		scale: 1, // multiplies the fitted mark size; pushed well past 1 so the outline runs off the viewport and the mark is not immediately readable (0.3–2 on the panel)
-	},
+	spacing: 0.166, // beam spacing
+	width: 2, // beam width in pixels
+	glow: 0.1, // glow round each beam
+	squeeze: 0.15, // how tightly beams hug the edge; smaller is tighter
+	flow: 1, // pulse speed along the beams
+	streak: 0.3, // pulse contrast
+	reach: 4, // how far the beams spread from the mark; 1.5 fills a square host, 12 fills any hero
+	pull: 1.1, // how strongly beams are drawn toward the mark's centre line before the edge repels them
+	pullReach: 1, // how far out the pull acts, in mark units
+	scale: 1, // multiplies the fitted mark size; pushed past 1 the outline runs off the viewport and the mark is not immediately readable
 }
 ---
 
 <Layout title="Coming soon – RWS UI">
-	<!-- Hero: the blob fills the whole section, the copy sits inside the hole.
-	     The background seed is the shader's ground, tertiary scaled to 12% in linear light (blob.js uHole), so nothing shifts when the scene loads in -->
+	<!-- Hero: the black hole fills the whole section, the copy sits inside the hole.
+	     The background seed is the shader's ground, tertiary scaled to 12% in linear light (black-hole.js uHole), so nothing shifts when the scene loads in -->
 	<Section theme="tertiary" top="xl" bottom="xl" container={false} class="relative grid min-h-[min(calc(100svh-var(--chrome-height)),56rem)] place-items-center overflow-clip [--background-seed:color-mix(in_srgb-linear,var(--color-tertiary)_12%,black)]">
-		<!-- Blob: a layer the size of the section, canvas the same size, so the beams run edge to edge -->
-		<div class="absolute inset-0 touch-pan-y [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:block [&>canvas]:size-full" data-blob="hole" data-blob-settings={JSON.stringify(blob)} aria-hidden="true"></div>
+		<!-- Black hole: a layer the size of the section, canvas the same size, so the beams run edge to edge.
+		     The canvas starts transparent and fades in once the script has drawn its first frame (is-ready), so the beams don't snap in over the seed -->
+		<div class="absolute inset-0 touch-pan-y [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:block [&>canvas]:size-full [&>canvas]:opacity-0 [&>canvas]:transition-opacity [&>canvas]:duration-700 [&>canvas.is-ready]:opacity-100" data-black-hole data-black-hole-settings={JSON.stringify(hole)} aria-hidden="true"></div>
 
-		<!-- Copy: pointer events pass through to the blob except on the buttons -->
+		<!-- Copy: pointer events pass through to the canvas except on the buttons -->
 		<div class="pointer-events-none relative z-10 mx-auto flex max-w-screen-xl flex-col items-center justify-center px-8 text-center lg:px-12 [&_a]:pointer-events-auto">
 			<!-- The hole is sized to clear this box by the gap in pixels: tighter on phones, where the copy is tall and the mark would otherwise swallow the section -->
-			<div class="flex flex-col items-center [--blob-gap:32px] md:[--blob-gap:80px] xl:[--blob-gap:96px]" data-blob-fit="96">
+			<div class="flex flex-col items-center [--black-hole-gap:32px] md:[--black-hole-gap:80px] xl:[--black-hole-gap:96px]" data-black-hole-fit="96">
 				<div class="mb-6 text-lg font-bold text-accent-muted sm:text-xl xl:text-2xl">
 					<p>Something big is coming&hellip;</p>
 				</div>
@@ -166,15 +160,13 @@ const blob = {
 	/* The glow is a filter on the row rather than a text-shadow, so it is one layer for the whole row and scales with its em */
 	.countdown-hot {
 		color: var(--color-white);
-		filter: drop-shadow(0 0 0.02em color-mix(in oklch, var(--color-secondary) 70%, white)) drop-shadow(0 0 0.12em var(--color-secondary))
-			drop-shadow(0 0 0.35em color-mix(in oklch, var(--color-primary) 60%, transparent)) drop-shadow(0 0 0.8em color-mix(in oklch, var(--color-tertiary-subtle) 50%, transparent));
+		filter: drop-shadow(0 0 0.02em color-mix(in oklch, var(--color-secondary) 70%, white)) drop-shadow(0 0 0.12em var(--color-secondary)) drop-shadow(0 0 0.35em color-mix(in oklch, var(--color-primary) 60%, transparent)) drop-shadow(0 0 0.8em color-mix(in oklch, var(--color-tertiary-subtle) 50%, transparent));
 		animation: countdown-breathe 6s ease-in-out infinite;
 	}
 
 	@keyframes countdown-breathe {
 		50% {
-			filter: drop-shadow(0 0 0.02em color-mix(in oklch, var(--color-secondary) 70%, white)) drop-shadow(0 0 0.18em var(--color-secondary))
-				drop-shadow(0 0 0.5em color-mix(in oklch, var(--color-primary) 75%, transparent)) drop-shadow(0 0 1.1em color-mix(in oklch, var(--color-tertiary-subtle) 65%, transparent));
+			filter: drop-shadow(0 0 0.02em color-mix(in oklch, var(--color-secondary) 70%, white)) drop-shadow(0 0 0.18em var(--color-secondary)) drop-shadow(0 0 0.5em color-mix(in oklch, var(--color-primary) 75%, transparent)) drop-shadow(0 0 1.1em color-mix(in oklch, var(--color-tertiary-subtle) 65%, transparent));
 		}
 	}
 

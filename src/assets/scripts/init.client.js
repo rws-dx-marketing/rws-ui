@@ -25,6 +25,7 @@ import variantPicker from './variant-picker'
 import timezoneSelect from './timezone-select'
 import animation from './animation'
 import blob from './blob'
+import blackHole from './black-hole'
 import range from './range'
 
 if (typeof window !== 'undefined') {
@@ -37,6 +38,7 @@ if (typeof window !== 'undefined') {
 		countdown()
 		themePicker()
 		variantPicker()
+		blackHole()
 	}
 
 	if (document.readyState === 'loading') {
