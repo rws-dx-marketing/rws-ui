@@ -4,5 +4,6 @@ export const headingSize = {
 	sm: 'text-4xl xl:text-5xl',
 	md: 'text-4xl md:text-5xl xl:text-6xl',
 	lg: 'text-5xl md:text-6xl xl:text-7xl',
-	xl: 'text-6xl md:text-7xl xl:text-8xl',
+  xl: 'text-6xl md:text-7xl xl:text-8xl',
+	xxl: 'text-6xl sm:text-7xl md:text-8xl xl:text-9xl'
 }

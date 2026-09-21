@@ -3,6 +3,9 @@
 import Layout from '../layouts/Layout.astro'
 import Section from '../components/Section.astro'
 import Heading from '../components/Heading.astro'
+import { headingSize } from '../utils/heading-size'
+import PreviewSettings from '../components/PreviewSettings.astro'
+import FilterOption from '../components/FilterOption.astro'
 
 // Countdown end, as a wall-clock time in the named zone. The instant is
 // resolved here at build time with the zone's own offset on that date, so
@@ -30,6 +33,15 @@ const units = [
 //   var launchUtc = TimeZoneInfo.ConvertTimeToUtc(Model.LaunchLocal, london);
 // }
 // <div data-countdown="@launchUtc.ToString("o")" ...>
+
+// Countdown text treatments, one class each on the timer row; the cog swaps them. Styles at the foot of the page.
+const treatments = [
+	{ value: 'text-gradient', label: 'Gradient' },
+	{ value: 'countdown-hot', label: 'Hot edge' },
+	{ value: 'countdown-tick', label: 'Tick sweep' },
+	{ value: 'countdown-boxed', label: 'Boxed roll' },
+]
+const treatment = 'text-gradient'
 
 // Teaser: the black hole skin, zoomed in on the mark so only a stretch of its edge shows. Blob settings — the shared params and the skin's own controls.
 // These are the script's current defaults; change them here and the page
@@ -60,38 +72,40 @@ const blob = {
 <Layout title="Coming soon – RWS UI">
 	<!-- Hero: the blob fills the whole section, the copy sits inside the hole.
 	     The background seed is the shader's ground, tertiary scaled to 12% in linear light (blob.js uHole), so nothing shifts when the scene loads in -->
-	<Section theme="tertiary" top="xl" bottom="xl" container={false} class="relative overflow-clip [--background-seed:color-mix(in_srgb-linear,var(--color-tertiary)_12%,black)]">
+	<Section theme="tertiary" top="xl" bottom="xl" container={false} class="relative grid min-h-[min(calc(100svh-var(--chrome-height)),56rem)] place-items-center overflow-clip [--background-seed:color-mix(in_srgb-linear,var(--color-tertiary)_12%,black)]">
 		<!-- Blob: a layer the size of the section, canvas the same size, so the beams run edge to edge -->
 		<div class="absolute inset-0 touch-pan-y [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:inset-0 [&>canvas]:block [&>canvas]:size-full" data-blob="hole" data-blob-settings={JSON.stringify(blob)} aria-hidden="true"></div>
 
 		<!-- Copy: pointer events pass through to the blob except on the buttons -->
 		<div class="pointer-events-none relative z-10 mx-auto flex max-w-screen-xl flex-col items-center justify-center px-8 text-center lg:px-12 [&_a]:pointer-events-auto">
 			<!-- The hole is sized to clear this box by the gap in pixels: tighter on phones, where the copy is tall and the mark would otherwise swallow the section -->
-			<div class="flex flex-col items-center [--blob-gap:16px] md:[--blob-gap:36px] xl:[--blob-gap:48px]" data-blob-fit="36">
-				<div class="mb-3 font-bold text-foreground-muted xl:text-lg">
+			<div class="flex flex-col items-center [--blob-gap:32px] md:[--blob-gap:80px] xl:[--blob-gap:96px]" data-blob-fit="96">
+				<div class="mb-6 text-lg font-bold text-accent-muted sm:text-xl xl:text-2xl">
 					<p>Something big is coming&hellip;</p>
 				</div>
 
-				<!-- Countdown: cells are filled by countdown.js; the markup ships dashes so nothing wrong flashes before it runs -->
-				<div class="mb-6 flex gap-5 sm:gap-8" role="timer" aria-live="off" aria-label="Time until launch" data-countdown={launch}>
-					{
-						units.map(([unit, label]) => (
-							<div class="flex flex-col items-center">
-								<Heading as="span" size="md" class="font-bold tracking-tight tabular-nums" data-countdown-unit={unit}>
+				<!-- Countdown: cells are filled by countdown.js; the markup ships dashes so nothing wrong flashes before it runs.
+				     The digits sit in a row of their own, with the labels aligned beneath on a subgrid, so a treatment can style the row -->
+				<div class="mb-10 grid grid-cols-[repeat(4,auto)] gap-x-6 sm:gap-x-10" role="timer" aria-live="off" aria-label="Time until launch" data-countdown={launch} data-countdown-roll={treatment === 'countdown-boxed' ? '' : undefined}>
+					<!-- The row shares the digits' type size so a treatment's em-based glow scales with them -->
+					<div class:list={[treatment, headingSize.xxl, 'col-span-full grid grid-cols-subgrid justify-items-center']} data-countdown-digits>
+						{
+							units.map(([unit]) => (
+								<Heading as="span" size="xxl" class="font-bold tracking-tight tabular-nums" data-countdown-unit={unit}>
 									––
 								</Heading>
-								<span class="mt-1 text-xs font-bold tracking-widest text-foreground-muted uppercase sm:text-sm">{label}</span>
-							</div>
-						))
-					}
+							))
+						}
+					</div>
+					<div class="col-span-full mt-1 grid grid-cols-subgrid justify-items-center text-sm font-bold tracking-widest text-foreground-muted uppercase sm:text-base">{units.map(([, label]) => <span>{label}</span>)}</div>
 				</div>
 
-				<div class="prose prose-lg max-w-[36ch] text-foreground-muted not-last:mb-8 md:prose-xl">
+				<div class="prose max-w-[36ch] text-xl text-foreground-muted not-last:mb-10 sm:text-2xl md:text-3xl">
 					<p>Be the first to know when we lift the lid.</p>
 				</div>
 
 				<div class="flex flex-col gap-4 sm:flex-row">
-					<a href="#" class="btn btn-primary btn-lg">Register interest</a>
+					<a href="#" class="btn btn-primary btn-xl md:text-2xl">Register interest</a>
 					<!-- <a href="#" class="btn btn-ghost btn-lg">Learn more</a> -->
 				</div>
 			</div>
@@ -99,4 +113,117 @@ const blob = {
 	</Section>
 
 	<section class="h-screen"></section>
+	<PreviewSettings>
+		<fieldset data-countdown-picker role="radiogroup" aria-label="Countdown treatment — preview">
+			<legend class="mb-1.5 px-2 text-sm font-semibold text-foreground">Countdown</legend>
+			<ul class="grid gap-px text-sm">
+				{treatments.map((t) => <FilterOption id={`countdown-preview-${t.value}`} type="radio" name="countdown-preview" value={t.value} label={t.label} checked={t.value === treatment} />)}
+			</ul>
+		</fieldset>
+	</PreviewSettings>
 </Layout>
+
+<script>
+	// Preview-only: swap the treatment class on the timer row
+	const picker = document.querySelector('[data-countdown-picker]')
+	const row = document.querySelector('[data-countdown-digits]')
+	const host = document.querySelector('[data-countdown]')
+	if (picker && row) {
+		const values = [...picker.querySelectorAll('input')].map((input) => input.value)
+		picker.addEventListener('change', (event) => {
+			row.classList.remove(...values)
+			row.classList.add(event.target.value)
+			host.toggleAttribute('data-countdown-roll', event.target.value === 'countdown-boxed')
+		})
+	}
+</script>
+
+<style is:global>
+	/* Global, not scoped: the roll spans are created by countdown.js at runtime and would miss the scoping attribute.
+	   Countdown treatments, swap the class on the digits row to compare:
+	   text-gradient   — one gradient across the row (option 3)
+	   countdown-hot   — light bending round the hole's edge: white core, warm halo close in, cool haze further out, breathing in step with the blob (option 4)
+	   countdown-tick  — the row gradient, resting, with a sweep along the row each time countdown.js changes a cell (option 5)
+	   countdown-boxed — each digit on a black tile that turns like a drum on tick: the tile clips, and the text is solid, so nothing
+	                     fights the clip. The row carries data-countdown-roll for this one, and countdown.js splits the cells into digits */
+	.countdown-tick {
+		/* text-gradient, spelt out: page style blocks can't @apply */
+		background-image: var(--gradient);
+		background-size: 200%;
+		background-position: 0 50%;
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		padding-bottom: 0.05em;
+	}
+
+	.is-ticking .countdown-tick {
+		/* 200% travel on a 200% background lands back where it started, so the rest frame and the end frame match */
+		animation: gradient-x 0.7s cubic-bezier(0.2, 0.7, 0.3, 1) 1;
+	}
+
+	/* The glow is a filter on the row rather than a text-shadow, so it is one layer for the whole row and scales with its em */
+	.countdown-hot {
+		color: var(--color-white);
+		filter: drop-shadow(0 0 0.02em color-mix(in oklch, var(--color-secondary) 70%, white)) drop-shadow(0 0 0.12em var(--color-secondary))
+			drop-shadow(0 0 0.35em color-mix(in oklch, var(--color-primary) 60%, transparent)) drop-shadow(0 0 0.8em color-mix(in oklch, var(--color-tertiary-subtle) 50%, transparent));
+		animation: countdown-breathe 6s ease-in-out infinite;
+	}
+
+	@keyframes countdown-breathe {
+		50% {
+			filter: drop-shadow(0 0 0.02em color-mix(in oklch, var(--color-secondary) 70%, white)) drop-shadow(0 0 0.18em var(--color-secondary))
+				drop-shadow(0 0 0.5em color-mix(in oklch, var(--color-primary) 75%, transparent)) drop-shadow(0 0 1.1em color-mix(in oklch, var(--color-tertiary-subtle) 65%, transparent));
+		}
+	}
+
+	/* Boxed roll. Each .countdown-digit is a tile one em tall inside its padding, so the tile's clip sits at the em box plus the
+	   padding. On a change countdown.js swaps in a .countdown-roll column of the old value over the new and the column slides up
+	   one em; the tile clips it. It slides by `top` rather than a transform, so it stays in the tile's own paint and the clip
+	   never depends on the compositor. */
+	.countdown-boxed {
+		color: var(--color-white);
+	}
+
+	.countdown-boxed [data-countdown-unit] {
+		display: flex;
+		gap: 0.06em;
+	}
+
+	.countdown-boxed .countdown-digit {
+		display: inline-block;
+		box-sizing: content-box;
+		height: 1em;
+		padding: 0 0.08em;
+		line-height: 1;
+		border-radius: 0.08em;
+		background: rgb(0 0 0 / 0.6);
+		overflow: clip;
+	}
+
+	.countdown-boxed .countdown-roll {
+		position: relative;
+		top: 0; /* a length, so the keyframe can interpolate to it; auto would snap */
+		display: flex;
+		flex-direction: column;
+		animation: countdown-roll 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+	}
+
+	.countdown-boxed .countdown-roll > span {
+		display: block;
+	}
+
+	@keyframes countdown-roll {
+		to {
+			top: -1em;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.countdown-hot,
+		.is-ticking .countdown-tick,
+		.countdown-boxed .countdown-roll {
+			animation: none;
+		}
+	}
+</style>
