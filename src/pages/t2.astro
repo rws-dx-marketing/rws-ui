@@ -87,8 +87,9 @@ const blob = {
 				<!-- Countdown: cells are filled by countdown.js; the markup ships dashes so nothing wrong flashes before it runs.
 				     The digits sit in a row of their own, with the labels aligned beneath on a subgrid, so a treatment can style the row -->
 				<div class="mb-10 grid grid-cols-[repeat(4,auto)] gap-x-6 sm:gap-x-10" role="timer" aria-live="off" aria-label="Time until launch" data-countdown={launch} data-countdown-roll={treatment === 'countdown-boxed' ? '' : undefined}>
-					<!-- The row shares the digits' type size so a treatment's em-based glow scales with them -->
-					<div class:list={[treatment, headingSize.xxl, 'col-span-full grid grid-cols-subgrid justify-items-center']} data-countdown-digits>
+					<!-- The row shares the digits' type size so a treatment's em-based glow scales with them. Its height is pinned to the tallest
+					     treatment (the boxed tile: 1em plus its bottom padding) so swapping treatments never moves the copy or resizes the hole -->
+					<div class:list={[treatment, headingSize.xxl, 'col-span-full grid h-[1.07em] grid-cols-subgrid justify-items-center']} data-countdown-digits>
 						{
 							units.map(([unit]) => (
 								<Heading as="span" size="xxl" class="font-bold tracking-tight tabular-nums" data-countdown-unit={unit}>
@@ -194,7 +195,8 @@ const blob = {
 		display: inline-block;
 		box-sizing: content-box;
 		height: 1em;
-		padding: 0 0.08em;
+		/* The face sits low in a 1em box (0.17em clear above the digits, 0.11em below), so the bottom pad evens the tile out */
+		padding: 0 0.08em 0.07em;
 		line-height: 1;
 		border-radius: 0.08em;
 		background: rgb(0 0 0 / 0.6);
