@@ -1356,6 +1356,117 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 			}
 		},
 
+		mesh() {
+			// The supplied Blender export: a glossy dielectric with a mesh
+			// gradient baked into its texture, lit by its own soft key. Nothing
+			// here is baked: the gradient is pools of the bake's own colours
+			// (sampled from the texture, not the tokens: it is one fixed
+			// artwork) as Gaussian blobs anchored in the mark's plane (it never
+			// rotates, so object-space xy stands in for the UV map), drifting on
+			// slow loops. Shaded by its own key light rather than the scene's:
+			// a wrapped diffuse, a lavender highlight on the hump tops and a
+			// fresnel that sinks the silhouette into navy. No tone mapping, so
+			// the colours land as sampled.
+			const rgb = (hex) => ({ value: new THREE.Color(hex) })
+			const palette = {
+				uNavy: rgb(0x14044a),
+				uIndigo: rgb(0x2a0a95),
+				uBlue: rgb(0x4b22c4),
+				uViolet: rgb(0x9747f1),
+				uPurple: rgb(0xc018d5),
+				uMagenta: rgb(0xe61799),
+				uCrimson: rgb(0xa8003e),
+				uGleam: rgb(0xd8c8f8),
+				uLightDir: { value: new THREE.Vector3(-0.35, 0.8, 0.65).normalize() },
+			}
+			const own = {
+				uDrift: { value: 0.12 },
+				uSpread: { value: 0.42 },
+				uContrast: { value: 0.6 },
+				uSpec: { value: 0.9 },
+				uGloss: { value: 48 },
+				uRimDark: { value: 0.9 },
+			}
+			const material = new THREE.ShaderMaterial({
+				defines: { ...shapeDefines },
+				uniforms: { ...uniforms, ...palette, ...own, uInflate: { value: 0 } },
+				vertexShader: marchedVertexGLSL,
+				fragmentShader: /* glsl */ `
+					uniform vec3 uNavy, uIndigo, uBlue, uViolet, uPurple, uMagenta, uCrimson, uGleam, uLightDir;
+					uniform float uTime, uDrift, uSpread, uContrast, uSpec, uGloss, uRimDark;
+					varying vec3 vN, vV, vP;
+					// One pool: a Gaussian of the colour at the anchor, accumulated
+					// into a weighted sum. \`size\` scales the radius per pool.
+					void pool(inout vec3 sum, inout float wsum, vec2 p, vec2 at, float size, vec3 col, float k) {
+						vec2 d = (p - at) / size;
+						float w = exp(-dot(d, d) * k);
+						sum += w * col;
+						wsum += w;
+					}
+					// Anchors read off the bake's front face: navy and indigo on the
+					// far left, violet across the top humps, a magenta band running
+					// from centre-left down to crimson at the bottom-left, blue on
+					// the right sinking to indigo in the lower-right corner.
+					vec3 meshGradient(vec2 p) {
+						float t = uTime * uDrift;
+						float k = 1.0 / (uSpread * uSpread);
+						vec2 w1 = vec2(sin(t), cos(t * 0.8)) * 0.1;
+						vec2 w2 = vec2(cos(t * 0.6), sin(t * 1.1)) * 0.08;
+						vec3 sum = vec3(0.0);
+						float wsum = 0.0;
+						pool(sum, wsum, p, vec2(-1.1, 0.1) + w2, 1.5, uNavy, k);
+						pool(sum, wsum, p, vec2(-0.8, 0.3) + w1, 1.0, uIndigo, k);
+						pool(sum, wsum, p, vec2(-0.6, 0.42) + w2.yx, 0.8, uBlue, k);
+						pool(sum, wsum, p, vec2(0.0, 0.4) + w1, 1.0, uViolet, k);
+						pool(sum, wsum, p, vec2(0.55, 0.3) - w2, 1.0, uViolet, k);
+						pool(sum, wsum, p, vec2(1.0, 0.35) + w1.yx, 0.9, uViolet, k);
+						pool(sum, wsum, p, vec2(0.1, 0.1) - w1, 0.8, uPurple, k);
+						pool(sum, wsum, p, vec2(-0.35, 0.1) + w1, 0.9, uMagenta, k);
+						pool(sum, wsum, p, vec2(-0.2, -0.15) + w2, 0.9, uMagenta, k);
+						pool(sum, wsum, p, vec2(0.0, -0.42) - w2.yx, 0.9, uMagenta, k);
+						pool(sum, wsum, p, vec2(-0.6, -0.4) - w1, 1.0, uCrimson, k);
+						pool(sum, wsum, p, vec2(0.25, -0.4) + w1.yx, 0.7, uPurple, k);
+						pool(sum, wsum, p, vec2(0.45, -0.1) + w2, 1.0, uBlue, k);
+						pool(sum, wsum, p, vec2(0.8, -0.2) - w1.yx, 1.3, uBlue, k);
+						pool(sum, wsum, p, vec2(1.0, -0.4) + w2.yx, 1.2, uIndigo, k);
+						pool(sum, wsum, p, vec2(1.15, -0.5), 1.3, uNavy, k);
+						return sum / max(wsum, 1e-4);
+					}
+					void main() {
+						vec3 n = normalize(vN);
+						vec3 v = normalize(vV);
+						vec3 col = meshGradient(vP.xy);
+						// Wrapped diffuse: the bake is lit softly from the upper left,
+						// hump tops lifted, the undersides sunk.
+						float d = dot(n, uLightDir) * 0.5 + 0.5;
+						col *= mix(1.0 - uContrast * 0.8, 1.0 + uContrast * 0.35, d);
+						// A tight lavender gleam plus a broad sheen under it.
+						float nh = max(dot(n, normalize(uLightDir + v)), 0.0);
+						col += uGleam * (pow(nh, uGloss) * 0.9 + pow(nh, uGloss * 0.12) * 0.12) * uSpec;
+						float rim = pow(1.0 - max(dot(n, v), 0.0), 2.0);
+						col = mix(col, uNavy * 0.5, rim * uRimDark);
+						gl_FragColor = vec4(col, 1.0);
+						#include <colorspace_fragment>
+					}
+				`,
+			})
+			const mesh = new THREE.Mesh(fine, material)
+			return {
+				objects: [mesh],
+				spring: [60, 7],
+				slosh: 0.35,
+				controls: {
+					drift: ctl('Drift', 0, 0.5, 0.01, own.uDrift.value, (v) => (own.uDrift.value = v)),
+					spread: ctl('Pool size', 0.2, 1, 0.01, own.uSpread.value, (v) => (own.uSpread.value = v)),
+					contrast: ctl('Light', 0, 1, 0.01, own.uContrast.value, (v) => (own.uContrast.value = v)),
+					spec: ctl('Highlight', 0, 2, 0.05, own.uSpec.value, (v) => (own.uSpec.value = v)),
+					gloss: ctl('Gloss', 8, 160, 1, own.uGloss.value, (v) => (own.uGloss.value = v)),
+					rim: ctl('Edge shade', 0, 1, 0.01, own.uRimDark.value, (v) => (own.uRimDark.value = v)),
+				},
+				dispose: () => material.dispose(),
+			}
+		},
+
 		balls() {
 			// The whole body is balls, not a shell of them: a face-centred cubic
 			// lattice clipped to the body. Each instance carries its lattice
