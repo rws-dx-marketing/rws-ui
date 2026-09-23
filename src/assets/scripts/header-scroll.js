@@ -112,5 +112,6 @@ export default function headerScroll() {
 	if ('ResizeObserver' in window) {
 		new ResizeObserver(syncOffsets).observe(header)
 		if (secondaryNav) new ResizeObserver(syncOffsets).observe(secondaryNav)
+		if (growler) new ResizeObserver(syncOffsets).observe(growler)
 	}
 }

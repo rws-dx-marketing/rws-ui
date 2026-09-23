@@ -6,7 +6,6 @@
 //   gated → /localization/services/resources/global-content-playbook/
 //   open  → /about/translation-technology-insights/infographic/
 import Layout from '../../layouts/Layout.astro'
-import PreviewSettings from '../../components/PreviewSettings.astro'
 import VariantPicker from '../../components/VariantPicker.astro'
 import ResourceDetail from '../../blocks/ResourceDetail.astro'
 
@@ -101,7 +100,7 @@ const resource = {
 ---
 
 <Layout title="Download – RWS UI">
-	<PreviewSettings>
+	<Fragment slot="settings">
 		<VariantPicker
 			label="Access"
 			options={[
@@ -110,7 +109,7 @@ const resource = {
 				{ value: 'open', label: 'Open' },
 			]}
 		/>
-	</PreviewSettings>
+	</Fragment>
 
 	<div data-variant-preview>
 		<div data-variant="gated">

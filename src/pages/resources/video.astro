@@ -6,7 +6,6 @@
 //   gated → /localization/services/resources/how-to-accelerate-global-growth/
 //   open  → /contenta/resources/livecontent-video/
 import Layout from '../../layouts/Layout.astro'
-import PreviewSettings from '../../components/PreviewSettings.astro'
 import VariantPicker from '../../components/VariantPicker.astro'
 import ResourceDetail from '../../blocks/ResourceDetail.astro'
 
@@ -104,7 +103,7 @@ const resource = {
 ---
 
 <Layout title="Video – RWS UI">
-	<PreviewSettings>
+	<Fragment slot="settings">
 		<VariantPicker
 			label="Access"
 			options={[
@@ -112,7 +111,7 @@ const resource = {
 				{ value: 'open', label: 'Open' },
 			]}
 		/>
-	</PreviewSettings>
+	</Fragment>
 
 	<div data-variant-preview>
 		<div data-variant="gated">

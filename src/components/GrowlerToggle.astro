@@ -1,0 +1,15 @@
+---
+// @ts-nocheck
+// GrowlerToggle — preview control for the PreviewSettings cog on pages that
+// have a growler. Lets testers bring a dismissed growler back without clearing
+// localStorage. Checked state is set client-side by scripts/growler.js, since
+// dismissal only exists in the browser.
+import FilterOption from './FilterOption.astro'
+---
+
+<fieldset data-growler-toggle>
+	<legend class="mb-1.5 px-2 text-sm font-semibold text-foreground">Growler</legend>
+	<ul class="grid gap-px text-sm">
+		<FilterOption id="growler-preview" value="shown" label="Show growler" />
+	</ul>
+</fieldset>

@@ -27,6 +27,7 @@ import animation from './animation'
 import blob from './blob'
 import blackHole from './black-hole'
 import range from './range'
+import growler from './growler'
 
 if (typeof window !== 'undefined') {
 	Observer.start()
@@ -39,6 +40,7 @@ if (typeof window !== 'undefined') {
 		themePicker()
 		variantPicker()
 		blackHole()
+		growler()
 	}
 
 	if (document.readyState === 'loading') {

@@ -4,7 +4,6 @@ import Layout from '../layouts/Layout.astro'
 import Section from '../components/Section.astro'
 import Heading from '../components/Heading.astro'
 import { headingSize } from '../utils/heading-size'
-import PreviewSettings from '../components/PreviewSettings.astro'
 import FilterOption from '../components/FilterOption.astro'
 
 // Countdown end, as a wall-clock time in the named zone. The instant is
@@ -108,14 +107,14 @@ const hole = {
 	</Section>
 
 	<section class="h-screen"></section>
-	<PreviewSettings>
+	<Fragment slot="settings">
 		<fieldset data-countdown-picker role="radiogroup" aria-label="Countdown treatment — preview">
 			<legend class="mb-1.5 px-2 text-sm font-semibold text-foreground">Countdown</legend>
 			<ul class="grid gap-px text-sm">
 				{treatments.map((t) => <FilterOption id={`countdown-preview-${t.value}`} type="radio" name="countdown-preview" value={t.value} label={t.label} checked={t.value === treatment} />)}
 			</ul>
 		</fieldset>
-	</PreviewSettings>
+	</Fragment>
 </Layout>
 
 <script>

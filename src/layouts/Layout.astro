@@ -2,12 +2,19 @@
 import '../assets/styles/global.css'
 import Header from '../components/Header.astro'
 import SecondaryNav from '../components/SecondaryNav.astro'
+import PreviewSettings from '../components/PreviewSettings.astro'
+import GrowlerToggle from '../components/GrowlerToggle.astro'
 import { resolveSecondaryNav } from '../utils/secondary-nav'
+import { resolveGrowler } from '../utils/growler'
 
 const { title = 'RWS UI', mode = 'light' } = Astro.props
 const forcedDark = mode === 'dark'
 const pathname = Astro.url.pathname
 const secondaryNav = resolveSecondaryNav(pathname)
+// The cog only appears when there is something to control: a growler on this
+// page, or page-specific controls passed through the `settings` slot.
+const hasGrowler = Boolean(resolveGrowler(pathname))
+const hasSettings = hasGrowler || Astro.slots.has('settings')
 ---
 
 <!doctype html>
@@ -40,6 +47,15 @@ const secondaryNav = resolveSecondaryNav(pathname)
 			</script>
 			<slot />
 		</div>
+
+		{
+			hasSettings && (
+				<PreviewSettings>
+					<slot name="settings" />
+					{hasGrowler && <GrowlerToggle />}
+				</PreviewSettings>
+			)
+		}
 
 		<script src="../assets/scripts/init.client.js"></script>
 		<script src="../assets/scripts/mode.client.js"></script>

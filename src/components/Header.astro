@@ -1,34 +1,11 @@
 ---
-const growlerPaths = ['/']
-const showGrowler = growlerPaths.includes(Astro.url.pathname)
+import Growler from './Growler.astro'
+import { resolveGrowler } from '../utils/growler'
+
+const growler = resolveGrowler(Astro.url.pathname)
 ---
 
-{
-	showGrowler && (
-		<>
-			<section id="growler" class="flex min-h-12 w-full items-center justify-between border-b border-foreground-softest py-2" role="alert" data-theme="secondary">
-				<div class="mx-auto max-w-7xl px-3 sm:px-4">
-					<div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1">
-						<div class="text-center text-sm text-pretty">
-							<p>We just launched the most amazing thing.</p>
-						</div>
-
-						<a href="#" class="btn btn-secondary btn-icon-right btn-xs">
-							Check it out
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-								<>
-									<rect width="256" height="256" fill="none" />
-									<line x1="40" y1="128" x2="216" y2="128" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-									<polyline points="168 80 216 128 168 176" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="24" />
-								</>
-							</svg>
-						</a>
-					</div>
-				</div>
-			</section>
-		</>
-	)
-}
+{growler && <Growler {...growler} />}
 
 <header id="site-header" class="sticky top-(--header-top) z-50 border-b border-foreground-softer py-2.5 transition-[top] duration-300" data-theme="default" data-accent="tertiary" style="anchor-name: --site-header-anchor;">
 	<div class="mx-auto flex max-w-screen-2xl items-center gap-x-6 px-2.5 lg:px-4.5">
@@ -529,7 +506,7 @@ const showGrowler = growlerPaths.includes(Astro.url.pathname)
 				</svg>
 			</button>
 
-			<a href="#" class="btn btn-tertiary btn-sm hidden lg:block">Get started</a>
+			<a href="#" class="btn btn-tertiary btn-sm hidden xl:block">Get started</a>
 		</div>
 	</div>
 
