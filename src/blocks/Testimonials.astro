@@ -2,6 +2,7 @@
 // @ts-nocheck
 import { dotIcons } from '../data/carousel-icons'
 import Section from '../components/Section.astro'
+import Image from '../components/Image.astro'
 
 const {
 	variant = 'morphing-dots',
@@ -62,7 +63,7 @@ const {
 
 								{t.author && (
 									<figcaption class="mt-6 flex items-center justify-center">
-										{t.avatar && <img class="size-6 rounded-full" src={t.avatar} alt="" />}
+										{t.avatar && <Image class="size-6 rounded-full" src={t.avatar} alt="" />}
 										<div class="flex items-center divide-x divide-foreground-subtle">
 											<div class="px-3 font-semibold">{t.author}</div>
 											{t.role && <div class="px-3 text-foreground-muted">{t.role}</div>}
@@ -84,7 +85,7 @@ const {
 
 								{t.logo && (
 									<div class="mt-6 flex items-center justify-center">
-										<img class="max-h-14 object-contain" src={t.logo} draggable="false" />
+										<Image class="max-h-14 object-contain" src={t.logo} draggable="false" />
 									</div>
 								)}
 							</figure>

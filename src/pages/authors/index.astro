@@ -6,6 +6,7 @@ import Heading from '../../components/Heading.astro'
 import FilterDropdown from '../../components/FilterDropdown.astro'
 import FilterOption from '../../components/FilterOption.astro'
 import { authors, filters } from '../../data/authors'
+import Image from '../../components/Image.astro'
 ---
 
 <Layout title="Authors – RWS UI">
@@ -114,7 +115,7 @@ import { authors, filters } from '../../data/authors'
 					authors.map((author, index) => (
 						<article class="group relative rounded-lg border bg-background p-6 text-center lg:p-8" data-card data-card-filters={JSON.stringify(author.filters)} data-card-search={`${author.name} ${author.role} ${author.excerpt}`.toLowerCase()} style={`view-transition-name:authors-card-${index};view-transition-class:card-move`}>
 							<div class="mx-auto mb-5 size-24 overflow-hidden rounded-full">
-								<img class="size-full object-cover transition-transform duration-300 group-hover:scale-110" src={author.avatar} alt={author.name} />
+								<Image class="size-full object-cover transition-transform duration-300 group-hover:scale-110" src={author.avatar} alt={author.name} />
 							</div>
 
 							<h2 class="text-xl font-bold text-pretty transition-colors group-hover:text-accent">

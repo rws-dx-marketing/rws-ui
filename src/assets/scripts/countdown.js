@@ -60,8 +60,6 @@ export default function countdown() {
 			return { left, text: (unit) => (unit === 'days' ? String(parts[unit]) : pad(parts[unit])) }
 		}
 
-
-
 		const tick = () => {
 			const { left, text: textFor } = values()
 			let changed = false

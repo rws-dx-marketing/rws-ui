@@ -11,11 +11,11 @@ const secondaryNavTree = [
 		href: '/3d/goo',
 		aliases: ['/3d/hair', '/3d/glass'],
 		icon: weavaIcon,
-    labelClass: 'relative -top-px -ml-1 font-bold',
-    children: [
-      { id: 'link-1', label: 'Link 1', href: '#' },
-      { id: 'link-2', label: 'Link 2', href: '#' },
-      { id: 'link-3', label: 'Link 3', href: '#' },
+		labelClass: 'relative -top-px -ml-1 font-bold',
+		children: [
+			{ id: 'link-1', label: 'Link 1', href: '#' },
+			{ id: 'link-2', label: 'Link 2', href: '#' },
+			{ id: 'link-3', label: 'Link 3', href: '#' },
 		],
 	},
 	{

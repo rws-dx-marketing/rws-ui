@@ -5,6 +5,7 @@ import ResourceHero from '../../blocks/ResourceHero.astro'
 import Speakers from '../../components/Speakers.astro'
 import { timezones } from '../../data/timezones.js'
 import { wallToUTC, FORMATTERS } from '../../lib/event-time.js'
+import Image from '../../components/Image.astro'
 
 const cards = [1, 2, 3]
 
@@ -180,7 +181,7 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 					<div class="rounded-lg border p-6" data-card>
 						<div class="flex items-start gap-6">
 							<div class="w-1/3 max-w-24 shrink-0">
-								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+								<Image src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
 							</div>
 							<div>
 								<h4 class="mb-2 text-lg/tight font-semibold">Lorem ipsum dolor</h4>
@@ -223,7 +224,7 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 				</div>
 
 				<div>
-					<img src="https://placehold.co/1024x768" alt="Placeholder" class="aspect-video size-full rounded object-cover" />
+					<Image src="https://placehold.co/1024x768" alt="Placeholder" class="aspect-video size-full rounded object-cover" />
 				</div>
 
 				{/* Agenda timeline */}
@@ -304,7 +305,7 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 							<p>Come and find us at booth 3 to talk through your IP needs and see the latest tools and services designed to optimize every stage of the IP lifecycle.</p>
 						</blockquote>
 						<figcaption class="mt-6 flex items-center justify-center">
-							<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
+							<Image class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
 							<div class="flex items-center divide-x divide-foreground-subtle">
 								<div class="px-3 font-semibold">Christian Hartmann</div>
 								<div class="px-3 text-foreground-muted">Senior Director of IP Solutions, RWS</div>
@@ -334,7 +335,7 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 							<div class="flex h-full flex-col">
 								<div class="p-4">
 									<div class="mb-5 block overflow-hidden rounded">
-										<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="Event venue" />
+										<Image class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="Event venue" />
 									</div>
 
 									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">Event</span>

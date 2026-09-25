@@ -5,7 +5,7 @@
 // and the layout resolves automatically — no per-card positioning required.
 //
 // Props:
-//   items  — array of { title, body, img, graphic, href }. Falls back to demo content.
+//   items  — array of { title, body, img, imgDark, graphic, href }. Falls back to demo content.
 //   count  — when items is omitted, how many demo cards to render (2–5).
 //   theme  — visual variant passed to data-theme.
 //   showIntro  — whether to show the intro subheading, heading, and copy.
@@ -13,20 +13,23 @@
 //                 'chart' graphic instead of an image.
 
 import BentoGraphic from '../components/BentoGraphic.astro'
+import Image from '../components/Image.astro'
 import Section from '../components/Section.astro'
 import Heading from '../components/Heading.astro'
 
 const { items, count = 4, theme = 'default', showIntro = true, heroGraphic = true } = Astro.props
 
 // Media per item: `graphic: '<name>'` renders an inline SVG animation,
-// otherwise `img` renders an <img>. See BentoGraphic.astro for names.
+// otherwise `img` renders via Image, swapped for `imgDark` in dark mode when given
+// (each a path or an Image set — see Image.astro).
+// See BentoGraphic.astro for names.
 // Placeholder content used when no items are passed (demo / reference page).
 const demo = [
 	{ title: '1 Trillion+', body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis nisi aliquam nemo possimus commodi!', ...(heroGraphic ? { graphic: 'chart' } : { img: 'https://placehold.co/1200x800' }) },
 	{ title: '45+ AI patents', body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.', graphic: 'shield' },
-	{ title: '200+ connectors', body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.', img: 'https://placehold.co/1200x800' },
-	{ title: '43k+ language experts', body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis nisi aliquam nemo.', img: 'https://placehold.co/1200x800' },
-	{ title: '200k AI data specialists', body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis nisi aliquam nemo.', img: 'https://placehold.co/1200x800' },
+	{ title: '200+ connectors', body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit.', img: 'https://placehold.co/1200x800', imgDark: 'https://placehold.co/1200x800/222/555' },
+	{ title: '43k+ language experts', body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis nisi aliquam nemo.', img: 'https://placehold.co/1200x800', imgDark: 'https://placehold.co/1200x800/222/555' },
+	{ title: '200k AI data specialists', body: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis nisi aliquam nemo.', img: 'https://placehold.co/1200x800', imgDark: 'https://placehold.co/1200x800/222/555' },
 ]
 
 // Size of each slot by total item count. Slot 0 is always the large hero.
@@ -81,7 +84,7 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1fr_auto]' : 'lg:auto-rows-fr lg
 
 	<div class:list={['grid gap-6 rounded-[1px] bg-accent-softest outline-24 outline-accent-softest not-first:mt-12 sm:grid-cols-2 lg:grid-cols-4 lg:not-first:mt-16', rows]}>
 		{
-			cards.map(({ title, body, img, graphic, href = '#', external = false, size, index }) => {
+			cards.map(({ title, body, img, imgDark, graphic, href = '#', external = false, size, index }) => {
 				const isMedium = size === 'medium'
 				// Off-site cards open in a new tab; everything else follows normally.
 				const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {}
@@ -93,7 +96,7 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1fr_auto]' : 'lg:auto-rows-fr lg
 						{isMedium ? (
 							<>
 								<div class:list={['relative isolate flex items-start justify-center overflow-hidden max-sm:aspect-3/2 sm:w-2/5 sm:shrink-0 sm:items-center [&_svg]:size-full', imageRight && 'sm:order-last']}>
-									{graphic ? <BentoGraphic name={graphic} size={size} /> : <img src={img} alt="" class="size-full object-cover" />}
+									{graphic ? <BentoGraphic name={graphic} size={size} /> : <Image src={img} dark={imgDark} class="size-full object-cover" />}
 									<div class:list={['absolute opacity-100 transition-opacity group-hover:opacity-0 max-sm:inset-x-0 max-sm:top-1/2 max-sm:bottom-0 max-sm:bg-linear-to-b max-sm:from-transparent max-sm:to-background', imageRight ? 'sm:inset-y-0 sm:right-1/2 sm:left-0 sm:bg-linear-to-l sm:from-transparent sm:to-background' : 'sm:inset-y-0 sm:right-0 sm:left-1/2 sm:bg-linear-to-r sm:from-transparent sm:to-background']} />
 								</div>
 
@@ -112,7 +115,7 @@ const rows = data.length === 4 ? 'lg:grid-rows-[1fr_auto]' : 'lg:auto-rows-fr lg
 						) : (
 							<>
 								<div class:list={['relative isolate flex aspect-3/2 items-start overflow-hidden [&_svg]:size-full', size === 'large' ? 'justify-end' : 'justify-center']}>
-									{graphic ? <BentoGraphic name={graphic} size={size} /> : <img src={img} alt="" class="size-full object-cover" />}
+									{graphic ? <BentoGraphic name={graphic} size={size} /> : <Image src={img} dark={imgDark} class="size-full object-cover" />}
 									<div class="absolute inset-x-0 top-1/2 bottom-0 bg-linear-to-b from-transparent to-background opacity-100 transition-opacity group-hover:opacity-0" />
 								</div>
 

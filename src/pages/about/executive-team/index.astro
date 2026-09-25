@@ -10,6 +10,7 @@ import Heading from '../../../components/Heading.astro'
 import FilterDropdown from '../../../components/FilterDropdown.astro'
 import FilterOption from '../../../components/FilterOption.astro'
 import { executives, filters } from '../../../data/about/executive-team'
+import Image from '../../../components/Image.astro'
 ---
 
 <Layout title="Executive team – About – RWS UI">
@@ -117,7 +118,7 @@ import { executives, filters } from '../../../data/about/executive-team'
 					executives.map((executive, index) => (
 						<article class="group relative rounded-lg border bg-background p-6 text-center lg:p-8" data-card data-card-filters={JSON.stringify(executive.filters)} data-card-search={`${executive.name} ${executive.role} ${executive.excerpt}`.toLowerCase()} style={`view-transition-name:executives-card-${index};view-transition-class:card-move`}>
 							<div class="mx-auto mb-5 size-24 overflow-hidden rounded-full">
-								<img class="size-full object-cover transition-transform duration-300 group-hover:scale-110" src={executive.avatar} alt={executive.name} />
+								<Image class="size-full object-cover transition-transform duration-300 group-hover:scale-110" src={executive.avatar} alt={executive.name} />
 							</div>
 
 							<h2 class="text-xl font-bold text-pretty transition-colors group-hover:text-accent">

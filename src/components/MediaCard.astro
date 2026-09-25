@@ -1,7 +1,8 @@
 ---
 //@ts-nocheck
 // Media card: a category badge overlaid on the media, title beneath, whole card
-// clickable. Media is an inline SVG `graphic` (see BentoGraphic) or an `img`.
+// clickable. Media is an inline SVG `graphic` (see BentoGraphic) or an `img` (see Image), with
+// an optional `imgDark` swapped in for dark mode.
 // Deliberately body-less — this is the news/insight/showcase card used by
 // MediaGrid, distinct from the copy-heavy Cards/BlogCards.
 //
@@ -9,8 +10,9 @@
 // accent call-to-action variant. `stacked` puts the arrow below the text (for a
 // narrow CTA) rather than beside it. The consuming group sets sizing via `class`.
 import BentoGraphic from './BentoGraphic.astro'
+import Image from './Image.astro'
 
-const { badge, title, img, graphic, href = '#', cta, stacked = false, class: className } = Astro.props
+const { badge, title, img, imgDark, graphic, href = '#', cta, stacked = false, class: className } = Astro.props
 ---
 
 {
@@ -38,7 +40,7 @@ const { badge, title, img, graphic, href = '#', cta, stacked = false, class: cla
 			{/* Media grows to fill whatever height the card is stretched to, so cards
 			    in a shorter column enlarge to match the tallest column. */}
 			<div class="relative isolate min-h-56 flex-1 overflow-hidden [&_svg]:size-full">
-				{graphic ? <BentoGraphic name={graphic} size="medium" /> : <img src={img} alt="" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" />}
+				{graphic ? <BentoGraphic name={graphic} size="medium" /> : <Image src={img} dark={imgDark} class="size-full object-cover transition-transform duration-500 group-hover:scale-105" />}
 
 				{badge && <span class="absolute top-4 left-4 z-10 inline-flex items-center rounded-full bg-background/80 px-3 py-1 text-sm font-semibold text-foreground backdrop-blur">{badge}</span>}
 			</div>

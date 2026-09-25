@@ -10,6 +10,7 @@ import FilterDropdown from '../../../components/FilterDropdown.astro'
 import FilterOption from '../../../components/FilterOption.astro'
 import MediaCentreNav from '../../../components/MediaCentreNav.astro'
 import { pressReleases, filters } from '../../../data/media-centre/press-releases'
+import Image from '../../../components/Image.astro'
 ---
 
 <Layout title="Press releases – Media centre – RWS UI">
@@ -120,7 +121,7 @@ import { pressReleases, filters } from '../../../data/media-centre/press-release
 							<div class="flex h-full flex-col">
 								<div class="p-4">
 									<div class="mb-5 block overflow-hidden rounded">
-										<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={release.image} alt={release.name} />
+										<Image class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={release.image} alt={release.name} />
 									</div>
 
 									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{release.type}</span>

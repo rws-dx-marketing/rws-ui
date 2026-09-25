@@ -3,6 +3,7 @@
 //   'links'     — media, copy, action buttons + a resource-link footer
 //   'plain'     — no media, copy, hover tint + a service-link footer
 //   'clickable' — media, whole card is a single link, bulleted copy, no footer
+import Image from './Image.astro'
 const { variant = 'links' } = Astro.props
 ---
 
@@ -12,7 +13,7 @@ const { variant = 'links' } = Astro.props
 		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
 			<div class="group relative flex flex-1 flex-col">
 				<a href="#" class="block shrink-0 overflow-hidden">
-					<img class="aspect-video w-full object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
+					<Image class="aspect-video w-full object-cover transition-transform hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
 				</a>
 
 				<div class="flex flex-1 flex-col p-6">
@@ -136,7 +137,7 @@ const { variant = 'links' } = Astro.props
 		<article class="flex flex-col overflow-clip rounded-lg border text-left" data-card>
 			<div class="group relative isolate flex flex-1 flex-col">
 				<div class="shrink-0 overflow-hidden">
-					<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png" alt="office laptops" />
+					<Image class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops-2.png" alt="office laptops" />
 				</div>
 
 				<div class="flex flex-1 flex-col p-6">

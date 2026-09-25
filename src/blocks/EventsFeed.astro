@@ -15,6 +15,7 @@ import Heading from '../components/Heading.astro'
 import FilterDropdown from '../components/FilterDropdown.astro'
 import FilterOption from '../components/FilterOption.astro'
 import filterData from '../data/events/filters.js'
+import Image from '../components/Image.astro'
 
 const {
 	title,
@@ -162,7 +163,7 @@ const navItems = [
 								<div class="p-4">
 									<div class="mb-5 block overflow-hidden rounded">
 										<div class="relative">
-											<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={card.image} alt={card.name} />
+											<Image class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={card.image} alt={card.name} />
 										</div>
 									</div>
 

@@ -54,6 +54,10 @@
 		color-scheme: dark;
 	}
 
+	picture {
+		display: contents;
+	}
+
 	.mode-switching,
 	.mode-switching *,
 	.mode-switching ::before,

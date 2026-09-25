@@ -1,0 +1,33 @@
+---
+//@ts-nocheck
+// Image — the one place image markup lives. `src` and `dark` each take a path, or a
+// set for art direction and density:
+//   { src, src2x, desktop, desktop2x }
+// `desktop` swaps in from `breakpoint` up via <source>; the 2x files feed srcset.
+// Any other attribute (width, height, sizes, draggable…) lands on the <img>.
+//
+// Every image is wrapped in a <picture>. global.css gives it display:contents, so
+// sizing classes on the <img> behave as if it had no wrapper, and the wrapper is where
+// a mode is shown or hidden — the <img> classes are never touched.
+//
+// Dark mode renders a second copy and `dark:` swaps them. <source media> can't do it:
+// media queries see prefers-color-scheme, not the site's `.dark` toggle. Lazy by
+// default: browsers don't fetch a lazy image while it's display:none, so only the
+// visible mode downloads and the other loads on first toggle. Pass loading="eager"
+// for above-the-fold images.
+const { src, dark, alt = '', breakpoint = 1024, loading = 'lazy', class: className, ...attrs } = Astro.props
+
+const set = (value) => (typeof value === 'string' ? { src: value } : value)
+const srcset = (x1, x2) => (x2 ? `${x1} 1x, ${x2} 2x` : x1)
+
+const modes = [{ ...set(src), show: dark && 'dark:hidden' }, dark && { ...set(dark), show: 'not-dark:hidden' }].filter(Boolean)
+---
+
+{
+	modes.map(({ src, src2x, desktop, desktop2x, show }) => (
+		<picture class={show}>
+			{desktop && <source media={`(min-width: ${breakpoint}px)`} srcset={srcset(desktop, desktop2x)} />}
+			<img src={src} srcset={src2x && srcset(src, src2x)} alt={alt} loading={loading} decoding="async" class={className} {...attrs} />
+		</picture>
+	))
+}

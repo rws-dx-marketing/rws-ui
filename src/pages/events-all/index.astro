@@ -4,6 +4,7 @@ import FilterDropdown from '../../components/FilterDropdown.astro'
 import FilterOption from '../../components/FilterOption.astro'
 import EventsSegments from '../../components/EventsSegments.astro'
 import data from '../../data/events/filters.js'
+import Image from '../../components/Image.astro'
 
 const cards = [
 	{
@@ -378,7 +379,7 @@ const upcomingCount = cards.filter((card) => card.type !== 'Recorded webinar').l
 									<div class="p-4">
 										<div class="mb-5 block overflow-hidden rounded">
 											<div class="relative">
-												<img class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={card.image} alt={card.name} />
+												<Image class="aspect-video w-full object-cover transition-transform group-hover:scale-110" src={card.image} alt={card.name} />
 												{/* {isRecorded && (
 													<span class="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-xs font-semibold text-white">
 														<svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">

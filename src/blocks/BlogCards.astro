@@ -2,6 +2,7 @@
 // @ts-nocheck
 import Section from '../components/Section.astro'
 import Intro from '../components/Intro.astro'
+import Image from '../components/Image.astro'
 
 const { theme = 'pale', showIntro = true, ...intro } = Astro.props
 
@@ -59,11 +60,11 @@ const posts = [
 							<div class="p-4">
 								{clickable ? (
 									<div class="mb-5 block overflow-hidden rounded">
-										<img class="aspect-video object-cover transition-transform group-hover:scale-110" src={post.image} alt={post.alt} />
+										<Image class="aspect-video object-cover transition-transform group-hover:scale-110" src={post.image} alt={post.alt} />
 									</div>
 								) : (
 									<a href={post.href} class="mb-5 block overflow-hidden rounded">
-										<img class="aspect-video object-cover transition-transform hover:scale-110" src={post.image} alt={post.alt} />
+										<Image class="aspect-video object-cover transition-transform hover:scale-110" src={post.image} alt={post.alt} />
 									</a>
 								)}
 
@@ -86,7 +87,7 @@ const posts = [
 							{post.footer.type === 'author' && (
 								<div class="mt-auto px-4 pb-4">
 									<div class="flex items-center space-x-4">
-										<img class="h-10 w-10 rounded-full" src={post.footer.avatar} alt={`${post.footer.name} avatar`} />
+										<Image class="h-10 w-10 rounded-full" src={post.footer.avatar} alt={`${post.footer.name} avatar`} />
 										<div>
 											<div class="font-semibold">{post.footer.name}</div>
 											<div class="text-sm text-foreground-muted">{post.footer.meta}</div>

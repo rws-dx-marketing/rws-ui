@@ -3,6 +3,7 @@
 import Layout from '../../layouts/Layout.astro'
 import ResourceHero from '../../blocks/ResourceHero.astro'
 import { dotIcons } from '../../data/carousel-icons'
+import Image from '../../components/Image.astro'
 
 const cards = [1, 2, 3]
 ---
@@ -97,7 +98,7 @@ const cards = [1, 2, 3]
 					<div class="rounded-lg border p-6" data-card>
 						<div class="flex items-start gap-6">
 							<div class="w-1/3 max-w-24 shrink-0">
-								<img src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
+								<Image src="https://placehold.co/200" alt="Placeholder" class="aspect-square size-full rounded object-cover" />
 							</div>
 							<div>
 								<h4 class="mb-2 text-lg font-semibold">Lorem ipsum dolor</h4>
@@ -141,7 +142,7 @@ const cards = [1, 2, 3]
 				</div>
 
 				<div>
-					<img src="https://placehold.co/1024x768" alt="Placeholder" class="aspect-video size-full rounded object-cover" />
+					<Image src="https://placehold.co/1024x768" alt="Placeholder" class="aspect-video size-full rounded object-cover" />
 				</div>
 
 				<div class="rounded-lg border p-6 lg:p-10" data-card>
@@ -188,9 +189,9 @@ const cards = [1, 2, 3]
 
 					{
 						/* <div class="grid grid-cols-3 gap-8">
-						<img src="/public/shapes/marker.svg" alt="Marker" class="size-full object-cover" />
-						<img src="/public/shapes/bubble.svg" alt="Bubble" class="size-full object-cover" />
-						<img src="/public/shapes/marker.svg" alt="Marker" class="size-full object-cover" />
+						<Image src="/public/shapes/marker.svg" alt="Marker" class="size-full object-cover" />
+						<Image src="/public/shapes/bubble.svg" alt="Bubble" class="size-full object-cover" />
+						<Image src="/public/shapes/marker.svg" alt="Marker" class="size-full object-cover" />
 					</div> */
 					}
 				</div>
@@ -229,7 +230,7 @@ const cards = [1, 2, 3]
 											<p>Nunc sit amet est semper ligula lacinia faucibus scelerisque sed elit. Quisque sagittis, urna sed elementum tempus, dolor dolor mollis nulla, at gravida orci sapien quis felis.</p>
 										</blockquote>
 										<figcaption class="mt-6 flex items-center justify-center">
-											<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
+											<Image class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
 											<div class="flex items-center divide-x divide-foreground-subtle">
 												<div class="px-3 font-semibold">Michael Gough</div>
 												<div class="px-3 text-foreground-muted">CEO at Canva</div>
@@ -247,7 +248,7 @@ const cards = [1, 2, 3]
 										</figcaption>
 
 										<div class="mt-6 flex items-center justify-center">
-											<img class="max-h-14 object-contain" src="/logos/canva.svg" draggable="false" />
+											<Image class="max-h-14 object-contain" src="/logos/canva.svg" draggable="false" />
 										</div>
 									</figure>
 								</div>
@@ -302,7 +303,7 @@ const cards = [1, 2, 3]
 											<p>Nunc sit amet est semper ligula lacinia faucibus scelerisque sed elit. Quisque sagittis, urna sed elementum tempus, dolor dolor mollis nulla, at gravida orci sapien quis felis.</p>
 										</blockquote>
 										<figcaption class="mt-6 flex items-center justify-center">
-											<img class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
+											<Image class="size-6 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png" alt="" />
 											<div class="flex items-center divide-x divide-foreground-subtle">
 												<div class="px-3 font-semibold">Michael Gough</div>
 												<div class="px-3 text-foreground-muted">CEO at Canva</div>
@@ -430,7 +431,7 @@ const cards = [1, 2, 3]
 								<div class="flex h-full flex-col">
 									<div class="p-4">
 										<div class="mb-5 block overflow-hidden rounded">
-											<img class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
+											<Image class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="office laptop working" />
 										</div>
 
 										<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">Case Study</span>
@@ -451,7 +452,7 @@ const cards = [1, 2, 3]
 
 									<div hidden class="mt-auto px-4 pb-4">
 										<div class="flex items-center space-x-4">
-											<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+											<Image class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
 											<div>
 												<div class="font-semibold">Jese Leos</div>
 												<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>

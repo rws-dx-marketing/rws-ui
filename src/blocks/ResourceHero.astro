@@ -2,6 +2,7 @@
 // @ts-nocheck
 import Section from '../components/Section.astro'
 import Heading from '../components/Heading.astro'
+import Image from '../components/Image.astro'
 
 const { title, subtitle, image, date, location, readTime, logo, description, author, share = false, cta, layout = 'split' } = Astro.props
 
@@ -50,7 +51,7 @@ const showMeta = date || location || readTime
 			{
 				logo && (
 					<div class="mb-6">
-						<img src={logo.src} alt={logo.alt} class="max-h-10 object-contain xl:max-h-16" draggable="false" />
+						<Image src={logo.src} alt={logo.alt} class="max-h-10 object-contain xl:max-h-16" draggable="false" />
 					</div>
 				)
 			}
@@ -73,7 +74,7 @@ const showMeta = date || location || readTime
 						{author ? (
 							<div class="flex items-center">
 								<a href={author.href ?? '#'} rel="author" class="mr-4">
-									<img class="size-12 overflow-clip rounded-full object-cover" src={author.avatar} alt={author.name} />
+									<Image class="size-12 overflow-clip rounded-full object-cover" src={author.avatar} alt={author.name} />
 								</a>
 								<div>
 									<a href={author.href ?? '#'} rel="author" class="text-lg font-bold transition-colors hover:text-accent">
@@ -143,7 +144,7 @@ const showMeta = date || location || readTime
 
 		<div class={`h-full ${imageCols}`}>
 			<div class="intersect-once h-full motion-delay-200 intersect:motion-preset-slide-left-sm">
-				<img src={image.src} alt={image.alt} class="aspect-video size-full rounded-lg object-cover" draggable="false" />
+				<Image src={image.src} alt={image.alt} class="aspect-video size-full rounded-lg object-cover" draggable="false" />
 			</div>
 		</div>
 	</div>

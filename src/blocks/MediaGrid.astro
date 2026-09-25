@@ -16,7 +16,7 @@
 // Props:
 //   orientation — 'columns' (default) | 'rows'
 //   groups      — array of arrays of card objects
-//                 { badge, title, img | graphic, href }. Falls back to demo.
+//                 { badge, title, img | graphic, imgDark, href }. Falls back to demo.
 //   cta         — optional { title, body, href }; appended to the last group as
 //                 a solid accent call-to-action card. Omit for pure card grids.
 //   theme       — visual variant passed to data-theme.
@@ -31,12 +31,12 @@ const { orientation = 'columns', groups, cta, theme = 'default', showIntro = tru
 // Placeholder content used when no groups are passed (demo / reference page).
 const demo = [
 	[
-		{ badge: 'News', title: 'RWS acquires Obviously Group Limited', img: 'https://placehold.co/1200x800' },
-		{ badge: 'News', title: 'RWS launches Language Weaver Pro — the world’s most advanced AI translation solution', img: 'https://placehold.co/1200x800' }, // graphic: 'chart'
+		{ badge: 'News', title: 'RWS acquires Obviously Group Limited', img: 'https://placehold.co/1200x800', imgDark: 'https://placehold.co/1200x800/222/555' },
+		{ badge: 'News', title: 'RWS launches Language Weaver Pro — the world’s most advanced AI translation solution', img: 'https://placehold.co/1200x800', imgDark: 'https://placehold.co/1200x800/222/555' }, // graphic: 'chart'
 	],
 	[
-		{ badge: 'News', title: 'Ravi Chandran Krishnadas joins RWS as Senior Vice President & Country Lead, India', img: 'https://placehold.co/1200x800' },
-		{ badge: 'Investors', title: 'Language Weaver Pro wins AI Breakthrough Award', img: 'https://placehold.co/1200x800' },
+		{ badge: 'News', title: 'Ravi Chandran Krishnadas joins RWS as Senior Vice President & Country Lead, India', img: 'https://placehold.co/1200x800', imgDark: 'https://placehold.co/1200x800/222/555' },
+		{ badge: 'Investors', title: 'Language Weaver Pro wins AI Breakthrough Award', img: 'https://placehold.co/1200x800', imgDark: 'https://placehold.co/1200x800/222/555' },
 	],
 ]
 

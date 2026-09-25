@@ -1,0 +1,116 @@
+---
+// @ts-nocheck
+// Image reference — every way to call the Image component, each beside the HTML it
+// produces (the markup to port, not the Astro call). `props` are what the card
+// displays; `markup` is the same call with real-looking paths, rendered to a string at
+// build time. Toggle dark mode in the header to see the `dark` swaps; resize past
+// 1024px to see the `desktop` art direction swap.
+import { experimental_AstroContainer as AstroContainer } from 'astro/container'
+import Layout from '../../layouts/Layout.astro'
+import Image from '../../components/Image.astro'
+
+const container = await AstroContainer.create()
+// One <picture> per line, tags on their own lines, so the output reads as source.
+const render = async (props) => (await container.renderToString(Image, { props: { alt: '…', ...props } })).replace(/></g, '>\n<').replace(/\n<(source|img)/g, '\n  <$1')
+
+// Light placeholders are pale, dark ones are slate, and desktop ones are labelled,
+// so which file is showing is readable at a glance.
+const ph = (label, bg = 'e5e7eb', fg = '6b7280', size = '800x500') => `https://placehold.co/${size}/${bg}/${fg}?text=${encodeURIComponent(label)}`
+
+const examples = await Promise.all(
+	[
+		{
+			title: 'Plain',
+			note: 'A path in, an <img> out. Lazy and async by default.',
+			props: { src: ph('src') },
+			markup: { src: '/images/photo.jpg' },
+		},
+		{
+			title: 'Retina',
+			note: 'src2x feeds a 1x/2x srcset; the browser picks by device pixel ratio.',
+			props: { src: { src: ph('1x'), src2x: ph('2x', 'e5e7eb', '6b7280', '1600x1000') } },
+			markup: { src: { src: '/images/photo.jpg', src2x: '/images/photo@2x.jpg' } },
+		},
+		{
+			title: 'Art direction',
+			note: 'desktop swaps in from 1024px up via <source media>. Below that, src shows.',
+			props: { src: { src: ph('mobile', 'e5e7eb', '6b7280', '800x800'), desktop: ph('desktop') } },
+			markup: { src: { src: '/images/photo-square.jpg', desktop: '/images/photo-wide.jpg' } },
+		},
+		{
+			title: 'Custom breakpoint',
+			note: 'breakpoint changes where the desktop file takes over.',
+			props: { src: { src: ph('mobile < 768', 'e5e7eb', '6b7280', '800x800'), desktop: ph('desktop ≥ 768') }, breakpoint: 768 },
+			markup: { src: { src: '/images/photo-square.jpg', desktop: '/images/photo-wide.jpg' }, breakpoint: 768 },
+		},
+		{
+			title: 'Everything',
+			note: 'All four files: mobile and desktop, each with a 2x variant.',
+			props: { src: { src: ph('mobile 1x', 'e5e7eb', '6b7280', '800x800'), src2x: ph('mobile 2x', 'e5e7eb', '6b7280', '1600x1600'), desktop: ph('desktop 1x'), desktop2x: ph('desktop 2x', 'e5e7eb', '6b7280', '1600x1000') } },
+			markup: { src: { src: '/images/photo-square.jpg', src2x: '/images/photo-square@2x.jpg', desktop: '/images/photo-wide.jpg', desktop2x: '/images/photo-wide@2x.jpg' } },
+		},
+		{
+			title: 'Dark mode',
+			note: 'dark takes a path; a second copy renders and the mode toggle swaps them. Only the visible one downloads.',
+			props: { src: ph('light'), dark: ph('dark', '1f2937', '9ca3af') },
+			markup: { src: '/images/photo.jpg', dark: '/images/photo-dark.jpg' },
+		},
+		{
+			title: 'Dark mode, art directed',
+			note: 'dark takes the same set shape as src, so each mode can have its own desktop and 2x files.',
+			props: {
+				src: { src: ph('light mobile', 'e5e7eb', '6b7280', '800x800'), desktop: ph('light desktop') },
+				dark: { src: ph('dark mobile', '1f2937', '9ca3af', '800x800'), desktop: ph('dark desktop', '1f2937', '9ca3af') },
+			},
+			markup: { src: { src: '/images/photo-square.jpg', desktop: '/images/photo-wide.jpg' }, dark: { src: '/images/photo-square-dark.jpg', desktop: '/images/photo-wide-dark.jpg' } },
+		},
+		{
+			title: 'Eager',
+			note: 'loading="eager" for above-the-fold images. Note a dark copy then downloads too.',
+			props: { src: ph('eager'), loading: 'eager' },
+			markup: { src: '/images/hero.jpg', loading: 'eager' },
+		},
+		// {
+		// 	title: 'Attributes pass through',
+		// 	note: 'width, height, sizes, draggable and the rest land on the <img>. class does too — global.css gives <picture> display:contents, so sizing behaves as if there were no wrapper.',
+		// 	props: { src: ph('rounded-2xl'), width: 800, height: 500, draggable: 'false', class: 'rounded-2xl select-none' },
+		// 	markup: { src: '/images/photo.jpg', width: 800, height: 500, draggable: 'false', class: 'rounded-2xl select-none' },
+		// },
+	].map(async (example) => ({ ...example, html: await render(example.markup) })),
+)
+---
+
+<Layout title="Image – RWS UI">
+	<section class="border-b border-foreground-softest pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
+				<p>Image</p>
+			</h2>
+
+			<div class="prose text-foreground-muted md:prose-lg">
+				<p>The one place image markup lives. Both src and dark take a path or a set of src, src2x, desktop and desktop2x. Toggle dark mode in the header to see the swaps, and resize past 1024px for the desktop files.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
+		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
+			<ul class="grid gap-6 md:grid-cols-2">
+				{
+					examples.map(({ title, note, props, html }) => (
+						<li class="flex flex-col overflow-hidden rounded-xl border" data-card>
+							<div class="aspect-video bg-foreground-softest">
+								<Image {...props} class:list={['size-full object-cover', props.class]} alt={title} />
+							</div>
+							<div class="flex flex-1 flex-col gap-3 p-5">
+								<div class="text-lg font-semibold">{title}</div>
+								<p class="text-sm text-foreground-muted">{note}</p>
+								<pre class="mt-auto overflow-x-auto rounded-lg bg-foreground-softest p-3 text-xs" set:text={html} />
+							</div>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</section>
+</Layout>

@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro'
 import FilterDropdown from '../../components/FilterDropdown.astro'
 import FilterOption from '../../components/FilterOption.astro'
 import data from '../../data/partners/filters.js'
+import Image from '../../components/Image.astro'
 
 const cards = [
 	{
@@ -250,7 +251,7 @@ const cards = [
 								<div class="flex h-full flex-col">
 									<div class="p-6">
 										<div class="mb-5 flex aspect-video items-center justify-center rounded border px-8 py-4">
-											<img src={card.logo} alt={card.name} class="size-full object-scale-down transition-transform group-hover:-translate-y-2" draggable="false" />
+											<Image src={card.logo} alt={card.name} class="size-full object-scale-down transition-transform group-hover:-translate-y-2" draggable="false" />
 											{/* <img src="https://placehold.co/100" alt="Placeholder" class="block h-auto max-h-full w-auto max-w-full object-contain p-4" draggable="false" /> */}
 										</div>
 
@@ -280,7 +281,7 @@ const cards = [
 
 									{/* <div class="mt-auto px-4 pb-4">
 										<div class="flex items-center space-x-4">
-											<img class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
+											<Image class="h-10 w-10 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
 											<div>
 												<div class="font-semibold">Jese Leos</div>
 												<div class="text-sm text-foreground-muted">Aug 15, 2021 • 16 min read</div>
