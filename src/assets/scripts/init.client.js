@@ -26,6 +26,7 @@ import timezoneSelect from './timezone-select'
 import animation from './animation'
 import blob from './blob'
 import blackHole from './black-hole'
+import goo from './goo'
 import range from './range'
 import growler from './growler'
 
@@ -69,6 +70,7 @@ if (typeof window !== 'undefined') {
 		timezoneSelect()
 		animation()
 		blob()
+		goo()
 		range()
 	})
 }

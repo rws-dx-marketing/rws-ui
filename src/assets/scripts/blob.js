@@ -1860,7 +1860,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 				s: 0.4 + (i % 4) * 0.09,
 				r: 0.75 + ((i * 5) % 4) * 0.09,
 			}))
-			const p = { count: 3, roam: 0.62, size: 0.7, core: 1, speed: 3, goo: 0.22, rim: 0.5, light: 1 }
+			const p = { body: 1, count: 3, roam: 0.62, size: 0.7, core: 1, speed: 3, goo: 0.22, rim: 0.5, light: 1 }
 			const balls = Array.from({ length: sats.length }, () => new THREE.Vector4())
 			const camLocal = new THREE.Vector3()
 			// Key light in view space. It follows the shared cursor (the pointer's
@@ -1887,6 +1887,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 					uCam: { value: camLocal },
 					uBalls: { value: balls },
 					uCount: { value: p.count },
+					uBody: { value: p.body },
 					uCore: { value: 0 },
 					uGoo: { value: p.goo },
 					uRim: { value: p.rim },
@@ -1903,7 +1904,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 				`,
 				fragmentShader: /* glsl */ `
 					${bodyGLSL}
-					uniform float uPointerStrength, uHover, uSwayX, uSwayV, uCore, uGoo, uRim;
+					uniform float uPointerStrength, uHover, uSwayX, uSwayV, uBody, uCore, uGoo, uRim;
 					uniform int uCount;
 					uniform vec3 uPointer, uCam, uLight;
 					uniform mat3 normalMatrix; // vertex-stage built-in; Three still binds it here once declared
@@ -1926,13 +1927,18 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 						// Body size is an offset, not a scale: inflating an SDF fills the
 						// notches and rounds the mark, deflating thins it, which is what
 						// the metaballs field does as its body strength changes.
-						float d = sdBody(q) - uCore;
-						// The hover bulge is the same Gaussian push the mesh skins use, so
-						// it scales linearly with the pointer strength and fades without a
-						// step. A ball unioned in with smin was tried first: it pops as it
-						// sinks back under the surface.
-						vec3 h = p - uPointer;
-						d -= uPointerStrength * uHover * 0.5 * exp(-dot(h, h) * 4.0);
+						// With the body off, only the satellites are left to merge; the
+						// hover bulge goes with it, as it only pushes the body's surface.
+						float d = 1e3;
+						if (uBody > 0.5) {
+							d = sdBody(q) - uCore;
+							// The hover bulge is the same Gaussian push the mesh skins use, so
+							// it scales linearly with the pointer strength and fades without a
+							// step. A ball unioned in with smin was tried first: it pops as it
+							// sinks back under the surface.
+							vec3 h = p - uPointer;
+							d -= uPointerStrength * uHover * 0.5 * exp(-dot(h, h) * 4.0);
+						}
 						for (int i = 0; i < 9; i++) {
 							if (i >= uCount) break;
 							d = smin(d, length(p - uBalls[i].xyz) - uBalls[i].w, uGoo);
@@ -1996,6 +2002,7 @@ function mount(host, params, THREE, RoomEnvironment, MarchingCubes) {
 				spring: [35, 3],
 				slosh: 0,
 				controls: {
+					body: ctl('Body', 0, 1, 1, p.body, (v) => (material.uniforms.uBody.value = v)),
 					count: ctl('Satellites', 0, sats.length, 1, p.count, (v) => (material.uniforms.uCount.value = p.count = v)),
 					roam: ctl('Roam', 0, 0.8, 0.01, p.roam, (v) => (p.roam = v)),
 					size: ctl('Satellite size', 0.2, 2.5, 0.05, p.size, (v) => (p.size = v)),
