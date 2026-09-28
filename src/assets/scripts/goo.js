@@ -30,6 +30,7 @@ const defaults = {
 	speed: 0.7, // orbit speed (0–3)
 	goo: 0.9, // how readily they merge (0.02–1)
 	rim: 0, // fresnel rim light (0–1.5)
+	edge: 0.12, // width of the dark outer edge; its depth stays the same (0–0.6)
 	light: 1, // how far the highlight follows the cursor (0–2)
 	inertia: 1, // how hard scroll kicks the spring (0–3)
 	tilt: 3, // how far the scene leans toward the cursor; 1 ≈ 3° (0–3)
@@ -149,9 +150,10 @@ function mount(host, THREE) {
 			uCount: { value: p.count },
 			uGoo: { value: p.goo },
 			uRim: { value: p.rim },
+			uPixel: { value: 0 },
 			uLight: { value: light.dir },
 			uLightRot: { value: light.rot },
-			uMatcap: { value: matcapTexture(THREE, host) },
+			uMatcap: { value: matcapTexture(THREE, host, { rim: p.edge }) },
 		},
 		vertexShader: /* glsl */ `
 			varying vec3 vPos;
@@ -162,6 +164,7 @@ function mount(host, THREE) {
 		`,
 		fragmentShader: /* glsl */ `
 			uniform float uGoo, uRim;
+			uniform float uPixel; // one pixel's width at unit distance
 			uniform int uCount;
 			uniform vec3 uCam, uLight;
 			uniform mat3 normalMatrix; // vertex-stage built-in; Three still binds it here once declared
@@ -183,10 +186,11 @@ function mount(host, THREE) {
 				return d;
 			}
 			// Wide taps, so the smooth minimum doesn't show up as ridges in the normal.
-			vec3 sceneN(vec3 p) {
+			// Unnormalised: its length over 4e is the field's slope, used for the edge.
+			const float e = 0.012;
+			vec3 sceneG(vec3 p) {
 				const vec2 k = vec2(1.0, -1.0);
-				const float e = 0.012;
-				return normalize(k.xyy * sdScene(p + k.xyy * e) + k.yyx * sdScene(p + k.yyx * e) + k.yxy * sdScene(p + k.yxy * e) + k.xxx * sdScene(p + k.xxx * e));
+				return k.xyy * sdScene(p + k.xyy * e) + k.yyx * sdScene(p + k.yyx * e) + k.yxy * sdScene(p + k.yxy * e) + k.xxx * sdScene(p + k.xxx * e);
 			}
 			void main() {
 				vec3 ro = uCam;
@@ -200,20 +204,29 @@ function mount(host, THREE) {
 				float t = -b - h, tFar = -b + h;
 				float nearest = 1e9, tNear = t;
 				bool hit = false;
-				for (int i = 0; i < 96; i++) {
+				// Most rays finish in a few dozen steps; ones skimming past a front
+				// sphere crawl along it, and a lower cap strands them short of the one
+				// behind, a see-through wedge where the spheres overlap.
+				for (int i = 0; i < 256; i++) {
 					vec3 pos = ro + rd * t;
 					float d = sdScene(pos);
 					if (d < nearest) { nearest = d; tNear = t; }
-					if (d < 0.0015) { hit = true; break; }
+					// A tenth of a pixel, or near misses count as hits and eat the edge fade.
+					if (d < uPixel * t * 0.1) { hit = true; break; }
 					t += d * 0.8;
 					if (t > tFar) break;
 				}
 				// Near misses get the closest point's shading at a fading alpha,
-				// which softens the silhouette without supersampling.
-				const float aa = 0.006;
-				if (!hit && nearest > aa) discard;
+				// which softens the silhouette without supersampling. The smooth
+				// minimum shrinks the field where spheres blend, so the miss is
+				// measured as field / slope, and faded over one pixel.
+				if (!hit && nearest > 0.05) discard;
 				vec3 pos = ro + rd * (hit ? t : tNear);
-				vec3 n = sceneN(pos);
+				vec3 g = sceneG(pos);
+				vec3 n = normalize(g);
+				float miss = nearest / max(length(g) / (4.0 * e), 0.1);
+				float alpha = hit ? 1.0 : 1.0 - miss / (uPixel * tNear);
+				if (alpha <= 0.0) discard;
 				vec3 vn = normalize(normalMatrix * n);
 				vec3 col = texture2D(uMatcap, (uLightRot * vn).xy * 0.495 + 0.5).rgb;
 				// Fresnel rim and a tight highlight from the key light give it the gel look.
@@ -221,7 +234,7 @@ function mount(host, THREE) {
 				col += fres * uRim * 0.35;
 				float spec = pow(max(dot(reflect(-uLight, vn), vec3(0.0, 0.0, 1.0)), 0.0), 80.0);
 				col += spec * 0.5;
-				gl_FragColor = vec4(col, hit ? 1.0 : 1.0 - nearest / aa);
+				gl_FragColor = vec4(col, alpha);
 				#include <tonemapping_fragment>
 				#include <colorspace_fragment>
 			}
@@ -246,6 +259,7 @@ function mount(host, THREE) {
 		camera.fov = THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(fov / 2)) * bleed))
 		camera.aspect = w / h
 		camera.updateProjectionMatrix()
+		material.uniforms.uPixel.value = (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2))) / renderer.domElement.height
 		if (still) renderFrame(0)
 	}
 	new ResizeObserver(resize).observe(host)
@@ -324,7 +338,7 @@ function matcapTexture(THREE, host, { rim = 0.3, highlight = 0.12, blend = 0.55 
 	const secondary = token(host, '--color-secondary', '#e6306e')
 	const tertiary = token(host, '--color-tertiary', '#3b1466')
 
-	const size = 256
+	const size = 96
 	const c = document.createElement('canvas')
 	c.width = c.height = size
 	const ctx = c.getContext('2d')
