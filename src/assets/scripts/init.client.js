@@ -1,4 +1,4 @@
-import { Observer } from 'tailwindcss-intersect'
+import { Observer } from 'tailwindcss-intersect/observer'
 
 import cardFilters from './card-filters'
 import countUp from './count-up'

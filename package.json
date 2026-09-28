@@ -13,17 +13,17 @@
 		"@tailwindcss/typography": "^0.5.20",
 		"@tailwindcss/vite": "^4.3.3",
 		"apexcharts": "3.54.1",
-		"astro": "^7.3.4",
-		"embla-carousel": "9.0.0-rc02",
+		"astro": "^7.3.5",
+		"embla-carousel": "9.0.0-rc03",
 		"lottie-web": "^5.13.0",
 		"mapbox-gl": "^3.31.0",
 		"prettier": "^3.9.9",
-		"prettier-plugin-astro": "^0.14.1",
+		"prettier-plugin-astro": "0.14.1",
 		"prettier-plugin-tailwindcss": "^0.8.1",
 		"tailwindcss": "^4.3.3",
-		"tailwindcss-intersect": "^2.2.0",
+		"tailwindcss-intersect": "^3.0.0",
 		"tailwindcss-motion": "^1.1.1",
-		"three": "^0.186.0"
+		"three": "^0.186.1"
 	},
 	"packageManager": "pnpm@11.23.0"
 }

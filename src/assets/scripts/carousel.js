@@ -1,5 +1,5 @@
 import EmblaCarousel from 'embla-carousel'
-import { Observer } from 'tailwindcss-intersect'
+import { Observer } from 'tailwindcss-intersect/observer'
 
 function initCarousel(wrapperNode) {
 	const viewportNode = wrapperNode.querySelector('[data-carousel="viewport"]')
