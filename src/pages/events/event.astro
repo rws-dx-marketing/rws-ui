@@ -7,7 +7,31 @@ import { timezones } from '../../data/timezones.js'
 import { wallToUTC, FORMATTERS } from '../../lib/event-time.js'
 import Image from '../../components/Image.astro'
 
-const cards = [1, 2, 3]
+const recommendations = [
+	{
+		type: 'Event',
+		title: 'IP Service World 2027',
+		meta: '22 April 2027 · London, UK',
+		description: 'Meet the RWS IP team in London to talk through filing, translation and portfolio support.',
+		href: '/events/event/',
+		image: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png',
+	},
+	{
+		type: 'Blog',
+		title: 'Behind AI hallucinations: when model errors are really training data problems',
+		meta: '10 min read',
+		description: 'Many outputs labeled as AI hallucinations are predictable responses to how tasks were defined and data was labeled.',
+		href: '/resources/blog-1/',
+		image: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433',
+	},
+	{
+		type: 'Whitepaper',
+		title: 'Modernizing multilingual COAs and eCOA operations in the digital era',
+		description: 'How sponsors can modernize COA and eCOA operations with stronger governance, better visibility and more connected delivery.',
+		href: '/resources/download/',
+		image: 'https://www.rws.com/media/fallback/images/beyond-translation-whitepaper-thumbnail-640x320_tcm228-300593.png',
+	},
+]
 
 // One authored event object is the whole source of truth. Every displayed time is
 // derived from it — the default string shown on load and the UTC instants the
@@ -40,14 +64,15 @@ const convertible = (startWall, endWall, format) => {
 	}
 }
 
-const details = [
-	{ label: 'Date', ...convertible(event.start, event.end, 'date') },
-	{ label: 'Time', ...convertible(event.dailyStart, event.dailyEnd, 'detail') },
-	{ label: 'Venue', value: 'The Royal Sonesta Boston, 40 Edwin Land Boulevard, Cambridge, MA 02142' },
-	// { label: 'Format', value: 'In-person' },
-	{ label: 'RWS at', value: 'Booth 3' },
-	{ label: 'Our role', value: 'Solutions sponsor' },
-]
+const details = {
+	date: convertible(event.start, event.end, 'date'),
+	time: convertible(event.dailyStart, event.dailyEnd, 'time'),
+	venue: 'The Royal Sonesta Boston, 40 Edwin Land Boulevard, Cambridge, MA 02142',
+	role: 'Solutions sponsor',
+	booth: 'Booth 3',
+}
+
+const chip = 'inline-flex items-center gap-2 rounded-[1.25rem] border bg-foreground-softest text-sm font-semibold text-foreground-muted'
 
 const agenda = [
 	{
@@ -117,64 +142,83 @@ const speakersThree = [
 	{ name: 'Priya Nair', role: 'Director of Renewals', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png', bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', href: '#' },
 ]
 
-const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { name: 'Thomas Reeve', role: 'Partner, Patent Disputes', company: 'Reeve & Associates', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/neil-sims.png' }, { name: 'Sofia Almeida', role: 'Trade Secrets Counsel', company: 'Northlight IP', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/helene-engels.png', href: '#' }]
+// Internal hrefs go to the author page; LinkedIn ones open externally.
+const attendees = [
+	{ name: 'Stacy Ayers', role: 'Head of Quality, TrainAI', company: 'RWS', avatar: 'https://www.rws.com/media/dynamic/images/stacy-ayers_tcm228-286310.webp?original=.png&v=20260402100433', href: '/authors/stacy-ayers/' },
+	{ name: 'Christian Hartmann', role: 'Senior Director of IP Solutions', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/michael-gouch.png', href: 'https://www.linkedin.com/in/placeholder/' },
+	{ name: 'Dr. Elena Marsh', role: 'Head of IP Strategy', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png', href: '/authors/stacy-ayers/' },
+	{ name: 'Thomas Reeve', role: 'IP Account Director', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/neil-sims.png', href: 'https://www.linkedin.com/in/placeholder/' },
+	{ name: 'Sofia Almeida', role: 'Patent Search Specialist', company: 'RWS', avatar: 'https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/helene-engels.png', href: 'https://www.linkedin.com/in/placeholder/' },
+]
 ---
 
 <Layout title="Event – RWS UI">
-	<ResourceHero layout="wide-text" date="14–16 September 2026" location="Boston" title="IP North American Litigation Summit" description="We are excited to be a Solutions sponsor at the IP North American Litigation Summit, taking place in Boston on 14 September. The event brings together more than 500 in-house counsel, patent litigators and IP strategists to tackle complex challenges across pharma and biotech, technology and trade secrets. Find us at booth 3 to talk through your IP needs and see our latest innovations, tools and services designed to optimize every stage of the IP lifecycle." cta={{ href: '#form', text: 'Register', external: false }} share={true} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }} />
+	<ResourceHero layout="wide-text" title="IP North American Litigation Summit" cta={{ href: '#form', text: 'Register', external: false }} share={true} image={{ src: 'https://www.rws.com/media/dynamic/images/hallucinations_tcm228-295285.webp?original=.png&v=20260402100433', alt: 'Placeholder' }}>
+		<div slot="details" class="mt-10">
+			<ul class="flex flex-wrap gap-3">
+				<li class={`${chip} px-4 py-2`}>
+					<svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true"><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="20"></rect><line x1="176" y1="24" x2="176" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="20"></line><line x1="80" y1="24" x2="80" y2="56" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="20"></line><line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="20"></line></svg>
+					<span data-tz data-tz-start={details.date.start} data-tz-end={details.date.end} data-tz-format={details.date.format}>{details.date.value}</span>
+				</li>
+
+				<li class={`${chip} pl-4`}>
+					<svg class="size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true"><circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="20"></circle><polyline points="128 72 128 128 184 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="20"></polyline></svg>
+					<span class="py-2" data-tz data-tz-start={details.time.start} data-tz-end={details.time.end} data-tz-format={details.time.format}>{details.time.value}</span>
+
+					<div class="flex self-stretch" data-tz-picker>
+						<button type="button" class="flex items-center gap-1 rounded-r-[1.25rem] border-l pr-4 pl-3 transition-colors hover:bg-foreground-softer hover:text-foreground" popovertarget="tz-popover" popovertargetaction="toggle" style="anchor-name: --tz-anchor;" aria-label="Change timezone">
+							<span data-tz-label>{tzLabel}</span>
+							<svg class="size-3 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true"><polyline points="208 96 128 176 48 96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"></polyline></svg>
+						</button>
+
+						<div id="tz-popover" popover="auto" role="menu" class="dropdown z-10 mt-1 w-max rounded border shadow-lg" style="position-anchor: --tz-anchor; position-area: bottom span-right;">
+							<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm font-normal select-none">
+								{
+									timezones.map((tz) => (
+										<li>
+											<button type="button" class="w-full truncate rounded px-2 py-1.5 text-left transition-colors hover:bg-tertiary-softer" data-tz-option data-offset={tz.offset} data-label={tz.label} title={tz.label}>
+												{tz.label}
+											</button>
+										</li>
+									))
+								}
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+
+			<div class="mt-8 flex items-start gap-2 text-sm font-semibold text-foreground-muted">
+				<svg class="mt-0.5 size-4 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" aria-hidden="true"><circle cx="128" cy="104" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="20"></circle><path d="M208,104c0,72-80,128-80,128S48,176,48,104a80,80,0,0,1,160,0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="20"></path></svg>
+				<p>{details.venue}</p>
+			</div>
+
+			<p class="mt-4 text-sm text-foreground-muted">{details.role} · Find us at {details.booth}</p>
+		</div>
+	</ResourceHero>
 
 	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="dots">
 		<div class="mx-auto grid max-w-screen-xl gap-8 px-8 lg:grid-cols-12 lg:px-12 xl:gap-12">
 			<aside class="hidden lg:col-span-4 lg:block">
 				<div class="grid gap-8 transition-[top] duration-300 lg:sticky lg:top-[calc(var(--content-top)+4rem)] xl:gap-12">
-					{/* Event details */}
-					<div class="relative rounded-lg border p-10" data-card>
-						<!-- <h4 class="mb-6 text-lg font-bold">Event details</h4> -->
+					<div class="relative rounded-lg border p-10" data-card hidden>
+						<h4 class="mb-6 text-lg font-bold">Table of contents</h4>
 
-						<ul class="grid gap-4">
-							{
-								details.map((detail) => (
-									<li>
-										<p class="font-bold">{detail.label}</p>
+						<nav class="relative flex flex-col gap-3 pl-6" data-scrollspy-nav>
+							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-full w-1 bg-foreground-softer"></span>
+							<span aria-hidden="true" class="pointer-events-none absolute top-0 left-0 h-(--post-nav-active-height) w-1 bg-accent transition-[height] duration-1000" data-scrollspy-rail></span>
+							<a href="#" class="hidden text-pretty text-foreground-subtle transition-colors hover:text-foreground data-[nav-active=true]:text-foreground" data-scrollspy-link-template aria-hidden="true">Template nav link</a>
 
-										{detail.format ? (
-											<p data-tz data-tz-start={detail.start} data-tz-end={detail.end} data-tz-format={detail.format}>
-												{detail.value}
-											</p>
-										) : (
-											<p>{detail.value}</p>
-										)}
+							<div class="relative" data-scrollspy-end>
+								<div class="absolute -left-5.5 -translate-x-1/2 rounded-full bg-background outline-2 outline-background">
+									<svg class="size-6 text-foreground-soft delay-350 data-[nav-active=true]:text-accent" data-scrollspy-end-icon data-nav-active="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"></rect><path fill="currentColor" d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"></path></svg>
+								</div>
 
-										{detail.label === 'Time' && (
-											<div class="relative mt-1" data-tz-picker>
-												<button type="button" class="btn-link text-sm font-semibold text-accent" popovertarget="tz-popover" popovertargetaction="toggle" style="anchor-name: --tz-anchor;">
-													View in my timezone
-												</button>
+								<span class="text-foreground-subtle transition-colors data-[nav-active=true]:text-foreground" data-scrollspy-end-label>You’ve reached the end</span>
+							</div>
+						</nav>
 
-												<div id="tz-popover" popover="auto" role="menu" class="dropdown z-10 mt-1 w-max rounded border shadow-lg" style="position-anchor: --tz-anchor; position-area: bottom span-right;">
-													<ul class="grid max-h-72 gap-px overflow-y-auto p-2 text-sm select-none">
-														{timezones.map((tz) => (
-															<li>
-																<button type="button" class="w-full truncate rounded px-2 py-1.5 text-left transition-colors hover:bg-tertiary-softer" data-tz-option data-offset={tz.offset} data-label={tz.label} title={tz.label}>
-																	{tz.label}
-																</button>
-															</li>
-														))}
-													</ul>
-												</div>
-											</div>
-										)}
-									</li>
-								))
-							}
-						</ul>
-
-						<!-- <a href="#" class="btn btn-primary btn-icon-right mt-8 w-full">
-							Register
-							<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256">
-								<path d="M228,104a12,12,0,0,1-24,0V69l-59.51,59.51a12,12,0,0,1-17-17L187,52H152a12,12,0,0,1,0-24h64a12,12,0,0,1,12,12Zm-44,24a12,12,0,0,0-12,12v64H52V84h64a12,12,0,0,0,0-24H48A20,20,0,0,0,28,80V208a20,20,0,0,0,20,20H176a20,20,0,0,0,20-20V140A12,12,0,0,0,184,128Z"></path>
-							</svg>
-						</a> -->
+						<canvas aria-hidden="true" class="pointer-events-none absolute inset-0 size-full rounded-lg" data-scrollspy-confetti-canvas></canvas>
 					</div>
 
 					{/* Host contact */}
@@ -207,8 +251,8 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 				</div>
 			</aside>
 
-			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12">
-				<div class="rounded-lg border p-6 lg:p-10" data-card>
+			<article class="col-span-full grid gap-8 lg:col-span-8 xl:gap-12 [&_h2[id]]:scroll-mt-20">
+				<div class="rounded-lg border p-6 lg:p-10" data-card data-scrollspy-content>
 					<div class="prose max-w-none text-pretty lg:text-lg">
 						<h2>About the event</h2>
 						<p>The IP North American Litigation Summit brings together more than 500 in-house counsel, patent litigators and IP strategists to tackle complex challenges across pharma and biotech, technology and trade secrets.</p>
@@ -228,7 +272,7 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 				</div>
 
 				{/* Agenda timeline */}
-				<div class="rounded-lg border p-6 lg:p-10" data-card>
+				<div class="rounded-lg border p-6 lg:p-10" data-card data-scrollspy-content>
 					<div class="mb-8">
 						<h2 class="text-3xl font-bold tracking-tight">RWS on the agenda</h2>
 						<p class="mt-2 text-foreground-muted">Where to catch our team during the summit.</p>
@@ -278,12 +322,16 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 				</div>
 
 				{/* Speakers — this event has a single speaker */}
-				<Speakers title="Speaker" subtitle="Meet the RWS specialist presenting at the summit." speakers={speakers} />
+				<div data-scrollspy-content>
+					<Speakers title="Speaker" subtitle="Meet the RWS specialist presenting at the summit." speakers={speakers} />
+				</div>
 
 				{/* Demo variants: how the Speakers grid adapts to more people */}
 				<Speakers title="Speakers" subtitle="Layout variant — small group on a single row." speakers={speakersThree} />
 
-				<Speakers title="Speakers" subtitle="Layout variant — larger group wraps across rows." speakers={speakersFive} />
+				<div data-scrollspy-content>
+					<Speakers title="RWS attendees" subtitle="Meet the RWS team at the summit." speakers={attendees} />
+				</div>
 
 				{/* Highlight quote */}
 				<div class="overflow-hidden rounded-lg" data-theme="tertiary">
@@ -317,47 +365,49 @@ const speakersFive = [...speakersThree.map(({ bio, ...speaker }) => speaker), { 
 		</div>
 	</section>
 
-	{/* Related events */}
+	{/* Recommendations */}
 	<section class="pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20" data-theme="default">
 		<div class="mx-auto max-w-screen-xl px-8 lg:px-12">
 			<h2 class="mb-6 max-w-[24ch] text-4xl font-bold tracking-tight text-pretty xl:text-5xl">
-				<p>Related <em>events</em></p>
+				<p>Recommendations</p>
 			</h2>
 
 			<div class="prose text-foreground-muted md:prose-lg">
-				<p>Meet the RWS team at these upcoming events across the region.</p>
+				<p>Upcoming events and further reading from the RWS team.</p>
 			</div>
 
 			<div class="mt-12 grid max-w-[80ch] gap-8 sm:grid-cols-2 lg:mt-16 lg:max-w-none lg:grid-cols-3">
 				{
-					cards.map((card) => (
+					recommendations.map((item) => (
 						<article class="group relative rounded-lg border text-left" data-card>
 							<div class="flex h-full flex-col">
 								<div class="p-4">
 									<div class="mb-5 block overflow-hidden rounded">
-										<Image class="aspect-video object-cover transition-transform group-hover:scale-110" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/blog/office-laptops.png" alt="Event venue" />
+										<Image class="aspect-video object-cover transition-transform group-hover:scale-110" src={item.image} alt="" />
 									</div>
 
-									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">Event</span>
+									<span class="mb-3 inline-block rounded-full border bg-foreground-softest px-2 py-0.5 text-xs font-semibold text-foreground-muted">{item.type}</span>
 
 									<h2 class="mb-2 text-2xl font-bold">
 										<p>
-											<a href="/events/event/">
-												This is an event title
+											<a href={item.href}>
+												{item.title}
 												<span class="absolute inset-0" />
 											</a>
 										</p>
 									</h2>
 
-									<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
-										{/* <div class="size-4 shrink-0">
+									{item.meta && (
+										<div class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-foreground-muted">
+											{/* <div class="size-4 shrink-0">
 										  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><rect x="40" y="40" width="176" height="176" rx="8" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="176" y1="24" x2="176" y2="52" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="80" y1="24" x2="80" y2="52" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/><line x1="40" y1="88" x2="216" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/></svg>
 										</div> */}
-										<span>22 April 2027 · London, UK</span>
-									</div>
+											<span>{item.meta}</span>
+										</div>
+									)}
 
 									<div class="prose line-clamp-3 text-pretty text-foreground-muted">
-										<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitera. Suspendisse luctus tortor placerat erat consequat, pellentesque.</p>
+										<p>{item.description}</p>
 									</div>
 								</div>
 							</div>

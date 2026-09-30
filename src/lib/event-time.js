@@ -46,6 +46,11 @@ export function formatDetail(startUTC, endUTC, offset, label) {
 	return `${timeRange(startUTC, endUTC, offset)} ${label ?? gmtLabel(offset)}`
 }
 
+// "9:00 am – 6:30 pm" — hero Time chip, whose zone sits in the picker segment beside it.
+export function formatTime(startUTC, endUTC, offset) {
+	return timeRange(startUTC, endUTC, offset)
+}
+
 // "14 Sep · 8:30 – 9:30 am" — agenda rows.
 export function formatAgenda(startUTC, endUTC, offset) {
 	const start = new Date(startUTC + offset * 60000)
@@ -65,4 +70,4 @@ export function formatDateRange(startUTC, endUTC, offset) {
 	return `${sd} ${MONTHS_SHORT[sm]} ${sy} – ${ed} ${MONTHS_SHORT[em]} ${ey}`
 }
 
-export const FORMATTERS = { detail: formatDetail, agenda: formatAgenda, date: formatDateRange }
+export const FORMATTERS = { time: formatTime, detail: formatDetail, agenda: formatAgenda, date: formatDateRange }

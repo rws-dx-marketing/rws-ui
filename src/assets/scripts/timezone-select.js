@@ -7,7 +7,7 @@
 // the instants are absolute UTC, the client never needs the event's own timezone —
 // it just adds the picked offset. All formatting lives in ../../lib/event-time so
 // converted values match the server-rendered defaults.
-import { FORMATTERS } from '../../lib/event-time.js'
+import { FORMATTERS, gmtLabel } from '../../lib/event-time.js'
 
 export default function timezoneSelect() {
 	const picker = document.querySelector('[data-tz-picker]')
@@ -15,6 +15,7 @@ export default function timezoneSelect() {
 
 	const popover = picker.querySelector('[popover]')
 	const options = Array.from(picker.querySelectorAll('[data-tz-option]'))
+	const zoneLabel = picker.querySelector('[data-tz-label]')
 	const targets = Array.from(document.querySelectorAll('[data-tz]'))
 		.map((el) => ({
 			el,
@@ -28,8 +29,7 @@ export default function timezoneSelect() {
 	options.forEach((option) => {
 		option.addEventListener('click', () => {
 			const offset = Number.parseInt(option.dataset.offset, 10)
-			// The chosen zone reads off the Time row's own label, so the trigger stays
-			// a plain action rather than echoing the selection.
+			if (zoneLabel) zoneLabel.textContent = gmtLabel(offset)
 			targets.forEach(({ el, startUTC, endUTC, format }) => {
 				el.textContent = FORMATTERS[format](startUTC, endUTC, offset)
 			})

@@ -52,6 +52,9 @@ const featured = count === 1
 				// A speaker with an href becomes a fully-clickable card: the name is a
 				// stretched link (span covers the whole card) and the avatar zooms on hover.
 				const linked = Boolean(speaker.href)
+				// Absolute hrefs are LinkedIn profiles; relative ones are internal author pages.
+				const external = linked && /^https?:/.test(speaker.href)
+				const linkAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {}
 				return featured ? (
 					// Single speaker — wide card with bio
 					<div class={`intersect-once flex flex-col gap-6 rounded-lg border p-6 sm:flex-row lg:p-8 intersect:motion-preset-slide-up-sm ${linked ? 'group relative' : ''}`} style={`--motion-delay: ${200 + i * 100}ms`}>
@@ -61,8 +64,15 @@ const featured = count === 1
 						<div class="min-w-0">
 							<p class="text-xl font-bold text-pretty">
 								{linked ? (
-									<a href={speaker.href}>
+									<a href={speaker.href} {...linkAttrs}>
 										{speaker.name}
+										{external && (
+											<svg class="absolute top-4 right-4 size-5 text-foreground-soft transition-colors group-hover:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+												{' '}
+												<path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm1.205 6.91a1.705 1.705 0 1 0 0-3.41a1.705 1.705 0 0 0 0 3.41M7.909 19.5V9.273H4.5V19.5h3.41Zm4.432-10.227H9.273V19.5h3.068v-6.17c.395-.642 1.077-1.33 2.045-1.33c1.364 0 1.705 1.364 1.705 2.046V19.5H19.5v-5.454c0-1.828-.797-4.773-3.75-4.773c-1.878 0-2.92.685-3.41 1.327z" clip-rule="evenodd" />{' '}
+											</svg>
+										)}{' '}
+										{external && <span class="sr-only"> (LinkedIn, opens in a new tab)</span>}
 										<span class="absolute inset-0" />
 									</a>
 								) : (
@@ -82,8 +92,14 @@ const featured = count === 1
 						</div>
 						<p class="text-lg font-bold text-pretty">
 							{linked ? (
-								<a href={speaker.href}>
+								<a href={speaker.href} {...linkAttrs}>
 									{speaker.name}
+									{external && (
+										<svg class="absolute top-4 right-4 size-5 text-foreground-soft transition-colors group-hover:text-accent" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+											<path fill="currentColor" fill-rule="evenodd" d="M5 1a4 4 0 0 0-4 4v14a4 4 0 0 0 4 4h14a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4zm1.205 6.91a1.705 1.705 0 1 0 0-3.41a1.705 1.705 0 0 0 0 3.41M7.909 19.5V9.273H4.5V19.5h3.41Zm4.432-10.227H9.273V19.5h3.068v-6.17c.395-.642 1.077-1.33 2.045-1.33c1.364 0 1.705 1.364 1.705 2.046V19.5H19.5v-5.454c0-1.828-.797-4.773-3.75-4.773c-1.878 0-2.92.685-3.41 1.327z" clip-rule="evenodd" />
+										</svg>
+									)}
+									{external && <span class="sr-only"> (LinkedIn, opens in a new tab)</span>}
 									<span class="absolute inset-0" />
 								</a>
 							) : (
