@@ -96,7 +96,7 @@
 
 /* The digits take their size from the row so the em-based glow scales with them */
 .t2-launch-digits {
-	font-size: 3.75rem;
+	font-size: 3rem;
 	line-height: 1;
 	font-weight: 700;
 	letter-spacing: -0.01em;
