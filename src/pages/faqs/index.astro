@@ -35,7 +35,7 @@ const groups = categories.map((category) => ({
 					groups
 						.filter((group) => group.faqs.length)
 						.map((group) => (
-							<a href={`#${group.value}`} class="rounded-full border bg-background px-4 py-1.5 text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+							<a href={`#${group.value}`} class="btn btn-outline btn-sm">
 								{group.label}
 							</a>
 						))

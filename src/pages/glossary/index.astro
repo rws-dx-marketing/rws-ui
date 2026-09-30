@@ -32,11 +32,11 @@ const groups = alphabet.map((letter) => ({
 				{
 					groups.map((group) =>
 						group.terms.length ? (
-							<a href={`#${group.letter.toLowerCase()}`} class="flex size-8 items-center justify-center rounded-full border bg-background text-sm font-semibold transition-colors hover:border-accent hover:text-accent">
+							<a href={`#${group.letter.toLowerCase()}`} class="btn btn-outline btn-sm size-8 p-0">
 								{group.letter}
 							</a>
 						) : (
-							<span class="flex size-8 items-center justify-center rounded-full border font-semibold opacity-50" aria-hidden="true">
+							<span class="btn btn-outline pointer-events-none btn-sm size-8 p-0 opacity-50" aria-hidden="true">
 								{group.letter}
 							</span>
 						),

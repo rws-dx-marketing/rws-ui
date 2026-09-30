@@ -281,7 +281,17 @@ export const eventTypes = [
 	{ value: 'trade-show', label: 'Trade show' },
 ]
 
-// Editorial topics — the taxonomy behind the glossary and author archives.
+export const resourceTypes = [
+	{ value: 'blog', label: 'Blog' },
+	{ value: 'case-study', label: 'Case study' },
+	{ value: 'guide', label: 'Guide' },
+	{ value: 'learn', label: 'Learn' },
+	{ value: 'podcast', label: 'Podcast' },
+	{ value: 'research', label: 'Research' },
+	{ value: 'solution-info', label: 'Solution info' },
+]
+
+// Editorial topics — the taxonomy behind the glossary, author and resources archives.
 export const topics = [
 	{ value: 'ai-data', label: 'AI & data' },
 	{ value: 'localization-translation', label: 'Localization & translation' },

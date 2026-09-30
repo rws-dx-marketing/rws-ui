@@ -1,0 +1,13 @@
+---
+// @ts-nocheck
+// FilterOption with an icon between the checkbox and the label.
+const { id, value, label, name, icon, checked = false } = Astro.props
+---
+
+<li>
+	<label class="inline-flex w-full items-center gap-2 rounded px-2 py-1.5 transition-colors hover:bg-accent-softer has-checked:bg-accent-softest hover:has-checked:bg-accent-softer">
+		<input id={id} data-filter-input type="checkbox" value={value} name={name} checked={checked} class="input input-checkbox" />
+		<span class="svg-current block size-4 shrink-0 text-foreground-muted" set:html={icon} />
+		{label}
+	</label>
+</li>
