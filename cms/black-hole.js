@@ -1,0 +1,1052 @@
+// Black hole — the brand mark as a dark hole with a sheet of light beams
+// bending round it, for the teaser page. One canvas, one shader, no options
+// beyond the ones on the settings object below.
+//
+// Self-contained on purpose: the shape, the field solver and the shader are
+// copied from the 3D lab (blob.js / blob-shape.js) rather than shared, so this
+// file and `three` are all the production port needs. The lab keeps its own
+// copy for trying other skins.
+//
+//   [data-black-hole]              the canvas host; the canvas is appended to it
+//   [data-black-hole-settings]     JSON on the host overriding `defaults` below
+//   [data-black-hole-fit="96"]     an element inside the host's parent that the
+//                                  hole must clear, by the attribute's value in
+//                                  pixels — or `--black-hole-gap` on that element
+//                                  when set, so the gap can vary by breakpoint
+//
+// The mark is a 2D quad in the camera's plane. Its interior is dark and beams
+// flow left to right round it: level sets of a stream function that equals y
+// far away and is squeezed to zero at the outline, so they bend round the mark
+// and pile up against it as a bright rim. The squeeze reads a smooth stand-in
+// for distance, a screened Poisson field solved by multigrid once at mount.
+// The pointer is a light: beams under it swell, brighten and warm; nothing
+// moves. Scroll sends a band of the same light across the beams.
+//
+// CMS build: no bundler, so three is loaded from jsDelivr, pinned to the
+// version the prototype uses. Dynamic import() works in a plain <script>.
+// Runs at DOMContentLoaded rather than load: the download starts at once, and the shape and field (half a second
+// of CPU, no three needed) are built meanwhile, one frame after first paint so
+// they never hold it up. The first frame then waits for whichever of the two
+// finishes last, not both in turn, and the canvas fades in on it via the
+// `is-ready` class (the page styles the transition).
+
+(function () {
+const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js'
+
+const defaults = {
+	hover: 0.5, // the light under the pointer: its radius and how far beams swell and brighten
+	inertia: 0.5, // the band of light scroll sends across the beams: how bright, and how hard scroll kicks the spring that paces it; matches hover at the same value
+	spacing: 0.166, // beam spacing, in mark units (0.02–0.3)
+	width: 2, // beam width in pixels (0.3–4)
+	glow: 0.1, // glow round each beam (0–1.5)
+	squeeze: 0.15, // how tightly beams hug the edge; smaller is tighter (0.05–1)
+	flow: 1, // pulse speed along the beams (0–3)
+	streak: 0.3, // pulse contrast (0–1)
+	reach: 4, // how far the beams spread from the mark; 1.5 fills a square host, 12 fills any hero (1–12)
+	pull: 1.1, // how strongly beams are drawn toward the mark's centre line before the edge repels them (0–3)
+	pullReach: 1, // how far out the pull acts, in mark units (0.05–2)
+	scale: 1, // multiplies the fitted mark size; past 1 the outline runs off the viewport (0.3–2)
+}
+
+function blackHole() {
+	const hosts = document.querySelectorAll('[data-black-hole]')
+	if (!hosts.length) return
+	const three = import(THREE_URL)
+	const built = new Promise((resolve) => requestAnimationFrame(() => setTimeout(() => resolve(build()))))
+	Promise.all([three, built]).then(([THREE, { shape, harmonic }]) => hosts.forEach((host) => mount(host, THREE, shape, harmonic)))
+}
+
+// The mark's distance grid and the flow field round it, both pure CPU.
+function build() {
+	const shape = createShape()
+	return { shape, harmonic: harmonicField(shape) }
+}
+
+function readSettings(host) {
+	const raw = host.dataset.blackHoleSettings
+	if (!raw) return {}
+	try {
+		return JSON.parse(raw)
+	} catch {
+		console.warn('[black-hole] data-black-hole-settings is not valid JSON', host)
+		return {}
+	}
+}
+
+// ── instance: one canvas ─────────────────────────────────────────────────────
+function mount(host, THREE, shape, harmonic) {
+	const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+	const p = { ...defaults }
+	Object.entries(readSettings(host)).forEach(([k, v]) => {
+		if (k in p && typeof v === 'number') p[k] = v
+	})
+
+	// ── renderer / scene ─────────────────────────────────────────────────────
+	const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' })
+	renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+	renderer.outputColorSpace = THREE.SRGBColorSpace
+	host.append(renderer.domElement)
+
+	const scene = new THREE.Scene()
+	const fov = 32
+	const camera = new THREE.PerspectiveCamera(fov, 1, 0.1, 50)
+	camera.position.set(0, 0, 4.6)
+
+	// ── scroll → spring ──────────────────────────────────────────────────────
+	// Scroll velocity kicks a damped oscillator. The beams only read which
+	// way it went and how hard, to pace the band of light.
+	const sway = { x: 0, v: 0, dir: 1, kicked: false } // dir: which way the last scroll went; kicked: a scroll arrived this frame
+	let lastScroll = window.scrollY
+	let kick = 0
+	window.addEventListener(
+		'scroll',
+		() => {
+			kick += window.scrollY - lastScroll
+			lastScroll = window.scrollY
+		},
+		{ passive: true },
+	)
+
+	function stepSway(dt, stiffness, damping) {
+		sway.v += Math.max(-4, Math.min(4, kick * 0.008 * p.inertia))
+		if (kick) {
+			sway.dir = Math.sign(kick)
+			sway.kicked = true
+		}
+		kick = 0
+		sway.v += (-sway.x * stiffness - sway.v * damping) * dt
+		sway.x = Math.max(-1, Math.min(1, sway.x + sway.v * dt))
+	}
+
+	// ── the mark and its field ───────────────────────────────────────────────
+	const shapeTexture = new THREE.DataTexture(shape.grid, shape.res, shape.res, THREE.RedFormat, THREE.FloatType)
+	// Hardware bilinear on a float texture needs an extension; the cubic read
+	// in the shader fetches texels directly either way.
+	const linear = renderer.extensions.has('OES_texture_float_linear')
+	shapeTexture.minFilter = shapeTexture.magFilter = linear ? THREE.LinearFilter : THREE.NearestFilter
+	shapeTexture.generateMipmaps = false
+	shapeTexture.needsUpdate = true
+
+	const harmonicTexture = new THREE.DataTexture(harmonic.grid, harmonic.res, harmonic.res, THREE.RedFormat, THREE.FloatType)
+	harmonicTexture.minFilter = harmonicTexture.magFilter = THREE.NearestFilter
+	harmonicTexture.generateMipmaps = false
+	harmonicTexture.needsUpdate = true
+
+	// ── pointer → light ──────────────────────────────────────────────────────
+	// The pointer anywhere over the host, on the mark's plane: a light the
+	// beams swell and brighten under; nothing moves.
+	const lens = { pos: new THREE.Vector2(), target: 0, strength: 0, ray: new THREE.Raycaster(), ndc: new THREE.Vector2(), plane: new THREE.Plane(new THREE.Vector3(0, 0, 1), 0), hit: new THREE.Vector3() }
+	host.addEventListener('pointermove', (e) => {
+		const r = renderer.domElement.getBoundingClientRect()
+		lens.ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1)
+		lens.ray.setFromCamera(lens.ndc, camera)
+		if (lens.ray.ray.intersectPlane(lens.plane, lens.hit)) {
+			lens.pos.set(lens.hit.x, lens.hit.y)
+			lens.target = 1
+		}
+	})
+	host.addEventListener('pointerleave', () => (lens.target = 0))
+
+	// ── material ─────────────────────────────────────────────────────────────
+	const material = new THREE.ShaderMaterial({
+		transparent: true,
+		depthWrite: false,
+		// Output is premultiplied so the beams add over the page.
+		premultipliedAlpha: true,
+		uniforms: {
+			uShape: { value: shapeTexture },
+			uShapeInfo: { value: new THREE.Vector4(shape.extent, shape.res, shape.depth, shape.round) },
+			uHarmonic: { value: harmonicTexture },
+			uHarmonicInfo: { value: new THREE.Vector4(harmonic.extent, harmonic.res, harmonic.L, harmonic.offset) },
+			uTime: { value: 0 },
+			uHover: { value: p.hover },
+			uLens: { value: lens.pos },
+			uLensStrength: { value: 0 },
+			uReachH: { value: 0.3 },
+			uRipple: { value: new THREE.Vector3(0, 0, 1) }, // band centre y, envelope, strength
+			uSpacing: { value: p.spacing },
+			uWidth: { value: p.width },
+			uGlow: { value: p.glow },
+			uSqueeze: { value: p.squeeze },
+			uFlow: { value: p.flow },
+			uStreak: { value: p.streak },
+			uReach: { value: p.reach },
+			uScale: { value: 1 },
+			uPixel: { value: 0.001 },
+			uPull: { value: p.pull },
+			uPullReach: { value: p.pullReach },
+			uColA: { value: tokenColor(THREE, host, '--color-primary', '#7c4dff') },
+			uColB: { value: tokenColor(THREE, host, '--color-secondary', '#e6306e') },
+			// The hole's colour, and what the page's --background-seed should match.
+			uHole: { value: tokenColor(THREE, host, '--color-tertiary', '#3b1466').multiplyScalar(0.12) },
+		},
+		vertexShader: /* glsl */ `
+			varying vec3 vPos;
+			void main() {
+				vPos = position;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+			}
+		`,
+		fragmentShader: /* glsl */ `
+			uniform sampler2D uShape;
+			uniform vec4 uShapeInfo; // extent, resolution, depth, round
+			uniform sampler2D uHarmonic;
+			uniform vec4 uHarmonicInfo; // extent, resolution, decay length, far-field offset
+			uniform float uTime, uHover, uLensStrength, uReachH;
+			uniform float uSpacing, uWidth, uGlow, uSqueeze, uFlow, uStreak, uReach, uScale, uPull, uPullReach, uPixel;
+			uniform vec2 uLens;
+			uniform vec3 uColA, uColB, uHole, uRipple;
+			varying vec3 vPos;
+
+			float hash(float n) { return fract(sin(n * 127.1) * 43758.5453); }
+
+			// Cubic B-spline read (16 texels) of a square grid over ±extent,
+			// returning the value and its gradient per unit. Bilinear reads
+			// have slope breaks at every texel edge; beams packed against the
+			// rim sit a few texels apart and show them as wrinkles, and the rim
+			// itself reads as faintly polygonal. The B-spline is C2 across
+			// texels, and its analytic gradient is what sizes the beams: a
+			// screen-space derivative is estimated per 2×2 pixel block and
+			// jitters from block to block, which the packed band makes visible.
+			vec3 cubic(sampler2D tex, float extent, float res, vec2 q) {
+				vec2 g = (q / extent * 0.5 + 0.5) * res - 0.5;
+				vec2 i = floor(g), f = g - i;
+				vec2 f2 = f * f, f3 = f2 * f;
+				vec4 wx = vec4(1.0 - 3.0 * f.x + 3.0 * f2.x - f3.x, 4.0 - 6.0 * f2.x + 3.0 * f3.x, 1.0 + 3.0 * f.x + 3.0 * f2.x - 3.0 * f3.x, f3.x) / 6.0;
+				vec4 wy = vec4(1.0 - 3.0 * f.y + 3.0 * f2.y - f3.y, 4.0 - 6.0 * f2.y + 3.0 * f3.y, 1.0 + 3.0 * f.y + 3.0 * f2.y - 3.0 * f3.y, f3.y) / 6.0;
+				vec4 dx = vec4(-3.0 + 6.0 * f.x - 3.0 * f2.x, -12.0 * f.x + 9.0 * f2.x, 3.0 + 6.0 * f.x - 9.0 * f2.x, 3.0 * f2.x) / 6.0;
+				vec4 dy = vec4(-3.0 + 6.0 * f.y - 3.0 * f2.y, -12.0 * f.y + 9.0 * f2.y, 3.0 + 6.0 * f.y - 9.0 * f2.y, 3.0 * f2.y) / 6.0;
+				ivec2 o = ivec2(i) - 1, hi = ivec2(int(res) - 1);
+				vec3 v = vec3(0.0);
+				for (int y = 0; y < 4; y++) {
+					vec2 row = vec2(0.0);
+					for (int x = 0; x < 4; x++) {
+						float t = texelFetch(tex, clamp(o + ivec2(x, y), ivec2(0), hi), 0).r;
+						row += vec2(wx[x], dx[x]) * t;
+					}
+					v += vec3(wy[y] * row.x, wy[y] * row.y, dy[y] * row.x);
+				}
+				return vec3(v.x, v.yz * res / (2.0 * extent));
+			}
+			// The mark's distance, read smoothly, with its gradient; past the
+			// grid add the distance to it, so it runs to any width.
+			vec3 sdMarkG(vec2 q) {
+				vec2 o = max(abs(q) - uShapeInfo.x, 0.0);
+				float ol = length(o);
+				vec3 s = cubic(uShape, uShapeInfo.x, uShapeInfo.y, q);
+				return vec3(s.x + ol, s.yz + (ol > 0.0 ? o / ol * sign(q) : vec2(0.0)));
+			}
+			float sdMark(vec2 q) { return sdMarkG(q).x; }
+			// The screened field, above 1 inside the mark and decaying to 0 far
+			// away, with its gradient.
+			vec3 harm(vec2 q) {
+				if (any(greaterThan(abs(q), vec2(uHarmonicInfo.x)))) return vec3(0.0);
+				return cubic(uHarmonic, uHarmonicInfo.x, uHarmonicInfo.y, q);
+			}
+			void main() {
+				// The mark holds still under scroll: the spring only rides the beams.
+				vec2 p = vPos.xy;
+				vec2 q = p;
+				// Hover: light only. Beams under the pointer swell, brighten, surge
+				// on their pulses and warm in colour; nothing moves, so the rim
+				// and every beam centre are exactly where they are unhovered.
+				// Moving beams was tried twice, as a bump and as a pull toward
+				// the pointer's own beam: both break down at the tips, where the
+				// beams split above and below the mark. The glow is stretched
+				// along the flow so it reads as light streaming past the pointer.
+				vec2 h = p - uLens / uScale; // the pointer is in group space; the quad is scaled
+				vec2 hs = vec2(h.x * 0.6, h.y);
+				// The light's radius grows with the setting as well as its strength,
+				// so a high hover reads as a wide bright pool, not a hot spot.
+				float rh = uReachH * (1.0 + uHover);
+				float grav = exp(-dot(hs, hs) / (rh * rh));
+				float amount = uHover * uLensStrength * 3.0 * grav;
+				// Scroll: a band of the same light sweeps across the beams, top
+				// to bottom on a scroll down, the other way on a scroll up.
+				float band = uRipple.y * exp(-pow((p.y - uRipple.x) / 0.7, 2.0));
+				amount += uRipple.z * 3.0 * band;
+				// The rim is a distance field, so its gradient is 1 and a pixel
+				// of it is uPixel.
+				float d = sdMark(q);
+				float inside = 1.0 - smoothstep(-uPixel, uPixel, d);
+
+				// Smooth distance from the field, and its gradient.
+				vec3 cm = harm(q);
+				float c = max(cm.x, 1e-6);
+				float ds = -uHarmonicInfo.z * log(c);
+				vec2 dsG = -uHarmonicInfo.z * cm.yz / c;
+				// The field's grid is pinned to zero at its edge, so beams still
+				// bent there would snap flat, in a hero wide enough to show it.
+				// Hand over to the plain distance before the edge: far out the two
+				// differ by a measured constant, and any crease in the plain one
+				// is too far from the mark to show.
+				float far = max(abs(q.x), abs(q.y)) / uHarmonicInfo.x;
+				float t = clamp((far - 0.6) / 0.25, 0.0, 1.0);
+				if (t > 0.0) {
+					vec3 sg = sdMarkG(q);
+					float hand = t * t * (3.0 - 2.0 * t);
+					float plain = sg.x + uHarmonicInfo.w;
+					// The ramp's own slope goes into the gradient too: the beam
+					// width is sized from it, and leaving the ramp out fattens the
+					// beams across the band.
+					vec2 farG = abs(q.x) > abs(q.y) ? vec2(sign(q.x), 0.0) : vec2(0.0, sign(q.y));
+					vec2 handG = farG * (6.0 * t * (1.0 - t) / (0.25 * uHarmonicInfo.x));
+					dsG = mix(dsG, sg.yz, hand) + (plain - ds) * handG;
+					ds = mix(ds, plain, hand);
+				}
+
+				// Stream function and its level sets, one beam per spacing,
+				// offset by half so the flat interior (psi = 0) falls between two.
+				// The squeeze pushes beams off the outline; the pull draws them
+				// toward the mark's centre line first, so they funnel into the
+				// tips and bunch against the edge, like light bent by a mass.
+				float e1 = exp(-max(ds, 0.0) / uSqueeze), e2 = exp(-max(ds, 0.0) / uPullReach);
+				float w = ds > 0.0 ? (1.0 - e1) * (1.0 + uPull * e2) : 0.0;
+				float wD = ds > 0.0 ? (e1 / uSqueeze) * (1.0 + uPull * e2) - (1.0 - e1) * uPull * e2 / uPullReach : 0.0;
+				w *= 1.0 - inside;
+				wD *= 1.0 - inside;
+				float psi = p.y * w;
+				vec2 psiG = vec2(p.y * wD * dsG.x, w + p.y * wD * dsG.y);
+				float n = psi / uSpacing;
+				// Beams per unit from the analytic gradient, then per pixel.
+				vec2 nG = psiG / uSpacing;
+				float fw = max(length(nG) * uPixel, 1e-6);
+				float idx = floor(n);
+				float px = (fract(n) - 0.5) / fw; // pixels from the nearest beam
+				// Sum the nearest beams rather than draw only the closest, and
+				// weight each beam's colour and pulse into the same sum: where
+				// beams pack tighter than their width, against the rim, both
+				// the intensity and the colour then vary smoothly instead of
+				// switching at each beam's midline and aliasing.
+				float line = 0.0, core = 0.0;
+				vec3 colAcc = vec3(0.0);
+				for (int k = -2; k <= 2; k++) {
+					float pk = px - float(k) / fw;
+					float hk1 = hash(idx + float(k) + 1.0), hk2 = hash(idx + float(k) + 7.0);
+					float wk = uWidth * (0.7 + 0.6 * hk1) * (1.0 + 0.7 * amount);
+					float g = exp(-pk * pk / (wk * wk));
+					// A pulse travelling left to right along this beam; more
+					// pronounced under the pointer, so the flow seems to surge there.
+					float sk = 0.5 + 0.5 * sin(p.x * 2.0 - uTime * uFlow * 4.0 + hk2 * 6.2832);
+					float gi = g * mix(1.0, pow(sk, 3.0) * 2.2, min(1.0, uStreak + 0.4 * amount));
+					line += gi;
+					colAcc += gi * mix(uColA, uColB, hk1 * 0.6 + 0.4 * sk);
+					core += gi * (0.25 + 0.3 * uStreak * pow(sk, 3.0));
+				}
+				// The light under the pointer, capped so a strong setting
+				// brightens rather than bleaches.
+				float lift = 1.0 + min(amount, 2.0);
+				line *= lift;
+				core *= lift;
+				float lineN = max(line, 1e-6);
+				vec3 beamCol = mix(colAcc / lineN, uColB, 0.5 * min(amount, 1.0));
+				core /= lineN;
+				line = min(line, 1.0);
+				float glow = uGlow * 0.5 * exp(-abs(px) / 4.0) * (1.0 + amount);
+
+				// Beams and ground fade with distance from the mark, in a rounded
+				// square so they fill the host rather than a disc inside it. The
+				// canvas bleeds past the host, so the default reach is the host's
+				// half-width; raise it to spread across a hero.
+				vec2 p4 = p * p * p * p;
+				float fade = 1.0 - smoothstep(uReach * 0.75, uReach, pow(p4.x + p4.y, 0.25));
+				float beams = (line + glow) * fade * (1.0 - inside);
+
+				// A pale core down the middle of each beam, hotter on the pulses.
+				beamCol = mix(beamCol, vec3(1.0), line * core);
+				// The hole is the only ground: the page behind is already dark.
+				float ground = inside;
+				vec3 col = uHole * ground + beamCol * beams;
+				gl_FragColor = vec4(col, clamp(ground + beams, 0.0, 1.0));
+				#include <colorspace_fragment>
+			}
+		`,
+	})
+	// Sits in the camera's plane, so vPos.xy is the mark's own 2D space.
+	// Oversized so it still covers a wide hero-filling canvas once scaled down.
+	const quad = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), material)
+	quad.frustumCulled = false
+	scene.add(quad)
+	const u = material.uniforms
+
+	// ── sizing ───────────────────────────────────────────────────────────────
+	// With a [data-black-hole-fit] element (copy set inside the hole) the mark
+	// scales until the hole clears that element's box by the gap in pixels, so
+	// the gap holds across viewports: bigger mark on a wide screen, smaller on
+	// a phone, tips off the sides if need be. Without one the mark is sized to
+	// the host's height, growing when the host is taller than wide so it still
+	// reads as the mark. The gap is the attribute's value, or `--black-hole-gap`
+	// on the same element when set; read on every fit, since a resize can
+	// cross a breakpoint.
+	const fitEl = host.parentElement?.querySelector('[data-black-hole-fit]')
+	function contentScale() {
+		const hr = host.getBoundingClientRect()
+		const er = fitEl.getBoundingClientRect()
+		if (!hr.height || !er.height) return 1
+		const gapPx = parseFloat(getComputedStyle(fitEl).getPropertyValue('--black-hole-gap')) || parseFloat(fitEl.dataset.blackHoleFit) || 40
+		// World units per pixel at the mark's plane.
+		const upp = (2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) / hr.height
+		const cx = (er.left + er.width / 2 - (hr.left + hr.width / 2)) * upp
+		const cy = -(er.top + er.height / 2 - (hr.top + hr.height / 2)) * upp
+		const hw = (er.width / 2) * upp
+		const hh = (er.height / 2) * upp
+		const pts = []
+		for (let i = 0; i <= 8; i++) {
+			const t = -1 + i / 4
+			pts.push([cx + t * hw, cy + hh], [cx + t * hw, cy - hh], [cx + hw, cy + t * hh], [cx - hw, cy + t * hh])
+		}
+		// The box's perimeter must sit inside the outline by the gap, in world
+		// units; sd2 is in mark units.
+		const fits = (s) => {
+			const gap = gapPx * upp
+			return pts.every(([x, y]) => shape.sd2(x / s, y / s) * s <= -gap)
+		}
+		let lo = 0.2
+		let hi = 8
+		for (let i = 0; i < 24; i++) {
+			const m = (lo + hi) / 2
+			if (fits(m)) hi = m
+			else lo = m
+		}
+		return hi
+	}
+	let fit = 1
+	let dirty = true
+	function refit() {
+		if (!dirty) return
+		dirty = false
+		const next = (fitEl ? contentScale() : Math.max(1, 0.85 / camera.aspect)) * p.scale
+		if (next === fit) return
+		fit = next
+		quad.scale.setScalar(fit)
+		u.uScale.value = fit
+		// Spacing is set in the mark's own units; keep it constant on screen.
+		u.uSpacing.value = p.spacing / fit
+	}
+	const watch = new ResizeObserver(() => (dirty = true))
+	watch.observe(host)
+	if (fitEl) watch.observe(fitEl)
+
+	function resize() {
+		const canvas = renderer.domElement
+		const w = canvas.clientWidth || host.clientWidth
+		const h = canvas.clientHeight || host.clientHeight
+		if (!w || !h) return
+		renderer.setSize(w, h, false)
+		camera.aspect = w / h
+		camera.updateProjectionMatrix()
+		if (still) renderFrame(0)
+	}
+	new ResizeObserver(resize).observe(host)
+
+	let visible = true
+	// Entries can arrive batched (e.g. a scroll restore right after mount), so
+	// read the newest one, not the first.
+	new IntersectionObserver((entries) => (visible = entries[entries.length - 1].isIntersecting), { rootMargin: '10%' }).observe(host)
+
+	// ── frame ────────────────────────────────────────────────────────────────
+	const timer = new THREE.Timer()
+	let time = 0
+	const ripple = { dir: 1, t: 1e9, speed: 0, glow: 0 } // the scroll band's direction, distance travelled, speed and brightness
+
+	function renderFrame(dt) {
+		stepSway(dt, 40, 4)
+		refit()
+		u.uTime.value = time
+		u.uHover.value = p.hover
+		// One device pixel in the quad's units, for beam widths and the rim's edge.
+		const px = (2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) / (renderer.domElement.height || 1)
+		u.uPixel.value = px / fit
+		lens.strength += (lens.target - lens.strength) * 0.1
+		u.uLensStrength.value = lens.strength
+		// The band enters at the edge the scroll came from and crosses at a
+		// steady speed and brightness set by how hard the scroll kicked the
+		// spring, so a hard scroll sends a bright band through fast and a
+		// light one a dimmer band at a stroll. A scroll the other way, or one
+		// after the band has left, starts a fresh band; one the same way makes
+		// this one brighter and quicker. Measured in the quad's units so it
+		// spans the canvas whatever the fit.
+		const half = (camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2)) / fit + 0.7
+		if (sway.kicked) {
+			const v = Math.min(2, Math.abs(sway.v))
+			if (ripple.dir !== sway.dir || ripple.t > 2 * half) {
+				ripple.t = 0
+				ripple.speed = 0
+				ripple.glow = 0
+			}
+			ripple.dir = sway.dir
+			ripple.speed = Math.max(ripple.speed, 2.5 + 2 * v)
+			ripple.glow = Math.max(ripple.glow, Math.min(1, 0.5 + v * 0.5))
+			sway.kicked = false
+		}
+		ripple.t += ripple.speed * dt
+		u.uRipple.value.x = ripple.dir * (half - ripple.t)
+		// Scaled by the inertia setting the way the hover light is by its own,
+		// so equal settings light the beams equally.
+		u.uRipple.value.y = ripple.t > 2 * half ? 0 : ripple.glow * p.inertia
+		renderer.render(scene, camera)
+		renderer.domElement.classList.add('is-ready')
+	}
+
+	function loop() {
+		requestAnimationFrame(loop)
+		if (!visible) {
+			kick = 0
+			lastScroll = window.scrollY
+			return
+		}
+		timer.update()
+		const dt = Math.min(timer.getDelta(), 0.05)
+		// The pulses hurry a touch while the spring is swinging.
+		time += dt * (1 + Math.abs(sway.x) * 0.6)
+		renderFrame(dt)
+	}
+
+	resize()
+	if (!still) loop()
+}
+
+// ── colour tokens ────────────────────────────────────────────────────────────
+function token(host, name, fallback) {
+	return getComputedStyle(host).getPropertyValue(name).trim() || fallback
+}
+
+// THREE.Color can't parse oklch(), so resolve a token through a 1px canvas:
+// the browser does the colour-space conversion and hands back sRGB bytes.
+function tokenColor(THREE, host, name, fallback) {
+	const ctx = document.createElement('canvas').getContext('2d', { willReadFrequently: true })
+	ctx.canvas.width = ctx.canvas.height = 1
+	ctx.fillStyle = token(host, name, fallback)
+	ctx.fillRect(0, 0, 1, 1)
+	const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+	return new THREE.Color().setRGB(r / 255, g / 255, b / 255, THREE.SRGBColorSpace)
+}
+
+// ── the shape: a rounded "W" ─────────────────────────────────────────────────
+// The mark the blob is built on: a rounded "W" (three humps up, two down).
+//
+// The outline is the brand artwork's own path (public/icons/weava_w_white.svg,
+// one closed run of cubic Béziers) sampled densely into a polyline, in a
+// space where the mark is 2 units wide and centred on the origin, y up. A
+// coarse point sample was used before; its vertices put slope breaks in the
+// rim that anything hugging it, like the black-hole skin's beams, reproduced
+// as wrinkles. Its sharp corners are rounded off (see `corner`), and the body
+// is that outline extruded in z with a fully rounded edge, so its
+// cross-section is a pill: flat-ish in the middle of a stroke, round at the
+// edges. Everything downstream — the marched surface in the shaders, the
+// hover proxy, the balls lattice clip, the metaball field — reads the same
+// signed distance, sampled from a small grid rasterised here at mount.
+
+// The path's `d` as authored: relative cubics in a space the SVG maps with
+// translate(0,490) scale(0.1,-0.1). Only the shape matters here, so it is
+// read as is and normalised by its own bounds.
+const pathData = 'M910 4248 c-291 -103 -413 -378 -397 -898 6 -217 25 -370 73 -610 94 -472 272 -973 481 -1355 239 -435 499 -715 758 -817 143 -56 343 -50 505 15 121 49 171 87 360 277 102 102 205 202 230 222 180 143 400 143 580 0 25 -20 128 -120 230 -222 189 -190 239 -228 360 -277 102 -41 192 -55 315 -50 93 3 122 9 190 35 395 155 794 731 1071 1547 148 434 230 853 241 1235 11 363 -45 607 -172 748 -101 112 -247 179 -373 170 -188 -14 -355 -145 -643 -503 -162 -202 -257 -302 -311 -328 -113 -54 -212 11 -437 288 -253 311 -425 452 -608 500 -73 19 -233 19 -306 0 -183 -48 -355 -189 -608 -500 -223 -274 -325 -341 -437 -288 -54 26 -149 126 -311 328 -294 366 -458 492 -651 502 -59 3 -89 -1 -140 -19z'
+
+// Samples the path's cubics (`samples` points each) into one closed polyline
+// normalised to 2 units wide and centred, as a flat [x, y, x, y, …] array.
+function samplePath(d, samples = 16) {
+	const tokens = d.match(/[a-zA-Z]|-?\d*\.?\d+/g)
+	const pts = []
+	let i = 0
+	let cmd = ''
+	let x = 0
+	let y = 0
+	const num = () => parseFloat(tokens[i++])
+	const cubic = (x1, y1, x2, y2, x3, y3) => {
+		for (let k = 0; k < samples; k++) {
+			const t = k / samples
+			const u = 1 - t
+			pts.push(u * u * u * x + 3 * u * u * t * x1 + 3 * u * t * t * x2 + t * t * t * x3, u * u * u * y + 3 * u * u * t * y1 + 3 * u * t * t * y2 + t * t * t * y3)
+		}
+		x = x3
+		y = y3
+	}
+	while (i < tokens.length) {
+		if (/[a-zA-Z]/.test(tokens[i])) cmd = tokens[i++]
+		if (cmd === 'M') {
+			x = num()
+			y = num()
+		} else if (cmd === 'c') {
+			const x1 = x + num(),
+				y1 = y + num(),
+				x2 = x + num(),
+				y2 = y + num()
+			cubic(x1, y1, x2, y2, x + num(), y + num())
+		} else if (cmd === 'C') {
+			cubic(num(), num(), num(), num(), num(), num())
+		} else if (cmd === 'l') {
+			cubic(x, y, x, y, x + num(), y + num())
+		} else if (cmd === 'z' || cmd === 'Z') {
+			break
+		} else {
+			throw new Error(`black-hole: unhandled path command ${cmd}`)
+		}
+	}
+	let minX = Infinity,
+		maxX = -Infinity,
+		minY = Infinity,
+		maxY = -Infinity
+	for (let k = 0; k < pts.length; k += 2) {
+		minX = Math.min(minX, pts[k])
+		maxX = Math.max(maxX, pts[k])
+		minY = Math.min(minY, pts[k + 1])
+		maxY = Math.max(maxY, pts[k + 1])
+	}
+	const scale = 2 / (maxX - minX)
+	const cx = (minX + maxX) / 2
+	const cy = (minY + maxY) / 2
+	const out = new Float32Array(pts.length)
+	for (let k = 0; k < pts.length; k += 2) {
+		out[k] = (pts[k] - cx) * scale
+		out[k + 1] = (pts[k + 1] - cy) * scale
+	}
+	return out
+}
+
+const outline = samplePath(pathData)
+
+const shapeDefaults = {
+	depth: 0.4, // half thickness of the body at its thickest
+	round: 0.4, // edge radius; near `depth` so the section is a pill, not a slab
+	corner: 0.14, // in-plane corner radius: convex tips rounded off, notches filled to this radius
+	soften: 0.05, // blur (world units) applied to the distance deep inside the mark; 0 keeps the medial ridge
+	res: 256, // grid cells per side
+	extent: 1.3, // grid covers ±extent in x and y
+}
+
+// The level set `grid = level` as line segments (world units), by marching
+// squares with linear interpolation along cell edges, so it sits between
+// cell centres rather than on them.
+function levelSet(grid, res, step, extent, level) {
+	const segs = []
+	const x = (i) => -extent + (i + 0.5) * step
+	for (let j = 0; j < res - 1; j++)
+		for (let i = 0; i < res - 1; i++) {
+			const a = grid[j * res + i] - level,
+				b = grid[j * res + i + 1] - level,
+				c = grid[(j + 1) * res + i + 1] - level,
+				d = grid[(j + 1) * res + i] - level
+			const code = (a < 0 ? 1 : 0) | (b < 0 ? 2 : 0) | (c < 0 ? 4 : 0) | (d < 0 ? 8 : 0)
+			if (code === 0 || code === 15) continue
+			// Crossing points on the bottom, right, top and left edges.
+			const pts = []
+			if (a < 0 !== b < 0) pts.push([x(i) + (step * a) / (a - b), x(j)])
+			if (b < 0 !== c < 0) pts.push([x(i + 1), x(j) + (step * b) / (b - c)])
+			if (c < 0 !== d < 0) pts.push([x(i + 1) - (step * c) / (c - d), x(j + 1)])
+			if (d < 0 !== a < 0) pts.push([x(i), x(j + 1) - (step * d) / (d - a)])
+			// Two crossings make one segment; four (a saddle) make two, paired
+			// either way — the shape has no saddles at the radii used here.
+			for (let k = 0; k + 1 < pts.length; k += 2) segs.push(pts[k][0], pts[k][1], pts[k + 1][0], pts[k + 1][1])
+		}
+	return segs
+}
+
+// Distance from every cell centre to the nearest segment, via a coarse
+// bucket grid so each cell only tests segments nearby.
+function distanceToSegments(segs, res, step, extent) {
+	const bucketCells = 8
+	const nb = Math.ceil(res / bucketCells)
+	const buckets = Array.from({ length: nb * nb }, () => [])
+	const bx = (v) => Math.max(0, Math.min(nb - 1, Math.floor((v + extent) / step / bucketCells)))
+	for (let k = 0; k < segs.length; k += 4) {
+		const i0 = bx(Math.min(segs[k], segs[k + 2])),
+			i1 = bx(Math.max(segs[k], segs[k + 2]))
+		const j0 = bx(Math.min(segs[k + 1], segs[k + 3])),
+			j1 = bx(Math.max(segs[k + 1], segs[k + 3]))
+		for (let j = j0; j <= j1; j++) for (let i = i0; i <= i1; i++) buckets[j * nb + i].push(k)
+	}
+	const out = new Float32Array(res * res)
+	const bucketSize = bucketCells * step
+	for (let j = 0; j < res; j++)
+		for (let i = 0; i < res; i++) {
+			const px = -extent + (i + 0.5) * step,
+				py = -extent + (j + 0.5) * step
+			const bi = Math.floor(i / bucketCells),
+				bj = Math.floor(j / bucketCells)
+			let best = Infinity
+			// Rings of buckets outward; a ring can't beat `best` once its
+			// nearest possible edge is further than that.
+			for (let ring = 0; ring < nb; ring++) {
+				if ((ring - 1) * bucketSize > Math.sqrt(best)) break
+				for (let dj = -ring; dj <= ring; dj++)
+					for (let di = -ring; di <= ring; di++) {
+						if (Math.max(Math.abs(di), Math.abs(dj)) !== ring) continue
+						const ii = bi + di,
+							jj = bj + dj
+						if (ii < 0 || jj < 0 || ii >= nb || jj >= nb) continue
+						for (const k of buckets[jj * nb + ii]) {
+							const ax = segs[k],
+								ay = segs[k + 1]
+							const ex = segs[k + 2] - ax,
+								ey = segs[k + 3] - ay
+							const l2 = ex * ex + ey * ey
+							const t = l2 > 0 ? Math.max(0, Math.min(1, ((px - ax) * ex + (py - ay) * ey) / l2)) : 0
+							const qx = ax + ex * t - px,
+								qy = ay + ey * t - py
+							best = Math.min(best, qx * qx + qy * qy)
+						}
+					}
+			}
+			out[j * res + i] = Math.sqrt(best)
+		}
+	return out
+}
+
+// Signed distance to the level set `grid = level`, negative where grid is
+// below it. Offsetting a level set of an exact SDF is exact, so this is how
+// each morphological step below is built.
+function signedDistanceToLevel(grid, res, step, extent, level) {
+	const d = distanceToSegments(levelSet(grid, res, step, extent, level), res, step, extent)
+	const sd = new Float32Array(res * res)
+	for (let i = 0; i < sd.length; i++) sd[i] = grid[i] < level ? -d[i] : d[i]
+	return sd
+}
+
+// Morphological rounding of a distance grid: erode then dilate by `r` to
+// round off convex corners (opening), then dilate then erode to fill concave
+// ones (closing).
+function roundCorners(grid, res, step, extent, r) {
+	const opened = signedDistanceToLevel(grid, res, step, extent, -r)
+	for (let i = 0; i < opened.length; i++) opened[i] -= r
+	const closed = signedDistanceToLevel(opened, res, step, extent, r)
+	for (let i = 0; i < closed.length; i++) closed[i] += r
+	return closed
+}
+
+// Separable Gaussian blur, sigma in cells, edge-clamped.
+function blur(grid, res, sigma) {
+	const radius = Math.ceil(sigma * 3)
+	const kernel = []
+	let sum = 0
+	for (let k = -radius; k <= radius; k++) sum += kernel[k + radius] = Math.exp(-(k * k) / (2 * sigma * sigma))
+	for (let k = 0; k < kernel.length; k++) kernel[k] /= sum
+	const tmp = new Float32Array(res * res),
+		out = new Float32Array(res * res)
+	for (let j = 0; j < res; j++)
+		for (let i = 0; i < res; i++) {
+			let v = 0
+			for (let k = -radius; k <= radius; k++) v += kernel[k + radius] * grid[j * res + Math.max(0, Math.min(res - 1, i + k))]
+			tmp[j * res + i] = v
+		}
+	for (let j = 0; j < res; j++)
+		for (let i = 0; i < res; i++) {
+			let v = 0
+			for (let k = -radius; k <= radius; k++) v += kernel[k + radius] * tmp[Math.max(0, Math.min(res - 1, j + k)) * res + i]
+			out[j * res + i] = v
+		}
+	return out
+}
+
+function createShape(options = {}) {
+	const { depth, round, corner, soften, res, extent } = { ...shapeDefaults, ...options }
+	const n = outline.length / 2
+
+	// Exact signed distance to the outline polygon: nearest segment, sign by
+	// even-odd crossing.
+	function polygonSD(x, y) {
+		let d2 = Infinity
+		let inside = false
+		for (let i = 0, j = n - 1; i < n; j = i++) {
+			const ax = outline[i * 2],
+				ay = outline[i * 2 + 1]
+			const bx = outline[j * 2],
+				by = outline[j * 2 + 1]
+			const ex = bx - ax,
+				ey = by - ay
+			const t = Math.max(0, Math.min(1, ((x - ax) * ex + (y - ay) * ey) / (ex * ex + ey * ey)))
+			const px = ax + ex * t - x,
+				py = ay + ey * t - y
+			d2 = Math.min(d2, px * px + py * py)
+			if (ay > y !== by > y && x < ((bx - ax) * (y - ay)) / (by - ay) + ax) inside = !inside
+		}
+		return (inside ? -1 : 1) * Math.sqrt(d2)
+	}
+
+	// Cell centres: cell (i, j) sits at (-extent + (i + 0.5) * step, …).
+	const step = (2 * extent) / res
+	const exact = new Float32Array(res * res)
+	for (let j = 0; j < res; j++) for (let i = 0; i < res; i++) exact[j * res + i] = polygonSD(-extent + (i + 0.5) * step, -extent + (j + 0.5) * step)
+	// The artwork has hard corners (the outer hump tips, the notches) that
+	// read as horns and creases once extruded; every skin shares the rounded
+	// version so they agree on the silhouette.
+	const rounded = corner > 0 ? roundCorners(exact, res, step, extent, corner) : exact
+	// The z profile below is driven by this distance, and a true distance has
+	// a ridge along the stroke's medial axis where the nearest edge switches
+	// sides. Where the stroke is thin — the hump tips — that ridge is steep
+	// enough to shade as a crease, so deep inside the mark the distance is
+	// blended toward a blurred copy. Near the surface it stays exact, so the
+	// outline doesn't move; blurring only ever makes the inside shallower,
+	// which the marches tolerate.
+	let grid = rounded
+	if (soften > 0) {
+		const soft = blur(rounded, res, soften / step)
+		grid = new Float32Array(res * res)
+		for (let i = 0; i < grid.length; i++) {
+			const t = Math.max(0, Math.min(1, (-rounded[i] - 0.04) / 0.1))
+			grid[i] = rounded[i] + (soft[i] - rounded[i]) * t * t * (3 - 2 * t)
+		}
+	}
+
+	// Bilinear read of the grid; matches sd2() in the shaders.
+	function sd2(x, y) {
+		// Past the grid's edge the clamped read goes flat; add the distance to
+		// the grid so the field keeps growing.
+		const ox = Math.max(Math.abs(x) - extent, 0),
+			oy = Math.max(Math.abs(y) - extent, 0)
+		const outside = Math.sqrt(ox * ox + oy * oy)
+		const gx = Math.max(0, Math.min(res - 1, (x + extent) / step - 0.5))
+		const gy = Math.max(0, Math.min(res - 1, (y + extent) / step - 0.5))
+		const i = Math.min(res - 2, Math.floor(gx)),
+			j = Math.min(res - 2, Math.floor(gy))
+		const fx = gx - i,
+			fy = gy - j
+		const a = grid[j * res + i],
+			b = grid[j * res + i + 1],
+			c = grid[(j + 1) * res + i],
+			d = grid[(j + 1) * res + i + 1]
+		return (a * (1 - fx) + b * fx) * (1 - fy) + (c * (1 - fx) + d * fx) * fy + outside
+	}
+
+	return { depth, round, res, extent, grid, sd2 }
+}
+
+// ── the flow field ───────────────────────────────────────────────────────────
+// Cubic B-spline read of a square grid over ±extent, matching cubic() in
+// the black-hole shader. Bilinear reads have slope breaks at every cell
+// edge, and anything traced along the rim inherits them as wrinkles.
+function cubicSample(grid, res, extent, x, y) {
+	const gx = ((x / extent) * 0.5 + 0.5) * res - 0.5
+	const gy = ((y / extent) * 0.5 + 0.5) * res - 0.5
+	const ix = Math.floor(gx),
+		iy = Math.floor(gy),
+		fx = gx - ix,
+		fy = gy - iy
+	const weights = (f) => {
+		const f2 = f * f,
+			f3 = f2 * f
+		return [(1 - 3 * f + 3 * f2 - f3) / 6, (4 - 6 * f2 + 3 * f3) / 6, (1 + 3 * f + 3 * f2 - 3 * f3) / 6, f3 / 6]
+	}
+	const wx = weights(fx),
+		wy = weights(fy)
+	const at = (i, j) => grid[Math.max(0, Math.min(res - 1, j)) * res + Math.max(0, Math.min(res - 1, i))]
+	let v = 0
+	for (let j = 0; j < 4; j++) {
+		let row = 0
+		for (let i = 0; i < 4; i++) row += wx[i] * at(ix - 1 + i, iy - 1 + j)
+		v += wy[j] * row
+	}
+	return v
+}
+
+// The flow field for the black-hole skin: a smooth stand-in for distance
+// from the mark. A distance field creases wherever the nearest edge switches
+// and beams shaped by it kink there. This instead solves the screened
+// Poisson equation (∇²c = c/L²) for a field that continues exp(-d/L) off the
+// mark, so -L·ln(c) equals distance at the outline and inside it, yet is
+// smooth everywhere outside. The grid is ±extent across; cells on and just
+// inside the mark, and a ring just outside it, are fixed at the exact
+// near-field value, and the far edge at 0. Full multigrid: the coarsest
+// level is relaxed outright, each solution is lifted to start the next finer
+// level, and V-cycles polish it; converged to about 1e-4 of the mark's
+// size at the rim, where beams pack tightest. Solved once per page.
+function harmonicField(shape, res = 384, extent = 2.5, L = 0.5, cycles = 6) {
+	// The grid only clamps at its edge, so add the distance to it beyond.
+	const shapeSD = (x, y) => {
+		const ox = Math.max(Math.abs(x) - shape.extent, 0)
+		const oy = Math.max(Math.abs(y) - shape.extent, 0)
+		return cubicSample(shape.grid, shape.res, shape.extent, x, y) + Math.hypot(ox, oy)
+	}
+	const levels = []
+	for (let n = res; n >= 16; n /= 2) {
+		const step = (2 * extent) / n
+		const fixed = new Uint8Array(n * n)
+		const value = new Float32Array(n * n)
+		const sd = new Float32Array(n * n)
+		for (let j = 0; j < n; j++)
+			for (let i = 0; i < n; i++) {
+				const k = j * n + i
+				sd[k] = shapeSD(-extent + (i + 0.5) * step, -extent + (j + 0.5) * step)
+				if (sd[k] <= 0 || i === 0 || j === 0 || i === n - 1 || j === n - 1) {
+					fixed[k] = 1
+					// Inside, the exact near-field continuation, so the cubic read
+					// across the rim sees no step; the rim value itself is 1.
+					value[k] = sd[k] <= 0 ? Math.exp(-sd[k] / L) : 0
+				}
+			}
+		levels.push({ n, step, fixed, value, sd, u: new Float32Array(n * n), f: new Float32Array(n * n), r: new Float32Array(n * n) })
+	}
+	// Stencils. Regular cells use the five-point screened Laplacian. On the
+	// finest level, cells next to the outline are cut cells (Shortley–Weller):
+	// each arm that crosses the outline is shortened to the crossing, where
+	// the value is exactly 1. Fixing a ring of cells to the straight-edge
+	// formula instead was measured to leave a band of ripple where the ring
+	// ends, since that formula is wrong along a curved wall.
+	for (const lv of levels) {
+		const { n, step, fixed, sd } = lv
+		const h2L = (step / L) ** 2
+		const a = [new Float32Array(n * n), new Float32Array(n * n), new Float32Array(n * n), new Float32Array(n * n)] // E W N S
+		const diag = new Float32Array(n * n)
+		const rhs = new Float32Array(n * n)
+		const cut = lv === levels[0]
+		for (let j = 1; j < n - 1; j++)
+			for (let i = 1; i < n - 1; i++) {
+				const k = j * n + i
+				if (fixed[k]) continue
+				const nb = [k + 1, k - 1, k + n, k - n]
+				let d = h2L
+				for (let axis = 0; axis < 2; axis++) {
+					const t = [1, 1]
+					for (let side = 0; side < 2; side++) {
+						const m = nb[axis * 2 + side]
+						if (cut && sd[m] <= 0) t[side] = Math.max(0.1, sd[k] / (sd[k] - sd[m]))
+					}
+					const sum = t[0] + t[1]
+					for (let side = 0; side < 2; side++) {
+						const m = nb[axis * 2 + side]
+						const coef = 2 / (t[side] * sum)
+						if (cut && sd[m] <= 0)
+							rhs[k] += coef // the outline's value, 1
+						else a[axis * 2 + side][k] = coef
+					}
+					d += 2 / (t[0] * t[1])
+				}
+				diag[k] = d
+			}
+		Object.assign(lv, { a, diag, rhs })
+	}
+	const smooth = (lv, sweeps) => {
+		const { n, fixed, u, f, a, diag, rhs } = lv
+		for (let s = 0; s < sweeps; s++)
+			for (let j = 1; j < n - 1; j++)
+				for (let i = 1; i < n - 1; i++) {
+					const k = j * n + i
+					if (!fixed[k]) u[k] = (f[k] + rhs[k] + a[0][k] * u[k + 1] + a[1][k] * u[k - 1] + a[2][k] * u[k + n] + a[3][k] * u[k - n]) / diag[k]
+				}
+	}
+	const residual = (lv) => {
+		const { n, fixed, u, f, r, a, diag, rhs } = lv
+		for (let j = 1; j < n - 1; j++)
+			for (let i = 1; i < n - 1; i++) {
+				const k = j * n + i
+				r[k] = fixed[k] ? 0 : f[k] + rhs[k] - (diag[k] * u[k] - a[0][k] * u[k + 1] - a[1][k] * u[k - 1] - a[2][k] * u[k + n] - a[3][k] * u[k - n])
+			}
+	}
+	// Bilinear prolongation of a coarse array onto a fine level's free cells.
+	const lift = (lv, co, src, add) => {
+		const n = lv.n,
+			m = co.n
+		for (let j = 0; j < n; j++)
+			for (let i = 0; i < n; i++) {
+				const k = j * n + i
+				if (lv.fixed[k]) continue
+				const gx = Math.max(0, Math.min(m - 1.001, (i + 0.5) / 2 - 0.5))
+				const gy = Math.max(0, Math.min(m - 1.001, (j + 0.5) / 2 - 0.5))
+				const i0 = Math.floor(gx),
+					j0 = Math.floor(gy),
+					fx = gx - i0,
+					fy = gy - j0
+				const v = (src[j0 * m + i0] * (1 - fx) + src[j0 * m + i0 + 1] * fx) * (1 - fy) + (src[(j0 + 1) * m + i0] * (1 - fx) + src[(j0 + 1) * m + i0 + 1] * fx) * fy
+				if (add) lv.u[k] += v
+				else lv.u[k] = v
+			}
+	}
+	// One V-cycle from level l: smooth, restrict the residual (2×2 sum, which
+	// is the coarser operator's scaling), solve the coarse error from zero,
+	// lift it back, smooth again. Coarse levels run in correction mode, so
+	// their rhs is dropped there.
+	const vcycle = (l) => {
+		const lv = levels[l]
+		if (l === levels.length - 1) return smooth(lv, 200)
+		smooth(lv, 3)
+		residual(lv)
+		const co = levels[l + 1]
+		const n = lv.n,
+			m = co.n
+		for (let J = 0; J < m; J++)
+			for (let I = 0; I < m; I++) {
+				const K = J * m + I
+				const k = 2 * J * n + 2 * I
+				co.f[K] = co.fixed[K] ? 0 : lv.r[k] + lv.r[k + 1] + lv.r[k + n] + lv.r[k + n + 1]
+				co.u[K] = 0
+			}
+		co.rhs.fill(0)
+		vcycle(l + 1)
+		lift(lv, co, co.u, true)
+		smooth(lv, 3)
+	}
+	// Full multigrid: solve the coarsest level outright, then lift each
+	// solution as the next finer level's start and polish with V-cycles. The
+	// coarse levels' own rhs is only used while they are solved as starts.
+	const rhsFull = levels.map((lv) => Float32Array.from(lv.rhs))
+	for (let l = levels.length - 1; l >= 0; l--) {
+		const lv = levels[l]
+		lv.u.set(lv.value)
+		lv.f.fill(0)
+		lv.rhs.set(rhsFull[l])
+		if (l === levels.length - 1) {
+			smooth(lv, 400)
+			continue
+		}
+		lift(lv, levels[l + 1], Float32Array.from(levels[l + 1].u), false)
+		for (let c = 0; c < cycles; c++) {
+			vcycle(l)
+			lv.rhs.set(rhsFull[l])
+		}
+	}
+	const top = levels[0]
+	// Inside the mark the field is read too: the cubic sample straddles the
+	// rim by two cells. Continue the solved field inward along the normal
+	// with the slope it has one cell outside, so it is slope-continuous at
+	// the rim; the straight-edge exponential used as the solve's start is
+	// not, since the true slope depends on the rim's curvature.
+	{
+		const { n, step, u, sd } = top
+		const read = (x, y) => {
+			const gx = Math.max(0, Math.min(n - 1.001, ((x / extent) * 0.5 + 0.5) * n - 0.5))
+			const gy = Math.max(0, Math.min(n - 1.001, ((y / extent) * 0.5 + 0.5) * n - 0.5))
+			const i0 = Math.floor(gx),
+				j0 = Math.floor(gy),
+				fx = gx - i0,
+				fy = gy - j0
+			return (u[j0 * n + i0] * (1 - fx) + u[j0 * n + i0 + 1] * fx) * (1 - fy) + (u[(j0 + 1) * n + i0] * (1 - fx) + u[(j0 + 1) * n + i0 + 1] * fx) * fy
+		}
+		const out = Float32Array.from(u)
+		for (let j = 1; j < n - 1; j++)
+			for (let i = 1; i < n - 1; i++) {
+				const k = j * n + i
+				if (sd[k] > 0 || sd[k] < -5 * step) continue
+				const x = -extent + (i + 0.5) * step
+				const y = -extent + (j + 0.5) * step
+				const e = step * 0.5
+				let nx = shapeSD(x + e, y) - shapeSD(x - e, y)
+				let ny = shapeSD(x, y + e) - shapeSD(x, y - e)
+				const g = Math.hypot(nx, ny) || 1
+				nx /= g
+				ny /= g
+				// The rim point, and the field one cell out from it.
+				const rx = x - sd[k] * nx,
+					ry = y - sd[k] * ny
+				const slope = (1 - read(rx + nx * step, ry + ny * step)) / step
+				out[k] = 1 + slope * -sd[k]
+			}
+		u.set(out)
+	}
+	// The grid's edge is pinned to zero, so the field is only trusted well
+	// inside it; past that the shader hands over to the plain distance, which
+	// runs forever. Far from the mark the smooth distance is the plain one
+	// plus a near-constant; measure it on a ring where the hand-over begins
+	// so the two agree there.
+	let offset = 0
+	const ring = 0.6 * extent
+	for (let i = 0; i < 64; i++) {
+		const a = (i / 64) * Math.PI * 2
+		const x = Math.cos(a) * ring
+		const y = Math.sin(a) * ring
+		offset += -L * Math.log(Math.max(cubicSample(top.u, res, extent, x, y), 1e-6)) - shapeSD(x, y)
+	}
+	return { grid: top.u, res, extent, L, offset: offset / 64 }
+}
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', blackHole, { once: true })
+else blackHole()
+})()

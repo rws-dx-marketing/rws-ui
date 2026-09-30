@@ -1,0 +1,234 @@
+/* /t2-launch hero: the black hole fills the section and the copy sits inside it.
+   Plain CSS rather than Tailwind utilities, so it works pasted into a CMS code block whose classes the production build never
+   scans. Relies only on the site's colour tokens, [data-theme] and .btn. Breakpoints are Tailwind's: sm 40rem, md 48rem,
+   lg 64rem, xl 80rem. */
+
+/* The background seed is the shader's ground, tertiary scaled to 12% in linear light (black-hole.js uHole), so nothing shifts
+   when the scene loads in */
+.t2-launch {
+	--background-seed: color-mix(in srgb-linear, var(--color-tertiary) 12%, black);
+	position: relative;
+	display: grid;
+	place-items: center;
+	min-height: min(calc(100svh - var(--chrome-height, 0px)), 56rem);
+	padding-block: 5rem;
+	overflow: clip;
+}
+
+/* The canvas starts transparent and fades in once the script has drawn its first frame (is-ready), so the beams don't snap in
+   over the seed */
+.t2-launch-hole {
+	position: absolute;
+	inset: 0;
+	touch-action: pan-y;
+}
+
+.t2-launch-hole > canvas {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.t2-launch-hole > canvas.is-ready {
+	opacity: 1;
+}
+
+/* Pointer events pass through to the canvas except on links */
+.t2-launch-copy {
+	position: relative;
+	z-index: 10;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	max-width: 80rem;
+	margin-inline: auto;
+	padding-inline: 2rem;
+	text-align: center;
+	pointer-events: none;
+}
+
+.t2-launch-copy a {
+	pointer-events: auto;
+}
+
+/* The box the hole is sized to clear, by this gap: tighter on phones, where the copy is tall and the mark would otherwise
+   swallow the section */
+.t2-launch-fit {
+	--black-hole-gap: 32px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.t2-launch :where(p) {
+	margin: 0;
+}
+
+.t2-launch-eyebrow {
+	margin-bottom: 1.5rem;
+	font-size: 1.125rem;
+	line-height: 1.5556;
+	font-weight: 700;
+	color: var(--accent-muted);
+}
+
+/* The digits sit in a row of their own with the labels aligned beneath on a subgrid, so the glow is one layer for the row */
+.t2-launch-countdown {
+	display: grid;
+	grid-template-columns: repeat(4, auto);
+	column-gap: 1.5rem;
+	margin-bottom: 2.5rem;
+}
+
+.t2-launch-digits,
+.t2-launch-labels {
+	display: grid;
+	grid-column: 1 / -1;
+	grid-template-columns: subgrid;
+	justify-items: center;
+}
+
+/* The digits take their size from the row so the em-based glow scales with them */
+.t2-launch-digits {
+	font-size: 3.75rem;
+	line-height: 1;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	font-variant-numeric: tabular-nums;
+}
+
+.t2-launch-labels {
+	margin-top: 0.25rem;
+	font-size: 0.875rem;
+	line-height: 1.4286;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--foreground-muted);
+}
+
+.t2-launch-lede {
+	max-width: 36ch;
+	margin-bottom: 2.5rem;
+	font-size: 1.25rem;
+	line-height: 1.4;
+	color: var(--foreground-muted);
+	text-wrap: pretty;
+}
+
+.t2-launch-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+/* btn-xl, spelt out: it is a Tailwind utility, so only exists where production's own templates use it */
+.btn.t2-launch-cta {
+	padding: 0.8125rem 1.5rem 0.9375rem;
+	font-size: 1.25rem;
+	line-height: 1.4;
+}
+
+/* Hot edge: light bending round the hole's edge — white core, warm halo close in, cool haze further out, breathing slowly.
+   A filter on the row rather than a text-shadow, so it is one layer for the whole row */
+.t2-launch-digits {
+	color: var(--color-white);
+	filter: drop-shadow(0 0 0.02em color-mix(in oklch, var(--color-secondary) 70%, white)) drop-shadow(0 0 0.12em var(--color-secondary)) drop-shadow(0 0 0.35em color-mix(in oklch, var(--color-primary) 60%, transparent)) drop-shadow(0 0 0.8em color-mix(in oklch, var(--color-tertiary-subtle) 50%, transparent));
+	animation: t2-launch-breathe 6s ease-in-out infinite;
+}
+
+@keyframes t2-launch-breathe {
+	50% {
+		filter: drop-shadow(0 0 0.02em color-mix(in oklch, var(--color-secondary) 70%, white)) drop-shadow(0 0 0.18em var(--color-secondary)) drop-shadow(0 0 0.5em color-mix(in oklch, var(--color-primary) 75%, transparent)) drop-shadow(0 0 1.1em color-mix(in oklch, var(--color-tertiary-subtle) 65%, transparent));
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.t2-launch-digits {
+		animation: none;
+	}
+}
+
+@media (min-width: 40rem) {
+	.t2-launch-eyebrow {
+		font-size: 1.25rem;
+		line-height: 1.4;
+	}
+
+	.t2-launch-countdown {
+		column-gap: 2.5rem;
+	}
+
+	.t2-launch-digits {
+		font-size: 4.5rem;
+	}
+
+	.t2-launch-labels {
+		font-size: 1rem;
+		line-height: 1.5;
+	}
+
+	.t2-launch-lede {
+		font-size: 1.5rem;
+		line-height: 1.3333;
+	}
+
+	.t2-launch-actions {
+		flex-direction: row;
+	}
+}
+
+@media (min-width: 48rem) {
+	.t2-launch {
+		padding-block: 6rem;
+	}
+
+	.t2-launch-fit {
+		--black-hole-gap: 80px;
+	}
+
+	.t2-launch-digits {
+		font-size: 6rem;
+	}
+
+	.t2-launch-lede {
+		font-size: 1.875rem;
+		line-height: 1.2;
+	}
+
+	.btn.t2-launch-cta {
+		font-size: 1.5rem;
+		line-height: 1.3333;
+	}
+}
+
+@media (min-width: 64rem) {
+	.t2-launch {
+		padding-block: 8rem;
+	}
+
+	.t2-launch-copy {
+		padding-inline: 3rem;
+	}
+}
+
+@media (min-width: 80rem) {
+	.t2-launch-fit {
+		--black-hole-gap: 96px;
+	}
+
+	.t2-launch-eyebrow {
+		font-size: 1.5rem;
+		line-height: 1.3333;
+	}
+
+	.t2-launch-digits {
+		font-size: 8rem;
+	}
+}

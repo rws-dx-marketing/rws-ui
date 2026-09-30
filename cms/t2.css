@@ -1,0 +1,200 @@
+/* /t2 pre-launch hero: copy and countdown on the left, the goo behind a frosted card on the right.
+   Plain CSS rather than Tailwind utilities, so it works pasted into a CMS code block whose classes the production build never
+   scans. Relies only on the site's colour tokens and gradient, and [data-theme]. Breakpoints are Tailwind's: sm 40rem,
+   md 48rem, lg 64rem, xl 80rem. The form in the card is the HubSpot embed, styled by the site's own HubSpot CSS. */
+
+.t2 {
+	position: relative;
+	display: grid;
+	place-items: center;
+	min-height: min(calc(100svh - var(--chrome-height, 0px)), 56rem);
+	padding-block: 4rem;
+	overflow: clip;
+}
+
+.t2 :where(p) {
+	margin: 0;
+}
+
+.t2-inner {
+	position: relative;
+	display: grid;
+	align-items: center;
+	gap: 3rem;
+	width: 100%;
+	max-width: 80rem;
+	margin-inline: auto;
+	padding-inline: 2rem;
+}
+
+.t2-eyebrow {
+	margin: 0 0 1.5rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	font-weight: 700;
+	color: var(--foreground-muted);
+}
+
+.t2-countdown {
+	display: grid;
+	grid-template-columns: repeat(4, auto);
+	column-gap: 1.5rem;
+	width: fit-content;
+	margin-bottom: 2rem;
+}
+
+.t2-digits,
+.t2-labels {
+	display: grid;
+	grid-column: 1 / -1;
+	grid-template-columns: subgrid;
+	justify-items: center;
+}
+
+/* One gradient across the whole row, clipped to the digits */
+.t2-digits {
+	padding-bottom: 0.05em;
+	background-image: var(--gradient);
+	background-size: 200%;
+	background-position: 0 50%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.t2-digits > span {
+	font-size: 3rem;
+	line-height: 1;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	font-variant-numeric: tabular-nums;
+}
+
+.t2-labels {
+	margin-top: 0.25rem;
+	font-size: 0.75rem;
+	line-height: 1.3333;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--foreground-muted);
+}
+
+.t2-lede {
+	max-width: 40ch;
+	font-size: 1.25rem;
+	line-height: 1.8;
+	color: var(--foreground-muted);
+	text-wrap: pretty;
+}
+
+.t2-lede strong {
+	font-weight: 600;
+	color: var(--foreground);
+}
+
+.t2-aside {
+	position: relative;
+}
+
+/* Bleed: the canvas is twice its host and centred on it, so the spheres aren't clipped at the host's edge */
+.t2-goo {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 125%;
+	max-width: 36rem;
+	aspect-ratio: 1;
+	translate: -50% -50%;
+	touch-action: pan-y;
+}
+
+.t2-goo > canvas {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: block;
+	width: 200%;
+	height: 200%;
+	translate: -50% -50%;
+	pointer-events: none;
+}
+
+/* border-color comes from the site's base rule (the theme's --border) */
+.t2-card {
+	position: relative;
+	padding: 2rem;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 1rem;
+	background-color: color-mix(in oklab, var(--background) 66%, transparent);
+	-webkit-backdrop-filter: blur(40px);
+	backdrop-filter: blur(40px);
+}
+
+.t2-card-heading {
+	margin: 0 0 1rem;
+	font-size: 1.5rem;
+	line-height: 1.3333;
+	font-weight: 600;
+}
+
+.t2-card-copy {
+	margin-bottom: 1.5rem;
+	font-size: 1rem;
+	line-height: 1.75;
+	color: var(--foreground-muted);
+	text-wrap: pretty;
+}
+
+@media (min-width: 40rem) {
+	.t2-countdown {
+		column-gap: 2rem;
+	}
+
+	.t2-labels {
+		font-size: 0.875rem;
+		line-height: 1.4286;
+	}
+}
+
+@media (min-width: 48rem) {
+	.t2 {
+		padding-block: 5rem;
+	}
+
+	.t2-digits > span {
+		font-size: 3.75rem;
+	}
+
+	.t2-lede {
+		font-size: 1.5rem;
+		line-height: 1.6667;
+	}
+}
+
+@media (min-width: 64rem) {
+	.t2 {
+		padding-block: 6rem;
+	}
+
+	.t2-inner {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		padding-inline: 3rem;
+	}
+}
+
+@media (min-width: 80rem) {
+	.t2-inner {
+		gap: 4rem;
+	}
+
+	.t2-eyebrow {
+		font-size: 1.125rem;
+		line-height: 1.5556;
+	}
+
+	.t2-digits > span {
+		font-size: 4.5rem;
+	}
+}

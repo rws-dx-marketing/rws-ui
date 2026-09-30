@@ -1,9 +1,9 @@
 ---
 // @ts-nocheck
 import Layout from '../layouts/Layout.astro'
-import Section from '../components/Section.astro'
-import Heading from '../components/Heading.astro'
 import FormMultiStepMock from '../components/FormMultiStepMock.astro'
+// Plain CSS, not utilities, so the markup below works pasted into a CMS code block
+import '../../cms/t2.css'
 
 // Pre-launch hero. The black-hole version, which shows the mark, is held back for launch at /t2-launch.
 
@@ -41,46 +41,34 @@ const goo = {
 ---
 
 <Layout title="Coming soon – RWS UI">
-	<Section theme="dots" top="lg" bottom="lg" container={false} class="relative grid min-h-[min(calc(100svh-var(--chrome-height)),56rem)] place-items-center overflow-clip">
-		<div class="relative mx-auto grid w-full max-w-screen-xl items-center gap-12 px-8 lg:grid-cols-12 lg:px-12 xl:gap-16">
-			<div class="lg:col-span-6">
-				<h1 class="mb-6 font-bold text-foreground-muted xl:text-lg">Something big is coming&hellip;</h1>
+	<section class="t2" data-theme="dots">
+		<div class="t2-inner">
+			<div>
+				<h1 class="t2-eyebrow">Something big is coming&hellip;</h1>
 
-				<div class="mb-8 grid w-fit grid-cols-[repeat(4,auto)] gap-x-6 sm:gap-x-8" role="timer" aria-live="off" aria-label="Time until launch" data-countdown={launch}>
-					<div class="col-span-full grid grid-cols-subgrid justify-items-center text-gradient">
-						{
-							units.map(([unit]) => (
-								<Heading as="span" size="lg" class="font-bold tracking-tight tabular-nums" data-countdown-unit={unit}>
-									––
-								</Heading>
-							))
-						}
-					</div>
-					<div class="col-span-full mt-1 grid grid-cols-subgrid justify-items-center text-xs font-bold tracking-widest text-foreground-muted uppercase sm:text-sm">{units.map(([, label]) => <span>{label}</span>)}</div>
+				<!-- Cells are filled by countdown.js; the markup ships dashes so nothing wrong flashes before it runs -->
+				<div class="t2-countdown" role="timer" aria-live="off" aria-label="Time until launch" data-countdown={launch}>
+					<div class="t2-digits">{units.map(([unit]) => <span data-countdown-unit={unit}>––</span>)}</div>
+					<div class="t2-labels">{units.map(([, label]) => <span>{label}</span>)}</div>
 				</div>
 
-				<div class="prose prose-xl max-w-[40ch] text-foreground-muted md:prose-2xl">
-					<p>Global content is about to work differently.<br />Watch this space for the unveiling.<br /><strong>November 10.</strong></p>
-				</div>
+				<p class="t2-lede">Global content is about to work differently.<br />Watch this space for the unveiling.<br /><strong>November 10.</strong></p>
 			</div>
 
-			<div class="relative lg:col-span-6">
-				<div class="absolute top-1/2 left-1/2 aspect-square w-[125%] max-w-xl -translate-1/2 touch-pan-y [&>canvas]:pointer-events-none [&>canvas]:absolute [&>canvas]:top-1/2 [&>canvas]:left-1/2 [&>canvas]:block [&>canvas]:size-[200%] [&>canvas]:-translate-1/2" data-goo data-goo-settings={JSON.stringify(goo)} aria-hidden="true"></div>
+			<div class="t2-aside">
+				<div class="t2-goo" data-goo data-goo-settings={JSON.stringify(goo)} aria-hidden="true"></div>
 
-				<div class="relative rounded-lg border bg-background/66 p-8 backdrop-blur-2xl" data-card>
-					<h2 class="mb-4 text-2xl font-semibold">
-						<p>We're paving the way for how global businesses will work.</p>
-					</h2>
+				<div class="t2-card" data-card>
+					<h2 class="t2-card-heading">We're paving the way for how global businesses will work.</h2>
 
-					<div class="prose mb-6 text-foreground-muted">
-						<p>Curious? Register your interest and you'll be first to know what comes next.</p>
-					</div>
+					<p class="t2-card-copy">Curious? Register your interest and you'll be first to know what comes next.</p>
 
+					<!-- Stand-in for the HubSpot form embed -->
 					<FormMultiStepMock idPrefix="t2" submitText="Register interest" />
 				</div>
 			</div>
 		</div>
-	</Section>
+	</section>
 
 	<section class="h-screen"></section>
 </Layout>
